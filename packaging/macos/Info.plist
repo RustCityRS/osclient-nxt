@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Reconstructed. From the binary: bundle identifier and team (code signature), executable name,
+  minimum macOS (LC_VERSION_MIN_MACOSX), display name and the jagex-jav URL scheme (strings).
+  The original Info.plist was not embedded, so keys and values below that are not listed above are standard defaults.
+-->
+<plist version="1.0">
+<dict>
+	<key>CFBundleIdentifier</key>
+	<string>com.jagex.osclient</string>
+	<key>CFBundleExecutable</key>
+	<string>osclient</string>
+	<key>CFBundleName</key>
+	<string>Old School RuneScape</string>
+	<key>CFBundleDisplayName</key>
+	<string>Old School RuneScape</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>216</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>10.9</string>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>jagex-jav</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

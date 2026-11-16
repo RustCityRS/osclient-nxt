@@ -1,0 +1,85 @@
+// libs/hal/audio/workers/vorbis_std.code
+// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
+// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// target: libs.hal.audio
+
+// 0x100b92780, 448 bytes, placed by debug map only (low confidence)
+// stb_vorbis_decode_frame_pushdata
+int _stb_vorbis_decode_frame_pushdata
+              (vorbis *param_1,stb_vorbis *param_2,uchar *param_3,uint *param_4,long *param_5,
+              undefined4 *param_6)
+{
+  uint uVar1;
+  int iVar2;
+  int iVar3;
+  undefined4 uVar4;
+  ulong uVar5;
+  int local_3c;
+  int local_38;
+  uint local_34;
+  
+  uVar4 = (undefined4)((ulong)param_5 >> 32);
+  iVar2 = (int)param_5;
+  if (param_1->field_68[0] == '\0') {
+    jag::hal::audio::decoders::vorbis::error(param_1,2);
+    return 0;
+  }
+  if (-1 < (int)param_1->field_1784) {
+    *param_6 = 0;
+    iVar2 = param_1->vorbis_search_for_page_pushdata(param_2, param_3, (int)param_4);
+    return iVar2;
+  }
+  param_1->field_40 = (byte *)param_2;
+  param_1->field_56 = (byte *)(param_2 + (int)param_3);
+  param_1->field_132 = 0;
+  iVar3 = jag::hal::audio::decoders::vorbis::is_whole_packet_present((stb_vorbis *)param_1,0);
+  if (iVar3 == 0) {
+    *param_6 = 0;
+    return 0;
+  }
+  iVar3 = param_1->vorbis_decode_packet((stb_vorbis *)&local_34, &local_38, &local_3c, (int *)CONCAT44(uVar4,iVar2));
+  if (iVar3 == 0) {
+    iVar2 = param_1->field_132;
+    if (iVar2 == 32) {
+      if (param_1->field_1248 != 0) goto LAB_100b928e1;
+      param_1->field_132 = 0;
+      do {
+        iVar2 = jag::hal::audio::decoders::vorbis::get8_packet((stb_vorbis *)param_1);
+        if (iVar2 == -1) break;
+      } while (param_1->field_128 == 0);
+    }
+    else {
+      if (iVar2 != 35) {
+LAB_100b928e1:
+        _stb_vorbis_flush_pushdata(param_1);
+        param_1->field_132 = iVar2;
+        *param_6 = 0;
+        return 1;
+      }
+      param_1->field_132 = 0;
+      do {
+        iVar2 = jag::hal::audio::decoders::vorbis::get8_packet((stb_vorbis *)param_1);
+        if (iVar2 == -1) break;
+      } while (param_1->field_128 == 0);
+    }
+    *param_6 = 0;
+  }
+  else {
+    uVar4 = param_1->vorbis_finish_frame((stb_vorbis *)(ulong)local_34, local_38, local_3c, iVar2);
+    uVar1 = param_1->field_4;
+    if (0 < (int)uVar1) {
+      uVar5 = 0;
+      do {
+        *(long *)(param_1->field_1739 + uVar5 * 8 + -747) =
+             *(long *)(param_1->field_68 + uVar5 * 8 + 796) + (long)local_38 * 4;
+        uVar5 = uVar5 + 1;
+      } while (uVar1 != uVar5);
+    }
+    if (param_4 != (uint *)0) {
+      *param_4 = uVar1;
+    }
+    *param_6 = uVar4;
+    *param_5 = (long)&param_1->field_992;
+  }
+  return *(int *)&param_1->field_40 - (int)param_2;
+}

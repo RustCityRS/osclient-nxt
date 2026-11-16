@@ -1,0 +1,33 @@
+add_library(libs.graphics.postprocess STATIC
+    PostProcessEffect.cpp
+    PostProcessManager.cpp
+    PostProcessUtils.cpp
+    effects/ColourCorrectionConfig.cpp
+    effects/ColourGradingBloomEffect.cpp
+    effects/DepthOfFieldEffect.cpp
+    effects/EquirectangularEffect.cpp
+    effects/OutlineAndShadowEffect.cpp
+    filters/AvgLuminanceFilterCompute.cpp
+    filters/AvgLuminanceFilterDownsample.cpp
+    filters/BrightPassFilter.cpp
+    filters/DepthDownSamplerFilter.cpp
+    filters/DownSamplerFilter.cpp
+    filters/DualFilteringBlurFilter.cpp
+    filters/GaussianBlurFilter.cpp
+    filters/KawaseBlurFilter.cpp
+    filters/LuminanceFilterCommon.cpp
+    shaders/AdaptiveLuminance.cpp
+    shaders/BrightPass.cpp
+    shaders/ColourGradingBloomComposite.cpp
+    shaders/FXAA.cpp
+    shaders/LogLuminance4x4.cpp
+    shaders/LuminanceUtils.cpp
+    shaders/PostProcessVS.cpp
+    shaders/RGBLogLuminance.cpp
+    shaders/RGBLogLuminance2x2.cpp
+    shaders/RGBLogLuminance3x3.cpp
+    shaders/RGBLogLuminanceCompute.cpp
+    shaders/ShaderVariables.cpp
+    shaders/ToneMapOperators.cpp
+)
+set_target_properties(libs.graphics.postprocess PROPERTIES UNITY_BUILD ON)

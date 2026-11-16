@@ -1,0 +1,66 @@
+// libs/graphics/shaderlib/ShaderSourceData.code
+// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
+// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// target: libs.graphics.shaderlib
+
+namespace jag::graphics {
+// 0x100bb24c0, 48 bytes, placed by debug map only (low confidence)
+// GetResourceInline(ShaderResource)
+char * GetResourceInline(uint param_1)
+{
+  if (param_1 < 119) {
+    return (&PTR_ALUPerf_fs_data_100f26fb8)[(int)param_1];
+  }
+  return "ResourceNotFound";
+}
+
+// 0x100bb24f0, 48 bytes, placed by debug map only (low confidence)
+// GetResourcePath(ShaderResource)
+char * GetResourcePath(uint param_1)
+{
+  if (param_1 < 119) {
+    return (&PTR_s__Users_bamboo_bamboo_home_01_xml_100f27370)[(int)param_1];
+  }
+  return "ResourceNotFound";
+}
+
+// 0x100bb2520, 48 bytes, placed by debug map only (low confidence)
+// GetResourceFilename(ShaderResource)
+char * GetResourceFilename(uint param_1)
+{
+  if (param_1 < 119) {
+    return (&PTR_s_QUxVUGVyZi5mcw___100f27728)[(int)param_1];
+  }
+  return "ResourceNotFound";
+}
+
+} // namespace jag::graphics
+
+namespace jag::graphics {
+namespace {
+// 0x100bb2db0, 64 bytes, inline, placed by debug map only (low confidence)
+// char const* ConvertEncodedResourceFilename<std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char> > >(std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char> >&, char const*)
+/* char const* graphics::(anonymous
+   namespace)::ConvertEncodedResourceFilename<std::basic_string<char, std::char_traits<char>,
+   BucketAllocatorSTL<char> > >(std::basic_string<char, std::char_traits<char>,
+   BucketAllocatorSTL<char> >&, char const*) */
+
+char * (anonymous namespace)::
+       ConvertEncodedResourceFilename<std::basic_string<char,std::char_traits<char>,BucketAllocatorSTL<char>>>
+                 (basic_string *param_1,char *param_2)
+{
+  bool bVar1;
+  Base64 *this;
+  
+  this = (Base64 *)Base64::Instance();
+  bVar1 = Base64::DecodeString<std::basic_string<char,std::char_traits<char>,BucketAllocatorSTL<char>>>
+                    (this,param_1,param_2);
+  if (bVar1) {
+    param_2 = (char *)param_1->data();
+  }
+  return param_2;
+}
+
+} // namespace (anonymous)
+
+} // namespace jag::graphics
