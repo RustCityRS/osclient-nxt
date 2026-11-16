@@ -7,29 +7,29 @@
 
 namespace jag {
     // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    MainLoopFrameTimer::GetLogicTick() const;
+    int MainLoopFrameTimer::GetLogicTick() const;
 
     // 0x100064280: the linker folded this into eastl::optional<eastl::vector<char, eastl::allocator> >::operator bool() const, which has identical code
     MainLoopFrameTimer::GetFastUpdateLoopEnabled() const;
 
     // 0x100066b70: the linker folded this into oldscape::widgets::Widget::GetTextColour() const, which has identical code
-    MainLoopFrameTimer::GetFrameCount() const;
+    int MainLoopFrameTimer::GetFrameCount() const;
 
     // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    MainLoopFrameTimer::GetMainLoopRate() const;
+    int MainLoopFrameTimer::GetMainLoopRate() const;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    MainLoopFrameTimer::GetMainLoopInterval() const;
+    uint MainLoopFrameTimer::GetMainLoopInterval() const;
 
     // 0x10019bbb0: the linker folded this into SystemSettings::GetModeGame() const, which has identical code
-    MainLoopFrameTimer::GetUniqueLoopID() const;
+    long MainLoopFrameTimer::GetUniqueLoopID() const;
 
     // 0x100b03950, 64 bytes, placed by class name and debug map
     // MainLoopFrameTimer::SetMainLoopInterval(unsigned int)
     void MainLoopFrameTimer::SetMainLoopInterval(uint param_1) {
         if (m_mainLoopInterval != param_1) {
             m_mainLoopInterval = param_1;
-            field_4 = (int)(1000 / (ulong)param_1);
+            m_mainLoopRate = (int)(1000 / (ulong)param_1);
             field_24 = SystemTimer::GetTimeMS<std::chrono::steady_clock>((SystemTimer*)this) - m_mainLoopInterval;
             field_12 = 0;
         }
@@ -87,7 +87,7 @@ namespace jag {
             uVar3 = WaitUntilMaxFPS(this_00, param_1, uVar3, uVar2);
             field_98704 = uVar3;
         }
-        field_40 = field_40 + 1;
+        m_uniqueLoopID = m_uniqueLoopID + 1;
         uVar4 = SystemTimer::ConvertNStoMS(field_98704);
         if (uVar4 < field_24) {
             /* WARNING: Subroutine does not return */
@@ -109,14 +109,14 @@ namespace jag {
     // MainLoopFrameTimer::MainLogic()
     void MainLoopFrameTimer::MainLogic() {
         (&field_48)->RecordLogicLoop();
-        field_8 = field_8 + 1;
+        m_logicTick = m_logicTick + 1;
         field_12 = field_12 + 1;
     }
 
     // 0x100b04fd0, 16 bytes, placed by class name
     // MainLoopFrameTimer::PostFrameUpdate()
     void MainLoopFrameTimer::PostFrameUpdate() {
-        field_16 = field_16 + 1;
+        m_frameCount = m_frameCount + 1;
     }
 
     // 0x100b06030, 96 bytes, placed by class name

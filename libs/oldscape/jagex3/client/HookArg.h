@@ -10,7 +10,7 @@ namespace jag::oldscape {
     public:
         HookArg(rs2lib::worldmap::MapElementPosition const&);
         ~HookArg();
-        GetArgType() const;
+        uint GetArgType() const;
         ulong operator==(HookArg const&) const;
         HookArg(int);
         HookArg* operator=(HookArg&&);
@@ -24,7 +24,7 @@ namespace jag::oldscape {
         HookArg(HookArg&&);
 
         // data members, from how the methods use this: 68 bytes
-        undefined4 field_0; // offset 0
+        uint m_argType; // offset 0
         char _unknown_4[36];
         MapElementPosition field_40; // offset 40
         char _unknown_64[4];
@@ -36,7 +36,7 @@ namespace jag::oldscape {
     // 0x10002ec30, 80 bytes, base-object constructor, inline, placed by class name
     // HookArg::HookArg(rs2lib::worldmap::MapElementPosition const&)
     void HookArg::HookArg(MapElementPosition* param_1) {
-        field_0 = 3;
+        m_argType = 3;
         new (&field_8) eastl::string();
         new (field_40, param_1) rs2lib::worldmap::MapElementPosition();
     }
@@ -48,50 +48,49 @@ namespace jag::oldscape {
     HookArg::~HookArg();
 
     // 0x1000b9960: the linker folded this into ScriptVarType::GetID() const, which has identical code
-    HookArg::GetArgType() const;
+    uint HookArg::GetArgType() const;
 
     // 0x10014f2d0, 160 bytes, inline, placed by class name
     // HookArg::operator==(HookArg const&) const
     /* HookArg::TEMPNAMEPLACEHOLDERVALUE(HookArg const&) const */
 
     ulong HookArg::operator==(HookArg* param_1) {
-        int iVar1;
-        bool bVar2;
-        char cVar3;
-        uint uVar4;
+        bool bVar1;
+        char cVar2;
+        uint uVar3;
         undefined7 extraout_var;
-        ulong uVar5;
+        ulong uVar4;
 
-        iVar1 = param_1->field_0;
-        if (iVar1 == field_0) {
-            if (iVar1 != 3) {
-                if (iVar1 == 2) {
-                    bVar2 = eastl::operator==((basic_string*)&field_8, (basic_string*)&param_1->field_8);
-                    uVar5 = CONCAT71(extraout_var, bVar2) & 4294967295;
+        uVar3 = param_1->m_argType;
+        if (uVar3 == m_argType) {
+            if (uVar3 != 3) {
+                if (uVar3 == 2) {
+                    bVar1 = eastl::operator==((basic_string*)&field_8, (basic_string*)&param_1->field_8);
+                    uVar4 = CONCAT71(extraout_var, bVar1) & 4294967295;
                 } else {
-                    if (iVar1 != 1) {
+                    if (uVar3 != 1) {
                         /* WARNING: Subroutine does not return */
                         LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                         "oldscape/jagex3/client/HookArg.h",
                                         139, "HookArg has unknown argType == returning false");
                     }
-                    uVar5 = CONCAT71((int7)((ulong)this >> 8), *(int*)field_40 == *(int*)param_1->field_40);
+                    uVar4 = CONCAT71((int7)((ulong)this >> 8), *(int*)field_40 == *(int*)param_1->field_40);
                 }
                 goto LAB_10014f348;
             }
             if (*(int*)field_40 == *(int*)param_1->field_40) {
-                cVar3 = game::CoordGrid::operator==((CoordGrid*)(field_40 + 4), (CoordGrid*)(param_1->field_40 + 4));
-                if (cVar3 != '\0') {
-                    uVar4 =
+                cVar2 = game::CoordGrid::operator==((CoordGrid*)(field_40 + 4), (CoordGrid*)(param_1->field_40 + 4));
+                if (cVar2 != '\0') {
+                    uVar3 =
                         game::CoordGrid::operator==((CoordGrid*)(field_40 + 16), (CoordGrid*)(param_1->field_40 + 16));
-                    uVar5 = (ulong)uVar4;
+                    uVar4 = (ulong)uVar3;
                     goto LAB_10014f348;
                 }
             }
         }
-        uVar5 = 0;
+        uVar4 = 0;
     LAB_10014f348:
-        return uVar5 & 4294967295;
+        return uVar4 & 4294967295;
     }
 
     // 0x1001829b0, 16 bytes, complete-object constructor, inline, placed by class name
@@ -102,13 +101,13 @@ namespace jag::oldscape {
     /* HookArg::TEMPNAMEPLACEHOLDERVALUE(HookArg&&) */
 
     HookArg* HookArg::operator=(HookArg* param_1) {
-        int iVar1;
+        uint uVar1;
         undefined8 uVar2;
         undefined8 uVar3;
         undefined8 uVar4;
 
-        iVar1 = param_1->field_0;
-        if (iVar1 == 3) {
+        uVar1 = param_1->m_argType;
+        if (uVar1 == 3) {
             uVar2 = *(undefined8*)param_1->field_40;
             uVar3 = *(undefined8*)(param_1->field_40 + 8);
             uVar4 = *(undefined8*)(param_1->field_40 + 20);
@@ -117,24 +116,24 @@ namespace jag::oldscape {
             *(undefined8*)field_40 = uVar2;
             *(undefined8*)(field_40 + 8) = uVar3;
         } else {
-            if (iVar1 == 2) {
+            if (uVar1 == 2) {
                 eastl::string::operator=((eastl::string*)&field_8, (basic_string*)&param_1->field_8);
                 goto LAB_100182ae1;
             }
-            if (iVar1 != 1)
+            if (uVar1 != 1)
                 goto LAB_100182ae1;
             *(undefined4*)field_40 = *(undefined4*)param_1->field_40;
         }
         eastl::string::clear();
     LAB_100182ae1:
-        field_0 = param_1->field_0;
+        m_argType = param_1->m_argType;
         return this;
     }
 
     // 0x100182b80, 64 bytes, inline, placed by class name
     // HookArg::IntValue() const
     undefined4 HookArg::IntValue() {
-        if (field_0 != 1) {
+        if (m_argType != 1) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_argType == INTEGER",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/client/"
@@ -153,7 +152,7 @@ namespace jag::oldscape {
     // 0x100182d00, 64 bytes, inline, placed by class name
     // HookArg::StrValue() const
     undefined1* HookArg::StrValue() {
-        if (field_0 != 2) {
+        if (m_argType != 2) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_argType == STRING",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/client/"
@@ -169,7 +168,7 @@ namespace jag::oldscape {
     // 0x100190ac0, 64 bytes, inline, placed by class name
     // HookArg::MapPos() const
     undefined1* HookArg::MapPos() {
-        if (field_0 != 3) {
+        if (m_argType != 3) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_argType == MAPPOS",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/client/"
@@ -182,7 +181,7 @@ namespace jag::oldscape {
     // 0x100197dc0, 48 bytes, base-object constructor, inline, placed by class name
     // HookArg::HookArg(int)
     void HookArg::HookArg(int param_1) {
-        field_0 = 1;
+        m_argType = 1;
         new (&field_8) eastl::string();
         *(int*)field_40 = param_1;
     }
@@ -192,7 +191,7 @@ namespace jag::oldscape {
     /* HookArg::HookArg(eastl::string&&) */
 
     void HookArg::HookArg(basic_string* param_1) {
-        field_0 = 2;
+        m_argType = 2;
         new (&field_8, param_1) eastl::string();
     }
 
@@ -209,9 +208,9 @@ namespace jag::oldscape {
         undefined8 uVar2;
         undefined8 uVar3;
 
-        field_0 = param_1->field_0;
+        m_argType = param_1->m_argType;
         new (&field_8, (basic_string*)&param_1->field_8) eastl::string();
-        if (param_1->field_0 == 3) {
+        if (param_1->m_argType == 3) {
             uVar1 = *(undefined8*)param_1->field_40;
             uVar2 = *(undefined8*)(param_1->field_40 + 8);
             uVar3 = *(undefined8*)(param_1->field_40 + 20);
@@ -219,7 +218,7 @@ namespace jag::oldscape {
             *(undefined8*)(field_40 + 20) = uVar3;
             *(undefined8*)field_40 = uVar1;
             *(undefined8*)(field_40 + 8) = uVar2;
-        } else if (param_1->field_0 == 1) {
+        } else if (param_1->m_argType == 1) {
             *(undefined4*)field_40 = *(undefined4*)param_1->field_40;
         }
     }
@@ -227,7 +226,7 @@ namespace jag::oldscape {
     // 0x1001981b0, 32 bytes, base-object constructor, inline, placed by class name
     // HookArg::HookArg()
     void HookArg::HookArg() {
-        field_0 = 0;
+        m_argType = 0;
         new (&field_8) eastl::string();
     }
 
@@ -241,9 +240,9 @@ namespace jag::oldscape {
         undefined8 uVar2;
         undefined8 uVar3;
 
-        field_0 = param_1->field_0;
+        m_argType = param_1->m_argType;
         new (&field_8, (basic_string*)&param_1->field_8) eastl::string();
-        if (param_1->field_0 == 3) {
+        if (param_1->m_argType == 3) {
             uVar1 = *(undefined8*)param_1->field_40;
             uVar2 = *(undefined8*)(param_1->field_40 + 8);
             uVar3 = *(undefined8*)(param_1->field_40 + 20);
@@ -251,7 +250,7 @@ namespace jag::oldscape {
             *(undefined8*)(field_40 + 20) = uVar3;
             *(undefined8*)field_40 = uVar1;
             *(undefined8*)(field_40 + 8) = uVar2;
-        } else if (param_1->field_0 == 1) {
+        } else if (param_1->m_argType == 1) {
             *(undefined4*)field_40 = *(undefined4*)param_1->field_40;
         }
     }

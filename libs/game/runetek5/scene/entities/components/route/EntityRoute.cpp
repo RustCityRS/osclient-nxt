@@ -8,7 +8,7 @@
 
 namespace jag {
     // 0x1001c2200: the linker folded this into oldscape::MutationTracked<graphics::SimpleScatteringParams>::IsDirty() const, which has identical code
-    EntityRoute::HasWalkSmoothing();
+    bool EntityRoute::HasWalkSmoothing();
 
     // 0x1003e8000, 80 bytes, base-object constructor, placed by class name
     // EntityRoute::EntityRoute(bool)
@@ -16,8 +16,8 @@ namespace jag {
         field_0 = &PTR__OptionStore_100efe7d8;
         new (&field_8, 20)
             eastl::ring_buffer<EntityWaypoint, eastl::vector<EntityWaypoint, eastl::allocator>, eastl::allocator>();
-        field_64 = param_1;
-        field_68 = 0;
+        m_hasWalkSmoothing = param_1;
+        m_stalledTickCount = 0;
         std::function<void()>::function((function<void()>*)&field_80);
     }
 

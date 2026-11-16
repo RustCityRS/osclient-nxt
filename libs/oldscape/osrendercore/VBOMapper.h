@@ -16,10 +16,10 @@ namespace jag::oldscape {
 
         // data members, from how the methods use this: 32 bytes
         char _unknown_0[8];
-        undefined8 field_8;  // offset 8
-        undefined8 field_16; // offset 16
-        undefined1 field_24; // offset 24
-        char field_25;       // offset 25
+        undefined8 field_8;    // offset 8
+        undefined8 field_16;   // offset 16
+        undefined1 field_24;   // offset 24
+        char m_mappingSupport; // offset 25
         char _unknown_26[6];
     };
 
@@ -126,7 +126,7 @@ namespace jag::oldscape {
     void VBOMapper::VBOMapper() {
         new (this) Array<unsigned char, eastl::allocator>();
         field_24 = 0;
-        field_25 = '\0';
+        m_mappingSupport = '\0';
     }
 
     // 0x1001d9030, 16 bytes, base-object destructor, inline, placed by class name

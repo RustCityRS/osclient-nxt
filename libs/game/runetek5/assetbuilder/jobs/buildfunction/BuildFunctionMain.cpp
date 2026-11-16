@@ -7,7 +7,7 @@
 
 namespace jag::game {
     // 0x100102fc0: the linker folded this into oldscape::rs2lib::InputField::GetPlaceholderContents() const, which has identical code
-    BuildFunctionMain::GetRequestData();
+    shared_ptr BuildFunctionMain::GetRequestData();
 
     // 0x100642f40, 176 bytes, base-object constructor, placed by class name and debug map
     // BuildFunctionMain::BuildFunctionMain(int, shared_ptr<std::function<void ()> > const&, int)
@@ -23,7 +23,7 @@ namespace jag::game {
         p_Var1 = (_func_decltype_nullptr*)60;
         new (this) AssetJob(60, param_1);
         field_0 = &PTR__BuildFunctionMain_100f0d508;
-        this_00 = field_80;
+        this_00 = m_requestData;
         new (this_00) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(p_Var1);
         bucket_make_shared<BuildFunctionRequestData>((jag*)&local_30);
         shared_ptr<BuildFunctionRequestData>::operator=((shared_ptr<BuildFunctionRequestData>*)this_00, &local_30);
@@ -43,8 +43,8 @@ namespace jag::game {
         shared_ptr* extraout_RDX;
         shared_ptr local_30;
 
-        if (field_80->operator_cast_to_bool()) {
-            static_pointer_cast<oldscape::ClientEntity, shared_ptr<oldscape::ClientNpc>>(&local_30, (jag*)field_80,
+        if (m_requestData->operator_cast_to_bool()) {
+            static_pointer_cast<oldscape::ClientEntity, shared_ptr<oldscape::ClientNpc>>(&local_30, (jag*)m_requestData,
                                                                                          extraout_RDX);
             shared_ptr<void>::operator=((shared_ptr<void>*)&field_32, &local_30);
             local_30.~shared_ptr();

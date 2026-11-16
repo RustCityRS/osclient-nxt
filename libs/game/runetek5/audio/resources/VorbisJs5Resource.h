@@ -15,9 +15,9 @@ namespace jag {
         virtual HasFailed() const;
         virtual GetResource() const;
         virtual uint GetResourceByteLength() const;
-        virtual GetFormat() const;
+        virtual AudioFormat* GetFormat() const;
         virtual void Size() const;
-        virtual GetID() const;
+        virtual uint GetID() const;
         VorbisJs5Resource(hal::audio::AudioAPI*);
         bool IsUsablePrematurely() const;
         void DecodeCallback(PacketT<Array<unsigned char, eastl::allocator>>&);
@@ -29,11 +29,11 @@ namespace jag {
         AudioAPI* field_16; // offset 16
         int field_24;       // offset 24
         char _unknown_28[20];
-        AudioFormat* field_48; // offset 48
-        void* m_pData;         // offset 56
-        uint field_64;         // offset 64
-        int field_68;          // offset 68
-        uint field_72;         // offset 72
+        AudioFormat* m_pFormat; // offset 48
+        void* m_pData;          // offset 56
+        uint m_iD;              // offset 64
+        int field_68;           // offset 68
+        uint field_72;          // offset 72
         char _unknown_76[4];
         AudioDecoder* field_80; // offset 80
         char _unknown_88[4];

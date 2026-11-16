@@ -10,8 +10,8 @@ namespace jag::game {
         // virtual methods in vtable order
         virtual ~SceneRenderManager();
         GetMainSceneRenderer();
-        GetPrevViewFrustum() const;
-        GetPrevViewTransforms() const;
+        Frustum GetPrevViewFrustum() const;
+        ViewTransforms GetPrevViewTransforms() const;
         SceneRenderManager(graphics::RT7Core*, unsigned long, unsigned long);
         SceneRenderManager(graphics::RT7Core*, unsigned long, unsigned long,
                            eastl::fixed_vector<graphics::DrawableQueue::RenderPassDrawableGroupsConfig, 10ul, true,

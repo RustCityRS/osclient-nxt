@@ -7,7 +7,7 @@
 namespace jag::oldscape::dash3d {
     class ModelRSevenCommon {
     public:
-        IsDynamic() const;
+        bool IsDynamic() const;
         void AddOperation<FixNormalsOperation>();
         ModelRSevenCommon* GetOperationBuffer() const;
         void AddOperation<CombineOperation, eastl::vector<OperationBuffer, eastl::allocator>>(
@@ -48,7 +48,7 @@ namespace jag::oldscape::dash3d {
         char _unknown_0[16];
         ShareLightBuffer field_16; // offset 16
         char _unknown_65[7];
-        bool field_72; // offset 72
+        bool m_dynamic; // offset 72
     };
 
     class ModelRSevenLit {
@@ -232,7 +232,7 @@ namespace jag::oldscape::dash3d {
     void ModelRSevenCommon::ModelRSevenCommon(ModelRSevenCommon* param_1) {
         new (this) OperationBuffer(param_1);
         new (field_16, (ShareLightBuffer*)param_1->field_16) ShareLightBuffer();
-        field_72 = param_1->field_72;
+        m_dynamic = param_1->m_dynamic;
     }
 
     // 0x100351ac0, 160 bytes, inline, placed by class header (inline)

@@ -73,7 +73,7 @@ namespace jag::graphics {
             }
         } while (iVar5 == 0);
         if (iVar5 != 1) {
-            field_0 = 1;
+            m_valid = 1;
         }
     }
 

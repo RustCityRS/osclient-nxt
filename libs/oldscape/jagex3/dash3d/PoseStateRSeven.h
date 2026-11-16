@@ -120,13 +120,13 @@ namespace jag::oldscape::dash3d {
         virtual GetBoneTransform(unsigned long) const;
         virtual GetLabelTransparencyDelta(unsigned long) const;
         virtual IsEqual(PoseStateRSeven const&) const;
-        GetType() const;
+        uint GetType() const;
         GetJointTransform(unsigned long) const;
         PoseStateRSeven(Type);
 
         // data members, from how the methods use this: 48 bytes
         undefined** field_0; // offset 0, vtable pointer
-        undefined4 field_8;  // offset 8
+        uint m_type;         // offset 8
         char _unknown_12[4];
         undefined8 field_16; // offset 16
         undefined8 field_24; // offset 24
@@ -194,7 +194,7 @@ namespace jag::oldscape::dash3d {
         field_16 = uVar3;
         field_24 = uVar4;
         field_0 = ppuVar1;
-        *(undefined8*)&field_8 = uVar2;
+        *(undefined8*)&m_type = uVar2;
         return this;
     }
 
@@ -210,9 +210,9 @@ namespace jag::oldscape::dash3d {
 
     // 0x10037bb60, 32 bytes, base-object constructor, inline, placed by class name
     // PoseStateRSeven::PoseStateRSeven(PoseStateRSeven::Type)
-    void PoseStateRSeven::PoseStateRSeven(undefined4 param_2) {
+    void PoseStateRSeven::PoseStateRSeven(uint param_2) {
         field_0 = &PTR_GetJointTransform_100efae00;
-        field_8 = param_2;
+        m_type = param_2;
     }
 
 } // namespace jag::oldscape::dash3d

@@ -7,20 +7,20 @@
 
 namespace jag::graphics {
     // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    CausticsManager::GetCullFrustum() const;
+    Frustum CausticsManager::GetCullFrustum() const;
 
     // 0x100324d40: the linker folded this into oldscape::graphics::NXTPixToolkit::GetPix2D(), which has identical code
-    CausticsManager::GetViewTransforms() const;
+    ViewTransforms CausticsManager::GetViewTransforms() const;
 
     // 0x1004c69a0: the linker folded this into game::WaterType::GetEmissiveFlowRotationDegrees() const, which has identical code
-    CausticsManager::GetCausticsPlaneHeight() const;
+    float CausticsManager::GetCausticsPlaneHeight() const;
 
     // 0x100960180, 144 bytes, base-object constructor, placed by class name and debug map
     // CausticsManager::CausticsManager(render::RenderTargetsManager&)
     void CausticsManager::CausticsManager(RenderTargetsManager* param_1) {
         new (this) Config();
-        new (field_16) math::Frustum();
-        new (field_176) ViewTransforms();
+        new (m_cullFrustum) math::Frustum();
+        new (m_viewTransforms) ViewTransforms();
         new (field_392, (_func_decltype_nullptr*)param_1)
             shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         new (field_408, (_func_decltype_nullptr*)param_1)
@@ -376,9 +376,9 @@ namespace jag::graphics {
 
         pMVar1 = (Matrix44T*)param_1->GetScreen();
         pMVar2 = (Matrix44T*)param_1->GetOrigin();
-        (field_16, pMVar1, pMVar2)->Set();
-        ViewTransforms::operator=((ViewTransforms*)field_176, param_1);
-        field_384 = param_2;
+        (m_cullFrustum, pMVar1, pMVar2)->Set();
+        ViewTransforms::operator=((ViewTransforms*)m_viewTransforms, param_1);
+        m_causticsPlaneHeight = param_2;
     }
 
 } // namespace jag::graphics

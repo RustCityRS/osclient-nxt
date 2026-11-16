@@ -144,7 +144,7 @@ namespace jag::oldscape {
             }
         }
         iVar2 = param_1->GetX();
-        this_00 = field_104;
+        this_00 = m_bounds;
         iVar3 = this_00->Right();
         uVar4 = -(iVar2 - iVar3);
         if ((int)uVar4 < 0) {
@@ -229,7 +229,7 @@ namespace jag::oldscape {
             iVar1 = jag::math::RoundFloatToInt((float)iVar1 * (1.0 - fVar10));
             field_56 = iVar1;
         } else {
-            new (&local_40) jag::math::Rect<unsigned int>(field_104);
+            new (&local_40) jag::math::Rect<unsigned int>(m_bounds);
             if (param_2 == 1) {
                 uVar3 = param_3->GetX();
                 iVar1 = param_3->GetZ();
@@ -358,7 +358,7 @@ namespace jag::oldscape {
         if (param_1) {
             uVar5 = 10526975;
         }
-        this_04->DrawRect((Rect*)field_104, uVar5);
+        this_04->DrawRect((Rect*)m_bounds, uVar5);
         pWVar4 =
             (Widget*)std::unique_ptr<widgets::OutputWidget, std::default_delete<widgets::OutputWidget>>::operator->(
                 (unique_ptr<widgets::OutputWidget, std::default_delete<widgets::OutputWidget>>*)&field_80);
@@ -395,7 +395,7 @@ namespace jag::oldscape {
         std::unique_ptr<widgets::ScrollBarWidget, std::default_delete<widgets::ScrollBarWidget>>::unique_ptr<true,
                                                                                                              void>(
             (unique_ptr<widgets::ScrollBarWidget, std::default_delete<widgets::ScrollBarWidget>>*)&field_96);
-        new (field_104, (_func_decltype_nullptr*)param_1) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (m_bounds, (_func_decltype_nullptr*)param_1) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>();
         new (&field_120, 0, 0, 500, 200) dash3d::GridRect();
         new (&field_136, 200, 100) sidebars::SideBarData();
         field_144 = 0.85;
@@ -407,8 +407,8 @@ namespace jag::oldscape {
     // 0x10005f400, 64 bytes, placed by class name
     // OSClientConsoleUI::SetBounds(jag::math::Rect<int> const&)
     void OSClientConsoleUI::SetBounds(Rect* param_1) {
-        if (jag::math::Rect<int>::operator!=((Rect<int>*)field_104, param_1) != '\0') {
-            jag::math::Rect<unsigned int>::operator=((Rect<unsigned int>*)field_104, param_1);
+        if (jag::math::Rect<int>::operator!=((Rect<int>*)m_bounds, param_1) != '\0') {
+            jag::math::Rect<unsigned int>::operator=((Rect<unsigned int>*)m_bounds, param_1);
             field_68 = 1;
         }
     }
@@ -727,7 +727,7 @@ namespace jag::oldscape {
         Widget* local_40;
         int local_34;
 
-        jag::math::Rect<unsigned int>::Rect(local_58, (Rect*)field_104);
+        jag::math::Rect<unsigned int>::Rect(local_58, (Rect*)m_bounds);
         ptVar6 = (type*)&DAT_00000001;
         local_58->Shrink(1, 1);
         iVar2 = GetCommandLineHeight(this);
@@ -777,7 +777,7 @@ namespace jag::oldscape {
 
         shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>::shared_ptr(local_48, in_RSI);
         local_38->GetUISafeArea();
-        (field_104, (Rect*)local_38, (Rect*)local_48)->Clip();
+        (m_bounds, (Rect*)local_38, (Rect*)local_48)->Clip();
         SetBounds(this, (Rect*)local_48);
     }
 

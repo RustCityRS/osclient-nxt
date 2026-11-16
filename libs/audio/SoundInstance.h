@@ -14,7 +14,7 @@ namespace jag::audio {
         float GetSoundSpatialSizeMax() const;
         void SetLevel(int);
         int GetSoundShape() const;
-        GetSoundType() const;
+        int GetSoundType() const;
         bool IsAudible() const;
         float GetSoundSpatialSizeMin() const;
         void FlagFinished();
@@ -88,7 +88,7 @@ namespace jag::audio {
         char _unknown_169[3];
         int m_groupID;        // offset 172
         int m_soundShape;     // offset 176
-        undefined4 field_180; // offset 180
+        int m_soundType;      // offset 180
         undefined1 field_184; // offset 184
         char _unknown_185[3];
         uint m_rate; // offset 188
@@ -146,7 +146,7 @@ namespace jag::audio {
     undefined4 SoundInstance::IsAnimationSound() {
         uint uVar1;
 
-        uVar1 = field_180 - 3;
+        uVar1 = m_soundType - 3;
         return CONCAT31((int3)(uVar1 >> 8), (2079U >> (uVar1 & 31) & 1) != 0 && uVar1 < 12);
     }
 
@@ -177,8 +177,8 @@ namespace jag::audio {
 
     // 0x100664c80, 16 bytes, inline, placed by class name
     // SoundInstance::SetSoundType(game::SoundType)
-    void SoundInstance::SetSoundType(undefined4 param_2) {
-        field_180 = param_2;
+    void SoundInstance::SetSoundType(int param_2) {
+        m_soundType = param_2;
     }
 
     // 0x100664ca0, 16 bytes, inline, placed by class name

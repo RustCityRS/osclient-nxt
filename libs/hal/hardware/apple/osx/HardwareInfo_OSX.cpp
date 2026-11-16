@@ -14,10 +14,10 @@ namespace jag::hardware {
         new (this) Singleton<HardwareInfo>();
         new (this) eastl::string();
         new (&field_32) eastl::string();
-        field_64 = 1;
-        field_68 = 1;
-        field_72 = 0;
-        field_88 = 0;
+        m_numPhyscicalProcessors = 1;
+        m_numLogicalProcessors = 1;
+        m_systemMemoryMB = 0;
+        m_cPUSignature = 0;
         new (&field_96) eastl::string();
         new (&field_128) eastl::string();
         m_gPUDriverDate = 0;
@@ -28,7 +28,7 @@ namespace jag::hardware {
         *(undefined8*)((long)&m_legacyOSVersion + 1) = 0;
         new (&field_192) eastl::string();
         new (&field_224) eastl::string();
-        field_256 = 0;
+        m_gpuMemoryMB = 0;
         field_260 = 0;
         m_dPI = 0;
         new (&field_268, (Point*)PTR_ZERO_100ee6698) math::Point<float>();
@@ -47,8 +47,8 @@ namespace jag::hardware {
         undefined4* puVar5;
         uint* puVar6;
         char* pcVar7;
-        undefined4 local_b8;
-        undefined4 local_b4;
+        uint local_b8;
+        int local_b4;
         int local_b0;
         undefined4 uStack_ac;
         int local_a4;
@@ -108,7 +108,7 @@ namespace jag::hardware {
         _sysctlbyname("machdep.cpu.extfeature_bits", local_98, &local_a0, (void*)0, 0);
         local_a0 = 8;
         _sysctlbyname("hw.memsize", &local_b0, &local_a0, (void*)0, 0);
-        field_88 = local_b4;
+        m_cPUSignature = local_b4;
         puVar1 = &field_76;
         puVar5 = (undefined4*)std::array<unsigned int, 3ul>::operator[]((array<unsigned int, 3ul>*)puVar1, 0);
         uVar3 = local_90;
@@ -131,9 +131,9 @@ namespace jag::hardware {
         puVar1->assign(local_88);
         puVar1->trim();
     LAB_100c60397:
-        field_64 = local_a4;
-        field_68 = local_b8;
-        field_72 = (int)(CONCAT44(uStack_ac, local_b0) >> 20);
+        m_numPhyscicalProcessors = local_a4;
+        m_numLogicalProcessors = local_b8;
+        m_systemMemoryMB = (int)(CONCAT44(uStack_ac, local_b0) >> 20);
         (&field_96, "NXT-OSX")->assign();
         local_a0 = 16;
         _sysctlbyname("kern.ostype", &local_78, &local_a0, (void*)0, 0);

@@ -17,7 +17,7 @@ namespace jag::graphics {
     ParticleManager::m_enableMetrics = {1, 0, 0};
 
     // 0x1001d2010: the linker folded this into oldscape::rseven::OSRenderCore_TextureDataProvider::GetSpritesArchive() const, which has identical code
-    ParticleManager::GetHeightProvider();
+    ParticleManagerHeightProvider* ParticleManager::GetHeightProvider();
 
     // 0x1004491a0: the linker folded this into game::CombinedLocationSection::GetHighlightState(), which has identical code
     ParticleManager::GetMetrics() const;
@@ -48,7 +48,7 @@ namespace jag::graphics {
         new (&field_248) eastl::vector<shared_ptr<ModularParticleSystem>, eastl::allocator>();
         std::vector<std::future<void>, std::allocator<std::future<void>>>::vector();
         field_304 = param_3;
-        new (&field_312) ImGuiTableColumnSortSpecs();
+        new (&m_metrics) ImGuiTableColumnSortSpecs();
         if (param_3 == (ThreadPool*)0) {
             /* WARNING: Subroutine does not return */
             LogAssert("pThreadPool",
@@ -353,7 +353,7 @@ namespace jag::graphics {
         if (*PTR_m_enableMetrics_100ee69b8 != '\0') {
             this_00 = &field_216;
             uVar1 = this_00->size();
-            field_312 = uVar1;
+            m_metrics = uVar1;
             this_01 = &field_248;
             uVar1 = this_01->size();
             field_314 = uVar1;

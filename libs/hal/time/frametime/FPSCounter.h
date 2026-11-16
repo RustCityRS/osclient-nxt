@@ -7,11 +7,11 @@
 namespace jag {
     class FPSCounter {
     public:
-        GetFPS() const;
-        GetLPS() const;
-        GetWorstFPS() const;
-        GetRollingMeanFPS() const;
-        GetBestFPS() const;
+        float GetFPS() const;
+        float GetLPS() const;
+        uint GetWorstFPS() const;
+        int GetRollingMeanFPS() const;
+        uint GetBestFPS() const;
         ulonglong GetLastFrameDurationNS() const;
         float GetAvgFrameDurationMS() const;
         float GetAvgStarvationDurationMS() const;
@@ -30,13 +30,13 @@ namespace jag {
         GetImmediateFPS() const;
 
         // data members, from how the methods use this: 98656 bytes
-        float field_0; // offset 0
-        float field_4; // offset 4
-        int field_8;   // offset 8
-        int field_12;  // offset 12
-        uint field_16; // offset 16
-        uint field_20; // offset 20
-        int field_24;  // offset 24
+        float m_fPS;          // offset 0
+        float m_lPS;          // offset 4
+        int field_8;          // offset 8
+        int m_rollingMeanFPS; // offset 12
+        uint m_worstFPS;      // offset 16
+        uint m_bestFPS;       // offset 20
+        int field_24;         // offset 24
         char _unknown_28[4];
         undefined1 field_32; // offset 32
         char _unknown_33[31];

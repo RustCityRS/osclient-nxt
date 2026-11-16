@@ -7,7 +7,7 @@
 
 namespace jag::game {
     // 0x100051690: the linker folded this into math::Range<float>::GetMax() const, which has identical code
-    EntityHighlightState::GetAlpha() const;
+    float EntityHighlightState::GetAlpha() const;
 
     // 0x10005fd90: the linker folded this into oldscape::widgets::Widget::SetBackgroundColour(unsigned int), which has identical code
     EntityHighlightState::NotifyVisible(unsigned int);

@@ -1004,7 +1004,7 @@ namespace jag::tweak {
         field_132 = 0;
         field_136 = 0;
         new (local_20) oldscape::dash3d::GridRect(0, 0, 0, 0);
-        field_104 = local_20._0_4_;
+        m_placement = local_20._0_4_;
         field_108 = local_20._4_4_;
         field_112 = local_20._8_4_;
         field_116 = local_20._12_4_;

@@ -22,7 +22,7 @@ namespace jag::graphics {
         ulong field_8;       // offset 8
         JointPose* field_16; // offset 16
         char _unknown_24[48];
-        undefined1 field_72; // offset 72
+        undefined1 m_hasSampleData; // offset 72
     };
 
     // 0x1009519d0, 48 bytes, inline, placed by class name and debug map
@@ -73,7 +73,7 @@ namespace jag::graphics {
         new (this) Array<JointPose, eastl::allocator>(param_1);
         new (&field_24, (Array*)&param_1->field_24) Array<float, eastl::allocator>();
         new (&field_48, (Array*)&param_1->field_48) Array<float, eastl::allocator>();
-        field_72 = param_1->field_72;
+        m_hasSampleData = param_1->m_hasSampleData;
     }
 
 } // namespace jag::graphics

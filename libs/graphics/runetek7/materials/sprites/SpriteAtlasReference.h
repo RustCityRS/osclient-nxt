@@ -10,7 +10,7 @@ namespace jag::graphics {
         GetSpriteHash() const;
         GetSpriteAtlas() const;
         ~SpriteAtlasReference();
-        GetSpriteIndex() const;
+        int GetSpriteIndex() const;
         GetWidth() const;
         GetHeight() const;
         SetDisableCache(bool);
@@ -32,7 +32,7 @@ namespace jag::graphics {
         longlong field_0;          // offset 0
         shared_ptr field_8;        // offset 8
         undefined4 field_24;       // offset 24
-        int field_28;              // offset 28
+        int m_spriteIndex;         // offset 28
         int field_32;              // offset 32
         undefined1 field_36;       // offset 36
         undefined1 m_disableCache; // offset 37
@@ -47,7 +47,7 @@ namespace jag::graphics {
         undefined4* puVar2;
 
         this_00 = (SpriteAtlas*)shared_ptr<SpriteAtlas>::operator->((shared_ptr<SpriteAtlas>*)field_8);
-        lVar1 = this_00->GetSpriteRenderMapping(field_28);
+        lVar1 = this_00->GetSpriteRenderMapping(m_spriteIndex);
         puVar2 = (undefined4*)std::array<int, 2ul>::operator[]((array<int, 2ul>*)(lVar1 + 104), 0);
         return *puVar2;
     }
@@ -60,7 +60,7 @@ namespace jag::graphics {
         undefined4* puVar2;
 
         this_00 = (SpriteAtlas*)shared_ptr<SpriteAtlas>::operator->((shared_ptr<SpriteAtlas>*)field_8);
-        lVar1 = this_00->GetSpriteRenderMapping(field_28);
+        lVar1 = this_00->GetSpriteRenderMapping(m_spriteIndex);
         puVar2 = (undefined4*)std::array<int, 2ul>::operator[]((array<int, 2ul>*)(lVar1 + 104), 1);
         return *puVar2;
     }
@@ -80,7 +80,7 @@ namespace jag::graphics {
         SpriteAtlas* this_00;
 
         this_00 = (SpriteAtlas*)shared_ptr<SpriteAtlas>::operator->((shared_ptr<SpriteAtlas>*)field_8);
-        this_00->GetSpriteRenderMapping(field_28);
+        this_00->GetSpriteRenderMapping(m_spriteIndex);
     }
 
     // 0x1008c8140, 48 bytes, inline, placed by class name
@@ -90,7 +90,7 @@ namespace jag::graphics {
         SpriteAtlasMapping* this_01;
 
         this_00 = (SpriteAtlas*)shared_ptr<SpriteAtlas>::operator->((shared_ptr<SpriteAtlas>*)field_8);
-        this_01 = (SpriteAtlasMapping*)this_00->GetSpriteRenderMapping(field_28);
+        this_01 = (SpriteAtlasMapping*)this_00->GetSpriteRenderMapping(m_spriteIndex);
         this_01->TotalWidth();
     }
 
@@ -101,7 +101,7 @@ namespace jag::graphics {
         SpriteAtlasMapping* this_01;
 
         this_00 = (SpriteAtlas*)shared_ptr<SpriteAtlas>::operator->((shared_ptr<SpriteAtlas>*)field_8);
-        this_01 = (SpriteAtlasMapping*)this_00->GetSpriteRenderMapping(field_28);
+        this_01 = (SpriteAtlasMapping*)this_00->GetSpriteRenderMapping(m_spriteIndex);
         this_01->TotalHeight();
     }
 

@@ -21,7 +21,7 @@ namespace jag::game {
     MapSquare::IsVisibleEntity() const;
 
     // 0x100159b80: the linker folded this into oldscape::rs2lib::InputField::GetFilter() const, which has identical code
-    MapSquare::GetMapSquareX() const;
+    uint MapSquare::GetMapSquareX() const;
 
     // 0x10016ea80: the linker folded this into oldscape::minimenu::Minimenu::GetPlayerOps() const, which has identical code
     MapSquare::GetTerrain() const;
@@ -56,7 +56,7 @@ namespace jag::game {
         field_8 = &PTR__MapSquare_100eff598;
         m_mapSquareX = param_3;
         m_mapSquareZ = param_4;
-        local_80 = field_200;
+        local_80 = m_clientCompositeData;
         new (local_80) shared_ptr<oldscape::dash3d::Decor>(param_5);
         m_prioritySquare = '\0';
         m_hasBuiltPriorityZones = 0;
@@ -155,7 +155,7 @@ namespace jag::game {
         (&field_704)->~unique_ptr();
         m_mapSquarePointLights->~MapSquarePointLights();
         (&field_240)->~unique_ptr();
-        field_200->~shared_ptr();
+        m_clientCompositeData->~shared_ptr();
         ~Entity();
     }
 
@@ -251,7 +251,7 @@ namespace jag::game {
             unaff_R12 = local_30;
             MakeUniquePool<EnvironmentLoader, 48>::MakeUnique<unsigned int&, unsigned int&,
                                                               shared_ptr<ClientCompositeData>&>(
-                unaff_R12, &m_mapSquareX, &m_mapSquareZ, (shared_ptr*)field_200);
+                unaff_R12, &m_mapSquareX, &m_mapSquareZ, (shared_ptr*)m_clientCompositeData);
             std::unique_ptr<EnvironmentLoader, MakeUniquePool<EnvironmentLoader, 48>::UniquePoolDeleter>::operator=(
                 (unique_ptr<EnvironmentLoader, MakeUniquePool<EnvironmentLoader, 48>::UniquePoolDeleter>*)this_00,
                 (unique_ptr*)unaff_R12);
@@ -345,7 +345,7 @@ namespace jag::game {
             local_90 = m_mapSquareX;
             local_8c = m_mapSquareZ;
             local_88 = *param_2;
-            local_80 = field_200;
+            local_80 = m_clientCompositeData;
             local_50 = param_2;
             local_78 = field_1120->GetOrigin();
             local_70 = field_1120->GetCursorMutex();
@@ -501,7 +501,7 @@ namespace jag::game {
             (&field_712)->clear();
             uVar9 = m_mapSquareX;
             uVar2 = m_mapSquareZ;
-            local_40 = (shared_ptr*)field_200;
+            local_40 = (shared_ptr*)m_clientCompositeData;
             pCVar10 = (ClientCompositeData*)local_40->end();
             new (&local_168) LocationLoader(uVar9, uVar2, pCVar10);
             pPVar3 = local_70;
@@ -662,7 +662,7 @@ namespace jag::game {
         }
         cVar7 = (&field_752)->empty();
         if (cVar7 == '\0') {
-            bVar8 = field_200->operator_cast_to_bool();
+            bVar8 = m_clientCompositeData->operator_cast_to_bool();
             PrioritiseLocations(this, (uint)bVar8 * 4 + 4, param_6, param_7, param_9, param_12);
             BuildLocations(this, &local_31, param_1, param_2, (ConfigProvider*)local_70, param_5, param_8, param_9,
                            param_10);
@@ -1456,7 +1456,7 @@ namespace jag::game {
         this_00 = &field_752;
         cVar1 = this_00->empty();
         if (cVar1 == '\0') {
-            bVar2 = field_200->operator_cast_to_bool();
+            bVar2 = m_clientCompositeData->operator_cast_to_bool();
             iVar5 = (uint)!bVar2 * 8 + 8;
             iVar6 = param_1 / iVar5;
             iVar5 = param_2 / iVar5;
@@ -1504,7 +1504,7 @@ namespace jag::game {
                       "entities/MapSquare.cpp",
                       457, "%s: no new region data supplied", "ZoneMapSame");
         }
-        lVar4 = field_200->end();
+        lVar4 = m_clientCompositeData->end();
         if (lVar4 == 0) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_compositeData.get() != nullptr",
@@ -1522,7 +1522,7 @@ namespace jag::game {
                     uVar5 = uVar1;
                     if (uVar5 == 8)
                         goto LAB_1004139db;
-                    cVar2 = ZoneLevelsEqual((shared_ptr*)field_200, param_1, iVar6, iVar7, uVar5 + 1);
+                    cVar2 = ZoneLevelsEqual((shared_ptr*)m_clientCompositeData, param_1, iVar6, iVar7, uVar5 + 1);
                     uVar1 = uVar5 + 1;
                 } while (cVar2 != '\0');
                 iVar3 = 1;
@@ -1777,7 +1777,8 @@ namespace jag::game {
                     uVar16 = uVar15 + 1;
                     iVar14 = 0;
                     do {
-                        cVar3 = ZoneLevelsEqual((shared_ptr*)field_200, param_1, iVar14, (int)uVar1, (int)uVar16);
+                        cVar3 = ZoneLevelsEqual((shared_ptr*)m_clientCompositeData, param_1, iVar14, (int)uVar1,
+                                                (int)uVar16);
                         if (cVar3 == '\0') {
                             pvVar8 = (vector<std::unique_ptr<LocationContainer, std::default_delete<LocationContainer>>,
                                              eastl::allocator>*)
@@ -1870,7 +1871,7 @@ namespace jag::game {
             } while (uVar1 != 8);
         }
         PrepareForNewTerrain(this);
-        shared_ptr<ClientCompositeData>::operator=((shared_ptr<ClientCompositeData>*)field_200, param_1);
+        shared_ptr<ClientCompositeData>::operator=((shared_ptr<ClientCompositeData>*)m_clientCompositeData, param_1);
         SetCurrentLOD(6);
     }
 
@@ -2267,7 +2268,7 @@ namespace jag::game {
     }
 
     // 0x1004198f0: the linker folded this into GraphicsDefaults::GetNpcChatTimeout() const, which has identical code
-    MapSquare::GetMapSquareZ() const;
+    uint MapSquare::GetMapSquareZ() const;
 
     // 0x100427180, 64 bytes, placed by the data it initialises
     // ___cxx_global_var_init.21
@@ -2291,6 +2292,6 @@ namespace jag::game {
     }
 
     // 0x100431760: the linker folded this into Location::GetLocationType() const, which has identical code
-    MapSquare::GetMapSquarePointLights();
+    WorldmapRenderer MapSquare::GetMapSquarePointLights();
 
 } // namespace jag::game

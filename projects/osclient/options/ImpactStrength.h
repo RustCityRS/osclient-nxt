@@ -51,7 +51,7 @@ namespace jag::oldscape::option {
     // IScriptOption::IScriptOption(int)
     void IScriptOption::IScriptOption(int param_1) {
         field_0 = PTR_vtable_100ee8a60 + 16;
-        field_8 = param_1;
+        m_id = param_1;
     }
 
 } // namespace jag::oldscape::option

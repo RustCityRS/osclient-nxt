@@ -180,7 +180,7 @@ namespace jag::game {
         virtual IsSpline() const;
         virtual Update(float, math::Vector3T<double> const&, math::Vector3T<double> const&);
         DrawDebug(unsigned int);
-        GetMode() const;
+        uint GetMode() const;
         GetRollAngle() const;
         GetDeclination() const;
         GetFollowAngle(math::Point<int>&) const;
@@ -191,7 +191,7 @@ namespace jag::game {
 
         // data members, from how the methods use this: 16 bytes
         undefined* field_0; // offset 0, vtable pointer
-        undefined4 field_8; // offset 8
+        uint m_mode;        // offset 8
         char _unknown_12[4];
     };
 
@@ -205,7 +205,7 @@ namespace jag::game {
     IPositionManager::~IPositionManager();
 
     // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    IPositionManager::GetMode() const;
+    uint IPositionManager::GetMode() const;
 
     // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
     IPositionManager::IsSpline() const;
@@ -230,9 +230,9 @@ namespace jag::game {
 
     // 0x1006410f0, 32 bytes, base-object constructor, inline, placed by class name and debug map
     // IPositionManager::IPositionManager(PositionMode)
-    void IPositionManager::IPositionManager(undefined4 param_2) {
+    void IPositionManager::IPositionManager(uint param_2) {
         field_0 = PTR_vtable_100ee7f90 + 16;
-        field_8 = param_2;
+        m_mode = param_2;
     }
 
     // 0x100c92b50: the linker folded this into InlineFatalBreak(), which has identical code

@@ -602,7 +602,6 @@ namespace jag::oldscape::rseven {
         RenderContext* this_10;
         uint uVar13;
         undefined1 local_320[32];
-        SceneViewData* local_300;
         uint local_2f0;
         SceneRenderManager* local_2e0;
         undefined1 local_2d8[368];
@@ -611,7 +610,6 @@ namespace jag::oldscape::rseven {
         long local_38;
 
         local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_300 = param_4;
         local_2e0 = this;
         cVar5 = param_3->IsEnabled(30, CONCAT44(in_register_00000014, param_2));
         if (cVar5 != '\0') {
@@ -655,7 +653,7 @@ namespace jag::oldscape::rseven {
                 uVar12 = *(uint*)(lVar7 + 8);
                 if (uVar12 != 0) {
                     puVar3 = &local_2e0->field_400;
-                    local_320._24_8_ = &local_300->field_208;
+                    local_320._24_8_ = param_4->m_pViewFrustum;
                     this_00 = &local_2e0->field_112;
                     puVar4 = &local_2e0->field_432;
                     this_01 = &local_2e0->field_272;
@@ -677,7 +675,7 @@ namespace jag::oldscape::rseven {
                             this_06->SetClearViewport(local_2e0->field_472);
                             pVVar9 = (ViewTransforms*)this_06->GetLightViewTransforms();
                             ViewTransforms::operator=((ViewTransforms*)local_2d8, pVVar9);
-                            bVar6 = (bool)local_300->GetOcclusionTestEnabled();
+                            bVar6 = (bool)param_4->GetOcclusionTestEnabled();
                             local_2d8->SetOcclusionTestEnabled(bVar6);
                             local_2d8->RenderPassPushBack(this_06);
                             eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();

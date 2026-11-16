@@ -13,7 +13,7 @@ namespace jag::game {
     ObjType::GetManAppearance() const;
 
     // 0x10031b0b0: the linker folded this into oldscape::dash3d::NXTRenderer::LogicThread_GetRenderCanvas(), which has identical code
-    ObjType::GetCost() const;
+    long ObjType::GetCost() const;
 
     // 0x10036db80: the linker folded this into graphics::GeometryBatchInstance::GetSourceModelExternalIndexList(), which has identical code
     ObjType::GetRecolourDest() const;
@@ -849,19 +849,19 @@ namespace jag::game {
                     eastl::vector<int, eastl::allocator>::vector(local_e0);
                     eastl::vector<int, eastl::allocator>::reserve(local_e0, 3);
                     uVar8 = this_03->GetX();
-                    local_88.field_0 = uVar8;
+                    local_88.m_archiveID = uVar8;
                     pJVar31 = &local_88;
                     eastl::vector<int, eastl::allocator>::push_back(local_e0, (int*)pJVar31);
                     iVar7 = this_03->GetZ();
                     if (iVar7 != -1) {
                         uVar8 = this_03->GetZ();
-                        local_88.field_0 = uVar8;
+                        local_88.m_archiveID = uVar8;
                         pJVar31 = &local_88;
                         eastl::vector<int, eastl::allocator>::push_back(local_e0, (int*)pJVar31);
                         iVar7 = this_03->GetPos();
                         if (iVar7 != -1) {
                             uVar8 = this_03->GetPos();
-                            local_88.field_0 = uVar8;
+                            local_88.m_archiveID = uVar8;
                             pJVar31 = &local_88;
                             eastl::vector<int, eastl::allocator>::push_back(local_e0, (int*)pJVar31);
                         }
@@ -899,7 +899,7 @@ namespace jag::game {
                                 }
                             }
                             bVar3 = bVar2;
-                            pJVar10 = (Js5ArchiveSettings*)((long)&pJVar10->field_0 + 1);
+                            pJVar10 = (Js5ArchiveSettings*)((long)&pJVar10->m_archiveID + 1);
                             pJVar13 = (Js5ArchiveSettings*)local_e0->size();
                             local_89 = pJVar10 < pJVar13;
                         } while (local_89);

@@ -524,8 +524,8 @@ namespace jag {
 
     void Hitmark::Hitmark(int param_1, int param_2, uint param_3, int param_4, int param_5, int param_6) {
         field_0 = param_1;
-        field_4 = param_2;
-        field_8 = param_3;
+        m_param = param_2;
+        m_expiryTime = param_3;
         field_12 = param_4;
         field_16 = param_5;
         field_20 = param_6;

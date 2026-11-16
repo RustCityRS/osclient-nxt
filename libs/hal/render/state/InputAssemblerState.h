@@ -10,9 +10,9 @@ namespace jag::render {
     public:
         GetVertexDeclaration() const;
         SetPrimitiveType(PrimitiveType);
-        GetVertexBuffers() const;
-        GetPrimitiveType() const;
-        GetGLIndexBuffer() const;
+        VertexBuffer* GetVertexBuffers() const;
+        uint GetPrimitiveType() const;
+        int GetGLIndexBuffer() const;
         BufferInterface* GetIndexBuffer() const;
         GetGLVertexBuffers() const;
         void SetFlags(unsigned int);
@@ -38,16 +38,16 @@ namespace jag::render {
         InputAssemblerState(InputAssemblerState const&);
 
         // data members, from how the methods use this: 192 bytes
-        undefined4 field_0;         // offset 0
-        undefined4 field_4;         // offset 4
-        VertexDeclaration* field_8; // offset 8
-        VertexBuffer* field_16;     // offset 16
+        uint m_primitiveType;           // offset 0
+        undefined4 field_4;             // offset 4
+        VertexDeclaration* field_8;     // offset 8
+        VertexBuffer* m_pVertexBuffers; // offset 16
         char _unknown_24[96];
         BufferInterface* m_pIndexBuffer; // offset 120
         uint m_flags;                    // offset 128
         char _unknown_132[4];
         shared_ptr field_136; // offset 136
-        int field_152;        // offset 152
+        int m_gLIndexBuffer;  // offset 152
         char _unknown_156[4];
         undefined8 field_160; // offset 160
         undefined8 field_168; // offset 168
@@ -63,16 +63,16 @@ namespace jag::render {
     InputAssemblerState::SetPrimitiveType(PrimitiveType);
 
     // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    InputAssemblerState::GetVertexBuffers() const;
+    VertexBuffer* InputAssemblerState::GetVertexBuffers() const;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    InputAssemblerState::GetPrimitiveType() const;
+    uint InputAssemblerState::GetPrimitiveType() const;
 
     // 0x10015dc30: the linker folded this into oldscape::auth::AuthLibWrapper::GetPurchaseShopItemStatus(), which has identical code
-    InputAssemblerState::GetGLIndexBuffer() const;
+    int InputAssemblerState::GetGLIndexBuffer() const;
 
     // 0x1003b0ae0: the linker folded this into auth::AuthWeb::GetOAuthAccessTokenExpiryTime(), which has identical code
-    InputAssemblerState::GetIndexBuffer() const;
+    BufferInterface* InputAssemblerState::GetIndexBuffer() const;
 
     // 0x1004b0c70: the linker folded this into game::EnvironmentOverride::GetMapOverrides() const, which has identical code
     InputAssemblerState::GetGLVertexBuffers() const;
@@ -140,22 +140,22 @@ namespace jag::render {
 
         uVar4 = param_1->field_4;
         pVVar1 = param_1->field_8;
-        field_0 = param_1->field_0;
+        m_primitiveType = param_1->m_primitiveType;
         field_4 = uVar4;
         field_8 = pVVar1;
-        new (&field_16, (fixed_vector*)&param_1->field_16)
+        new (&m_pVertexBuffers, (fixed_vector*)&param_1->m_pVertexBuffers)
             eastl::fixed_vector<VertexBuffer_const*, 8ul, true, eastl::allocator>();
         m_flags = param_1->m_flags;
         m_pIndexBuffer = param_1->m_pIndexBuffer;
         new (field_136, (shared_ptr*)param_1->field_136) shared_ptr<oldscape::dash3d::Decor>();
         field_184 = param_1->field_184;
-        iVar5 = param_1->field_152;
+        iVar5 = param_1->m_gLIndexBuffer;
         uVar4 = *(undefined4*)&param_1->field_156;
         uVar2 = param_1->field_160;
         uVar3 = param_1->field_176;
         field_168 = param_1->field_168;
         field_176 = uVar3;
-        field_152 = iVar5;
+        m_gLIndexBuffer = iVar5;
         *(undefined4*)&field_156 = uVar4;
         field_160 = uVar2;
     }

@@ -241,13 +241,13 @@ namespace jag::graphics {
                     this_04 = (Rect<float>*)std::array<math::Vector4T<float>, 2ul>::operator[](
                         (array<math::Vector4T<float>, 2ul>*)(local_2d8 + 384), 0);
                     math::Rect<float>::operator=(this_04, (Rect*)&local_29a8);
-                    local_29a8.field_0 = 0;
+                    local_29a8.m_stackFrames = 0;
                     new (&local_29a8) callstack::Callstack();
                     local_2980->RenderViewBegin(local_2988, local_2d8, param_4, (RenderPassBitSet*)&local_29a8);
                     pSVar6 = (SkyBox*)shared_ptr<SkyBox>::operator->(this);
                     pDVar8 = (DrawableQueue*)local_2980->GetOrigin();
                     pSVar6->GatherForwardDrawableElements(pDVar8, (RT7Core*)*local_2978, local_2d8, param_4);
-                    local_29a8.field_0 = 0;
+                    local_29a8.m_stackFrames = 0;
                     new (&local_29a8) callstack::Callstack();
                     this_00 = local_2980;
                     local_2980->RenderViewRenderPasses(local_2d8, local_2988, false, param_4,

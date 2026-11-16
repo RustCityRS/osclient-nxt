@@ -21,7 +21,7 @@ namespace jag::graphicutils {
         undefined8 in_RAX;
         TextureFormatBitSet local_18;
 
-        _local_18 = CONCAT44((int)((ulong)in_RAX >> 32), param_1.field_0);
+        _local_18 = CONCAT44((int)((ulong)in_RAX >> 32), param_1.m_bits);
         bVar1 = local_18.IsUncompressed();
         return *(undefined4*)(this + (ulong)(bVar1 ^ 1) * 4 + 16);
     }
@@ -33,7 +33,7 @@ namespace jag::graphicutils {
         undefined8 in_RAX;
         TextureFormatBitSet local_18;
 
-        _local_18 = CONCAT44((int)((ulong)in_RAX >> 32), param_1.field_0);
+        _local_18 = CONCAT44((int)((ulong)in_RAX >> 32), param_1.m_bits);
         bVar1 = local_18.IsUncompressed();
         return *(undefined4*)(this + (ulong)(bVar1 ^ 1) * 4 + 24);
     }

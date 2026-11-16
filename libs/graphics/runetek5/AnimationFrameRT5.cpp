@@ -268,7 +268,7 @@ namespace jag::graphics {
         _func_decltype_nullptr* in_RSI;
 
         new (this) MakeSharedPool<AnimationFrameRT5, 20480>();
-        field_0 = 0;
+        m_valid = 0;
         new (&field_8, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         field_24 = 0;
         new (&field_32) eastl::vector<AnimationFrameRT5Transform, eastl::allocator>();
@@ -317,7 +317,7 @@ namespace jag::graphics {
         byte local_31;
 
         new (this) MakeSharedPool<AnimationFrameRT5, 20480>();
-        field_0 = 0;
+        m_valid = 0;
         this_03 = (shared_ptr<AnimBase>*)&field_8;
         new (this_03) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(param_1);
         field_24 = 0;
@@ -491,7 +491,7 @@ namespace jag::graphics {
                       "AnimationFrameRT5.cpp",
                       405, "AnimationFrameRT5: Unpack error - not at end of packet");
         }
-        field_0 = 1;
+        m_valid = 1;
         ((local_d8 + 40))->~PacketT();
     }
 
@@ -530,7 +530,7 @@ namespace jag::graphics {
 
         local_5c = (undefined1[4])param_4;
         new (this) MakeSharedPool<AnimationFrameRT5, 20480>();
-        field_0 = 0;
+        m_valid = 0;
         this_02 = (shared_ptr<AnimBase>*)&field_8;
         new (this_02) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(param_1);
         field_24 = 0;
@@ -602,7 +602,7 @@ namespace jag::graphics {
                 local_58 = (ulong)(iVar12 + 1);
             } while (uVar14 < uVar9);
         }
-        ((AnimationFrameRT5*)this)->field_0 = 1;
+        ((AnimationFrameRT5*)this)->m_valid = 1;
     }
 
     // 0x10097b050, 16 bytes, complete-object constructor, placed by class name

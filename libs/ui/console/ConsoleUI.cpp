@@ -1292,12 +1292,12 @@ namespace jag::ui {
         pCVar1 = field_8;
         StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_38,
                                                                                       (fixed_string*)local_68);
-        SVar2.field_8 = (uchar*)pCVar1;
-        SVar2.field_0 = (ulong)local_48;
-        console::Console::GetNextCommandFromHistory(SVar2);
-        SVar3.field_8 = &DAT_00000001;
+        SVar3.field_8 = (uchar*)pCVar1;
         SVar3.field_0 = (ulong)local_48;
-        SetPromptContents(this, SVar3, (bool)in_CL);
+        console::Console::GetNextCommandFromHistory(SVar3);
+        SVar2.field_8 = &DAT_00000001;
+        SVar2.field_0 = (ulong)local_48;
+        SetPromptContents(this, SVar2, (bool)in_CL);
         local_68->~basic_string();
     }
 

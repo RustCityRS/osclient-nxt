@@ -10,7 +10,7 @@ namespace jag::graphics {
     TextureAtlasReference::GetTextureAtlas() const;
 
     // 0x100293ee0: the linker folded this into hal::audio::AudioRenderer::GetState() const, which has identical code
-    TextureAtlasReference::GetTextureAtlasID() const;
+    int TextureAtlasReference::GetTextureAtlasID() const;
 
     // 0x10085f160, 16 bytes, complete-object destructor, placed by class name and debug map
     // TextureAtlasReference::~TextureAtlasReference(): jumps straight to the base-object destructor
@@ -27,7 +27,7 @@ namespace jag::graphics {
         shared_ptr<TextureAtlas>::operator=((shared_ptr<TextureAtlas>*)this, (shared_ptr*)param_1);
         eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL>::operator=(
             (vector<MaterialInfo, SafeBucketAllocatorEASTL>*)&field_16, (vector*)&param_1->field_16);
-        field_40 = param_1->field_40;
+        m_textureAtlasID = param_1->m_textureAtlasID;
         return this;
     }
 
@@ -39,11 +39,11 @@ namespace jag::graphics {
         new (this) MakeSharedPool<TextureAtlasReference, 8192>();
         new (this) shared_ptr<oldscape::dash3d::Decor>(param_1);
         new (&field_16, param_2) eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL>();
-        field_40 = -1;
+        m_textureAtlasID = -1;
         field_44 = 0;
         if (operator!=((shared_ptr*)this, (_func_decltype_nullptr*)0)) {
             this_00 = (TextRun*)shared_ptr<TextureAtlas>::operator->((shared_ptr<TextureAtlas>*)this);
-            field_40 = this_00->GetMaxLineWidth();
+            m_textureAtlasID = this_00->GetMaxLineWidth();
         }
         AddReferences(this);
     }
@@ -65,7 +65,7 @@ namespace jag::graphics {
         new (this) MakeSharedPool<TextureAtlasReference, 8192>();
         new (this) shared_ptr<oldscape::dash3d::Decor>(param_1);
         new (&field_16, (vector*)&param_1->field_16) eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL>();
-        field_40 = param_1->field_40;
+        m_textureAtlasID = param_1->m_textureAtlasID;
         field_44 = 0;
         AddReferences(this);
     }
@@ -80,7 +80,7 @@ namespace jag::graphics {
         shared_ptr<oldscape::RSevenDebugPresetProvider>::shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(
             (shared_ptr<oldscape::RSevenDebugPresetProvider>*)this, (shared_ptr*)param_1);
         new (&field_16, (vector*)&param_1->field_16) eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL>();
-        field_40 = param_1->field_40;
+        m_textureAtlasID = param_1->m_textureAtlasID;
         field_44 = 0;
     }
 
@@ -139,9 +139,9 @@ namespace jag::graphics {
 
         uStack_38._0_4_ = in_EAX;
         iVar2 = param_1->GetEndPosition();
-        if (field_40 == -1) {
+        if (m_textureAtlasID == -1) {
             if (iVar2 != -1) {
-                field_40 = iVar2;
+                m_textureAtlasID = iVar2;
                 shared_ptr<TextureAtlas>::operator=((shared_ptr<TextureAtlas>*)this, (shared_ptr*)param_1);
                 eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL>::operator=(
                     (vector<MaterialInfo, SafeBucketAllocatorEASTL>*)&field_16, (vector*)&param_1->field_16);
@@ -149,7 +149,7 @@ namespace jag::graphics {
                 pTVar9->AddReferences((vector*)&field_16);
             }
         } else if (iVar2 != -1) {
-            if (iVar2 == field_40) {
+            if (iVar2 == m_textureAtlasID) {
                 if (operator!=((shared_ptr*)this, (_func_decltype_nullptr*)0)) {
                     this_01 = &param_1->field_16;
                     uStack_38 = (ulong)(uint)uStack_38;
@@ -187,7 +187,7 @@ namespace jag::graphics {
                                     "runetek7/materials/textures/TextureAtlasReference.cpp",
                                     80,
                                     "TextureAtlasReference: Attempted to combine incompatible atlas references! %d %d",
-                                    iVar2, field_40);
+                                    iVar2, m_textureAtlasID);
             }
         }
     }
@@ -217,7 +217,7 @@ namespace jag::graphics {
         shared_ptr<TextureAtlas>::operator=((shared_ptr<TextureAtlas>*)this, (shared_ptr*)param_1);
         eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL>::operator=(
             (vector<MaterialInfo, SafeBucketAllocatorEASTL>*)&field_16, (vector*)&param_1->field_16);
-        field_40 = param_1->field_40;
+        m_textureAtlasID = param_1->m_textureAtlasID;
         AddReferences(this);
         return this;
     }

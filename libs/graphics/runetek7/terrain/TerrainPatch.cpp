@@ -25,7 +25,7 @@ namespace jag::graphics {
     TerrainPatch::GetAABB() const;
 
     // 0x10017a590: the linker folded this into http::HTTPRequest::GetResponseCode() const, which has identical code
-    TerrainPatch::GetGridSize() const;
+    int TerrainPatch::GetGridSize() const;
 
     // 0x1001a3c10: the linker folded this into MainLoopFrameTimer::GetFPSCounter(), which has identical code
     TerrainPatch::GetMaterial() const;
@@ -364,8 +364,8 @@ namespace jag::graphics {
 
         new (this) Drawable(2);
         field_0 = &PTR__TerrainPatch_100f146b0;
-        new (&field_16) math::AABB();
-        new (&field_48) TerrainMaterial();
+        new (&m_aABB) math::AABB();
+        new (&m_material) TerrainMaterial();
         field_600 = param_1;
         m_gridResolution = 0;
         m_gridSize = 0;
@@ -429,7 +429,7 @@ namespace jag::graphics {
         ulong local_40;
         int local_34;
 
-        (&field_16)->Reset();
+        (&m_aABB)->Reset();
         uVar13 = (ulong)(uint)(m_gridResolution * m_gridResolution * 12);
         eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
         eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
@@ -613,8 +613,8 @@ namespace jag::graphics {
         local_ec = param_5;
         new (this) Drawable(0);
         field_0 = &PTR__TerrainPatch_100f146b0;
-        new (&field_16, param_2) math::AABB();
-        local_e0 = (ParticleMaterial*)&field_48;
+        new (&m_aABB, param_2) math::AABB();
+        local_e0 = (ParticleMaterial*)&m_material;
         new (local_e0) TerrainMaterial();
         field_600 = param_1;
         m_gridResolution = 0;
@@ -700,7 +700,7 @@ namespace jag::graphics {
 
         bVar1 = true;
         if (field_600 == 0) {
-            (&field_16)->GetDimensions();
+            (&m_aABB)->GetDimensions();
             if (extraout_XMM0_Db < m_groundPatchShadowCasterCullingThreshold) {
                 bVar1 = m_groundPatchShadowCasterCulling == '\0';
             }
@@ -736,7 +736,7 @@ namespace jag::graphics {
         (&field_13232)->~shared_ptr();
         (&field_632)->~fixed_hash_map();
         field_616->~shared_ptr();
-        (&field_48)->~TerrainMaterial();
+        (&m_material)->~TerrainMaterial();
         ~AutoSingleton();
     }
 
@@ -746,7 +746,7 @@ namespace jag::graphics {
         AutoSingleton<ShaderThreadPoolSingleton> local_18[8];
 
         local_18->~AutoSingleton("Terrain_Patch");
-        (&field_48)->DestroyRenderingResources();
+        (&m_material)->DestroyRenderingResources();
         (&field_13680)->Destroy();
         (&field_13488)->Destroy();
         (&field_13408)->Destroy();
@@ -1424,7 +1424,7 @@ namespace jag::graphics {
             this_00->Set((short)(int)((float)local_40._12_4_ + -16383.0), (short)(int)local_30,
                          (short)(int)(local_2c + -16383.0));
             new (local_40) math::ColourHSL((float)local_40._12_4_, local_30, local_2c);
-            (&field_16, (Vector3T*)local_40)->AddPoint();
+            (&m_aABB, (Vector3T*)local_40)->AddPoint();
             return;
         }
         /* WARNING: Subroutine does not return */
@@ -1476,11 +1476,11 @@ namespace jag::graphics {
         local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
         if ((m_showPatches != '\0') && (iVar2 = GetVertexDataSize(this), iVar2 != 0)) {
             pRVar4 = (RenderPassBitSet*)param_3->GetRenderPassBits();
-            cVar1 = (&field_48, pRVar4)->CanRenderInPasses();
+            cVar1 = (&m_material, pRVar4)->CanRenderInPasses();
             if ((cVar1 != '\0') && (cVar1 = IsReadyToRender(this), cVar1 != '\0')) {
-                local_c8 = (RenderMaterial*)&field_48;
+                local_c8 = (RenderMaterial*)&m_material;
                 new (&local_88) math::OBB();
-                (&field_16, &local_88)->GetOBB();
+                (&m_aABB, &local_88)->GetOBB();
                 local_88.Transform(field_13096);
                 uVar12 = 0;
                 local_90 = 0;
@@ -1678,7 +1678,7 @@ namespace jag::graphics {
             std::chrono::duration<long long, std::ratio<1l, 1l>>::duration<int>((int*)local_30, (type*)&local_24);
             iVar2 = std::future<void>::wait_for<long long, std::ratio<1l, 1l>>((future<void>*)&field_13872, local_30);
             if (iVar2 == 0) {
-                this_00 = (TextureAtlasReference*)(&field_48)->GetTextureAtlasReference();
+                this_00 = (TextureAtlasReference*)(&m_material)->GetTextureAtlasReference();
                 if ((this_00 == (TextureAtlasReference*)0) || (cVar1 = this_00->CheckTexturesLoaded(), cVar1 != '\0')) {
                     return 1;
                 }
@@ -1733,14 +1733,14 @@ namespace jag::graphics {
             local_40 = param_8->IsEnabled(48);
         }
         local_35 = param_8->IsEnabled(26);
-        lVar6 = (&field_48)->GetTextureAtlasReference();
+        lVar6 = (&m_material)->GetTextureAtlasReference();
         local_50 = this;
         if (lVar6 == 0) {
             local_3c = 0;
         } else {
             local_3c = param_8->IsEnabled(27);
         }
-        iVar5 = (&field_48)->GetEndPosition();
+        iVar5 = (&m_material)->GetEndPosition();
         uVar2 = param_8->IsEnabled(39);
         param_6->Set(29, cVar1);
         param_6->Set(48, (undefined1)local_40);
@@ -1893,13 +1893,13 @@ namespace jag::graphics {
         undefined1 local_31;
 
         local_31 = param_8->IsEnabled(29);
-        lVar3 = (&field_48)->GetTextureAtlasReference();
+        lVar3 = (&m_material)->GetTextureAtlasReference();
         if (lVar3 == 0) {
             uVar1 = 0;
         } else {
             uVar1 = param_8->IsEnabled(27);
         }
-        iVar2 = (&field_48)->GetEndPosition();
+        iVar2 = (&m_material)->GetEndPosition();
         param_6->Set(29, local_31);
         param_6->Set(63, uVar1);
         param_6->Set(54, iVar2 != -1);
@@ -1988,7 +1988,7 @@ namespace jag::graphics {
         undefined1 auVar10[16];
         undefined8 local_38;
 
-        lVar2 = (&field_48)->GetTextureAtlasReference();
+        lVar2 = (&m_material)->GetTextureAtlasReference();
         if (lVar2 == 0) {
             uVar1 = 0;
         } else {
@@ -2167,7 +2167,7 @@ namespace jag::graphics {
         undefined1 auVar11[16];
         undefined8 local_38;
 
-        lVar3 = (&field_48)->GetTextureAtlasReference();
+        lVar3 = (&m_material)->GetTextureAtlasReference();
         if (lVar3 == 0) {
             uVar1 = 0;
         } else {
@@ -2258,7 +2258,7 @@ namespace jag::graphics {
                 pMVar2 = (Matrix44T*)PTR_IDENTITY_100ee6730;
             }
             math::Matrix44T<float>::operator=((Matrix44T<float>*)(param_3 + 112), pMVar2);
-            new (&local_48) math::AABB((AABB*)&field_16);
+            new (&local_48) math::AABB((AABB*)&m_aABB);
             local_48.Transform((Matrix44T*)(param_3 + 112));
             plVar1 = (long*)DebugPrimitiveCollectorBasic::GetCollector("");
             if (plVar1 != (long*)0) {

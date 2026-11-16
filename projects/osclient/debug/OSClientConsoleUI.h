@@ -16,7 +16,7 @@ namespace jag::oldscape {
         void End();
         void PageDown();
         void CopyEntireBufferToClipboard();
-        GetBounds() const;
+        CoordMapSquare GetBounds() const;
         char GetDragTypeAtPosition(jag::math::Point<int> const&) const;
         void HandlePointerDrag(ConsoleDragType, jag::math::Point<int> const&);
         void ScrollLines(int);
@@ -51,7 +51,7 @@ namespace jag::oldscape {
         int field_64;        // offset 64
         undefined1 field_68; // offset 68
         char _unknown_69[35];
-        CoordMapSquare field_104; // offset 104
+        CoordMapSquare m_bounds; // offset 104
         char _unknown_116[28];
         float field_144; // offset 144
         char _unknown_148[4];

@@ -72,7 +72,7 @@ namespace jag::game {
             bVar2 = param_1->g1();
             *(uint*)&field_220 = (uint)bVar2 << 2;
             bVar2 = param_1->g1();
-            field_224 = (uint)bVar2 << 2;
+            m_hillRotateLength = (uint)bVar2 << 2;
             break;
         case 27:
             bVar2 = param_1->g1();
@@ -198,7 +198,7 @@ namespace jag::game {
             bVar2 = param_1->g1();
             *(uint*)&field_228 = (uint)bVar2 << 2;
             bVar2 = param_1->g1();
-            field_232 = (uint)bVar2 << 2;
+            m_hillRotateZLimit = (uint)bVar2 << 2;
             break;
         case 55:
             uVar10 = 3;

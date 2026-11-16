@@ -7,7 +7,7 @@
 
 namespace jag::render {
     // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    RenderContext::GetImmediateContextUnsafe() const;
+    ImmediateRenderContext RenderContext::GetImmediateContextUnsafe() const;
 
     // 0x100c13810, 80 bytes, placed by class name and debug map
     // RenderContext::IsLocked() const

@@ -619,7 +619,6 @@ namespace jag::oldscape::rseven {
     // Scene::GetShadowCastingLights(jag::graphics::SceneViewData const&)
     vector<game::VisibleShadowCastingLightInfo, eastl::allocator>*
     Scene::GetShadowCastingLights(SceneViewData* param_1) {
-        SceneViewData* this_00;
         bool bVar1;
         char cVar2;
         long lVar3;
@@ -651,11 +650,9 @@ namespace jag::oldscape::rseven {
         undefined1* local_58;
         hashtable_iterator_base local_50[8];
         vector<game::VisibleShadowCastingLightInfo, eastl::allocator>* local_48;
-        SceneViewData* local_40;
         eastl local_38[8];
 
         local_48 = (vector<game::VisibleShadowCastingLightInfo, eastl::allocator>*)&field_1184;
-        local_40 = param_1;
         eastl::vector<game::VisibleShadowCastingLightInfo, eastl::allocator>::clear(local_48);
         jag::graphics::PointLightIndicesEffect::GetEffects();
         local_38 =
@@ -669,7 +666,7 @@ namespace jag::oldscape::rseven {
         bVar1 = eastl::operator!=(local_38, local_50, auVar11._8_8_);
         if (bVar1) {
             local_58 = &field_1112;
-            local_70 = (Frustum*)&local_40->field_208;
+            local_70 = (Frustum*)param_1->m_pViewFrustum;
             local_60 = (LightShadowImportanceKeyGenerator*)&field_1168;
             do {
                 lVar3 = eastl::rbtree_iterator<
@@ -723,12 +720,11 @@ namespace jag::oldscape::rseven {
                                         (shared_ptr<game::LightSource>*)this_05);
                                     ptVar9 = (type*)&DAT_00000001;
                                     pLVar4->SetVisibleLastFrame(true);
-                                    this_00 = local_40;
-                                    pVVar5 = (ViewTransforms*)local_40->SSOBeginPtr(ptVar9);
+                                    pVVar5 = (ViewTransforms*)param_1->SSOBeginPtr(ptVar9);
                                     this_04 = (Entity*)shared_ptr<game::LightSource>::operator->(
                                         (shared_ptr<game::LightSource>*)this_05);
                                     pVVar6 = (Vector3T*)this_04->GetTranslation();
-                                    pvVar7 = this_00->SSOBeginPtr(ptVar9);
+                                    pvVar7 = param_1->SSOBeginPtr(ptVar9);
                                     pvVar7 = pvVar7->SSOBeginPtr(ptVar9);
                                     local_90._16_8_ = jag::math::operator-(pVVar6, (Vector3T*)pvVar7);
                                     pLVar4 = (LightSource*)shared_ptr<game::LightSource>::operator->(
@@ -864,6 +860,6 @@ namespace jag::oldscape {
 
 namespace jag::game {
     // 0x1004c67a0: the linker folded this into WaterType::GetFoamMaterialScale() const, which has identical code
-    Cutscene2D::Scene::GetPlaybackStart() const;
+    float Cutscene2D::Scene::GetPlaybackStart() const;
 
 } // namespace jag::game

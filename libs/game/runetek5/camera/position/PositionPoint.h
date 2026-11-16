@@ -48,7 +48,7 @@ namespace jag::game {
     /* LookatPoint::SetCurrentLookat(math::Vector3T<double> const&) */
 
     void LookatPoint::SetCurrentLookat(Vector3T* param_1) {
-        math::Vector3T<double>::operator=((Vector3T<double>*)field_16, param_1);
+        math::Vector3T<double>::operator=((Vector3T<double>*)m_currentLookat, param_1);
     }
 
     // 0x100619980, 32 bytes, inline, placed by class name and debug map

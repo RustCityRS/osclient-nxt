@@ -26,7 +26,7 @@ namespace jag::oldscape {
         ~ClientInputHandler();
         KeyHeld(int) const;
         bool AllowDragGameScreen();
-        GetKeysDown() const;
+        int GetKeysDown() const;
         int* GetKeysUp() const;
         KeyDown(int) const;
         KeyUp(int) const;
@@ -65,19 +65,19 @@ namespace jag::oldscape {
         int field_20;        // offset 20
         ulonglong field_24;  // offset 24
         char _unknown_32[64];
-        undefined4 field_96;  // offset 96
-        undefined4 field_100; // offset 100
-        byte field_104;       // offset 104
-        char field_105;       // offset 105
-        undefined1 field_106; // offset 106
-        bool field_107;       // offset 107
-        char field_108;       // offset 108
-        undefined1 field_109; // offset 109
-        undefined1 field_110; // offset 110
+        undefined4 m_minimenuBuildCoords; // offset 96
+        undefined4 field_100;             // offset 100
+        byte field_104;                   // offset 104
+        char field_105;                   // offset 105
+        undefined1 field_106;             // offset 106
+        bool field_107;                   // offset 107
+        char field_108;                   // offset 108
+        undefined1 field_109;             // offset 109
+        undefined1 field_110;             // offset 110
         char _unknown_111[1];
         ulong field_112; // offset 112
         char _unknown_120[768];
-        int field_888; // offset 888
+        int m_keysDown; // offset 888
         char _unknown_892[548];
         int m_keysUp; // offset 1440
         char _unknown_1444[548];
@@ -170,7 +170,7 @@ namespace jag::oldscape {
         std::array<CoordType<UICoordSpecializer>, 4ul>::array();
         std::array<CoordType<UICoordSpecializer>, 4ul>::array();
         graphics::XPlotBlender<graphics::XPlot_NormalAlpha>::XPlotBlender<int>(
-            (XPlotBlender<graphics::XPlot_NormalAlpha>*)&field_96, -1);
+            (XPlotBlender<graphics::XPlot_NormalAlpha>*)&m_minimenuBuildCoords, -1);
         graphics::XPlotBlender<graphics::XPlot_NormalAlpha>::XPlotBlender<int>(
             (XPlotBlender<graphics::XPlot_NormalAlpha>*)&field_100, -1);
         field_104 = 1;
@@ -181,7 +181,7 @@ namespace jag::oldscape {
         field_108 = '\0';
         field_109 = 0;
         field_110 = 0;
-        new (&field_888) eastl::fixed_vector<int, 128ul, true, eastl::allocator>();
+        new (&m_keysDown) eastl::fixed_vector<int, 128ul, true, eastl::allocator>();
         new (&m_keysUp) eastl::fixed_vector<int, 128ul, true, eastl::allocator>();
         graphics::XPlotBlender<graphics::XPlot_NormalAlpha>::XPlotBlender<int>(
             (XPlotBlender<graphics::XPlot_NormalAlpha>*)&field_1992, -1);
@@ -212,7 +212,7 @@ namespace jag::oldscape {
         field_10504->~RollingAverageCounter();
         field_10448->~RollingAverageCounter();
         (&m_keysUp)->~fixed_vector();
-        (&field_888)->~fixed_vector();
+        (&m_keysDown)->~fixed_vector();
     }
 
     // 0x10015f310, 32 bytes, inline, placed by class name

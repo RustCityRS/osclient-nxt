@@ -13,7 +13,7 @@ namespace jag::game {
         virtual ~SceneManager();
         GetMapAreaList();
         GetIrradianceCache();
-        GetEntityHighlightGlobalState();
+        EntityHighlightGlobalState GetEntityHighlightGlobalState();
         GetGameSceneRect();
         void GetEffectManager();
         IsFreshEnvironmentOverride() const;

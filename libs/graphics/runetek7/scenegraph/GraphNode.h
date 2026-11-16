@@ -15,7 +15,7 @@ namespace jag::graphics {
         void GetWorldTransformationMatrix();
         GetAABB();
         GetVisibleFrame(unsigned int) const;
-        GetEntity();
+        GraphEntity* GetEntity();
         float* GetTranslation();
         void SetYRotation(float);
         GetParent() const;

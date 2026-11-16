@@ -15,8 +15,8 @@ namespace jag::graphics {
         virtual void __pure_slot_9() = 0;
         virtual void CreateRenderingResources();
         virtual void DestroyRenderingResources();
-        GetOcclusionManager();
-        GetOcclusionManager() const;
+        OcclusionManager GetOcclusionManager();
+        OcclusionManager GetOcclusionManager() const;
         void ClearRenderTargets(render::RenderContext&, render::RenderTargetData const&,
                                 eastl::fixed_vector<render::Viewport, 2ul, true, eastl::allocator> const&);
         SceneRenderPass(RenderPassType, render::RenderTargetsManager*, ThreadPool*);
@@ -44,7 +44,7 @@ namespace jag::graphics {
         bool GetOcclusionTestEnabled() const;
 
         // data members, from how the methods use this: 800 bytes, the first 16 are RenderPass
-        OcclusionManager field_16; // offset 16
+        OcclusionManager m_occlusionManager; // offset 16
         char _unknown_729[47];
         char field_776;       // offset 776
         bool field_777;       // offset 777

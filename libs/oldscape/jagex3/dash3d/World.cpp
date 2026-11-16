@@ -1084,7 +1084,7 @@ namespace jag::oldscape::dash3d {
         if (!bVar1) {
             local_40.field_8 = 0;
             local_40.field_9 = '\0';
-            local_40.field_0 = 0;
+            local_40.m_colour = 0;
             local_40.field_2 = 0;
             local_40.field_4 = '\0';
             local_40._5_1_ = 0;
@@ -1286,7 +1286,7 @@ namespace jag::oldscape::dash3d {
 
         local_48.field_8 = 0;
         local_48.field_9 = '\0';
-        local_48.field_0 = 0;
+        local_48.m_colour = 0;
         local_48.field_2 = 0;
         local_48.field_4 = '\0';
         local_48._5_1_ = 0;

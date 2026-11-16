@@ -35,7 +35,7 @@ namespace jag::math {
     void OBB::OBB(AABB* param_1) {
         new (this) Vector3T<int>();
         field_12 = 0;
-        new (&field_16) Vector3T<int>();
+        new (&m_halfSize) Vector3T<int>();
         field_28 = 0;
         new (&field_32) Matrix33T<float>();
         param_1->GetOBB(this);
@@ -58,8 +58,8 @@ namespace jag::math {
         local_20 = (float)param_1->GetWidth();
         local_1c = (float)param_1->GetHeight();
         fVar1 = (float)param_1->GetLength();
-        (&field_16, local_20, local_1c, fVar1)->Set();
-        Vector3T<float>::operator*=((Vector3T<float>*)&field_16, 0.5);
+        (&m_halfSize, local_20, local_1c, fVar1)->Set();
+        Vector3T<float>::operator*=((Vector3T<float>*)&m_halfSize, 0.5);
     }
 
     // 0x100c6b950, 32 bytes, placed by class name and debug map
@@ -129,7 +129,7 @@ namespace jag::math {
         float fVar2;
 
         pvVar1 = SSOBeginPtr(param_1);
-        fVar2 = (float)(&field_16)->MaxElement();
+        fVar2 = (float)(&m_halfSize)->MaxElement();
         param_1->Set(pvVar1, fVar2);
         return param_1;
     }
@@ -174,7 +174,7 @@ namespace jag::math {
         }
         switch ((ulong)param_2 & 4294967295) {
         case 0:
-            puVar3 = &field_16;
+            puVar3 = &m_halfSize;
             pvVar1 = puVar3->SSOBeginPtr(param_2);
             local_38 = -*(float*)pvVar1;
             uStack_34 = 2147483648;
@@ -186,7 +186,7 @@ namespace jag::math {
             fVar6 = -*pfVar2;
             break;
         case 1:
-            puVar3 = &field_16;
+            puVar3 = &m_halfSize;
             pvVar1 = puVar3->SSOBeginPtr(param_2);
             local_38 = *(float*)pvVar1;
             pfVar2 = (float*)puVar3->y();
@@ -195,7 +195,7 @@ namespace jag::math {
             fVar6 = -*pfVar2;
             break;
         case 2:
-            puVar3 = &field_16;
+            puVar3 = &m_halfSize;
             pvVar1 = puVar3->SSOBeginPtr(param_2);
             local_38 = -*(float*)pvVar1;
             uStack_34 = 2147483648;
@@ -210,7 +210,7 @@ namespace jag::math {
             fVar6 = -*pfVar2;
             break;
         case 3:
-            puVar3 = &field_16;
+            puVar3 = &m_halfSize;
             pvVar1 = puVar3->SSOBeginPtr(param_2);
             local_38 = *(float*)pvVar1;
             pfVar2 = (float*)puVar3->y();
@@ -222,7 +222,7 @@ namespace jag::math {
             fVar6 = -*pfVar2;
             break;
         case 4:
-            puVar3 = &field_16;
+            puVar3 = &m_halfSize;
             pvVar1 = puVar3->SSOBeginPtr(param_2);
             local_38 = -*(float*)pvVar1;
             uStack_34 = 2147483648;
@@ -234,7 +234,7 @@ namespace jag::math {
             fVar6 = *pfVar2;
             break;
         case 5:
-            puVar3 = &field_16;
+            puVar3 = &m_halfSize;
             pvVar1 = puVar3->SSOBeginPtr(param_2);
             local_38 = *(float*)pvVar1;
             pfVar2 = (float*)puVar3->y();
@@ -243,7 +243,7 @@ namespace jag::math {
             fVar6 = *pfVar2;
             break;
         case 6:
-            puVar3 = &field_16;
+            puVar3 = &m_halfSize;
             pvVar1 = puVar3->SSOBeginPtr(param_2);
             local_38 = -*(float*)pvVar1;
             uStack_34 = 2147483648;
@@ -258,7 +258,7 @@ namespace jag::math {
             fVar6 = *pfVar2;
             break;
         case 7:
-            puVar3 = &field_16;
+            puVar3 = &m_halfSize;
             pvVar1 = puVar3->SSOBeginPtr(param_2);
             local_38 = *(float*)pvVar1;
             pfVar2 = (float*)puVar3->y();
@@ -298,7 +298,7 @@ namespace jag::math {
         pvVar1 = this_00->SSOBeginPtr((type*)(OBB*)this);
         fVar5 = Vector3Dot<float>((Vector3T*)&local_28, (Vector3T*)pvVar1);
         local_1c = (float)::abs(fVar5);
-        this_01 = &field_16;
+        this_01 = &m_halfSize;
         pvVar1 = this_01->SSOBeginPtr(pvVar1);
         if (local_1c < *(float*)pvVar1 || local_1c == *(float*)pvVar1) {
             pVVar2 = (Vector3T*)this_00->qw();

@@ -18,7 +18,7 @@ namespace jag::graphics {
 
         pVVar2 = (Value*)Json::Value::operator[](param_1, "StateMachine");
         new (this) AnimationStateMachineDescriptor(pVVar2);
-        field_104 = 0;
+        m_blendType = 0;
         new (&field_112) eastl::string();
         cVar1 = Json::Value::isMember(param_1, "BlendType");
         if (cVar1 != '\0') {
@@ -40,12 +40,12 @@ namespace jag::graphics {
                                         "graphics/runetek7/animation/asm/LayeredAnimationStateMachineDescriptor.cpp",
                                         51, "Unknown blend type");
                     }
-                    field_104 = 1;
+                    m_blendType = 1;
                 } else {
-                    field_104 = 2;
+                    m_blendType = 2;
                 }
             } else {
-                field_104 = 0;
+                m_blendType = 0;
             }
         }
         cVar1 = Json::Value::isMember(param_1, "BlendVar");
@@ -61,7 +61,7 @@ namespace jag::graphics {
         pcVar3 = (char*)Json::Value::asCString(pVVar2);
         std::string::string<decltype(nullptr)>(local_70, pcVar3);
         uVar4 = readTime((string*)local_58);
-        field_144 = uVar4;
+        m_pTransitionInTime = uVar4;
         uVar4 = readTime(local_70);
         m_transitionOutTime = uVar4;
         std::string::~string(local_70);
@@ -110,19 +110,19 @@ namespace jag::graphics {
     // LayeredAnimationStateMachineLayerDescriptor::LayeredAnimationStateMachineLayerDescriptor(PacketT<Array<unsigned char, eastl::allocator> >&)
     void LayeredAnimationStateMachineLayerDescriptor::LayeredAnimationStateMachineLayerDescriptor(PacketT* param_1) {
         undefined8 uVar1;
-        undefined4 uVar2;
+        int iVar2;
         PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>> local_40[32];
 
         new (this) AnimationStateMachineDescriptor(param_1);
-        field_104 = 0;
+        m_blendType = 0;
         new (&field_112) eastl::string();
-        uVar2 = param_1->g4();
-        field_104 = uVar2;
+        iVar2 = param_1->g4();
+        m_blendType = iVar2;
         PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::gStringCP1252ToUTF8<eastl::string>(
             local_40, SUB81(param_1, 0));
         eastl::string::operator=((eastl::string*)&field_112, (basic_string*)local_40);
         uVar1 = param_1->g8();
-        field_144 = uVar1;
+        m_pTransitionInTime = uVar1;
         uVar1 = param_1->g8();
         m_transitionOutTime = uVar1;
         local_40->~basic_string();

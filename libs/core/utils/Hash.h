@@ -8,8 +8,8 @@
 namespace jag::game {
     class EnvBloomSettings {
     public:
-        GetWhitepoint() const;
-        GetBloomCoefficient() const;
+        float GetWhitepoint() const;
+        float GetBloomCoefficient() const;
         float GetBrightpassThreshold() const;
         void SetDefaults();
         void Set(PacketT<Array<unsigned char, eastl::allocator>>&);
@@ -19,8 +19,8 @@ namespace jag::game {
         EnvBloomSettings();
 
         // data members, from how the methods use this: 16 bytes
-        float field_0;               // offset 0
-        float field_4;               // offset 4
+        float m_whitepoint;          // offset 0
+        float m_bloomCoefficient;    // offset 4
         float m_brightpassThreshold; // offset 8
         char _unknown_12[4];
     };
@@ -44,8 +44,8 @@ namespace jag::game {
     // 0x1004abd90, 32 bytes, placed by debug map only (low confidence)
     // EnvBloomSettings::SetDefaults()
     void EnvBloomSettings::SetDefaults() {
-        field_0 = 0.0;
-        field_4 = 0.0;
+        m_whitepoint = 0.0;
+        m_bloomCoefficient = 0.0;
         m_brightpassThreshold = 0.0;
     }
 
@@ -65,8 +65,8 @@ namespace jag::game {
         fVar4 = (float)param_1->gFloat();
         fVar5 = (float)param_1->gFloat();
         fVar6 = (float)param_1->gFloat();
-        field_0 = (float)(~-(uint)(fVar4 != 0.0) & uVar1 | (uint)fVar4 & -(uint)(fVar4 != 0.0));
-        field_4 = (float)(~-(uint)(fVar5 != 0.0) & uVar2 | (uint)fVar5 & -(uint)(fVar5 != 0.0));
+        m_whitepoint = (float)(~-(uint)(fVar4 != 0.0) & uVar1 | (uint)fVar4 & -(uint)(fVar4 != 0.0));
+        m_bloomCoefficient = (float)(~-(uint)(fVar5 != 0.0) & uVar2 | (uint)fVar5 & -(uint)(fVar5 != 0.0));
         m_brightpassThreshold = (float)(~-(uint)(fVar6 != 0.0) & uVar3 | (uint)fVar6 & -(uint)(fVar6 != 0.0));
     }
 
@@ -76,10 +76,11 @@ namespace jag::game {
         long lVar1;
 
         lVar1 = param_1->GetModelCache();
-        EnvironmentOverrideParam<float>::ApplyTo<float>((EnvironmentOverrideParam<float>*)(lVar1 + 4), &field_4);
+        EnvironmentOverrideParam<float>::ApplyTo<float>((EnvironmentOverrideParam<float>*)(lVar1 + 4),
+                                                        &m_bloomCoefficient);
         EnvironmentOverrideParam<float>::ApplyTo<float>((EnvironmentOverrideParam<float>*)(lVar1 + 12),
                                                         &m_brightpassThreshold);
-        EnvironmentOverrideParam<float>::ApplyTo<float>((EnvironmentOverrideParam<float>*)(lVar1 + 20), &field_0);
+        EnvironmentOverrideParam<float>::ApplyTo<float>((EnvironmentOverrideParam<float>*)(lVar1 + 20), &m_whitepoint);
     }
 
     // 0x1004abec0, 48 bytes, placed by debug map only (low confidence)
@@ -88,7 +89,7 @@ namespace jag::game {
     */
 
     bool EnvBloomSettings::operator==(EnvBloomSettings* param_1) {
-        if ((field_0 == param_1->field_0) && (field_4 == param_1->field_4)) {
+        if ((m_whitepoint == param_1->m_whitepoint) && (m_bloomCoefficient == param_1->m_bloomCoefficient)) {
             return m_brightpassThreshold == param_1->m_brightpassThreshold;
         }
         return false;
@@ -100,8 +101,8 @@ namespace jag::game {
         ulong local_20;
 
         local_20 = 0;
-        hash_combine<float>(&local_20, &field_0);
-        hash_combine<float>(&local_20, &field_4);
+        hash_combine<float>(&local_20, &m_whitepoint);
+        hash_combine<float>(&local_20, &m_bloomCoefficient);
         hash_combine<float>(&local_20, &m_brightpassThreshold);
         return local_20;
     }
@@ -121,8 +122,8 @@ namespace jag::game {
         puVar1 = (uint*)(&field_8)->HeapBeginPtr();
         puVar2 = (uint*)(&field_8)->end();
         eastl::fill<unsigned int>(puVar1, puVar2, 4294967295);
-        pfVar3 = (float*)(&field_64)->HeapBeginPtr();
-        pfVar4 = (float*)(&field_64)->end();
+        pfVar3 = (float*)(&m_colourRemapWeightings)->HeapBeginPtr();
+        pfVar4 = (float*)(&m_colourRemapWeightings)->end();
         uStack_28 = (ulong)(uint)uStack_28;
         eastl::fill<float*, float>(pfVar3, pfVar4, (float*)((long)&uStack_28 + 4));
     }
@@ -146,7 +147,7 @@ namespace jag::game {
         puVar1 = (uint*)this_00->HeapBeginPtr();
         puVar2 = (uint*)this_00->end();
         eastl::fill<unsigned int>(puVar1, puVar2, 4294967295);
-        this_01 = &field_64;
+        this_01 = &m_colourRemapWeightings;
         pfVar3 = (float*)this_01->HeapBeginPtr();
         pfVar4 = (float*)this_01->end();
         local_30 = 0.0;
@@ -202,8 +203,8 @@ namespace jag::game {
                     puVar4 = (undefined4*)eastl::vector<
                         float, eastl::fixed_vector_allocator<4ul, 3ul, 4ul, 0ul, true, eastl::allocator>>::
                     operator[](
-                        (vector<float,
-                                eastl::fixed_vector_allocator<4ul, 3ul, 4ul, 0ul, true, eastl::allocator>>*)&field_64,
+                        (vector<float, eastl::fixed_vector_allocator<4ul, 3ul, 4ul, 0ul, true,
+                                                                     eastl::allocator>>*)&m_colourRemapWeightings,
                         uVar5);
                     *puVar4 = (int)((ulong)uVar3 >> 32);
                 }
@@ -256,7 +257,7 @@ namespace jag::game {
                         (vector<int, eastl::fixed_vector_allocator<4ul, 3ul, 4ul, 0ul, true, eastl::allocator>>*)puVar6,
                         2);
                 if (iVar2 == *piVar3) {
-                    puVar5 = &field_64;
+                    puVar5 = &m_colourRemapWeightings;
                     pfVar4 = (float*)eastl::vector<
                         float, eastl::fixed_vector_allocator<4ul, 3ul, 4ul, 0ul, true, eastl::allocator>>::
                     operator[](
@@ -264,7 +265,7 @@ namespace jag::game {
                             puVar5,
                         0);
                     fVar1 = *pfVar4;
-                    puVar6 = &param_1->field_64;
+                    puVar6 = &param_1->m_colourRemapWeightings;
                     pfVar4 = (float*)eastl::vector<
                         float, eastl::fixed_vector_allocator<4ul, 3ul, 4ul, 0ul, true, eastl::allocator>>::
                     operator[](
@@ -332,7 +333,7 @@ namespace jag::game {
             eastl::vector<int, eastl::fixed_vector_allocator<4ul, 3ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
                 (vector<int, eastl::fixed_vector_allocator<4ul, 3ul, 4ul, 0ul, true, eastl::allocator>>*)puVar3, 2);
         hash_combine<int>(&local_28, piVar1);
-        puVar3 = &field_64;
+        puVar3 = &m_colourRemapWeightings;
         pfVar2 = (float*)
             eastl::vector<float, eastl::fixed_vector_allocator<4ul, 3ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
                 (vector<float, eastl::fixed_vector_allocator<4ul, 3ul, 4ul, 0ul, true, eastl::allocator>>*)puVar3, 0);

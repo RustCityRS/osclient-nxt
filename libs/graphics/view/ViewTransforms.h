@@ -31,7 +31,7 @@ namespace jag {
         float field_4; // offset 4
         float field_8; // offset 8
         char _unknown_12[68];
-        undefined1 field_80; // offset 80
+        undefined1 m_projMatrix; // offset 80
         char _unknown_81[71];
     };
 

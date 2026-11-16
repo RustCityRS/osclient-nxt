@@ -8,12 +8,12 @@
 namespace jag {
     class MainLoopFrameTimer {
     public:
-        GetLogicTick() const;
+        int GetLogicTick() const;
         GetFastUpdateLoopEnabled() const;
-        GetFrameCount() const;
-        GetMainLoopRate() const;
-        GetMainLoopInterval() const;
-        GetUniqueLoopID() const;
+        int GetFrameCount() const;
+        int GetMainLoopRate() const;
+        uint GetMainLoopInterval() const;
+        long GetUniqueLoopID() const;
         GetFPSCounter();
         SetFastUpdateLoopEnabled(bool);
         MainLoopFrameTimer();
@@ -29,15 +29,15 @@ namespace jag {
 
         // data members, from how the methods use this: 98728 bytes
         uint m_mainLoopInterval; // offset 0
-        int field_4;             // offset 4
-        int field_8;             // offset 8
+        int m_mainLoopRate;      // offset 4
+        int m_logicTick;         // offset 8
         int field_12;            // offset 12
-        int field_16;            // offset 16
+        int m_frameCount;        // offset 16
         char _unknown_20[4];
         ulonglong field_24;           // offset 24
         bool m_fastUpdateLoopEnabled; // offset 32
         char _unknown_33[7];
-        long field_40; // offset 40
+        long m_uniqueLoopID; // offset 40
         char _unknown_48[98656];
         ulonglong field_98704;          // offset 98704
         undefined1 m_renderingDisabled; // offset 98712
@@ -78,13 +78,13 @@ namespace jag {
     // MainLoopFrameTimer::MainLoopFrameTimer()
     void MainLoopFrameTimer::MainLoopFrameTimer() {
         m_mainLoopInterval = 20;
-        field_4 = 50;
-        field_8 = 1;
+        m_mainLoopRate = 50;
+        m_logicTick = 1;
         field_12 = 1;
-        field_16 = 1;
+        m_frameCount = 1;
         field_24 = 0;
         m_fastUpdateLoopEnabled = false;
-        field_40 = 0;
+        m_uniqueLoopID = 0;
         new (&field_48) FPSCounter();
         field_98704 = 0;
         m_renderingDisabled = 0;

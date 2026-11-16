@@ -67,8 +67,8 @@ namespace jag::graphics {
         virtual ~GeometryBatchInstance();
         virtual GatherDrawableElements(DrawableQueue&, RT7Core&, SceneViewData const&, EffectManager const&);
         virtual void RenderDebug(RenderPassType, DrawableElement&) const;
-        GetMaterial();
-        GetMaterial() const;
+        RenderMaterial GetMaterial();
+        RenderMaterial GetMaterial() const;
         void GetGeometryBatch();
         void GetGeometryBatch() const;
         GetSourceModelExternalIndexList();

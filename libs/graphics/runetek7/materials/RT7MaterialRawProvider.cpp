@@ -11,20 +11,20 @@ namespace jag::graphics {
         virtual bool IsReady();
         virtual uint GetMaximumMaterialRawId();
         virtual ulong GetMaterialRaw(MaterialRaw&, unsigned int);
-        virtual GetMaterialsArchiveSettings() const;
+        virtual Js5ArchiveSettings* GetMaterialsArchiveSettings() const;
         RT7MaterialRawProvider(Js5ResourceProvider*, Js5ArchiveSettings const*);
 
         // data members, from how the methods use this: 24 bytes
-        undefined** field_0;          // offset 0, vtable pointer
-        Js5ResourceProvider* field_8; // offset 8
-        Js5ArchiveSettings* field_16; // offset 16
+        undefined** field_0;                            // offset 0, vtable pointer
+        Js5ResourceProvider* field_8;                   // offset 8
+        Js5ArchiveSettings* m_materialsArchiveSettings; // offset 16
     };
 
     // 0x100022b10: the linker folded this into oldscape::option::ScriptOption<int, oldscape::option::DeviceOptionScriptID>::~ScriptOption(), which has identical code
     RT7MaterialRawProvider::~RT7MaterialRawProvider();
 
     // 0x100023f30: the linker folded this into oldscape::option::IOption::GetName() const, which has identical code
-    RT7MaterialRawProvider::GetMaterialsArchiveSettings() const;
+    Js5ArchiveSettings* RT7MaterialRawProvider::GetMaterialsArchiveSettings() const;
 
     // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
     RT7MaterialRawProvider::~RT7MaterialRawProvider();
@@ -38,7 +38,7 @@ namespace jag::graphics {
         new (this) MaterialRawProvider();
         field_0 = &PTR__ScriptOption_100f184b0;
         field_8 = param_1;
-        field_16 = param_2;
+        m_materialsArchiveSettings = param_2;
         if (param_1 == (Js5ResourceProvider*)0) {
             /* WARNING: Subroutine does not return */
             LogAssert("resourceProvider != nullptr",
@@ -63,7 +63,7 @@ namespace jag::graphics {
     bool RT7MaterialRawProvider::IsReady() {
         undefined* puVar1;
 
-        puVar1 = (undefined*)(field_8, field_16, 0, (Priority*)Priority::HIGH, true)->GroupReady();
+        puVar1 = (undefined*)(field_8, m_materialsArchiveSettings, 0, (Priority*)Priority::HIGH, true)->GroupReady();
         return puVar1 == DataStatus::READY;
     }
 
@@ -75,7 +75,7 @@ namespace jag::graphics {
         Js5Index* local_18;
 
         local_18 = (Js5Index*)0;
-        puVar2 = (undefined*)(*(code*)field_8->field_0[4])(field_8, &local_18, field_16);
+        puVar2 = (undefined*)(*(code*)field_8->field_0[4])(field_8, &local_18, m_materialsArchiveSettings);
         uVar1 = 4294967295;
         if (puVar2 == DataStatus::READY) {
             uVar1 = local_18->GetFileCount(0);
@@ -93,7 +93,8 @@ namespace jag::graphics {
         shared_ptr local_38;
 
         new (&local_38) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(param_1);
-        puVar2 = (undefined*)(field_8, &local_38, field_16, 0, param_2, (Priority*)Priority::HIGH, true, false, false)
+        puVar2 = (undefined*)(field_8, &local_38, m_materialsArchiveSettings, 0, param_2, (Priority*)Priority::HIGH,
+                              true, false, false)
                      ->GetFile();
         puVar1 = DataStatus::READY;
         if (puVar2 == DataStatus::READY) {

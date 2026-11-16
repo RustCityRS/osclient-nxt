@@ -10,9 +10,9 @@ namespace jag::graphics {
     public:
         GetPosition() const;
         GetViewDst() const;
-        GetSize() const;
-        GetRGBA() const;
-        GetRotation2D() const;
+        float GetSize() const;
+        LocData GetRGBA() const;
+        float GetRotation2D() const;
         Particle* operator=(Particle&&);
         Particle(ParticleEmitter const&, float, float, float, float, float, float, unsigned int, bool, bool);
         static /* 8 bytes */ m_enableFrameInterpolation; // = 1
@@ -21,20 +21,20 @@ namespace jag::graphics {
         static /* 1 bytes */ m_showWorldAABB;            // = 0
 
         // data members, from how the methods use this: 100 bytes
-        undefined4 field_0;  // offset 0
-        undefined4 field_4;  // offset 4
-        undefined4 field_8;  // offset 8
-        undefined4 field_12; // offset 12
+        undefined4 field_0;   // offset 0
+        undefined4 field_4;   // offset 4
+        undefined4 field_8;   // offset 8
+        undefined4 m_viewDst; // offset 12
         char _unknown_16[12];
         float field_28;      // offset 28
-        float field_32;      // offset 32
+        float m_size;        // offset 32
         float field_36;      // offset 36
         float field_40;      // offset 40
         float field_44;      // offset 44
         undefined8 field_48; // offset 48
         undefined8 field_56; // offset 56
-        float field_64;      // offset 64
-        LocData field_68;    // offset 68
+        float m_rotation2D;  // offset 64
+        LocData m_rGBA;      // offset 68
     };
 
     class ParticleModuleUpdateParams {
@@ -213,23 +213,23 @@ namespace jag::graphics {
         float fVar7;
 
         SetXYZ(param_1);
-        field_12 = param_1->field_12;
+        m_viewDst = param_1->m_viewDst;
         (&field_16, (Vector3T*)&param_1->field_16)->SetXYZ();
-        fVar5 = param_1->field_32;
+        fVar5 = param_1->m_size;
         fVar6 = param_1->field_36;
         fVar7 = param_1->field_40;
         uVar1 = *(undefined8*)&param_1->field_44;
         uVar2 = *(undefined8*)((long)&param_1->field_48 + 4);
         uVar3 = *(undefined8*)((long)&param_1->field_56 + 3);
-        uVar4 = *(undefined8*)((long)&param_1->field_64 + 3);
+        uVar4 = *(undefined8*)((long)&param_1->m_rotation2D + 3);
         field_28 = param_1->field_28;
-        field_32 = fVar5;
+        m_size = fVar5;
         field_36 = fVar6;
         field_40 = fVar7;
         *(undefined8*)&field_44 = uVar1;
         *(undefined8*)((long)&field_48 + 4) = uVar2;
         *(undefined8*)((long)&field_56 + 3) = uVar3;
-        *(undefined8*)((long)&field_64 + 3) = uVar4;
+        *(undefined8*)((long)&m_rotation2D + 3) = uVar4;
         return this;
     }
 

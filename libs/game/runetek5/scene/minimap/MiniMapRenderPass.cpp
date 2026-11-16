@@ -7,7 +7,7 @@
 
 namespace jag {
     // 0x1000e5d50: the linker folded this into oldscape::rs2lib::CoordZoneSource::GetRotation() const, which has identical code
-    MiniMapRenderPass::GetStartingRenderLevel() const;
+    int MiniMapRenderPass::GetStartingRenderLevel() const;
 
     // 0x1003bc740, 16 bytes, complete-object constructor, placed by class name and debug map
     // MiniMapRenderPass::MiniMapRenderPass(): jumps straight to the base-object constructor

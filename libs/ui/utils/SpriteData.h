@@ -10,9 +10,9 @@ namespace jag::ui {
         GetSpriteHash() const;
         GetSpriteAtlasReference() const;
         SetSpriteRGB(unsigned int);
-        GetSpriteShadowRGB() const;
-        GetSpriteID() const;
-        GetSpriteRGB() const;
+        uint GetSpriteShadowRGB() const;
+        int GetSpriteID() const;
+        int GetSpriteRGB() const;
         ~SpriteData();
         void GetUsePlayerModelRecolours();
         byte GetSpriteOutline() const;
@@ -49,7 +49,7 @@ namespace jag::ui {
         void GetObjSpriteIsHighRes() const;
         void GetSpriteVFlip() const;
         void GetSpriteHFlip() const;
-        GetSpriteRotate() const;
+        ushort GetSpriteRotate() const;
         void GetSpriteTiling() const;
         SpriteData(SpriteData&&);
         static /* 1 bytes */ m_enableSpriteSliceDebug;
@@ -57,15 +57,15 @@ namespace jag::ui {
         // data members, from how the methods use this: 48 bytes
         int m_spriteID;         // offset 0
         uint m_spriteShadowRGB; // offset 4
-        undefined2 field_8;     // offset 8
+        ushort m_spriteRotate;  // offset 8
         byte m_spriteOutline;   // offset 10
         char _unknown_11[1];
-        undefined4 field_12; // offset 12
-        byte m_spriteAlpha;  // offset 16
-        byte field_17;       // offset 17
-        byte field_18;       // offset 18
-        byte field_19;       // offset 19
-        byte field_20;       // offset 20
+        int m_spriteRGB;    // offset 12
+        byte m_spriteAlpha; // offset 16
+        byte field_17;      // offset 17
+        byte field_18;      // offset 18
+        byte field_19;      // offset 19
+        byte field_20;      // offset 20
         char _unknown_21[3];
         ulong m_spriteAtlasReference; // offset 24
         shared_ptr field_32;          // offset 32
@@ -178,7 +178,7 @@ namespace jag::ui {
     // 0x10068ffb0, 32 bytes, inline, placed by class name
     // SpriteData::GetSpriteRGBA() const
     uint SpriteData::GetSpriteRGBA() {
-        return (uint)m_spriteAlpha | field_12 << 8;
+        return (uint)m_spriteAlpha | m_spriteRGB << 8;
     }
 
     // 0x10069f050, 16 bytes, inline, placed by class name
@@ -245,9 +245,9 @@ namespace jag::ui {
 
         m_spriteID = -1;
         m_spriteShadowRGB = 0;
-        field_8 = 0;
+        m_spriteRotate = 0;
         m_spriteOutline = 0;
-        field_12 = 16777215;
+        m_spriteRGB = 16777215;
         m_spriteAlpha = 255;
         new (&field_17) Margin();
         new (&field_21) eastl::bitset<4ul, unsigned char>();

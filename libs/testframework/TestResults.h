@@ -8,7 +8,7 @@ namespace jag::testframework {
     class TestResults {
     public:
         GetResults() const;
-        GetNumFailed() const;
+        int GetNumFailed() const;
         void AddResult(TestResult const&);
         void GetNumTests() const;
         ~TestResults();
@@ -17,8 +17,8 @@ namespace jag::testframework {
         long field_0;        // offset 0
         TestResult* field_8; // offset 8
         char _unknown_16[16];
-        int field_32; // offset 32
-        int field_36; // offset 36
+        int field_32;    // offset 32
+        int m_numFailed; // offset 36
         char _unknown_40[4];
     };
 

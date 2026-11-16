@@ -735,7 +735,7 @@ namespace jag::ui {
         PagedLayer* this_09;
         fixed_string* pfVar12;
         undefined8 uVar13;
-        undefined2* this_10;
+        ushort* this_10;
         undefined8 uVar14;
         undefined7 in_register_00000089;
         int iVar15;
@@ -768,7 +768,7 @@ namespace jag::ui {
         local_40 = pSVar8;
         if (param_10 != (Texture*)0) {
             uVar3 = local_48->GetCurrentValue();
-            local_78 = (ButtonElement*)&pSVar8[1].field_8;
+            local_78 = (ButtonElement*)&pSVar8[1].m_spriteRotate;
             local_38 = (TextData*)CONCAT44(local_38._4_4_, param_6);
             local_64 = param_7;
             local_60 = param_8 & 65535;
@@ -783,7 +783,7 @@ namespace jag::ui {
         local_a0.m_pFont._0_4_ = ((field_392 + 96))->GetVisualMargin();
         local_68 = (Margin)(&field_660, (Margin*)&local_a0)->GetValidOr();
         local_68.ApplyTo(&param_6, &param_7, &param_8, &param_9);
-        this_10 = &pSVar8->field_8;
+        this_10 = &pSVar8->m_spriteRotate;
         cVar5 = this_10->IsSpriteValid();
         local_50 = param_1;
         if (cVar5 == '\0') {

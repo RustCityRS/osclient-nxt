@@ -202,7 +202,7 @@ namespace jag::oldscape {
                         if (cVar3 == '\0') {
                             pCVar20 = (ClientEntityID*)local_1fb0->HeapBeginPtr();
                             pCVar21 = (ClientEntityID*)local_1fb0->end();
-                            for (; pCVar20 != pCVar21; pCVar20 = (ClientEntityID*)&pCVar20[1].field_4) {
+                            for (; pCVar20 != pCVar21; pCVar20 = (ClientEntityID*)&pCVar20[1].m_slotID) {
                                 uVar8 = (&pCVar20->field_8)->GetZ();
                                 uVar7 = (undefined4)((ulong)in_stack_ffffffffffffbfb8 >> 32);
                                 if (uVar32 == uVar8) {
@@ -249,7 +249,7 @@ namespace jag::oldscape {
                         if (cVar3 == '\0') {
                             pCVar20 = (ClientEntityID*)local_3f28->HeapBeginPtr();
                             pCVar21 = (ClientEntityID*)local_3f28->end();
-                            for (; pCVar20 != pCVar21; pCVar20 = (ClientEntityID*)&pCVar20[1].field_4) {
+                            for (; pCVar20 != pCVar21; pCVar20 = (ClientEntityID*)&pCVar20[1].m_slotID) {
                                 iVar11 = (&pCVar20->field_8)->GetZ();
                                 uVar7 = (undefined4)((ulong)in_stack_ffffffffffffbfb8 >> 32);
                                 if (iVar6 == iVar11) {

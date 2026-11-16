@@ -800,8 +800,8 @@ namespace jag::oldscape {
         Client* local_40;
         uint local_38[2];
 
-        if (field_52400 != 1) {
-            if (field_52400 == 0) {
+        if (m_cameraMode != 1) {
+            if (m_cameraMode == 0) {
                 this_03 = (Client*)field_52016;
                 lVar8 = shared_ptr<ClientPlayer>::operator->((shared_ptr<ClientPlayer>*)this_03);
                 uVar6 = *(uint*)(lVar8 + 24);

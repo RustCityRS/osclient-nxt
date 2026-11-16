@@ -318,7 +318,7 @@ namespace jag::game {
     class WaterLoader {
     public:
         GetWaterPatches() const;
-        GetDefaultWaterType() const;
+        shared_ptr GetDefaultWaterType() const;
         WaterLoader(unsigned int, unsigned int, shared_ptr<ClientCompositeData> const&);
         IsLoaded() const;
         byte HasWaterPatches() const;
@@ -336,8 +336,8 @@ namespace jag::game {
         shared_ptr field_8;  // offset 8
         undefined* field_24; // offset 24
         char _unknown_32[64];
-        shared_ptr field_96; // offset 96
-        ColourHSL field_112; // offset 112
+        shared_ptr m_defaultWaterType; // offset 96
+        ColourHSL field_112;           // offset 112
     };
 
     // 0x1004114b0, 16 bytes, complete-object destructor, inline, placed by class name
@@ -346,7 +346,7 @@ namespace jag::game {
     // 0x10041ccc0, 64 bytes, base-object destructor, inline, placed by class name
     // WaterLoader::~WaterLoader()
     void WaterLoader::~WaterLoader() {
-        field_96->~shared_ptr();
+        m_defaultWaterType->~shared_ptr();
         (&field_80)->~shared_ptr();
         (&field_56)->~vector();
         (&field_32)->~vector();

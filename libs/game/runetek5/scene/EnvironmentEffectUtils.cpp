@@ -7,6 +7,6 @@
 
 namespace jag::game {
     // 0x10048fc90: the linker folded this into EnvLightingSettings::GetContrast() const, which has identical code
-    EnvFogSettings::GetFogDepthAngleFalloff() const;
+    float EnvFogSettings::GetFogDepthAngleFalloff() const;
 
 } // namespace jag::game

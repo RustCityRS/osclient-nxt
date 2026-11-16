@@ -19,7 +19,7 @@ namespace jag::graphics {
         GetJointIDMap() const;
         GetIndexBuffer() const;
         GetBoneVertices() const;
-        IsLowPrecision() const;
+        bool IsLowPrecision() const;
         GetBillboardLabelIDMap();
         GetBillboardLabelIDMap() const;
         BillboardBatch();
@@ -63,14 +63,14 @@ namespace jag::graphics {
         void GetVertexCount() const;
         byte GetBoneCount() const;
         bool HasJoints() const;
-        GetForwardPassIAState() const;
+        InputAssemblerState GetForwardPassIAState() const;
 
         // data members, from how the methods use this: 760 bytes
         char _unknown_0[12];
         undefined4 field_12; // offset 12
         char _unknown_16[12];
         float field_28;              // offset 28
-        undefined1 field_32;         // offset 32
+        undefined1 m_transformed;    // offset 32
         undefined1 m_faceLabelCount; // offset 33
         char _unknown_34[46];
         byte m_boneCount; // offset 80

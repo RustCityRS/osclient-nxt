@@ -12,7 +12,7 @@ namespace jag::graphics {
         BillboardRaw();
 
         // data members, from how the methods use this: 40 bytes
-        undefined1 field_0; // offset 0
+        undefined1 m_valid; // offset 0
         char _unknown_1[3];
         uint field_4;        // offset 4
         uint field_8;        // offset 8
@@ -30,7 +30,7 @@ namespace jag::graphics {
     // 0x100998c80, 64 bytes, base-object constructor, inline, placed by class name and debug map
     // BillboardRaw::BillboardRaw()
     void BillboardRaw::BillboardRaw() {
-        field_0 = 0;
+        m_valid = 0;
         field_4 = 4294967295;
         field_8 = 64;
         field_12 = 64;

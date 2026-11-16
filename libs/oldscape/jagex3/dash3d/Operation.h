@@ -61,13 +61,13 @@ namespace jag::oldscape::dash3d {
         virtual Append(Operation&&);
         virtual AABB* ApplyAABB(jag::math::AABB const&) const;
         virtual IsEqual(Operation const&) const;
-        GetType() const;
+        uint GetType() const;
         CloneModel(jag::graphics::Model const&, jag::graphics::ModelCopyType) const;
         Operation(Type);
 
         // data members, from how the methods use this: 16 bytes
         undefined** field_0; // offset 0, vtable pointer
-        undefined4 field_8;  // offset 8
+        uint m_type;         // offset 8
         char _unknown_12[4];
     };
 
@@ -237,7 +237,7 @@ namespace jag::oldscape::dash3d {
         ushort uVar1;
         ushort uVar2;
 
-        if (((param_1->field_0 == param_2->field_0) &&
+        if (((param_1->m_colour == param_2->m_colour) &&
              (uVar1._0_1_ = param_2->field_8, uVar1._1_1_ = param_2->field_9, uVar2._0_1_ = param_1->field_8,
               uVar2._1_1_ = param_1->field_9, ((uVar1 ^ uVar2) & 319) == 0)) &&
             (param_1->field_2 == param_2->field_2)) {
@@ -323,9 +323,9 @@ namespace jag::oldscape::dash3d {
 
     // 0x100372f20, 32 bytes, base-object constructor, inline, placed by class name
     // Operation::Operation(Operation::Type)
-    void Operation::Operation(undefined4 param_2) {
+    void Operation::Operation(uint param_2) {
         field_0 = &PTR____cxa_pure_virtual_100efc130;
-        field_8 = param_2;
+        m_type = param_2;
     }
 
 } // namespace jag::oldscape::dash3d

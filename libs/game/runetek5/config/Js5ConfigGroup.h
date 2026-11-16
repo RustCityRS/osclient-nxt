@@ -10,15 +10,15 @@ namespace jag::game {
         class DebugStats;
         // virtual methods in vtable order
         virtual ~BaseConfigTypeList();
-        GetGroupCount() const;
-        GetEntryCount() const;
-        GetMaxEntryIndex() const;
-        GetModeGame() const;
+        uint GetGroupCount() const;
+        int GetEntryCount() const;
+        uint GetMaxEntryIndex() const;
+        ModeGame* GetModeGame() const;
         Js5ConfigGroup* GetConfigGroup() const;
-        GetResourceProvider() const;
+        Js5ResourceProvider* GetResourceProvider() const;
         void GetGroup(shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>&, Js5ArchiveSettings const&,
                       unsigned int, Priority const*, bool, bool);
-        GetLanguage() const;
+        Language* GetLanguage() const;
         BaseConfigTypeList(ModeGame const*, Language const*, Js5ResourceProvider&, Js5ArchiveSettings const&,
                            Js5ConfigGroup const*);
         uint GetClientGroupID(int) const;
@@ -29,18 +29,18 @@ namespace jag::game {
         long GetLoadTime() const;
 
         // data members, from how the methods use this: 104 bytes
-        undefined** field_0;            // offset 0, vtable pointer
-        AABB field_8;                   // offset 8
-        ulonglong field_32;             // offset 32
-        undefined8 field_40;            // offset 40
-        ModeGame* field_48;             // offset 48
-        Language* field_56;             // offset 56
-        Js5ResourceProvider* field_64;  // offset 64
-        Js5ArchiveSettings* field_72;   // offset 72
-        Js5ConfigGroup* m_pConfigGroup; // offset 80
-        int field_88;                   // offset 88
-        uint field_92;                  // offset 92
-        uint field_96;                  // offset 96
+        undefined** field_0;                      // offset 0, vtable pointer
+        AABB field_8;                             // offset 8
+        ulonglong field_32;                       // offset 32
+        undefined8 field_40;                      // offset 40
+        ModeGame* m_pModeGame;                    // offset 48
+        Language* m_pLanguage;                    // offset 56
+        Js5ResourceProvider* m_pResourceProvider; // offset 64
+        Js5ArchiveSettings* field_72;             // offset 72
+        Js5ConfigGroup* m_pConfigGroup;           // offset 80
+        int m_entryCount;                         // offset 88
+        uint m_maxEntryIndex;                     // offset 92
+        uint m_groupCount;                        // offset 96
         char _unknown_100[4];
     };
 
@@ -51,8 +51,8 @@ namespace jag::game {
 
     class Js5ConfigGroup {
     public:
-        GetGroupBitSize() const;
-        GetGroupID() const;
+        uint GetGroupBitSize() const;
+        int GetGroupID() const;
         Js5ConfigGroup(unsigned int, unsigned int);
         Js5ConfigGroup const* GetConfigGroup<MapElementType>();
         Js5ConfigGroup const* GetConfigGroup<MSIType>();
@@ -135,8 +135,9 @@ namespace jag::game {
         static Js5ConfigGroup /* 688 bytes */ enumArray[86];           // initialised in its definition
 
         // data members, from how the methods use this: 12 bytes
-        int field_0; // offset 0
-        char _unknown_4[8];
+        int m_groupID;       // offset 0
+        uint m_groupBitSize; // offset 4
+        char _unknown_8[4];
     };
 
     // 0x1003d48d0, 16 bytes, inline, placed by class name
@@ -265,7 +266,7 @@ namespace jag::game {
     // 0x10056a050, 16 bytes, inline, placed by debug map only (low confidence)
     // BaseConfigTypeList::GetProgressTarget() const
     int BaseConfigTypeList::GetProgressTarget() {
-        return field_96 + field_88;
+        return m_groupCount + m_entryCount;
     }
 
     // 0x10056a060, 32 bytes, inline, placed by debug map only (low confidence)

@@ -24,13 +24,13 @@ namespace jag::graphics {
         GetLightViewTransforms() const;
         GetCasterCullFrustum() const;
         GetLightOrthProjMin() const;
-        GetCascadeID() const;
+        int GetCascadeID() const;
         void SetFrustum(ViewTransforms const&, float, float, math::Matrix44T<float> const&);
         void SetCanRender(bool);
         GetFrustumWorldBoundingSphere() const;
         void SetShadowMapViewport(render::Viewport const&);
         ShadowMapCascade(int, DirLightCsmManager*, render::RenderTargetsManager*, ThreadPool*);
-        GetClearViewport() const;
+        bool GetClearViewport() const;
         void UpdateLightViewMatrices(DrawableQueue const&);
         void GetDrawablesCasterReceiverAABB(float&, math::AABB&, math::AABB&, math::Vector4T<float> const&,
                                             DrawableQueue const&);
@@ -51,7 +51,7 @@ namespace jag::graphics {
         char _unknown_779[5];
         RenderTargetsManager* field_784; // offset 784
         char _unknown_792[4];
-        int field_796;                 // offset 796
+        int m_cascadeID;               // offset 796
         DirLightCsmManager* field_800; // offset 800
         float field_808;               // offset 808
         float field_812;               // offset 812

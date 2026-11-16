@@ -9,8 +9,8 @@ namespace jag::ui {
     public:
         class UpdateResult;
         IsMouseOver() const;
-        GetTrigger() const;
-        IsToggled() const;
+        int GetTrigger() const;
+        bool IsToggled() const;
         void Draw(graphics::RT7Core&, int, int, unsigned short, unsigned short, unsigned int, bool,
                   render::Texture const*, math::Rect<float> const&, SpriteData const&, bool);
         GetVisualUV(math::Rect<float> const&, VisualState) const;
@@ -29,7 +29,7 @@ namespace jag::ui {
 
         // data members, from how the methods use this: 32 bytes
         int field_0;            // offset 0
-        int field_4;            // offset 4
+        int m_trigger;          // offset 4
         undefined1 field_8;     // offset 8
         undefined1 m_mouseOver; // offset 9
         undefined1 m_pressed;   // offset 10
@@ -85,7 +85,7 @@ namespace jag::ui {
     // ButtonElement::ButtonElement(ButtonElement::Behaviour, ButtonElement::Trigger)
     void ButtonElement::ButtonElement(int param_2, int param_3) {
         field_0 = param_2;
-        field_4 = param_3;
+        m_trigger = param_3;
         field_8 = 0;
         m_mouseOver = 0;
         m_pressed = 0;

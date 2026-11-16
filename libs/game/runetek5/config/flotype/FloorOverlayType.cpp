@@ -10,10 +10,10 @@ namespace jag::game {
     FloorOverlayType::HasSmoothEdges() const;
 
     // 0x100061e30: the linker folded this into render::RenderStats::GetTriangleCount() const, which has identical code
-    FloorOverlayType::GetMaterialID() const;
+    uint FloorOverlayType::GetMaterialID() const;
 
     // 0x10012dc00: the linker folded this into oldscape::graphics::NXTPixScreen::GetViewportX(), which has identical code
-    FloorOverlayType::GetPriority() const;
+    uint FloorOverlayType::GetPriority() const;
 
     // 0x1001be5d0: the linker folded this into graphics::SunlightOptions::GetShadowQuality() const, which has identical code
     FloorOverlayType::GetRGBA() const;
@@ -35,11 +35,11 @@ namespace jag::game {
             if (uVar5 != 16711935) {
                 uVar4 = ColourFudge((FloorOverlayType*)param_1, uVar5);
             }
-            field_56 = uVar4;
+            m_rGBA = uVar4;
             break;
         case 2:
             bVar1 = param_1->g1();
-            field_60 = (uint)bVar1;
+            m_materialID = (uint)bVar1;
             break;
         case 3:
             uVar3 = param_1->g2();
@@ -47,7 +47,7 @@ namespace jag::game {
             if (uVar3 != 65535) {
                 uVar5 = (uint)uVar3;
             }
-            field_60 = uVar5;
+            m_materialID = uVar5;
             break;
         default:
             uVar6 = logger::default_logger();
@@ -76,10 +76,10 @@ namespace jag::game {
             break;
         case 11:
             bVar1 = param_1->g1();
-            field_72 = (uint)bVar1;
+            m_priority = (uint)bVar1;
             break;
         case 12:
-            field_76 = 1;
+            m_hasSmoothEdges = 1;
             break;
         case 13:
             uVar4 = param_1->g3();
@@ -127,6 +127,6 @@ namespace jag::game {
     void FloorOverlayType::PostDecode() {}
 
     // 0x10062b9c0: the linker folded this into FloorUnderlayType::GetTextureScale() const, which has identical code
-    FloorOverlayType::GetTextureScale() const;
+    float FloorOverlayType::GetTextureScale() const;
 
 } // namespace jag::game

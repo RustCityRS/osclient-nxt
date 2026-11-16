@@ -8,33 +8,33 @@
 namespace jag::oldscape::rs2lib {
     class CoordZoneSource {
     public:
-        GetLevel() const;
-        GetZoneZ() const;
-        GetZoneX() const;
+        uint GetLevel() const;
+        uint GetZoneZ() const;
+        uint GetZoneX() const;
         void SetFromPackedCode(int);
         Unset();
         bool IsSet() const;
         int GetMapSquareZ() const;
-        GetRotation() const;
+        uint GetRotation() const;
         CoordZoneSource();
         int GetMapSquareX() const;
 
         // data members, from how the methods use this: 20 bytes
-        uint field_0;  // offset 0
-        uint field_4;  // offset 4
-        uint field_8;  // offset 8
-        uint field_12; // offset 12
+        uint m_zoneX;    // offset 0
+        uint m_zoneZ;    // offset 4
+        uint m_level;    // offset 8
+        uint m_rotation; // offset 12
         char _unknown_16[4];
     };
 
     // 0x100024170: the linker folded this into option::IScriptOption::GetId() const, which has identical code
-    CoordZoneSource::GetLevel() const;
+    uint CoordZoneSource::GetLevel() const;
 
     // 0x100073980: the linker folded this into jag::math::Rect<int>::MinY() const, which has identical code
-    CoordZoneSource::GetZoneZ() const;
+    uint CoordZoneSource::GetZoneZ() const;
 
     // 0x1000b9960: the linker folded this into ScriptVarType::GetID() const, which has identical code
-    CoordZoneSource::GetZoneX() const;
+    uint CoordZoneSource::GetZoneX() const;
 
     // 0x1000e5aa0, 112 bytes, inline, placed by class name and debug map
     // CoordZoneSource::SetFromPackedCode(int)
@@ -44,10 +44,10 @@ namespace jag::oldscape::rs2lib {
 
         bVar1 = false;
         if (param_1 != -1) {
-            field_0 = (uint)param_1 >> 14 & 1023;
-            field_4 = (uint)param_1 >> 3 & 2047;
-            field_8 = (uint)param_1 >> 24 & 3;
-            field_12 = (uint)param_1 >> 1 & 3;
+            m_zoneX = (uint)param_1 >> 14 & 1023;
+            m_zoneZ = (uint)param_1 >> 3 & 2047;
+            m_level = (uint)param_1 >> 24 & 3;
+            m_rotation = (uint)param_1 >> 1 & 3;
             iVar2 = GetMapSquareX(this);
             if (99 < iVar2)
                 goto LAB_1000e5afe;
@@ -76,10 +76,10 @@ namespace jag::oldscape::rs2lib {
     // 0x1000e5b20, 48 bytes, inline, placed by class name and debug map
     // CoordZoneSource::IsSet() const
     bool CoordZoneSource::IsSet() {
-        if (((field_0 == 4294967295) || (field_4 == 4294967295)) || (field_8 == 4294967295)) {
+        if (((m_zoneX == 4294967295) || (m_zoneZ == 4294967295)) || (m_level == 4294967295)) {
             return false;
         }
-        return field_12 != 4294967295;
+        return m_rotation != 4294967295;
     }
 
     // 0x1000e5cf0: the linker folded this into CoordGrid::GetZoneX() const, which has identical code
@@ -109,7 +109,7 @@ namespace jag::oldscape::rs2lib {
     // 0x10012d980, 16 bytes, inline, placed by class name
     // CoordZoneSource::GetMapSquareX() const
     int CoordZoneSource::GetMapSquareX() {
-        return (int)field_0 >> 3;
+        return (int)m_zoneX >> 3;
     }
 
 } // namespace jag::oldscape::rs2lib

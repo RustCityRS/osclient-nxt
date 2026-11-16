@@ -54,7 +54,7 @@ namespace jag::game {
         lVar2 = (&field_80)->HeapBeginPtr();
         lVar3 = (&field_80)->end();
         local_70 = &m_playbackStart;
-        local_60 = &field_76;
+        local_60 = &m_playbackEnd;
         local_58 = this;
         if (lVar2 != lVar3) {
             lVar2 = lVar2 + 80;
@@ -277,7 +277,7 @@ namespace jag::game {
                     lVar8 = eastl::reverse_iterator<Cutscene2DAudioElement_const*>::operator->(
                         (reverse_iterator<Cutscene2DAudioElement_const*>*)local_50);
                     this_07 = (SoundInstance*)local_88->GetSound(*(int*)(lVar8 + 72), pSVar11->m_playbackStart,
-                                                                 pSVar11->field_76);
+                                                                 pSVar11->m_playbackEnd);
                     if (this_07 == (SoundInstance*)0) {
                         uVar9 = logger::default_logger();
                         lVar8 = eastl::reverse_iterator<Cutscene2DAudioElement_const*>::operator->(
@@ -377,19 +377,19 @@ namespace jag::game {
                             StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(
                                 (StringView*)((long)register0x00000020 + -312), local_98);
                             uVar4 = param_4->GetPos();
-                            SVar14.field_8._0_4_ = uVar4;
-                            SVar14.field_0 = (ulong)((long)register0x00000020 + -312);
-                            SVar14.field_8._4_4_ = 0;
-                            uVar11 = graphics::FontHelpers::PredictHeightAndLines(SVar14, (uint)&local_118,
+                            SVar13.field_8._0_4_ = uVar4;
+                            SVar13.field_0 = (ulong)((long)register0x00000020 + -312);
+                            SVar13.field_8._4_4_ = 0;
+                            uVar11 = graphics::FontHelpers::PredictHeightAndLines(SVar13, (uint)&local_118,
                                                                                   (TextProperties*)param_3);
                             iVar3 = param_4->MaxZ();
                             StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_128,
                                                                                                           local_98);
                             uVar4 = param_4->GetPos();
-                            SVar15.field_8._0_4_ = uVar4;
-                            SVar15.field_0 = (ulong)&local_128;
-                            SVar15.field_8._4_4_ = 0;
-                            iVar5 = graphics::FontHelpers::PredictWidthMultiLine(SVar15, (int)&local_118,
+                            SVar14.field_8._0_4_ = uVar4;
+                            SVar14.field_0 = (ulong)&local_128;
+                            SVar14.field_8._4_4_ = 0;
+                            iVar5 = graphics::FontHelpers::PredictWidthMultiLine(SVar14, (int)&local_118,
                                                                                  (TextProperties*)param_3);
                             iVar3 = iVar3 - (int)uVar11;
                             local_c8 = uVar11;
@@ -406,10 +406,10 @@ namespace jag::game {
                             iVar6 = this_00->MaxZ();
                             in_stack_fffffffffffffeb8 = 0;
                             param_3 = (FontHelpers*)((ulong)local_98 & 4294967295);
-                            SVar13.field_8._0_4_ = uVar8;
-                            SVar13.field_0 = (ulong)&local_f0;
-                            SVar13.field_8._4_4_ = 0;
-                            local_b8->DrawStringMultiline(SVar13, (int)local_98, iVar5, iVar6 - iVar3, 0,
+                            SVar15.field_8._0_4_ = uVar8;
+                            SVar15.field_0 = (ulong)&local_f0;
+                            SVar15.field_8._4_4_ = 0;
+                            local_b8->DrawStringMultiline(SVar15, (int)local_98, iVar5, iVar6 - iVar3, 0,
                                                           (uint*)&local_118, in_stack_fffffffffffffec8);
                             param_4 = (Rect*)local_a8;
                         }
@@ -436,7 +436,7 @@ namespace jag::game {
         fVar1 = (float)param_1->gFloat();
         m_playbackStart = fVar1;
         fVar1 = (float)param_1->gFloat();
-        field_76 = fVar1;
+        m_playbackEnd = fVar1;
         helpers::LoadCutscene2DElementsFromPacket<
             eastl::fixed_vector<Cutscene2DImageElement, 1ul, true, eastl::allocator>>((fixed_vector*)&field_80, param_1,
                                                                                       param_2);
@@ -736,7 +736,7 @@ namespace jag::game {
                 local_30 = (float)this_00->GetDefaultNonMetalSpecular();
                 pfVar2 = std::max<float>(&local_2c, &local_30);
                 local_2c = *pfVar2;
-                this_00 = (Material*)&this_00[3].field_8;
+                this_00 = (Material*)&this_00[3].m_size;
             } while (this_00 != pMVar1);
         }
         return local_2c;

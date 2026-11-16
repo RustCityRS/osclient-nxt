@@ -34,10 +34,10 @@ namespace jag::game {
     };
 
     // 0x1000b7680: the linker folded this into oldscape::LocInfo::GetLevel() const, which has identical code
-    LocData::GetShape() const;
+    byte LocData::GetShape() const;
 
     // 0x1000b7690: the linker folded this into oldscape::LocInfo::GetX() const, which has identical code
-    LocData::GetRot() const;
+    byte LocData::GetRot() const;
 
     // 0x10014e180: the linker folded this into math::Vector2T<float>::y() const, which has identical code
     LocData::GetTransform() const;

@@ -10,7 +10,7 @@ namespace jag::graphics {
     // TerrainOverlayShape::TerrainOverlayShape(TerrainOverlayShapeType)
     void TerrainOverlayShape::TerrainOverlayShape(undefined1 param_2) {
         field_0 = &PTR__TerrainOverlayShape_100f14680;
-        field_8 = param_2;
+        m_iD = param_2;
         new (&field_16) eastl::vector<TerrainVertex, eastl::allocator>();
     }
 

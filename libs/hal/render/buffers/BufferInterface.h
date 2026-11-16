@@ -8,10 +8,10 @@
 namespace jag::render {
     class BufferInterface {
     public:
-        GetSizeInBytes() const;
-        GetPhysicalSizeInBytes() const;
+        uint GetSizeInBytes() const;
+        uint GetPhysicalSizeInBytes() const;
         bool IsCreated() const;
-        GetCreationFlags() const;
+        byte GetCreationFlags() const;
         byte IsPermanent() const;
         void IsMapped() const;
         byte IsDynamic() const;
@@ -46,34 +46,34 @@ namespace jag::render {
         char _unknown_5[3];
         uint m_nativeBuffer; // offset 8
         char _unknown_12[4];
-        long field_16;       // offset 16
-        int field_24;        // offset 24
-        uint field_28;       // offset 28
-        int field_32;        // offset 32
-        uint field_36;       // offset 36
-        uint field_40;       // offset 40
-        byte field_44;       // offset 44
-        undefined3 field_45; // offset 45
+        long field_16;              // offset 16
+        int field_24;               // offset 24
+        uint field_28;              // offset 28
+        int field_32;               // offset 32
+        uint m_sizeInBytes;         // offset 36
+        uint m_physicalSizeInBytes; // offset 40
+        byte m_creationFlags;       // offset 44
+        undefined3 field_45;        // offset 45
         char _unknown_48[8];
         RadialHighlightState field_56; // offset 56
     };
 
     // 0x1000fa840: the linker folded this into oldscape::graphics::NXTPixScreen::GetHeight() const, which has identical code
-    BufferInterface::GetSizeInBytes() const;
+    uint BufferInterface::GetSizeInBytes() const;
 
     // 0x100293ee0: the linker folded this into hal::audio::AudioRenderer::GetState() const, which has identical code
-    BufferInterface::GetPhysicalSizeInBytes() const;
+    uint BufferInterface::GetPhysicalSizeInBytes() const;
 
     // 0x100815450: the linker folded this into QueryView::IsValid() const, which has identical code
     BufferInterface::IsCreated() const;
 
     // 0x10082a9b0: the linker folded this into graphics::ModularParticleSystemTemplate::GetRenderPassBits() const, which has identical code
-    BufferInterface::GetCreationFlags() const;
+    byte BufferInterface::GetCreationFlags() const;
 
     // 0x100c0d970, 16 bytes, inline, placed by class name and debug map
     // BufferInterface::IsPermanent() const
     byte BufferInterface::IsPermanent() {
-        return (field_44 & 4) >> 2;
+        return (m_creationFlags & 4) >> 2;
     }
 
     // 0x100c0dc50, 16 bytes, inline, placed by class name and debug map
@@ -85,13 +85,13 @@ namespace jag::render {
     // 0x100c0dc70, 16 bytes, inline, placed by class name and debug map
     // BufferInterface::IsDynamic() const
     byte BufferInterface::IsDynamic() {
-        return field_44 & 1;
+        return m_creationFlags & 1;
     }
 
     // 0x100c149b0, 16 bytes, inline, placed by class name
     // BufferInterface::ForceNoRecycling()
     void BufferInterface::ForceNoRecycling() {
-        field_44 = field_44 | 16;
+        m_creationFlags = m_creationFlags | 16;
     }
 
     // 0x100c149e0, 48 bytes, base-object destructor, inline, placed by class name

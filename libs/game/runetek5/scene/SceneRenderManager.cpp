@@ -769,11 +769,11 @@ namespace jag::game {
         bVar23 = (bool)(bVar24 | m_debugRender != '\0');
         local_390 = this;
         if (bVar2 == false) {
-            local_3a8.field_0 = 0;
+            local_3a8.m_stackFrames = 0;
             new (&local_3a8) callstack::Callstack();
             this_03->RenderView(local_3b0, local_2d8, local_388, param_6, bVar23, (RenderPassBitSet*)&local_3a8);
         } else {
-            local_3a8.field_0 = 0;
+            local_3a8.m_stackFrames = 0;
             new (&local_3a8) callstack::Callstack();
             this_03->RenderView(local_2d8, param_6, bVar23, (RenderPassBitSet*)&local_3a8);
         }
@@ -787,7 +787,7 @@ namespace jag::game {
                 pRVar16 = (RenderPass*)pSVar27->field_8->GetObjectHighlightPass();
                 local_2d8->RenderPassPushBack(pRVar16);
                 bVar2 = m_debugRender != '\0';
-                local_3a8.field_0 = 0;
+                local_3a8.m_stackFrames = 0;
                 new (&local_3a8) callstack::Callstack();
                 this_03->RenderView(local_3b0, local_2d8, local_388, param_6, (bool)(bVar2 | bVar24),
                                     (RenderPassBitSet*)&local_3a8);
@@ -1052,7 +1052,7 @@ namespace jag::game {
                         local_60 = (vector<eastl::vector<MapSquareStatus, eastl::allocator>, eastl::allocator>*)
                                        pWVar2->GetMapSquares();
                         if (iVar9 <= local_3c) {
-                            local_98 = (Frustum*)&local_58->field_208;
+                            local_98 = (Frustum*)local_58->m_pViewFrustum;
                             local_40 = (float)((int)local_90 + 1);
                             local_3c = local_3c + 1;
                             do {
@@ -1180,10 +1180,8 @@ namespace jag::game {
         undefined1 local_78[24];
         vector<math::Sphere, eastl::allocator>* local_60;
         hashtable_iterator_base local_48[8];
-        SceneViewData* local_40;
         eastl local_38[8];
 
-        local_40 = param_2;
         (&field_13120)->clear();
         eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
         this_01 = (PointLightShadows*)graphics::EffectManager::GetEffect<graphics::SunlightDirectLighting>(param_1);
@@ -1200,7 +1198,7 @@ namespace jag::game {
         local_48 = auVar8._0_8_;
         bVar1 = eastl::operator!=(local_38, local_48, auVar8._8_8_);
         if (bVar1) {
-            local_78._16_8_ = &local_40->field_208;
+            local_78._16_8_ = param_2->m_pViewFrustum;
             do {
                 lVar4 = eastl::rbtree_iterator<
                     eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
@@ -1233,7 +1231,7 @@ namespace jag::game {
                             pLVar6 =
                                 (LightSource*)shared_ptr<LightSource>::operator->((shared_ptr<LightSource>*)this_04);
                             pLVar6->SetVisibleLastFrame(true);
-                            AddShadowCastingPointLight((SceneRenderManager*)this, local_40, *(float*)(pvVar3 + 24),
+                            AddShadowCastingPointLight((SceneRenderManager*)this, param_2, *(float*)(pvVar3 + 24),
                                                        *(float*)(pvVar3 + 20), this_04, (Sphere*)local_78);
                         }
                     }
@@ -1466,7 +1464,7 @@ namespace jag::game {
         this_04 = (SceneManager*)this_02->size();
         cVar4 = this_04->IsSphericalCameraEnabled();
         local_d0 = (ulong)local_98;
-        local_f8 = (Frustum*)(local_b8->field_176 + 32);
+        local_f8 = (Frustum*)(local_b8->m_pix2D + 32);
         if (local_90 < (int)local_98) {
             local_d8 = (Terrain*)0;
         } else {

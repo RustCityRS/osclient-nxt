@@ -20,10 +20,10 @@ namespace jag::ui {
     // RadioGroup::RadioGroup()
     void RadioGroup::RadioGroup() {
         new (this) Component();
-        new (field_392) ComponentMultiValueMixin();
+        new (m_valueRepresentation) ComponentMultiValueMixin();
         new (this) MakeSharedPool<RadioGroup, 32>();
         *(undefined***)this = &PTR__RadioGroup_100f0f9e8;
-        *(undefined***)field_392 = &PTR__RadioGroup_100f0fb08;
+        *(undefined***)m_valueRepresentation = &PTR__RadioGroup_100f0fb08;
         new (&field_400)
             eastl::vector_map<int, RadioGroup::OptionData, eastl::less<int>, BucketAllocatorEASTL,
                               eastl::vector<eastl::pair<int, RadioGroup::OptionData>, BucketAllocatorEASTL>>();
@@ -502,7 +502,7 @@ namespace jag::ui {
                                 pCVar19 = local_60;
                                 local_58 = *(RT7Core**)local_60;
                                 StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(
-                                    &local_110, (fixed_string*)&this_09[-1].field_4);
+                                    &local_110, (fixed_string*)&this_09[-1].m_trigger);
                                 SVar22.field_8._0_4_ = iVar21 + local_78;
                                 SVar22.field_0 = (ulong)&local_110;
                                 SVar22.field_8._4_4_ = 0;
@@ -1193,7 +1193,7 @@ namespace jag::ui {
     }
 
     // 0x1006acf00: the linker folded this into Button::GetValueRepresentation(), which has identical code
-    RadioGroup::GetValueRepresentation();
+    ComponentMultiValueMixin RadioGroup::GetValueRepresentation();
 
 } // namespace jag::ui
 

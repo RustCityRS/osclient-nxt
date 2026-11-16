@@ -1710,7 +1710,7 @@ namespace jag::oldscape::minimenu {
                                 rs2lib::CoordGrid::CoordGrid(local_d0, local_50->m_playerLevel, (int)local_40,
                                                              local_34);
                                 local_a8->WorldCoordFromBuildCoord(pCVar1);
-                                local_d0[0].field_8 = local_a0;
+                                local_d0[0].m_z = local_a0;
                                 local_d0[0]._0_8_ = local_a8;
                                 uVar4 = local_d0->ToBitPacked();
                                 pLVar10 = (Layout*)std::array<

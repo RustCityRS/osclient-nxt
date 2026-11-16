@@ -10,13 +10,13 @@ namespace jag::game {
     shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> HeadbarType::NullHeadbarType;
 
     // 0x100061e30: the linker folded this into render::RenderStats::GetTriangleCount() const, which has identical code
-    HeadbarType::GetPriority() const;
+    uint HeadbarType::GetPriority() const;
 
     // 0x10016b4a0: the linker folded this into oldscape::rs2lib::worldmap::WorldmapAreaMetadata::GetAdvisedZoom() const, which has identical code
-    HeadbarType::GetStickTime() const;
+    uint HeadbarType::GetStickTime() const;
 
     // 0x1001be5d0: the linker folded this into graphics::SunlightOptions::GetShadowQuality() const, which has identical code
-    HeadbarType::GetDisplayOrder() const;
+    uint HeadbarType::GetDisplayOrder() const;
 
     // 0x100544900, 432 bytes, placed by class name and debug map
     // HeadbarType::DecodeType(PacketT<Array<unsigned char, eastl::allocator> >&, unsigned int)
@@ -33,11 +33,11 @@ namespace jag::game {
             break;
         case 2:
             bVar1 = param_1->g1();
-            field_56 = (uint)bVar1;
+            m_displayOrder = (uint)bVar1;
             break;
         case 3:
             bVar1 = param_1->g1();
-            field_60 = (uint)bVar1;
+            m_priority = (uint)bVar1;
             break;
         case 4:
             field_68 = 0;

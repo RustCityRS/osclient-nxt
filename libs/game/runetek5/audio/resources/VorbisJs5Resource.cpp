@@ -7,10 +7,10 @@
 
 namespace jag {
     // 0x1000fcbb0: the linker folded this into oldscape::ClientObj::GetHighlight(), which has identical code
-    VorbisJs5Resource::GetFormat() const;
+    AudioFormat* VorbisJs5Resource::GetFormat() const;
 
     // 0x100429b10: the linker folded this into game::StaticPointLight::GetRGB() const, which has identical code
-    VorbisJs5Resource::GetID() const;
+    uint VorbisJs5Resource::GetID() const;
 
     // 0x100665d30, 176 bytes, base-object constructor, placed by class name and debug map
     // VorbisJs5Resource::VorbisJs5Resource(hal::audio::AudioAPI*)
@@ -20,9 +20,9 @@ namespace jag {
         field_16 = param_1;
         field_24 = -1;
         make_shared<eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>>((jag*)&field_32);
-        field_48 = (AudioFormat*)hal::audio::AudioFormat::INVALID;
+        m_pFormat = (AudioFormat*)hal::audio::AudioFormat::INVALID;
         m_pData = (void*)0;
-        field_64 = 4294967295;
+        m_iD = 4294967295;
         field_68 = -1;
         field_72 = 0;
         field_80 = (AudioDecoder*)0;
@@ -113,7 +113,7 @@ namespace jag {
     // VorbisJs5Resource::SetData(void*, int, hal::audio::AudioFormat const*)
     void VorbisJs5Resource::SetData(void* param_1, int param_2, AudioFormat* param_3) {
         m_pData = param_1;
-        field_64 = param_2;
+        m_iD = param_2;
         field_24 = 0;
     }
 
@@ -169,7 +169,7 @@ namespace jag {
             }
         } else {
             if (field_24 == 0) {
-                uVar4 = field_64;
+                uVar4 = m_iD;
                 cVar1 = IsValid();
                 if ((cVar1 != '\0') && (0 < field_96)) {
                     pAVar8 = (Array<int, eastl::allocator>*)shared_ptr<Array<int, eastl::allocator>>::operator*(
@@ -198,10 +198,10 @@ namespace jag {
                                 (shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>*)&local_78);
                         cVar1 = IsValid();
                         if (cVar1 == '\0') {
-                            field_48 = (AudioFormat*)hal::audio::AudioFormat::FLOAT;
+                            m_pFormat = (AudioFormat*)hal::audio::AudioFormat::FLOAT;
                             this_00 = &field_88;
                             std::atomic<unsigned int>::operator=((atomic<unsigned int>*)this_00, uVar4);
-                            pAVar18 = (AudioDecoder*)(field_16, field_48)->GetDecoder();
+                            pAVar18 = (AudioDecoder*)(field_16, m_pFormat)->GetDecoder();
                             field_80 = pAVar18;
                             if (pAVar18 == (AudioDecoder*)0) {
                                 local_78.~shared_ptr();
@@ -268,7 +268,7 @@ namespace jag {
                             field_24 = 1;
                             local_a0->~shared_ptr();
                         } else {
-                            field_48 = (AudioFormat*)hal::audio::AudioFormat::VORBIS;
+                            m_pFormat = (AudioFormat*)hal::audio::AudioFormat::VORBIS;
                             if (field_96 == 0) {
                                 cVar1 = this_03->g1();
                                 if (cVar1 != 'J') {

@@ -13,10 +13,10 @@ namespace jag::graphics {
     BillboardRawLoader::Initialise(Js5ResourceProvider*, Js5ArchiveSettings const*);
 
     // 0x100066b70: the linker folded this into oldscape::widgets::Widget::GetTextColour() const, which has identical code
-    BillboardRawLoader::GetBillboardCount() const;
+    int BillboardRawLoader::GetBillboardCount() const;
 
     // 0x1001117e0: the linker folded this into oldscape::jagex3::Js5::GetIndexCrc() const, which has identical code
-    BillboardRawLoader::GetMaxBillboardID() const;
+    uint BillboardRawLoader::GetMaxBillboardID() const;
 
     // 0x10097b1b0, 544 bytes, placed by class name and debug map
     // BillboardRawLoader::MainLogic()
@@ -59,12 +59,12 @@ namespace jag::graphics {
                                   "runetek5/BillboardRawLoader.cpp",
                                   26, (char*)0);
                     }
-                    field_16 = 0;
+                    m_billboardCount = 0;
                     uVar2 = local_38->GetMaximumFileID(0);
-                    field_20 = uVar2;
+                    m_maxBillboardID = uVar2;
                     psVar4 = (shared_ptr*)(ulong)(uVar2 + 1);
                     local_40->set_max_size((ulong)psVar4, 0);
-                    if (field_20 != 0) {
+                    if (m_maxBillboardID != 0) {
                         uVar5 = 0;
                         do {
                             new (&local_50) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(psVar4);
@@ -86,12 +86,12 @@ namespace jag::graphics {
                                     (shared_ptr*)shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator*(
                                         (shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>*)&local_50);
                                 this_00->Decode(psVar4);
-                                field_16 = field_16 + 1;
+                                m_billboardCount = m_billboardCount + 1;
                             }
                             local_50.~shared_ptr();
                             uVar5 = uVar5 + 1;
                             pBVar6 = this;
-                        } while (uVar5 < field_20);
+                        } while (uVar5 < m_maxBillboardID);
                     }
                     pBVar6 = (BillboardRawLoader*)CONCAT71((int7)((ulong)pBVar6 >> 8), 1);
                 }
@@ -103,8 +103,8 @@ namespace jag::graphics {
     // 0x10097b5b0, 32 bytes, placed by class name and debug map
     // BillboardRawLoader::Destruct()
     void BillboardRawLoader::Destruct() {
-        field_16 = 0;
-        field_20 = 0;
+        m_billboardCount = 0;
+        m_maxBillboardID = 0;
         (&field_24)->clear();
     }
 

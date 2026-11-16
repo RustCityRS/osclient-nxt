@@ -44,13 +44,13 @@ namespace jag::graphics {
     };
 
     // 0x100009720: the linker folded this into BaseApp::GetExitCode(), which has identical code
-    ScaleManager::GetTmpDPI() const;
+    int ScaleManager::GetTmpDPI() const;
 
     // 0x1000fa820: the linker folded this into oldscape::graphics::NXTPixScreen::GetClampedZoomValue() const, which has identical code
-    ScaleManager::GetSubScaleFactor() const;
+    float ScaleManager::GetSubScaleFactor() const;
 
     // 0x10048fca0: the linker folded this into game::EnvLightingSettings::GetSunlightShadowStrength() const, which has identical code
-    ScaleManager::GetGameScale();
+    float ScaleManager::GetGameScale();
 
     // 0x1008f36c0, 160 bytes, base-object constructor, placed by class name and debug map
     // ScaleManager::ScaleManager(RT7Core&)
@@ -73,7 +73,7 @@ namespace jag::graphics {
         field_76 = 1.0;
         field_80 = 1.0;
         field_84 = 1.0;
-        field_88 = field_16;
+        m_subScaleFactor = field_16;
         m_interfaceDPIOverride = 0;
         m_tmpDPI = 0;
         UpdateInterfaceScaleFactors(this);
@@ -124,8 +124,8 @@ namespace jag::graphics {
         if (fVar11 < fVar12) {
             fVar11 = fVar12 / fVar11;
         }
-        fVar1 = field_88;
-        field_88 = fVar11;
+        fVar1 = m_subScaleFactor;
+        m_subScaleFactor = fVar11;
         this_00 = &field_48;
         piVar9 = (int*)this_00->second();
         if (*piVar9 == 0) {
@@ -148,7 +148,7 @@ namespace jag::graphics {
             field_84 = 1.0 / fVar12;
             field_32 = 1;
         }
-        if (fVar1 != field_88) {
+        if (fVar1 != m_subScaleFactor) {
             field_32 = 1;
         }
     }

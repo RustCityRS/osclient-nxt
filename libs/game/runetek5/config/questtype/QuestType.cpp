@@ -7,25 +7,25 @@
 
 namespace jag::game {
     // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    QuestType::MasterQuestVar::GetEndState() const;
+    uint QuestType::MasterQuestVar::GetEndState() const;
 
     // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    QuestType::PrerequisiteVar::GetMax() const;
+    int QuestType::PrerequisiteVar::GetMax() const;
 
     // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    QuestType::MasterQuestVar::GetStartState() const;
+    uint QuestType::MasterQuestVar::GetStartState() const;
 
     // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    QuestType::PrerequisiteVar::GetMin() const;
+    int QuestType::PrerequisiteVar::GetMin() const;
 
     // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
     QuestType::PrerequisiteStat::GetRequirement() const;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    QuestType::MasterQuestVar::GetID() const;
+    uint QuestType::MasterQuestVar::GetID() const;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    QuestType::PrerequisiteVar::GetID() const;
+    int QuestType::PrerequisiteVar::GetID() const;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
     QuestType::PrerequisiteStat::GetID() const;
@@ -49,7 +49,7 @@ namespace jag::game {
     QuestType::PrerequisiteVar::~PrerequisiteVar();
 
     // 0x100159b70: the linker folded this into oldscape::rs2lib::InputField::GetEnterAction() const, which has identical code
-    QuestType::GetQuestPoints() const;
+    uint QuestType::GetQuestPoints() const;
 
     // 0x100396f10: the linker folded this into oldscape::input::InputEvent::InputEvent(), which has identical code
     QuestType::MasterQuestVar::MasterQuestVar();
@@ -171,7 +171,7 @@ namespace jag::game {
         case 9:
             local_f0 = param_1;
             bVar4 = param_1->g1();
-            field_184 = (uint)bVar4;
+            m_questPoints = (uint)bVar4;
             break;
         case 10:
             local_f0 = param_1;

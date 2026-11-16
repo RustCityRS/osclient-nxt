@@ -302,7 +302,7 @@ namespace jag::graphics {
                               eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const&,
             AnimationLabelType) const;
         virtual void UpdateFromCurrentTime(Array<LabelData, eastl::allocator> const&, math::Matrix44T<float> const&);
-        virtual GetAnimatesTransparency() const;
+        virtual byte GetAnimatesTransparency() const;
         virtual GetAnimatedColourType() const;
         void InvalidateSampled();
         AnimationState(unsigned int);
@@ -347,7 +347,7 @@ namespace jag::graphics {
         uint field_8;        // offset 8
         undefined1 field_12; // offset 12
         char _unknown_13[11];
-        undefined1 field_24;             // offset 24
+        byte m_animatesTransparency;     // offset 24
         undefined1 m_animatedColourType; // offset 25
         char _unknown_26[296];
         undefined2 field_322; // offset 322

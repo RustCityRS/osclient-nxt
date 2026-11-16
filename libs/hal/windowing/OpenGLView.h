@@ -11,8 +11,8 @@ namespace jag {
         // virtual methods in vtable order
         virtual ~OpenGLView();
         GetParentWindow();
-        GetInputHAL();
-        GetCursorHotspot() const;
+        Input* GetInputHAL();
+        double GetCursorHotspot() const;
         GetCursorMutex() const;
         bool HasFixedModeSetting() const;
         void GetCursorImage() const;
@@ -40,7 +40,7 @@ namespace jag {
         // data members, from how the methods use this: 320 bytes
         undefined** field_0; // offset 0, vtable pointer
         Window* field_8;     // offset 8
-        Input* field_16;     // offset 16
+        Input* m_inputHAL;   // offset 16
         char _unknown_24[4];
         float m_mainRenderTargetScaleFactor; // offset 28
         uint m_fullScreenResolution;         // offset 32
@@ -48,7 +48,7 @@ namespace jag {
         int field_40;                        // offset 40
         int field_44;                        // offset 44
         undefined8 field_48;                 // offset 48
-        double field_56;                     // offset 56
+        double m_cursorHotspot;              // offset 56
         double field_64;                     // offset 64
         char _unknown_72[88];
         undefined8 field_160; // offset 160
@@ -79,10 +79,10 @@ namespace jag {
     OpenGLView::GetParentWindow();
 
     // 0x100023f30: the linker folded this into oldscape::option::IOption::GetName() const, which has identical code
-    OpenGLView::GetInputHAL();
+    Input* OpenGLView::GetInputHAL();
 
     // 0x1000b7910: the linker folded this into oldscape::minimenu::MinimenuEntry::GetSubjectName() const, which has identical code
-    OpenGLView::GetCursorHotspot() const;
+    double OpenGLView::GetCursorHotspot() const;
 
     // 0x1001cd990: the linker folded this into graphics::PointLightIndicesEffect::GetVisiblePointLights(), which has identical code
     OpenGLView::GetCursorMutex() const;
@@ -118,7 +118,7 @@ namespace jag {
     OpenGLView::SetMainRenderTargetScaleFactor(float);
 
     // 0x10048fce0: the linker folded this into game::EnvLightingSettings::GetSpecularHorzOcclusionScale() const, which has identical code
-    OpenGLView::GetMainRenderTargetScaleFactor() const;
+    float OpenGLView::GetMainRenderTargetScaleFactor() const;
 
     // 0x100679700: the linker folded this into ui::SwipeState::SetSwipeMovement(int, int), which has identical code
     OpenGLView::SetFullScreenResolution(unsigned int, unsigned int);

@@ -40,14 +40,14 @@ namespace jag {
         FacingController* local_40;
         EntityStandardRoute* local_38;
 
-        fVar4 = param_2->field_12;
+        fVar4 = param_2->m_turnSpeedMultiplier;
         RouteMovement::RouteMovement(*(RouteMovement**)((long)&param_2->field_0 + 4), fVar4, 0, this, 0,
                                      MoveSpeed::STATIONARY);
         if ((&param_1->field_8)->GetAuthWrapper() == 0) {
             return this;
         }
         pVVar6 = (Vector3T*)((long)&param_2->field_0 + 4);
-        local_48 = param_2->field_12;
+        local_48 = param_2->m_turnSpeedMultiplier;
         local_50 = *(undefined8*)pVVar6;
         local_40 = (FacingController*)CONCAT44(in_register_0000000c, param_3);
         this_00 = (NXTPixToolkit*)param_1->GetFirstWaypoint();

@@ -13,19 +13,19 @@ namespace jag::graphicutils {
     TextureAtlasSlotPacker::GetAtlasQuality() const;
 
     // 0x1000fa840: the linker folded this into oldscape::graphics::NXTPixScreen::GetHeight() const, which has identical code
-    TextureAtlasSlotPacker::GetAtlasSlotCount() const;
+    int TextureAtlasSlotPacker::GetAtlasSlotCount() const;
 
     // 0x1000fcbb0: the linker folded this into oldscape::ClientObj::GetHighlight(), which has identical code
-    TextureAtlasSlotPacker::GetAtlasUsage() const;
+    TextureAtlasUsage* TextureAtlasSlotPacker::GetAtlasUsage() const;
 
     // 0x100293ee0: the linker folded this into hal::audio::AudioRenderer::GetState() const, which has identical code
-    TextureAtlasSlotPacker::GetTotalSlots() const;
+    int TextureAtlasSlotPacker::GetTotalSlots() const;
 
     // 0x1003fab80: the linker folded this into game::WaterType::OverrideDefaultWaterType() const, which has identical code
     TextureAtlasSlotPacker::UseCompressedTextures() const;
 
     // 0x10082a9b0: the linker folded this into graphics::ModularParticleSystemTemplate::GetRenderPassBits() const, which has identical code
-    TextureAtlasSlotPacker::GetAtlasPixelResolution() const;
+    uint TextureAtlasSlotPacker::GetAtlasPixelResolution() const;
 
     // 0x100bbc6d0, 192 bytes, base-object constructor, placed by class name and debug map
     // TextureAtlasSlotPacker::SlotUsageBitmap::SlotUsageBitmap(unsigned int)
@@ -323,19 +323,19 @@ namespace jag::graphicutils {
         *(short*)&field_6 = (short)((ulong)uVar2 >> 48);
         field_8 = uVar3;
         iVar1 = *(int*)(param_1 + 4);
-        field_36 = iVar1;
-        field_40 = iVar1 * iVar1;
-        field_48 = param_2;
+        m_atlasSlotCount = iVar1;
+        m_totalSlots = iVar1 * iVar1;
+        m_pAtlasUsage = param_2;
         field_56 = param_3;
         new (&field_64) eastl::vector<TextureAtlasSlot, eastl::allocator>();
         new (&field_96, *(uint*)(param_1 + 4)) SlotUsageBitmap();
         field_136 = 0;
         field_140 = 0;
         field_144 = 0;
-        uVar5 = *(int*)this * field_36;
-        field_44 = uVar5;
+        uVar5 = *(int*)this * m_atlasSlotCount;
+        m_atlasPixelResolution = uVar5;
         uVar5 = math::RoundUpToPowerOf2(uVar5);
-        field_44 = uVar5;
+        m_atlasPixelResolution = uVar5;
         (&field_64, 512)->reserve();
     }
 
@@ -460,11 +460,11 @@ namespace jag::graphicutils {
             uVar5 = this_00->field_144;
         }
         uVar2 = GetTextureSlotSize(this_00, in_EDX);
-        if (uVar5 < this_00->field_36 - uVar2) {
+        if (uVar5 < this_00->m_atlasSlotCount - uVar2) {
         LAB_100bbd27a:
             do {
                 uVar6 = (uint)uVar8;
-                uVar1 = this_00->field_36;
+                uVar1 = this_00->m_atlasSlotCount;
                 if (uVar6 < uVar1) {
                     uVar4 = (&this_00->field_96, uVar6, uVar5, uVar2)->TestRegion();
                     uVar7 = (uint)(uVar4 >> 32);
@@ -500,7 +500,7 @@ namespace jag::graphicutils {
                     goto LAB_100bbd315;
                 uVar5 = uVar5 + 1;
                 uVar8 = 0;
-            } while (uVar5 < this_00->field_36 - uVar2);
+            } while (uVar5 < this_00->m_atlasSlotCount - uVar2);
         }
         iVar3 = 2;
     LAB_100bbd315:
@@ -554,7 +554,8 @@ namespace jag::graphicutils {
         (&field_96, (uint)(ushort)param_1->field_0, (uint)(ushort)param_1->field_2, uVar2)->MarkBitsUnused();
         if (field_136 == (uint)(ushort)param_1->field_4) {
             uVar1 = param_1->field_2;
-            if (field_36 * (uint)uVar1 + (uint)(ushort)param_1->field_0 < field_36 * field_144 + field_140) {
+            if (m_atlasSlotCount * (uint)uVar1 + (uint)(ushort)param_1->field_0 <
+                m_atlasSlotCount * field_144 + field_140) {
                 field_140 = (uint)(ushort)param_1->field_0;
                 field_144 = (uint)uVar1;
                 return;

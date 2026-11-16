@@ -457,9 +457,9 @@ namespace jag::math {
         field_0 = (float)(int)uVar1;
         field_4 = (float)(int)((ulong)uVar1 >> 32);
         field_12 = 0;
-        field_16 = *(undefined8*)param_2;
+        m_endPoint = *(undefined8*)param_2;
         field_24 = *(undefined4*)(param_2 + 8);
-        field_28 = param_3;
+        m_radius = param_3;
     }
 
     // 0x1007bdcc0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)

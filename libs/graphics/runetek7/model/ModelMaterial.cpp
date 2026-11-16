@@ -28,7 +28,7 @@ namespace jag::graphics {
     // ModelMaterial::DestroyRenderingResources()
     void ModelMaterial::DestroyRenderingResources() {
         DestroyRenderingResources();
-        if (field_552->operator_cast_to_bool()) {
+        if (m_environmentMap->operator_cast_to_bool()) {
             DestroyEnvironmentMap(this);
         }
     }
@@ -104,7 +104,7 @@ namespace jag::graphics {
         bVar2 = (bool)param_1->HasTransparencyCutout();
         SetOption(13, bVar2);
         puVar9 = (undefined*)param_1->GetRenderStateNXT();
-        field_592 = puVar9;
+        m_hideFacesMode = puVar9;
         fVar11 = (float)param_1->GetRefractionAmount();
         fVar12 = (float)param_1->GetRefractionIndex();
         fVar13 = (float)param_1->GetRefractionDepthBias();
@@ -128,7 +128,7 @@ namespace jag::graphics {
         shared_ptr<TextureAtlasReference>::operator=((shared_ptr<TextureAtlasReference>*)field_536,
                                                      (shared_ptr*)param_1->field_536);
         math::Rect<float>::operator=((Rect<float>*)&m_refractionParams, (Rect*)&param_1->m_refractionParams);
-        field_592 = param_1->field_592;
+        m_hideFacesMode = param_1->m_hideFacesMode;
         return this;
     }
 
@@ -314,7 +314,7 @@ namespace jag::graphics {
         shared_ptr<oldscape::RSevenDebugPresetProvider> local_38[16];
 
         iVar2 = GetAliveCount();
-        bVar1 = field_552->operator_cast_to_bool();
+        bVar1 = m_environmentMap->operator_cast_to_bool();
         if (iVar2 < 0) {
             if (bVar1) {
                 DestroyEnvironmentMap(this);
@@ -322,7 +322,7 @@ namespace jag::graphics {
         } else if (!bVar1) {
             bVar1 = (bool)GetAliveCount();
             local_38->GetDefaultTextureCube((int)param_1, bVar1);
-            shared_ptr<render::TextureCube>::operator=((shared_ptr<render::TextureCube>*)field_552,
+            shared_ptr<render::TextureCube>::operator=((shared_ptr<render::TextureCube>*)m_environmentMap,
                                                        (shared_ptr*)local_38);
             local_38->~shared_ptr();
         }
@@ -372,9 +372,9 @@ namespace jag::graphics {
         new (this) RenderMaterial();
         field_0 = &PTR__ModelMaterial_100f157d8;
         new (field_536, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (field_552, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (m_environmentMap, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         new (&m_refractionParams, 0.0, 1.52, 0.0, 64.0) ImVec4();
-        field_592 = HideFacesMode::NEVER;
+        m_hideFacesMode = HideFacesMode::NEVER;
         SetOption(7, true);
     }
 
@@ -388,11 +388,11 @@ namespace jag::graphics {
         shared_ptr<oldscape::RSevenDebugPresetProvider>::shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(
             (shared_ptr<oldscape::RSevenDebugPresetProvider>*)field_536, (shared_ptr*)param_1->field_536);
         shared_ptr<oldscape::RSevenDebugPresetProvider>::shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(
-            (shared_ptr<oldscape::RSevenDebugPresetProvider>*)field_552, (shared_ptr*)param_1->field_552);
+            (shared_ptr<oldscape::RSevenDebugPresetProvider>*)m_environmentMap, (shared_ptr*)param_1->m_environmentMap);
         uVar1 = param_1->field_584;
         m_refractionParams = param_1->m_refractionParams;
         field_584 = uVar1;
-        field_592 = param_1->field_592;
+        m_hideFacesMode = param_1->m_hideFacesMode;
     }
 
     // 0x100821830, 144 bytes, base-object constructor, placed by class name
@@ -403,11 +403,11 @@ namespace jag::graphics {
         new (this) RenderMaterial(param_1);
         field_0 = &PTR__ModelMaterial_100f157d8;
         new (field_536, (shared_ptr*)param_1->field_536) shared_ptr<oldscape::dash3d::Decor>();
-        new (field_552, (shared_ptr*)param_1->field_552) shared_ptr<oldscape::dash3d::Decor>();
+        new (m_environmentMap, (shared_ptr*)param_1->m_environmentMap) shared_ptr<oldscape::dash3d::Decor>();
         uVar1 = param_1->field_584;
         m_refractionParams = param_1->m_refractionParams;
         field_584 = uVar1;
-        field_592 = param_1->field_592;
+        m_hideFacesMode = param_1->m_hideFacesMode;
     }
 
     // 0x1008218c0, 272 bytes, placed by class name
@@ -421,7 +421,7 @@ namespace jag::graphics {
 
         local_28 = *(long*)PTR____stack_chk_guard_100ee9d98;
         if (this_thread::IsMainThread() == '\0') {
-            new (&local_e8) shared_ptr<oldscape::dash3d::Decor>(field_552);
+            new (&local_e8) shared_ptr<oldscape::dash3d::Decor>(m_environmentMap);
             this_00 = (BaseApp*)BaseApp::GetAppInstance();
             shared_ptr<oldscape::dash3d::Decor>::shared_ptr(local_d8, &local_e8);
             fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>::function<

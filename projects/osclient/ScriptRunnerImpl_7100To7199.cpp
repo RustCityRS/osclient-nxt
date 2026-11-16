@@ -100,7 +100,7 @@ namespace jag::oldscape {
             piVar8 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)&param_1->field_100092, uVar13);
             new (&local_50) rs2lib::CoordGrid(*piVar8);
             local_40->BuildCoordFromWorldCoord(this);
-            local_50.field_8 = local_38;
+            local_50.m_z = local_38;
             local_50._0_8_ = local_40;
             cVar2 = ClientConstants::IsCoordInBuildArea(&local_50);
             uVar7 = 0;
@@ -133,7 +133,7 @@ namespace jag::oldscape {
                 (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)puVar1, (long)param_1->field_104092 + 1);
             iVar6 = *piVar8;
             local_40->BuildCoordFromWorldCoord(this);
-            local_50.field_8 = local_38;
+            local_50.m_z = local_38;
             local_50._0_8_ = local_40;
             cVar2 = ClientConstants::IsCoordInBuildArea(&local_50);
             if (cVar2 != '\0') {
@@ -187,7 +187,7 @@ namespace jag::oldscape {
                 (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)puVar1, (long)param_1->field_104092 + 1);
             iVar6 = *piVar8;
             local_40->BuildCoordFromWorldCoord(this);
-            local_50.field_8 = local_38;
+            local_50.m_z = local_38;
             local_50._0_8_ = local_40;
             cVar2 = ClientConstants::IsCoordInBuildArea(&local_50);
             if (cVar2 != '\0') {

@@ -26,13 +26,13 @@ namespace jag::graphics {
     Particle::GetViewDst() const;
 
     // 0x100064240: the linker folded this into SunlightOptions::GetSunIntensity() const, which has identical code
-    Particle::GetSize() const;
+    float Particle::GetSize() const;
 
     // 0x1003f65a0: the linker folded this into EntityRoute::GetStalledTickCount() const, which has identical code
-    Particle::GetRGBA() const;
+    LocData Particle::GetRGBA() const;
 
     // 0x10062b9c0: the linker folded this into game::FloorUnderlayType::GetTextureScale() const, which has identical code
-    Particle::GetRotation2D() const;
+    float Particle::GetRotation2D() const;
 
     // 0x100828760, 96 bytes, placed by debug map only (low confidence)
     // ParticleData::Reserve(unsigned long)
@@ -121,19 +121,19 @@ namespace jag::graphics {
         local_38 = param_6;
         local_34 = param_5;
         new (this) math::Vector3T<int>();
-        field_12 = 0;
+        m_viewDst = 0;
         new (&field_16) math::Vector3T<int>();
         field_28 = param_2;
-        field_32 = param_3;
+        m_size = param_3;
         field_36 = param_4;
         field_40 = local_34;
         field_44 = local_38;
         new (&field_48, 0.0, 0.0, 0.0, 0.0) ImVec4();
-        field_64 = local_3c;
-        this_00 = field_68;
+        m_rotation2D = local_3c;
+        this_00 = m_rGBA;
         new (this_00) math::ColourStorage8888<math::RGBA8StorageLayout>(param_8);
-        *(undefined2*)(field_68 + 4) = 0;
-        field_68[6] = 0;
+        *(undefined2*)(m_rGBA + 4) = 0;
+        m_rGBA[6] = 0;
         lVar3 = param_1->data();
         if (lVar3 == 0) {
             /* WARNING: Subroutine does not return */
@@ -157,13 +157,13 @@ namespace jag::graphics {
         } else {
             bVar2 = *(float*)(lVar3 + 208) != 1.1754944e-38;
         }
-        field_68[4] = bVar2;
+        m_rGBA[4] = bVar2;
         if ((char)local_40 == '\0') {
             bVar2 = false;
         } else {
             bVar2 = *(float*)(lVar3 + 220) != 1.1754944e-38;
         }
-        field_68[5] = bVar2;
+        m_rGBA[5] = bVar2;
     }
 
     // 0x10082c270, 16 bytes, complete-object constructor, placed by class name

@@ -13,7 +13,7 @@ namespace jag::game {
         virtual RunFirst(Js5ResourceProvider*, ConfigProvider*);
         virtual BuildCombinedLocationMain* CreateWorker();
         virtual DecodeResult(shared_ptr<void> const&);
-        virtual GetRequestData();
+        virtual shared_ptr GetRequestData();
         void ResetLocationContainer();
         BuildCombinedLocationMain(graphics::RT7Core&, int, LocationContainer const*,
                                   eastl::vector<LocationContainerLocation, eastl::allocator> const&, int, int, bool);

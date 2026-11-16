@@ -10,8 +10,8 @@ namespace jag::graphics {
         // virtual methods in vtable order
         virtual ~ScaleManager();
         virtual void OnWindowResize(math::Rect<unsigned int> const&);
-        GetTmpDPI() const;
-        GetSubScaleFactor() const;
+        int GetTmpDPI() const;
+        float GetSubScaleFactor() const;
         float GetGameScale();
         void RequestInterfaceScaleOverride(unsigned int);
         ScaleManager(RT7Core&);
@@ -72,7 +72,7 @@ namespace jag::graphics {
         float field_76;             // offset 76
         float field_80;             // offset 80
         float field_84;             // offset 84
-        float field_88;             // offset 88
+        float m_subScaleFactor;     // offset 88
         int m_interfaceDPIOverride; // offset 92
         int m_tmpDPI;               // offset 96
         char _unknown_100[26076];

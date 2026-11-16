@@ -115,8 +115,8 @@ namespace jag::ui {
         char _unknown_353[3];
         undefined4 field_356; // offset 356
         char _unknown_360[32];
-        undefined** field_392; // offset 392
-        undefined** field_400; // offset 400
+        undefined** m_pValueRepresentation; // offset 392
+        undefined** field_400;              // offset 400
         char _unknown_408[16];
         Sprite field_424; // offset 424
         char _unknown_532[36];
@@ -431,7 +431,7 @@ namespace jag::ui {
         NpcUID* in_RSI;
 
         field_0 = &PTR__ComboField_100f0e988;
-        field_392 = &PTR__ComboField_100f0eaf0;
+        m_pValueRepresentation = &PTR__ComboField_100f0eaf0;
         field_400 = &PTR__ComboField_100f0eb28;
         CancelFocus(this);
         (&field_1464)->~fixed_vector();
@@ -447,7 +447,7 @@ namespace jag::ui {
         field_424->~Sprite();
         (&field_408)->~enable_shared_from_this();
         (&field_400)->~AutoSingleton();
-        eastl::destruct<oldscape::highlight::NpcUID*>((eastl*)&field_392, in_RSI, extraout_RDX);
+        eastl::destruct<oldscape::highlight::NpcUID*>((eastl*)&m_pValueRepresentation, in_RSI, extraout_RDX);
         ~Component();
     }
 

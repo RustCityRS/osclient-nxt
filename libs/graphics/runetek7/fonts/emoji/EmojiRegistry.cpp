@@ -23,7 +23,7 @@ namespace jag {
             eastl::vector<eastl::pair<eastl::string, EmojiRegistry::SpriteAndIndex>, eastl::allocator>>();
         new (&field_40) eastl::string();
         field_72 = 2147483647;
-        field_76 = 0;
+        m_autoChatLine = 0;
         reserve(10);
     }
 

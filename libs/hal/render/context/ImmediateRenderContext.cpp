@@ -10,7 +10,7 @@ namespace jag::render {
     ImmediateRenderContext::GetDesc() const;
 
     // 0x100023af0: the linker folded this into hal::Haptics::GetEnabled() const, which has identical code
-    ImmediateRenderContext::IsInsideBeginEnd() const;
+    bool ImmediateRenderContext::IsInsideBeginEnd() const;
 
     // 0x100029c40: the linker folded this into oldscape::javapal::GameShell::GetGraphicsApp(), which has identical code
     ImmediateRenderContext::GetThreadID() const;
@@ -45,7 +45,7 @@ namespace jag::render {
                           25, (char*)0);
             }
         }
-        field_152 = this_thread::GetThreadID();
+        m_threadID = this_thread::GetThreadID();
         SetReadyState(this, 0);
         BackendInit(this, param_1);
         RenderContextDesc::operator=((RenderContextDesc*)&field_8, param_1);
@@ -190,7 +190,7 @@ namespace jag::render {
                       "ImmediateRenderContext.cpp",
                       359, (char*)0);
         }
-        if (field_0 != false) {
+        if (m_insideBeginEnd != false) {
             /* WARNING: Subroutine does not return */
             LogAssert("!m_InsideBeginEnd",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/context/"
@@ -219,13 +219,13 @@ namespace jag::render {
             SetBlendState(this, (BlendState*)(lVar3 + 1524));
         }
         iVar2 = (&field_40)->operator_cast_to_RenderContextReadyState();
-        field_0 = iVar2 == 0;
+        m_insideBeginEnd = iVar2 == 0;
         if (iVar2 == 0) {
             ImVec4::ImVec4(local_28, 0.0, 0.0, 0.0, 0.0);
             pVVar4 = (Vector4T*)GetBackBuffer(this);
             ClearRenderTargets((RenderTargets*)this, pVVar4, (ulong)local_28);
         }
-        return field_0;
+        return m_insideBeginEnd;
     }
 
     // 0x100c16cb0, 176 bytes, placed by class name
@@ -249,7 +249,7 @@ namespace jag::render {
         }
         pRVar3 = (RenderTargets*)&field_40;
         if (pRVar3->operator_cast_to_RenderContextReadyState() == 0) {
-            if (field_0 == false) {
+            if (m_insideBeginEnd == false) {
                 /* WARNING: Subroutine does not return */
                 LogAssert("m_InsideBeginEnd",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/context/"
@@ -260,7 +260,7 @@ namespace jag::render {
             pRVar3 = (RenderTargets*)GetBackBuffer(this);
             SetRenderTargets(this, pRVar3);
         }
-        field_0 = false;
+        m_insideBeginEnd = false;
     }
 
     // 0x100c16e10, 128 bytes, placed by class name
@@ -315,7 +315,7 @@ namespace jag::render {
                       "ImmediateRenderContext.cpp",
                       138, (char*)0);
         }
-        if (field_0 == false) {
+        if (m_insideBeginEnd == false) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_InsideBeginEnd",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/context/"
@@ -388,7 +388,7 @@ namespace jag::render {
                       "ImmediateRenderContext.cpp",
                       190, (char*)0);
         }
-        if (field_0 == false) {
+        if (m_insideBeginEnd == false) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_InsideBeginEnd",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/context/"
@@ -747,7 +747,7 @@ namespace jag::render {
     // ImmediateRenderContext::~ImmediateRenderContext(): jumps straight to the base-object destructor
 
     // 0x100c29360: the linker folded this into ImmediateRenderContext::GetStateCache() const, which has identical code
-    ImmediateRenderContext::GetStateCache();
+    RenderTargets* ImmediateRenderContext::GetStateCache();
 
     // 0x100c51500, 32 bytes, placed by class name
     // ImmediateRenderContext::Init()::$_96::operator()(RenderDeviceCaps const&) const

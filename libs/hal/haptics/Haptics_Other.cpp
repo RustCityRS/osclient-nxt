@@ -10,7 +10,7 @@ namespace jag::hal {
     // Haptics::Haptics()
     void Haptics::Haptics() {
         new (this) AutoSingleton<Haptics>();
-        field_0 = 0;
+        m_enabled = 0;
         field_4 = 0;
     }
 

@@ -7,21 +7,21 @@
 namespace jag::game {
     class WorldMapDefaults {
     public:
-        GetF2POutlineColourRGBA() const;
-        GetF2PLayerColourRGBA() const;
-        GetF2PLayerMapID() const;
-        GetDropShadowColourRGBA() const;
+        uint GetF2POutlineColourRGBA() const;
+        uint GetF2PLayerColourRGBA() const;
+        uint GetF2PLayerMapID() const;
+        uint GetDropShadowColourRGBA() const;
         WorldMapDefaults(PacketT<Array<unsigned char, eastl::allocator>>&);
         GetFontID(int, int) const;
 
         // data members, from how the methods use this: 32 bytes
-        undefined4 field_0;  // offset 0
-        uint field_4;        // offset 4
-        uint field_8;        // offset 8
-        uint field_12;       // offset 12
-        uint field_16;       // offset 16
-        undefined4 field_20; // offset 20
-        uint field_24;       // offset 24
+        uint m_f2PLayerMapID;        // offset 0
+        uint m_f2PLayerColourRGBA;   // offset 4
+        uint m_f2POutlineColourRGBA; // offset 8
+        uint field_12;               // offset 12
+        uint field_16;               // offset 16
+        undefined4 field_20;         // offset 20
+        uint m_dropShadowColourRGBA; // offset 24
         char _unknown_28[4];
     };
 

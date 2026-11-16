@@ -7,7 +7,7 @@
 
 namespace jag::game {
     // 0x1000096a0: the linker folded this into BaseApp::GetExitAfterInit(), which has identical code
-    MapSquarePointLights::GetStaticPointLightsLoaded() const;
+    char MapSquarePointLights::GetStaticPointLightsLoaded() const;
 
     // 0x10002d850: the linker folded this into oldscape::option::Option<int>::GetDefaultValue() const, which has identical code
     MapSquarePointLights::GetLightSourcesLocal() const;
@@ -66,7 +66,7 @@ namespace jag::game {
         bVar1 = *param_4;
         cVar4 = '\x01';
         if (bVar1 < 4) {
-            if ((param_5->GetLowestUsableLOD() < bVar1) || (field_8 != '\0')) {
+            if ((param_5->GetLowestUsableLOD() < bVar1) || (m_staticPointLightsLoaded != '\0')) {
                 cVar4 = '\x01';
             } else {
                 local_90 = (vector<shared_ptr<LightSource>, BucketAllocatorEASTL>*)field_32;
@@ -212,7 +212,7 @@ namespace jag::game {
                             uVar26 = uVar26 + 1;
                             lVar15 = lVar15 + 4;
                         } while (uVar26 != 8);
-                        pMVar23->field_8 = '\x01';
+                        pMVar23->m_staticPointLightsLoaded = '\x01';
                         pMVar23->field_344 = 1;
                         pMVar23->field_352 = 1;
                         pMVar23->field_360 = true;
@@ -250,7 +250,7 @@ namespace jag::game {
                       "entities/MapSquarePointLights.cpp",
                       332, (char*)0);
         }
-        field_8 = '\0';
+        m_staticPointLightsLoaded = '\0';
         puVar1 = field_32;
         cVar2 = puVar1->empty();
         if (cVar2 == '\0') {
@@ -1401,7 +1401,7 @@ namespace jag::game {
                     uVar20 = local_88.size();
                 } while (uVar12 < uVar20);
             }
-            (local_40->field_400, &local_c0)->UpdateTexture();
+            (local_40->m_pointLightTexture, &local_c0)->UpdateTexture();
             local_88.~vector();
             local_c0.~shared_ptr();
         }
@@ -1437,7 +1437,7 @@ namespace jag::game {
         undefined1* this_05;
         undefined4 uVar12;
 
-        psVar2 = (shared_ptr*)field_400->GetScreen();
+        psVar2 = (shared_ptr*)m_pointLightTexture->GetScreen();
         bVar1 = operator!=(psVar2, (_func_decltype_nullptr*)0);
         if (bVar1) {
             this_00 = field_32;
@@ -1524,7 +1524,7 @@ namespace jag::game {
                 *puVar9 = uVar12;
                 uVar10 = (ulong)((int)uVar10 + 1);
             }
-            this_03 = (shared_ptr<graphics::PointLightIndicesEffect>*)field_400->GetScreen();
+            this_03 = (shared_ptr<graphics::PointLightIndicesEffect>*)m_pointLightTexture->GetScreen();
             this_04 = (PointLightIndicesEffect*)shared_ptr<graphics::PointLightIndicesEffect>::operator->(this_03);
             this_04->SetPointLightIntensities(this_05);
         }

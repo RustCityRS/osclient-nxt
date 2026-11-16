@@ -10,7 +10,7 @@ namespace jag::ui {
     ComponentContainer::GetComponent() const;
 
     // 0x100023af0: the linker folded this into hal::Haptics::GetEnabled() const, which has identical code
-    ComponentContainer::GetHidden() const;
+    bool ComponentContainer::GetHidden() const;
 
     // 0x100023b60: the linker folded this into hal::Haptics::SetEnabled(bool), which has identical code
     ComponentContainer::SetHiddenUnsafe(bool);

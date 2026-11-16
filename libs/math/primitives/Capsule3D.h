@@ -10,7 +10,7 @@ namespace jag::math {
     public:
         GetStartPoint() const;
         GetEndPoint() const;
-        GetRadius() const;
+        float GetRadius() const;
         void GetCylinderLength() const;
         SetEndPoint(Vector3T<float> const&);
         Capsule3D(Vector3T<float> const&, Vector3T<float> const&, float);
@@ -20,13 +20,13 @@ namespace jag::math {
         float GetRadiusSq() const;
 
         // data members, from how the methods use this: 36 bytes
-        float field_0;       // offset 0
-        float field_4;       // offset 4
-        float field_8;       // offset 8
-        undefined4 field_12; // offset 12
-        undefined8 field_16; // offset 16
-        undefined4 field_24; // offset 24
-        float field_28;      // offset 28
+        float field_0;         // offset 0
+        float field_4;         // offset 4
+        float field_8;         // offset 8
+        undefined4 field_12;   // offset 12
+        undefined8 m_endPoint; // offset 16
+        undefined4 field_24;   // offset 24
+        float m_radius;        // offset 28
         char _unknown_32[4];
     };
 
@@ -37,14 +37,14 @@ namespace jag::math {
     Capsule3D::GetEndPoint() const;
 
     // 0x10048fce0: the linker folded this into game::EnvLightingSettings::GetSpecularHorzOcclusionScale() const, which has identical code
-    Capsule3D::GetRadius() const;
+    float Capsule3D::GetRadius() const;
 
     // 0x1007b0f80, 48 bytes, inline, placed by class name and debug map
     // Capsule3D::GetCylinderLength() const
     void Capsule3D::GetCylinderLength() {
         undefined8 local_18[2];
 
-        local_18[0] = math::operator-((Vector3T*)this, (Vector3T*)&field_16);
+        local_18[0] = math::operator-((Vector3T*)this, (Vector3T*)&m_endPoint);
         local_18->Length();
     }
 
@@ -54,7 +54,7 @@ namespace jag::math {
     /* OBB::SetHalfSize(Vector3T<float> const&) */
 
     void OBB::SetHalfSize(Vector3T* param_1) {
-        (&field_16, param_1)->SetXYZ();
+        (&m_halfSize, param_1)->SetXYZ();
     }
 
     // 0x1007b14d0, 112 bytes, inline, placed by debug map only (low confidence)

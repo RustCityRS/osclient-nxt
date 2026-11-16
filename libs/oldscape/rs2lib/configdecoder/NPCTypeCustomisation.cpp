@@ -22,7 +22,7 @@ namespace jag::oldscape::configdecoder {
     NPCTypeCustomisation::GetRecolourDest() const;
 
     // 0x100073980: the linker folded this into jag::math::Rect<int>::MinY() const, which has identical code
-    NPCTypeCustomisation::GetUniqueID() const;
+    uint NPCTypeCustomisation::GetUniqueID() const;
 
     // 0x10022d400, 192 bytes, base-object constructor, placed by class name and debug map
     // NPCTypeCustomisation::NPCTypeCustomisation(bool, eastl::vector<int, eastl::allocator>&&, Array<short, eastl::allocator>&&, Array<short, eastl::allocator>&&, bool)
@@ -42,14 +42,14 @@ namespace jag::oldscape::configdecoder {
     // 0x10022d4c0, 48 bytes, placed by class name and debug map
     // NPCTypeCustomisation::UpdateUniqueID()
     void NPCTypeCustomisation::UpdateUniqueID() {
-        undefined4 uVar1;
+        uint uVar1;
 
         if (field_0 == false) {
             uVar1 = GetNextHeadCustomisationCacheBuster();
         } else {
             uVar1 = GetNextBodyCustomisationCacheBuster();
         }
-        field_4 = uVar1;
+        m_uniqueID = uVar1;
     }
 
     // 0x10022d4f0, 16 bytes, complete-object constructor, placed by class name and debug map

@@ -9,9 +9,9 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~TextureAtlas();
-        GetID() const;
+        int GetID() const;
         GetTexture() const;
-        GetFormatTypeRequest() const;
+        Callstack GetFormatTypeRequest() const;
         TextureAtlas(graphicutils::TextureAtlasQuality const&, graphicutils::TextureAtlasUsage const*, bool);
         void CommonConstructor();
         TextureAtlas(TextureManager&, int, std::recursive_mutex&, graphicutils::TextureAtlasUsage const*);
@@ -91,11 +91,11 @@ namespace jag::graphics {
         // data members, from how the methods use this: 187824 bytes
         undefined** field_0;     // offset 0, vtable pointer
         TextureManager* field_8; // offset 8
-        int field_16;            // offset 16
+        int m_iD;                // offset 16
         char _unknown_20[4];
         AnimationWrapper field_24; // offset 24
         char _unknown_144[32];
-        Callstack field_176; // offset 176
+        Callstack m_formatTypeRequest; // offset 176
         char _unknown_192[65832];
         undefined1 field_66024; // offset 66024
         char _unknown_66025[98639];

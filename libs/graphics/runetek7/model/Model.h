@@ -12,7 +12,7 @@ namespace jag::graphics {
         virtual ~Model();
         GetLevel() const;
         GetAABB() const;
-        GetTextureAtlasReferences() const;
+        shared_ptr GetTextureAtlasReferences() const;
         GetBatchList();
         GetBatchList() const;
         GetTint() const;
@@ -30,7 +30,7 @@ namespace jag::graphics {
         GetPointLightBounds() const;
         GetHighlightedSectionColour() const;
         int GetExternalID() const;
-        GetSavedModelHash() const;
+        uint GetSavedModelHash() const;
         GetModelRawUniqueID() const;
         GetParticleEffectors();
         GetParticleEffectors() const;
@@ -55,7 +55,7 @@ namespace jag::graphics {
         void SetSourceModelIDs(eastl::vector<int, eastl::allocator>&&);
         void SetSourceModelIDs(int);
         void SetSourceModelIDs(Array<int, eastl::allocator> const&);
-        GetGeometryQuery() const;
+        shared_ptr GetGeometryQuery() const;
         void SetSavedModelHash(unsigned int);
         void SetLocalTransform(math::Matrix44T<float> const&);
         byte HasParticleEmitters() const;
@@ -115,7 +115,7 @@ namespace jag::graphics {
         GetMaterialIDList() const;
         void BakeMaterialInfoAndTextureMetaAndHSLColors(RT7Core&, bool);
         void SortBatches();
-        GetUseUncompressedTextures() const;
+        bool GetUseUncompressedTextures() const;
         void ConstructAtlasFromWorker(
             eastl::fixed_hash_map<unsigned int, Model const*, 256ul, 257ul, true, eastl::hash<unsigned int>,
                                   eastl::equal_to<unsigned int>, false, eastl::allocator> const*,
@@ -201,7 +201,7 @@ namespace jag::graphics {
         undefined** field_0; // offset 0, vtable pointer
         NpcUID* field_8;     // offset 8
         char _unknown_16[32];
-        undefined8 field_48;              // offset 48
+        undefined8 m_worldTransform;      // offset 48
         undefined8 field_56;              // offset 56
         undefined8 field_64;              // offset 64
         undefined8 field_72;              // offset 72
@@ -217,7 +217,7 @@ namespace jag::graphics {
         undefined8 field_152;             // offset 152
         undefined8 field_160;             // offset 160
         undefined8 field_168;             // offset 168
-        undefined8 field_176;             // offset 176
+        undefined8 m_localTransform;      // offset 176
         undefined8 field_184;             // offset 184
         undefined8 field_192;             // offset 192
         undefined8 field_200;             // offset 200
@@ -225,17 +225,17 @@ namespace jag::graphics {
         undefined8 field_216;             // offset 216
         undefined8 field_224;             // offset 224
         undefined8 field_232;             // offset 232
-        undefined8 field_240;             // offset 240
+        undefined8 m_tint;                // offset 240
         undefined8 field_248;             // offset 248
-        undefined8 field_256;             // offset 256
+        undefined8 m_highlightColour;     // offset 256
         undefined8 field_264;             // offset 264
         float m_highlightScale;           // offset 272
         float m_highlightSilhouetteAlpha; // offset 276
         bool m_highlightsIgnoreDepth;     // offset 280
         char _unknown_281[7];
-        undefined8 field_288;            // offset 288
-        undefined8 field_296;            // offset 296
-        float m_highlightedSectionScale; // offset 304
+        undefined8 m_highlightedSectionColour; // offset 288
+        undefined8 field_296;                  // offset 296
+        float m_highlightedSectionScale;       // offset 304
         char _unknown_308[4];
         undefined4 m_level; // offset 312
         char _unknown_316[20];
@@ -247,7 +247,7 @@ namespace jag::graphics {
         char _unknown_388[28];
         ModelConstructedState field_416; // offset 416
         char _unknown_417[7];
-        shared_ptr field_424; // offset 424
+        shared_ptr m_textureAtlasReferences; // offset 424
         char _unknown_440[40];
         undefined8 field_480;     // offset 480
         undefined8 field_488;     // offset 488
@@ -293,8 +293,8 @@ namespace jag::graphics {
         undefined1 local_68[72];
 
         math::Matrix44T<float>::operator=((Matrix44T<float>*)&field_112, param_1);
-        math::operator*((math*)local_68, (Matrix44T*)&field_176, (Matrix44T*)&field_112);
-        math::Matrix44T<float>::operator=((Matrix44T<float>*)&field_48, (Matrix44T*)local_68);
+        math::operator*((math*)local_68, (Matrix44T*)&m_localTransform, (Matrix44T*)&field_112);
+        math::Matrix44T<float>::operator=((Matrix44T<float>*)&m_worldTransform, (Matrix44T*)local_68);
     }
 
     // 0x1001d1370, 16 bytes, inline, placed by class name and debug map
@@ -383,7 +383,7 @@ namespace jag::graphics {
     void Model::ClearHighlight() {
         if (HasHighlight(this) != '\0') {
             m_highlightScale = 0.0;
-            math::Rect<float>::operator=((Rect<float>*)&field_256, (Rect*)PTR_ZERO_100ee6708);
+            math::Rect<float>::operator=((Rect<float>*)&m_highlightColour, (Rect*)PTR_ZERO_100ee6708);
         }
     }
 
@@ -392,7 +392,7 @@ namespace jag::graphics {
     bool Model::HasHighlight() {
         float* pfVar1;
 
-        pfVar1 = (float*)(&field_256)->qw();
+        pfVar1 = (float*)(&m_highlightColour)->qw();
         return 0.0 < *pfVar1;
     }
 
@@ -414,7 +414,7 @@ namespace jag::graphics {
     void Model::ClearHighlightedSection() {
         if (HasHighlightedSection(this) != '\0') {
             m_highlightedSectionScale = 0.0;
-            math::Rect<float>::operator=((Rect<float>*)&field_288, (Rect*)PTR_ZERO_100ee6708);
+            math::Rect<float>::operator=((Rect<float>*)&m_highlightedSectionColour, (Rect*)PTR_ZERO_100ee6708);
         }
     }
 
@@ -423,7 +423,7 @@ namespace jag::graphics {
     bool Model::HasHighlightedSection() {
         float* pfVar1;
 
-        pfVar1 = (float*)(&field_288)->qw();
+        pfVar1 = (float*)(&m_highlightedSectionColour)->qw();
         return 0.0 < *pfVar1;
     }
 
@@ -478,9 +478,9 @@ namespace jag::graphics {
     void Model::SetLocalTransform(Matrix44T* param_1) {
         undefined1 local_68[72];
 
-        math::Matrix44T<float>::operator=((Matrix44T<float>*)&field_176, param_1);
-        math::operator*((math*)local_68, (Matrix44T*)&field_176, (Matrix44T*)&field_112);
-        math::Matrix44T<float>::operator=((Matrix44T<float>*)&field_48, (Matrix44T*)local_68);
+        math::Matrix44T<float>::operator=((Matrix44T<float>*)&m_localTransform, param_1);
+        math::operator*((math*)local_68, (Matrix44T*)&m_localTransform, (Matrix44T*)&field_112);
+        math::Matrix44T<float>::operator=((Matrix44T<float>*)&m_worldTransform, (Matrix44T*)local_68);
     }
 
     // 0x100667c60, 32 bytes, inline, placed by class name
@@ -543,7 +543,7 @@ namespace jag::graphics {
     /* hal::audio::VoiceInstance::SetBussID(hal::audio::BussType) */
 
     void hal::audio::VoiceInstance::SetBussID(undefined4 param_2) {
-        field_336 = param_2;
+        m_bussID = param_2;
     }
 
     // 0x1008180b0, 32 bytes, inline, placed by class name
@@ -748,7 +748,7 @@ namespace jag::graphics {
     // 0x10091b490, 32 bytes, inline, placed by class name
     // Model::SetTint(math::Vector4T<float> const&)
     void Model::SetTint(Vector4T* param_1) {
-        math::Rect<float>::operator=((Rect<float>*)&field_240, (Rect*)param_1);
+        math::Rect<float>::operator=((Rect<float>*)&m_tint, (Rect*)param_1);
     }
 
 } // namespace jag::graphics
@@ -766,7 +766,7 @@ namespace jag {
         void TransformVerticesScalar(unsigned int, int, int, int, int, int, int, int, int, int, int, int) const;
         void DummySortTriangles();
         int GetNumOutlineVerts() const;
-        GetTintMode() const;
+        Callstack GetTintMode() const;
         int RenderOutline(unsigned int, TriangleVertexData*, int, unsigned short, unsigned short);
         int RenderTriangles(unsigned int, TriangleVertexData*);
         void Calculate2DAABB(short&, short&, short&, short&);

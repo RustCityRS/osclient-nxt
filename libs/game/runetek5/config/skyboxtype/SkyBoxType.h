@@ -23,10 +23,10 @@ namespace jag::game {
         char _unknown_36[20];
         uint field_56; // offset 56
         char _unknown_60[28];
-        uint field_88;        // offset 88
-        uint field_92;        // offset 92
-        undefined4 field_96;  // offset 96
-        undefined4 field_100; // offset 100
+        uint field_88;                  // offset 88
+        uint field_92;                  // offset 92
+        undefined4 field_96;            // offset 96
+        undefined4 m_cubeMapMaterialID; // offset 100
         char _unknown_104[4];
     };
 
@@ -62,7 +62,7 @@ namespace jag::game {
         field_88 = 4294967295;
         field_92 = 0;
         field_96 = 4294967295;
-        field_100 = 4294967295;
+        m_cubeMapMaterialID = 4294967295;
     }
 
 } // namespace jag::game

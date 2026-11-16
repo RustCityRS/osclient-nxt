@@ -31,7 +31,7 @@ namespace jag::graphics {
             AnimationLabelType) const;
         virtual void Reset();
         GetJointPoses() const;
-        GetBlendTree() const;
+        Layout* GetBlendTree() const;
         BlendTreeAnimationSampler();
         void CopyBoneMatricesToRT5VertexTransformData(WrapArray<JointPose const> const&,
                                                       Array<Joint, eastl::allocator> const&, AnimKeyFrameSet const&,
@@ -46,7 +46,7 @@ namespace jag::graphics {
         char _unknown_8[16];
         undefined1 field_24; // offset 24
         char _unknown_25[55];
-        Layout* field_80;         // offset 80
+        Layout* m_pBlendTree;     // offset 80
         bool m_drawDebugSkeleton; // offset 88
     };
 
@@ -68,7 +68,7 @@ namespace jag::graphics {
         new (&field_32, (Array*)&param_1->field_32) Array<JointPose, eastl::allocator>();
         new (&field_56, (Array*)&param_1->field_56) Array<math::Matrix44T<float>, eastl::allocator>();
         m_drawDebugSkeleton = param_1->m_drawDebugSkeleton;
-        field_80 = param_1->field_80;
+        m_pBlendTree = param_1->m_pBlendTree;
     }
 
     // 0x10098b040, 16 bytes, complete-object destructor, inline, placed by class name
@@ -77,7 +77,7 @@ namespace jag::graphics {
     // 0x10098b980, 16 bytes, inline, placed by class name
     // BlendTreeAnimationSampler::Reset()
     void BlendTreeAnimationSampler::Reset() {
-        field_80 = (Layout*)0;
+        m_pBlendTree = (Layout*)0;
     }
 
     // 0x100992b30, 64 bytes, base-object destructor, inline, placed by class name

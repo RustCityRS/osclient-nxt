@@ -60,7 +60,7 @@ namespace jag::oldscape {
         undefined1 field_280; // offset 280
         char field_281;       // offset 281
         char _unknown_282[14];
-        undefined4 field_296; // offset 296
+        undefined4 m_dataSource; // offset 296
         char _unknown_300[4];
     };
 
@@ -119,7 +119,7 @@ namespace jag::oldscape {
     // HiscoresManager::RequestHiscoresData(eastl::string const&, HiscoresInstance)
     void HiscoresManager::RequestHiscoresData(undefined8 param_1, undefined4 param_3) {
         ResetPendingRequests(this);
-        if (field_296 == 0) {
+        if (m_dataSource == 0) {
             RequestFromP2PService(this, param_1, param_3);
         } else {
             RequestFromHTTP(this, param_1, param_3);

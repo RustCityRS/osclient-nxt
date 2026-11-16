@@ -52,7 +52,7 @@ namespace jag::game {
         BaseTemplateConfigTypeList* field_24; // offset 24
         int field_32;                         // offset 32
         char _unknown_36[20];
-        undefined4 field_56; // offset 56
+        undefined4 m_colour; // offset 56
         char _unknown_60[108];
     };
 
@@ -163,7 +163,7 @@ namespace jag::game {
         new (this) ConfigType<WorldAreaType>(param_1, param_2);
         new (this) MakeSharedPool<WorldAreaType, 1024>();
         field_0 = &PTR__WorldAreaType_100f01cb0;
-        field_56 = 0;
+        m_colour = 0;
         eastl::allocator::allocator(local_30, "EASTL map");
         eastl::map<eastl::string, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>,
                    eastl::less<eastl::string>, eastl::allocator>::map((allocator*)&field_64);

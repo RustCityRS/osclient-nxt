@@ -8,7 +8,7 @@ namespace jag {
     class StringEnum {
     public:
         GetEnumList() const;
-        GetNumEntries() const;
+        uint GetNumEntries() const;
         GetName(int) const;
         StringEnum(StringEnumEntry const*, int);
         ~StringEnum();
@@ -19,7 +19,7 @@ namespace jag {
 
         // data members, from how the methods use this: 16 bytes
         StringEnumEntry* field_0; // offset 0
-        uint field_8;             // offset 8
+        uint m_numEntries;        // offset 8
         bool field_12;            // offset 12
         char _unknown_13[3];
     };
@@ -51,7 +51,7 @@ namespace jag {
     // StringEnum::StringEnum(StringEnumEntry const*, int)
     void StringEnum::StringEnum(StringEnumEntry* param_1, int param_2) {
         field_0 = param_1;
-        field_8 = param_2;
+        m_numEntries = param_2;
         field_12 = false;
     }
 

@@ -81,7 +81,6 @@ namespace jag::oldscape::rseven {
         ulong local_d0;
         uchar* local_c8;
         uchar* local_c0;
-        OSRenderCore_TextureDataProvider* local_b8;
         uint local_ac;
         ulong local_a8;
         uint local_a0;
@@ -100,8 +99,7 @@ namespace jag::oldscape::rseven {
                             24, "TextureDataProvider::GetTextureDataUncompressed - Texture type %s not supported",
                             uVar7);
         }
-        local_b8 = this;
-        local_90.field_0 = param_3;
+        local_90.m_width = param_3;
         eastl::hashtable<int, eastl::pair<int const, shared_ptr<ChatLine>>, eastl::allocator,
                          eastl::use_first<eastl::pair<int const, shared_ptr<ChatLine>>>, eastl::equal_to<int>,
                          eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
@@ -156,7 +154,8 @@ namespace jag::oldscape::rseven {
             iVar13 = iVar13 + 1;
         } while (iVar13 != 5);
         local_d8 = param_1;
-        puVar11 = (uchar*)(*(code*)local_b8->field_0[10])(local_b8, uVar5);
+        puVar11 = (uchar*)(*(code*)((OSRenderCore_TextureDataProvider*)this)->field_0[10])(
+            (OSRenderCore_TextureDataProvider*)this, uVar5);
         iVar13 = (int)local_a8 + -32;
         local_c8 = puVar11 + uVar5;
         iVar16 = 0;
@@ -181,7 +180,8 @@ namespace jag::oldscape::rseven {
                                 uVar6 = 0;
                                 if ((uint)uVar1 < local_94) {
                                     uVar6 = jag::math::RunetekColour::GammaCorrectOSRS(
-                                        *(uint*)(lVar8 + uVar1 * 4), (double)*(float*)&local_b8->field_8);
+                                        *(uint*)(lVar8 + uVar1 * 4),
+                                        (double)((OSRenderCore_TextureDataProvider*)this)->m_gamma);
                                     uVar15 = local_a8;
                                     iVar13 = local_9c;
                                 }

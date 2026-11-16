@@ -21,9 +21,9 @@ namespace jag::hal::audio {
         virtual GetActiveDecoders() const;
         Pause();
         Resume();
-        GetStartParams() const;
+        AudioSystemStartParams GetStartParams() const;
         void GetMixer() const;
-        GetState() const;
+        int GetState() const;
         void ActiveDecoderCount() const;
         void RecordDebugValue(int, float);
         AudioRenderer();
@@ -37,11 +37,11 @@ namespace jag::hal::audio {
         static DebugData /* 92400 bytes */ m_debugData; // = DebugData()
 
         // data members, from how the methods use this: 264 bytes, the first 16 are Drawable
-        AudioSystemStartParams field_16; // offset 16
-        undefined4 field_32;             // offset 32
-        undefined1 field_36;             // offset 36
+        AudioSystemStartParams m_startParams; // offset 16
+        undefined4 field_32;                  // offset 32
+        undefined1 field_36;                  // offset 36
         char _unknown_37[3];
-        undefined4 field_40; // offset 40
+        int m_state; // offset 40
         char _unknown_44[196];
         undefined4 field_240; // offset 240
         undefined2 field_244; // offset 244
@@ -108,12 +108,12 @@ namespace jag::hal::audio {
 
 namespace jag::game {
     // 0x100293ee0: the linker folded this into hal::audio::AudioRenderer::GetState() const, which has identical code
-    TcpConnectionMessageBase::GetEndPosition() const;
+    int TcpConnectionMessageBase::GetEndPosition() const;
 
 } // namespace jag::game
 
 namespace jag::graphics {
     // 0x100293ee0: the linker folded this into hal::audio::AudioRenderer::GetState() const, which has identical code
-    ModularParticleSystemDrawable::GetViewportMapID() const;
+    int ModularParticleSystemDrawable::GetViewportMapID() const;
 
 } // namespace jag::graphics

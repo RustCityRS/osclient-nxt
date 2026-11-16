@@ -13,7 +13,7 @@ namespace jag::ui {
         virtual void MainDraw(ComponentDependencies const&, int, int, float);
         virtual void DecodeTypedComponentProperties(PacketT<Array<unsigned char, eastl::allocator>>&, int);
         virtual void LoadStyleSheetVisuals(StyleSheet const&);
-        GetRectangleFill() const;
+        bool GetRectangleFill() const;
 
         // data members, from how the methods use this: 393 bytes
         undefined** field_0; // offset 0, vtable pointer
@@ -27,7 +27,7 @@ namespace jag::ui {
         char _unknown_256[8];
         VisibleShadowCastingLightInfo field_264; // offset 264
         char _unknown_288[104];
-        bool field_392; // offset 392
+        bool m_rectangleFill; // offset 392
     };
 
     // 0x1006a9040, 16 bytes, inline, placed by class name and debug map

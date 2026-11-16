@@ -9,11 +9,11 @@ namespace jag {
     class Headbar {
     public:
         GetType() const;
-        GetStartTime() const;
+        uint GetStartTime() const;
         ~Headbar();
         Headbar(shared_ptr<game::HeadbarType> const&, shared_ptr<game::HeadbarType> const&, unsigned int, unsigned int,
                 unsigned int, unsigned int, unsigned int, unsigned int);
-        GetDuration() const;
+        uint GetDuration() const;
         Headbar(Headbar&&);
         Headbar* operator=(Headbar&&);
         Headbar(Headbar const&);
@@ -21,12 +21,12 @@ namespace jag {
 
         // data members, from how the methods use this: 60 bytes
         char _unknown_0[32];
-        uint field_32; // offset 32
-        uint field_36; // offset 36
-        uint field_40; // offset 40
-        uint field_44; // offset 44
-        uint field_48; // offset 48
-        uint field_52; // offset 52
+        uint m_startTime; // offset 32
+        uint field_36;    // offset 36
+        uint field_40;    // offset 40
+        uint field_44;    // offset 44
+        uint field_48;    // offset 48
+        uint m_duration;  // offset 52
         char _unknown_56[4];
     };
 
@@ -34,7 +34,7 @@ namespace jag {
     Headbar::GetType() const;
 
     // 0x1000fa830: the linker folded this into oldscape::graphics::NXTPixScreen::GetWidth() const, which has identical code
-    Headbar::GetStartTime() const;
+    uint Headbar::GetStartTime() const;
 
     // 0x1001e0d50: the linker folded this into hal::audio::AudioAPI::~AudioAPI(), which has identical code
     Headbar::~Headbar();
@@ -64,12 +64,12 @@ namespace jag {
                           uint param_6, uint param_7, uint param_8) {
         new (this) shared_ptr<oldscape::dash3d::Decor>(param_1);
         new (&field_16, param_2) shared_ptr<oldscape::dash3d::Decor>();
-        field_32 = param_3;
+        m_startTime = param_3;
         field_36 = param_4;
         field_40 = param_6;
         field_44 = param_5;
         field_48 = param_7;
-        field_52 = param_8;
+        m_duration = param_8;
     }
 
     // 0x1004333c0, 16 bytes, complete-object constructor, inline, placed by class name
@@ -90,13 +90,13 @@ namespace jag {
         uVar1 = param_1->field_36;
         uVar2 = param_1->field_40;
         uVar3 = param_1->field_44;
-        field_32 = param_1->field_32;
+        m_startTime = param_1->m_startTime;
         field_36 = uVar1;
         field_40 = uVar2;
         field_44 = uVar3;
-        uVar1 = param_1->field_52;
+        uVar1 = param_1->m_duration;
         field_48 = param_1->field_48;
-        field_52 = uVar1;
+        m_duration = uVar1;
         return this;
     }
 
@@ -111,13 +111,13 @@ namespace jag {
             (shared_ptr<oldscape::RSevenDebugPresetProvider>*)this, (shared_ptr*)param_1);
         shared_ptr<oldscape::RSevenDebugPresetProvider>::shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(
             (shared_ptr<oldscape::RSevenDebugPresetProvider>*)&field_16, (shared_ptr*)&param_1->field_16);
-        uVar1 = param_1->field_52;
+        uVar1 = param_1->m_duration;
         field_48 = param_1->field_48;
-        field_52 = uVar1;
+        m_duration = uVar1;
         uVar1 = param_1->field_36;
         uVar2 = param_1->field_40;
         uVar3 = param_1->field_44;
-        field_32 = param_1->field_32;
+        m_startTime = param_1->m_startTime;
         field_36 = uVar1;
         field_40 = uVar2;
         field_44 = uVar3;
@@ -135,13 +135,13 @@ namespace jag {
 
         new (this) shared_ptr<oldscape::dash3d::Decor>(param_1);
         new (&field_16, (shared_ptr*)&param_1->field_16) shared_ptr<oldscape::dash3d::Decor>();
-        uVar1 = param_1->field_52;
+        uVar1 = param_1->m_duration;
         field_48 = param_1->field_48;
-        field_52 = uVar1;
+        m_duration = uVar1;
         uVar1 = param_1->field_36;
         uVar2 = param_1->field_40;
         uVar3 = param_1->field_44;
-        field_32 = param_1->field_32;
+        m_startTime = param_1->m_startTime;
         field_36 = uVar1;
         field_40 = uVar2;
         field_44 = uVar3;
@@ -162,13 +162,13 @@ namespace jag {
         uVar1 = param_1->field_36;
         uVar2 = param_1->field_40;
         uVar3 = param_1->field_44;
-        field_32 = param_1->field_32;
+        m_startTime = param_1->m_startTime;
         field_36 = uVar1;
         field_40 = uVar2;
         field_44 = uVar3;
-        uVar1 = param_1->field_52;
+        uVar1 = param_1->m_duration;
         field_48 = param_1->field_48;
-        field_52 = uVar1;
+        m_duration = uVar1;
         return this;
     }
 

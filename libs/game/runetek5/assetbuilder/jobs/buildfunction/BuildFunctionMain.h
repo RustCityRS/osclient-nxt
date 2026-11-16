@@ -13,13 +13,13 @@ namespace jag::game {
         virtual RunFirst(Js5ResourceProvider*, ConfigProvider*);
         virtual BuildFunctionMain* CreateWorker();
         virtual DecodeResult(shared_ptr<void> const&);
-        virtual GetRequestData();
+        virtual shared_ptr GetRequestData();
         BuildFunctionMain(int, shared_ptr<std::function<void()>> const&, int);
         void PostDecodeResultSetup(BuildFunctionResultData&);
 
         // data members, from how the methods use this: 96 bytes, the first 72 are AssetJob
         char _unknown_72[8];
-        shared_ptr field_80; // offset 80
+        shared_ptr m_requestData; // offset 80
     };
 
     // 0x100644f40, 16 bytes, complete-object destructor, inline, placed by class name and debug map
@@ -36,7 +36,7 @@ namespace jag::game {
     // BuildFunctionMain::~BuildFunctionMain()
     void BuildFunctionMain::~BuildFunctionMain() {
         field_0 = &PTR__BuildFunctionMain_100f0d508;
-        field_80->~shared_ptr();
+        m_requestData->~shared_ptr();
         ~AssetJob();
     }
 

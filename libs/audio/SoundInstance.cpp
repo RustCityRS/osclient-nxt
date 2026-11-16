@@ -13,19 +13,19 @@ namespace jag::audio {
     SoundInstance::GetLevel() const;
 
     // 0x1000fa820: the linker folded this into oldscape::graphics::NXTPixScreen::GetClampedZoomValue() const, which has identical code
-    SoundInstance::GetSoundSpatialSizeMax() const;
+    float SoundInstance::GetSoundSpatialSizeMax() const;
 
     // 0x1001f7270: the linker folded this into oldscape::rs2lib::worldmap::WorldmapAreaMetadata::SetMaxMapZ(int), which has identical code
     SoundInstance::SetLevel(int);
 
     // 0x1002111e0: the linker folded this into oldscape::rs2lib::worldmap::PackableArea::GetTargetMapSquareX(), which has identical code
-    SoundInstance::GetSoundShape() const;
+    int SoundInstance::GetSoundShape() const;
 
     // 0x1002111f0: the linker folded this into oldscape::rs2lib::worldmap::PackableArea::GetTargetMapSquareZ(), which has identical code
-    SoundInstance::GetSoundType() const;
+    int SoundInstance::GetSoundType() const;
 
     // 0x10043c600: the linker folded this into game::LightType::GetJitterRadius() const, which has identical code
-    SoundInstance::GetSoundSpatialSizeMin() const;
+    float SoundInstance::GetSoundSpatialSizeMin() const;
 
     // 0x100b8a0c0, 224 bytes, base-object constructor, placed by class name and debug map
     // SoundInstance::SoundInstance()
@@ -55,7 +55,7 @@ namespace jag::audio {
         m_startDelay = 0;
         m_groupID = -1;
         m_soundShape = 4;
-        field_180 = 12;
+        m_soundType = 12;
         field_184 = 0;
         m_rate = 256;
     }
@@ -130,7 +130,7 @@ namespace jag::audio {
                         (field_40, field_52, field_80)->SetPreSendControls();
                         (field_40, m_loopCount)->SetLoopIterations();
                         (field_40, m_bussID)->SetBussID();
-                        (field_40, field_180)->SetSoundType();
+                        (field_40, m_soundType)->SetSoundType();
                         (field_40, m_rate)->SetRate();
                         if (field_184 != '\0') {
                             field_40->Pause();

@@ -280,9 +280,9 @@ namespace jag::oldscape::rseven {
 
         this = operator_new(160);
         MapRebuildResults::MapRebuildResults(this);
-        *(uint*)(field_32 + 8) = param_2->field_8;
-        uVar2 = param_2->field_4;
-        *(uint*)(field_32 + 0) = param_2->field_0;
+        *(uint*)(field_32 + 8) = param_2->m_z;
+        uVar2 = param_2->m_x;
+        *(uint*)(field_32 + 0) = param_2->m_level;
         *(uint*)(field_32 + 4) = uVar2;
         plVar4 = (long*)OSRenderCore_AudioThread::Instance();
         lVar5 = (((long)plVar4 + *(long*)(*plVar4 + -24)))->HeapBeginPtr();
@@ -383,9 +383,9 @@ namespace jag::oldscape::rseven {
 
 namespace jag::game {
     // 0x1001c4510: the linker folded this into oldscape::rseven::OSRenderCore_TextureDataProvider::Gamma() const, which has identical code
-    EnvBloomSettings::GetBrightpassThreshold() const;
+    float EnvBloomSettings::GetBrightpassThreshold() const;
 
     // 0x1001c4510: the linker folded this into oldscape::rseven::OSRenderCore_TextureDataProvider::Gamma() const, which has identical code
-    Cutscene2DPlaybackState::GetPauseTimeSec() const;
+    float Cutscene2DPlaybackState::GetPauseTimeSec() const;
 
 } // namespace jag::game

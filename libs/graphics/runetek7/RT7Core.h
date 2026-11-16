@@ -13,28 +13,28 @@ namespace jag::graphics {
         virtual void OnWindowResize(math::Rect<unsigned int> const&);
         virtual void OnEndFrame();
         GetViewportHeight() const;
-        GetViewportWidth() const;
+        uint GetViewportWidth() const;
         GetResourceProvider();
         uint* GetMSAASampleCount();
         GetGeometryPass();
         GetForwardLightingPass();
-        GetSSAOContext();
+        LoginManager GetSSAOContext();
         GetSkyBoxManager();
         GetMaterialManager();
-        GetGBufferRT();
-        GetGBufferRT() const;
-        GetForwardLightingRT();
+        shared_ptr GetGBufferRT();
+        shared_ptr GetGBufferRT() const;
+        shared_ptr GetForwardLightingRT();
         GetObjectHighlightPass();
         GetPostProcessController();
-        GetPostProcessManager();
+        PostProcessManager GetPostProcessManager();
         GetForwardDepthTexture();
         GetSSAOPass();
-        GetSSAORT();
-        GetClippingRectangle() const;
+        shared_ptr GetSSAORT();
+        int GetClippingRectangle() const;
         GetGeometryQueryManager();
-        GetImmediateThreadPool();
+        ThreadPool GetImmediateThreadPool();
         GetRenderTargetsManager();
-        GetShadowBufferRT();
+        shared_ptr GetShadowBufferRT();
         GetDeferredShadowPass();
         GetWaterCausticsPass();
         GetTextureManager();
@@ -60,7 +60,7 @@ namespace jag::graphics {
         GetGUIManager();
         void GetBackBufferWidth() const;
         void GetBackBufferHeight() const;
-        GetScaleManager();
+        SoundInstance GetScaleManager();
         void GetSkyBoxRenderer();
         GetPSTextureSlotManager();
         GetRenderToTexture();
@@ -109,9 +109,9 @@ namespace jag::graphics {
         Js5ArchiveSettings* field_80;     // offset 80
         Js5ArchiveSettings* field_88;     // offset 88
         Js5ArchiveSettings* field_96;     // offset 96
-        uint field_104;                   // offset 104
+        uint m_viewportWidth;             // offset 104
         uint field_108;                   // offset 108
-        int field_112;                    // offset 112
+        int m_clippingRectangle;          // offset 112
         int field_116;                    // offset 116
         int field_120;                    // offset 120
         int field_124;                    // offset 124
@@ -121,7 +121,7 @@ namespace jag::graphics {
         uint field_140;                   // offset 140
         ThreadPool m_immediateThreadPool; // offset 144
         char _unknown_344[104];
-        PostProcessManager field_448; // offset 448
+        PostProcessManager m_postProcessManager; // offset 448
         char _unknown_1688[9880];
         RenderTargetsManager* field_11568; // offset 11568
         char _unknown_11576[32];

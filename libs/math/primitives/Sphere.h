@@ -31,7 +31,7 @@ namespace jag::math {
         float field_0;  // offset 0
         float field_4;  // offset 4
         float field_8;  // offset 8
-        float field_12; // offset 12
+        float m_radius; // offset 12
         char _unknown_16[4];
     };
 
@@ -42,7 +42,7 @@ namespace jag::math {
     // Sphere::Sphere()
     void Sphere::Sphere() {
         new (this) ColourHSL(0.0, 0.0, 0.0);
-        field_12 = 0.0;
+        m_radius = 0.0;
     }
 
     // 0x1007b0fb0, 112 bytes, inline, placed by class name
@@ -85,7 +85,7 @@ namespace jag::math {
     void Sphere::GetAABBMin() {
         Vector3T<float> local_28[16];
 
-        Vector3T<float>::Vector3T(local_28, field_12);
+        Vector3T<float>::Vector3T(local_28, m_radius);
         math::operator-((Vector3T*)this, (Vector3T*)local_28);
     }
 
@@ -94,7 +94,7 @@ namespace jag::math {
     void Sphere::GetAABBMax() {
         Vector3T<float> local_28[16];
 
-        Vector3T<float>::Vector3T(local_28, field_12);
+        Vector3T<float>::Vector3T(local_28, m_radius);
         math::operator+((Vector3T*)this, (Vector3T*)local_28);
     }
 
@@ -114,13 +114,13 @@ namespace jag::math {
     // Sphere::Set(Vector3T<float> const&, float)
     void Sphere::Set(Vector3T* param_1, float param_2) {
         Set(param_1);
-        field_12 = param_2;
+        m_radius = param_2;
     }
 
     // 0x100c67f30, 16 bytes, inline, placed by class name
     // Sphere::GetRadiusSq() const
     float Sphere::GetRadiusSq() {
-        return field_12 * field_12;
+        return m_radius * m_radius;
     }
 
     // 0x100c6aeb0, 16 bytes, complete-object constructor, inline, placed by class name
@@ -130,7 +130,7 @@ namespace jag::math {
     // Sphere::Set(float, float, float, float)
     void Sphere::Set(float param_1, float param_2, float param_3, float param_4) {
         Set(param_1, param_2, param_3);
-        field_12 = param_4;
+        m_radius = param_4;
     }
 
     // 0x100c6e1f0, 64 bytes, base-object constructor, inline, placed by class name
@@ -138,7 +138,7 @@ namespace jag::math {
     void Sphere::Sphere(Vector3T* param_1, float param_2) {
         new (this) Vector3T<int>();
         SetXYZ(param_1);
-        field_12 = param_2;
+        m_radius = param_2;
     }
 
 } // namespace jag::math

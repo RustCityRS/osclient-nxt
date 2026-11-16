@@ -16,18 +16,18 @@ namespace jag::postprocess {
         GetEnabled() const;
         Destroy();
         GetRequirements() const;
-        GetPriority() const;
-        GetID() const;
+        int GetPriority() const;
+        int GetID() const;
         SetEnabled(bool);
         PostProcessEffect(int, int);
         static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ NullPostProcessEffect;
 
         // data members, from how the methods use this: 24 bytes
-        undefined* field_0; // offset 0, vtable pointer
-        undefined1 field_8; // offset 8
+        undefined* field_0;   // offset 0, vtable pointer
+        undefined1 m_enabled; // offset 8
         char _unknown_9[3];
-        int field_12; // offset 12
-        int field_16; // offset 16
+        int m_iD;       // offset 12
+        int m_priority; // offset 16
         char _unknown_20[4];
     };
 
@@ -35,9 +35,9 @@ namespace jag::postprocess {
     // PostProcessEffect::PostProcessEffect(int, int)
     void PostProcessEffect::PostProcessEffect(int param_1, int param_2) {
         field_0 = PTR_vtable_100ee6fe0 + 16;
-        field_8 = 0;
-        field_12 = param_1;
-        field_16 = param_2;
+        m_enabled = 0;
+        m_iD = param_1;
+        m_priority = param_2;
     }
 
     // 0x1009b9770, 16 bytes, inline, placed by class name

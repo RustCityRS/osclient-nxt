@@ -42,11 +42,11 @@ namespace jag {
         fVar1 = param_1->field_4;
         fVar2 = param_1->field_8;
         fVar3 = param_1->field_12;
-        field_0 = param_1->field_0;
+        m_level = param_1->field_0;
         field_4 = fVar1;
         field_8 = fVar2;
         field_12 = fVar3;
-        field_16 = param_2;
+        m_pMoveSpeed = param_2;
     }
 
 } // namespace jag

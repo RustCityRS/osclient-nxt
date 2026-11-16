@@ -13,7 +13,7 @@ namespace jag::graphics {
             eastl::vector<std::pair<GraphEntity*, GraphEntityTransformData>, eastl::allocator>&, SceneViewData const&,
             GraphNode*, EffectManager const&);
         GatherSceneGraphDrawableElements(unsigned int, SceneViewData const&, GraphNode*, int, EffectManager const&);
-        GetDrawableQueue();
+        DrawableQueue GetDrawableQueue();
         void Clear();
         Renderer(
             RT7Core*,
@@ -40,7 +40,7 @@ namespace jag::graphics {
         undefined** field_0; // offset 0, vtable pointer
         RT7Core* field_8;    // offset 8
         char _unknown_16[64];
-        DrawableQueue field_80; // offset 80
+        DrawableQueue m_drawableQueue; // offset 80
     };
 
     // 0x1001cf5f0, 48 bytes, inline, placed by class name and debug map

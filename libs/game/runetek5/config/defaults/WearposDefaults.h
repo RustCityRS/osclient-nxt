@@ -10,8 +10,8 @@ namespace jag::game {
         GetWearposType() const;
         GetReplaceHeldLeftResetWearPos() const;
         GetReplaceHeldRightResetWearPos() const;
-        GetReplaceHeldRightWearPos() const;
-        GetReplaceHeldLeftWearPos() const;
+        uint GetReplaceHeldRightWearPos() const;
+        uint GetReplaceHeldLeftWearPos() const;
         WearposDefaults(PacketT<Array<unsigned char, eastl::allocator>>&);
         ~WearposDefaults();
 
@@ -20,10 +20,10 @@ namespace jag::game {
         ulong field_8;      // offset 8
         ScriptOp* field_16; // offset 16
         char _unknown_24[24];
-        int field_48;  // offset 48
-        int field_52;  // offset 52
-        uint field_56; // offset 56
-        uint field_60; // offset 60
+        int field_48;                   // offset 48
+        int field_52;                   // offset 52
+        uint m_replaceHeldLeftWearPos;  // offset 56
+        uint m_replaceHeldRightWearPos; // offset 60
         char _unknown_64[32];
     };
 

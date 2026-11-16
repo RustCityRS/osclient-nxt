@@ -25,7 +25,7 @@ namespace jag::graphics {
         byte bVar1;
 
         bVar1 = (byte)param_1 & 31;
-        field_0 = field_0 & (-2 << bVar1 | 4294967294U >> 32 - bVar1);
+        m_bits = m_bits & (-2 << bVar1 | 4294967294U >> 32 - bVar1);
     }
 
 } // namespace jag::graphics

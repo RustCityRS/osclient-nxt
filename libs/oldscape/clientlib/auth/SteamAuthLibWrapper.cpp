@@ -90,7 +90,7 @@ namespace jag::oldscape::auth {
                       operator->((unique_ptr<jag::auth::TokenAuthLoginHandler,
                                              std::default_delete<jag::auth::TokenAuthLoginHandler>>*)this_00);
             this_01->MainLogic();
-            this_03 = field_192;
+            this_03 = m_gameToken;
             if (this_03->GetStatus() == -2) {
                 this_02 = (CoordMapSquare*)std::unique_ptr<jag::auth::TokenAuthLoginHandler,
                                                            std::default_delete<jag::auth::TokenAuthLoginHandler>>::
@@ -144,7 +144,7 @@ namespace jag::oldscape::auth {
         bVar1 = std::operator==((unique_ptr*)&field_184, in_RSI);
         uVar3 = 0;
         if (!bVar1) {
-            if (field_192->GetStatus() == 0) {
+            if (m_gameToken->GetStatus() == 0) {
                 uVar3 = 20;
             } else {
                 this_00 = (CoordMapSquare*)std::unique_ptr<jag::auth::TokenAuthLoginHandler,
@@ -184,7 +184,7 @@ namespace jag::oldscape::auth {
                                 92, "SteamAuthLibWrapper is only capable of logging in with Steam, was given %i",
                                 CONCAT44(uVar4, param_2));
         }
-        if (field_192->GetStatus() == 0) {
+        if (m_gameToken->GetStatus() == 0) {
             ptVar8 = (type*)&field_72;
             Filename::Filename(local_158, (basic_string*)ptVar8);
             eastl::string::basic_string(local_180);
@@ -195,7 +195,7 @@ namespace jag::oldscape::auth {
             } else {
                 pcVar9 = "store/runescape/membership";
             }
-            (field_192, ptVar8)->SSOBeginPtr();
+            (m_gameToken, ptVar8)->SSOBeginPtr();
             uVar5 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
             pbVar6 = (basic_string*)eastl::string::sprintf((char*)local_180, "%s?steamMode=oldschool&otlToken=%s",
                                                            pcVar9, uVar5);

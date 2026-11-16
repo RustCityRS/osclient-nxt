@@ -18,7 +18,7 @@ namespace jag::oldscape::widgets {
         virtual void __pure_slot_2() = 0;
         virtual LayoutOverride();
         GetPadding() const;
-        GetBounds() const;
+        GridRect GetBounds() const;
         SetBackgroundColour(unsigned int);
         void SetPadding(Padding const&);
         SetTextColour(unsigned int);
@@ -31,23 +31,23 @@ namespace jag::oldscape::widgets {
         void Draw(DrawContext&);
         GetContentBounds() const;
         Widget();
-        GetTextColour() const;
+        int GetTextColour() const;
 
         // data members, from how the methods use this: 80 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        uint field_8;        // offset 8
-        uint field_12;       // offset 12
-        undefined4 field_16; // offset 16
-        char field_20;       // offset 20
-        bool m_borderLeft;   // offset 21
-        bool m_borderTop;    // offset 22
-        byte field_23;       // offset 23
-        byte field_24;       // offset 24
+        undefined** field_0;     // offset 0, vtable pointer
+        uint m_backgroundColour; // offset 8
+        uint m_borderColour;     // offset 12
+        int m_textColour;        // offset 16
+        char field_20;           // offset 20
+        bool m_borderLeft;       // offset 21
+        bool m_borderTop;        // offset 22
+        byte field_23;           // offset 23
+        byte field_24;           // offset 24
         char _unknown_25[7];
         int field_32;      // offset 32
         int field_36;      // offset 36
         int field_40;      // offset 40
-        GridRect field_44; // offset 44
+        GridRect m_bounds; // offset 44
         char _unknown_64[16];
     };
 

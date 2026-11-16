@@ -19,13 +19,13 @@ namespace jag::ui {
     SpriteData::SetSpriteRGB(unsigned int);
 
     // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    SpriteData::GetSpriteShadowRGB() const;
+    uint SpriteData::GetSpriteShadowRGB() const;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    SpriteData::GetSpriteID() const;
+    int SpriteData::GetSpriteID() const;
 
     // 0x1000e5d50: the linker folded this into oldscape::rs2lib::CoordZoneSource::GetRotation() const, which has identical code
-    SpriteData::GetSpriteRGB() const;
+    int SpriteData::GetSpriteRGB() const;
 
     // 0x10019c120: the linker folded this into eastl::rbtree_node<shared_ptr<Js5WorkerRequestMessage> >::~rbtree_node(), which has identical code
     SpriteData::~SpriteData();
@@ -559,18 +559,17 @@ namespace jag::ui {
         byte bVar1;
         char cVar2;
         vector vVar3;
-        undefined2 uVar4;
+        ushort uVar4;
         int iVar5;
         uint uVar6;
-        undefined4 uVar7;
+        vector* pvVar7;
         vector* pvVar8;
-        vector* pvVar9;
-        type* ptVar10;
+        type* ptVar9;
 
         iVar5 = param_1->g4s();
         m_spriteID = iVar5;
         uVar4 = param_1->g2();
-        field_8 = uVar4;
+        m_spriteRotate = uVar4;
         bVar1 = param_1->g1();
         SetSpriteTiling(this, (bool)(bVar1 & 1));
         SetSpriteUseAlpha(this, SUB41((bVar1 & 2) >> 1, 0));
@@ -583,21 +582,21 @@ namespace jag::ui {
         cVar2 = param_1->g1();
         SetSpriteVFlip(this, cVar2 == '\x01');
         cVar2 = param_1->g1();
-        ptVar10 = (type*)(ulong)(cVar2 == '\x01');
+        ptVar9 = (type*)(ulong)(cVar2 == '\x01');
         SetSpriteHFlip(this, cVar2 == '\x01');
-        uVar7 = param_1->g4();
-        field_12 = uVar7;
+        iVar5 = param_1->g4();
+        m_spriteRGB = iVar5;
         if (2 < param_2) {
             cVar2 = param_1->g1();
-            ptVar10 = (type*)(ulong)(cVar2 == '\x01');
+            ptVar9 = (type*)(ulong)(cVar2 == '\x01');
             SetSpriteUseClickMask(this, cVar2 == '\x01');
         }
         if (5 < param_2) {
-            pvVar8 = (&field_17, ptVar10)->SSOBeginPtr();
-            pvVar9 = (vector*)(&field_17)->y();
-            for (; pvVar8 != pvVar9; pvVar8 = pvVar8 + 1) {
+            pvVar7 = (&field_17, ptVar9)->SSOBeginPtr();
+            pvVar8 = (vector*)(&field_17)->y();
+            for (; pvVar7 != pvVar8; pvVar7 = pvVar7 + 1) {
                 vVar3 = (vector)param_1->g1();
-                *pvVar8 = vVar3;
+                *pvVar7 = vVar3;
             }
         }
     }
@@ -682,7 +681,7 @@ namespace jag::ui {
             StyleSheet::LoadPropertyValueIfSet<unsigned char, bool>(param_3, &local_29, param_2 + 7, 1);
             SetSpriteTiling(this, local_29);
         }
-        StyleSheet::LoadPropertyValueIfSet<unsigned int>(param_3, &field_12, param_2 + 8, 1);
+        StyleSheet::LoadPropertyValueIfSet<unsigned int>(param_3, &m_spriteRGB, param_2 + 8, 1);
         StyleSheet::LoadPropertyValueIfSet<unsigned char>(param_3, &m_spriteAlpha, param_2 + 9, 1);
     }
 
@@ -923,7 +922,7 @@ namespace jag::ui {
     }
 
     // 0x1006892b0: the linker folded this into ComponentDragConfig::GetRenderBehaviour() const, which has identical code
-    SpriteData::GetSpriteAlpha() const;
+    byte SpriteData::GetSpriteAlpha() const;
 
 } // namespace jag::ui
 

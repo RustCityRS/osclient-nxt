@@ -10,7 +10,7 @@ namespace jag::callstack {
     g_mainPtr;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    Callstack::GetStackFrames() const;
+    int Callstack::GetStackFrames() const;
 
     // 0x1001838b0: the linker folded this into Error::Error(), which has identical code
     Callstack::Callstack();

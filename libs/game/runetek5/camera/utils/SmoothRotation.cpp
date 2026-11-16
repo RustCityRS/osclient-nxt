@@ -13,7 +13,7 @@ namespace jag::math {
     SmoothRotation::GetCurrentRotation() const;
 
     // 0x1001c2200: the linker folded this into oldscape::MutationTracked<graphics::SimpleScatteringParams>::IsDirty() const, which has identical code
-    SmoothRotation::IsTurningLeft() const;
+    bool SmoothRotation::IsTurningLeft() const;
 
     // 0x100607790, 272 bytes, placed by class name and debug map
     // SmoothRotation::Set(Vector3T<float> const&, QuaternionT<float> const&, float, Vector3T<float> const&)
@@ -69,11 +69,11 @@ namespace jag::math {
         local_2c = (float)conversion::PrincipleAngle(local_2c - fVar2);
         (&field_36, (Vector3T*)PTR_UP_100ee66d0, local_2c)->FromAxisAngle();
         QuaternionT<float>::operator*=((QuaternionT<float>*)&field_36, (QuaternionT*)&field_20);
-        field_64 = local_2c < 0.0;
+        m_turningLeft = local_2c < 0.0;
         fVar2 = (float)::abs(local_2c / field_60);
         field_52 = fVar2;
         field_56 = 0;
-        field_0 = 1;
+        m_active = 1;
     }
 
     // 0x100607980, 112 bytes, placed by class name and debug map
@@ -167,7 +167,7 @@ namespace jag::math {
             Rect<float>::operator=((Rect<float>*)&field_4, (Rect*)this_00);
             puVar3 = &field_4;
         } else {
-            field_0 = 0;
+            m_active = 0;
             puVar3 = &field_36;
         }
         return puVar3;

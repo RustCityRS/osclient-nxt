@@ -20,7 +20,7 @@ namespace jag::ui {
         virtual Margin GetMargin(Component::MarginType) const;
         virtual SupportsMargin(Component::MarginType) const;
         virtual ProcessSwipeMovement(math::Vector2T<int> const&, math::Vector2T<int> const&, float);
-        virtual GetValueRepresentation();
+        virtual ComponentSingleValueMultiOptionMixin GetValueRepresentation();
         virtual void LoadStyleSheetVisuals(StyleSheet const&);
         virtual HasRecentValueChange() const;
         virtual void NotifyRecentValueChangeHandled();

@@ -13,60 +13,60 @@ namespace jag::graphics {
         char cVar2;
         int iVar3;
         int iVar4;
-        uint uVar6;
-        Layout* pLVar7;
+        uint uVar5;
+        Layout* pLVar6;
         Layout* this_01;
-        MSIType* pMVar8;
+        MSIType* pMVar7;
+        undefined8 uVar8;
         undefined8 uVar9;
-        undefined8 uVar10;
+        Material** ppMVar10;
         Material** ppMVar11;
-        Material** ppMVar12;
-        MaterialManager* pMVar13;
+        MaterialManager* pMVar12;
         ModularParticleEmitter* this_02;
-        ModularParticleEmitter* pMVar14;
+        ModularParticleEmitter* pMVar13;
         TextureAtlasReference* this_03;
         TextureAtlas* this_04;
-        ushort uVar15;
-        short sVar16;
-        bool bVar17;
+        ushort uVar14;
+        short sVar15;
+        bool bVar16;
         Layout local_78[24];
         Layout* local_60;
         ModularParticleSystemDrawable* local_48;
         shared_ptr local_40;
 
         eastl::vector<Material_const*, BucketAllocatorEASTL>::vector();
-        field_40 = 4294967295;
+        m_viewportMapID = -1;
         local_48 = this;
-        pLVar7 = (Layout*)field_16->GetImmediateThreadPool();
+        pLVar6 = (Layout*)field_16->GetImmediateThreadPool();
         this_01 = (Layout*)
             eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                    eastl::allocator>>::Layout::HeapBeginPtr(pLVar7);
-        local_60 = (Layout*)pLVar7->end();
+                                                                    eastl::allocator>>::Layout::HeapBeginPtr(pLVar6);
+        local_60 = (Layout*)pLVar6->end();
         if (this_01 != local_60) {
-            sVar16 = 0;
+            sVar15 = 0;
             do {
-                pMVar8 = (MSIType*)eastl::basic_string<
+                pMVar7 = (MSIType*)eastl::basic_string<
                     char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
                                                         eastl::allocator>>::Layout::HeapBeginPtr(this_01);
-                iVar3 = pMVar8->GetSpriteID();
-                uVar9 =
+                iVar3 = pMVar7->GetSpriteID();
+                uVar8 =
                     eastl::basic_string<char,
                                         eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
                         Layout::HeapBeginPtr(local_78);
-                uVar10 = local_78->end();
-                ppMVar11 = eastl::find_if<Material_const**,
+                uVar9 = local_78->end();
+                ppMVar10 = eastl::find_if<Material_const**,
                                           (MaterialManager_const&)->UpdateMaterials(TextureAtlasManager&)::__9>(
-                    uVar9, uVar10, iVar3);
-                ppMVar12 = (Material**)local_78->end();
-                if (ppMVar11 == ppMVar12) {
-                    pMVar13 = (MaterialManager*)param_1->GetMaterial(iVar3);
-                    cVar2 = pMVar13->ShowSkybox();
+                    uVar8, uVar9, iVar3);
+                ppMVar11 = (Material**)local_78->end();
+                if (ppMVar10 == ppMVar11) {
+                    pMVar12 = (MaterialManager*)param_1->GetMaterial(iVar3);
+                    cVar2 = pMVar12->ShowSkybox();
                     if (cVar2 != '\0') {
-                        cVar2 = pMVar13->IsRT7();
+                        cVar2 = pMVar12->IsRT7();
                         if (cVar2 == '\0') {
-                            bVar17 = 0 < sVar16;
-                            sVar16 = -1;
-                            if (bVar17) {
+                            bVar16 = 0 < sVar15;
+                            sVar15 = -1;
+                            if (bVar16) {
                                 /* WARNING: Subroutine does not return */
                                 LogAssert("rt7flag <= 0",
                                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
@@ -74,9 +74,9 @@ namespace jag::graphics {
                                           258, "ParticleSystem cannot mix RT5 materials with RT7 materials");
                             }
                         } else {
-                            bVar17 = sVar16 < 0;
-                            sVar16 = 1;
-                            if (bVar17) {
+                            bVar16 = sVar15 < 0;
+                            sVar15 = 1;
+                            if (bVar16) {
                                 /* WARNING: Subroutine does not return */
                                 LogAssert("rt7flag >= 0",
                                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
@@ -84,19 +84,20 @@ namespace jag::graphics {
                                           253, "ParticleSystem cannot mix RT5 materials with RT7 materials");
                             }
                         }
-                        iVar3 = pMVar13->GetSeqDelay();
+                        iVar3 = pMVar12->GetSeqDelay();
                         if (iVar3 != -1) {
-                            iVar3 = local_48->field_40;
-                            if ((iVar3 != -1) && (iVar4 = pMVar13->GetSeqDelay(), iVar3 != iVar4)) {
+                            iVar3 = local_48->m_viewportMapID;
+                            if ((iVar3 != -1) && (iVar4 = pMVar12->GetSeqDelay(), iVar3 != iVar4)) {
                                 /* WARNING: Subroutine does not return */
                                 LogAssert("m_viewportMapID == -1 || m_viewportMapID == material.GetViewportMapID()",
                                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                           "graphics/runetek7/particles/ModularParticleSystemVisuals.cpp",
                                           263, (char*)0);
                             }
-                            local_48->field_40 = pMVar13->GetSeqDelay();
+                            iVar3 = pMVar12->GetSeqDelay();
+                            local_48->m_viewportMapID = iVar3;
                         }
-                        local_40._0_8_ = pMVar13;
+                        local_40._0_8_ = pMVar12;
                         local_78->push_back((Material**)&local_40);
                     }
                 }
@@ -106,15 +107,15 @@ namespace jag::graphics {
         local_40.GetSharedAtlasRefFromMaterials(param_2, (vector*)graphicutils::TextureAtlasUsage::USAGE_COMPRESSED);
         this_00 = &local_48->field_24;
         shared_ptr<TextureAtlasReference>::operator=((shared_ptr<TextureAtlasReference>*)this_00, &local_40);
-        pMVar13 = param_1;
+        pMVar12 = param_1;
         local_40.~shared_ptr();
-        bVar17 = this_00->operator_cast_to_bool();
-        if (!bVar17) {
+        bVar16 = this_00->operator_cast_to_bool();
+        if (!bVar16) {
             local_40.GetDummySharedMaterialReference(param_2);
             shared_ptr<TextureAtlasReference>::operator=((shared_ptr<TextureAtlasReference>*)this_00, &local_40);
             local_40.~shared_ptr();
-            bVar17 = operator!=((shared_ptr*)this_00, (_func_decltype_nullptr*)0);
-            if (!bVar17) {
+            bVar16 = operator!=((shared_ptr*)this_00, (_func_decltype_nullptr*)0);
+            if (!bVar16) {
                 /* WARNING: Subroutine does not return */
                 LogAssert("m_textureAtlasRef != nullptr",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
@@ -122,25 +123,25 @@ namespace jag::graphics {
                           278, (char*)0);
             }
         }
-        pLVar7 = (Layout*)local_48->field_16->GetImmediateThreadPool();
+        pLVar6 = (Layout*)local_48->field_16->GetImmediateThreadPool();
         this_02 = (ModularParticleEmitter*)
             eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                    eastl::allocator>>::Layout::HeapBeginPtr(pLVar7);
-        pMVar14 = (ModularParticleEmitter*)pLVar7->end();
-        for (; this_02 != pMVar14; this_02 = (ModularParticleEmitter*)(this_02[1].field_12 + 12)) {
-            pMVar8 = (MSIType*)this_02->HeapBeginPtr();
-            uVar6 = pMVar8->GetSpriteID();
-            cVar2 = pMVar13->IsValidMaterial(uVar6);
+                                                                    eastl::allocator>>::Layout::HeapBeginPtr(pLVar6);
+        pMVar13 = (ModularParticleEmitter*)pLVar6->end();
+        for (; this_02 != pMVar13; this_02 = (ModularParticleEmitter*)(this_02[1].field_12 + 12)) {
+            pMVar7 = (MSIType*)this_02->HeapBeginPtr();
+            uVar5 = pMVar7->GetSpriteID();
+            cVar2 = pMVar12->IsValidMaterial(uVar5);
             if (cVar2 == '\0') {
-                uVar15 = 0;
+                uVar14 = 0;
             } else {
                 this_03 = (TextureAtlasReference*)shared_ptr<TextureAtlasReference>::operator->(
                     (shared_ptr<TextureAtlasReference>*)this_00);
                 this_04 = (TextureAtlas*)this_03->GetTextureAtlas();
-                this_04->GetMaterialSettingsSlotXY((ushort*)&local_40, uVar6);
-                uVar15 = local_40._0_2_;
+                this_04->GetMaterialSettingsSlotXY((ushort*)&local_40, uVar5);
+                uVar14 = local_40._0_2_;
             }
-            this_02->SetAtlasMaterialSettingsSlotXY(uVar15);
+            this_02->SetAtlasMaterialSettingsSlotXY(uVar14);
         }
         local_78->~vector();
     }

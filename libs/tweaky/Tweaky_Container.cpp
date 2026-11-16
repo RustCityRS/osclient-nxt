@@ -380,25 +380,25 @@ namespace jag::tweak {
         int local_38;
         int local_34;
 
-        if (field_64->operator_cast_to_bool()) {
+        if (m_font->operator_cast_to_bool()) {
             local_70->shared_from_this();
             DetectTweakyShown(this);
-            field_104 = param_1;
+            m_placement = param_1;
             field_108 = param_2;
             field_112 = param_3 + param_1;
             field_116 = param_4 + param_2;
-            plVar11 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)field_16);
+            plVar11 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)m_root);
             cVar6 = (**(code**)(*plVar11 + 40))(plVar11, &local_38, &local_34);
             if (cVar6 != '\0') {
                 field_112 = local_38 + param_1;
                 field_116 = local_34 + param_2;
-                local_40 = (shared_ptr<Container>*)field_16;
+                local_40 = (shared_ptr<Container>*)m_root;
                 local_48 = GetVisibleX(this);
                 local_44 = local_38;
                 local_50 = GetVisibleY(this);
                 local_4c = local_34;
-                new ((local_70 + -24)) graphics::ClippingState(field_48);
-                this_00 = field_48;
+                new ((local_70 + -24)) graphics::ClippingState(m_pRT7Core);
+                this_00 = m_pRT7Core;
                 iVar7 = GetVisibleX(this);
                 iVar8 = GetVisibleY(this);
                 this_00->SetClippingRectangle(param_1, param_2, iVar7, iVar8, true);
@@ -408,7 +408,7 @@ namespace jag::tweak {
                     cVar6 = IsAttached(this);
                     if (cVar6 != '\0') {
                         local_40 = (shared_ptr<Container>*)CONCAT44(local_40._4_4_, param_1);
-                        iVar7 = field_104;
+                        iVar7 = m_placement;
                         iVar8 = field_112;
                         iVar9 = GetVisibleX(this);
                         iVar1 = field_108;
@@ -429,7 +429,7 @@ namespace jag::tweak {
                 if (local_48 < local_44) {
                     cVar6 = IsAttached(this);
                     if (cVar6 != '\0') {
-                        iVar7 = field_104;
+                        iVar7 = m_placement;
                         iVar8 = field_116;
                         iVar9 = GetVisibleX(this);
                         iVar1 = field_108;
@@ -461,11 +461,11 @@ namespace jag::tweak {
         this_00 = (GraphicsApp*)BaseApp::GetAppInstance();
         uVar1 = this_00->GetUniqueLoopID();
         if (field_96 + 1 < uVar1) {
-            plVar2 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)field_16);
+            plVar2 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)m_root);
             (**(code**)(*plVar2 + 80))(plVar2);
         }
         if (field_159 != '\0') {
-            plVar2 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)field_16);
+            plVar2 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)m_root);
             (**(code**)(*plVar2 + 88))(plVar2);
             field_159 = '\0';
         }
@@ -520,8 +520,8 @@ namespace jag::tweak {
     void Tweaky::Clear() {
         long* plVar2;
 
-        if (field_16->operator_cast_to_bool()) {
-            plVar2 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)field_16);
+        if (m_root->operator_cast_to_bool()) {
+            plVar2 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)m_root);
             (**(code**)(*plVar2 + 16))(plVar2);
         }
     }
@@ -538,7 +538,7 @@ namespace jag::tweak {
             param_2 = param_2 - field_132;
             param_4 = param_4 - field_132;
         }
-        uVar1 = field_48->GetGUIManager();
+        uVar1 = m_pRT7Core->GetGUIManager();
         1065353216->AddGeneralLine(uVar1, param_1, param_2, param_3, param_4, m_colour, 1, 0);
     }
 
@@ -553,7 +553,7 @@ namespace jag::tweak {
         double dVar4;
         double local_40;
 
-        uVar3 = field_48->GetGUIManager();
+        uVar3 = m_pRT7Core->GetGUIManager();
         dVar4 = 0.6;
         if ((int)CONCAT71(in_register_00000089, param_5) == 0) {
             local_40 = 0.6;
@@ -578,7 +578,7 @@ namespace jag::tweak {
         undefined8 uVar1;
 
         uVar2 = (undefined4)((ulong)in_RAX >> 32);
-        uVar1 = field_48->GetGUIManager();
+        uVar1 = m_pRT7Core->GetGUIManager();
         uVar1->AddColouredRectangle(param_1 - field_136, param_2 - field_132, param_3, param_4, m_colour,
                                     CONCAT44(uVar2, 1));
     }
@@ -588,7 +588,7 @@ namespace jag::tweak {
     void Tweaky::GetSize(int* param_1, int* param_2) {
         long* plVar1;
 
-        plVar1 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)field_16);
+        plVar1 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)m_root);
         (**(code**)(*plVar1 + 40))(plVar1, param_1, param_2);
     }
 
@@ -621,7 +621,7 @@ namespace jag::tweak {
 
         pTVar7 = (TextProperties*)param_3.field_0;
         iVar10 = (int)param_3.field_8;
-        this_03 = field_64;
+        this_03 = m_font;
         pTVar8 = pTVar7;
         local_39 = this_03->operator_cast_to_bool();
         if ((bool)local_39) {
@@ -668,12 +668,12 @@ namespace jag::tweak {
         type* in_RSI;
         uint local_1c;
 
-        pLVar3 = (Layout*)shared_ptr<graphics::Font>::operator->((shared_ptr<graphics::Font>*)field_64);
+        pLVar3 = (Layout*)shared_ptr<graphics::Font>::operator->((shared_ptr<graphics::Font>*)m_font);
         pvVar4 = eastl::string::Layout::SSOBeginPtr(pLVar3, in_RSI);
         pFVar5 =
             (FontMetrics*)shared_ptr<graphics::FontMetrics>::operator->((shared_ptr<graphics::FontMetrics>*)pvVar4);
         bVar1 = pFVar5->GetMaxAscent();
-        pLVar3 = (Layout*)shared_ptr<graphics::Font>::operator->((shared_ptr<graphics::Font>*)field_64);
+        pLVar3 = (Layout*)shared_ptr<graphics::Font>::operator->((shared_ptr<graphics::Font>*)m_font);
         pvVar4 = eastl::string::Layout::SSOBeginPtr(pLVar3, in_RSI);
         pFVar5 =
             (FontMetrics*)shared_ptr<graphics::FontMetrics>::operator->((shared_ptr<graphics::FontMetrics>*)pvVar4);
@@ -694,7 +694,7 @@ namespace jag::tweak {
         undefined4 in_register_00000034;
 
         uVar2 = param_1 >> 1;
-        this_00 = (Layout*)shared_ptr<graphics::Font>::operator->((shared_ptr<graphics::Font>*)field_64);
+        this_00 = (Layout*)shared_ptr<graphics::Font>::operator->((shared_ptr<graphics::Font>*)m_font);
         this_01 = eastl::string::Layout::SSOBeginPtr(this_00, (type*)CONCAT44(in_register_00000034, param_1));
         this_02 =
             (FontMetrics*)shared_ptr<graphics::FontMetrics>::operator->((shared_ptr<graphics::FontMetrics>*)this_01);
@@ -715,7 +715,7 @@ namespace jag::tweak {
             ClearFocus(this);
             uVar3 = 0;
         } else {
-            plVar2 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)field_16);
+            plVar2 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)m_root);
             cVar1 = (**(code**)(*plVar2 + 48))((float)field_136 + param_1, (float)field_132 + param_2, plVar2, 1);
             uVar3 = 1;
             if (cVar1 == '\0') {
@@ -764,7 +764,7 @@ namespace jag::tweak {
         if (field_120 != '\0') {
             local_34 = field_124;
             local_38 = field_128;
-            plVar5 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)field_16);
+            plVar5 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)m_root);
             (**(code**)(*plVar5 + 40))(plVar5, &local_50, &local_3c);
             fVar8 = local_34 - param_1;
             fVar9 = local_38 - param_2;
@@ -810,7 +810,7 @@ namespace jag::tweak {
         if (cVar1 == '\0') {
             cVar1 = IsInsideVisibleArea(this, (int)param_1, (int)param_2);
             if (cVar1 != '\0') {
-                this_00 = field_16;
+                this_00 = m_root;
                 this_01 = (Control*)shared_ptr<Container>::operator->((shared_ptr<Container>*)this_00);
                 cVar1 = this_01->BoundsCheck((float)field_136 + param_1, (float)field_132 + param_2);
                 if (cVar1 != '\0') {
@@ -821,7 +821,7 @@ namespace jag::tweak {
                     return 1;
                 }
             }
-            plVar2 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)field_16);
+            plVar2 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)m_root);
             (**(code**)(*plVar2 + 224))(plVar2, 0);
         }
         return 0;
@@ -899,7 +899,7 @@ namespace jag::tweak {
         int local_20;
         int local_1c;
 
-        plVar3 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)field_16);
+        plVar3 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)m_root);
         (**(code**)(*plVar3 + 40))(plVar3, &local_20, &local_1c);
         iVar1 = GetVisibleX(this);
         iVar2 = GetVisibleY(this);
@@ -940,10 +940,10 @@ namespace jag::tweak {
         vector* this_02;
         FontMetrics* this_03;
 
-        this_00 = field_64;
+        this_00 = m_font;
         if (operator!=((shared_ptr*)this_00, param_1)) {
             shared_ptr<graphics::Font>::operator=((shared_ptr<graphics::Font>*)this_00, param_1);
-            plVar4 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)field_16);
+            plVar4 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)m_root);
             (**(code**)(*plVar4 + 112))(plVar4);
             this_01 = (Layout*)shared_ptr<graphics::Font>::operator->((shared_ptr<graphics::Font>*)this_00);
             this_02 = eastl::string::Layout::SSOBeginPtr(this_01, (type*)param_1);
@@ -1015,7 +1015,7 @@ namespace jag::tweak {
             if (field_112 + -4 < iVar2 - field_136) {
                 field_136 = (iVar2 - field_112) + 14;
             }
-            if (iVar1 - field_136 < field_104 + 4) {
+            if (iVar1 - field_136 < m_placement + 4) {
                 field_136 = iVar1 + -14;
             }
             if (field_116 + -4 < piVar3[3] - field_132) {
@@ -1453,7 +1453,7 @@ namespace jag::tweak {
                             plVar3 = (long*)shared_ptr<Control>::operator->(this_01);
                             cVar1 = (**(code**)(*plVar3 + 40))(plVar3, &local_50, &local_4c);
                             if (cVar1 != '\0') {
-                                if (field_288 == 1) {
+                                if (m_direction == 1) {
                                     param_1 = param_1 + local_50 + 2;
                                 } else {
                                     param_2 = param_2 + local_4c + 2;
@@ -1515,7 +1515,7 @@ namespace jag::tweak {
                     plVar5 = (long*)shared_ptr<Control>::operator->(this_01);
                     cVar3 = (**(code**)(*plVar5 + 40))(plVar5, &local_3c, &local_4c);
                     if (cVar3 != '\0') {
-                        if (field_288 == 1) {
+                        if (m_direction == 1) {
                             iVar6 = iVar6 + local_3c + 2;
                             local_38 = eastl::max<int>((int)local_38, local_4c);
                         } else {

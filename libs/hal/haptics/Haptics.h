@@ -16,7 +16,7 @@ namespace jag::hal {
         void Vibrate(Preset);
 
         // data members, from how the methods use this: 12 bytes
-        undefined1 field_0; // offset 0
+        undefined1 m_enabled; // offset 0
         char _unknown_1[3];
         undefined4 field_4; // offset 4
         char _unknown_8[4];
@@ -44,7 +44,7 @@ namespace jag::hal {
 
 namespace jag::game {
     // 0x100023af0: the linker folded this into hal::Haptics::GetEnabled() const, which has identical code
-    EnvToneMapSettings::GetToneMappingEnabled() const;
+    EnvironmentOverrideParam<bool> EnvToneMapSettings::GetToneMappingEnabled() const;
 
     // 0x100023af0: the linker folded this into hal::Haptics::GetEnabled() const, which has identical code
     GlobalCutscene2DResources::GetSubtitlesEnabled() const;

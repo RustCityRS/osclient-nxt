@@ -31,7 +31,7 @@ namespace jag::game {
 
         local_20 = param_1;
         local_18 = param_2;
-        if (field_168 == 3) {
+        if (m_speedProfile == 3) {
             (&field_176, &local_20)->push_back();
             (&field_208, &local_18)->push_back();
         } else {
@@ -179,7 +179,7 @@ namespace jag::game {
                 uVar3 = uVar3 - 1;
             } while (uVar3 != 0);
         }
-        if (field_168 == 2) {
+        if (m_speedProfile == 2) {
             (&field_176, uVar2)->reserve();
             (&field_208, uVar2)->reserve();
             (&field_240, uVar2)->reserve();
@@ -198,7 +198,7 @@ namespace jag::game {
                     uVar2 = (ulong)uVar3;
                 } while (uVar3 != 0);
             }
-        } else if (field_168 == 3) {
+        } else if (m_speedProfile == 3) {
             (&field_176, uVar2)->reserve();
             (&field_208, uVar2)->reserve();
             if (uVar2 != 0) {
@@ -306,7 +306,7 @@ namespace jag::game {
                         ((double)CONCAT44(uVar14, uVar12) < *pdVar1 || (double)CONCAT44(uVar14, uVar12) == *pdVar1))
                         break;
                     fVar13 = (float)eastl::min<float>(local_34, fVar15);
-                    iVar11 = field_168;
+                    iVar11 = m_speedProfile;
                     if (iVar11 == 1) {
                         uVar8 =
                             GetSpeedTrapezium(m_currentPoint, local_48, (double)fVar13, field_160, param_2, param_3);
@@ -500,7 +500,7 @@ namespace jag::game {
     char* SplineMovement::GetSpeedProfileDescription() {
         uint uVar1;
 
-        uVar1 = field_168 - 1;
+        uVar1 = m_speedProfile - 1;
         if (uVar1 < 3) {
             return (&PTR_s_TRAPEZIUM_100f0c9c8)[(int)uVar1];
         }

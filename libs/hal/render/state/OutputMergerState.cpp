@@ -13,7 +13,7 @@ namespace jag::render {
     OutputMergerState::GetScissorRects() const;
 
     // 0x1006211f0: the linker folded this into game::Camera::GetLookatMode() const, which has identical code
-    OutputMergerState::GetClearFlags() const;
+    uint OutputMergerState::GetClearFlags() const;
 
     // 0x100bdf570, 240 bytes, placed by class name and debug map
     // OutputMergerState::SetRenderTargets(RenderTargets const*)

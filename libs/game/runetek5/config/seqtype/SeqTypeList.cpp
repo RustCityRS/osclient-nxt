@@ -188,7 +188,7 @@ namespace jag::game {
 
         BaseTemplateConfigTypeList<SeqType>::BaseTemplateConfigTypeList();
         field_0 = PTR_vtable_100ee7ef8 + 16;
-        field_112 = in_R9;
+        m_seqGroupTypeList = in_R9;
         new (&field_120, 256, "KeyFrameSeqTypeList")
             LRUHashCache<graphics::AnimKeyFrameSet, 256ul, 257ul, false, unsigned long long>();
         new (&field_20856, 256, "SeqTypeList")

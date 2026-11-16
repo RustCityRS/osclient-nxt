@@ -30,11 +30,11 @@ namespace jag::oldscape::graphics {
         field_76 = 0;
         m_clientWindowSize = 0;
         field_84 = 0;
-        field_88 = 1.0;
-        eastl::destruct<highlight::NpcUID*>((eastl*)&field_92, pNVar2, extraout_RDX);
+        m_clampedZoomValue = 1.0;
+        eastl::destruct<highlight::NpcUID*>((eastl*)&m_uIWidth, pNVar2, extraout_RDX);
         eastl::destruct<highlight::NpcUID*>((eastl*)&m_uIHeight, pNVar2, extraout_RDX_00);
         new (&field_100, (_func_decltype_nullptr*)pNVar2) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>();
-        field_116 = 1.0;
+        m_zoomValue = 1.0;
         new (&field_128) jag::math::Vector4T<float>();
         m_minSize = param_3;
         field_156 = param_4;
@@ -55,22 +55,22 @@ namespace jag::oldscape::graphics {
         undefined4 uVar6;
         undefined1 local_40[16];
 
-        field_32 = param_1;
-        field_36 = param_2;
+        m_width = param_1;
+        m_height = param_2;
         new (local_40) dash3d::GridRect(0, 0, param_1, param_2);
         SetSafeArea(this, (Rect*)local_40);
         if (m_pCurrentRenderCanvas == (NXTRenderCanvas*)0) {
             pNVar3 = (NXTRenderCanvas*)field_56->GetCost();
             m_pCurrentRenderCanvas = pNVar3;
         }
-        (m_pCurrentRenderCanvas, m_viewportPosition, field_76, field_32, field_36)->SetRenderRect();
+        (m_pCurrentRenderCanvas, m_viewportPosition, field_76, m_width, m_height)->SetRenderRect();
         pNVar3 = m_pCurrentRenderCanvas;
         iVar1 = m_viewportPosition;
         iVar2 = field_76;
         uVar5 = GetMinMapX();
         uVar6 = GetUIHeight(this);
         pNVar3->SetUIRect(iVar1, iVar2, uVar5, uVar6);
-        (m_pCurrentRenderCanvas, field_32, field_36)->SetScreenSize();
+        (m_pCurrentRenderCanvas, m_width, m_height)->SetScreenSize();
         pSVar4 = (SharedArray*)m_pCurrentRenderCanvas->GetPixelBuffer();
         (&field_8, pSVar4)->ref_assign();
     }
@@ -116,7 +116,7 @@ namespace jag::oldscape::graphics {
         local_18 = 1.0;
         local_14 = 5.0;
         local_1c = param_1;
-        field_116 = jag::math::Clamp<float>(&local_1c, &local_18, &local_14);
+        m_zoomValue = jag::math::Clamp<float>(&local_1c, &local_18, &local_14);
         CalculateUIRect(this);
     }
 
@@ -130,23 +130,23 @@ namespace jag::oldscape::graphics {
         int iVar5;
         float fVar6;
         float fVar7;
-        undefined4 local_40[2];
+        int local_40[2];
         undefined4 local_38;
         float local_34;
 
-        local_34 = (float)field_32 * (float)m_minSize;
+        local_34 = (float)m_width * (float)m_minSize;
         piVar3 = (int*)(&field_100)->second();
         fVar6 = (float)floor(local_34 / (float)*piVar3);
         iVar5 = (int)fVar6;
-        local_34 = (float)field_36 * (float)field_156;
+        local_34 = (float)m_height * (float)field_156;
         piVar3 = (int*)(&field_100)->qw();
         fVar6 = (float)floor(local_34 / (float)*piVar3);
         local_34 = (float)(int)fVar6;
-        iVar1 = field_32;
-        fVar7 = 1.0 / field_116;
+        iVar1 = m_width;
+        fVar7 = 1.0 / m_zoomValue;
         fVar6 = (float)floor((float)iVar1 * fVar7);
         iVar4 = (int)fVar6;
-        iVar2 = field_36;
+        iVar2 = m_height;
         fVar6 = (float)floor((float)iVar2 * fVar7);
         if (iVar4 < iVar5) {
             fVar6 = (float)((iVar1 / 2 + iVar2 * iVar5) / iVar1);
@@ -159,10 +159,10 @@ namespace jag::oldscape::graphics {
             fVar6 = local_34;
         }
         XPlotBlender<XPlot_NormalAlpha>::XPlotBlender<int>((XPlotBlender<XPlot_NormalAlpha>*)local_40, iVar4);
-        field_92 = local_40[0];
+        m_uIWidth = local_40[0];
         XPlotBlender<XPlot_NormalAlpha>::XPlotBlender<int>((XPlotBlender<XPlot_NormalAlpha>*)&local_38, (int)fVar6);
         m_uIHeight = local_38;
-        field_88 = (float)field_32 / (float)iVar4;
+        m_clampedZoomValue = (float)m_width / (float)iVar4;
     }
 
     // 0x10031b280, 160 bytes, placed by class name
@@ -175,12 +175,12 @@ namespace jag::oldscape::graphics {
         local_2c = (float)param_1;
         local_38.m_x = GetMinMapX();
         iVar1 = local_38.GetX();
-        iVar1 = jag::math::RoundFloatToInt(((float)iVar1 * local_2c) / (float)field_32);
+        iVar1 = jag::math::RoundFloatToInt(((float)iVar1 * local_2c) / (float)m_width);
         *param_3 = iVar1;
         local_2c = (float)param_2;
         local_38._8_4_ = GetUIHeight(this);
         iVar1 = local_38.field_8.GetX();
-        iVar1 = jag::math::RoundFloatToInt(((float)iVar1 * local_2c) / (float)field_36);
+        iVar1 = jag::math::RoundFloatToInt(((float)iVar1 * local_2c) / (float)m_height);
         *param_4 = iVar1;
     }
 
@@ -197,12 +197,12 @@ namespace jag::oldscape::graphics {
         iVar1 = field_76;
         local_30[0] = GetMinMapX();
         iVar2 = local_30->GetX();
-        iVar3 = jag::math::RoundFloatToInt(((float)iVar2 * (float)(param_1 - iVar3)) / (float)field_32);
+        iVar3 = jag::math::RoundFloatToInt(((float)iVar2 * (float)(param_1 - iVar3)) / (float)m_width);
         XPlotBlender<XPlot_NormalAlpha>::XPlotBlender<int>((XPlotBlender<XPlot_NormalAlpha>*)local_38, iVar3);
         *(undefined4*)param_3 = local_38[0];
         local_30[0] = GetUIHeight(this);
         iVar3 = local_30->GetX();
-        iVar3 = jag::math::RoundFloatToInt(((float)iVar3 * (float)(param_2 - iVar1)) / (float)field_36);
+        iVar3 = jag::math::RoundFloatToInt(((float)iVar3 * (float)(param_2 - iVar1)) / (float)m_height);
         XPlotBlender<XPlot_NormalAlpha>::XPlotBlender<int>((XPlotBlender<XPlot_NormalAlpha>*)local_38, iVar3);
         *(undefined4*)param_4 = local_38[0];
     }
@@ -220,13 +220,13 @@ namespace jag::oldscape::graphics {
         local_38._0_4_ = param_2;
         local_38._8_4_ = param_3;
         iVar1 = local_38->GetX();
-        local_2c = (float)field_32 * (float)iVar1;
+        local_2c = (float)m_width * (float)iVar1;
         local_28[0] = GetMinMapX();
         iVar1 = local_28->GetX();
         uVar2 = jag::math::RoundFloatToInt(local_2c / (float)iVar1);
         *param_4 = uVar2;
         iVar1 = ((local_38 + 8))->GetX();
-        local_2c = (float)field_36 * (float)iVar1;
+        local_2c = (float)m_height * (float)iVar1;
         local_28[0] = GetUIHeight(this);
         iVar1 = local_28->GetX();
         uVar2 = jag::math::RoundFloatToInt(local_2c / (float)iVar1);
@@ -254,7 +254,7 @@ namespace jag::oldscape::graphics {
     // 0x10031b500, 16 bytes, placed by class name
     // NXTPixScreen::SetScaledUIQuality(ScaledUIQuality)
     void NXTPixScreen::SetScaledUIQuality(undefined4 param_2) {
-        field_120 = param_2;
+        m_scaledUIQuality = param_2;
     }
 
     // 0x10031b510, 16 bytes, placed by class name
@@ -278,9 +278,9 @@ namespace jag::oldscape::graphics {
         uVar4 = GetMinMapX();
         uVar5 = GetUIHeight(this);
         param_1->SetUIRect(iVar1, iVar2, uVar4, uVar5);
-        (m_pCurrentRenderCanvas, field_32, field_36)->SetScreenSize();
+        (m_pCurrentRenderCanvas, m_width, m_height)->SetScreenSize();
         (m_pCurrentRenderCanvas, field_40)->ShowUI();
-        (m_pCurrentRenderCanvas, field_120)->SetScaledUIQuality();
+        (m_pCurrentRenderCanvas, m_scaledUIQuality)->SetScaledUIQuality();
         (m_pCurrentRenderCanvas, field_41)->ShowSkybox();
         dash3d::NXTRenderCanvas::SetSkyboxColour(field_128, field_136, m_pCurrentRenderCanvas);
         (m_pCurrentRenderCanvas, m_fogParams, field_148)->SetFogParams();

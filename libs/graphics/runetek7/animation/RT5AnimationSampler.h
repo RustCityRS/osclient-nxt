@@ -44,8 +44,8 @@ namespace jag::graphics {
         char _unknown_25[7];
         VertexTransformData field_32; // offset 32
         char _unknown_72[8];
-        VertexTransformData* field_80; // offset 80
-        undefined1 field_88;           // offset 88
+        VertexTransformData* field_80;    // offset 80
+        undefined1 m_transformMaskToggle; // offset 88
         char _unknown_89[55];
         AnimationInfo* m_pOverrideAnimationInfo; // offset 144
         char _unknown_152[6515720];
@@ -59,7 +59,7 @@ namespace jag::graphics {
         new (&local_28) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(0);
         shared_ptr<WalkMergeDataProvider>::operator=((shared_ptr<WalkMergeDataProvider>*)field_8, &local_28);
         local_28.~shared_ptr();
-        field_88 = 1;
+        m_transformMaskToggle = 1;
         field_80 = (VertexTransformData*)0;
         m_pOverrideAnimationInfo = (AnimationInfo*)0;
     }
@@ -105,7 +105,7 @@ namespace jag::graphics {
         new (this) AnimationSampler(param_1);
         field_0 = &PTR__RT5AnimationSampler_100f1b028;
         new (field_32, (VertexTransformData*)param_1->field_32) VertexTransformData();
-        field_88 = param_1->field_88;
+        m_transformMaskToggle = param_1->m_transformMaskToggle;
         field_80 = param_1->field_80;
         new (&field_96, (AnimationInfo*)&param_1->field_96) AnimationInfo();
         m_pOverrideAnimationInfo = param_1->m_pOverrideAnimationInfo;

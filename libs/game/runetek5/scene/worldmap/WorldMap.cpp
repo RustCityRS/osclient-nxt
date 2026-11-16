@@ -4122,18 +4122,18 @@ namespace jag::game {
             local_50 = (char*)pMVar12->GetText();
             StringView::StringView<char const*>((StringView*)(auStack_15e + -10), &local_50);
             puVar19 = (undefined4*)this_01->second();
-            SVar37.field_8._0_4_ = *puVar19;
-            SVar37.field_0 = (ulong)(auStack_15e + -10);
-            SVar37.field_8._4_4_ = 0;
-            uVar20 = graphics::FontHelpers::PredictHeightAndLines(SVar37, (int)&local_d8, (TextProperties*)0);
+            SVar38.field_8._0_4_ = *puVar19;
+            SVar38.field_0 = (ulong)(auStack_15e + -10);
+            SVar38.field_8._4_4_ = 0;
+            uVar20 = graphics::FontHelpers::PredictHeightAndLines(SVar38, (int)&local_d8, (TextProperties*)0);
             pMVar12 = (MapElementType*)shared_ptr<MapElementType>::operator->((shared_ptr<MapElementType>*)param_6);
             local_50 = (char*)pMVar12->GetText();
             StringView::StringView<char const*>(&local_158, &local_50);
             puVar19 = (undefined4*)this_01->second();
-            SVar38.field_8._0_4_ = *puVar19;
-            SVar38.field_0 = (ulong)&local_158;
-            SVar38.field_8._4_4_ = 0;
-            local_f0 = graphics::FontHelpers::PredictWidthMultiLine(SVar38, (int)&local_d8, (TextProperties*)0);
+            SVar39.field_8._0_4_ = *puVar19;
+            SVar39.field_0 = (ulong)&local_158;
+            SVar39.field_8._4_4_ = 0;
+            local_f0 = graphics::FontHelpers::PredictWidthMultiLine(SVar39, (int)&local_d8, (TextProperties*)0);
             pMVar15 = (MSIType*)shared_ptr<MapElementType>::operator->((shared_ptr<MapElementType>*)param_6);
             iVar6 = (int)local_f0;
             uVar34 = iVar33 - (iVar6 >> 1);
@@ -4461,9 +4461,9 @@ namespace jag::game {
         pMVar12 = (MapElementType*)shared_ptr<MapElementType>::operator->((shared_ptr<MapElementType>*)param_6);
         local_50 = (char*)pMVar12->GetText();
         StringView::StringView<char const*>(&local_148, &local_50);
-        SVar39.field_8 = local_118;
-        SVar39.field_0 = (ulong)&local_148;
-        this_00->DrawStringMultiline(SVar39, (int)local_110, (int)local_f0, (int)local_108, (int)&local_11c,
+        SVar37.field_8 = local_118;
+        SVar37.field_0 = (ulong)&local_148;
+        this_00->DrawStringMultiline(SVar37, (int)local_110, (int)local_f0, (int)local_108, (int)&local_11c,
                                      (uint*)&local_d8, in_stack_fffffffffffffe98);
     LAB_1003cec9d:
         local_100.~shared_ptr();

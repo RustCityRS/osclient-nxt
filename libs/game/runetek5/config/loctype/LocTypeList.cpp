@@ -16,7 +16,7 @@ namespace jag::game {
 
         BaseTemplateConfigTypeList<LocType>::BaseTemplateConfigTypeList();
         field_0 = PTR_vtable_100ee7ee0 + 16;
-        field_112 = in_R9B;
+        m_membersServer = in_R9B;
         new (&field_120, 1024, "LocTypeList")
             AssetLRUHashCache<graphics::Model, BuildModelMain, 1024ul, 1025ul, false>();
     }

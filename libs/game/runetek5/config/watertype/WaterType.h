@@ -12,15 +12,15 @@ namespace jag::game {
         virtual DecodeType(PacketT<Array<unsigned char, eastl::allocator>>&, unsigned int);
         virtual void PostDecode();
         uint GetEmissiveMapMaterialID() const;
-        GetExtinctionRGBDepthMetres() const;
-        GetFoamMaterialID() const;
+        ColourHSL GetExtinctionRGBDepthMetres() const;
+        uint GetFoamMaterialID() const;
         OverrideDefaultWaterType() const;
-        GetDepthFoam() const;
+        uint GetDepthFoam() const;
         GetEmissiveUVScale() const;
         WaterType(BaseTemplateConfigTypeList<WaterType>*, int);
         void ApplyToWaterPatchConfig(graphics::WaterPatchConfig&) const;
         GetFlowNoise() const;
-        GetFoamMaterialScale() const;
+        float GetFoamMaterialScale() const;
         GetNormalMapMaterialID(unsigned long) const;
         GetNormalMapMaterialScale(unsigned long) const;
         void GetNormalMapParams(unsigned long) const;
@@ -37,7 +37,7 @@ namespace jag::game {
         GetEmissiveMapRefractionDepth() const;
         GetEmissiveMapMode() const;
         GetEmissiveFlowSpeed() const;
-        GetEmissiveFlowRotationDegrees() const;
+        float GetEmissiveFlowRotationDegrees() const;
         GetEmissiveUVMode() const;
         GetEmissiveBlend() const;
         GetExtinctionOpaqueWaterColour() const;
@@ -46,7 +46,7 @@ namespace jag::game {
         GetCausticsRefractionScale() const;
         GetCausticsDepthFadeCutoff() const;
         GetCausticsDepthFadeScale() const;
-        GetCausticsEdgeFadeStart() const;
+        float GetCausticsEdgeFadeStart() const;
         GetCausticsEdgeFadeEnd() const;
         GetCausticsOverWaterFadeStart() const;
         GetCausticsOverWaterFadeEnd() const;
@@ -72,14 +72,14 @@ namespace jag::game {
         char _unknown_36[20];
         bool field_56; // offset 56
         char _unknown_57[3];
-        undefined4 m_flowNoise; // offset 60
-        uint field_64;          // offset 64
-        uint field_68;          // offset 68
-        float field_72;         // offset 72
-        undefined8 field_76;    // offset 76
-        undefined4 field_84;    // offset 84
-        undefined8 field_88;    // offset 88
-        undefined4 field_96;    // offset 96
+        undefined4 m_flowNoise;    // offset 60
+        uint m_depthFoam;          // offset 64
+        uint m_foamMaterialID;     // offset 68
+        float m_foamMaterialScale; // offset 72
+        undefined8 field_76;       // offset 76
+        undefined4 field_84;       // offset 84
+        undefined8 field_88;       // offset 88
+        undefined4 field_96;       // offset 96
         char _unknown_100[240];
         undefined4 m_stillWaterNormalStrength;   // offset 340
         uint m_emissiveMapMaterialID;            // offset 344
@@ -94,23 +94,23 @@ namespace jag::game {
         undefined1 m_emissiveUVMode;             // offset 377
         char _unknown_378[2];
         undefined4 m_emissiveFlowSpeed;          // offset 380
-        undefined4 field_384;                    // offset 384
+        float m_emissiveFlowRotationDegrees;     // offset 384
         undefined4 m_emissiveBlend;              // offset 388
         float m_specularShininess;               // offset 392
         uint m_specularFactor;                   // offset 396
         undefined4 m_fresnelBias;                // offset 400
         float m_reflectionStrength;              // offset 404
-        ColourHSL field_408;                     // offset 408
+        ColourHSL m_extinctionRGBDepthMetres;    // offset 408
         undefined4 m_extinctionVisibilityMetres; // offset 424
         undefined4 m_causticsScale;              // offset 428
         undefined4 m_causticsRefractionScale;    // offset 432
         undefined4 m_causticsDepthFadeCutoff;    // offset 436
         undefined4 m_causticsDepthFadeScale;     // offset 440
-        undefined4 field_444;                    // offset 444
+        float m_causticsEdgeFadeStart;           // offset 444
         undefined4 m_causticsEdgeFadeEnd;        // offset 448
         undefined4 m_causticsOverWaterFadeStart; // offset 452
         undefined4 m_causticsOverWaterFadeEnd;   // offset 456
-        undefined4 field_460;                    // offset 460
+        undefined4 m_baseRGBA;                   // offset 460
         uint field_464;                          // offset 464
         uint field_468;                          // offset 468
         uint field_472;                          // offset 472
@@ -285,7 +285,7 @@ namespace jag::game {
     // 0x1004c69d0, 16 bytes, inline, placed by class name
     // WaterType::GetExtinctionOpaqueWaterColour() const
     undefined4 WaterType::GetExtinctionOpaqueWaterColour() {
-        return *(undefined4*)(field_408 + 12);
+        return *(undefined4*)(m_extinctionRGBDepthMetres + 12);
     }
 
     // 0x1004c69e0, 16 bytes, inline, placed by class name

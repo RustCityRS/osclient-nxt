@@ -12,7 +12,7 @@ namespace jag::game {
         virtual ~RT5AnimationResourceManager();
         virtual void Update();
         virtual void RequestResources(graphics::AnimationStateResourceList&);
-        GetModel() const;
+        shared_ptr GetModel() const;
         void SetModel(shared_ptr<graphics::Model> const&);
         void SetBASType(shared_ptr<BASType> const&);
         RT5AnimationResourceManager(AssetBuilder&, ConfigProvider const&);
@@ -24,7 +24,7 @@ namespace jag::game {
         char _unknown_8[40];
         AssetBuilder* field_48;   // offset 48
         ConfigProvider* field_56; // offset 56
-        shared_ptr field_64;      // offset 64
+        shared_ptr m_model;       // offset 64
         char _unknown_80[8];
     };
 
@@ -43,7 +43,7 @@ namespace jag::game {
     // 0x1003f2ca0, 16 bytes, inline, placed by class name and debug map
     // RT5AnimationResourceManager::SetModel(shared_ptr<graphics::Model> const&)
     void RT5AnimationResourceManager::SetModel(shared_ptr* param_1) {
-        shared_ptr<graphics::Model>::operator=((shared_ptr<graphics::Model>*)field_64, param_1);
+        shared_ptr<graphics::Model>::operator=((shared_ptr<graphics::Model>*)m_model, param_1);
     }
 
     // 0x1003f2cb0, 16 bytes, inline, placed by class name and debug map
@@ -67,7 +67,7 @@ namespace jag::game {
     void RT5AnimationResourceManager::~RT5AnimationResourceManager() {
         field_0 = &PTR__RT5AnimationResourceManager_100f0da10;
         (&field_80)->~weak_ptr();
-        field_64->~shared_ptr();
+        m_model->~shared_ptr();
         (&field_8)->~vector_map();
         ~AutoSingleton();
     }

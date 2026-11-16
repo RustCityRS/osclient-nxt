@@ -7,7 +7,7 @@
 namespace jag::auth {
     class TokenAuthLoginHandler {
     public:
-        GetTokenAuthLoginState();
+        int GetTokenAuthLoginState();
         bool IsFinished(TokenAuthLoginState);
         ~TokenAuthLoginHandler();
         GetToken();
@@ -43,8 +43,8 @@ namespace jag::auth {
         static /* 8 bytes */ JSON_ERROR_MESSAGE;             // = "message"
 
         // data members, from how the methods use this: 128 bytes
-        int field_0; // offset 0
-        int field_4; // offset 4
+        int m_tokenAuthLoginState; // offset 0
+        int field_4;               // offset 4
         char _unknown_8[104];
         int field_112;         // offset 112
         undefined4 field_116;  // offset 116
@@ -117,7 +117,7 @@ namespace jag::auth {
     void TokenAuthLoginHandler::ResetRequestState() {
         HTTPRequest* this_00;
 
-        field_0 = 0;
+        m_tokenAuthLoginState = 0;
         if ((&field_104)->operator_cast_to_bool()) {
             this_00 =
                 (HTTPRequest*)std::unique_ptr<http::HTTPRequest, std::default_delete<http::HTTPRequest>>::operator->(

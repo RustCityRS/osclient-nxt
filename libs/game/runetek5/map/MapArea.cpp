@@ -10,7 +10,7 @@ namespace jag::game {
     shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> MapArea::NullMapArea;
 
     // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    MapArea::GetMapID() const;
+    int MapArea::GetMapID() const;
 
     // 0x10005d8c0: the linker folded this into oldscape::OSClientConsoleUI::GetBounds() const, which has identical code
     MapArea::GetOrigin() const;
@@ -67,7 +67,7 @@ namespace jag::game {
         Array<MapArea::CompositeSquare, eastl::allocator>* local_38;
 
         field_0 = param_1;
-        field_8 = param_2;
+        m_mapID = param_2;
         local_68 = (basic_string*)&field_16;
         new (local_68) eastl::string();
         local_60 = (basic_string*)&field_48;
@@ -75,7 +75,7 @@ namespace jag::game {
         local_58 = (Array<MapArea::SubArea, eastl::allocator>*)&field_80;
         Array<MapArea::SubArea, eastl::allocator>::Array(local_58);
         new (&m_origin, 0, 0, 0) oldscape::rs2lib::worldmap::LocationData();
-        field_116 = 255;
+        m_backgroundRGBA = 255;
         field_120 = 1;
         m_advisedZoom = 4294967295;
         new (&field_128) Array<MapArea::CompositeSquare, eastl::allocator>();
@@ -93,8 +93,8 @@ namespace jag::game {
         local_70 = &field_264;
         new (local_70) Array<StaticMapElement, eastl::allocator>();
         new (&field_288, 12800, 12800, -12800, -12800) oldscape::dash3d::GridRect();
-        new (((MapArea*)this)->field_304, 12800, 12800, -12800, -12800) oldscape::dash3d::GridRect();
-        new ((((MapArea*)this)->field_304 + 16), 0, 0, 0) oldscape::rs2lib::worldmap::LocationData();
+        new (((MapArea*)this)->m_targetBounds, 12800, 12800, -12800, -12800) oldscape::dash3d::GridRect();
+        new ((((MapArea*)this)->m_targetBounds + 16), 0, 0, 0) oldscape::rs2lib::worldmap::LocationData();
         PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::gStringCP1252ToUTF8<eastl::string>(
             (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)param_3, local_68, false);
         PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::gStringCP1252ToUTF8<eastl::string>(
@@ -105,7 +105,7 @@ namespace jag::game {
         m_origin = local_a0._0_8_;
         iVar6 = param_3->g4s();
         if (iVar6 != -1) {
-            ((MapArea*)this)->field_116 = iVar6 << 8 | 255;
+            ((MapArea*)this)->m_backgroundRGBA = iVar6 << 8 | 255;
         }
         cVar2 = param_3->g1();
         ((MapArea*)this)->field_120 = cVar2 == '\x01';
@@ -226,7 +226,7 @@ namespace jag::game {
         local_38 = this;
         lVar7 = puVar13->end();
         if (lVar7 != 0) {
-            this_00 = local_38->field_304;
+            this_00 = local_38->m_targetBounds;
             uVar11 = 0;
             do {
                 lVar7 = Array<MapArea::SubArea, eastl::allocator>::operator[](
@@ -310,13 +310,13 @@ namespace jag::game {
         int iVar3;
 
         field_0 = param_1;
-        field_8 = -1;
+        m_mapID = -1;
         new (&field_16) eastl::string();
         new (&field_48) eastl::string();
         this_00 = &field_80;
         new (this_00) Array<MapArea::SubArea, eastl::allocator>();
         new (&m_origin, 0, param_2, param_3) oldscape::rs2lib::worldmap::LocationData();
-        field_116 = 255;
+        m_backgroundRGBA = 255;
         field_120 = 1;
         m_advisedZoom = 4294967295;
         new (&field_128) Array<MapArea::CompositeSquare, eastl::allocator>();
@@ -330,8 +330,8 @@ namespace jag::game {
         field_240[16] = 0;
         new (&field_264) Array<StaticMapElement, eastl::allocator>();
         new (&field_288, 12800, 12800, -12800, -12800) oldscape::dash3d::GridRect();
-        new (field_304, 12800, 12800, -12800, -12800) oldscape::dash3d::GridRect();
-        new ((field_304 + 16), 0, 0, 0) oldscape::rs2lib::worldmap::LocationData();
+        new (m_targetBounds, 12800, 12800, -12800, -12800) oldscape::dash3d::GridRect();
+        new ((m_targetBounds + 16), 0, 0, 0) oldscape::rs2lib::worldmap::LocationData();
         (&field_16, "dummyarea")->assign();
         (&field_48, "Dummy Area")->assign();
         m_advisedZoom = 0;
@@ -383,7 +383,7 @@ namespace jag::game {
         long local_38;
 
         local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if (field_8 == -1) {
+        if (m_mapID == -1) {
             ppuVar5 = &DataStatus::MISSING;
         } else {
             this_00 = field_192;
@@ -405,7 +405,7 @@ namespace jag::game {
                     goto LAB_1004ad7bf;
                 }
                 new (&local_e8) PacketView();
-                puVar8 = (undefined*)(field_0, &local_e8, Js5Archive::JS5_WORLDMAPDATA, local_9c, field_8,
+                puVar8 = (undefined*)(field_0, &local_e8, Js5Archive::JS5_WORLDMAPDATA, local_9c, m_mapID,
                                       (Priority*)Priority::HIGH, true, false, false)
                              ->GetFile();
                 puVar6 = DataStatus::NOTLOADED;

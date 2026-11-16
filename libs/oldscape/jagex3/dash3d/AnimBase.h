@@ -8,19 +8,19 @@
 namespace jag::oldscape::dash3d {
     class AnimBase {
     public:
-        GetNumT() const;
+        uint GetNumT() const;
         AnimBase(int, PacketJ<Array<unsigned char, eastl::allocator>>&);
         GetSkeleton() const;
         ~AnimBase();
 
         // data members, from how the methods use this: 152 bytes
-        int field_0;  // offset 0
-        uint field_4; // offset 4
+        int field_0; // offset 0
+        uint m_numT; // offset 4
         char _unknown_8[144];
     };
 
     // 0x100073980: the linker folded this into jag::math::Rect<int>::MinY() const, which has identical code
-    AnimBase::GetNumT() const;
+    uint AnimBase::GetNumT() const;
 
     // 0x100349640, 784 bytes, base-object constructor, placed by class name
     // AnimBase::AnimBase(int, PacketJ<Array<unsigned char, eastl::allocator> >&)
@@ -49,7 +49,7 @@ namespace jag::oldscape::dash3d {
 
         p_Var12 = (_func_decltype_nullptr*)CONCAT44(in_register_00000034, param_1);
         field_0 = 0;
-        field_4 = 0;
+        m_numT = 0;
         local_48 = (vector<int, eastl::allocator>*)&field_8;
         eastl::vector<int, eastl::allocator>::vector(local_48);
         local_38 = (vector<eastl::vector<int, eastl::allocator>, eastl::allocator>*)&field_40;
@@ -62,21 +62,21 @@ namespace jag::oldscape::dash3d {
         eastl::vector<int, eastl::allocator>::vector(local_40);
         field_0 = param_1;
         bVar2 = param_2->g1();
-        field_4 = (uint)bVar2;
+        m_numT = (uint)bVar2;
         eastl::vector<int, eastl::allocator>::resize((ulong)local_48);
-        eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::resize(local_38, (long)(int)field_4);
+        eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::resize(local_38, (long)(int)m_numT);
         eastl::vector<int, eastl::allocator>::resize((ulong)local_50);
         eastl::vector<int, eastl::allocator>::resize((ulong)local_40);
-        if (0 < (int)field_4) {
+        if (0 < (int)m_numT) {
             uVar11 = 0;
             do {
                 uVar4 = param_2->g1();
                 puVar7 = (uint*)eastl::vector<int, eastl::allocator>::operator[](local_48, uVar11);
                 *puVar7 = uVar4 & 255;
                 uVar11 = uVar11 + 1;
-            } while ((long)uVar11 < (long)(int)field_4);
+            } while ((long)uVar11 < (long)(int)m_numT);
         }
-        if (0 < (int)field_4) {
+        if (0 < (int)m_numT) {
             uVar11 = 0;
             do {
                 eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::operator[](local_38, uVar11);
@@ -86,9 +86,9 @@ namespace jag::oldscape::dash3d {
                 param_2->g1();
                 eastl::vector<int, eastl::allocator>::resize(uVar8);
                 uVar11 = uVar11 + 1;
-            } while ((long)uVar11 < (long)(int)field_4);
+            } while ((long)uVar11 < (long)(int)m_numT);
         }
-        if (0 < (int)field_4) {
+        if (0 < (int)m_numT) {
             uVar11 = 0;
             do {
                 uVar8 = 0;
@@ -111,9 +111,9 @@ namespace jag::oldscape::dash3d {
                     uVar8 = uVar8 + 1;
                 }
                 uVar11 = uVar11 + 1;
-            } while ((long)uVar11 < (long)(int)((AnimBase*)this)->field_4);
+            } while ((long)uVar11 < (long)(int)((AnimBase*)this)->m_numT);
         }
-        if (0 < (int)((AnimBase*)this)->field_4) {
+        if (0 < (int)((AnimBase*)this)->m_numT) {
             uVar11 = 0;
             do {
                 pvVar9 = (vector<unsigned int, eastl::allocator>*)
@@ -122,7 +122,7 @@ namespace jag::oldscape::dash3d {
                 puVar10 = (undefined4*)eastl::vector<int, eastl::allocator>::operator[](local_40, uVar11);
                 *puVar10 = uVar6;
                 uVar11 = uVar11 + 1;
-            } while ((long)uVar11 < (long)(int)((AnimBase*)this)->field_4);
+            } while ((long)uVar11 < (long)(int)((AnimBase*)this)->m_numT);
         }
         uVar11 = param_2->size();
         this_01 = (vector<EntityHighlight*, BucketAllocatorEASTL>*)param_2->GetDataArrayPtr();

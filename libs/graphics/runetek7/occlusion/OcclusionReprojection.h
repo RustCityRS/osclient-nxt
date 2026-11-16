@@ -21,8 +21,8 @@ namespace jag::graphics {
         void RenderDepth(float*, math::Vector4T<float> const&) const;
 
         // data members, from how the methods use this: 1536 bytes
-        OcclusionManager* field_0; // offset 0
-        undefined1 field_8;        // offset 8
+        OcclusionManager* field_0;         // offset 0
+        undefined1 m_cPUReprojectionReady; // offset 8
         char _unknown_9[1511];
         uint field_1520; // offset 1520
         char _unknown_1524[4];

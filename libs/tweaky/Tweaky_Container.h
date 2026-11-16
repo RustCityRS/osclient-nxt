@@ -85,14 +85,14 @@ namespace jag::tweak {
         char field_209; // offset 209
         bool field_210; // offset 210
         char _unknown_211[37];
-        shared_ptr field_248; // offset 248
-        int field_264;        // offset 264
-        int field_268;        // offset 268
-        shared_ptr field_272; // offset 272
-        undefined4 field_288; // offset 288
-        bool field_292;       // offset 292
-        undefined1 field_293; // offset 293
-        char field_294;       // offset 294
+        shared_ptr field_248;   // offset 248
+        int field_264;          // offset 264
+        int field_268;          // offset 268
+        shared_ptr field_272;   // offset 272
+        undefined4 m_direction; // offset 288
+        bool field_292;         // offset 292
+        undefined1 field_293;   // offset 293
+        char field_294;         // offset 294
         char _unknown_295[6];
     };
 
@@ -372,7 +372,7 @@ namespace jag::tweak {
         field_264 = 0;
         field_268 = 0;
         new (field_272, (_func_decltype_nullptr*)0) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        field_288 = 0;
+        m_direction = 0;
         field_292 = true;
         field_293 = 0;
         field_294 = '\x01';
@@ -398,7 +398,7 @@ namespace jag::tweak {
         field_264 = 0;
         field_268 = 0;
         new (field_272, (_func_decltype_nullptr*)0) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        field_288 = 0;
+        m_direction = 0;
         field_292 = true;
         field_293 = 0;
         field_294 = '\x01';
@@ -417,7 +417,7 @@ namespace jag::tweak {
     // 0x100a51570, 16 bytes, inline, placed by class name
     // Container::SetDirection(ContainerDirection)
     void Container::SetDirection(undefined4 param_2) {
-        field_288 = param_2;
+        m_direction = param_2;
     }
 
     // 0x100a53810, 16 bytes, complete-object constructor, inline, placed by class name
@@ -433,7 +433,7 @@ namespace jag::tweak {
         field_264 = 0;
         field_268 = 0;
         new (field_272, (_func_decltype_nullptr*)0) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        field_288 = 0;
+        m_direction = 0;
         field_292 = true;
         field_293 = 0;
         field_294 = '\x01';
@@ -546,7 +546,7 @@ namespace jag::tweak {
         field_264 = 0;
         field_268 = 0;
         new (field_272, (_func_decltype_nullptr*)0) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        field_288 = 0;
+        m_direction = 0;
         field_292 = param_2;
         field_293 = 0;
         field_294 = '\x01';
@@ -565,7 +565,7 @@ namespace jag::tweak {
         field_264 = 0;
         field_268 = 0;
         new (field_272, (_func_decltype_nullptr*)0) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        field_288 = 0;
+        m_direction = 0;
         field_292 = true;
         field_293 = 0;
         field_294 = '\x01';

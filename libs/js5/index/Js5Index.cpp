@@ -13,29 +13,29 @@ namespace jag {
     Js5Index::GetIndexWhirlpool() const;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    Js5Index::GetIndexCRC() const;
+    uint Js5Index::GetIndexCRC() const;
 
     // 0x1000fa830: the linker folded this into oldscape::graphics::NXTPixScreen::GetWidth() const, which has identical code
-    Js5Index::GetIndexVersion() const;
+    uint Js5Index::GetIndexVersion() const;
 
     // 0x10017f5b0: the linker folded this into oldscape::javapal::GameShell::GetPixToolkit(), which has identical code
-    Js5Index::GetTotalPackedGroupSize() const;
+    long Js5Index::GetTotalPackedGroupSize() const;
 
     // 0x1001a3c10: the linker folded this into MainLoopFrameTimer::GetFPSCounter(), which has identical code
     Js5Index::GetGroupList() const;
 
     // 0x100293ee0: the linker folded this into hal::audio::AudioRenderer::GetState() const, which has identical code
-    Js5Index::GetGroupCount() const;
+    uint Js5Index::GetGroupCount() const;
 
     // 0x1003cf280: the linker folded this into game::MapElementType::GetTextBackgroundFillRGBA() const, which has identical code
-    Js5Index::GetMaximumGroupID() const;
+    uint Js5Index::GetMaximumGroupID() const;
 
     // 0x1009e03c0, 64 bytes, placed by class name and debug map
     // Js5Index::Init(unsigned int, Array<unsigned char, eastl::allocator> const&, PacketT<Array<unsigned char, eastl::allocator> >&)
     void Js5Index::Init(uint param_1, Array* param_2, PacketT* param_3) {
-        field_0 = param_1;
+        m_indexCRC = param_1;
         Array<unsigned char, eastl::allocator>::operator=((Array<unsigned char, eastl::allocator>*)&field_8, param_2);
-        field_140 = 4294967295;
+        m_maximumGroupID = 4294967295;
         LoadIndex(this, param_3, false);
     }
 
@@ -240,18 +240,18 @@ namespace jag {
         char cVar1;
         undefined8 uVar2;
 
-        field_0 = param_2;
+        m_indexCRC = param_2;
         new (&field_8, param_4) Array<unsigned char, eastl::allocator>();
-        field_32 = param_5;
+        m_indexVersion = param_5;
         field_36 = 0;
-        field_40 = 0;
+        m_groupCount = 0;
         new (&field_48) Array<unsigned int, eastl::allocator>();
         new (&field_72) Array<int, eastl::allocator>();
         new (&field_96) eastl::vector_map<int, unsigned int, eastl::less<int>, eastl::allocator,
                                           eastl::vector<eastl::pair<int, unsigned int>, eastl::allocator>>();
         field_136 = 4294967295;
-        field_140 = 4294967295;
-        field_144 = 0;
+        m_maximumGroupID = 4294967295;
+        m_pTotalPackedGroupSize = 0;
         new (&field_152) Array<int, eastl::allocator>();
         new (&field_176) Array<Array<unsigned char, eastl::allocator>, eastl::allocator>();
         new (&field_200) Array<int, eastl::allocator>();
@@ -338,23 +338,23 @@ namespace jag {
             uVar8 = param_1->g4();
             pPVar5 = local_38;
             if (param_2) {
-                if (uVar8 != field_32) {
+                if (uVar8 != m_indexVersion) {
                     uVar12 = logger::default_logger();
                     pcVar24 = "Js5Index: Mismatched js5 index version, got: %u";
                     uVar23 = 107;
                     goto LAB_1009efc7c;
                 }
             } else {
-                field_32 = uVar8;
+                m_indexVersion = uVar8;
             }
             uVar7 = local_38->g1();
             local_40 = CONCAT71(local_40._1_7_, uVar7);
             uVar8 = pPVar5->gSmart2or4();
-            field_40 = uVar8;
+            m_groupCount = uVar8;
             puVar1 = &field_48;
             uVar25 = 0;
             puVar1->set_max_size((ulong)uVar8, 0);
-            if (field_40 != 0) {
+            if (m_groupCount != 0) {
                 uVar21 = 0;
                 do {
                     iVar9 = local_38->gSmart2or4();
@@ -362,13 +362,13 @@ namespace jag {
                     puVar13 = (uint*)Array<unsigned int, eastl::allocator>::operator[](
                         (Array<unsigned int, eastl::allocator>*)puVar1, uVar21);
                     *puVar13 = uVar25;
-                    if ((int)field_140 < (int)uVar25) {
-                        field_140 = uVar25;
+                    if ((int)m_maximumGroupID < (int)uVar25) {
+                        m_maximumGroupID = uVar25;
                     }
                     uVar21 = uVar21 + 1;
-                } while (uVar21 < field_40);
+                } while (uVar21 < m_groupCount);
             }
-            uVar21 = (ulong)(field_140 + 1);
+            uVar21 = (ulong)(m_maximumGroupID + 1);
             local_68 = (Array<int, eastl::allocator>*)&field_152;
             local_68->set_max_size(uVar21, 0);
             if ((local_40 & 2) != 0) {
@@ -382,7 +382,7 @@ namespace jag {
             if ((local_40 & 1) != 0) {
                 this_00 = &field_72;
                 this_00->set_max_size(uVar21, 0);
-                if (field_40 != 0) {
+                if (m_groupCount != 0) {
                     uVar22 = 0;
                     do {
                         iVar9 = local_38->g4s();
@@ -396,12 +396,12 @@ namespace jag {
                             field_136 = *puVar13;
                         }
                         uVar22 = uVar22 + 1;
-                    } while (uVar22 < field_40);
+                    } while (uVar22 < m_groupCount);
                 }
             }
             pPVar5 = local_38;
             local_70 = uVar21;
-            if (field_40 != 0) {
+            if (m_groupCount != 0) {
                 uVar21 = 0;
                 do {
                     uVar10 = pPVar5->g4s();
@@ -410,18 +410,18 @@ namespace jag {
                     puVar15 = (undefined4*)Array<int, eastl::allocator>::operator[](local_68, (ulong)*puVar13);
                     *puVar15 = uVar10;
                     uVar21 = uVar21 + 1;
-                } while (uVar21 < field_40);
+                } while (uVar21 < m_groupCount);
             }
             local_60 = (Array<unsigned int, eastl::allocator>*)puVar1;
-            if (((local_40 & 8) != 0) && (field_40 != 0)) {
+            if (((local_40 & 8) != 0) && (m_groupCount != 0)) {
                 uVar8 = 0;
                 do {
                     pPVar5->g4s();
                     uVar8 = uVar8 + 1;
-                } while (uVar8 < field_40);
+                } while (uVar8 < m_groupCount);
             }
             pAVar3 = local_60;
-            if (((local_40 & 2) != 0) && (local_50->field_40 != 0)) {
+            if (((local_40 & 2) != 0) && (local_50->m_groupCount != 0)) {
                 puVar1 = &local_50->field_176;
                 uVar21 = 0;
                 do {
@@ -441,26 +441,26 @@ namespace jag {
                     puVar16 = (uchar*)this_03->data();
                     local_38->gArrayBuffer(puVar16, 0, 64);
                     uVar21 = uVar21 + 1;
-                } while (uVar21 < local_50->field_40);
+                } while (uVar21 < local_50->m_groupCount);
             }
             pPVar5 = local_38;
             pJVar4 = local_50;
-            local_50->field_144 = 0;
-            if (((local_40 & 4) != 0) && (local_50->field_40 != 0)) {
+            local_50->m_pTotalPackedGroupSize = 0;
+            if (((local_40 & 4) != 0) && (local_50->m_groupCount != 0)) {
                 uVar8 = 0;
                 do {
                     iVar9 = pPVar5->g4s();
-                    pJVar4->field_144 = pJVar4->field_144 + (long)iVar9;
+                    pJVar4->m_pTotalPackedGroupSize = pJVar4->m_pTotalPackedGroupSize + (long)iVar9;
                     pPVar5->g4s();
                     uVar8 = uVar8 + 1;
-                } while (uVar8 < pJVar4->field_40);
+                } while (uVar8 < pJVar4->m_groupCount);
             }
-            if (pJVar4->field_40 != 0) {
+            if (pJVar4->m_groupCount != 0) {
                 pvVar17 = (void*)Array<int, eastl::allocator>::operator[](local_58, 0);
                 _memset(pvVar17, 255, local_70 * 4);
             }
             pAVar3 = local_60;
-            if (pJVar4->field_40 != 0) {
+            if (pJVar4->m_groupCount != 0) {
                 uVar21 = 0;
                 do {
                     uVar10 = pPVar5->g4();
@@ -468,9 +468,9 @@ namespace jag {
                     puVar15 = (undefined4*)Array<int, eastl::allocator>::operator[](local_58, (ulong)*puVar13);
                     *puVar15 = uVar10;
                     uVar21 = uVar21 + 1;
-                } while (uVar21 < pJVar4->field_40);
+                } while (uVar21 < pJVar4->m_groupCount);
             }
-            if (pJVar4->field_40 != 0) {
+            if (pJVar4->m_groupCount != 0) {
                 uVar21 = 0;
                 do {
                     uVar8 = local_38->gSmart2or4();
@@ -486,9 +486,9 @@ namespace jag {
                         (undefined2*)Array<unsigned short, eastl::allocator>::operator[](local_78, (ulong)*puVar13);
                     *puVar18 = (short)uVar8;
                     uVar21 = uVar21 + 1;
-                } while (uVar21 < pJVar4->field_40);
+                } while (uVar21 < pJVar4->m_groupCount);
             }
-            if (pJVar4->field_40 != 0) {
+            if (pJVar4->m_groupCount != 0) {
                 local_80 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)&pJVar4->field_248;
                 local_40 = 0;
                 do {
@@ -566,7 +566,7 @@ namespace jag {
                     }
                     local_46 = uVar2;
                     local_40 = local_40 + 1;
-                } while (local_40 < local_50->field_40);
+                } while (local_40 < local_50->m_groupCount);
             }
         } else {
             uVar12 = logger::default_logger();
@@ -584,18 +584,18 @@ namespace jag {
     // 0x1009f01f0, 384 bytes, base-object constructor, placed by class name
     // Js5Index::Js5Index(unsigned int, Array<unsigned char, eastl::allocator> const&, PacketT<Array<unsigned char, eastl::allocator> >&)
     void Js5Index::Js5Index(uint param_1, Array* param_2, PacketT* param_3) {
-        field_0 = 0;
+        m_indexCRC = 0;
         new (&field_8) Array<unsigned char, eastl::allocator>();
-        field_32 = 0;
+        m_indexVersion = 0;
         field_36 = 0;
-        field_40 = 0;
+        m_groupCount = 0;
         new (&field_48) Array<unsigned int, eastl::allocator>();
         new (&field_72) Array<int, eastl::allocator>();
         new (&field_96) eastl::vector_map<int, unsigned int, eastl::less<int>, eastl::allocator,
                                           eastl::vector<eastl::pair<int, unsigned int>, eastl::allocator>>();
         field_136 = 4294967295;
-        field_140 = 0;
-        field_144 = 0;
+        m_maximumGroupID = 0;
+        m_pTotalPackedGroupSize = 0;
         new (&field_152) Array<int, eastl::allocator>();
         new (&field_176) Array<Array<unsigned char, eastl::allocator>, eastl::allocator>();
         new (&field_200) Array<int, eastl::allocator>();
@@ -623,8 +623,8 @@ namespace jag {
         if (cVar2 != '\0') {
             lVar3 = (&field_72)->end();
             if (lVar3 != 0) {
-                this_00->reserve((ulong)(field_140 + 1));
-                if (field_40 != 0) {
+                this_00->reserve((ulong)(m_maximumGroupID + 1));
+                if (m_groupCount != 0) {
                     uVar6 = 0;
                     do {
                         puVar4 = (undefined4*)Array<unsigned int, eastl::allocator>::operator[](
@@ -641,7 +641,7 @@ namespace jag {
                                 piVar5);
                         *puVar4 = uVar1;
                         uVar6 = uVar6 + 1;
-                    } while (uVar6 < field_40);
+                    } while (uVar6 < m_groupCount);
                 }
             }
         }

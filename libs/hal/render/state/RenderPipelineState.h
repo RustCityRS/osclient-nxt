@@ -13,7 +13,7 @@ namespace jag::render {
         SetDepthStencilState(DepthStencilState const*);
         SetBlendState(BlendState const*);
         GetShaderProgram() const;
-        GetRasteriserState() const;
+        RasteriserState* GetRasteriserState() const;
         GetVSConstBuffers() const;
         GetPSConstBuffers() const;
         GetVSStorageBuffers() const;
@@ -80,7 +80,7 @@ namespace jag::render {
     RenderPipelineState::GetShaderProgram() const;
 
     // 0x100023f30: the linker folded this into oldscape::option::IOption::GetName() const, which has identical code
-    RenderPipelineState::GetRasteriserState() const;
+    RasteriserState* RenderPipelineState::GetRasteriserState() const;
 
     // 0x10002d850: the linker folded this into oldscape::option::Option<int>::GetDefaultValue() const, which has identical code
     RenderPipelineState::GetVSConstBuffers() const;

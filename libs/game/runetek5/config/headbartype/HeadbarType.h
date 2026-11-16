@@ -11,9 +11,9 @@ namespace jag::game {
         virtual ~HeadbarType();
         virtual DecodeType(PacketT<Array<unsigned char, eastl::allocator>>&, unsigned int);
         virtual void PostDecode();
-        GetPriority() const;
+        uint GetPriority() const;
         uint GetStickTime() const;
-        GetDisplayOrder() const;
+        uint GetDisplayOrder() const;
         shared_ptr* GetSprite(graphics::RT7Core&, int);
         void CacheSprites(graphics::RT7Core&);
         void CacheSpriteInner(graphics::RT7Core&, int);
@@ -26,10 +26,10 @@ namespace jag::game {
         BaseTemplateConfigTypeList* field_24; // offset 24
         int field_32;                         // offset 32
         char _unknown_36[20];
-        uint field_56; // offset 56
-        uint field_60; // offset 60
-        uint field_64; // offset 64
-        uint field_68; // offset 68
+        uint m_displayOrder; // offset 56
+        uint m_priority;     // offset 60
+        uint field_64;       // offset 64
+        uint field_68;       // offset 68
         char _unknown_72[4];
         uint m_stickTime;     // offset 76
         undefined4 field_80;  // offset 80
@@ -70,8 +70,8 @@ namespace jag::game {
         new (this) ConfigType<HeadbarType>(param_1, param_2);
         new (this) MakeSharedPool<HeadbarType, 32>();
         field_0 = &PTR__HeadbarType_100f03ff8;
-        field_56 = 255;
-        field_60 = 255;
+        m_displayOrder = 255;
+        m_priority = 255;
         field_64 = 2;
         field_68 = 4294967295;
         *(undefined8*)&field_72 = 300647710721;

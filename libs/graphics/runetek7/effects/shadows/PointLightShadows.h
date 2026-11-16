@@ -22,8 +22,8 @@ namespace jag::graphics {
         virtual void OnEndFrame();
         virtual void InitialiseTweakVars(tweak::ContainerGroup&, EffectManager&);
         virtual OnQualityChange(GraphicsQuality);
-        GetPointLightSMManager();
-        GetPointLightSMManager() const;
+        SceneManager GetPointLightSMManager();
+        SceneManager GetPointLightSMManager() const;
         PointLightShadows(RT7Core&, int);
         void Update();
         void UpdateShaderConstants();

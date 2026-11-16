@@ -15,11 +15,11 @@ namespace jag::game {
         BaseLoadAllConfigTypeContainer(unsigned int);
 
         // data members, from how the methods use this: 32 bytes
-        undefined* field_0;  // offset 0, vtable pointer
-        undefined4 field_8;  // offset 8
-        uint field_12;       // offset 12
-        undefined8 field_16; // offset 16
-        undefined4 field_24; // offset 24
+        undefined* field_0;                 // offset 0, vtable pointer
+        undefined4 field_8;                 // offset 8
+        uint field_12;                      // offset 12
+        undefined8 m_groupDownloadProgress; // offset 16
+        undefined4 field_24;                // offset 24
         char _unknown_28[4];
     };
 
@@ -44,7 +44,7 @@ namespace jag::game {
         field_0 = PTR_vtable_100ee83e8 + 16;
         field_8 = 0;
         field_12 = param_1;
-        field_16 = 0;
+        m_groupDownloadProgress = 0;
         field_24 = 0;
     }
 

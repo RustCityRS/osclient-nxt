@@ -13,10 +13,10 @@ namespace jag::math {
     AABB::GetMinimum() const;
 
     // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    AABB::GetMaximum();
+    float AABB::GetMaximum();
 
     // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    AABB::GetMaximum() const;
+    float AABB::GetMaximum() const;
 
     // 0x1001cd630: the linker folded this into AABB::AABB(Vector3T<float>&&, Vector3T<float>&&), which has identical code
     AABB::AABB(Vector3T<float> const&, Vector3T<float> const&);
@@ -39,7 +39,7 @@ namespace jag::math {
         *puVar1 = 2139095039;
         puVar1 = (undefined4*)Vector3T<float>::operator[]((Vector3T<float>*)this, 2);
         *puVar1 = 2139095039;
-        this_00 = &field_16;
+        this_00 = &m_maximum;
         puVar1 = (undefined4*)Vector3T<float>::operator[]((Vector3T<float>*)this_00, 0);
         *puVar1 = 4286578687;
         puVar1 = (undefined4*)Vector3T<float>::operator[]((Vector3T<float>*)this_00, 1);
@@ -71,11 +71,11 @@ namespace jag::math {
             }
             pfVar3 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)param_1, uVar5);
             fVar1 = *pfVar3;
-            pfVar3 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)&field_16, uVar5);
+            pfVar3 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)&m_maximum, uVar5);
             if (*pfVar3 <= fVar1 && fVar1 != *pfVar3) {
                 puVar4 = (undefined4*)Vector3T<float>::operator[]((Vector3T<float>*)param_1, uVar5);
                 uVar2 = *puVar4;
-                puVar4 = (undefined4*)Vector3T<float>::operator[]((Vector3T<float>*)&field_16, uVar5);
+                puVar4 = (undefined4*)Vector3T<float>::operator[]((Vector3T<float>*)&m_maximum, uVar5);
                 *puVar4 = uVar2;
             }
             uVar5 = uVar5 + 1;
@@ -87,7 +87,7 @@ namespace jag::math {
     // AABB::AABB(OBB const&)
     void AABB::AABB(OBB* param_1) {
         new (this) Vector3T<int>();
-        new (&field_16) Vector3T<int>();
+        new (&m_maximum) Vector3T<int>();
         Set(this, param_1);
     }
 
@@ -152,7 +152,7 @@ namespace jag::math {
         SetXYZ(pVVar4);
         pvVar2 = param_1->SSOBeginPtr(pVVar4);
         local_38[0] = math::operator+((Vector3T*)pvVar2, (Vector3T*)&local_b8);
-        (&field_16, (Vector3T*)local_38)->SetXYZ();
+        (&m_maximum, (Vector3T*)local_38)->SetXYZ();
         DirtyDerivedState(this);
     }
 
@@ -167,7 +167,7 @@ namespace jag::math {
         undefined4 uVar2;
 
         new (this) Vector3T<int>();
-        this_00 = &field_16;
+        this_00 = &m_maximum;
         new (this_00) Vector3T<int>();
         field_28 = -1.0;
         uVar2 = param_1->gFloat();
@@ -205,7 +205,7 @@ namespace jag::math {
         param_1->pFloat(*pfVar1);
         pfVar1 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)this, 2);
         param_1->pFloat(*pfVar1);
-        this_00 = &field_16;
+        this_00 = &m_maximum;
         pfVar1 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)this_00, 0);
         param_1->pFloat(*pfVar1);
         pfVar1 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)this_00, 1);
@@ -223,7 +223,7 @@ namespace jag::math {
         pvVar1 = param_1->SSOBeginPtr(param_1);
         Set(pvVar1);
         pVVar2 = (Vector3T*)param_1->GetScreen();
-        (&field_16, pVVar2)->Set();
+        (&m_maximum, pVVar2)->Set();
         DirtyDerivedState(this);
     }
 
@@ -231,7 +231,7 @@ namespace jag::math {
     // AABB::Set(Vector3T<float> const&, Vector3T<float> const&)
     void AABB::Set(Vector3T* param_1, Vector3T* param_2) {
         SetXYZ(param_1);
-        (&field_16, param_2)->SetXYZ();
+        (&m_maximum, param_2)->SetXYZ();
         DirtyDerivedState(this);
     }
 
@@ -245,7 +245,7 @@ namespace jag::math {
                       120, (char*)0);
         }
         Vector3T<float>::operator+=((Vector3T<float>*)this, param_1);
-        Vector3T<float>::operator+=((Vector3T<float>*)&field_16, param_1);
+        Vector3T<float>::operator+=((Vector3T<float>*)&m_maximum, param_1);
         DirtyDerivedState(this);
     }
 
@@ -253,7 +253,7 @@ namespace jag::math {
     // AABB::Scale(Vector3T<float> const&)
     void AABB::Scale(Vector3T* param_1) {
         Vector3T<float>::operator*=((Vector3T<float>*)this, param_1);
-        Vector3T<float>::operator*=((Vector3T<float>*)&field_16, param_1);
+        Vector3T<float>::operator*=((Vector3T<float>*)&m_maximum, param_1);
         DirtyDerivedState(this);
     }
 
@@ -280,9 +280,9 @@ namespace jag::math {
         local_68 = field_8;
         local_70._0_4_ = field_0;
         local_70._4_4_ = field_4;
-        pfVar5 = &field_16;
+        pfVar5 = &m_maximum;
         local_58 = field_24;
-        local_60._0_4_ = field_16;
+        local_60._0_4_ = m_maximum;
         local_60._4_4_ = field_20;
         pVVar2 = (Vector4T<float>*)Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 3);
         uVar6 = 0;
@@ -372,7 +372,7 @@ namespace jag::math {
         undefined8 local_20[2];
 
         if (field_28 == -1.0) {
-            local_20[0] = math::operator-((Vector3T*)&field_16, (Vector3T*)this);
+            local_20[0] = math::operator-((Vector3T*)&m_maximum, (Vector3T*)this);
             field_28 = (float)local_20->Length() * 0.5;
         }
         return field_28;
@@ -432,13 +432,13 @@ namespace jag::math {
                 puVar4 = (undefined4*)Vector3T<float>::operator[]((Vector3T<float>*)this, uVar5);
                 *puVar4 = uVar2;
             }
-            pfVar3 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)&param_1->field_16, uVar5);
+            pfVar3 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)&param_1->m_maximum, uVar5);
             fVar1 = *pfVar3;
-            pfVar3 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)&field_16, uVar5);
+            pfVar3 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)&m_maximum, uVar5);
             if (*pfVar3 <= fVar1 && fVar1 != *pfVar3) {
-                puVar4 = (undefined4*)Vector3T<float>::operator[]((Vector3T<float>*)&param_1->field_16, uVar5);
+                puVar4 = (undefined4*)Vector3T<float>::operator[]((Vector3T<float>*)&param_1->m_maximum, uVar5);
                 uVar2 = *puVar4;
-                puVar4 = (undefined4*)Vector3T<float>::operator[]((Vector3T<float>*)&field_16, uVar5);
+                puVar4 = (undefined4*)Vector3T<float>::operator[]((Vector3T<float>*)&m_maximum, uVar5);
                 *puVar4 = uVar2;
             }
             uVar5 = uVar5 + 1;
@@ -510,8 +510,8 @@ namespace jag::math {
         local_30[0] = Vector3Max<float>((Vector3T*)this, (Vector3T*)pvVar2);
         SetXYZ(local_30);
         pVVar3 = (Vector3T*)param_1->GetScreen();
-        local_30[0] = Vector3Min<float>((Vector3T*)&field_16, pVVar3);
-        (&field_16, (Vector3T*)local_30)->SetXYZ();
+        local_30[0] = Vector3Min<float>((Vector3T*)&m_maximum, pVVar3);
+        (&m_maximum, (Vector3T*)local_30)->SetXYZ();
         DirtyDerivedState(this);
     }
 
@@ -527,7 +527,7 @@ namespace jag::math {
             uVar4 = 0;
         } else {
             pVVar3 = (Vector3T*)param_1->GetScreen();
-            uVar4 = (&field_16, pVVar3, param_2)->SloppyCompare();
+            uVar4 = (&m_maximum, pVVar3, param_2)->SloppyCompare();
         }
         return uVar4;
     }
@@ -555,15 +555,15 @@ namespace jag::math {
         case 0:
             pvVar1 = SSOBeginPtr(param_2);
             local_20 = *(float*)pvVar1;
-            this = (AABB*)&field_16;
+            this = (AABB*)&m_maximum;
             break;
         case 1:
-            this = (AABB*)&field_16;
+            this = (AABB*)&m_maximum;
             pvVar1 = SSOBeginPtr(param_2);
             local_20 = *(float*)pvVar1;
             break;
         case 3:
-            pAVar3 = (AABB*)&field_16;
+            pAVar3 = (AABB*)&m_maximum;
         LAB_100c6797a:
             pvVar1 = pAVar3->SSOBeginPtr(param_2);
             local_20 = *(float*)pvVar1;
@@ -573,10 +573,10 @@ namespace jag::math {
         case 4:
             pvVar1 = SSOBeginPtr(param_2);
             local_20 = *(float*)pvVar1;
-            this = (AABB*)&field_16;
+            this = (AABB*)&m_maximum;
             goto LAB_100c67988;
         case 5:
-            pAVar3 = (AABB*)&field_16;
+            pAVar3 = (AABB*)&m_maximum;
         case 2:
             this = pAVar3;
             goto LAB_100c6797a;
@@ -585,10 +585,10 @@ namespace jag::math {
             local_20 = *(float*)pvVar1;
             pfVar2 = (float*)y();
             local_1c = *pfVar2;
-            pAVar3 = (AABB*)&field_16;
+            pAVar3 = (AABB*)&m_maximum;
             goto LAB_100c6799c;
         case 7:
-            pAVar3 = (AABB*)&field_16;
+            pAVar3 = (AABB*)&m_maximum;
             pvVar1 = pAVar3->SSOBeginPtr(param_2);
             local_20 = *(float*)pvVar1;
             pfVar2 = (float*)y();
@@ -623,7 +623,7 @@ namespace jag::math {
         if (*pfVar2 <= fVar1) {
             pfVar2 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)param_1, 0);
             fVar1 = *pfVar2;
-            pfVar2 = &field_16;
+            pfVar2 = &m_maximum;
             pfVar3 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)pfVar2, 0);
             if (fVar1 < *pfVar3 || fVar1 == *pfVar3) {
                 pfVar3 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)param_1, 1);
@@ -665,7 +665,7 @@ namespace jag::math {
         fVar1 = *pfVar2;
         pfVar2 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)this_00, 0);
         if (*pfVar2 <= fVar1) {
-            pfVar2 = &field_16;
+            pfVar2 = &m_maximum;
             pfVar3 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)pfVar2, 0);
             fVar1 = *pfVar3;
             pfVar3 = (float*)Vector3T<float>::operator[](this_01, 0);
@@ -833,7 +833,7 @@ namespace jag::math {
         fVar3 = (float)::abs(*pfVar1);
         fVar4 = local_38;
         new (&local_78) ColourHSL(local_34, local_38, fVar3);
-        local_88 = math::operator-((Vector3T*)&field_16, (Vector3T*)this);
+        local_88 = math::operator-((Vector3T*)&m_maximum, (Vector3T*)this);
         local_80 = fVar4;
         local_58 = math::operator/((Vector3T*)&local_88, 2.0);
         local_50 = fVar4;
@@ -930,7 +930,7 @@ namespace jag::math {
         fVar1 = *pfVar2;
         pfVar2 = (float*)Vector3T<float>::operator[](this_01, 0);
         if (fVar1 < *pfVar2 || fVar1 == *pfVar2) {
-            pfVar2 = &field_16;
+            pfVar2 = &m_maximum;
             pfVar3 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)pfVar2, 0);
             fVar1 = *pfVar3;
             pfVar3 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)this_00, 0);
@@ -976,7 +976,7 @@ namespace jag::math {
         local_28 = *pfVar1;
         pfVar1 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)this, 0);
         if (*pfVar1 <= local_28) {
-            pAVar2 = (AABB*)&field_16;
+            pAVar2 = (AABB*)&m_maximum;
             pfVar1 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)pAVar2, 0);
             if (*pfVar1 <= local_28 && local_28 != *pfVar1)
                 goto LAB_100c6862a;
@@ -990,7 +990,7 @@ namespace jag::math {
         local_24 = *pfVar1;
         pfVar1 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)this, 1);
         if (*pfVar1 <= local_24) {
-            pAVar2 = (AABB*)&field_16;
+            pAVar2 = (AABB*)&m_maximum;
             pfVar1 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)pAVar2, 1);
             if (*pfVar1 <= local_24 && local_24 != *pfVar1)
                 goto LAB_100c6868a;
@@ -1004,7 +1004,7 @@ namespace jag::math {
         local_38._12_4_ = *pfVar1;
         pfVar1 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)this, 2);
         if (*pfVar1 <= (float)local_38._12_4_) {
-            this = (AABB*)&field_16;
+            this = (AABB*)&m_maximum;
             pfVar1 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)this, 2);
             fVar4 = (float)local_38._12_4_;
             if ((float)local_38._12_4_ < *pfVar1 || (float)local_38._12_4_ == *pfVar1)
@@ -1039,7 +1039,7 @@ namespace jag::math {
         local_2c = (float)::abs(local_2c - *pfVar1);
         pfVar1 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)param_1, 0);
         local_24 = *pfVar1;
-        this_00 = (AABB*)&field_16;
+        this_00 = (AABB*)&m_maximum;
         pfVar1 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)this_00, 0);
         fVar3 = (float)::abs(local_24 - *pfVar1);
         if (local_2c <= fVar3) {
@@ -1175,10 +1175,10 @@ namespace jag::math {
 
         pfVar4 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)this, 0);
         fVar6 = *pfVar4;
-        pfVar4 = &param_1->field_16;
+        pfVar4 = &param_1->m_maximum;
         pfVar5 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)pfVar4, 0);
         fVar7 = *pfVar5;
-        pfVar5 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)&field_16, 0);
+        pfVar5 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)&m_maximum, 0);
         fVar8 = *pfVar5;
         pfVar5 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)pfVar4, 0);
         fVar1 = *pfVar5;
@@ -1196,7 +1196,7 @@ namespace jag::math {
         fVar6 = *pfVar5;
         pfVar5 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)pfVar4, 2);
         fVar7 = *pfVar5;
-        pfVar5 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)&field_16, 2);
+        pfVar5 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)&m_maximum, 2);
         fVar8 = *pfVar5;
         pfVar4 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)pfVar4, 2);
         fVar1 = *pfVar4;

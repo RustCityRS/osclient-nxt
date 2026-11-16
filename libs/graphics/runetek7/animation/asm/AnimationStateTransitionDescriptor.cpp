@@ -189,7 +189,7 @@ namespace jag::graphics {
         eastl::string::operator=((eastl::string*)&field_32, (basic_string*)local_50);
         local_50->~basic_string();
         uVar1 = param_1->g8();
-        field_64 = uVar1;
+        m_transitionTimeNS = uVar1;
         uVar2 = param_1->g4();
         field_72 = uVar2;
         field_76 = 1;

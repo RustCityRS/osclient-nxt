@@ -84,18 +84,18 @@ namespace jag::render {
 namespace jag {
     class HashedString32 {
     public:
-        GetHash() const;
+        uint GetHash() const;
         HashedString32(char const*);
         void CalcHash();
 
         // data members, from how the methods use this: 16 bytes
-        char* field_0;      // offset 0
-        undefined4 field_8; // offset 8
+        char* field_0; // offset 0
+        uint m_hash;   // offset 8
         char _unknown_12[4];
     };
 
     // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    HashedString32::GetHash() const;
+    uint HashedString32::GetHash() const;
 
     // 0x100bf6a80, 16 bytes, complete-object constructor, inline, placed by class name and debug map
     // HashedString32::HashedString32(char const*): jumps straight to the base-object constructor
@@ -104,7 +104,7 @@ namespace jag {
     // HashedString32::HashedString32(char const*)
     void HashedString32::HashedString32(char* param_1) {
         field_0 = param_1;
-        field_8 = 0;
+        m_hash = 0;
         if (param_1 == (char*)0) {
             /* WARNING: Subroutine does not return */
             LogAssert("str != nullptr",
@@ -120,13 +120,13 @@ namespace jag {
         char cVar1;
         char* pcVar2;
 
-        field_8 = 0;
+        m_hash = 0;
         pcVar2 = field_0;
         cVar1 = *pcVar2;
         if (cVar1 != '\0') {
             do {
                 pcVar2 = pcVar2 + 1;
-                hash_combine_32(&field_8, (int)cVar1);
+                hash_combine_32(&m_hash, (int)cVar1);
                 cVar1 = *pcVar2;
             } while (cVar1 != '\0');
         }

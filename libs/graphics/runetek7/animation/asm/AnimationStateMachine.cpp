@@ -25,10 +25,10 @@ namespace jag::graphics {
     AnimationStateMachine::TransitionInfo::TransitionInfo(AnimationStateMachine::TransitionInfo&&);
 
     // 0x1003cf2a0: the linker folded this into game::WorldMapDefaults::GetDropShadowColourRGBA() const, which has identical code
-    AnimationStateMachine::GetStateID() const;
+    uint AnimationStateMachine::GetStateID() const;
 
     // 0x10053c290: the linker folded this into game::Model::GetLinkObjType() const, which has identical code
-    AnimationStateMachine::GetAnimationType() const;
+    int AnimationStateMachine::GetAnimationType() const;
 
     // 0x1009566e0, 160 bytes, base-object constructor, placed by debug map only (low confidence)
     // AnimState::AnimState(std::unique_ptr<BlendTreeNode, std::default_delete<BlendTreeNode> >&&, AnimationStateResourceList&&)
@@ -42,7 +42,7 @@ namespace jag::graphics {
         std::unique_ptr<AnimationParameters, MakeUniquePool<AnimationParameters, 512>::UniquePoolDeleter>::unique_ptr<
             true, void>(
             (unique_ptr<AnimationParameters, MakeUniquePool<AnimationParameters, 512>::UniquePoolDeleter>*)&field_8);
-        new (field_16, param_2) AnimationStateResourceList();
+        new (m_resources, param_2) AnimationStateResourceList();
         new (&field_56) eastl::fixed_vector<AnimationParameters*, 4ul, true, eastl::allocator>();
         new (&field_128) eastl::string();
     }
@@ -65,13 +65,13 @@ namespace jag::graphics {
         std::unique_ptr<AnimationParameters, MakeUniquePool<AnimationParameters, 512>::UniquePoolDeleter>::unique_ptr<
             true, void>(
             (unique_ptr<AnimationParameters, MakeUniquePool<AnimationParameters, 512>::UniquePoolDeleter>*)&field_8);
-        new (field_16) AnimationStateResourceList();
+        new (m_resources) AnimationStateResourceList();
         new (&field_56) eastl::fixed_vector<AnimationParameters*, 4ul, true, eastl::allocator>();
         new (&field_128) eastl::string();
         std::function<void(
             std::unique_ptr<AnimationParameters, MakeUniquePool<AnimationParameters, 512>::UniquePoolDeleter>&&)>::
             function<AnimState::AnimState(AnimationDescriptor_const&)::__3, void>(local_68, this);
-        (field_16, param_1, local_68)->AddAnimationResource();
+        (m_resources, param_1, local_68)->AddAnimationResource();
         std::function<void(
             std::unique_ptr<AnimationParameters, MakeUniquePool<AnimationParameters, 512>::UniquePoolDeleter>&&)>::
             ~function(local_68);
@@ -93,7 +93,7 @@ namespace jag::graphics {
         std::unique_ptr<AnimationParameters, MakeUniquePool<AnimationParameters, 512>::UniquePoolDeleter>::unique_ptr<
             true, void>(
             (unique_ptr<AnimationParameters, MakeUniquePool<AnimationParameters, 512>::UniquePoolDeleter>*)&field_8);
-        new (field_16) AnimationStateResourceList();
+        new (m_resources) AnimationStateResourceList();
         new (&field_56) eastl::fixed_vector<AnimationParameters*, 4ul, true, eastl::allocator>();
         new (&field_128) eastl::string();
     }
@@ -106,7 +106,7 @@ namespace jag::graphics {
     void AnimState::~AnimState() {
         (&field_128)->~basic_string();
         (&field_56)->~fixed_vector();
-        field_16->~AnimationStateResourceList();
+        m_resources->~AnimationStateResourceList();
         (&field_8)->~unique_ptr();
         ~unique_ptr();
     }
@@ -163,7 +163,7 @@ namespace jag::graphics {
     void AnimationStateMachine::AnimationStateMachine(shared_ptr* param_1) {
         new (this) AnimationStateSystem();
         field_0 = &PTR__AnimationStateMachine_100f1b1d8;
-        field_24 = 0;
+        m_stateID = 0;
         field_28 = 0;
         field_29 = 0;
         new (&field_32) eastl::vector<std::unique_ptr<AnimState, MakeUniquePool<AnimState, 4096>::UniquePoolDeleter>,
@@ -274,7 +274,7 @@ namespace jag::graphics {
                                                                                                         (ulong)uVar3);
             this_02->SetTransition((function*)(puVar1 + 4), *(ulonglong*)(puVar1 + 2));
         }
-        field_24 = param_3;
+        m_stateID = param_3;
         field_28 = 1;
     }
 
@@ -293,7 +293,7 @@ namespace jag::graphics {
                 std::unique_ptr<AnimState, MakeUniquePool<AnimState, 4096>::UniquePoolDeleter>, eastl::allocator>::
             operator[]((vector<std::unique_ptr<AnimState, MakeUniquePool<AnimState, 4096>::UniquePoolDeleter>,
                                eastl::allocator>*)&field_32,
-                       (ulong)field_24);
+                       (ulong)m_stateID);
             this_01 =
                 (AnimState*)std::unique_ptr<AnimState, MakeUniquePool<AnimState, 4096>::UniquePoolDeleter>::operator->(
                     this_00);
@@ -470,7 +470,7 @@ namespace jag::graphics {
                     pAVar14->Update(local_38);
                     puVar6 = (unique_ptr<AnimState, MakeUniquePool<AnimState, 4096>::UniquePoolDeleter>*)
                         eastl::vector<std::unique_ptr<AnimState, MakeUniquePool<AnimState, 4096>::UniquePoolDeleter>,
-                                      eastl::allocator>::operator[](pvVar3, (ulong)field_24);
+                                      eastl::allocator>::operator[](pvVar3, (ulong)m_stateID);
                     pAVar14 =
                         (AnimState*)
                             std::unique_ptr<AnimState, MakeUniquePool<AnimState, 4096>::UniquePoolDeleter>::operator->(
@@ -490,7 +490,7 @@ namespace jag::graphics {
                                         std::allocator<AnimationStateMachine::Transition>>,
                             std::allocator<std::vector<AnimationStateMachine::Transition,
                                                        std::allocator<AnimationStateMachine::Transition>>>>*)&field_64,
-                    (ulong)field_24);
+                    (ulong)m_stateID);
             eastl::vector<unsigned int, BucketAllocatorEASTL>::vector();
             local_34 = 0;
             lVar11 =
@@ -516,7 +516,7 @@ namespace jag::graphics {
                                         std::allocator<
                                             std::vector<AnimationStateMachine::Transition,
                                                         std::allocator<AnimationStateMachine::Transition>>>>*)&field_64,
-                                (ulong)field_24);
+                                (ulong)m_stateID);
                         lVar11 =
                             std::vector<AnimationStateMachine::Transition,
                                         std::allocator<AnimationStateMachine::Transition>>::operator[](this_01, uVar19);
@@ -544,9 +544,9 @@ namespace jag::graphics {
                                         eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
                                                                       eastl::allocator>>::Layout::HeapBeginPtr(pLVar10);
                 field_768 = uVar18;
-                field_776 = field_24;
+                field_776 = m_stateID;
                 field_780 = uVar2;
-                field_24 = uVar2;
+                m_stateID = uVar2;
                 puVar6 = (unique_ptr<AnimState, MakeUniquePool<AnimState, 4096>::UniquePoolDeleter>*)
                     eastl::vector<std::unique_ptr<AnimState, MakeUniquePool<AnimState, 4096>::UniquePoolDeleter>,
                                   eastl::allocator>::operator[](pvVar3, (ulong)uVar2);
@@ -567,7 +567,7 @@ namespace jag::graphics {
             }
             puVar6 = (unique_ptr<AnimState, MakeUniquePool<AnimState, 4096>::UniquePoolDeleter>*)
                 eastl::vector<std::unique_ptr<AnimState, MakeUniquePool<AnimState, 4096>::UniquePoolDeleter>,
-                              eastl::allocator>::operator[](pvVar3, (ulong)field_24);
+                              eastl::allocator>::operator[](pvVar3, (ulong)m_stateID);
             pAVar14 =
                 (AnimState*)std::unique_ptr<AnimState, MakeUniquePool<AnimState, 4096>::UniquePoolDeleter>::operator->(
                     puVar6);
@@ -609,7 +609,7 @@ namespace jag::graphics {
                 std::unique_ptr<AnimState, MakeUniquePool<AnimState, 4096>::UniquePoolDeleter>, eastl::allocator>::
             operator[]((vector<std::unique_ptr<AnimState, MakeUniquePool<AnimState, 4096>::UniquePoolDeleter>,
                                eastl::allocator>*)puVar17,
-                       (ulong)field_24);
+                       (ulong)m_stateID);
             pAVar5 =
                 (AnimState*)std::unique_ptr<AnimState, MakeUniquePool<AnimState, 4096>::UniquePoolDeleter>::operator*(
                     puVar4);
@@ -946,7 +946,7 @@ namespace jag::graphics {
             std::unique_ptr<AnimState, MakeUniquePool<AnimState, 4096>::UniquePoolDeleter>, eastl::allocator>::
         operator[]((vector<std::unique_ptr<AnimState, MakeUniquePool<AnimState, 4096>::UniquePoolDeleter>,
                            eastl::allocator>*)&field_32,
-                   (ulong)field_24);
+                   (ulong)m_stateID);
         this_01 = (AnimState*)std::unique_ptr<AnimState, MakeUniquePool<AnimState, 4096>::UniquePoolDeleter>::operator*(
             this_00);
         cVar1 = this_01->HasSingleAnimation();
@@ -982,7 +982,7 @@ namespace jag::graphics {
             std::unique_ptr<AnimState, MakeUniquePool<AnimState, 4096>::UniquePoolDeleter>, eastl::allocator>::
         operator[]((vector<std::unique_ptr<AnimState, MakeUniquePool<AnimState, 4096>::UniquePoolDeleter>,
                            eastl::allocator>*)&field_32,
-                   (ulong)field_24);
+                   (ulong)m_stateID);
         this_01 = (AnimState*)std::unique_ptr<AnimState, MakeUniquePool<AnimState, 4096>::UniquePoolDeleter>::operator*(
             this_00);
         cVar1 = this_01->HasSingleAnimation();

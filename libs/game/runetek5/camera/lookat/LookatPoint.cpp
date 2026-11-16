@@ -19,7 +19,7 @@ namespace jag::game {
     LookatPoint::~LookatPoint();
 
     // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    LookatPoint::GetCurrentLookat() const;
+    AABB LookatPoint::GetCurrentLookat() const;
 
     // 0x10014d2f0: the linker folded this into oldscape::ApplicationContext::GetScreenRatio(), which has identical code
     LookatPoint::GetZRotation() const;
@@ -50,7 +50,7 @@ namespace jag::game {
     // LookatPoint::GetLookatData(LookatData&)
     void LookatPoint::GetLookatData(LookatData* param_1) {
         if ((*(code*)field_0[13])() != '\0') {
-            *(undefined1**)(param_1 + 8) = field_16;
+            *(undefined1**)(param_1 + 8) = m_currentLookat;
             *(undefined1**)param_1 = field_40;
             *(undefined1**)(param_1 + 16) = field_64;
             *(undefined1**)(param_1 + 24) = field_96;
@@ -68,7 +68,7 @@ namespace jag::game {
         this_00 = field_64;
         math::Vector3T<double>::operator=((Vector3T<double>*)this_00, (Vector3T*)local_40);
         if (field_88 == 4294967295) {
-            math::Vector3T<double>::operator=((Vector3T<double>*)field_16, (Vector3T*)this_00);
+            math::Vector3T<double>::operator=((Vector3T<double>*)m_currentLookat, (Vector3T*)this_00);
             math::Vector3T<double>::operator=((Vector3T<double>*)field_40, (Vector3T*)this_00);
             field_96->SetToZero();
         }
@@ -81,7 +81,7 @@ namespace jag::game {
         undefined8 local_20[2];
 
         param_1->field_0 = field_88;
-        local_20[0] = math::Vector3FromVector3T<double>((math*)field_16, (Vector3T*)param_1);
+        local_20[0] = math::Vector3FromVector3T<double>((math*)m_currentLookat, (Vector3T*)param_1);
         (&param_1->field_4, (Vector3T*)local_20)->SetXYZ();
     }
 

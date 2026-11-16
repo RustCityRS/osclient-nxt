@@ -19,7 +19,7 @@ namespace jag::graphics {
     AnimKeyFrameSet::GetJointCurves() const;
 
     // 0x10017a5a0: the linker folded this into http::HTTPRequest::GetData() const, which has identical code
-    AnimKeyFrameSet::GetBase() const;
+    shared_ptr AnimKeyFrameSet::GetBase() const;
 
     // 0x1004de990: the linker folded this into game::SeqGroupType::IsWalkMerge() const, which has identical code
     AnimKeyFrameSet::GetAnimatesColour() const;
@@ -70,7 +70,7 @@ namespace jag::graphics {
 
         lVar3 = param_4->HeapBeginPtr();
         if (lVar3 != 0) {
-            local_a0 = (shared_ptr<AnimBase>*)field_136;
+            local_a0 = (shared_ptr<AnimBase>*)m_pBase;
             local_a4 = 1;
             uVar10 = 0;
             local_c8 = param_4;
@@ -387,12 +387,12 @@ namespace jag::graphics {
         field_88 = param_2;
         field_96 = param_3;
         field_104 = param_4;
-        field_112 = 0;
+        m_animatesColour = 0;
         m_animatesBillboards = 0;
         new (field_120, (_func_decltype_nullptr*)CONCAT44(in_register_00000034)
                             shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(param_1));
-        new (field_136, (_func_decltype_nullptr*)CONCAT44(in_register_00000034)
-                            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(param_1));
+        new (m_pBase, (_func_decltype_nullptr*)CONCAT44(in_register_00000034)
+                          shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(param_1));
     }
 
     // 0x100983ce0, 16 bytes, complete-object constructor, placed by class name and debug map
@@ -483,7 +483,7 @@ namespace jag::graphics {
                 MakeSharedPool<AnimBase, 256>::MakeShared<unsigned short&,
                                                           PacketT<Array<unsigned char, eastl::allocator>>&>(
                     (shared_ptr*)&local_a8, (MakeSharedPool<AnimBase, 256>*)&local_34, puVar13, pPVar20);
-                local_48 = (shared_ptr<AnimBase>*)pAVar2->field_136;
+                local_48 = (shared_ptr<AnimBase>*)pAVar2->m_pBase;
                 shared_ptr<AnimBase>::operator=(local_48, (shared_ptr*)&local_a8);
                 local_a8.~shared_ptr();
                 uVar7 = this_00->g2();
@@ -508,11 +508,11 @@ namespace jag::graphics {
                     do {
                         cVar3 = this_00->g1();
                         if (cVar3 == '\x03') {
-                            *(undefined1*)&local_40->field_112 = 1;
+                            *(undefined1*)&local_40->m_animatesColour = 1;
                         } else if (cVar3 == '\x02') {
                             local_40->m_animatesBillboards = 1;
                         } else if (cVar3 == '\x04') {
-                            *(undefined1*)((long)&local_40->field_112 + 1) = 1;
+                            *(undefined1*)((long)&local_40->m_animatesColour + 1) = 1;
                         }
                         sVar9 = this_00->gSmart1or2s();
                         local_32 = sVar9;
@@ -637,7 +637,7 @@ namespace jag::graphics {
             eastl::vector<Nullable<Array<shared_ptr<oldscape::rs2lib::IfType>, eastl::allocator>>,
                           eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true, eastl::allocator>>::size(local_90);
         if (lVar4 != 0) {
-            this_01 = (shared_ptr<AnimBase>*)local_70->field_136;
+            this_01 = (shared_ptr<AnimBase>*)local_70->m_pBase;
             local_78 = 0;
             local_38 = 0;
             uVar5 = 0;

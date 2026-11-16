@@ -21,9 +21,9 @@ namespace jag::graphics {
 
         // data members, from how the methods use this: 176 bytes
         char _unknown_0[64];
-        undefined8 field_64; // offset 64
-        undefined4 field_72; // offset 72
-        undefined1 field_76; // offset 76
+        undefined8 m_transitionTimeNS; // offset 64
+        undefined4 field_72;           // offset 72
+        undefined1 field_76;           // offset 76
         char _unknown_77[51];
         SimpleFuncDescriptor field_128; // offset 128
     };
@@ -69,7 +69,7 @@ namespace jag::graphics {
                                                                                 undefined4 param_6) {
         new (this) eastl::string(param_1);
         new (&field_32, param_2) eastl::string();
-        field_64 = param_5;
+        m_transitionTimeNS = param_5;
         field_72 = param_6;
         field_76 = 0;
         std::function<bool()>::function((function<bool()>*)&field_80, param_4);
@@ -87,9 +87,9 @@ namespace jag::graphics {
 
         new (this) eastl::string(param_1);
         new (&field_32, (basic_string*)&param_1->field_32) eastl::string();
-        uVar1 = param_1->field_64;
-        *(undefined8*)((long)&field_64 + 5) = *(undefined8*)((long)&param_1->field_64 + 5);
-        field_64 = uVar1;
+        uVar1 = param_1->m_transitionTimeNS;
+        *(undefined8*)((long)&m_transitionTimeNS + 5) = *(undefined8*)((long)&param_1->m_transitionTimeNS + 5);
+        m_transitionTimeNS = uVar1;
         std::function<bool()>::function((function<bool()>*)&field_80, (function*)&param_1->field_80);
         new (field_128, (SimpleFuncDescriptor*)param_1->field_128) SimpleFuncDescriptor();
     }

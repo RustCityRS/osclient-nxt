@@ -14,7 +14,7 @@ namespace jag {
         virtual void Render(graphics::RT7Core&, render::DrawCallState const&, graphics::EffectManager&,
                             graphics::SceneViewData const&, graphics::DrawableQueue&);
         virtual void RenderDebug(graphics::EffectManager&, graphics::DrawableQueue&);
-        GetStartingRenderLevel() const;
+        int GetStartingRenderLevel() const;
         MiniMapRenderPass();
         void SetStartingRenderLevel(int);
 

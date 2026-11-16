@@ -21,7 +21,7 @@ namespace jag::ui {
         virtual void SetMargin(Component::MarginType, Margin);
         virtual Margin GetMargin(Component::MarginType) const;
         virtual bool SupportsMargin(Component::MarginType) const;
-        virtual GetValueRepresentation();
+        virtual ComponentMultiValueMixin GetValueRepresentation();
         virtual void LoadStyleSheetVisuals(StyleSheet const&);
         virtual List* GetAssociatedComponent();
         virtual bool IsAssociatedComponent(shared_ptr<Component> const&) const;
@@ -109,8 +109,8 @@ namespace jag::ui {
         char _unknown_353[3];
         undefined4 field_356; // offset 356
         char _unknown_360[32];
-        FocusComponent field_392;           // offset 392
-        ComponentMultiValueMixin field_400; // offset 400
+        FocusComponent field_392;                       // offset 392
+        ComponentMultiValueMixin m_valueRepresentation; // offset 400
         char _unknown_408[16];
         SpriteData field_424;            // offset 424
         SpriteData field_472;            // offset 472

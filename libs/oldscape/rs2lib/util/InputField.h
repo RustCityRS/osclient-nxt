@@ -8,21 +8,21 @@ namespace jag::oldscape::rs2lib {
     class InputField {
     public:
         GetContents() const;
-        HasFont() const;
-        GetScrollX() const;
+        byte HasFont() const;
+        uint GetScrollX() const;
         GetScrollY() const;
         ShowCaret() const;
-        GetCaretIndex() const;
-        GetSelectionStart() const;
+        ulong GetCaretIndex() const;
+        ulong GetSelectionStart() const;
         char HasFocus() const;
-        GetPlaceholderContents() const;
+        TextRun GetPlaceholderContents() const;
         CanHaveFocus() const;
         void GetMaxLineWidth() const;
-        GetCharacterLimit() const;
+        ulong GetCharacterLimit() const;
         GetSelectedText() const;
         void GetWrapMode() const;
         GetEnterAction() const;
-        GetFilter() const;
+        uint GetFilter() const;
         void GetVisibility() const;
         void SetCallbackOnSelectionChanged(std::function<void()>);
         void SetCallbackOnTextChanged(std::function<void()>);
@@ -108,30 +108,30 @@ namespace jag::oldscape::rs2lib {
         char _unknown_41[31];
         int field_72; // offset 72
         char _unknown_76[4];
-        TextRun field_80;     // offset 80
-        char m_hasFocus;      // offset 160
-        bool m_focusAllowed;  // offset 161
-        undefined1 field_162; // offset 162
-        undefined1 field_163; // offset 163
+        TextRun m_placeholderContents; // offset 80
+        char m_hasFocus;               // offset 160
+        bool m_focusAllowed;           // offset 161
+        undefined1 field_162;          // offset 162
+        undefined1 field_163;          // offset 163
         char _unknown_164[4];
         ulonglong field_168; // offset 168
         int field_176;       // offset 176
-        byte field_180;      // offset 180
+        byte m_hasFont;      // offset 180
         char _unknown_181[3];
-        undefined4 field_184; // offset 184
-        int field_188;        // offset 188
-        undefined4 field_192; // offset 192
+        undefined4 m_enterAction; // offset 184
+        int field_188;            // offset 188
+        uint m_filter;            // offset 192
         char _unknown_196[4];
-        ulong field_200;        // offset 200
-        ulong field_208;        // offset 208
-        ulong field_216;        // offset 216
-        int field_224;          // offset 224
-        uint field_228;         // offset 228
-        ulong m_characterLimit; // offset 232
-        int field_240;          // offset 240
-        int field_244;          // offset 244
-        uint field_248;         // offset 248
-        int field_252;          // offset 252
+        ulong m_caretIndex;      // offset 200
+        ulong m_pSelectionStart; // offset 208
+        ulong field_216;         // offset 216
+        int field_224;           // offset 224
+        uint field_228;          // offset 228
+        ulong m_characterLimit;  // offset 232
+        int field_240;           // offset 240
+        int field_244;           // offset 244
+        uint m_scrollX;          // offset 248
+        int field_252;           // offset 252
         char _unknown_256[56];
     };
 
@@ -298,7 +298,7 @@ namespace jag::oldscape::rs2lib {
     // 0x1001954c0, 16 bytes, inline, placed by class name
     // InputField::ClearFont()
     void InputField::ClearFont() {
-        field_180 = 0;
+        m_hasFont = 0;
     }
 
     // 0x1001954d0, 16 bytes, inline, placed by class name
@@ -316,7 +316,7 @@ namespace jag::oldscape::rs2lib {
     // 0x100195560, 16 bytes, inline, placed by class name
     // InputField::SetEnterAction(InputEnterAction)
     void InputField::SetEnterAction(undefined4 param_2) {
-        field_184 = param_2;
+        m_enterAction = param_2;
     }
 
     // 0x100195570, 16 bytes, inline, placed by class name
@@ -334,7 +334,7 @@ namespace jag::oldscape::rs2lib {
     // 0x1001fdc10, 32 bytes, inline, placed by class name
     // InputField::HasSelection()
     undefined8 InputField::HasSelection() {
-        return CONCAT71((int7)(field_200 >> 8), field_200 != field_208);
+        return CONCAT71((int7)(m_caretIndex >> 8), m_caretIndex != m_pSelectionStart);
     }
 
     // 0x1001fe0a0, 32 bytes, inline, placed by class name
@@ -387,7 +387,7 @@ namespace jag::oldscape::rs2lib {
     void InputField::~InputField() {
         std::function<void()>::~function((function<void()>*)&field_304);
         std::function<void()>::~function((function<void()>*)&field_256);
-        field_80->~TextRun();
+        m_placeholderContents->~TextRun();
         ~TextRun();
     }
 

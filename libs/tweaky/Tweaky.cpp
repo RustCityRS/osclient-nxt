@@ -7,19 +7,19 @@
 
 namespace jag::tweak {
     // 0x100049810: the linker folded this into oldscape::option::Option<oldscape::WindowSavedPosition>::GetDefaultValue() const, which has identical code
-    Tweaky::GetFont() const;
+    shared_ptr Tweaky::GetFont() const;
 
     // 0x10005d8c0: the linker folded this into oldscape::OSClientConsoleUI::GetBounds() const, which has identical code
-    Tweaky::GetPlacement() const;
+    int Tweaky::GetPlacement() const;
 
     // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    Tweaky::GetRoot() const;
+    shared_ptr Tweaky::GetRoot() const;
 
     // 0x1000fcbb0: the linker folded this into oldscape::ClientObj::GetHighlight(), which has identical code
-    Tweaky::GetRT7Core() const;
+    RT7Core* Tweaky::GetRT7Core() const;
 
     // 0x1004f3660: the linker folded this into game::BaseConfigTypeList::GetLanguage() const, which has identical code
-    Tweaky::GetFontHelper() const;
+    FontHelpers* Tweaky::GetFontHelper() const;
 
     // 0x1006924c0: the linker folded this into ui::Component::GetDynamicRoot() const, which has identical code
     Tweaky::GetFocus() const;
@@ -32,16 +32,16 @@ namespace jag::tweak {
         int local_38[2];
 
         new (this) oldscape::graphics::animation::OldscapeAnimKeyFrameSet::OldscapeAnimCurveLoadJob();
-        new (field_16, (_func_decltype_nullptr*)param_1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (m_root, (_func_decltype_nullptr*)param_1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         local_40 = &field_32;
         new (local_40) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(param_1);
-        field_48 = param_1;
-        field_56 = param_2;
-        new (field_64, (_func_decltype_nullptr*)param_1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        m_pRT7Core = param_1;
+        m_pFontHelper = param_2;
+        new (m_font, (_func_decltype_nullptr*)param_1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         field_80 = 0;
         field_88 = param_3;
         field_96 = 0;
-        new (&field_104, (_func_decltype_nullptr*)param_1)
+        new (&m_placement, (_func_decltype_nullptr*)param_1)
             shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         field_120 = 0;
         field_132 = 0;
@@ -54,7 +54,7 @@ namespace jag::tweak {
         local_38[0] = 0;
         local_38[1] = 0;
         make_shared<Container, int, int, char const(&)[1]>((jag*)&local_50, local_38, local_38 + 1, "");
-        shared_ptr<Container>::operator=((shared_ptr<Container>*)field_16, &local_50);
+        shared_ptr<Container>::operator=((shared_ptr<Container>*)m_root, &local_50);
         local_50.~shared_ptr();
     }
 
@@ -66,12 +66,12 @@ namespace jag::tweak {
     void Tweaky::~Tweaky() {
         long* plVar1;
 
-        plVar1 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)field_16);
+        plVar1 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)m_root);
         (**(code**)(*plVar1 + 16))(plVar1);
         shared_ptr<Container>::reset();
-        field_64->~shared_ptr();
+        m_font->~shared_ptr();
         (&field_32)->~weak_ptr();
-        field_16->~shared_ptr();
+        m_root->~shared_ptr();
         ~enable_shared_from_this();
     }
 
@@ -132,13 +132,13 @@ namespace jag::tweak {
         enable_shared_from_this<PathingEntity> local_50[16];
         weak_ptr<oldscape::dash3d::Decor> local_40[16];
 
-        plVar1 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)field_16);
+        plVar1 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)m_root);
         local_50->shared_from_this();
         weak_ptr<oldscape::dash3d::Decor>::weak_ptr(local_40, (weak_ptr*)local_50);
         (**(code**)(*plVar1 + 232))(plVar1, local_40);
         local_40->~weak_ptr();
         local_50->~shared_ptr();
-        this_00 = (Container*)shared_ptr<Container>::operator->((shared_ptr<Container>*)field_16);
+        this_00 = (Container*)shared_ptr<Container>::operator->((shared_ptr<Container>*)m_root);
         this_00->Add(param_1);
     }
 

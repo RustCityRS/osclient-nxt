@@ -8,8 +8,8 @@ namespace jag::graphics {
     class ReflectionManager {
     public:
         class Config;
-        GetCullFrustum() const;
-        GetViewTransforms() const;
+        Frustum GetCullFrustum() const;
+        ViewTransforms GetViewTransforms() const;
         ReflectionManager(render::RenderTargetsManager&);
         ~ReflectionManager();
         void Destroy();
@@ -27,11 +27,11 @@ namespace jag::graphics {
         GetScissorRect();
 
         // data members, from how the methods use this: 22540 bytes
-        undefined8 field_0; // offset 0
-        undefined8 field_8; // offset 8
-        Frustum field_16;   // offset 16
+        undefined8 field_0;    // offset 0
+        undefined8 field_8;    // offset 8
+        Frustum m_cullFrustum; // offset 16
         char _unknown_120[56];
-        ViewTransforms field_176; // offset 176
+        ViewTransforms m_viewTransforms; // offset 176
         char _unknown_328[56];
         shared_ptr field_384;     // offset 384
         ViewTransforms field_400; // offset 400

@@ -7,7 +7,7 @@
 
 namespace jag::oldscape::rs2lib::worldmap {
     // 0x100009720: the linker folded this into BaseApp::GetExitCode(), which has identical code
-    WorldmapAreaMetadata::GetMaxMapX() const;
+    int WorldmapAreaMetadata::GetMaxMapX() const;
 
     // 0x100009d50: the linker folded this into eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second(), which has identical code
     WorldmapAreaMetadata::GetDebugName() const;
@@ -19,16 +19,16 @@ namespace jag::oldscape::rs2lib::worldmap {
     WorldmapAreaMetadata::GetNiceName() const;
 
     // 0x1000b7a80: the linker folded this into minimenu::MinimenuEntry::GetObjCount() const, which has identical code
-    WorldmapAreaMetadata::GetMaxMapZ() const;
+    int WorldmapAreaMetadata::GetMaxMapZ() const;
 
     // 0x1000b9960: the linker folded this into ScriptVarType::GetID() const, which has identical code
-    WorldmapAreaMetadata::GetId() const;
+    uint WorldmapAreaMetadata::GetId() const;
 
     // 0x1000e31a0: the linker folded this into graphics::NXTPixScreen::GetUIWidth() const, which has identical code
-    WorldmapAreaMetadata::GetMinMapX() const;
+    int WorldmapAreaMetadata::GetMinMapX() const;
 
     // 0x100102fc0: the linker folded this into InputField::GetPlaceholderContents() const, which has identical code
-    WorldmapAreaMetadata::GetOrigin() const;
+    CoordMapSquare WorldmapAreaMetadata::GetOrigin() const;
 
     // 0x10012dc00: the linker folded this into graphics::NXTPixScreen::GetViewportX(), which has identical code
     WorldmapAreaMetadata::GetBackgroundColour() const;

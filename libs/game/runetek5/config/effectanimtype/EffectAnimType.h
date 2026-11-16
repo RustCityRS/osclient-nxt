@@ -12,7 +12,7 @@ namespace jag::game {
         virtual DecodeType(PacketT<Array<unsigned char, eastl::allocator>>&, unsigned int);
         virtual PostDecode();
         GetSeqID() const;
-        GetRotation() const;
+        float GetRotation() const;
         GetObeyExtraSeqSettings() const;
         bool ShouldHillRotate() const;
         CastsShadows() const;
@@ -26,11 +26,11 @@ namespace jag::game {
         int field_32;                         // offset 32
         char _unknown_36[20];
         undefined4 field_56; // offset 56
-        undefined4 field_60; // offset 60
+        undefined4 m_seqID;  // offset 60
         char _unknown_64[96];
         float field_160;                   // offset 160
         float field_164;                   // offset 164
-        undefined4 field_168;              // offset 168
+        float m_rotation;                  // offset 168
         undefined1 m_obeyExtraSeqSettings; // offset 172
         char _unknown_173[3];
         undefined4 field_176; // offset 176
@@ -101,14 +101,14 @@ namespace jag::game {
         new (this) ConfigType<EffectAnimType>(param_1, param_2);
         new (this) MakeSharedPool<EffectAnimType, 256>();
         field_0 = &PTR__EffectAnimType_100f04218;
-        field_60 = 4294967295;
+        m_seqID = 4294967295;
         new (&field_64) Array<unsigned short, eastl::allocator>();
         new (&field_88) Array<unsigned short, eastl::allocator>();
         new (&field_112) Array<unsigned short, eastl::allocator>();
         new (&field_136) Array<unsigned short, eastl::allocator>();
         field_160 = 1.0;
         field_164 = 1.0;
-        field_168 = 0;
+        m_rotation = 0.0;
         m_obeyExtraSeqSettings = 0;
         field_176 = 0;
         field_184 = 1;

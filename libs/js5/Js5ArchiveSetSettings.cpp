@@ -7,7 +7,7 @@
 
 namespace jag {
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    Js5ArchiveSetSettings::GetMaxArchiveID() const;
+    uint Js5ArchiveSetSettings::GetMaxArchiveID() const;
 
     // 0x1009de970, 96 bytes, base-object destructor, placed by class name and debug map
     // Js5ArchiveSetSettings::~Js5ArchiveSetSettings()
@@ -66,8 +66,8 @@ namespace jag {
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/Js5ArchiveSetSettings.cpp",
                 50, "Js5ArchiveSetSettings: Tried to add an archive with an ID already added: %d", (ulong)uVar1);
         }
-        if (field_0 < uVar1) {
-            field_0 = uVar1;
+        if (m_maxArchiveID < uVar1) {
+            m_maxArchiveID = uVar1;
         }
         puVar4 = (undefined8*)eastl::vector<Js5ArchiveSettings*, eastl::allocator>::operator[](
             (vector<Js5ArchiveSettings*, eastl::allocator>*)this_00, uVar5);

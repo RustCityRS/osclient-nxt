@@ -39,16 +39,16 @@ namespace jag::game {
         GetWorldPriority() const;
         UsesTrianglePicking() const;
         CanRender() const;
-        GetMaximumRemoveRoofLevel() const;
+        int GetMaximumRemoveRoofLevel() const;
         void GetNode() const;
         void GetTranslation();
         void GetTranslation() const;
-        GetWorld() const;
+        shared_ptr GetWorld() const;
         GetPickingPrepassType() const;
         void SetMaximumRemoveRoofLevel(int);
         void SetWorld(shared_ptr<World> const&);
         SetLevel(int);
-        GetLevel() const;
+        int GetLevel() const;
         void GetAABB() const;
         void GetAABB();
         void GetWorldPosition() const;
@@ -88,10 +88,10 @@ namespace jag::game {
         undefined** field_8; // offset 8
         char _unknown_16[48];
         byte field_64;                // offset 64
-        undefined1 field_65;          // offset 65
+        undefined1 m_currentLOD;      // offset 65
         undefined1 m_targetLOD;       // offset 66
         bool m_occludesView;          // offset 67
-        int field_68;                 // offset 68
+        int m_level;                  // offset 68
         int m_maximumRemoveRoofLevel; // offset 72
         char _unknown_76[40];
         undefined4 m_pickingPrepassType; // offset 116
@@ -175,7 +175,7 @@ namespace jag::game {
     // 0x10042d3e0, 16 bytes, inline, placed by class name
     // Entity::SetCurrentLOD(LODLevel)
     void Entity::SetCurrentLOD(undefined1 param_2) {
-        field_65 = param_2;
+        m_currentLOD = param_2;
     }
 
     // 0x10042d3f0, 16 bytes, inline, placed by class name
@@ -315,7 +315,7 @@ namespace jag::game {
     // 0x1004450a0, 16 bytes, inline, placed by class name
     // Entity::IsAtTargetLOD() const
     bool Entity::IsAtTargetLOD() {
-        return m_targetLOD == field_65;
+        return m_targetLOD == m_currentLOD;
     }
 
     // 0x100448110, 16 bytes, inline, placed by class name
@@ -391,8 +391,8 @@ namespace jag {
     class EntityWaypoint {
     public:
         GetCoord() const;
-        GetMoveSpeed() const;
-        GetLevel() const;
+        MoveSpeed* GetMoveSpeed() const;
+        uint GetLevel() const;
         GetTranslation() const;
         EntityWaypoint* operator=(EntityWaypoint&&);
         EntityWaypoint* operator=(EntityWaypoint const&);
@@ -401,11 +401,11 @@ namespace jag {
         EntityWaypoint(game::CoordFine const&, MoveSpeed const*);
 
         // data members, from how the methods use this: 24 bytes
-        uint field_0;        // offset 0
-        float field_4;       // offset 4
-        float field_8;       // offset 8
-        float field_12;      // offset 12
-        MoveSpeed* field_16; // offset 16
+        uint m_level;            // offset 0
+        float field_4;           // offset 4
+        float field_8;           // offset 8
+        float field_12;          // offset 12
+        MoveSpeed* m_pMoveSpeed; // offset 16
     };
 
     // 0x1003e8730, 48 bytes, inline, placed by class header (inline)
@@ -414,7 +414,7 @@ namespace jag {
 
     EntityWaypoint* EntityWaypoint::operator=(EntityWaypoint* param_1) {
         game::CoordFine::operator=((CoordFine*)this, (CoordFine*)param_1);
-        field_16 = param_1->field_16;
+        m_pMoveSpeed = param_1->m_pMoveSpeed;
         return this;
     }
 

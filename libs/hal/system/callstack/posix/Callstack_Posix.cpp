@@ -133,7 +133,7 @@ namespace jag::callstack {
         ulong* puVar1;
 
         puVar1 = (ulong*)(&field_8)->data();
-        field_0 = capture_stack_back_trace((long)(param_1 + 2), 100, puVar1);
+        m_stackFrames = capture_stack_back_trace((long)(param_1 + 2), 100, puVar1);
     }
 
     // 0x100cad3c0, 48 bytes, placed by class name and debug map
@@ -143,7 +143,7 @@ namespace jag::callstack {
 
         puVar1 = (undefined8*)std::array<unsigned long, 100ul>::operator[]((ulong)&field_8);
         *puVar1 = 0;
-        field_0 = 0;
+        m_stackFrames = 0;
     }
 
     // 0x100cad400, 128 bytes, placed by debug map only (low confidence)

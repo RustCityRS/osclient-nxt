@@ -23,7 +23,7 @@ namespace jag::graphics {
     LightProbe::GetMaterial();
 
     // 0x10047dbc0: the linker folded this into PointLightShadows::GetPointLightSMManager(), which has identical code
-    LightProbe::GetEnvMapRT();
+    shared_ptr LightProbe::GetEnvMapRT();
 
     // 0x10092f1f0, 144 bytes, base-object constructor, placed by class name and debug map
     // LightProbe::LightProbe()
@@ -32,7 +32,7 @@ namespace jag::graphics {
         field_0 = &PTR__LightProbe_100f19dc0;
         new (&field_12) math::Vector3T<int>();
         new (field_32) LightProbeMaterial();
-        new (field_688, (_func_decltype_nullptr*)4) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (m_envMapRT, (_func_decltype_nullptr*)4) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         new (&field_704) IrradianceEffect();
         field_32->Init();
     }
@@ -44,14 +44,14 @@ namespace jag::graphics {
     // LightProbe::~LightProbe()
     void LightProbe::~LightProbe() {
         field_0 = &PTR__LightProbe_100f19dc0;
-        if (!operator==((shared_ptr*)field_688, (_func_decltype_nullptr*)0)) {
+        if (!operator==((shared_ptr*)m_envMapRT, (_func_decltype_nullptr*)0)) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_worldEnvMapRT == nullptr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/effects/"
                       "irradiance/LightProbe.cpp",
                       30, "Rendering resources should have been recycled back to LightProbeManager!");
         }
-        field_688->~shared_ptr();
+        m_envMapRT->~shared_ptr();
         field_32->~LightProbeMaterial();
         ~AutoSingleton();
     }
@@ -77,7 +77,7 @@ namespace jag::graphics {
     void LightProbe::SetRenderingResources(shared_ptr* param_1) {
         bool bVar1;
 
-        bVar1 = operator==((shared_ptr*)field_688, (_func_decltype_nullptr*)0);
+        bVar1 = operator==((shared_ptr*)m_envMapRT, (_func_decltype_nullptr*)0);
         if (!bVar1) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_worldEnvMapRT == nullptr",
@@ -93,7 +93,7 @@ namespace jag::graphics {
                       "irradiance/LightProbe.cpp",
                       41, "Cannot initialise LightProbe with null pointers");
         }
-        shared_ptr<render::BufferedRenderTargets>::operator=((shared_ptr<render::BufferedRenderTargets>*)field_688,
+        shared_ptr<render::BufferedRenderTargets>::operator=((shared_ptr<render::BufferedRenderTargets>*)m_envMapRT,
                                                              param_1);
         if (IsInit(this) == '\0') {
             /* WARNING: Subroutine does not return */
@@ -113,9 +113,9 @@ namespace jag::graphics {
         vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this_02;
 
         uVar2 = 0;
-        if (operator!=((shared_ptr*)field_688, (_func_decltype_nullptr*)0)) {
+        if (operator!=((shared_ptr*)m_envMapRT, (_func_decltype_nullptr*)0)) {
             this_00 = (BufferedRenderTargets*)shared_ptr<render::BufferedRenderTargets>::operator->(
-                (shared_ptr<render::BufferedRenderTargets>*)field_688);
+                (shared_ptr<render::BufferedRenderTargets>*)m_envMapRT);
             this_01 = (RenderTargets*)this_00->GetWriteRT();
             this_02 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)
                           this_01->GetColourTargetTextures();

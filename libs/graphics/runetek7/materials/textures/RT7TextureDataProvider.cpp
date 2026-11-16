@@ -8,7 +8,7 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~RT7TextureDataProvider();
-        virtual GetTexturesCompressedDXTArchive() const;
+        virtual Js5ArchiveSettings* GetTexturesCompressedDXTArchive() const;
         virtual GetTexturesCompressedETCArchive() const;
         virtual GetTexturesUncompressedMippedArchive() const;
         virtual GetSpritesArchive() const;
@@ -22,10 +22,10 @@ namespace jag::graphics {
                             PacketT<Array<unsigned char, eastl::allocator>>&);
 
         // data members, from how the methods use this: 48 bytes
-        long field_0;                 // offset 0, vtable pointer
-        Js5ResourceProvider* field_8; // offset 8
-        Js5ArchiveSettings* field_16; // offset 16
-        Js5ArchiveSettings* field_24; // offset 24
+        long field_0;                                       // offset 0, vtable pointer
+        Js5ResourceProvider* field_8;                       // offset 8
+        Js5ArchiveSettings* m_texturesCompressedDXTArchive; // offset 16
+        Js5ArchiveSettings* field_24;                       // offset 24
         char _unknown_32[8];
         undefined8 m_spritesArchive; // offset 40
     };
@@ -37,7 +37,7 @@ namespace jag::graphics {
     RT7TextureDataProvider::~RT7TextureDataProvider();
 
     // 0x100023f30: the linker folded this into oldscape::option::IOption::GetName() const, which has identical code
-    RT7TextureDataProvider::GetTexturesCompressedDXTArchive() const;
+    Js5ArchiveSettings* RT7TextureDataProvider::GetTexturesCompressedDXTArchive() const;
 
     // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
     RT7TextureDataProvider::~RT7TextureDataProvider();
@@ -189,13 +189,15 @@ namespace jag::graphics {
                 "textures/RT7TextureDataProvider.cpp",
                 112, "TextureDataProvider::GetTextureDataDXT - cannot return compressed texture data for Sprites");
         }
-        pJVar4 = field_16;
+        pJVar4 = m_texturesCompressedDXTArchive;
         puVar1 = (undefined*)(*(code*)field_8->field_0[6])(field_8, pJVar4, param_3, 0, Priority::LOW, 1);
         puVar3 = DataStatus::MISSING;
         if (puVar1 != DataStatus::MISSING) {
             if (puVar1 == DataStatus::READY) {
                 new (&local_58) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(pJVar4);
-                (field_8, &local_58, field_16, param_3, 0, (Priority*)Priority::HIGH, true, true, false)->GetFile();
+                (field_8, &local_58, m_texturesCompressedDXTArchive, param_3, 0, (Priority*)Priority::HIGH, true, true,
+                 false)
+                    ->GetFile();
                 pPVar2 = (PacketT*)shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator*(
                     (shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>*)&local_58);
                 local_48 = (uchar*)0;

@@ -16,7 +16,7 @@ namespace jag {
         virtual void __pure_slot_6() = 0;
         virtual void ClearRoute();
         virtual void RenderDebug(game::CoordFine const&, game::HeightMap const&, game::LinkMap const&, unsigned int);
-        HasWalkSmoothing();
+        bool HasWalkSmoothing();
         EntityRoute(bool);
         ulong IsWaypointTooFar(math::Vector3T<float> const&, int, EntityWaypoint const&) const;
         void PushWaypoint(EntityWaypoint&&);
@@ -24,7 +24,7 @@ namespace jag {
         void AddStalledTick();
         void ResetStalledTickCount();
         bool HasMovement() const;
-        GetStalledTickCount() const;
+        int GetStalledTickCount() const;
         void Length() const;
         void GetLastWaypoint() const;
         void SetWaypointReachedCallback(std::function<void()>);
@@ -33,9 +33,9 @@ namespace jag {
         undefined** field_0; // offset 0, vtable pointer
         undefined1 field_8;  // offset 8
         char _unknown_9[55];
-        bool field_64; // offset 64
+        bool m_hasWalkSmoothing; // offset 64
         char _unknown_65[3];
-        int field_68; // offset 68
+        int m_stalledTickCount; // offset 68
         char _unknown_72[312];
     };
 
@@ -57,13 +57,13 @@ namespace jag {
     // 0x1003f4170, 16 bytes, inline, placed by class name
     // EntityRoute::AddStalledTick()
     void EntityRoute::AddStalledTick() {
-        field_68 = field_68 + 1;
+        m_stalledTickCount = m_stalledTickCount + 1;
     }
 
     // 0x1003f4180, 16 bytes, inline, placed by class name
     // EntityRoute::ResetStalledTickCount()
     void EntityRoute::ResetStalledTickCount() {
-        field_68 = 0;
+        m_stalledTickCount = 0;
     }
 
     // 0x1003f50f0, 32 bytes, inline, placed by class name

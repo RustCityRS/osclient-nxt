@@ -628,8 +628,8 @@ namespace jag::oldscape::dash3d {
 namespace jag::graphics {
     class GeometryBatchCombineHelper {
     public:
-        GetVertexCount() const;
-        GetIndexCount() const;
+        int GetVertexCount() const;
+        int GetIndexCount() const;
         ~GeometryBatchCombineHelper();
         GeometryBatchCombineHelper(GeometryBatchInstance*, int, bool);
         void Reset(GeometryBatchInstance*, int, bool);
@@ -642,8 +642,8 @@ namespace jag::graphics {
         GeometryBatchInstance* field_0;  // offset 0
         bool field_8;                    // offset 8
         undefined3 field_9;              // offset 9
-        int field_12;                    // offset 12
-        int field_16;                    // offset 16
+        int m_indexCount;                // offset 12
+        int m_vertexCount;               // offset 16
         uint field_20;                   // offset 20
         uint field_24;                   // offset 24
         undefined4 field_28;             // offset 28
@@ -678,18 +678,18 @@ namespace jag::graphics {
         pGVar1 = param_1->field_0;
         bVar5 = param_1->field_8;
         uVar6 = param_1->field_9;
-        iVar7 = param_1->field_12;
+        iVar7 = param_1->m_indexCount;
         uVar2 = param_1->field_20;
         uVar3 = param_1->field_24;
         uVar4 = param_1->field_28;
-        field_16 = param_1->field_16;
+        m_vertexCount = param_1->m_vertexCount;
         field_20 = uVar2;
         field_24 = uVar3;
         field_28 = uVar4;
         field_0 = pGVar1;
         field_8 = bVar5;
         field_9 = uVar6;
-        field_12 = iVar7;
+        m_indexCount = iVar7;
         new (&field_40, (vector*)&param_1->field_40)
             eastl::vector<GeometryBatchInstance_const*, BucketAllocatorEASTL>();
     }

@@ -14,21 +14,21 @@ namespace jag::game {
         SetWearModel3(int);
         SetHeadModel2(int);
         SetHeadModel1(int);
-        GetHeadModel2() const;
-        GetWearModel2() const;
-        GetWearModel1() const;
-        GetHeadModel1() const;
+        int GetHeadModel2() const;
+        uint GetWearModel2() const;
+        uint GetWearModel1() const;
+        int GetHeadModel1() const;
         GetOffset() const;
         bool operator==(ObjAppearanceData const&) const;
         ObjAppearanceData();
         ObjAppearanceData* operator=(ObjAppearanceData const&);
 
         // data members, from how the methods use this: 28 bytes
-        undefined4 field_0;  // offset 0
-        undefined4 field_4;  // offset 4
-        undefined4 field_8;  // offset 8
-        undefined4 field_12; // offset 12
-        undefined4 field_16; // offset 16
+        uint m_wearModel1;       // offset 0
+        uint m_wearModel2;       // offset 4
+        undefined4 m_wearModel3; // offset 8
+        int m_headModel1;        // offset 12
+        int m_headModel2;        // offset 16
         char _unknown_20[8];
     };
 
@@ -51,16 +51,16 @@ namespace jag::game {
     ObjAppearanceData::SetHeadModel1(int);
 
     // 0x100066b70: the linker folded this into oldscape::widgets::Widget::GetTextColour() const, which has identical code
-    ObjAppearanceData::GetHeadModel2() const;
+    int ObjAppearanceData::GetHeadModel2() const;
 
     // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    ObjAppearanceData::GetWearModel2() const;
+    uint ObjAppearanceData::GetWearModel2() const;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    ObjAppearanceData::GetWearModel1() const;
+    uint ObjAppearanceData::GetWearModel1() const;
 
     // 0x1000e5d50: the linker folded this into oldscape::rs2lib::CoordZoneSource::GetRotation() const, which has identical code
-    ObjAppearanceData::GetHeadModel1() const;
+    int ObjAppearanceData::GetHeadModel1() const;
 
     // 0x10042e380: the linker folded this into ChangeLocationRequest::GetLocData() const, which has identical code
     ObjAppearanceData::GetOffset() const;
@@ -71,8 +71,9 @@ namespace jag::game {
     */
 
     bool ObjAppearanceData::operator==(ObjAppearanceData* param_1) {
-        if ((((field_0 == param_1->field_0) && (field_4 == param_1->field_4)) && (field_8 == param_1->field_8)) &&
-            ((field_12 == param_1->field_12 && (field_16 == param_1->field_16)))) {
+        if ((((m_wearModel1 == param_1->m_wearModel1) && (m_wearModel2 == param_1->m_wearModel2)) &&
+             (m_wearModel3 == param_1->m_wearModel3)) &&
+            ((m_headModel1 == param_1->m_headModel1 && (m_headModel2 == param_1->m_headModel2)))) {
             return math::operator==((Vector3T*)&field_20, (Vector3T*)&param_1->field_20);
         }
         return false;
@@ -86,18 +87,18 @@ namespace jag::game {
     /* ObjAppearanceData::TEMPNAMEPLACEHOLDERVALUE(ObjAppearanceData const&) */
 
     ObjAppearanceData* ObjAppearanceData::operator=(ObjAppearanceData* param_1) {
-        undefined4 uVar1;
+        uint uVar1;
         undefined4 uVar2;
-        undefined4 uVar3;
+        int iVar3;
 
-        field_16 = param_1->field_16;
-        uVar1 = param_1->field_4;
-        uVar2 = param_1->field_8;
-        uVar3 = param_1->field_12;
-        field_0 = param_1->field_0;
-        field_4 = uVar1;
-        field_8 = uVar2;
-        field_12 = uVar3;
+        m_headModel2 = param_1->m_headModel2;
+        uVar1 = param_1->m_wearModel2;
+        uVar2 = param_1->m_wearModel3;
+        iVar3 = param_1->m_headModel1;
+        m_wearModel1 = param_1->m_wearModel1;
+        m_wearModel2 = uVar1;
+        m_wearModel3 = uVar2;
+        m_headModel1 = iVar3;
         (&field_20, (Vector3T*)&param_1->field_20)->SetXYZ();
         return this;
     }
@@ -105,11 +106,11 @@ namespace jag::game {
     // 0x10050ae90, 48 bytes, base-object constructor, inline, placed by class name
     // ObjAppearanceData::ObjAppearanceData()
     void ObjAppearanceData::ObjAppearanceData() {
-        field_0 = 4294967295;
-        field_4 = 4294967295;
-        field_8 = 4294967295;
-        field_12 = 4294967295;
-        field_16 = 4294967295;
+        m_wearModel1 = 4294967295;
+        m_wearModel2 = 4294967295;
+        m_wearModel3 = 4294967295;
+        m_headModel1 = -1;
+        m_headModel2 = -1;
         new (&field_20) math::Vector3T<int>();
     }
 

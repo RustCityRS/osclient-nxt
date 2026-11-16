@@ -9,10 +9,10 @@ namespace jag::graphics {
     public:
         class RawData;
         class VertexBonePos;
-        GetTemplateID() const;
+        uint GetTemplateID() const;
         GetBonePositions() const;
         SetSourceModelExternalID(int);
-        GetSourceModelExternalID() const;
+        uint GetSourceModelExternalID() const;
         ~VFXAttachmentInfo();
         GetWorldTransform() const;
         VFXAttachmentInfo(RawData const&, math::Matrix44T<float> const&);
@@ -32,26 +32,26 @@ namespace jag::graphics {
         VFXAttachmentInfo(VFXAttachmentInfo const&);
 
         // data members, from how the methods use this: 224 bytes
-        uint field_0;        // offset 0
-        undefined8 field_4;  // offset 4
-        undefined8 field_12; // offset 12
-        undefined4 field_20; // offset 20
-        undefined8 field_24; // offset 24
-        undefined8 field_32; // offset 32
-        undefined4 field_40; // offset 40
-        undefined8 field_44; // offset 44
-        undefined8 field_52; // offset 52
-        undefined4 field_60; // offset 60
-        undefined4 field_64; // offset 64
+        uint m_templateID;            // offset 0
+        undefined8 field_4;           // offset 4
+        undefined8 field_12;          // offset 12
+        undefined4 field_20;          // offset 20
+        undefined8 field_24;          // offset 24
+        undefined8 field_32;          // offset 32
+        undefined4 field_40;          // offset 40
+        undefined8 field_44;          // offset 44
+        undefined8 field_52;          // offset 52
+        undefined4 field_60;          // offset 60
+        uint m_sourceModelExternalID; // offset 64
         char _unknown_68[92];
-        undefined8 field_160; // offset 160
-        undefined8 field_168; // offset 168
-        undefined8 field_176; // offset 176
-        undefined8 field_184; // offset 184
-        undefined8 field_192; // offset 192
-        undefined8 field_200; // offset 200
-        undefined8 field_208; // offset 208
-        undefined8 field_216; // offset 216
+        undefined8 m_worldTransform; // offset 160
+        undefined8 field_168;        // offset 168
+        undefined8 field_176;        // offset 176
+        undefined8 field_184;        // offset 184
+        undefined8 field_192;        // offset 192
+        undefined8 field_200;        // offset 200
+        undefined8 field_208;        // offset 208
+        undefined8 field_216;        // offset 216
     };
 
     class VFXAttachmentInfo::RawData {
@@ -111,7 +111,7 @@ namespace jag::graphics {
         undefined8 uVar6;
         undefined8 uVar7;
 
-        field_64 = param_1->field_64;
+        m_sourceModelExternalID = param_1->m_sourceModelExternalID;
         uVar1 = *(undefined8*)param_1;
         uVar2 = *(undefined8*)((long)&param_1->field_4 + 4);
         uVar3 = *(undefined8*)((long)&param_1->field_12 + 4);
@@ -133,7 +133,7 @@ namespace jag::graphics {
         new (&field_112, (vector_map*)&param_1->field_112)
             eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
                               eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>>();
-        uVar1 = param_1->field_160;
+        uVar1 = param_1->m_worldTransform;
         uVar2 = param_1->field_168;
         uVar3 = param_1->field_176;
         uVar4 = param_1->field_184;
@@ -146,7 +146,7 @@ namespace jag::graphics {
         field_200 = uVar6;
         field_176 = uVar3;
         field_184 = uVar4;
-        field_160 = uVar1;
+        m_worldTransform = uVar1;
         field_168 = uVar2;
     }
 

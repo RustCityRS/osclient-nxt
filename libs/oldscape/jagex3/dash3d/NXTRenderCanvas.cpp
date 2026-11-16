@@ -113,7 +113,7 @@ namespace jag::oldscape::dash3d {
     // 0x100366e90, 16 bytes, placed by class name and debug map
     // NXTRenderCanvas::SetScaledUIQuality(ScaledUIQuality)
     void NXTRenderCanvas::SetScaledUIQuality(undefined4 param_2) {
-        field_68 = param_2;
+        m_scaledUIQuality = param_2;
     }
 
     // 0x100366ea0, 16 bytes, placed by class name and debug map
@@ -149,7 +149,7 @@ namespace jag::oldscape::dash3d {
             this_02->SetUIViewRect(field_24, field_28, m_screenSize, field_36);
             this_00->SetScreenSize(m_screenSize, field_36);
             ((this_00->field_32 + (long)(this_00->field_0[-3] + -32)), field_64)->ShowUI();
-            this_02->SetScaledUIQuality(field_68);
+            this_02->SetScaledUIQuality(m_scaledUIQuality);
             pOVar6 = (OSRenderCore_RenderThread_JavaStyle*)(this_00->field_32 + (long)(this_00->field_0[-3] + -32));
             pOVar6->SetRenderViewRect(m_renderRect, field_52, field_56, field_60);
             pOVar6 = (OSRenderCore_RenderThread_JavaStyle*)pOVar6->Instance();
@@ -705,8 +705,8 @@ namespace jag::oldscape::dash3d {
         undefined1 local_48[32];
 
         new (this) jag::math::AABB(in_RDX);
-        lVar1 = (&param_1->field_16)->HeapBeginPtr();
-        lVar2 = (&param_1->field_16)->end();
+        lVar1 = (&param_1->m_maximum)->HeapBeginPtr();
+        lVar2 = (&param_1->m_maximum)->end();
         if (lVar1 != lVar2) {
             do {
                 local_48->ResolveAABB();

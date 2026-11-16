@@ -10,19 +10,19 @@ namespace jag::game {
         SetLevel(int);
         GetInfluenceRanges();
         GetInfluenceRanges() const;
-        GetUseTerrainHeight() const;
-        GetLightType() const;
-        GetSourceMapSquareX() const;
+        bool GetUseTerrainHeight() const;
+        shared_ptr GetLightType() const;
+        int GetSourceMapSquareX() const;
         GetDynamicID() const;
-        GetScriptId() const;
-        GetLevel() const;
+        int GetScriptId() const;
+        uint GetLevel() const;
         float GetAttenuationFalloff() const;
         GetSourceMapSquareZ() const;
-        GetPhase() const;
+        uint GetPhase() const;
         GetPosition() const;
         byte GetLightLevelsBelow() const;
         void SetLightsLevelsAbove(bool);
-        GetFlickerType() const;
+        uint GetFlickerType() const;
         GetShadowsEnabled() const;
         void SetShadowsEnabled(bool);
         void SetAttenuation(float);
@@ -33,15 +33,15 @@ namespace jag::game {
         ~StaticPointLight();
         IsValid() const;
         void AddTerrainHeight(unsigned int);
-        GetRadius() const;
-        GetRGB() const;
-        GetShadowStrength() const;
+        uint GetRadius() const;
+        uint GetRGB() const;
+        float GetShadowStrength() const;
         float GetBacklightRatio() const;
         StaticPointLight();
         void AssignCalculatedParameters();
         StaticPointLight(StaticPointLight const*, math::Vector3T<float> const&, int);
-        GetLightLevelsAbove() const;
-        GetLightTypeToLoad() const;
+        bool GetLightLevelsAbove() const;
+        uint GetLightTypeToLoad() const;
         float GetIntensity() const;
         void Initialise(PacketT<Array<unsigned char, eastl::allocator>>&);
         void SetRadiusGrid(unsigned int, bool);
@@ -69,36 +69,36 @@ namespace jag::game {
         static Array<double, eastl::allocator> /* 24 bytes */ mPerlinNoise; // = Array<double,eastl::allocator>()
 
         // data members, from how the methods use this: 168 bytes
-        uint field_0; // offset 0
+        uint m_level; // offset 0
         char _unknown_4[12];
-        undefined4 field_16;      // offset 16
-        undefined4 field_20;      // offset 20
-        byte m_lightLevelsBelow;  // offset 24
-        bool m_lightsLevelsAbove; // offset 25
+        int m_sourceMapSquareX;        // offset 16
+        undefined4 m_sourceMapSquareZ; // offset 20
+        byte m_lightLevelsBelow;       // offset 24
+        bool m_lightsLevelsAbove;      // offset 25
         char _unknown_26[30];
-        uint field_56;           // offset 56
+        uint m_flickerType;      // offset 56
         undefined4 field_60;     // offset 60
-        undefined4 field_64;     // offset 64
-        uint field_68;           // offset 68
+        uint m_rGB;              // offset 64
+        uint m_radius;           // offset 68
         uint field_72;           // offset 72
         bool m_useTerrainHeight; // offset 76
         char _unknown_77[7];
-        uint field_84;              // offset 84
-        shared_ptr field_88;        // offset 88
-        int field_104;              // offset 104
+        uint m_lightTypeToLoad;     // offset 84
+        shared_ptr m_lightType;     // offset 88
+        int m_scriptId;             // offset 104
         int m_dynamicID;            // offset 108
         float m_intensity;          // offset 112
         float m_attenuationFalloff; // offset 116
         float m_backlightRatio;     // offset 120
         bool m_shadowsEnabled;      // offset 124
         char _unknown_125[3];
-        float field_128;      // offset 128
-        undefined4 field_132; // offset 132
-        uint field_136;       // offset 136
-        undefined4 field_140; // offset 140
-        undefined4 field_144; // offset 144
-        undefined1 m_valid;   // offset 148
-        undefined1 field_149; // offset 149
+        float m_shadowStrength; // offset 128
+        undefined4 field_132;   // offset 132
+        uint m_phase;           // offset 136
+        undefined4 field_140;   // offset 140
+        undefined4 field_144;   // offset 144
+        undefined1 m_valid;     // offset 148
+        undefined1 field_149;   // offset 149
         char _unknown_150[18];
     };
 
@@ -180,13 +180,13 @@ namespace jag::game {
     /* PlayerGroupMember::SetStatus(PlayerGroupMemberStatus) */
 
     void PlayerGroupMember::SetStatus(uint param_2) {
-        field_64 = param_2;
+        m_status = param_2;
     }
 
     // 0x1001cdf80, 16 bytes, inline, placed by class name and debug map
     // StaticPointLight::SetFlickerType(constants::LightConstants::FlickerType)
     void StaticPointLight::SetFlickerType(uint param_2) {
-        field_56 = param_2;
+        m_flickerType = param_2;
         AssignCalculatedParameters(this);
     }
 
@@ -203,7 +203,7 @@ namespace jag::game {
     // 0x1001eedb0, 48 bytes, base-object destructor, inline, placed by class name
     // StaticPointLight::~StaticPointLight()
     void StaticPointLight::~StaticPointLight() {
-        field_88->~shared_ptr();
+        m_lightType->~shared_ptr();
         (&field_32)->~Array();
     }
 
@@ -301,7 +301,7 @@ namespace jag::game {
         local_14 = 1.0;
         local_1c = param_1;
         pfVar1 = std::clamp<float>(&local_1c, &local_18, &local_14);
-        field_128 = *pfVar1;
+        m_shadowStrength = *pfVar1;
     }
 
     // 0x100498790, 16 bytes, inline, placed by class name

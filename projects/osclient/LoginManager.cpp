@@ -10,7 +10,7 @@ namespace jag::oldscape {
     LoginManager::GetDevCredentialsOutputDirectory();
 
     // 0x1000fcbb0: the linker folded this into ClientObj::GetHighlight(), which has identical code
-    LoginManager::GetAuthWrapper();
+    AuthLibWrapper* LoginManager::GetAuthWrapper();
 
     // 0x1001866f0, 160 bytes, base-object constructor, placed by class name and debug map
     // LoginManager::LoginManager(auth::AuthLibWrapper*)

@@ -10,12 +10,12 @@ namespace jag::oldscape::option {
     public:
         // virtual methods in vtable order
         virtual ~IScriptOption();
-        GetId() const;
+        int GetId() const;
         IScriptOption(int);
 
         // data members, from how the methods use this: 16 bytes
         undefined* field_0; // offset 0, vtable pointer
-        int field_8;        // offset 8
+        int m_id;           // offset 8
         char _unknown_12[4];
     };
 
@@ -32,10 +32,10 @@ namespace jag::oldscape::option {
 
 namespace jag::game {
     // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    Triangulate::SourcePoint::GetIndex() const;
+    int Triangulate::SourcePoint::GetIndex() const;
 
     // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    EnvFogSettings::GetFogDepth() const;
+    uint EnvFogSettings::GetFogDepth() const;
 
 } // namespace jag::game
 
@@ -63,12 +63,12 @@ namespace jag {
 
 namespace jag::render {
     // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    QueryView::GetSubQueryCount() const;
+    uint QueryView::GetSubQueryCount() const;
 
 } // namespace jag::render
 
 namespace jag::graphics {
     // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    ScriptedPointLight::GetRGB() const;
+    uint ScriptedPointLight::GetRGB() const;
 
 } // namespace jag::graphics

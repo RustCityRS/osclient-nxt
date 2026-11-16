@@ -887,7 +887,7 @@ namespace jag::oldscape::minimap {
                         do {
                             uVar6 = (undefined4)((ulong)pPVar14 >> 32);
                             piVar13 = (int*)std::array<MinimapElement, 200ul>::operator[](local_a8, uVar25);
-                            local_c0.field_0 = *piVar13 * m_zoom + local_98;
+                            local_c0.m_level = *piVar13 * m_zoom + local_98;
                             local_7c = m_zoom * piVar13[1] + local_e4;
                             local_cc = 0;
                             pvVar16 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)(piVar13 + 4);
@@ -909,7 +909,7 @@ namespace jag::oldscape::minimap {
                                                local_70->field_0, local_70->field_4, pPVar14->field_40,
                                                pPVar14->field_44);
                                 this = local_58;
-                                DrawDot(local_58, (int)local_88, (int)local_90, local_c0.field_0, local_7c, local_cc,
+                                DrawDot(local_58, (int)local_88, (int)local_90, local_c0.m_level, local_7c, local_cc,
                                         pPVar14, pIVar2);
                             } else {
                                 if (pPVar14 != (Pix32*)0)
@@ -1140,7 +1140,7 @@ namespace jag::oldscape::minimap {
                 pIVar2 = local_70;
                 if (*(int*)&this_09->field_0 != 0) {
                     local_108[0]._0_4_ = local_98 + *(int*)&this_09->field_0 * this_09->m_zoom;
-                    local_c0.field_0 = local_64 + this_09->m_zoom * *(int*)((long)&this_09->field_0 + 4);
+                    local_c0.m_level = local_64 + this_09->m_zoom * *(int*)((long)&this_09->field_0 + 4);
                     local_7c = 0;
                     local_50 =
                         (shared_ptr<rs2lib::social::DisplayName>*)CONCAT44(local_50._4_4_, local_40->field_53112);
@@ -1155,7 +1155,7 @@ namespace jag::oldscape::minimap {
                     GetDotPosition((int*)local_108, (int*)&local_c0, &local_7c, (uint)local_50, iVar8, iVar24, iVar9,
                                    *(int*)(lVar12 + 44));
                     iVar8 = local_7c;
-                    uVar22 = local_c0.field_0;
+                    uVar22 = local_c0.m_level;
                     uVar6 = local_108[0]._0_4_;
                     pPVar14 = (Pix32*)Array<graphics::Pix32, eastl::allocator>::operator[](
                         (Array<graphics::Pix32, eastl::allocator>*)puVar1, 0);
@@ -1439,7 +1439,7 @@ namespace jag::oldscape::minimap {
                 puVar5 = (uint*)SharedArray<unsigned int>::operator[](local_78,
                                                                       (long)(param_1 * (param_1 + -1) + (int)pEVar8));
                 *puVar5 = uVar14;
-                pEVar8 = (EntityHighlight*)((long)&pEVar8->field_0 + 1);
+                pEVar8 = (EntityHighlight*)((long)&pEVar8->m_colour + 1);
             } while (local_40 != pEVar8);
         }
         if (2 < (int)local_38) {
@@ -1451,7 +1451,7 @@ namespace jag::oldscape::minimap {
                 puVar5 = (uint*)SharedArray<unsigned int>::operator[](local_78, uVar9);
                 *puVar5 = uVar14;
                 puVar5 =
-                    (uint*)SharedArray<unsigned int>::operator[](local_78, (ulong)((long)&local_40->field_0 + uVar9));
+                    (uint*)SharedArray<unsigned int>::operator[](local_78, (ulong)((long)&local_40->m_colour + uVar9));
                 *puVar5 = uVar14;
                 uVar9 = uVar9 + local_58;
                 lVar11 = lVar11 + -1;
@@ -1474,7 +1474,7 @@ namespace jag::oldscape::minimap {
                     uVar10 = uVar10 + uVar9;
                     puVar12 = puVar12 + -1;
                 } while (puVar12 != (undefined1*)0);
-                local_40 = (EntityHighlight*)((long)&local_40->field_0 + 1);
+                local_40 = (EntityHighlight*)((long)&local_40->m_colour + 1);
             } while (local_40 != local_50);
         }
         new (this) graphics::Pix32(local_78, (int)local_38, (int)local_38);
@@ -1729,6 +1729,6 @@ namespace jag::oldscape::minimap {
     }
 
     // 0x1000e5d50: the linker folded this into rs2lib::CoordZoneSource::GetRotation() const, which has identical code
-    Minimap::GetLevel();
+    int Minimap::GetLevel();
 
 } // namespace jag::oldscape::minimap

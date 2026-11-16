@@ -8,7 +8,7 @@
 namespace jag {
     class Js5MemoryCache {
     public:
-        GetCacheSize() const;
+        uint GetCacheSize() const;
         int GetCacheUsageBytes() const;
         Js5MemoryCache(unsigned int, unsigned int);
         CheckFile(unsigned int, unsigned int, unsigned int, Js5Index const&);
@@ -30,7 +30,7 @@ namespace jag {
         ~Js5MemoryCache();
 
         // data members, from how the methods use this: 327960 bytes
-        uint field_0;           // offset 0
+        uint m_cacheSize;       // offset 0
         uint field_4;           // offset 4
         CoordMapSquare field_8; // offset 8
         char _unknown_20[327940];
@@ -58,7 +58,7 @@ namespace jag {
         uint uVar1;
         int iVar2;
 
-        uVar1 = field_0;
+        uVar1 = m_cacheSize;
         iVar2 = field_8->GetZ();
         return uVar1 - iVar2;
     }

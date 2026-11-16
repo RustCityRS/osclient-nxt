@@ -7,12 +7,12 @@
 namespace jag {
     class ClientStream {
     public:
-        GetConnectionStatus();
+        uint GetConnectionStatus();
         void GetInBufferSize() const;
         unsigned long
         Read<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>(PacketT<Array<unsigned char, BucketAllocatorEASTL>>&,
                                                                   unsigned long);
-        GetError() const;
+        WaterNormalParamsTarget GetError() const;
         void Write(PacketT<Array<unsigned char, eastl::allocator>>&);
         void Close();
         long GetAvailable();
@@ -39,7 +39,7 @@ namespace jag {
         static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ m_connectionPing;
 
         // data members, from how the methods use this: 520 bytes
-        undefined4 field_0; // offset 0
+        uint m_connectionStatus; // offset 0
         char _unknown_4[140];
         undefined1 field_144; // offset 144
         char _unknown_145[55];
@@ -91,7 +91,7 @@ namespace jag {
         (&field_8, (Error*)0)->Close();
         (&field_144)->clear();
         eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-        field_0 = 0;
+        m_connectionStatus = 0;
     }
 
     // 0x1009f3560, 256 bytes, inline, placed by class name
@@ -150,7 +150,7 @@ namespace jag {
     // ClientStream::Drop()
     void ClientStream::Drop() {
         (&field_8, (Error*)0)->Close();
-        field_0 = 0;
+        m_connectionStatus = 0;
     }
 
 } // namespace jag

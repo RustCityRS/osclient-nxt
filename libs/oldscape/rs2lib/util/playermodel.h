@@ -54,7 +54,7 @@ namespace jag::oldscape::rs2lib {
         char _unknown_256[32];
         undefined1 field_288; // offset 288
         char _unknown_289[3];
-        undefined4 field_292; // offset 292
+        undefined4 m_pronoun; // offset 292
         int m_bodytype;       // offset 296
         char _unknown_300[4];
     };

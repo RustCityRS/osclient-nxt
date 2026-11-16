@@ -8,10 +8,10 @@ namespace jag::graphics {
     class Shader {
     public:
         GetConstructedEffects();
-        GetType() const;
+        graphics* GetType() const;
         GetSourceHash() const;
         GetProgramUnchecked() const;
-        GetConstructedShaderId() const;
+        uint GetConstructedShaderId() const;
         GetShaderCount();
         void WaitForAsyncCompile() const;
         Shader(ShaderType, std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>> const&,
@@ -32,13 +32,13 @@ namespace jag::graphics {
         static /* 16 bytes */ m_constructedShaderCount;
 
         // data members, from how the methods use this: 1906 bytes
-        graphics* field_0;  // offset 0
+        graphics* m_type;   // offset 0
         undefined1 field_8; // offset 8
         char _unknown_9[7];
-        undefined8 field_16; // offset 16
-        uint field_24;       // offset 24
-        undefined4 field_28; // offset 28
-        undefined8 field_32; // offset 32
+        undefined8 field_16;        // offset 16
+        uint m_constructedShaderId; // offset 24
+        undefined4 field_28;        // offset 28
+        undefined8 field_32;        // offset 32
         char _unknown_40[1864];
         byte field_1904; // offset 1904
         char field_1905; // offset 1905

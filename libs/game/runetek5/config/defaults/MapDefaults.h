@@ -7,13 +7,13 @@
 namespace jag::game {
     class MapDefaults {
     public:
-        GetDefaultWaterType() const;
-        GetDefaultEnvironmentMap() const;
+        uint GetDefaultWaterType() const;
+        uint GetDefaultEnvironmentMap() const;
         MapDefaults(PacketT<Array<unsigned char, eastl::allocator>>&);
 
         // data members, from how the methods use this: 12 bytes
-        uint field_0; // offset 0
-        uint field_4; // offset 4
+        uint m_defaultEnvironmentMap; // offset 0
+        uint m_defaultWaterType;      // offset 4
         char _unknown_8[4];
     };
 

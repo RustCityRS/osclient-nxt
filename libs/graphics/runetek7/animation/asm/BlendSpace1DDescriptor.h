@@ -26,7 +26,7 @@ namespace jag::graphics {
 
     class BlendSpace1DDescriptor::LocationInfo {
     public:
-        GetPosition() const;
+        float GetPosition() const;
         LocationInfo(PacketT<Array<unsigned char, eastl::allocator>>&);
         void GetBlendTree() const;
         LocationInfo(LocationInfo const&);
@@ -37,7 +37,7 @@ namespace jag::graphics {
 
         // data members, from how the methods use this: 16 bytes
         char _unknown_0[8];
-        float field_8; // offset 8
+        float m_position; // offset 8
         char _unknown_12[4];
     };
 
@@ -146,7 +146,7 @@ namespace jag::graphics {
         std::unique_ptr<BlendTreeNodeDescriptor, std::default_delete<BlendTreeNodeDescriptor>>::operator=(
             (unique_ptr<BlendTreeNodeDescriptor, std::default_delete<BlendTreeNodeDescriptor>>*)this, local_28);
         local_28->~unique_ptr();
-        field_8 = (float)param_1->GetBrightpassThreshold();
+        m_position = (float)param_1->GetBrightpassThreshold();
     }
 
     // 0x1009640b0, 16 bytes, complete-object constructor, inline, placed by class name
@@ -156,7 +156,7 @@ namespace jag::graphics {
     // BlendSpace1DDescriptor::LocationInfo::LocationInfo(BlendSpace1DDescriptor::LocationInfo&&)
     void BlendSpace1DDescriptor::LocationInfo::LocationInfo(LocationInfo* param_1) {
         new (this) std::unique_ptr<BlendTreeNodeDescriptor, std::default_delete<BlendTreeNodeDescriptor>>(param_1);
-        field_8 = param_1->field_8;
+        m_position = param_1->m_position;
     }
 
     // 0x1009641d0, 16 bytes, complete-object destructor, inline, placed by class name
@@ -183,7 +183,7 @@ namespace jag::graphics {
                                                                                            float param_2) {
         std::unique_ptr<BlendTreeNodeDescriptor, std::default_delete<BlendTreeNodeDescriptor>>::unique_ptr<true, void>(
             (unique_ptr<BlendTreeNodeDescriptor, std::default_delete<BlendTreeNodeDescriptor>>*)this);
-        field_8 = param_2;
+        m_position = param_2;
         std::unique_ptr<BlendTreeNodeDescriptor, std::default_delete<BlendTreeNodeDescriptor>>::operator=(
             (unique_ptr<BlendTreeNodeDescriptor, std::default_delete<BlendTreeNodeDescriptor>>*)this, param_1);
     }

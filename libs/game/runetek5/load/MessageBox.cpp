@@ -504,16 +504,16 @@ namespace jag::game {
                         iVar4 = local_b0.GetFontMetrics();
                         new (local_38) oldscape::configdecoder::VeccType();
                         pFVar11 = (FontMetrics*)(ulong)local_38[0];
-                        SVar12.field_8 = (uchar*)250;
-                        SVar12.field_0 = (ulong)&local_d0;
-                        iVar4 = graphics::FontHelpers::PredictWidthMultiLine(SVar12, iVar4, pFVar11,
+                        SVar13.field_8 = (uchar*)250;
+                        SVar13.field_0 = (ulong)&local_d0;
+                        iVar4 = graphics::FontHelpers::PredictWidthMultiLine(SVar13, iVar4, pFVar11,
                                                                              in_stack_ffffffffffffff28);
                         local_70 = (fixed_string*)puVar1;
                         StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(
                             &local_c0, (fixed_string*)puVar1);
-                        SVar13.field_8 = (uchar*)250;
-                        SVar13.field_0 = (ulong)&local_c0;
-                        iVar5 = graphics::FontHelpers::PredictHeightAndLines(SVar13, (int)&local_b0,
+                        SVar14.field_8 = (uchar*)250;
+                        SVar14.field_0 = (ulong)&local_c0;
+                        iVar5 = graphics::FontHelpers::PredictHeightAndLines(SVar14, (int)&local_b0,
                                                                              (TextProperties*)pFVar11);
                         local_58 = (ulong)local_3c;
                         local_4c = iVar4 + local_3c * 2 + 4;
@@ -560,11 +560,11 @@ namespace jag::game {
                         this_01 = field_16;
                         StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_80,
                                                                                                       local_70);
-                        SVar14.field_8._0_4_ = iVar7 + local_3c;
-                        SVar14.field_0 = (ulong)&local_80;
-                        SVar14.field_8._4_4_ = 0;
+                        SVar12.field_8._0_4_ = iVar7 + local_3c;
+                        SVar12.field_0 = (ulong)&local_80;
+                        SVar12.field_8._4_4_ = 0;
                         this_01->DrawStringMultiline(
-                            SVar14, iVar8 + iVar5 + local_3c, iVar4 - (int)local_58, iVar6 - (int)local_58, 0,
+                            SVar12, iVar8 + iVar5 + local_3c, iVar4 - (int)local_58, iVar6 - (int)local_58, 0,
                             (uint*)&local_b0,
                             (TextProperties*)CONCAT71(in_stack_ffffffffffffff29, in_stack_ffffffffffffff28));
                         local_48->End();

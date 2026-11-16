@@ -7,13 +7,13 @@
 
 namespace jag::game {
     // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    WorldMapDefaults::GetF2POutlineColourRGBA() const;
+    uint WorldMapDefaults::GetF2POutlineColourRGBA() const;
 
     // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    WorldMapDefaults::GetF2PLayerColourRGBA() const;
+    uint WorldMapDefaults::GetF2PLayerColourRGBA() const;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    WorldMapDefaults::GetF2PLayerMapID() const;
+    uint WorldMapDefaults::GetF2PLayerMapID() const;
 
     // 0x10054f290, 400 bytes, base-object constructor, placed by class name and debug map
     // WorldMapDefaults::WorldMapDefaults(PacketT<Array<unsigned char, eastl::allocator> >&)
@@ -33,16 +33,16 @@ namespace jag::game {
             case 0:
                 return;
             case 1:
-                uVar3 = param_1->g4();
-                field_0 = uVar3;
+                uVar5 = param_1->g4();
+                m_f2PLayerMapID = uVar5;
                 break;
             case 2:
                 uVar5 = param_1->g4();
-                field_4 = uVar5 << 8 | uVar5 >> 24;
+                m_f2PLayerColourRGBA = uVar5 << 8 | uVar5 >> 24;
                 break;
             case 3:
                 uVar5 = param_1->g4();
-                field_8 = uVar5 << 8 | uVar5 >> 24;
+                m_f2POutlineColourRGBA = uVar5 << 8 | uVar5 >> 24;
                 break;
             case 4:
                 bVar1 = param_1->g1();
@@ -58,7 +58,7 @@ namespace jag::game {
                 break;
             case 7:
                 uVar5 = param_1->g4();
-                field_24 = uVar5 << 8 | uVar5 >> 24;
+                m_dropShadowColourRGBA = uVar5 << 8 | uVar5 >> 24;
                 break;
             default:
                 if (bVar1 < 100) {

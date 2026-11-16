@@ -10,7 +10,7 @@ namespace jag::game {
     LODSettings::m_defaultLOD = 1;
 
     // 0x100066b70: the linker folded this into oldscape::widgets::Widget::GetTextColour() const, which has identical code
-    LODSettings::GetLODMinimumDistance() const;
+    int LODSettings::GetLODMinimumDistance() const;
 
     // 0x1004b46e0, 48 bytes, base-object constructor, placed by class name and debug map
     // LODSettings::LODSettings()
@@ -19,7 +19,7 @@ namespace jag::game {
         field_4 = 8192;
         field_8 = 12288;
         field_12 = 16384;
-        field_16 = 16384;
+        m_lODMinimumDistance = 16384;
         m_lowestUsableLOD = 0;
         field_21 = 5;
         m_lowestUsableLOD = m_defaultLOD;

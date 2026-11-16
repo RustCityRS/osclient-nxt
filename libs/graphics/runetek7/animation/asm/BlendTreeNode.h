@@ -21,8 +21,8 @@ namespace jag::graphics {
             m_blendTreeNodeBlendModes; // = StringEnum((StringEnumEntry *)&m_blendTreeNodeBlendModes__, 4)
 
         // data members, from how the methods use this: 40 bytes
-        undefined* field_0; // offset 0, vtable pointer
-        undefined1 field_8; // offset 8
+        undefined* field_0;         // offset 0, vtable pointer
+        undefined1 m_debugDrawPose; // offset 8
         char _unknown_9[7];
         undefined8 field_16; // offset 16
         char _unknown_24[4];
@@ -43,7 +43,7 @@ namespace jag::graphics {
         uVar1 = param_1->field_16;
         uVar2 = *(undefined8*)((long)&param_1->field_16 + 4);
         uVar3 = param_1->field_28;
-        field_8 = param_1->field_8;
+        m_debugDrawPose = param_1->m_debugDrawPose;
         *(undefined7*)&field_9 = uVar4;
         field_16 = uVar1;
         *(undefined8*)((long)&field_16 + 4) = uVar2;
@@ -137,7 +137,7 @@ namespace jag::graphics {
     // BlendTreeNode::BlendTreeNode()
     void BlendTreeNode::BlendTreeNode() {
         field_0 = PTR_vtable_100ee8740 + 16;
-        field_8 = 0;
+        m_debugDrawPose = 0;
         new (&field_12, 0.9, 0.0, 0.9) math::ColourHSL();
         new (&field_24, 1.0, 0.1, 1.0) math::ColourHSL();
     }

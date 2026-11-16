@@ -173,7 +173,7 @@ namespace jag::oldscape {
         new (local_78) eastl::string();
         HiscoresInstanceToName((eastl::string*)local_78, param_3);
         eastl::string::basic_string(local_58);
-        if (field_296 == 1) {
+        if (m_dataSource == 1) {
             pbVar2 = (basic_string*)Client::Instance();
             eastl::allocator::allocator(local_38, "EASTL basic_string");
             eastl::string::basic_string(local_98, "secure", local_38);
@@ -219,7 +219,7 @@ namespace jag::oldscape {
         allocator local_50[32];
         allocator local_30[8];
 
-        if (field_296 != 0) {
+        if (m_dataSource != 0) {
             this_00 = &field_288;
             bVar1 = std::operator!=((unique_ptr*)this_00, in_RSI);
             if (bVar1) {
@@ -252,7 +252,7 @@ namespace jag::oldscape {
                         uVar6 = eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_04);
                         eastl::allocator::allocator(local_50, "EASTL basic_string");
                         eastl::string::basic_string(local_70, pcVar5, uVar6, local_50);
-                        if (field_296 == 1) {
+                        if (m_dataSource == 1) {
                             UnpackLiteResponse((basic_string*)this);
                         } else {
                             uVar7 = logger::default_logger();

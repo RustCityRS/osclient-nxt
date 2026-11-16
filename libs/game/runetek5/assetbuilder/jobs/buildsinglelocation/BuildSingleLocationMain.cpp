@@ -7,7 +7,7 @@
 
 namespace jag::game {
     // 0x100102fc0: the linker folded this into oldscape::rs2lib::InputField::GetPlaceholderContents() const, which has identical code
-    BuildSingleLocationMain::GetRequestData();
+    shared_ptr BuildSingleLocationMain::GetRequestData();
 
     // 0x100625210, 224 bytes, base-object constructor, placed by class name and debug map
     // BuildSingleLocationMain::BuildSingleLocationMain(int, shared_ptr<LocType> const&, shared_ptr<LocType> const&, shared_ptr<graphics::Model> const&, Rotation90, int, Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>&&, Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>&&)
@@ -21,7 +21,7 @@ namespace jag::game {
         local_31 = param_6;
         new (this) AssetJob(12, param_1, 4294967295);
         field_0 = &PTR__BuildSingleLocationMain_100f0c9f0;
-        new (field_80, (_func_decltype_nullptr*)12) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (m_requestData, (_func_decltype_nullptr*)12) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         local_40 = &field_96;
         new (local_40) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(12);
         bucket_make_shared<BuildSingleLocationRequestData, shared_ptr<LocType> const&, shared_ptr<LocType> const&,
@@ -29,8 +29,8 @@ namespace jag::game {
                            Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>,
                            Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>>(
             (jag*)&local_50, param_2, param_3, param_4, &local_31, &param_7, param_8, param_9);
-        shared_ptr<BuildSingleLocationRequestData>::operator=((shared_ptr<BuildSingleLocationRequestData>*)field_80,
-                                                              &local_50);
+        shared_ptr<BuildSingleLocationRequestData>::operator=(
+            (shared_ptr<BuildSingleLocationRequestData>*)m_requestData, &local_50);
         local_50.~shared_ptr();
     }
 
@@ -55,7 +55,7 @@ namespace jag::game {
         undefined1 auVar8[16];
         shared_ptr local_38;
 
-        this_00 = field_80;
+        this_00 = m_requestData;
         bVar1 = this_00->operator_cast_to_bool();
         ppuVar7 = &DataStatus::MISSING;
         if (bVar1) {
@@ -154,7 +154,7 @@ namespace jag::game {
             if (pMVar1->IsLoaded() == '\0') {
                 pMVar1 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)param_1);
                 lVar2 = shared_ptr<BuildSingleLocationRequestData>::operator->(
-                    (shared_ptr<BuildSingleLocationRequestData>*)field_80);
+                    (shared_ptr<BuildSingleLocationRequestData>*)m_requestData);
                 this_00 =
                     (Location*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)(lVar2 + 32));
                 pfVar3 = (fixed_vector*)this_00->GetServerPosition();

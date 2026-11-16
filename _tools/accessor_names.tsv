@@ -1,0 +1,1877 @@
+jag::BaseApp	8	0	m_exitAfterInit		GetExitAfterInit
+jag::BaseApp	9	1	m_appRunning		SetAppRunning
+jag::BaseApp	96	4	m_exitCode		GetExitCode
+jag::Bucket	208	8	m_pStart	RenderTargetsManager *	GetStart
+jag::Bucket	216	8	m_end	ulong	GetEnd
+jag::Bucket	224	8	m_slotSize	ulong	GetSlotSize
+jag::Bucket	232	8	m_slotAlignment	ulong	GetSlotAlignment
+jag::Camera	8	4	m_projectionMode		SetProjectionMode
+jag::Camera	12	4	m_verticalFov		SetVerticalFov
+jag::Camera	16	4	m_aspect	float	GetAspect
+jag::Camera	20	8	m_leftClip	float	GetLeftClip
+jag::Camera	24	0	m_rightClip		SetRightClip
+jag::Camera	28	4	m_bottomClip	float	GetBottomClip
+jag::Camera	32	4	m_topClip	float	GetTopClip
+jag::Camera	36	4	m_nearClip	float	GetNearClip
+jag::Camera	40	4	m_farClip	float	GetFarClip
+jag::Camera	44	0	m_rot		GetRot
+jag::Camera	60	16	m_pos		GetPos
+jag::ClientSocket	96	0	m_rawAddress		GetRawAddress
+jag::ClientStream	0	4	m_connectionStatus	uint	GetConnectionStatus
+jag::ClientStream	268	16	m_error		GetError
+jag::DebugOverlay	16	8	m_fontHelpers	undefined8	GetFontHelpers
+jag::DebugOverlay	24	1	m_show		SetShow
+jag::DebugOverlay	25	1	m_expandGraphs		SetExpandGraphs
+jag::DebugOverlaySection	108	4	m_pHeight	int *	GetHeight
+jag::DebugOverlaySection	120	1	m_show		GetShow
+jag::DebugOverlaySection	121	1	m_expandedForced		IsExpandedForced
+jag::DebugOverlaySection	124	4	m_sectionType		GetSectionType
+jag::DiscordMain	16	0	m_discordRichPresenceModule		GetDiscordRichPresenceModule
+jag::EmojiRegistry	76	1	m_autoChatLine		GetAutoChatLine
+jag::EntityRoute	64	1	m_hasWalkSmoothing	bool	HasWalkSmoothing
+jag::EntityRoute	68	4	m_stalledTickCount	uint	GetStalledTickCount
+jag::EntityWaypoint	0	4	m_level	uint	GetLevel
+jag::EntityWaypoint	16	8	m_pMoveSpeed		GetMoveSpeed
+jag::Error	0	4	m_code	uint	GetCode
+jag::FPSCounter	0	4	m_fPS	float	GetFPS
+jag::FPSCounter	4	4	m_lPS	float	GetLPS
+jag::FPSCounter	12	4	m_rollingMeanFPS	int	GetRollingMeanFPS
+jag::FPSCounter	16	4	m_worstFPS	int	GetWorstFPS
+jag::FPSCounter	20	4	m_bestFPS		GetBestFPS
+jag::FPSCounter	98568	4	m_rollingMeanSampleDurationMS	uint	GetRollingMeanSampleDurationMS
+jag::FPSCounter	98624	4	m_avgFrameDurationMS	float	GetAvgFrameDurationMS
+jag::FPSCounter	98628	4	m_avgStarvationDurationMS	float	GetAvgStarvationDurationMS
+jag::FPSCounter	98640	8	m_lastFrameDurationNS	ulonglong	GetLastFrameDurationNS
+jag::FacingController	12	4	m_turnSpeedMultiplier		SetTurnSpeedMultiplier
+jag::FacingController	152	4	m_faceMovement		SetFaceMovement
+jag::FileSystem	616	4	m_scope	int	GetScope
+jag::FileSystem	656	1	m_ready		IsReady
+jag::FileSystem	658	1	m_settingsStyle		IsSettingsStyle
+jag::FileSystem_SQLite	2344	8	m_usageBytes		GetUsageBytes
+jag::GraphicsApp	99904	4	m_maxForegroundFps		SetMaxForegroundFps
+jag::GraphicsApp	99908	4	m_maxBackgroundFps		SetMaxBackgroundFps
+jag::GraphicsApp	100272	4	m_pWindowInitParams	int *	GetWindowInitParams
+jag::GraphicsApp	100377	1	m_presentEnabled		GetPresentEnabled
+jag::GraphicsApp	100378	1	m_insideMainLogic		IsInsideMainLogic
+jag::HashedString32	8	4	m_hash	uint	GetHash
+jag::Headbar	32	4	m_startTime		GetStartTime
+jag::Headbar	52	4	m_duration		GetDuration
+jag::HeapAllocatorProxy	8	1	m_callStackGrabbingEnabled		GetCallStackGrabbingEnabled
+jag::HeapAllocatorProxy	12	4	m_callStackGrabDepth	int	GetCallStackGrabDepth
+jag::Hitmark	4	4	m_param	uint	GetParam
+jag::Hitmark	8	4	m_expiryTime	uint	GetExpiryTime
+jag::HitmarksAndHeadbars	16	0	m_hitmarks		GetHitmarks
+jag::Js5ArchiveSetSettings	0	4	m_maxArchiveID	uint	GetMaxArchiveID
+jag::Js5ArchiveSettings	0	4	m_archiveID	uint	GetArchiveID
+jag::Js5ArchiveSettings	16	4	m_openPriority	int	GetOpenPriority
+jag::Js5ArchiveSettings	20	1	m_preloadEnabled		GetPreloadEnabled
+jag::Js5ArchiveSettings	21	1	m_langSpecific		IsLangSpecific
+jag::Js5ArchiveSettings	33	1	m_hTTPValidated		IsHTTPValidated
+jag::Js5ArchiveSettings	34	1	m_diskEncodeType	int	GetDiskEncodeType
+jag::Js5ArchiveSettings	35	1	m_canSaveToDisk		GetCanSaveToDisk
+jag::Js5ArchiveSettings	40	8	m_pLocalFileName		GetLocalFileName
+jag::Js5ArchiveSettings	48	4	m_groupIDLimit		SetGroupIDLimit
+jag::Js5ArchiveSettings	52	4	m_diskCacheSize		GetDiskCacheSize
+jag::Js5ArchiveSettings	56	4	m_totalSize		GetTotalSize
+jag::Js5DiskCache	70384	8	m_usageBytes	long	GetUsageBytes
+jag::Js5HTTPQueueRequest	56	8	m_priority		GetPriority
+jag::Js5HTTPQueueRequest	200	1	m_complete	char	IsComplete
+jag::Js5HTTPQueueRequest	208	8	m_pProxyUserName		SetProxyUserName
+jag::Js5HTTPQueueRequest	216	8	m_pProxyPassword		SetProxyPassword
+jag::Js5Index	0	4	m_indexCRC	uint	GetIndexCRC
+jag::Js5Index	32	4	m_indexVersion		GetIndexVersion
+jag::Js5Index	40	4	m_groupCount	int	GetGroupCount
+jag::Js5Index	48	0	m_groupList		GetGroupList
+jag::Js5Index	140	4	m_maximumGroupID	uint	GetMaximumGroupID
+jag::Js5Index	144	8	m_pTotalPackedGroupSize	Js5MemoryCache *	GetTotalPackedGroupSize
+jag::Js5LocalModeLoader	312	256	m_index		GetIndex
+jag::Js5MasterIndex	0	4	m_maximumArchiveID	uint	GetMaximumArchiveID
+jag::Js5MemoryCache	0	4	m_cacheSize	uint	GetCacheSize
+jag::Js5NetQueueRequest	0	4	m_archiveID	uint	GetArchiveID
+jag::Js5NetQueueRequest	4	4	m_groupID	uint	GetGroupID
+jag::Js5NetQueueRequest	8	1	m_urgent		IsUrgent
+jag::Js5NetQueueRequest	12	4	m_footerLength	int	GetFooterLength
+jag::Js5NetQueueRequest	48	8	m_pPriority	AuthLibWrapper *	GetPriority
+jag::Js5NetQueueRequest	128	1	m_requested		SetRequested
+jag::Js5ResourceProvider	120	1	m_localMode		IsLocalMode
+jag::Js5ResourceProvider	144	8	m_pMemoryCache	Js5MemoryCache *	GetMemoryCache
+jag::Js5ResourceProvider	152	8	m_pDiskCache		GetDiskCache
+jag::MainLoopFrameTimer	0	4	m_mainLoopInterval	uint	GetMainLoopInterval
+jag::MainLoopFrameTimer	4	4	m_mainLoopRate	uint	GetMainLoopRate
+jag::MainLoopFrameTimer	8	4	m_logicTick	uint	GetLogicTick
+jag::MainLoopFrameTimer	16	4	m_frameCount	int	GetFrameCount
+jag::MainLoopFrameTimer	32	1	m_fastUpdateLoopEnabled		SetFastUpdateLoopEnabled
+jag::MainLoopFrameTimer	40	8	m_uniqueLoopID		GetUniqueLoopID
+jag::MainLoopFrameTimer	48	0	m_fPSCounter		GetFPSCounter
+jag::MainLoopFrameTimer	98712	1	m_renderingDisabled		IsRenderingDisabled
+jag::MenuItem	32	4	m_commandIndex		GetCommandIndex
+jag::MiniMapRenderPass	12	4	m_startingRenderLevel	int	GetStartingRenderLevel
+jag::Model	16	16	m_tintMode		GetTintMode
+jag::Model	408	1	m_temporary		IsTemporary
+jag::NPCEntity	4184	4	m_nPCTypeID	int	GetNPCTypeID
+jag::NPCEntity	4192	16	m_parentNPCType		GetParentNPCType
+jag::NPCEntity	4208	16	m_nPCType		GetNPCType
+jag::NPCEntity	4424	4	m_visibleCombatLevel		GetVisibleCombatLevel
+jag::NPCEntity	4428	4	m_hiddenOpsMask		GetHiddenOpsMask
+jag::OSClient	62807104	0	m_inputHAL		GetInputHAL
+jag::OSClient	62809600	0	m_steamSDK		GetSteamSDK
+jag::OpenGLView	16	8	m_inputHAL	undefined8	GetInputHAL
+jag::OpenGLView	28	4	m_mainRenderTargetScaleFactor	float	GetMainRenderTargetScaleFactor
+jag::OpenGLView	32	4	m_fullScreenResolution		SetFullScreenResolution
+jag::OpenGLView	56	8	m_cursorHotspot		GetCursorHotspot
+jag::OpenGLView	96	0	m_cursorMutex		GetCursorMutex
+jag::PacketView	16	8	m_pos	undefined8	GetPos
+jag::PathingEntity	240	4	m_slotID		GetSlotID
+jag::PathingEntity	248	0	m_displayName		GetDisplayName
+jag::PathingEntity	516	4	m_gridSize	int	GetGridSize
+jag::PathingEntity	720	0	m_translation		GetTranslation
+jag::PathingEntity	724	4	m_translationY		SetTranslationY
+jag::PathingEntity	864	2360	m_animatedModel		GetAnimatedModel
+jag::PathingEntity	3490	2	m_worldPriority	int	GetWorldPriority
+jag::PathingEntity	3492	1	m_hiddenByOtherEntity	char	GetHiddenByOtherEntity
+jag::PathingEntity	3848	4	m_basID	int	GetBasID
+jag::RGBAImage	0	4	m_width	uint	GetWidth
+jag::RGBAImage	4	4	m_height	uint	GetHeight
+jag::RGBAImage	64	0	m_colourData		GetColourData
+jag::RenderState::WindowProperties	248	1	m_isMaximized		GetIsMaximized
+jag::SimpleAllocator	16	8	m_slotSize	undefined8	GetSlotSize
+jag::SimpleAllocator	112	0	m_overflowList		GetOverflowList
+jag::SpotAnimation	220	4	m_effectAnimID		GetEffectAnimID
+jag::SpotAnimation	428	4	m_combinedID		GetCombinedID
+jag::SpotAnimation	453	1	m_hidden		SetHidden
+jag::Steam	4	4	m_appID	uint	GetAppID
+jag::Steam	8	0	m_steamOverlayModule		GetSteamOverlayModule
+jag::Steam	16	0	m_steamAuthModule		GetSteamAuthModule
+jag::Steam	24	0	m_steamAppModule		GetSteamAppModule
+jag::Steam	32	0	m_steamRichPresenceModule		GetSteamRichPresenceModule
+jag::Steam	40	0	m_steamAchievementsModule		GetSteamAchievementsModule
+jag::SteamApp	32	0	m_appInstallDirectory		GetAppInstallDirectory
+jag::StringEnum	8	4	m_numEntries	uint	GetNumEntries
+jag::SystemSettings	40	8	m_pModeGame		GetModeGame
+jag::SystemSettings	48	8	m_pLanguage	AuthLibWrapper *	GetLanguage
+jag::SystemSettings	158	1	m_softwareNameAsSettingPath		GetSoftwareNameAsSettingPath
+jag::Task	40	8	m_id		GetId
+jag::Task	185	1	m_taskJoining		IsTaskJoining
+jag::Task	186	1	m_ready		SetReady
+jag::Task	187	1	m_complete		SetComplete
+jag::TimedGraph	98448	4	m_maximum		SetMaximum
+jag::TimedGraph	98452	4	m_mean		GetMean
+jag::TimedGraph	98456	4	m_min		GetMin
+jag::ViewTransforms	16	0	m_viewMatrix		GetViewMatrix
+jag::ViewTransforms	80	1	m_projMatrix		GetProjMatrix
+jag::ViewTransforms	144	0	m_viewProjMatrix		GetViewProjMatrix
+jag::VorbisJs5Resource	48	8	m_pFormat	AuthLibWrapper *	GetFormat
+jag::VorbisJs5Resource	64	4	m_iD	uint	GetID
+jag::Window	200	16	m_view		GetView
+jag::Window	216	4	m_width	float	GetWidth
+jag::Window	220	4	m_height	float	GetHeight
+jag::Window	248	8	m_pNativeApplication		SetNativeApplication
+jag::Window	256	1	m_fullScreen		IsFullScreen
+jag::Window	264	80	m_windowInitParams		GetWindowInitParams
+jag::Window	672	1	m_maximized		IsMaximized
+jag::Window	744	1	m_liveResizing		IsLiveResizing
+jag::ZoneBuiltArea	4	4	m_buildMode	uint	GetBuildMode
+jag::audio::SoundInstance	84	4	m_soundSpatialSizeMin	float	GetSoundSpatialSizeMin
+jag::audio::SoundInstance	88	4	m_soundSpatialSizeMax	float	GetSoundSpatialSizeMax
+jag::audio::SoundInstance	92	8	m_position		GetPosition
+jag::audio::SoundInstance	104	4	m_level		SetLevel
+jag::audio::SoundInstance	160	4	m_bussID		SetBussID
+jag::audio::SoundInstance	164	4	m_startDelay		SetStartDelay
+jag::audio::SoundInstance	172	4	m_groupID	int	GetGroupID
+jag::audio::SoundInstance	176	4	m_soundShape	int	GetSoundShape
+jag::audio::SoundInstance	180	4	m_soundType	int	GetSoundType
+jag::audio::SoundInstance	188	4	m_rate		SetRate
+jag::audio::SoundResource	8	1	m_streamed		IsStreamed
+jag::auth::AuthWeb	120	8	m_pOAuthAccessTokenExpiryTime	BufferInterface *	GetOAuthAccessTokenExpiryTime
+jag::auth::TokenAuthLoginHandler	0	4	m_tokenAuthLoginState	uint	GetTokenAuthLoginState
+jag::callstack::Callstack	0	4	m_stackFrames	uint	GetStackFrames
+jag::callstack::JagException	72	12	m_callstackRaw		GetCallstackRaw
+jag::console::Console	48	0	m_messageHistory		GetMessageHistory
+jag::console::Console	104	33	m_commandHistory		GetCommandHistory
+jag::console::Console	224	4	m_shortestHiddenCommandLength	int	GetShortestHiddenCommandLength
+jag::console::Console	408	0	m_lastCommandExecutionResult		GetLastCommandExecutionResult
+jag::console::Console	528	0	m_storedVariables		GetStoredVariables
+jag::debug::DebugUIManager	3648	4	m_mainMenuHeight	int	GetMainMenuHeight
+jag::game::AchievementRequirementSpec	0	4	m_group	uint	GetGroup
+jag::game::AchievementRequirementSpec	32	4	m_target		GetTarget
+jag::game::AchievementRequirementSpec	64	4	m_bitIndex	uint	GetBitIndex
+jag::game::AchievementType	144	4	m_runeScore	uint	GetRuneScore
+jag::game::AchievementTypeList	112	8	m_configProvider		GetConfigProvider
+jag::game::AnimatedModel	1672	4	m_defaultAnimationSeqID		GetDefaultAnimationSeqID
+jag::game::AnimatedModel	1680	16	m_defaultAnimation		GetDefaultAnimation
+jag::game::AnimatedModel	1696	16	m_defaultAnimationModel		GetDefaultAnimationModel
+jag::game::AnimatedModel	1752	1	m_defaultAnimationReadyAnim		IsDefaultAnimationReadyAnim
+jag::game::AnimatedModel	1780	4	m_defaultAnimationRunCount		SetDefaultAnimationRunCount
+jag::game::AnimatedModel	1904	4	m_overrideAnimationSeqID	int	GetOverrideAnimationSeqID
+jag::game::AnimatedModel	1912	16	m_overrideAnimation		GetOverrideAnimation
+jag::game::AnimatedModel	1928	16	m_overrideAnimationModel		GetOverrideAnimationModel
+jag::game::AnimatedModel	2016	4	m_overrideAnimationRequestedSeqID	int	GetOverrideAnimationRequestedSeqID
+jag::game::AnimatedModel	2072	4	m_overrideDelay		SetOverrideDelay
+jag::game::AnimatedModel	2076	4	m_overridePriority		SetOverridePriority
+jag::game::AnimatedModel	2100	4	m_overrideSourceTicks		SetOverrideSourceTicks
+jag::game::AnimatedModel	2144	0	m_particleSystems		GetParticleSystems
+jag::game::AnimatedModel	2200	0	m_modularParticleSystems		GetModularParticleSystems
+jag::game::AnimatedModel	2304	16	m_currentModel		GetCurrentModel
+jag::game::AnimationWrapper	8	4	m_sourceID	uint	GetSourceID
+jag::game::AnimationWrapper	16	16	m_source		GetSource
+jag::game::AnimationWrapper	56	1	m_readyAnim		IsReadyAnim
+jag::game::AnimationWrapper	64	4	m_animationLateness		SetAnimationLateness
+jag::game::AssetJob	8	4	m_jobID	uint	GetJobID
+jag::game::AssetJob	16	4	m_priority	int	GetPriority
+jag::game::AssetJob	20	4	m_status		GetStatus
+jag::game::AssetJob	24	4	m_assetWorker	undefined4	GetAssetWorker
+jag::game::AssetJob	48	0	m_resultData		GetResultData
+jag::game::AssetJob	64	0	m_resultDataDecoded		GetResultDataDecoded
+jag::game::BASType	140	4	m_readyTurnLeft		GetReadyTurnLeft
+jag::game::BASType	144	4	m_readyTurnRight		GetReadyTurnRight
+jag::game::BASType	148	4	m_walkForward		GetWalkForward
+jag::game::BASType	152	4	m_walkBackward		GetWalkBackward
+jag::game::BASType	156	4	m_walkLeft		GetWalkLeft
+jag::game::BASType	160	4	m_walkRight		GetWalkRight
+jag::game::BASType	164	4	m_walkTurnLeft		GetWalkTurnLeft
+jag::game::BASType	168	4	m_walkTurnRight		GetWalkTurnRight
+jag::game::BASType	172	4	m_runForward		GetRunForward
+jag::game::BASType	176	4	m_runBackward		GetRunBackward
+jag::game::BASType	180	4	m_runLeft		GetRunLeft
+jag::game::BASType	184	4	m_runRight		GetRunRight
+jag::game::BASType	188	4	m_runTurnLeft		GetRunTurnLeft
+jag::game::BASType	192	4	m_runTurnRight		GetRunTurnRight
+jag::game::BASType	196	4	m_crawlForward		GetCrawlForward
+jag::game::BASType	200	4	m_crawlBackward		GetCrawlBackward
+jag::game::BASType	204	4	m_crawlLeft		GetCrawlLeft
+jag::game::BASType	208	4	m_crawlRight		GetCrawlRight
+jag::game::BASType	212	4	m_crawlTurnLeft		GetCrawlTurnLeft
+jag::game::BASType	216	4	m_crawlTurnRight		GetCrawlTurnRight
+jag::game::BASType	220	0	m_hillRotateWidth		GetHillRotateWidth
+jag::game::BASType	224	4	m_hillRotateLength	int	GetHillRotateLength
+jag::game::BASType	228	0	m_hillRotateXLimit		GetHillRotateXLimit
+jag::game::BASType	232	4	m_hillRotateZLimit	int	GetHillRotateZLimit
+jag::game::BASType	244	4	m_overlayHeight	uint	GetOverlayHeight
+jag::game::BaseConfigTypeList	48	8	m_pModeGame	AuthLibWrapper *	GetModeGame
+jag::game::BaseConfigTypeList	56	8	m_pLanguage		GetLanguage
+jag::game::BaseConfigTypeList	64	8	m_pResourceProvider		GetResourceProvider
+jag::game::BaseConfigTypeList	80	8	m_pConfigGroup	Js5ConfigGroup *	GetConfigGroup
+jag::game::BaseConfigTypeList	88	4	m_entryCount	int	GetEntryCount
+jag::game::BaseConfigTypeList	92	4	m_maxEntryIndex	int	GetMaxEntryIndex
+jag::game::BaseConfigTypeList	96	4	m_groupCount		GetGroupCount
+jag::game::BaseLoadAllConfigTypeContainer	16	8	m_groupDownloadProgress	int	GetGroupDownloadProgress
+jag::game::BaseLoadAllConfigTypeContainer	20	0	m_configDecodeProgress		GetConfigDecodeProgress
+jag::game::BuildAnimationMain	80	16	m_constructedAsset		GetConstructedAsset
+jag::game::BuildAnimationMain	96	16	m_requestData		GetRequestData
+jag::game::BuildCombinedLocationMain	152	16	m_requestData		GetRequestData
+jag::game::BuildFunctionMain	80	16	m_requestData		GetRequestData
+jag::game::BuildModelMain	96	16	m_constructedAsset		GetConstructedAsset
+jag::game::BuildModelMain	112	16	m_requestData		GetRequestData
+jag::game::BuildSingleLocationMain	80	16	m_requestData		GetRequestData
+jag::game::BuildTerrainMain	592	16	m_requestData		GetRequestData
+jag::game::Camera	192	1	m_clientControlled	byte	IsClientControlled
+jag::game::Camera	196	4	m_projectionMode	uint	GetProjectionMode
+jag::game::Camera	200	4	m_lookatMode	int	GetLookatMode
+jag::game::Camera	208	16	m_pLookatManager	float *	GetLookatManager
+jag::game::Camera	224	4	m_positionMode	int	GetPositionMode
+jag::game::Camera	232	16	m_positionManager		GetPositionManager
+jag::game::Camera	312	8	m_angularPositionInterpolant	double	GetAngularPositionInterpolant
+jag::game::Camera	352	24	m_linearLookatMaxSpeed		GetLinearLookatMaxSpeed
+jag::game::Camera	376	24	m_linearPositionMaxSpeed		GetLinearPositionMaxSpeed
+jag::game::Camera	400	8	m_linearLookatAcceleration		GetLinearLookatAcceleration
+jag::game::Camera	424	8	m_linearPositionAcceleration		GetLinearPositionAcceleration
+jag::game::Camera	512	4	m_fieldOfView		SetFieldOfView
+jag::game::Camera	520	4	m_aspectRatio	double	GetAspectRatio
+jag::game::Camera	528	8	m_nearPlane	double	GetNearPlane
+jag::game::ChangeLocationRequest	8	8	m_level	uint	GetLevel
+jag::game::ChangeLocationRequest	12	4	m_serverGridX	int	GetServerGridX
+jag::game::ChangeLocationRequest	16	4	m_serverGridZ	int	GetServerGridZ
+jag::game::ChangeLocationRequest	20	32	m_locData		GetLocData
+jag::game::ChangeLocationRequest	76	4	m_locationID	uint	GetLocationID
+jag::game::ChangeLocationRequest	80	0	m_locTypeCustomisation		GetLocTypeCustomisation
+jag::game::ChangeLocationRequest	96	4	m_seqID		GetSeqID
+jag::game::ChangeLocationRequest	100	4	m_seqDelay		GetSeqDelay
+jag::game::ChangeLocationRequest	112	4	m_sourceLogicTick	int	GetSourceLogicTick
+jag::game::ClientScript	3888	4	m_localIntCount	uint	GetLocalIntCount
+jag::game::ClientScript	3892	4	m_localObjCount	uint	GetLocalObjCount
+jag::game::ClientScript	3896	4	m_localLongCount	uint	GetLocalLongCount
+jag::game::CombinedLocation	216	0	m_configProviderDebug		SetConfigProviderDebug
+jag::game::CombinedLocation	328	16	m_model		GetModel
+jag::game::CombinedLocationSection	232	16	m_locationType		GetLocationType
+jag::game::CombinedLocationSection	248	1	m_shape		GetShape
+jag::game::CombinedLocationSection	249	1	m_rotation90		GetRotation90
+jag::game::CombinedLocationSection	306	1	m_hidden		IsHidden
+jag::game::CombinedLocationSection	308	2	m_attachedWallWidth	int	GetAttachedWallWidth
+jag::game::CombinedLocationSection	312	20	m_highlightState		GetHighlightState
+jag::game::Cutscene2D::Scene	72	4	m_playbackStart	float	GetPlaybackStart
+jag::game::Cutscene2D::Scene	76	4	m_playbackEnd		GetPlaybackEnd
+jag::game::Cutscene2DPlaybackState	4	4	m_elapsedTimeSec	float	GetElapsedTimeSec
+jag::game::Cutscene2DPlaybackState	8	4	m_pauseTimeSec	float	GetPauseTimeSec
+jag::game::Cutscene2DResources	2088	16	m_subtitleDataSource		GetSubtitleDataSource
+jag::game::Cutscene2DResources	2104	2	m_subtitleDataSourceID		SetSubtitleDataSourceID
+jag::game::EffectAnimType	60	4	m_seqID		GetSeqID
+jag::game::EffectAnimType	168	4	m_rotation	float	GetRotation
+jag::game::EffectAnimType	172	1	m_obeyExtraSeqSettings		GetObeyExtraSeqSettings
+jag::game::EffectAnimTypeList	112	0	m_modelCache		GetModelCache
+jag::game::Entity	65	1	m_currentLOD	uchar	GetCurrentLOD
+jag::game::Entity	66	1	m_targetLOD		SetTargetLOD
+jag::game::Entity	67	1	m_occludesView		SetOccludesView
+jag::game::Entity	68	4	m_level	uint	GetLevel
+jag::game::Entity	72	4	m_maximumRemoveRoofLevel	int	GetMaximumRemoveRoofLevel
+jag::game::Entity	76	0	m_boundingCapsule		GetBoundingCapsule
+jag::game::Entity	100	0	m_boundingSphere		GetBoundingSphere
+jag::game::Entity	116	4	m_pickingPrepassType		GetPickingPrepassType
+jag::game::Entity	176	16	m_world		GetWorld
+jag::game::EntityCombinedID	0	4	m_entityID		GetEntityID
+jag::game::EntityHighlightGlobalState	3	1	m_interactionFadeOutFrozen		IsInteractionFadeOutFrozen
+jag::game::EntityHighlightGlobalState	4	4	m_currentUpdateLogicTick	uint	GetCurrentUpdateLogicTick
+jag::game::EntityHighlightGlobalState	8	3	m_previousUpdateLogicTick	uint	GetPreviousUpdateLogicTick
+jag::game::EntityHighlightGlobalState	12	4	m_outlineRadiusAdjustment		GetOutlineRadiusAdjustment
+jag::game::EntityHighlightGlobalState	16	4	m_playerNPCAttackOpPriority	int	GetPlayerNPCAttackOpPriority
+jag::game::EntityHighlightGlobalState	20	8	m_playerActiveCombatLevel		GetPlayerActiveCombatLevel
+jag::game::EntityHighlightState	4	4	m_alpha	float	GetAlpha
+jag::game::EnumType	64	8	m_outputType		GetOutputType
+jag::game::EnvBloomSettings	0	4	m_whitepoint	float	GetWhitepoint
+jag::game::EnvBloomSettings	4	4	m_bloomCoefficient	float	GetBloomCoefficient
+jag::game::EnvBloomSettings	8	4	m_brightpassThreshold	float	GetBrightpassThreshold
+jag::game::EnvColourGradingSettings	64	1	m_colourRemapWeightings		GetColourRemapWeightings
+jag::game::EnvFogSettings	4	4	m_fogRGBA	uint	GetFogRGBA
+jag::game::EnvFogSettings	8	4	m_fogDepth	uint	GetFogDepth
+jag::game::EnvFogSettings	12	4	m_fogMaxDistance		GetFogMaxDistance
+jag::game::EnvFogSettings	16	4	m_fogConstantAngleFalloff	float	GetFogConstantAngleFalloff
+jag::game::EnvFogSettings	20	4	m_fogDepthAngleFalloff	float	GetFogDepthAngleFalloff
+jag::game::EnvLightProbeSettings	0	4	m_overbright	float	GetOverbright
+jag::game::EnvLightingSettings	0	4	m_sunRGBA	uint	GetSunRGBA
+jag::game::EnvLightingSettings	16	4	m_ambientLight	float	GetAmbientLight
+jag::game::EnvLightingSettings	20	4	m_contrast	float	GetContrast
+jag::game::EnvLightingSettings	28	4	m_specularHorzOcclusionScale	float	GetSpecularHorzOcclusionScale
+jag::game::EnvLightingSettings	32	4	m_envMapIrradianceScale	float	GetEnvMapIrradianceScale
+jag::game::EnvLightingSettings	36	4	m_sunlightShadowStrength	float	GetSunlightShadowStrength
+jag::game::EnvReflectionSettings	4	4	m_environmentMaterialID	uint	GetEnvironmentMaterialID
+jag::game::EnvSkySettings	0	4	m_skyBoxID	uint	GetSkyBoxID
+jag::game::EnvToneMapSettings	0	1	m_toneMappingEnabled		GetToneMappingEnabled
+jag::game::EnvToneMapSettings	4	4	m_toneMapOperator	uint	GetToneMapOperator
+jag::game::EnvironmentOverride	76	8	m_fogOverrides		GetFogOverrides
+jag::game::EnvironmentOverride	128	8	m_bloomOverrides		GetBloomOverrides
+jag::game::EnvironmentOverride	156	8	m_mapOverrides		GetMapOverrides
+jag::game::EnvironmentOverride	176	8	m_colourGradingOverrides		GetColourGradingOverrides
+jag::game::EnvironmentOverride	216	8	m_toneMapOverrides		GetToneMapOverrides
+jag::game::EnvironmentOverride	268	0	m_scatteringOverrides		GetScatteringOverrides
+jag::game::EnvironmentOverride	352	0	m_volumetricOverrides		GetVolumetricOverrides
+jag::game::EnvironmentOverride	452	8	m_lightProbeOverrides		GetLightProbeOverrides
+jag::game::EnvironmentOverride	464	4	m_transitionTime	uint	GetTransitionTime
+jag::game::EnvironmentOverride	468	1	m_hasAnyOverrides		HasAnyOverrides
+jag::game::FloorOverlayType	56	4	m_rGBA		GetRGBA
+jag::game::FloorOverlayType	60	4	m_materialID		GetMaterialID
+jag::game::FloorOverlayType	64	4	m_textureScale	float	GetTextureScale
+jag::game::FloorOverlayType	72	4	m_priority	int	GetPriority
+jag::game::FloorOverlayType	76	1	m_hasSmoothEdges		HasSmoothEdges
+jag::game::FloorOverlayType	78	1	m_blendingEnabled		GetBlendingEnabled
+jag::game::FloorUnderlayType	60	4	m_materialID		GetMaterialID
+jag::game::FloorUnderlayType	64	4	m_textureScale	float	GetTextureScale
+jag::game::FloorUnderlayType	69	1	m_blendingEnabled		GetBlendingEnabled
+jag::game::GWCWorld	160	4	m_players		SetPlayers
+jag::game::GlobalCutscene2DResources	0	1	m_subtitlesEnabled		GetSubtitlesEnabled
+jag::game::GraphicsDefaults	0	4	m_maxHitmarks	uint	GetMaxHitmarks
+jag::game::GraphicsDefaults	56	4	m_maxHeadbarsQueued		GetMaxHeadbarsQueued
+jag::game::GraphicsDefaults	60	4	m_maxHeadbarsSimultaneous		GetMaxHeadbarsSimultaneous
+jag::game::GraphicsDefaults	96	0	m_playerRecolSource		GetPlayerRecolSource
+jag::game::GraphicsDefaults	120	0	m_playerRecolDest		GetPlayerRecolDest
+jag::game::GraphicsDefaults	144	0	m_playerRematSource		GetPlayerRematSource
+jag::game::GraphicsDefaults	168	0	m_playerRematDest		GetPlayerRematDest
+jag::game::GraphicsDefaults	196	4	m_npcChatTimeout	uint	GetNpcChatTimeout
+jag::game::GraphicsDefaults	212	4	m_objStackColourUnits		GetObjStackColourUnits
+jag::game::GraphicsDefaults	216	4	m_objStackColourThousands		GetObjStackColourThousands
+jag::game::GraphicsDefaults	220	4	m_objStackColourMillions		GetObjStackColourMillions
+jag::game::GraphicsDefaults	224	4	m_objStackColourBillions	int	GetObjStackColourBillions
+jag::game::GraphicsDefaults	228	4	m_objStackColourTrillions		GetObjStackColourTrillions
+jag::game::GraphicsDefaults	232	4	m_objStackColourQuadrillions	int	GetObjStackColourQuadrillions
+jag::game::GraphicsDefaults	248	4	m_font11pxRegularID		GetFont11pxRegularID
+jag::game::GraphicsDefaults	256	4	m_font12pxBoldID		GetFont12pxBoldID
+jag::game::GraphicsDefaults	260	4	m_spriteHintHeadIconsID		GetSpriteHintHeadIconsID
+jag::game::GraphicsDefaults	264	4	m_spriteHintMapMarkersID		GetSpriteHintMapMarkersID
+jag::game::GraphicsDefaults	268	4	m_spriteMapFlagID		GetSpriteMapFlagID
+jag::game::GraphicsDefaults	280	4	m_spriteCrossID		GetSpriteCrossID
+jag::game::GraphicsDefaults	284	4	m_spriteMapDotsID		GetSpriteMapDotsID
+jag::game::GraphicsDefaults	288	4	m_spriteModIconsID		GetSpriteModIconsID
+jag::game::GraphicsDefaults	296	4	m_spriteCompassID		GetSpriteCompassID
+jag::game::GraphicsDefaults	300	4	m_spriteOtherLevelID		GetSpriteOtherLevelID
+jag::game::GraphicsDefaults	304	4	m_spriteHintMapEdgeID		GetSpriteHintMapEdgeID
+jag::game::HashCashChallenge	4	4	m_bits	uint	GetBits
+jag::game::HeadbarType	56	4	m_displayOrder		GetDisplayOrder
+jag::game::HeadbarType	60	4	m_priority		GetPriority
+jag::game::HeadbarType	76	4	m_stickTime	uint	GetStickTime
+jag::game::HitmarkType	68	4	m_duration	uint	GetDuration
+jag::game::HitmarkType	128	4	m_override	uint	GetOverride
+jag::game::Hook	0	4	m_scriptID	uint	GetScriptID
+jag::game::HookProperties	48	0	m_onVarpTransmitVarps		GetOnVarpTransmitVarps
+jag::game::HookProperties	96	0	m_onInvTransmitInvs		GetOnInvTransmitInvs
+jag::game::HookProperties	144	0	m_onStatTransmitStats		GetOnStatTransmitStats
+jag::game::HookProperties	192	0	m_onVarCTransmitVars		GetOnVarCTransmitVars
+jag::game::HookProperties	240	0	m_onVarCStrTransmitVars		GetOnVarCStrTransmitVars
+jag::game::ICameraEffect	12	4	m_effectID	int	GetEffectID
+jag::game::ILookatManager	8	4	m_mode	uint	GetMode
+jag::game::IPositionManager	8	4	m_mode	uint	GetMode
+jag::game::InvType	56	4	m_size		GetSize
+jag::game::Js5ConfigGroup	0	4	m_groupID	uint	GetGroupID
+jag::game::Js5ConfigGroup	4	4	m_groupBitSize	uint	GetGroupBitSize
+jag::game::LODSettings	16	4	m_lODMinimumDistance	int	GetLODMinimumDistance
+jag::game::LODSettings	20	1	m_lowestUsableLOD		GetLowestUsableLOD
+jag::game::LightSource	360	0	m_shadowParams		GetShadowParams
+jag::game::LightType	56	4	m_waveType		GetWaveType
+jag::game::LightType	60	4	m_offset		GetOffset
+jag::game::LightType	64	4	m_amplitude	uint	GetAmplitude
+jag::game::LightType	68	4	m_frequency	uint	GetFrequency
+jag::game::LightType	84	4	m_jitterRadius	float	GetJitterRadius
+jag::game::LightType	88	1	m_jitterRadiusRandom		GetJitterRadiusRandom
+jag::game::LightType	92	4	m_jitterMoveTimeMS	int	GetJitterMoveTimeMS
+jag::game::LightType	96	4	m_jitterMoveTimeOffsetRandomMS		GetJitterMoveTimeOffsetRandomMS
+jag::game::LightType	100	4	m_jitterMovePower		GetJitterMovePower
+jag::game::LightType	104	4	m_jitterIntensityStrength		GetJitterIntensityStrength
+jag::game::LocData	0	1	m_shape	byte	GetShape
+jag::game::LocData	1	1	m_rot	byte	GetRot
+jag::game::LocType	56	0	m_opNames		GetOpNames
+jag::game::LocType	480	0	m_name		GetName
+jag::game::LocType	513	1	m_runeTek5Only		IsRuneTek5Only
+jag::game::LocType	592	0	m_modelList		GetModelList
+jag::game::LocType	616	16	m_resize		GetResize
+jag::game::LocType	640	4	m_pPostOffset	float *	GetPostOffset
+jag::game::LocType	829	1	m_hasParticles		HasParticles
+jag::game::LocType	832	4	m_hillChangeType	uint	GetHillChangeType
+jag::game::LocType	836	4	m_hillChangeParam	uint	GetHillChangeParam
+jag::game::LocType	848	1	m_minimumLODLevelOverride		GetMinimumLODLevelOverride
+jag::game::LocType	849	1	m_indoorsOverride		GetIndoorsOverride
+jag::game::LocType	868	4	m_highlightOverride	uint	GetHighlightOverride
+jag::game::LocType	872	0	m_vFXAttachmentsRawData		GetVFXAttachmentsRawData
+jag::game::LocType	896	0	m_anims		GetAnims
+jag::game::LocType	921	1	m_highDetailOnly		IsHighDetailOnly
+jag::game::LocType	944	2	m_wallWidth	ushort	GetWallWidth
+jag::game::LocType	956	1	m_findable		IsFindable
+jag::game::LocType	957	1	m_examineOnly	byte	IsExamineOnly
+jag::game::LocType	964	4	m_mapElement	uint	GetMapElement
+jag::game::LocType	968	4	m_mapSceneIcon	uint	GetMapSceneIcon
+jag::game::LocType	973	1	m_mapSceneIconRotate90Offset		GetMapSceneIconRotate90Offset
+jag::game::LocType	1008	4	m_multiLocIndex	int	GetMultiLocIndex
+jag::game::LocTypeList	112	1	m_membersServer		IsMembersServer
+jag::game::Location	224	8	m_pPlayerVarDomain		SetPlayerVarDomain
+jag::game::Location	232	4	m_iD	int	GetID
+jag::game::Location	236	1	m_locationLOD		SetLocationLOD
+jag::game::Location	240	16	m_parentLocationType		GetParentLocationType
+jag::game::Location	256	16	m_locationType		GetLocationType
+jag::game::Location	424	0	m_serverPosition		GetServerPosition
+jag::game::Location	448	4	m_builtGridSize		SetBuiltGridSize
+jag::game::Location	456	4	m_attachedWallWidth	int	GetAttachedWallWidth
+jag::game::Location	460	1	m_isWDDBothOffsetMember		SetIsWDDBothOffsetMember
+jag::game::Location	461	1	m_hidden		IsHidden
+jag::game::LocationContainer	192	8	m_pConfigProvider		GetConfigProvider
+jag::game::LocationContainer	212	4	m_mapSquareX		GetMapSquareX
+jag::game::LocationContainer	216	4	m_mapSquareZ		GetMapSquareZ
+jag::game::LocationContainer	220	4	m_minGridX		GetMinGridX
+jag::game::LocationContainer	224	4	m_minGridZ	int	GetMinGridZ
+jag::game::LocationContainer	236	1	m_hasStartedBuild		SetHasStartedBuild
+jag::game::LocationContainer	288	0	m_dynamicMultiLocations		GetDynamicMultiLocations
+jag::game::LocationContainer	320	0	m_dynamicChangedLocations		GetDynamicChangedLocations
+jag::game::LookatEntity	80	24	m_currentLookat		GetCurrentLookat
+jag::game::LookatOrientation	12	4	m_orientationXRotation		SetOrientationXRotation
+jag::game::LookatOrientation	16	4	m_orientationYRotation		SetOrientationYRotation
+jag::game::LookatOrientation	20	4	m_orientationXMovement		SetOrientationXMovement
+jag::game::LookatOrientation	24	4	m_orientationZMovement		SetOrientationZMovement
+jag::game::LookatOrientation	88	24	m_currentLookat		GetCurrentLookat
+jag::game::LookatOrientation	136	4	m_pCurrentOrientation	uint *	GetCurrentOrientation
+jag::game::LookatPoint	16	24	m_currentLookat		GetCurrentLookat
+jag::game::MSIType	56	4	m_spriteID		GetSpriteID
+jag::game::MSIType	60	4	m_tint		GetTint
+jag::game::MSIType	64	1	m_resize	bool	GetResize
+jag::game::MSIType	65	1	m_hideOnMinimap		GetHideOnMinimap
+jag::game::MapArea	8	4	m_mapID	uint	GetMapID
+jag::game::MapArea	16	0	m_uniqueName		GetUniqueName
+jag::game::MapArea	104	8	m_origin		GetOrigin
+jag::game::MapArea	116	4	m_backgroundRGBA		GetBackgroundRGBA
+jag::game::MapArea	124	4	m_advisedZoom		GetAdvisedZoom
+jag::game::MapArea	304	20	m_targetBounds		GetTargetBounds
+jag::game::MapDefaults	0	4	m_defaultEnvironmentMap	uint	GetDefaultEnvironmentMap
+jag::game::MapDefaults	4	4	m_defaultWaterType	uint	GetDefaultWaterType
+jag::game::MapElementType	32	4	m_myID		GetMyID
+jag::game::MapElementType	56	4	m_spriteID		GetSpriteID
+jag::game::MapElementType	128	4	m_textRGBA	uint	GetTextRGBA
+jag::game::MapElementType	132	4	m_textMouseOverRGBA	undefined4	GetTextMouseOverRGBA
+jag::game::MapElementType	136	4	m_textSize		GetTextSize
+jag::game::MapElementType	140	4	m_textBackgroundFillRGBA	uint	GetTextBackgroundFillRGBA
+jag::game::MapElementType	144	4	m_textBackgroundOutlineRGBA	uint	GetTextBackgroundOutlineRGBA
+jag::game::MapElementType	148	1	m_showOnWorldMap		GetShowOnWorldMap
+jag::game::MapElementType	149	1	m_showOnMiniMap		GetShowOnMiniMap
+jag::game::MapElementType	328	1	m_listable		GetListable
+jag::game::MapElementType	332	4	m_category	uint	GetCategory
+jag::game::MapElementType	336	4	m_flashSpriteID		GetFlashSpriteID
+jag::game::MapElementType	340	4	m_minimapIconScale	int	GetMinimapIconScale
+jag::game::MapElementType	344	4	m_hAlign	uint	GetHAlign
+jag::game::MapElementType	348	4	m_vAlign	uint	GetVAlign
+jag::game::MapEnvironmentSettings	80	8	m_scatteringSettings		GetScatteringSettings
+jag::game::MapEnvironmentSettings	160	8	m_volumetricSettings		GetVolumetricSettings
+jag::game::MapEnvironmentSettings	240	1	m_toneMapSettings		GetToneMapSettings
+jag::game::MapEnvironmentSettings	448	8	m_bloomSettings		GetBloomSettings
+jag::game::MapEnvironmentSettings	464	48	m_skySettings		GetSkySettings
+jag::game::MapEnvironmentSettings	520	8	m_reflectionSettings		GetReflectionSettings
+jag::game::MapEnvironmentSettings	528	0	m_colourGradingSettings		GetColourGradingSettings
+jag::game::MapEnvironmentSettings	648	8	m_pLightProbeSettings	float *	GetLightProbeSettings
+jag::game::MapSquare	192	4	m_mapSquareX	uint	GetMapSquareX
+jag::game::MapSquare	196	4	m_mapSquareZ	uint	GetMapSquareZ
+jag::game::MapSquare	200	16	m_clientCompositeData		GetClientCompositeData
+jag::game::MapSquare	216	1	m_prioritySquare	char	IsPrioritySquare
+jag::game::MapSquare	217	1	m_hasBuiltPriorityZones		HasBuiltPriorityZones
+jag::game::MapSquare	240	0	m_terrain		GetTerrain
+jag::game::MapSquare	248	1	m_terrainBlending		SetTerrainBlending
+jag::game::MapSquare	256	296	m_mapSquarePointLights		GetMapSquarePointLights
+jag::game::MapSquare	712	0	m_locations		GetLocations
+jag::game::MapSquare	752	0	m_locationContainers		GetLocationContainers
+jag::game::MapSquare	1104	1	m_isPartialMapBuild		SetIsPartialMapBuild
+jag::game::MapSquare	1112	1	m_initialLightProbeSubmitted		IsInitialLightProbeSubmitted
+jag::game::MapSquarePointLights	8	1	m_staticPointLightsLoaded		GetStaticPointLightsLoaded
+jag::game::MapSquarePointLights	16	0	m_localOrigin		GetLocalOrigin
+jag::game::MapSquarePointLights	56	0	m_lightSourcesRemote		GetLightSourcesRemote
+jag::game::MapSquarePointLights	312	0	m_lightSourcesDynamic		GetLightSourcesDynamic
+jag::game::MapSquarePointLights	400	6515840	m_pointLightTexture		GetPointLightTexture
+jag::game::Model	784	4	m_linkObjType	int	GetLinkObjType
+jag::game::Model	792	8	m_linkObjCount	ulonglong	GetLinkObjCount
+jag::game::ModelGroup::CameraInfo	1	1	m_sortByComponentOrder		SetSortByComponentOrder
+jag::game::ModelGroup::CameraInfo	12	4	m_clipPlanes		SetClipPlanes
+jag::game::Mouse	408	0	m_scaledMousePosition		GetScaledMousePosition
+jag::game::NPCHeadIconCustomisation	72	1	m_index		GetIndex
+jag::game::NPCType	56	0	m_opNames		GetOpNames
+jag::game::NPCType	440	0	m_name		GetName
+jag::game::NPCType	528	1	m_headIconGraphic		GetHeadIconGraphic
+jag::game::NPCType	600	1	m_headIconIndex		GetHeadIconIndex
+jag::game::NPCType	676	4	m_icon		GetIcon
+jag::game::NPCType	680	4	m_overlayHeight	uint	GetOverlayHeight
+jag::game::NPCType	684	4	m_reprioritiseAttackOp	uint	GetReprioritiseAttackOp
+jag::game::NPCType	688	4	m_visibleCombatLevel	uint	GetVisibleCombatLevel
+jag::game::NPCType	704	4	m_firstUniqueOpIndex	int	GetFirstUniqueOpIndex
+jag::game::NPCType	708	4	m_attackOpIndex	int	GetAttackOpIndex
+jag::game::NPCType	712	4	m_examineOpIndex	int	GetExamineOpIndex
+jag::game::NPCType	720	1	m_bodyList		GetBodyList
+jag::game::NPCType	744	1	m_headList		GetHeadList
+jag::game::NPCType	824	0	m_recolourDest		GetRecolourDest
+jag::game::NPCType	920	0	m_rematerialDest		GetRematerialDest
+jag::game::NPCType	992	4	m_fadeInDuration	uint	GetFadeInDuration
+jag::game::NPCType	1012	4	m_roughBounding	uint	GetRoughBounding
+jag::game::NPCType	1020	4	m_highlightOverride	uint	GetHighlightOverride
+jag::game::NPCType	1024	4	m_baseAnimationSet	uint	GetBaseAnimationSet
+jag::game::NPCType	1028	4	m_animationStateMachineID	uint	GetAnimationStateMachineID
+jag::game::NPCType	1032	4	m_gridSize	uint	GetGridSize
+jag::game::NPCType	1036	1	m_alwaysOnTop		IsAlwaysOnTop
+jag::game::NPCType	1037	1	m_alwaysOnBottom		IsAlwaysOnBottom
+jag::game::NPCType	1038	1	m_familiar		IsFamiliar
+jag::game::NPCType	1040	4	m_turnSpeed	uint	GetTurnSpeed
+jag::game::NPCType	1045	1	m_walkSmoothing		GetWalkSmoothing
+jag::game::NPCType	1104	1	m_hasBackgroundMovementSound		HasBackgroundMovementSound
+jag::game::NPCType	1108	4	m_backgroundSoundReady	uint	GetBackgroundSoundReady
+jag::game::NPCType	1112	4	m_backgroundSoundCrawl	uint	GetBackgroundSoundCrawl
+jag::game::NPCType	1116	4	m_backgroundSoundWalk	uint	GetBackgroundSoundWalk
+jag::game::NPCType	1120	4	m_backgroundSoundRun	uint	GetBackgroundSoundRun
+jag::game::NPCType	1124	4	m_backgroundSoundRange	uint	GetBackgroundSoundRange
+jag::game::NPCType	1128	4	m_backgroundSoundDropoffRange	uint	GetBackgroundSoundDropoffRange
+jag::game::NPCType	1132	4	m_backgroundSoundVolume	uint	GetBackgroundSoundVolume
+jag::game::NPCTypeCustomisation	16	0	m_modelList		GetModelList
+jag::game::NPCTypeCustomisation	48	0	m_modelScaleList		GetModelScaleList
+jag::game::NPCTypeCustomisation	80	0	m_modelRotationList		GetModelRotationList
+jag::game::NPCTypeCustomisation	112	0	m_modelTranslationList		GetModelTranslationList
+jag::game::NPCTypeCustomisation	144	0	m_modelRecolourList		GetModelRecolourList
+jag::game::NPCTypeCustomisation	176	0	m_modelRematerialList		GetModelRematerialList
+jag::game::NPCTypeCustomisation	208	4	m_pRecolourDest	float *	GetRecolourDest
+jag::game::NPCTypeCustomisation	232	0	m_rematerialDest		GetRematerialDest
+jag::game::NPCTypeCustomisation	256	0	m_playerIdkColour		GetPlayerIdkColour
+jag::game::NPCTypeList	112	1	m_membersServer		SetMembersServer
+jag::game::NPCTypeList	120	0	m_bodyModelCache		GetBodyModelCache
+jag::game::NPCTypeList	10656	0	m_headModelCache		GetHeadModelCache
+jag::game::ObjAppearanceData	0	4	m_wearModel1	uint	GetWearModel1
+jag::game::ObjAppearanceData	4	4	m_wearModel2	uint	GetWearModel2
+jag::game::ObjAppearanceData	8	4	m_wearModel3		SetWearModel3
+jag::game::ObjAppearanceData	12	4	m_headModel1	int	GetHeadModel1
+jag::game::ObjAppearanceData	16	4	m_headModel2	int	GetHeadModel2
+jag::game::ObjAppearanceData	20	0	m_offset		GetOffset
+jag::game::ObjType	408	0	m_name		GetName
+jag::game::ObjType	504	1	m_members		IsMembers
+jag::game::ObjType	584	1	m_stackable		GetStackable
+jag::game::ObjType	586	1	m_hasRandomPosition		HasRandomPosition
+jag::game::ObjType	592	8	m_cost	long	GetCost
+jag::game::ObjType	648	1	m_team		SetTeam
+jag::game::ObjType	649	1	m_isStockmarket		SetIsStockmarket
+jag::game::ObjType	656	1	m_isTradeable		SetIsTradeable
+jag::game::ObjType	696	0	m_recolourDest		GetRecolourDest
+jag::game::ObjType	792	0	m_rematerialDest		GetRematerialDest
+jag::game::ObjType	862	2	m_zoom2D		GetZoom2D
+jag::game::ObjType	864	0	m_angle2D		GetAngle2D
+jag::game::ObjType	872	0	m_offset2D		GetOffset2D
+jag::game::ObjType	888	0	m_manAppearance		GetManAppearance
+jag::game::ObjType	920	0	m_womanAppearance		GetWomanAppearance
+jag::game::ObjTypeCustomisation	64	0	m_recolourDest		GetRecolourDest
+jag::game::ObjTypeCustomisation	88	0	m_rematerialDest		GetRematerialDest
+jag::game::ObjTypeList	120	1	m_membersServer		IsMembersServer
+jag::game::ObjTypeList	128	0	m_modelCache		GetModelCache
+jag::game::ObjTypeList	1224	0	m_defaultOps		GetDefaultOps
+jag::game::ObjTypeList	1416	1	m_defaultIops		GetDefaultIops
+jag::game::OldCamera	624	4	m_cameraMode		SetCameraMode
+jag::game::OldCamera	708	4	m_camHeight	int	GetCamHeight
+jag::game::OldCamera	712	4	m_camZoom	int	GetCamZoom
+jag::game::OldCamera	800	4	m_camZoomScaleSmall	int	GetCamZoomScaleSmall
+jag::game::OldCamera	804	4	m_camZoomScaleBig	int	GetCamZoomScaleBig
+jag::game::OldCamera	808	4	m_verticalFOVSmall	float	GetVerticalFOVSmall
+jag::game::OldCamera	812	4	m_verticalFOVBig	float	GetVerticalFOVBig
+jag::game::OldCamera	840	0	m_clampedSceneSize		GetClampedSceneSize
+jag::game::ParamType	64	4	m_defaultNumber	uint	GetDefaultNumber
+jag::game::ParamType	104	1	m_autoDisable		GetAutoDisable
+jag::game::PlayerGroup	48	0	m_varValues		GetVarValues
+jag::game::PlayerGroup	180	4	m_updateNumber	int	GetUpdateNumber
+jag::game::PlayerGroupMember	58	2	m_lastSeenNodeID		SetLastSeenNodeID
+jag::game::PlayerGroupMember	60	1	m_online		SetOnline
+jag::game::PlayerGroupMember	61	1	m_rank		SetRank
+jag::game::PlayerGroupMember	64	4	m_status	uint	GetStatus
+jag::game::PlayerGroupMember	68	1	m_team		SetTeam
+jag::game::PlayerGroupMember	136	16	m_pKnownVariablesAtJoin	uint *	GetKnownVariablesAtJoin
+jag::game::PlayerModel	80	0	m_playerRecolourSlots		GetPlayerRecolourSlots
+jag::game::PlayerModel	104	0	m_playerRematerialSlots		GetPlayerRematerialSlots
+jag::game::PlayerModel	128	4	m_gender	uint	GetGender
+jag::game::PlayerModel	144	8	m_playerAppearanceChangedTime		GetPlayerAppearanceChangedTime
+jag::game::PlayerModel	1288	0	m_recolouredModelsCache		GetRecolouredModelsCache
+jag::game::PlayerSkill	8	1	m_membersOnly		IsMembersOnly
+jag::game::PlayerSkill	12	4	m_cappedFreeXP	int	GetCappedFreeXP
+jag::game::PlayerSkill	16	4	m_cappedFreeLevel	int	GetCappedFreeLevel
+jag::game::PlayerStat	12	4	m_actualXP	int	GetActualXP
+jag::game::PlayerStat	16	4	m_actualXPLevel	int	GetActualXPLevel
+jag::game::PlayerStat	20	4	m_gameplayLevel		SetGameplayLevel
+jag::game::PositionPoint	120	1	m_groundCollision		SetGroundCollision
+jag::game::PositionSpline	16	248	m_spline		GetSpline
+jag::game::QuestType	184	4	m_questPoints	int	GetQuestPoints
+jag::game::QuestType::MasterQuestVar	0	4	m_iD	uint	GetID
+jag::game::QuestType::MasterQuestVar	4	4	m_startState	uint	GetStartState
+jag::game::QuestType::MasterQuestVar	8	4	m_endState	uint	GetEndState
+jag::game::QuestType::PrerequisiteVar	0	4	m_iD	uint	GetID
+jag::game::QuestType::PrerequisiteVar	4	4	m_min	uint	GetMin
+jag::game::QuestType::PrerequisiteVar	8	4	m_max	uint	GetMax
+jag::game::QuestTypeList	112	8	m_configProvider		GetConfigProvider
+jag::game::QuickChatPhraseType	128	1	m_searchable		IsSearchable
+jag::game::RT5AnimationResourceManager	64	16	m_model		GetModel
+jag::game::SceneManager	56	0	m_mapAreaList		GetMapAreaList
+jag::game::SceneManager	168	1	m_freshEnvironmentOverride		SetFreshEnvironmentOverride
+jag::game::SceneManager	192	52	m_entityHighlightGlobalState		GetEntityHighlightGlobalState
+jag::game::SceneManager	240	0	m_irradianceCache		GetIrradianceCache
+jag::game::SceneManager	344	0	m_debugCursorPosition		GetDebugCursorPosition
+jag::game::SceneRenderManager	6408	0	m_mainSceneRenderer		GetMainSceneRenderer
+jag::game::SceneRenderManager	14528	152	m_prevViewTransforms		GetPrevViewTransforms
+jag::game::SceneRenderManager	14736	104	m_prevViewFrustum		GetPrevViewFrustum
+jag::game::ScriptVarType	16	0	m_defaultValue		GetDefaultValue
+jag::game::SeqGroupType	64	0	m_transformMask		GetTransformMask
+jag::game::SeqGroupType	88	0	m_jointWeights		GetJointWeights
+jag::game::SeqGroupType	112	1	m_walkMerge		IsWalkMerge
+jag::game::SeqType	1632	16	m_seqGroup		GetSeqGroup
+jag::game::SeqType	1724	4	m_loops	uint	GetLoops
+jag::game::SeqType	1728	4	m_priority	uint	GetPriority
+jag::game::SeqType	1732	4	m_replaceHeldLeft	uint	GetReplaceHeldLeft
+jag::game::SeqType	1736	4	m_replaceHeldRight	uint	GetReplaceHeldRight
+jag::game::SeqType	1740	4	m_maxLoops	uint	GetMaxLoops
+jag::game::SeqType	1752	4	m_preanimMove	uint	GetPreanimMove
+jag::game::SeqType	1756	4	m_postanimMove	uint	GetPostanimMove
+jag::game::SeqType	1760	4	m_duplicateBehaviour	uint	GetDuplicateBehaviour
+jag::game::SeqTypeList	112	8	m_seqGroupTypeList		GetSeqGroupTypeList
+jag::game::ServerSyncing	56576	4	m_currentCycle	uint	GetCurrentCycle
+jag::game::ServerSyncingCycle	0	4	m_cycle	uint	GetCycle
+jag::game::ServerSyncingUser	8	4	m_syncCycle	uint	GetSyncCycle
+jag::game::SkyBoxType	100	4	m_cubeMapMaterialID		GetCubeMapMaterialID
+jag::game::SkyBoxTypeList	112	0	m_modelCache		GetModelCache
+jag::game::SplineMovement	16	0	m_splines		GetSplines
+jag::game::SplineMovement	144	8	m_currentPoint	double	GetCurrentPoint
+jag::game::SplineMovement	152	8	m_currentParameter	double	GetCurrentParameter
+jag::game::SplineMovement	168	4	m_speedProfile		SetSpeedProfile
+jag::game::StaticPointLight	0	4	m_level	uint	GetLevel
+jag::game::StaticPointLight	16	4	m_sourceMapSquareX	int	GetSourceMapSquareX
+jag::game::StaticPointLight	20	4	m_sourceMapSquareZ		GetSourceMapSquareZ
+jag::game::StaticPointLight	24	1	m_lightLevelsBelow	byte	GetLightLevelsBelow
+jag::game::StaticPointLight	25	1	m_lightLevelsAbove		GetLightLevelsAbove
+jag::game::StaticPointLight	56	4	m_flickerType		GetFlickerType
+jag::game::StaticPointLight	64	4	m_rGB	uint	GetRGB
+jag::game::StaticPointLight	68	4	m_radius	uint	GetRadius
+jag::game::StaticPointLight	76	1	m_useTerrainHeight		GetUseTerrainHeight
+jag::game::StaticPointLight	84	4	m_lightTypeToLoad		GetLightTypeToLoad
+jag::game::StaticPointLight	88	16	m_lightType		GetLightType
+jag::game::StaticPointLight	104	4	m_scriptId	int	GetScriptId
+jag::game::StaticPointLight	108	4	m_dynamicID		SetDynamicID
+jag::game::StaticPointLight	112	4	m_intensity		SetIntensity
+jag::game::StaticPointLight	116	4	m_attenuationFalloff	float	GetAttenuationFalloff
+jag::game::StaticPointLight	120	4	m_backlightRatio	float	GetBacklightRatio
+jag::game::StaticPointLight	124	1	m_shadowsEnabled		SetShadowsEnabled
+jag::game::StaticPointLight	128	4	m_shadowStrength		GetShadowStrength
+jag::game::StaticPointLight	136	4	m_phase		GetPhase
+jag::game::StaticPointLight	148	1	m_valid		IsValid
+jag::game::TcpConnectionMessageBase	40	4	m_endPosition	int	GetEndPosition
+jag::game::TelemetryGridGroup	0	4	m_id	uint	GetId
+jag::game::Terrain	192	0	m_aABB		GetAABB
+jag::game::Terrain	416	0	m_waterPatches		GetWaterPatches
+jag::game::Terrain	449	1	m_heightZero		IsHeightZero
+jag::game::Terrain	584	16	m_waterHeights		GetWaterHeights
+jag::game::Terrain	849	1	m_hasFade		GetHasFade
+jag::game::Terrain	856	1	m_hideTerrain		SetHideTerrain
+jag::game::Terrain	864	0	m_lightProbe		GetLightProbe
+jag::game::Triangulate::SourcePoint	8	4	m_index	uint	GetIndex
+jag::game::VarBitType	56	0	m_baseVar		GetBaseVar
+jag::game::VarBitTypeList	112	8	m_configProvider		GetConfigProvider
+jag::game::VarType	64	8	m_dataType		GetDataType
+jag::game::VarTypeList	112	8	m_domain		GetDomain
+jag::game::WaterLoader	80	0	m_waterPatches		GetWaterPatches
+jag::game::WaterLoader	96	16	m_defaultWaterType		GetDefaultWaterType
+jag::game::WaterType	60	4	m_flowNoise		GetFlowNoise
+jag::game::WaterType	64	4	m_depthFoam	uint	GetDepthFoam
+jag::game::WaterType	68	4	m_foamMaterialID	uint	GetFoamMaterialID
+jag::game::WaterType	72	4	m_foamMaterialScale	float	GetFoamMaterialScale
+jag::game::WaterType	340	4	m_stillWaterNormalStrength		GetStillWaterNormalStrength
+jag::game::WaterType	344	4	m_emissiveMapMaterialID	uint	GetEmissiveMapMaterialID
+jag::game::WaterType	348	4	m_emissiveMapMaterialScale	float	GetEmissiveMapMaterialScale
+jag::game::WaterType	352	4	m_emissiveUVScale		GetEmissiveUVScale
+jag::game::WaterType	360	4	m_emissiveRGB		GetEmissiveRGB
+jag::game::WaterType	364	4	m_emissiveSource		GetEmissiveSource
+jag::game::WaterType	368	4	m_emissiveScale		GetEmissiveScale
+jag::game::WaterType	372	4	m_emissiveMapRefractionDepth		GetEmissiveMapRefractionDepth
+jag::game::WaterType	376	1	m_emissiveMapMode		GetEmissiveMapMode
+jag::game::WaterType	377	1	m_emissiveUVMode		GetEmissiveUVMode
+jag::game::WaterType	380	4	m_emissiveFlowSpeed		GetEmissiveFlowSpeed
+jag::game::WaterType	384	4	m_emissiveFlowRotationDegrees	float	GetEmissiveFlowRotationDegrees
+jag::game::WaterType	388	4	m_emissiveBlend		GetEmissiveBlend
+jag::game::WaterType	392	4	m_specularShininess	float	GetSpecularShininess
+jag::game::WaterType	396	4	m_specularFactor	uint	GetSpecularFactor
+jag::game::WaterType	400	4	m_fresnelBias		GetFresnelBias
+jag::game::WaterType	404	4	m_reflectionStrength	float	GetReflectionStrength
+jag::game::WaterType	408	16	m_extinctionRGBDepthMetres		GetExtinctionRGBDepthMetres
+jag::game::WaterType	424	4	m_extinctionVisibilityMetres		GetExtinctionVisibilityMetres
+jag::game::WaterType	428	4	m_causticsScale		GetCausticsScale
+jag::game::WaterType	432	4	m_causticsRefractionScale		GetCausticsRefractionScale
+jag::game::WaterType	436	4	m_causticsDepthFadeCutoff		GetCausticsDepthFadeCutoff
+jag::game::WaterType	440	4	m_causticsDepthFadeScale		GetCausticsDepthFadeScale
+jag::game::WaterType	444	4	m_causticsEdgeFadeStart	float	GetCausticsEdgeFadeStart
+jag::game::WaterType	448	4	m_causticsEdgeFadeEnd		GetCausticsEdgeFadeEnd
+jag::game::WaterType	452	4	m_causticsOverWaterFadeStart		GetCausticsOverWaterFadeStart
+jag::game::WaterType	456	4	m_causticsOverWaterFadeEnd		GetCausticsOverWaterFadeEnd
+jag::game::WaterType	460	4	m_baseRGBA		GetBaseRGBA
+jag::game::WearposDefaults	56	4	m_replaceHeldLeftWearPos		GetReplaceHeldLeftWearPos
+jag::game::WearposDefaults	60	4	m_replaceHeldRightWearPos		GetReplaceHeldRightWearPos
+jag::game::WearposDefaults	64	0	m_replaceHeldLeftResetWearPos		GetReplaceHeldLeftResetWearPos
+jag::game::WearposDefaults	88	0	m_replaceHeldRightResetWearPos		GetReplaceHeldRightResetWearPos
+jag::game::World	80	0	m_dynamicPointLightManager		GetDynamicPointLightManager
+jag::game::World	65728	16	m_worldArea		GetWorldArea
+jag::game::World	65744	0	m_sceneGraphRoot		GetSceneGraphRoot
+jag::game::World	65824	16	m_skyBox		GetSkyBox
+jag::game::World	65840	0	m_clearColour		GetClearColour
+jag::game::World	65856	15064	m_worldRenderer		GetWorldRenderer
+jag::game::World	80976	0	m_detachedParticleSystems		GetDetachedParticleSystems
+jag::game::World	81588	4	m_mapSquareMinX	uint	GetMapSquareMinX
+jag::game::World	81592	4	m_mapSquareMinZ	int	GetMapSquareMinZ
+jag::game::World	81596	4	m_mapSquareMaxX	int	GetMapSquareMaxX
+jag::game::World	81600	4	m_mapSquareMaxZ	int	GetMapSquareMaxZ
+jag::game::World	81656	4	m_mapSquareWidth	int	GetMapSquareWidth
+jag::game::World	81660	4	m_mapSquareLength	int	GetMapSquareLength
+jag::game::World	81672	0	m_mapSquares		GetMapSquares
+jag::game::World	81704	16	m_centreSquare		GetCentreSquare
+jag::game::World	81720	0	m_centreSquarePosition		GetCentreSquarePosition
+jag::game::World	81736	0	m_heightMap		GetHeightMap
+jag::game::World	81744	24	m_linkMap		GetLinkMap
+jag::game::World	81768	0	m_removeRoof		GetRemoveRoof
+jag::game::World	671752	1	m_removeRoofSelective		IsRemoveRoofSelective
+jag::game::World	671753	1	m_groundDecorHidden		IsGroundDecorHidden
+jag::game::World	671776	4	m_buildMode	uint	GetBuildMode
+jag::game::World	671780	1	m_temporaryMap		GetTemporaryMap
+jag::game::World	671784	0	m_builtZones		GetBuiltZones
+jag::game::World	753768	16	m_pickableEntities		GetPickableEntities
+jag::game::World	786584	16	m_currentEnvironmentSettings		GetCurrentEnvironmentSettings
+jag::game::World	950664	16	m_defaultEnvironmentMap		GetDefaultEnvironmentMap
+jag::game::World	950740	0	m_lODSettings		GetLODSettings
+jag::game::World	950772	1	m_mainSceneDrawn		GetMainSceneDrawn
+jag::game::World	950776	0	m_lastCameraFocusPosition		GetLastCameraFocusPosition
+jag::game::World	950788	4	m_maxRenderLevel	int	GetMaxRenderLevel
+jag::game::World	950792	4	m_worldFocusLevel	uint	GetWorldFocusLevel
+jag::game::World	950796	4	m_playerCameraOffsetScale		GetPlayerCameraOffsetScale
+jag::game::WorldAreaType	56	4	m_colour		GetColour
+jag::game::WorldMap	680	1	m_flashPerpetual		SetFlashPerpetual
+jag::game::WorldMap	684	4	m_flashTicks		SetFlashTicks
+jag::game::WorldMap	688	4	m_flashLoops		SetFlashLoops
+jag::game::WorldMapDefaults	0	4	m_f2PLayerMapID	uint	GetF2PLayerMapID
+jag::game::WorldMapDefaults	4	4	m_f2PLayerColourRGBA	uint	GetF2PLayerColourRGBA
+jag::game::WorldMapDefaults	8	4	m_f2POutlineColourRGBA	uint	GetF2POutlineColourRGBA
+jag::game::WorldMapDefaults	24	4	m_dropShadowColourRGBA	undefined4	GetDropShadowColourRGBA
+jag::game::console::CommandLine	8	4	m_pos	uint	GetPos
+jag::game::console::CommandLine	312	4	m_selectionStart		SetSelectionStart
+jag::game::console::CommandLine	316	1	m_selecting		SetSelecting
+jag::game::console::CommandLine	317	1	m_cursorShown		GetCursorShown
+jag::game::option::WindowMode	200	4	m_fullscreenResolution		SetFullscreenResolution
+jag::graphics::AnimBase	4	4	m_baseID	uint	GetBaseID
+jag::graphics::AnimBase	8	2	m_transformCount	ushort	GetTransformCount
+jag::graphics::AnimBase	184	2	m_maxLabelID		GetMaxLabelID
+jag::graphics::AnimBase	192	0	m_jointMoveMap		GetJointMoveMap
+jag::graphics::AnimBase	240	0	m_labelSetToJointMap		GetLabelSetToJointMap
+jag::graphics::AnimBase	264	2	m_numJoints	int	GetNumJoints
+jag::graphics::AnimCurve	13	1	m_weighted		IsWeighted
+jag::graphics::AnimCurve	14	1	m_static		IsStatic
+jag::graphics::AnimCurve	15	1	m_preInfinity		GetPreInfinity
+jag::graphics::AnimCurve	16	1	m_postInfinity	byte	GetPostInfinity
+jag::graphics::AnimCurveSegmentCacheBase	8	0	m_ready		IsReady
+jag::graphics::AnimFrameset	8	1	m_loaded		IsLoaded
+jag::graphics::AnimFrameset	16	0	m_frames		GetFrames
+jag::graphics::AnimKeyFrameSample	72	1	m_hasSampleData		HasSampleData
+jag::graphics::AnimKeyFrameSet	74	2	m_end	float	GetEnd
+jag::graphics::AnimKeyFrameSet	76	1	m_bindID		GetBindID
+jag::graphics::AnimKeyFrameSet	112	2	m_animatesColour		GetAnimatesColour
+jag::graphics::AnimKeyFrameSet	114	1	m_animatesBillboards		GetAnimatesBillboards
+jag::graphics::AnimKeyFrameSet	136	16	m_pBase	uint *	GetBase
+jag::graphics::AnimState	16	33	m_resources		GetResources
+jag::graphics::AnimState	128	0	m_name		GetName
+jag::graphics::Animation	0	1	m_constructed		IsConstructed
+jag::graphics::Animation	56	0	m_frameDelays		GetFrameDelays
+jag::graphics::Animation	80	0	m_frameStartTimes		GetFrameStartTimes
+jag::graphics::Animation	104	4	m_animationLength	int	GetAnimationLength
+jag::graphics::Animation	108	1	m_animatesTransparency	byte	GetAnimatesTransparency
+jag::graphics::Animation	109	1	m_animatedColourType	char	GetAnimatedColourType
+jag::graphics::Animation	110	1	m_animatesBillboards	byte	GetAnimatesBillboards
+jag::graphics::Animation	112	16	m_animKeyFrameSet		GetAnimKeyFrameSet
+jag::graphics::Animation	128	4	m_maximumUsedBoneID	uint	GetMaximumUsedBoneID
+jag::graphics::AnimationDescriptor	72	4	m_basAnimType	int	GetBasAnimType
+jag::graphics::AnimationDescriptor	76	4	m_seqID	uint	GetSeqID
+jag::graphics::AnimationDescriptor	80	4	m_loopBehaviour	int	GetLoopBehaviour
+jag::graphics::AnimationDescriptor	84	4	m_loopLength		GetLoopLength
+jag::graphics::AnimationDescriptor	88	1	m_tweenLastFrameToFirst		GetTweenLastFrameToFirst
+jag::graphics::AnimationDescriptor	96	0	m_onFinishedCallback		GetOnFinishedCallback
+jag::graphics::AnimationFrameRT5	0	1	m_valid		IsValid
+jag::graphics::AnimationFrameRT7	48	0	m_skipTweenBone		GetSkipTweenBone
+jag::graphics::AnimationFrameRT7	64	0	m_skipTweenLabel		GetSkipTweenLabel
+jag::graphics::AnimationFrameRT7	80	0	m_skipTweenBillboard		GetSkipTweenBillboard
+jag::graphics::AnimationFrameRT7	100	1	m_animatesTransparency		GetAnimatesTransparency
+jag::graphics::AnimationFrameRT7	101	1	m_animatesColour		GetAnimatesColour
+jag::graphics::AnimationFrameRT7	102	1	m_animatesBillboards		GetAnimatesBillboards
+jag::graphics::AnimationFrameRT7	104	4	m_maximumBoneID	int	GetMaximumBoneID
+jag::graphics::AnimationParameters	96	0	m_animation		GetAnimation
+jag::graphics::AnimationParameters	112	4	m_loopBehaviour	int	GetLoopBehaviour
+jag::graphics::AnimationParameters	116	4	m_loopLength		GetLoopLength
+jag::graphics::AnimationParameters	120	1	m_tweenLastFrameToFirst		GetTweenLastFrameToFirst
+jag::graphics::AnimationParameters	124	4	m_loopsCompleted		GetLoopsCompleted
+jag::graphics::AnimationParameters	132	1	m_finished		IsFinished
+jag::graphics::AnimationParameters	136	4	m_delay		GetDelay
+jag::graphics::AnimationParameters	140	4	m_animationLength	uint	GetAnimationLength
+jag::graphics::AnimationParameters	152	4	m_currentIndex	uint	GetCurrentIndex
+jag::graphics::AnimationParameters	168	8	m_startTimeNS	ulong	GetStartTimeNS
+jag::graphics::AnimationParameters	176	8	m_lastUpdateTimeNS	long	GetLastUpdateTimeNS
+jag::graphics::AnimationParameters	184	1	m_paused		GetPaused
+jag::graphics::AnimationState	24	1	m_animatesTransparency	byte	GetAnimatesTransparency
+jag::graphics::AnimationState	25	1	m_animatedColourType		GetAnimatedColourType
+jag::graphics::AnimationStateMachine	24	4	m_stateID	undefined4	GetStateID
+jag::graphics::AnimationStateMachine	760	1	m_transitioning		IsTransitioning
+jag::graphics::AnimationStateMachine	784	4	m_animationType	int	GetAnimationType
+jag::graphics::AnimationStateProvider	8	4	m_lastFrameCount	uint	GetLastFrameCount
+jag::graphics::AnimationStateTransitionDescriptor	64	8	m_transitionTimeNS		GetTransitionTimeNS
+jag::graphics::BillboardBatch	32	1	m_transformed		SetTransformed
+jag::graphics::BillboardBatch	33	1	m_faceLabelCount		GetFaceLabelCount
+jag::graphics::BillboardBatch	80	1	m_boneCount	byte	GetBoneCount
+jag::graphics::BillboardBatch	88	0	m_boneIDMap		GetBoneIDMap
+jag::graphics::BillboardBatch	128	0	m_boneVertices		GetBoneVertices
+jag::graphics::BillboardBatch	176	0	m_jointIDMap		GetJointIDMap
+jag::graphics::BillboardBatch	216	1	m_billboardLabelCount		GetBillboardLabelCount
+jag::graphics::BillboardBatch	224	0	m_billboardLabelIDMap		GetBillboardLabelIDMap
+jag::graphics::BillboardBatch	360	0	m_vertexDataBuffer		GetVertexDataBuffer
+jag::graphics::BillboardBatch	392	1	m_lowPrecision		IsLowPrecision
+jag::graphics::BillboardBatch	400	0	m_indexBuffer		GetIndexBuffer
+jag::graphics::BillboardBatch	568	192	m_forwardPassIAState		GetForwardPassIAState
+jag::graphics::BillboardBatchCombineHelper	12	4	m_indexCount	int	GetIndexCount
+jag::graphics::BillboardBatchCombineHelper	16	4	m_vertexCount	int	GetVertexCount
+jag::graphics::BillboardBatchInstance	48	544	m_material		GetMaterial
+jag::graphics::BillboardBatchInstance	616	0	m_approxMaterialInfoList		GetApproxMaterialInfoList
+jag::graphics::BillboardBatchInstance	656	896	m_vertexAnimation		GetVertexAnimation
+jag::graphics::BillboardRaw	0	1	m_valid		IsValid
+jag::graphics::BillboardRawLoader	16	4	m_billboardCount	int	GetBillboardCount
+jag::graphics::BillboardRawLoader	20	4	m_maxBillboardID		GetMaxBillboardID
+jag::graphics::BlendSpace1DDescriptor::LocationInfo	8	4	m_position	float	GetPosition
+jag::graphics::BlendSpace2DDescriptor::LocationInfo	8	4	m_positionX	float	GetPositionX
+jag::graphics::BlendSpace2DDescriptor::LocationInfo	12	4	m_positionY		GetPositionY
+jag::graphics::BlendTreeAnimationSampler	80	8	m_pBlendTree	Js5ConfigGroup *	GetBlendTree
+jag::graphics::BlendTreeAnimationSampler	88	1	m_drawDebugSkeleton		SetDrawDebugSkeleton
+jag::graphics::BlendTreeNode	8	1	m_debugDrawPose		SetDebugDrawPose
+jag::graphics::Caustics	64	500	m_causticsManager		GetCausticsManager
+jag::graphics::CausticsManager	16	104	m_cullFrustum		GetCullFrustum
+jag::graphics::CausticsManager	176	152	m_viewTransforms		GetViewTransforms
+jag::graphics::CausticsManager	384	4	m_causticsPlaneHeight	float	GetCausticsPlaneHeight
+jag::graphics::DepthBufferRasterizerSSE	16	4	m_numRasterizedTriangles	int	GetNumRasterizedTriangles
+jag::graphics::DepthDownsamplePass	624	8	m_depthTexture		SetDepthTexture
+jag::graphics::DepthDownsamplePass	724	1	m_combineWithPrevious		SetCombineWithPrevious
+jag::graphics::DirLightCsmManager	16	96	m_lightViewMat		GetLightViewMat
+jag::graphics::DirLightCsmManager	80	0	m_camViewMat		GetCamViewMat
+jag::graphics::DirLightCsmManager	744	4	m_config		GetConfig
+jag::graphics::DirLightCsmManager	776	4	m_cascadeSplitWeight		SetCascadeSplitWeight
+jag::graphics::DirLightCsmManager	780	4	m_cascadeNearClip		SetCascadeNearClip
+jag::graphics::DirLightCsmManager	784	4	m_maxShadowDistance	float	GetMaxShadowDistance
+jag::graphics::DirLightCsmManager	792	4	m_cascadeFadeRangeScale		SetCascadeFadeRangeScale
+jag::graphics::DirLightCsmManager	796	4	m_lightCamNearClipOffset		SetLightCamNearClipOffset
+jag::graphics::Drawable	8	4	m_renderFlags		SetRenderFlags
+jag::graphics::DrawableGroup	8	4	m_drawableSortKeyType		SetDrawableSortKeyType
+jag::graphics::DrawableGroup	16	0	m_drawableElements		GetDrawableElements
+jag::graphics::DrawableSortKey	7	0	m_layer		GetLayer
+jag::graphics::EquirectangularRenderer	56	1	m_enabled		GetEnabled
+jag::graphics::FogEffect	32	0	m_shaderConsts		GetShaderConsts
+jag::graphics::FogEffect	344	4	m_fogIntensity		SetFogIntensity
+jag::graphics::FontMetrics	20	1	m_pixelSize		GetPixelSize
+jag::graphics::FontMetrics	12352	2	m_fontSheetWidth		GetFontSheetWidth
+jag::graphics::FontMetrics	12354	2	m_fontSheetHeight		GetFontSheetHeight
+jag::graphics::FontMetrics	12356	4	m_baseLine	uint	GetBaseLine
+jag::graphics::FontMetrics	12360	1	m_upperCaseAscent	byte	GetUpperCaseAscent
+jag::graphics::FontMetrics	12362	1	m_maxAscent	byte	GetMaxAscent
+jag::graphics::FontMetrics	12363	1	m_maxDescent	byte	GetMaxDescent
+jag::graphics::ForwardLightingPass	868	1	m_alphaBlendDepthWrite		SetAlphaBlendDepthWrite
+jag::graphics::GUIAnimation	16	4	m_target	int	GetTarget
+jag::graphics::GUIAnimation	20	4	m_targetMode		GetTargetMode
+jag::graphics::GUIAnimationInstance	16	0	m_component		GetComponent
+jag::graphics::GUIAnimationInstance	56	16	m_onFinishHook		GetOnFinishHook
+jag::graphics::GUIManager	8	4	m_projectionMode	uint	GetProjectionMode
+jag::graphics::GUIManager	32	4	m_lastViewportWidth		GetLastViewportWidth
+jag::graphics::GUIManager	36	4	m_lastViewportHeight	undefined4	GetLastViewportHeight
+jag::graphics::GeometryBatch	32	1	m_boneCount	uchar	GetBoneCount
+jag::graphics::GeometryBatch	34	1	m_transformed		SetTransformed
+jag::graphics::GeometryBatch	36	1	m_hasFaceTransparency	byte	HasFaceTransparency
+jag::graphics::GeometryBatch	37	1	m_shareLight		SetShareLight
+jag::graphics::GeometryBatch	38	1	m_hidden	byte	IsHidden
+jag::graphics::GeometryBatch	40	4	m_vertexScale	float	GetVertexScale
+jag::graphics::GeometryBatch	44	1	m_labelCount		GetLabelCount
+jag::graphics::GeometryBatch	48	0	m_labelIDMap		GetLabelIDMap
+jag::graphics::GeometryBatch	88	0	m_boneIDMap		GetBoneIDMap
+jag::graphics::GeometryBatch	128	0	m_boneVertices		GetBoneVertices
+jag::graphics::GeometryBatch	168	0	m_jointIDMap		GetJointIDMap
+jag::graphics::GeometryBatch	208	4	m_numLods	uint	GetNumLods
+jag::graphics::GeometryBatch	376	2	m_faceHSLBuffer		GetFaceHSLBuffer
+jag::graphics::GeometryBatch	408	1	m_faceHSLBaked		SetFaceHSLBaked
+jag::graphics::GeometryBatch	416	1	m_faceTransparencyBuffer		GetFaceTransparencyBuffer
+jag::graphics::GeometryBatch	448	0	m_vertexDataBuffer		GetVertexDataBuffer
+jag::graphics::GeometryBatch	480	0	m_vertexDataBufferPos		GetVertexDataBufferPos
+jag::graphics::GeometryBatch	512	0	m_vertexDataBufferPosLP		GetVertexDataBufferPosLP
+jag::graphics::GeometryBatch	536	1	m_vertexDataBufferSkin		GetVertexDataBufferSkin
+jag::graphics::GeometryBatchCombineHelper	12	4	m_indexCount	int	GetIndexCount
+jag::graphics::GeometryBatchCombineHelper	16	4	m_vertexCount	int	GetVertexCount
+jag::graphics::GeometryBatchInstance	48	544	m_material		GetMaterial
+jag::graphics::GeometryBatchInstance	664	0	m_approxMaterialInfoList		GetApproxMaterialInfoList
+jag::graphics::GeometryBatchInstance	696	0	m_sourceModelExternalIndexList		GetSourceModelExternalIndexList
+jag::graphics::GeometryBatchInstance	800	0	m_vertexAnimation		GetVertexAnimation
+jag::graphics::GraphNode	96	0	m_aABB		GetAABB
+jag::graphics::GraphNode	208	4	m_pTranslation	float *	GetTranslation
+jag::graphics::GraphNode	212	4	m_translationY		SetTranslationY
+jag::graphics::GraphNode	220	0	m_rotation		GetRotation
+jag::graphics::GraphNode	272	8	m_pParent		GetParent
+jag::graphics::GraphNode	360	8	m_pChildren		GetChildren
+jag::graphics::GraphNode	464	8	m_entity	ulonglong	GetEntity
+jag::graphics::Joint	280	8	m_localBindTranslate		GetLocalBindTranslate
+jag::graphics::Joint	292	8	m_localBindScale		GetLocalBindScale
+jag::graphics::Joint	304	8	m_pParentJoint		GetParentJoint
+jag::graphics::Joint	312	2	m_parentJointID	int	GetParentJointID
+jag::graphics::LayeredAnimationStateMachineLayerDescriptor	104	4	m_blendType	int	GetBlendType
+jag::graphics::LayeredAnimationStateMachineLayerDescriptor	112	0	m_blendVar		GetBlendVar
+jag::graphics::LayeredAnimationStateMachineLayerDescriptor	144	8	m_pTransitionInTime	Js5MemoryCache *	GetTransitionInTime
+jag::graphics::LayeredAnimationStateMachineLayerDescriptor	152	8	m_transitionOutTime		GetTransitionOutTime
+jag::graphics::LightProbe	688	16	m_envMapRT		GetEnvMapRT
+jag::graphics::LightProbeMaterial	544	8	m_irradianceSHConsts		GetIrradianceSHConsts
+jag::graphics::LightProbeRenderer	256	4	m_probeEnvMapRes		GetProbeEnvMapRes
+jag::graphics::LightScatteringEffect	320	0	m_scatteringDensity		GetScatteringDensity
+jag::graphics::LightScatteringEffect	352	0	m_scatteringStartDistance		GetScatteringStartDistance
+jag::graphics::LightScatteringEffect	384	0	m_objectFalloff		GetObjectFalloff
+jag::graphics::LightScatteringEffect	416	0	m_horizonFalloff		GetHorizonFalloff
+jag::graphics::Material	0	1	m_valid		IsValid
+jag::graphics::Material	4	4	m_iD	uint	GetID
+jag::graphics::Material	8	4	m_size	uint	GetSize
+jag::graphics::Material	12	1	m_hasDiffuseMap	char	HasDiffuseMap
+jag::graphics::Material	13	1	m_hasNormalMap		HasNormalMap
+jag::graphics::Material	15	1	m_hasHDRMap		HasHDRMap
+jag::graphics::Material	17	1	m_hasEmissiveMap		HasEmissiveMap
+jag::graphics::Material	18	1	m_hasSpecularMap		HasSpecularMap
+jag::graphics::Material	20	4	m_diffuseMapID		GetDiffuseMapID
+jag::graphics::Material	24	4	m_hDRNormalMapID	undefined4	GetHDRNormalMapID
+jag::graphics::Material	28	1	m_globalEnvironmentMapped		IsGlobalEnvironmentMapped
+jag::graphics::Material	32	4	m_specularExponent	float	GetSpecularExponent
+jag::graphics::Material	36	1	m_legacyMaterial	byte	IsLegacyMaterial
+jag::graphics::Material	37	1	m_legacyWhiteness		GetLegacyWhiteness
+jag::graphics::Material	38	1	m_legacyBrightness		GetLegacyBrightness
+jag::graphics::Material	40	4	m_diffuseAlphaMapID	int	GetDiffuseAlphaMapID
+jag::graphics::Material	44	4	m_normalEmissiveMapID		GetNormalEmissiveMapID
+jag::graphics::Material	48	4	m_metalnessRoughnessMapID		GetMetalnessRoughnessMapID
+jag::graphics::Material	52	4	m_diffuseAlphaMapSize		GetDiffuseAlphaMapSize
+jag::graphics::Material	56	4	m_normalEmissiveMapSize		GetNormalEmissiveMapSize
+jag::graphics::Material	60	4	m_metalnessRoughnessMapSize		GetMetalnessRoughnessMapSize
+jag::graphics::Material	64	4	m_emissiveSourceColourARGB	uint	GetEmissiveSourceColourARGB
+jag::graphics::Material	68	4	m_emissiveScale		GetEmissiveScale
+jag::graphics::Material	72	4	m_fresnelExponent	float	GetFresnelExponent
+jag::graphics::Material	76	4	m_defaultNonMetalSpecular		GetDefaultNonMetalSpecular
+jag::graphics::Material	88	8	m_pHideFacesMode		GetHideFacesMode
+jag::graphics::Material	96	4	m_environmentMaterialID		GetEnvironmentMaterialID
+jag::graphics::Material	100	4	m_viewportMapID		GetViewportMapID
+jag::graphics::Material	112	0	m_viewportMapUVScaleAndAnim		GetViewportMapUVScaleAndAnim
+jag::graphics::Material	128	4	m_materialAnimationH		GetMaterialAnimationH
+jag::graphics::Material	132	4	m_materialAnimationV		GetMaterialAnimationV
+jag::graphics::Material	136	1	m_unlit		IsUnlit
+jag::graphics::Material	137	1	m_shadowCaster		IsShadowCaster
+jag::graphics::Material	138	1	m_shadowReceiver		IsShadowReceiver
+jag::graphics::Material	139	1	m_hasForcedTextures	byte	HasForcedTextures
+jag::graphics::Material	140	1	m_hasHighlighting		HasHighlighting
+jag::graphics::Material	141	1	m_hasTransparencyCutout		HasTransparencyCutout
+jag::graphics::Material	144	4	m_specularScale		GetSpecularScale
+jag::graphics::Material	148	4	m_normalScale		GetNormalScale
+jag::graphics::Material	152	4	m_refractionAmount		GetRefractionAmount
+jag::graphics::Material	156	4	m_refractionIndex		GetRefractionIndex
+jag::graphics::Material	160	4	m_refractionDepthBias		GetRefractionDepthBias
+jag::graphics::Material	168	8	m_blendMode	ulong	GetBlendMode
+jag::graphics::Material	176	8	m_alphaMode	long	GetAlphaMode
+jag::graphics::Material	184	4	m_alphaTestThreshold	int	GetAlphaTestThreshold
+jag::graphics::Material	192	8	m_pWrapU		GetWrapU
+jag::graphics::Material	200	8	m_pWrapV		GetWrapV
+jag::graphics::MaterialManager	304	216	m_defaultMaterial		GetDefaultMaterial
+jag::graphics::MaterialRaw	0	1	m_valid		IsValid
+jag::graphics::MaterialRawLoader	8	4	m_materialCount	uint	GetMaterialCount
+jag::graphics::MaterialRawLoader	12	4	m_maxMaterialID	int	GetMaxMaterialID
+jag::graphics::MaterialRawLoader	16	0	m_materialRaws		GetMaterialRaws
+jag::graphics::MaterialRawLoader	48	0	m_defaultMaterial		GetDefaultMaterial
+jag::graphics::Model	16	0	m_aABB		GetAABB
+jag::graphics::Model	48	8	m_worldTransform		GetWorldTransform
+jag::graphics::Model	176	8	m_localTransform		GetLocalTransform
+jag::graphics::Model	240	8	m_tint		GetTint
+jag::graphics::Model	256	8	m_highlightColour		GetHighlightColour
+jag::graphics::Model	272	4	m_highlightScale	float	GetHighlightScale
+jag::graphics::Model	276	4	m_highlightSilhouetteAlpha	float	GetHighlightSilhouetteAlpha
+jag::graphics::Model	280	1	m_highlightsIgnoreDepth		SetHighlightsIgnoreDepth
+jag::graphics::Model	288	8	m_highlightedSectionColour		GetHighlightedSectionColour
+jag::graphics::Model	304	4	m_highlightedSectionScale	float	GetHighlightedSectionScale
+jag::graphics::Model	312	4	m_level		GetLevel
+jag::graphics::Model	320	0	m_pointLightBounds		GetPointLightBounds
+jag::graphics::Model	336	4	m_modelRawUniqueID		GetModelRawUniqueID
+jag::graphics::Model	340	4	m_externalID	int	GetExternalID
+jag::graphics::Model	344	4	m_savedModelHash	uint	GetSavedModelHash
+jag::graphics::Model	352	0	m_savedModelHashList		GetSavedModelHashList
+jag::graphics::Model	424	16	m_textureAtlasReferences		GetTextureAtlasReferences
+jag::graphics::Model	512	4	m_fadeTime		SetFadeTime
+jag::graphics::Model	516	4	m_currentFade		GetCurrentFade
+jag::graphics::Model	528	0	m_irradianceEffect		GetIrradianceEffect
+jag::graphics::Model	640	1	m_useUncompressedTextures		GetUseUncompressedTextures
+jag::graphics::Model	656	0	m_batchList		GetBatchList
+jag::graphics::Model	688	0	m_billboardBatchList		GetBillboardBatchList
+jag::graphics::Model	720	0	m_particleEmitters		GetParticleEmitters
+jag::graphics::Model	752	0	m_particleEffectors		GetParticleEffectors
+jag::graphics::Model	816	0	m_labelCentres		GetLabelCentres
+jag::graphics::Model	840	16	m_geometryQuery		GetGeometryQuery
+jag::graphics::ModelMaterial	552	16	m_environmentMap		GetEnvironmentMap
+jag::graphics::ModelMaterial	576	8	m_refractionParams		GetRefractionParams
+jag::graphics::ModelMaterial	592	8	m_hideFacesMode	long	GetHideFacesMode
+jag::graphics::ModelParticleSource	12	4	m_templateID	int	GetTemplateID
+jag::graphics::ModelParticleSource	16	8	m_vertex1		GetVertex1
+jag::graphics::ModelParticleSource	36	8	m_vertex2		GetVertex2
+jag::graphics::ModelParticleSource	56	8	m_vertex3		GetVertex3
+jag::graphics::ModelParticleSource	76	4	m_sourceModelExternalID		SetSourceModelExternalID
+jag::graphics::ModularParticleEmitter	8	2	m_atlasMaterialSettingsSlotXY		SetAtlasMaterialSettingsSlotXY
+jag::graphics::ModularParticleEmitter	288	0	m_aABB		GetAABB
+jag::graphics::ModularParticleEmitterTemplate	8	16	m_renderPassBits	uint	GetRenderPassBits
+jag::graphics::ModularParticleEmitterTemplate	12	4	m_renderMode	int	GetRenderMode
+jag::graphics::ModularParticleEmitterTemplate	56	4	m_materialID		GetMaterialID
+jag::graphics::ModularParticleEmitterTemplate	60	2	m_maxParticles	ushort	GetMaxParticles
+jag::graphics::ModularParticleEmitterTemplate	62	2	m_maxActiveParticlesEstimate	ushort	GetMaxActiveParticlesEstimate
+jag::graphics::ModularParticleEmitterTemplate	64	1	m_numTiles	uchar	GetNumTiles
+jag::graphics::ModularParticleEmitterTemplate	65	1	m_numTilesPerRow	uchar	GetNumTilesPerRow
+jag::graphics::ModularParticleEmitterTemplate	68	4	m_warmupTime		GetWarmupTime
+jag::graphics::ModularParticleEmitterTemplate	72	4	m_lifetime	float	GetLifetime
+jag::graphics::ModularParticleEmitterTemplate	76	1	m_continuous		IsContinuous
+jag::graphics::ModularParticleEmitterTemplate	80	8	m_transform		GetTransform
+jag::graphics::ModularParticleEmitterTemplate	144	1	m_modules		GetModules
+jag::graphics::ModularParticleSystem	144	0	m_emitters		GetEmitters
+jag::graphics::ModularParticleSystem	1474	1	m_loopingAllowed		SetLoopingAllowed
+jag::graphics::ModularParticleSystem	1476	4	m_particleCount	int	GetParticleCount
+jag::graphics::ModularParticleSystem	1504	0	m_drawable		GetDrawable
+jag::graphics::ModularParticleSystemDrawable	40	4	m_viewportMapID	int	GetViewportMapID
+jag::graphics::ModularParticleSystemTemplate	40	1	m_numLoops		GetNumLoops
+jag::graphics::ModularParticleSystemTemplate	44	16	m_renderPassBits		GetRenderPassBits
+jag::graphics::ModularParticleSystemTemplate	48	0	m_emitterTemplates		GetEmitterTemplates
+jag::graphics::ObjectHighlightPass	796	1	m_enabled		SetEnabled
+jag::graphics::ObjectHighlightPass	797	1	m_blurSubPassEnabled		SetBlurSubPassEnabled
+jag::graphics::ObjectHighlightPass	800	4	m_silhouetteDepthBias		SetSilhouetteDepthBias
+jag::graphics::ObjectHighlightPass	808	1	m_silhouetteCoverPassEnabled		SetSilhouetteCoverPassEnabled
+jag::graphics::OcclusionManager	96	4	m_minimumDepth	float	GetMinimumDepth
+jag::graphics::OcclusionManager	640	4	m_bufferWidth	uint	GetBufferWidth
+jag::graphics::OcclusionManager	644	4	m_bufferHeight	uint	GetBufferHeight
+jag::graphics::OcclusionManager	656	4	m_minimumDepthVariation		SetMinimumDepthVariation
+jag::graphics::OcclusionManager	712	1	m_renderInvalidTransforms		SetRenderInvalidTransforms
+jag::graphics::OcclusionReprojection	8	1	m_cPUReprojectionReady		IsCPUReprojectionReady
+jag::graphics::Particle	12	4	m_viewDst		GetViewDst
+jag::graphics::Particle	32	4	m_size	float	GetSize
+jag::graphics::Particle	64	4	m_rotation2D	float	GetRotation2D
+jag::graphics::Particle	68	32	m_rGBA	uint	GetRGBA
+jag::graphics::ParticleCommonMaterials	3380	4	m_textureUnitAtlas		GetTextureUnitAtlas
+jag::graphics::ParticleCommonMaterials	3384	4	m_textureUnitAtlasSettings		GetTextureUnitAtlasSettings
+jag::graphics::ParticleEffector	16	8	m_effectorTemplate	undefined8	GetEffectorTemplate
+jag::graphics::ParticleEmitter	16	8	m_emitterTemplate	undefined8	GetEmitterTemplate
+jag::graphics::ParticleEmitter	148	1	m_enabled		SetEnabled
+jag::graphics::ParticleEmitter	160	0	m_particles		GetParticles
+jag::graphics::ParticleEmitter	10448	1	m_hidden		IsHidden
+jag::graphics::ParticleEmitter	10524	2	m_atlasMaterialSettingsSlotXY	ushort	GetAtlasMaterialSettingsSlotXY
+jag::graphics::ParticleManager	104	8	m_pHeightProvider	ParticleManagerHeightProvider *	GetHeightProvider
+jag::graphics::ParticleManager	312	2	m_metrics		GetMetrics
+jag::graphics::ParticleMaterial	552	4	m_softScale		GetSoftScale
+jag::graphics::ParticleRawLoader	28	4	m_maxEmitterID	undefined4	GetMaxEmitterID
+jag::graphics::ParticleRawLoader	60	4	m_maxEffectorID		GetMaxEffectorID
+jag::graphics::ParticleRawLoader	64	0	m_effectorTypes		GetEffectorTypes
+jag::graphics::ParticleSystem	64	560	m_material		GetMaterial
+jag::graphics::ParticleSystem	42832	4	m_particleCount		GetParticleCount
+jag::graphics::ParticleSystemRenderer	4720	2	m_metrics		GetMetrics
+jag::graphics::PlanarReflection	692	4	m_reflectionMapContribution	float	GetReflectionMapContribution
+jag::graphics::PlanarReflection	696	4	m_waterReflectionStrength		SetWaterReflectionStrength
+jag::graphics::PointLightGridTexture	16	16	m_effect		GetEffect
+jag::graphics::PointLightIndicesEffect	80	0	m_mapSquareFineCoordBounds		GetMapSquareFineCoordBounds
+jag::graphics::PointLightIndicesEffect	96	0	m_visiblePointLights		GetVisiblePointLights
+jag::graphics::PointLightSM	16	0	m_shadowCubeMapLodAtlasData		GetShadowCubeMapLodAtlasData
+jag::graphics::PointLightSM	6864	4	m_lODLevel	int	GetLODLevel
+jag::graphics::PointLightSM	6868	4	m_iD	int	GetID
+jag::graphics::PointLightSM	6872	1	m_shadowParams		GetShadowParams
+jag::graphics::PointLightSMManager	80	8	m_pRenderTargetsManager	Js5ConfigGroup *	GetRenderTargetsManager
+jag::graphics::PointLightSMManager	88	8	m_pRenderToTexture		GetRenderToTexture
+jag::graphics::PointLightSMManager	96	16	m_shadowCubeMapAtlasRT		GetShadowCubeMapAtlasRT
+jag::graphics::PointLightSMManager	112	0	m_shadowCubeMapAtlasPacker		GetShadowCubeMapAtlasPacker
+jag::graphics::PointLightSMManager	192	0	m_activePointLightSM		GetActivePointLightSM
+jag::graphics::PointLightShadows	688	352	m_pointLightSMManager		GetPointLightSMManager
+jag::graphics::PoseBlendTreeNode	64	1	m_bindInfo		GetBindInfo
+jag::graphics::QueryPass	796	4	m_mode	int	GetMode
+jag::graphics::QueryPass	804	4	m_queryRenderTargetSize		SetQueryRenderTargetSize
+jag::graphics::RT5AnimationSampler	88	1	m_transformMaskToggle		SetTransformMaskToggle
+jag::graphics::RT5AnimationSampler	144	8	m_pOverrideAnimationInfo		SetOverrideAnimationInfo
+jag::graphics::RT7AnimationSampler	128	1	m_useAsyncOptimisedPath		SetUseAsyncOptimisedPath
+jag::graphics::RT7Core	104	4	m_viewportWidth	int	GetViewportWidth
+jag::graphics::RT7Core	112	4	m_clippingRectangle		GetClippingRectangle
+jag::graphics::RT7Core	136	4	m_pMSAASampleCount	uint *	GetMSAASampleCount
+jag::graphics::RT7Core	144	200	m_immediateThreadPool		GetImmediateThreadPool
+jag::graphics::RT7Core	344	0	m_renderTargetsManager		GetRenderTargetsManager
+jag::graphics::RT7Core	448	1240	m_postProcessManager		GetPostProcessManager
+jag::graphics::RT7Core	2128	0	m_geometryPass		GetGeometryPass
+jag::graphics::RT7Core	2944	0	m_queryPass		GetQueryPass
+jag::graphics::RT7Core	3792	0	m_forwardLightingPass		GetForwardLightingPass
+jag::graphics::RT7Core	4672	0	m_objectHighlightPass		GetObjectHighlightPass
+jag::graphics::RT7Core	6096	0	m_sSAOPass		GetSSAOPass
+jag::graphics::RT7Core	8192	0	m_waterReflectionPass		GetWaterReflectionPass
+jag::graphics::RT7Core	9056	0	m_depthDownsamplePass		GetDepthDownsamplePass
+jag::graphics::RT7Core	9984	0	m_deferredShadowPass		GetDeferredShadowPass
+jag::graphics::RT7Core	10752	0	m_waterCausticsPass		GetWaterCausticsPass
+jag::graphics::RT7Core	11608	8	m_drawableBatchRenderers		GetDrawableBatchRenderers
+jag::graphics::RT7Core	11616	16	m_gBufferRT		GetGBufferRT
+jag::graphics::RT7Core	11632	16	m_sSAORT		GetSSAORT
+jag::graphics::RT7Core	11648	16	m_forwardLightingRT		GetForwardLightingRT
+jag::graphics::RT7Core	11664	16	m_shadowBufferRT		GetShadowBufferRT
+jag::graphics::RT7Core	11760	0	m_postProcessController		GetPostProcessController
+jag::graphics::RT7Core	13112	0	m_equirectangularEffect		GetEquirectangularEffect
+jag::graphics::RT7Core	13144	376	m_sSAOContext		GetSSAOContext
+jag::graphics::RT7Core	13640	0	m_shaderManager		GetShaderManager
+jag::graphics::RT7Core	13824	0	m_materialManager		GetMaterialManager
+jag::graphics::RT7Core	14384	0	m_textureManager		GetTextureManager
+jag::graphics::RT7Core	18352	0	m_gUIManager		GetGUIManager
+jag::graphics::RT7Core	20664	0	m_particleManager		GetParticleManager
+jag::graphics::RT7Core	20992	0	m_pSTextureSlotManager		GetPSTextureSlotManager
+jag::graphics::RT7Core	21136	0	m_effectManager		GetEffectManager
+jag::graphics::RT7Core	22168	196	m_scaleManager		GetScaleManager
+jag::graphics::RT7MaterialRawProvider	16	8	m_materialsArchiveSettings	undefined8	GetMaterialsArchiveSettings
+jag::graphics::RT7TextureDataProvider	16	8	m_texturesCompressedDXTArchive	undefined8	GetTexturesCompressedDXTArchive
+jag::graphics::RT7TextureDataProvider	40	8	m_spritesArchive		GetSpritesArchive
+jag::graphics::RealtimePoseAnimationSampler	288	1	m_drawDebugSkeleton		SetDrawDebugSkeleton
+jag::graphics::ReflectionManager	16	104	m_cullFrustum		GetCullFrustum
+jag::graphics::ReflectionManager	176	152	m_viewTransforms		GetViewTransforms
+jag::graphics::RenderMaterial	16	8	m_alphaMode	undefined8	GetAlphaMode
+jag::graphics::RenderMaterial	24	8	m_pBlendMode		SetBlendMode
+jag::graphics::RenderMaterial	32	1	m_alphaTestThreshold	uchar	GetAlphaTestThreshold
+jag::graphics::RenderMaterial	36	4	m_environmentMaterialID	undefined4	SetEnvironmentMaterialID
+jag::graphics::RenderMaterial	40	4	m_viewportMapID	int	GetViewportMapID
+jag::graphics::RenderPass	8	4	m_renderPassType	uint	GetRenderPassType
+jag::graphics::RenderPassBitSet	0	4	m_bits	uint	GetBits
+jag::graphics::Renderer	80	6248	m_drawableQueue		GetDrawableQueue
+jag::graphics::SSAOContext	48	8	m_pNativeContext	AuthLibWrapper *	GetNativeContext
+jag::graphics::SSAOPass	624	8	m_pSSAOContext		SetSSAOContext
+jag::graphics::SampledPoseAnimationSampler	145	1	m_drawDebugSkeleton		SetDrawDebugSkeleton
+jag::graphics::ScaleManager	36	4	m_gameScale	float	GetGameScale
+jag::graphics::ScaleManager	88	4	m_subScaleFactor	float	GetSubScaleFactor
+jag::graphics::ScaleManager	92	4	m_interfaceDPIOverride		SetInterfaceDPIOverride
+jag::graphics::ScaleManager	96	4	m_tmpDPI		GetTmpDPI
+jag::graphics::SceneRenderPass	16	713	m_occlusionManager		GetOcclusionManager
+jag::graphics::SceneViewData	208	4	m_pViewFrustum	float *	GetViewFrustum
+jag::graphics::SceneViewData	368	0	m_renderTargets		GetRenderTargets
+jag::graphics::SceneViewData	432	0	m_renderTargetViewports		GetRenderTargetViewports
+jag::graphics::SceneViewData	625	1	m_occlusionTestEnabled		GetOcclusionTestEnabled
+jag::graphics::SceneViewData	628	4	m_minOcclusionDrawableRadius		SetMinOcclusionDrawableRadius
+jag::graphics::SceneViewData	632	4	m_minOcclusionDrawableAxisLength		SetMinOcclusionDrawableAxisLength
+jag::graphics::SceneViewData	636	4	m_renderPassBits		GetRenderPassBits
+jag::graphics::SceneViewData	640	4	m_pStippleNearClipParams	float *	GetStippleNearClipParams
+jag::graphics::SceneViewData	648	4	m_pStippleFarClipParams	float *	GetStippleFarClipParams
+jag::graphics::SceneViewData	656	4	m_renderFlags		SetRenderFlags
+jag::graphics::ScriptedPointLight	0	4	m_radius	uint	GetRadius
+jag::graphics::ScriptedPointLight	8	4	m_rGB	uint	GetRGB
+jag::graphics::ScriptedPointLight	56	4	m_scriptID		GetScriptID
+jag::graphics::ScriptedPointLight	72	0	m_positionJitterData		GetPositionJitterData
+jag::graphics::ScriptedPointLight	88	0	m_positionJitterOffset		GetPositionJitterOffset
+jag::graphics::Shader	0	8	m_type	uint	GetType
+jag::graphics::Shader	24	4	m_constructedShaderId	undefined4	GetConstructedShaderId
+jag::graphics::Shader	48	0	m_programUnchecked		GetProgramUnchecked
+jag::graphics::ShaderEffect	8	4	m_quality	uint	GetQuality
+jag::graphics::ShadowMapCascade	796	4	m_cascadeID	int	GetCascadeID
+jag::graphics::ShadowMapCascade	816	0	m_lightOrthProjMin		GetLightOrthProjMin
+jag::graphics::ShadowMapCascade	832	0	m_lightOrthProjMax		GetLightOrthProjMax
+jag::graphics::ShadowMapCascade	848	0	m_lightViewTransforms		GetLightViewTransforms
+jag::graphics::ShadowMapCascade	1056	0	m_worldOBB		GetWorldOBB
+jag::graphics::ShadowMapCascade	1136	0	m_frustumWorldBoundingSphere		GetFrustumWorldBoundingSphere
+jag::graphics::ShadowMapCascade	1184	0	m_casterCullFrustum		GetCasterCullFrustum
+jag::graphics::ShadowMapCascade	1344	1	m_canRender		SetCanRender
+jag::graphics::ShadowMapCascade	1345	1	m_clearViewport		GetClearViewport
+jag::graphics::SkyBox	576	16	m_cubeMap		GetCubeMap
+jag::graphics::SkyBox	688	16	m_renderTargets		GetRenderTargets
+jag::graphics::SkyBox	704	4	m_pendingSkyID	int	GetPendingSkyID
+jag::graphics::SkyBox	712	8	m_pendingSkyTransitionTime	ulonglong	GetPendingSkyTransitionTime
+jag::graphics::SkyBox	720	4	m_exposure		SetExposure
+jag::graphics::SkyBox	736	0	m_clearColour		GetClearColour
+jag::graphics::SkyBoxManager	6712	0	m_skyBoxes		GetSkyBoxes
+jag::graphics::SkyBoxRenderer	144	0	m_depthStencilState		GetDepthStencilState
+jag::graphics::SpriteAtlas	96	4	m_iD		GetID
+jag::graphics::SpriteAtlas	104	0	m_hALTexture		GetHALTexture
+jag::graphics::SpriteAtlasReference	28	4	m_spriteIndex	undefined4	GetSpriteIndex
+jag::graphics::SpriteAtlasReference	37	1	m_disableCache		GetDisableCache
+jag::graphics::SpriteAtlasUsageMap	96	0	m_filled		GetFilled
+jag::graphics::SpriteAtlasUsageMap	120	0	m_pending		GetPending
+jag::graphics::SpriteAtlasUsageMap	144	0	m_permanent		GetPermanent
+jag::graphics::SunlightDirectLighting	224	0	m_shaderConsts		GetShaderConsts
+jag::graphics::SunlightDirectLighting	380	4	m_brightnessOffset		SetBrightnessOffset
+jag::graphics::SunlightOptions	12	4	m_sunElevation		SetSunElevation
+jag::graphics::SunlightOptions	16	4	m_sunAngle		SetSunAngle
+jag::graphics::SunlightOptions	20	8	m_sunDirection		GetSunDirection
+jag::graphics::SunlightOptions	32	4	m_sunIntensity		SetSunIntensity
+jag::graphics::SunlightOptions	48	4	m_ambientIntensity		SetAmbientIntensity
+jag::graphics::SunlightOptions	52	4	m_shadowStrength	undefined4	GetShadowStrength
+jag::graphics::SunlightOptions	56	4	m_shadowQuality		GetShadowQuality
+jag::graphics::SunlightShadows	1056	0	m_sunlightCsmManager		GetSunlightCsmManager
+jag::graphics::SunlightShadows	1936	8	m_sunlightViewTransform		GetSunlightViewTransform
+jag::graphics::TerrainOverlayShape	8	1	m_iD		GetID
+jag::graphics::TerrainPatch	16	8	m_aABB		GetAABB
+jag::graphics::TerrainPatch	48	8	m_material		GetMaterial
+jag::graphics::TerrainPatch	604	4	m_gridResolution	int	GetGridResolution
+jag::graphics::TerrainPatch	608	4	m_gridSize	int	GetGridSize
+jag::graphics::TerrainPatch	632	0	m_renderChunks		GetRenderChunks
+jag::graphics::TerrainPatch	13088	4	m_faceCount	int	GetFaceCount
+jag::graphics::TerrainPatch	13120	0	m_irradianceEffect		GetIrradianceEffect
+jag::graphics::TerrainPatch	13264	0	m_vertexDataBuffer		GetVertexDataBuffer
+jag::graphics::TextProperties	8	1	m_horizontalAlignment		GetHorizontalAlignment
+jag::graphics::TextProperties	9	1	m_verticalAlignment		GetVerticalAlignment
+jag::graphics::TextProperties	12	4	m_colour	int	GetColour
+jag::graphics::TextProperties	24	1	m_flags	byte	GetFlags
+jag::graphics::TextRun	16	4	m_maxLineWidth	int	GetMaxLineWidth
+jag::graphics::TextRun	24	4	m_horizontalAlignment	undefined4	GetHorizontalAlignment
+jag::graphics::TextRun	28	4	m_verticalAlignment	undefined4	GetVerticalAlignment
+jag::graphics::TextRun	32	1	m_maxLineCount	uchar	GetMaxLineCount
+jag::graphics::TextRun	36	4	m_visibility	undefined4	GetVisibility
+jag::graphics::TextRun	40	1	m_showLastChar		SetShowLastChar
+jag::graphics::TextRun	48	0	m_contents		GetContents
+jag::graphics::TextRun	72	4	m_wrapMode	int	GetWrapMode
+jag::graphics::TextureAtlas	16	4	m_iD	int	GetID
+jag::graphics::TextureAtlas	176	16	m_formatTypeRequest		GetFormatTypeRequest
+jag::graphics::TextureAtlas	164672	1	m_texture		GetTexture
+jag::graphics::TextureAtlas	165184	1	m_settingsTexture		GetSettingsTexture
+jag::graphics::TextureAtlasManager	2760	4	m_numLoadingTextures	uint	GetNumLoadingTextures
+jag::graphics::TextureAtlasManager	2764	4	m_peakLoadingTextures	uint	GetPeakLoadingTextures
+jag::graphics::TextureAtlasManager	2768	4	m_numLoadingTexturesHeavyThreshold	uint	GetNumLoadingTexturesHeavyThreshold
+jag::graphics::TextureAtlasMaterialSettings	49	1	m_valid		IsValid
+jag::graphics::TextureAtlasReference	40	4	m_textureAtlasID	int	GetTextureAtlasID
+jag::graphics::TextureAtlasUsageMap	48	0	m_materialUsageSlots		GetMaterialUsageSlots
+jag::graphics::TextureManager	816	2888	m_textureAtlasManager		GetTextureAtlasManager
+jag::graphics::TextureManager	3704	0	m_spriteAtlasManager		GetSpriteAtlasManager
+jag::graphics::VFXAttachmentInfo	0	4	m_templateID	uint	GetTemplateID
+jag::graphics::VFXAttachmentInfo	64	4	m_sourceModelExternalID	uint	GetSourceModelExternalID
+jag::graphics::VFXAttachmentInfo	160	8	m_worldTransform		GetWorldTransform
+jag::graphics::VertexAnimation	48	16	m_animationStateProvider		GetAnimationStateProvider
+jag::graphics::VertexTransformData	16	0	m_labelDeltas		GetLabelDeltas
+jag::graphics::ViewportMapEffect	28	4	m_viewportMapID		SetViewportMapID
+jag::graphics::VolumetricScatteringEffect	912	4	m_pParams	float *	GetParams
+jag::graphics::WaterMaterial	544	500	m_waterParameters		GetWaterParameters
+jag::graphics::WaterParameters	240	4	m_stillWaterNormalStrength		SetStillWaterNormalStrength
+jag::graphics::WaterParameters	272	4	m_waterFoamScale		SetWaterFoamScale
+jag::graphics::WaterParameters	276	4	m_waterDepthFoam		SetWaterDepthFoam
+jag::graphics::WaterParameters	280	4	m_waterSpecularPower		SetWaterSpecularPower
+jag::graphics::WaterParameters	284	4	m_waterSpecularShininess		SetWaterSpecularShininess
+jag::graphics::WaterParameters	288	4	m_fade	float	GetFade
+jag::graphics::WaterParameters	292	4	m_fresnelBias		SetFresnelBias
+jag::graphics::WaterParameters	296	4	m_reflectionStrength		SetReflectionStrength
+jag::graphics::WaterParameters	352	0	m_foamTexture		GetFoamTexture
+jag::graphics::WaterParameters	368	0	m_emissiveMapTexutre		GetEmissiveMapTexutre
+jag::graphics::WaterParameters	384	4	m_emissiveMapMaterialScale	float	GetEmissiveMapMaterialScale
+jag::graphics::WaterParameters	408	4	m_emissiveSource		SetEmissiveSource
+jag::graphics::WaterParameters	412	4	m_emissiveScale		SetEmissiveScale
+jag::graphics::WaterParameters	416	4	m_emissiveMapRefractionDepth		SetEmissiveMapRefractionDepth
+jag::graphics::WaterParameters	420	1	m_emissiveMapMode		GetEmissiveMapMode
+jag::graphics::WaterParameters	421	1	m_emissiveUVMode		SetEmissiveUVMode
+jag::graphics::WaterParameters	424	4	m_emissiveFlowSpeed		SetEmissiveFlowSpeed
+jag::graphics::WaterParameters	428	4	m_emissiveFlowRotationDegrees		SetEmissiveFlowRotationDegrees
+jag::graphics::WaterParameters	432	4	m_emissiveBlend		SetEmissiveBlend
+jag::graphics::WaterParameters	460	4	m_causticsScale		SetCausticsScale
+jag::graphics::WaterParameters	464	4	m_causticsRefractionScale		SetCausticsRefractionScale
+jag::graphics::WaterParameters	468	4	m_causticsDepthFadeCutoff		SetCausticsDepthFadeCutoff
+jag::graphics::WaterParameters	472	4	m_causticsDepthFadeScale		SetCausticsDepthFadeScale
+jag::graphics::WaterParameters	476	4	m_causticsEdgeFadeStart		SetCausticsEdgeFadeStart
+jag::graphics::WaterParameters	480	4	m_causticsEdgeFadeEnd		SetCausticsEdgeFadeEnd
+jag::graphics::WaterParameters	484	4	m_causticsOverWaterFadeStart		SetCausticsOverWaterFadeStart
+jag::graphics::WaterParameters	488	4	m_causticsOverWaterFadeEnd		SetCausticsOverWaterFadeEnd
+jag::graphics::WaterParameters	492	4	m_extinctionVisibilityMetres		SetExtinctionVisibilityMetres
+jag::graphics::WaterPatch	16	8	m_aABB		GetAABB
+jag::graphics::WaterPatch	48	544	m_material		GetMaterial
+jag::graphics::WaterPatch	1264	4	m_faceCount	uint	GetFaceCount
+jag::graphicutils::RenderToTextureHelper	88	0	m_quadVBPosUV		GetQuadVBPosUV
+jag::graphicutils::Screengrabber	32	1	m_screenshotSaveMode		SetScreenshotSaveMode
+jag::graphicutils::TextureAtlasSlotPacker	36	4	m_atlasSlotCount	undefined4	GetAtlasSlotCount
+jag::graphicutils::TextureAtlasSlotPacker	40	4	m_totalSlots	int	GetTotalSlots
+jag::graphicutils::TextureAtlasSlotPacker	44	4	m_atlasPixelResolution		GetAtlasPixelResolution
+jag::graphicutils::TextureAtlasSlotPacker	48	8	m_pAtlasUsage	AuthLibWrapper *	GetAtlasUsage
+jag::hal::Haptics	0	1	m_enabled		GetEnabled
+jag::hal::audio::AudioBuffer	212	4	m_maximumSamples		GetMaximumSamples
+jag::hal::audio::AudioBufferHandler	24	4	m_readOffsetSamples	undefined4	GetReadOffsetSamples
+jag::hal::audio::AudioBuss	56	4	m_priority		GetPriority
+jag::hal::audio::AudioBuss	60	4	m_bussID		GetBussID
+jag::hal::audio::AudioRenderer	16	16	m_startParams		GetStartParams
+jag::hal::audio::AudioRenderer	40	4	m_state	int	GetState
+jag::hal::audio::VoiceInstance	8	1	m_virtual		SetVirtual
+jag::hal::audio::VoiceInstance	12	4	m_priority		SetPriority
+jag::hal::audio::VoiceInstance	20	4	m_preSendControls		SetPreSendControls
+jag::hal::audio::VoiceInstance	24	4	m_gain		SetGain
+jag::hal::audio::VoiceInstance	28	4	m_pan	float	GetPan
+jag::hal::audio::VoiceInstance	32	4	m_loopIterations		SetLoopIterations
+jag::hal::audio::VoiceInstance	56	0	m_audioBufferHandler		GetAudioBufferHandler
+jag::hal::audio::VoiceInstance	336	4	m_bussID		SetBussID
+jag::hal::audio::VoiceInstance	340	4	m_soundType		SetSoundType
+jag::hardware::HardwareInfo	64	4	m_numPhyscicalProcessors	uint	GetNumPhyscicalProcessors
+jag::hardware::HardwareInfo	68	4	m_numLogicalProcessors	uint	GetNumLogicalProcessors
+jag::hardware::HardwareInfo	72	4	m_systemMemoryMB	int	GetSystemMemoryMB
+jag::hardware::HardwareInfo	76	0	m_cPUFeatureFlags		GetCPUFeatureFlags
+jag::hardware::HardwareInfo	88	4	m_cPUSignature	int	GetCPUSignature
+jag::hardware::HardwareInfo	96	0	m_clientType		GetClientType
+jag::hardware::HardwareInfo	128	0	m_deviceFullName		GetDeviceFullName
+jag::hardware::HardwareInfo	184	8	m_gPUDriverDate		GetGPUDriverDate
+jag::hardware::HardwareInfo	256	4	m_gpuMemoryMB		GetGpuMemoryMB
+jag::http::CRMData	0	4	m_cRMRequestState	uint	GetCRMRequestState
+jag::http::CRMData	112	0	m_actionInfo		GetActionInfo
+jag::http::HTTPRequest	136	4	m_pData	uint *	GetData
+jag::http::HTTPRequest	200	0	m_contentType		GetContentType
+jag::http::HTTPRequest	232	0	m_redirectLocation		GetRedirectLocation
+jag::http::HTTPRequest	580	4	m_totalTimeoutSeconds		SetTotalTimeoutSeconds
+jag::http::HTTPRequest	584	1	m_hasTimedOut		HasTimedOut
+jag::http::HTTPRequest	585	1	m_followRedirects		SetFollowRedirects
+jag::http::HTTPRequest	600	1	m_aborted		IsAborted
+jag::http::HTTPRequest	608	8	m_responseCode	int	GetResponseCode
+jag::http::HTTPRequest	616	4	m_errorCode	int	GetErrorCode
+jag::input::Input	168	4	m_mouseX	float	GetMouseX
+jag::input::Input	172	4	m_mouseY	float	GetMouseY
+jag::input::gesture::GestureManager	0	4	m_numTouches	uint	GetNumTouches
+jag::logger::LogStream	72	0	m_group		GetGroup
+jag::logger::Logger	56	0	m_logStreams		GetLogStreams
+jag::math::AABB	16	4	m_maximum		GetMaximum
+jag::math::Capsule2D	16	4	m_radius	int	GetRadius
+jag::math::Capsule3D	16	8	m_endPoint		GetEndPoint
+jag::math::Capsule3D	28	4	m_radius	float	GetRadius
+jag::math::Frustum	96	0	m_viewProjMatrix		GetViewProjMatrix
+jag::math::OBB	16	8	m_halfSize		GetHalfSize
+jag::math::Random	4	4	m_const		SetConst
+jag::math::SmoothRotation	0	1	m_active		IsActive
+jag::math::SmoothRotation	36	0	m_finalRotation		GetFinalRotation
+jag::math::SmoothRotation	64	1	m_turningLeft	bool	IsTurningLeft
+jag::math::Sphere	12	4	m_radius		SetRadius
+jag::math::Sphere2D	8	4	m_radius	uint	GetRadius
+jag::math::Sphere2D	12	1	m_valid	char	IsValid
+jag::oldscape::ApplicationContext	48	1	m_applicationSuspended		IsApplicationSuspended
+jag::oldscape::ChatHistory::HistoryBuffer	1600	4	m_length	int	GetLength
+jag::oldscape::CinemaCameraTween	16	8	m_alpha		GetAlpha
+jag::oldscape::Client	52000	8	m_accountID		GetAccountID
+jag::oldscape::Client	52400	4	m_cameraMode		SetCameraMode
+jag::oldscape::Client	54700	4	m_serverMajorVersion	int	GetServerMajorVersion
+jag::oldscape::Client	54776	4	m_contentMode	int	GetContentMode
+jag::oldscape::Client	54780	4	m_worldId	int	GetWorldId
+jag::oldscape::Client	54784	1	m_lowMem		GetLowMem
+jag::oldscape::Client	54786	1	m_usingRSeven		GetUsingRSeven
+jag::oldscape::Client	55240	0	m_deepLinkingIDs		GetDeepLinkingIDs
+jag::oldscape::Client	55272	0	m_npcList		GetNpcList
+jag::oldscape::Client	1103848	4	m_nPCCount	uint	GetNPCCount
+jag::oldscape::Client	1104184	0	m_endpointURLProvider		GetEndpointURLProvider
+jag::oldscape::Client	1104464	1	m_mapBuildRegionMode		IsMapBuildRegionMode
+jag::oldscape::Client	1120552	4	m_priorityPlayerId	uint	GetPriorityPlayerId
+jag::oldscape::Client	2505040	1	m_usingOneButtonMouse		SetUsingOneButtonMouse
+jag::oldscape::Client	2506384	0	m_hookQueue		GetHookQueue
+jag::oldscape::Client	2508664	0	m_interfaceInteraction		GetInterfaceInteraction
+jag::oldscape::Client	2509304	8	m_pWorldmap	Worldmap *	GetWorldmap
+jag::oldscape::Client	2509312	4305424	m_highlightManager		GetHighlightManager
+jag::oldscape::Client	6815056	2112	m_entityOverlays		GetEntityOverlays
+jag::oldscape::Client	7163272	1312	m_lootTrackerSaveHandler		GetLootTrackerSaveHandler
+jag::oldscape::Client	7164760	0	m_fog		GetFog
+jag::oldscape::Client	7306840	1	m_frozen		SetFrozen
+jag::oldscape::ClientEntity	560	8	m_hiddenBy		GetHiddenBy
+jag::oldscape::ClientEntity	952	0	m_spotAnims		GetSpotAnims
+jag::oldscape::ClientEntityID	4	4	m_slotID	uint	GetSlotID
+jag::oldscape::ClientInputHandler	96	4	m_minimenuBuildCoords		SetMinimenuBuildCoords
+jag::oldscape::ClientInputHandler	888	4	m_keysDown		GetKeysDown
+jag::oldscape::ClientInputHandler	1440	4	m_pKeysUp	int *	GetKeysUp
+jag::oldscape::ClientInputHandler	10052	4	m_screenDPI		SetScreenDPI
+jag::oldscape::ClientNpc	1044	4	m_creationCycle	int	GetCreationCycle
+jag::oldscape::ClientNpc	1048	8	m_pHighlight	HighlightChannelProperties *	GetHighlight
+jag::oldscape::ClientNpc	1056	1	m_enabledOpsBitMask		SetEnabledOpsBitMask
+jag::oldscape::ClientObj	48	8	m_pHighlight	AuthLibWrapper *	GetHighlight
+jag::oldscape::ClientObj	56	1	m_enabledOpsBitMask		SetEnabledOpsBitMask
+jag::oldscape::ClientPlayer	1240	8	m_pHighlight	HighlightChannelProperties *	GetHighlight
+jag::oldscape::ConfigParameter	64	8	m_lineNumber	ulong	GetLineNumber
+jag::oldscape::ConfigParameter	72	0	m_rawLine		GetRawLine
+jag::oldscape::Fog	0	8	m_pPixToolkit		SetPixToolkit
+jag::oldscape::HiscoresManager	296	4	m_dataSource		SetDataSource
+jag::oldscape::HookArg	0	4	m_argType	uint	GetArgType
+jag::oldscape::JavConfigReader	40	0	m_universalConfig		GetUniversalConfig
+jag::oldscape::JavConfigReader	272	0	m_languageMessages		GetLanguageMessages
+jag::oldscape::LocInfo	0	1	m_level	byte	GetLevel
+jag::oldscape::LocInfo	1	1	m_x	byte	GetX
+jag::oldscape::LocInfo	2	1	m_z		GetZ
+jag::oldscape::LocInfo	3	1	m_rotate		GetRotate
+jag::oldscape::LocInfo	4	1	m_layer		GetLayer
+jag::oldscape::LoginManager	40	4	m_authenticatorUserHash		GetAuthenticatorUserHash
+jag::oldscape::LoginManager	48	8	m_pAuthWrapper	AuthLibWrapper *	GetAuthWrapper
+jag::oldscape::LoginManager	64	0	m_devCredentialsOutputDirectory		GetDevCredentialsOutputDirectory
+jag::oldscape::LoginManager	368	0	m_devCredentialsFilename		GetDevCredentialsFilename
+jag::oldscape::OSClientConsole	576	8	m_pClient	Client *	GetClient
+jag::oldscape::OSClientConsole	600	0	m_inputHandler		GetInputHandler
+jag::oldscape::OSClientConsole	744	1	m_open	byte	IsOpen
+jag::oldscape::OSClientConsole	832	324	m_commandLineObject		GetCommandLineObject
+jag::oldscape::OSClientConsoleUI	104	12	m_bounds		GetBounds
+jag::oldscape::OSRenderCore_RenderThread_Common	88	8	m_constRenderStateNXT		GetConstRenderStateNXT
+jag::oldscape::OSRenderCore_RenderThread_JavaStyle	8592	0	m_nxtUploadedModels		GetNxtUploadedModels
+jag::oldscape::OSRenderCore_RenderThread_UI	1578928	4	m_scaledUIQuality		SetScaledUIQuality
+jag::oldscape::ScriptRunnerImpl	140884	4	m_activeNPC		SetActiveNPC
+jag::oldscape::ScriptRunnerImpl	140940	4	m_activePlayer		SetActivePlayer
+jag::oldscape::ScriptVarType	0	4	m_iD	uint	GetID
+jag::oldscape::ScriptVarType	16	0	m_defaultValue		GetDefaultValue
+jag::oldscape::ServerConnection	160	4	m_connectionState		GetConnectionState
+jag::oldscape::ServerConnection	2544	0	m_outgoingEncryption		GetOutgoingEncryption
+jag::oldscape::ServerConnection	4616	8	m_bytesSent	long	GetBytesSent
+jag::oldscape::ServerConnection	4624	8	m_bytesReceived		GetBytesReceived
+jag::oldscape::ServerConnection	4632	8	m_ticksSinceNoTimeOutPacket	long	GetTicksSinceNoTimeOutPacket
+jag::oldscape::Skybox	8	8	m_pPixToolkit		SetPixToolkit
+jag::oldscape::VBOMapper	25	1	m_mappingSupport		SetMappingSupport
+jag::oldscape::auth::AuthLibWrapper	152	8	m_purchaseShopItemStatus	uint	GetPurchaseShopItemStatus
+jag::oldscape::auth::AuthLibWrapper	172	1	m_ignorePendingTransactionsOnFetchGameToken		SetIgnorePendingTransactionsOnFetchGameToken
+jag::oldscape::auth::GameToken	32	4	m_status		GetStatus
+jag::oldscape::auth::SteamAuthLibWrapper	192	40	m_gameToken		GetGameToken
+jag::oldscape::configdecoder::DBRowType	48	4	m_dbTableId		GetDbTableId
+jag::oldscape::configdecoder::EnumType	44	4	m_numOptions	uint	GetNumOptions
+jag::oldscape::configdecoder::GameLogEventType	0	4	m_iD	int	GetID
+jag::oldscape::configdecoder::MapElementType	0	4	m_iD	int	GetID
+jag::oldscape::configdecoder::NPCHeadIconCustomisation	72	1	m_indices		GetIndices
+jag::oldscape::configdecoder::NPCTypeCustomisation	4	4	m_uniqueID	uint	GetUniqueID
+jag::oldscape::configdecoder::NPCTypeCustomisation	64	0	m_retextureDest		GetRetextureDest
+jag::oldscape::configdecoder::NpcType	584	0	m_headIconGraphics		GetHeadIconGraphics
+jag::oldscape::configdecoder::NpcType	656	1	m_headIconIndices		GetHeadIconIndices
+jag::oldscape::configdecoder::OldscapeVarType	96	8	m_dataType		GetDataType
+jag::oldscape::configdecoder::SeqType	64	4	m_start	uint	GetStart
+jag::oldscape::configdecoder::SeqType	68	4	m_end	uint	GetEnd
+jag::oldscape::constants::PublicChatMode	0	4	m_id	int	GetId
+jag::oldscape::core::SuperPacket	40	8	m_pEnc		SetEnc
+jag::oldscape::dash3d::AnimBase	4	4	m_numT	uint	GetNumT
+jag::oldscape::dash3d::DashBasePoseStateRSeven	32	4	m_frame		GetFrame
+jag::oldscape::dash3d::EntityHighlight	0	2	m_colour		GetColour
+jag::oldscape::dash3d::MaskedDashPoseStateRSeven	168	0	m_mask		GetMask
+jag::oldscape::dash3d::MaskedDashPoseStateRSeven	192	1	m_invertMask		GetInvertMask
+jag::oldscape::dash3d::ModelLitImpl	512	4	m_radiusCylinder	int	GetRadiusCylinder
+jag::oldscape::dash3d::ModelRSevenCommon	72	1	m_dynamic		IsDynamic
+jag::oldscape::dash3d::ModelRSevenLit	100	4	m_radiusCylinder	int	GetRadiusCylinder
+jag::oldscape::dash3d::NXTRenderCanvas	32	4	m_screenSize		SetScreenSize
+jag::oldscape::dash3d::NXTRenderCanvas	68	4	m_scaledUIQuality		SetScaledUIQuality
+jag::oldscape::dash3d::NXTRenderCanvas	96	4	m_fogParams		SetFogParams
+jag::oldscape::dash3d::NXTRenderCanvas	104	1	m_depthBufferEnabled		SetDepthBufferEnabled
+jag::oldscape::dash3d::NXTRenderCanvas	112	0	m_pixelBuffer		GetPixelBuffer
+jag::oldscape::dash3d::NXTRenderCanvas	136	4	m_lastNumVerts		GetLastNumVerts
+jag::oldscape::dash3d::NXTRenderer	292	1	m_permitRendering		SetPermitRendering
+jag::oldscape::dash3d::NXTRenderer	296	4	m_gamma	float	GetGamma
+jag::oldscape::dash3d::NXTRenderer::FrameBarrier	152	1	m_shutdown		IsShutdown
+jag::oldscape::dash3d::NXTWorldRenderer	8	8	m_pPix3D	NXTPix3D *	GetPix3D
+jag::oldscape::dash3d::NXTWorldRenderer	16	0	m_modelLitRenderer		GetModelLitRenderer
+jag::oldscape::dash3d::Operation	8	4	m_type	uint	GetType
+jag::oldscape::dash3d::OperationRecordEntry	16	112	m_inputModel		GetInputModel
+jag::oldscape::dash3d::OperationRecordEntry	128	112	m_outputModel		GetOutputModel
+jag::oldscape::dash3d::Pix3D	8	1	m_hClip		SetHClip
+jag::oldscape::dash3d::Pix3D	11	1	m_lowDetail		SetLowDetail
+jag::oldscape::dash3d::Pix3D	12	4	m_trans	int	GetTrans
+jag::oldscape::dash3d::Pix3D	16	4	m_zoom	int	GetZoom
+jag::oldscape::dash3d::Pix3D	20	4	m_xOrigin	int	GetXOrigin
+jag::oldscape::dash3d::Pix3D	24	4	m_yOrigin	int	GetYOrigin
+jag::oldscape::dash3d::Pix3D	28	4	m_xClip3	int	GetXClip3
+jag::oldscape::dash3d::Pix3D	36	4	m_boundLeft	int	GetBoundLeft
+jag::oldscape::dash3d::Pix3D	40	4	m_boundRight	int	GetBoundRight
+jag::oldscape::dash3d::Pix3D	44	4	m_boundTop	int	GetBoundTop
+jag::oldscape::dash3d::Pix3D	48	4	m_boundBottom	uint	GetBoundBottom
+jag::oldscape::dash3d::Pix3D	104	4	m_width	int	GetWidth
+jag::oldscape::dash3d::Pix3D	108	4	m_height	int	GetHeight
+jag::oldscape::dash3d::Pix3D	112	4	m_renderDepth		SetRenderDepth
+jag::oldscape::dash3d::PoseStateRSeven	8	4	m_type	uint	GetType
+jag::oldscape::dash3d::RSevenModelLitRenderer	0	8	m_pSpritesJs5		SetSpritesJs5
+jag::oldscape::dash3d::ResolvedModel	32	8	m_animationState		GetAnimationState
+jag::oldscape::dash3d::ShareLightBuffer	48	1	m_prepared		IsPrepared
+jag::oldscape::dash3d::ShareLightCache	88	0	m_uniquePoints		GetUniquePoints
+jag::oldscape::dash3d::ShareLightCache	120	0	m_vertexToPointMap		GetVertexToPointMap
+jag::oldscape::dash3d::SoftwareWorldRenderer	8	8	m_pPix3D	SoftwarePix3D *	GetPix3D
+jag::oldscape::dash3d::SoftwareWorldRenderer	16	0	m_modelLitRenderer		GetModelLitRenderer
+jag::oldscape::dash3d::TextureCache	64	8	m_gamma		SetGamma
+jag::oldscape::dash3d::world	30072	0	m_lastEntityDrawOrder		GetLastEntityDrawOrder
+jag::oldscape::graphics::NXTPixScreen	32	4	m_width		GetWidth
+jag::oldscape::graphics::NXTPixScreen	36	4	m_height	undefined4	GetHeight
+jag::oldscape::graphics::NXTPixScreen	64	8	m_pCurrentRenderCanvas	NXTRenderCanvas *	GetCurrentRenderCanvas
+jag::oldscape::graphics::NXTPixScreen	72	4	m_viewportX	int	GetViewportX
+jag::oldscape::graphics::NXTPixScreen	80	4	m_clientWindowSize		SetClientWindowSize
+jag::oldscape::graphics::NXTPixScreen	88	4	m_clampedZoomValue	float	GetClampedZoomValue
+jag::oldscape::graphics::NXTPixScreen	92	4	m_uIWidth	int	GetUIWidth
+jag::oldscape::graphics::NXTPixScreen	96	4	m_uIHeight		GetUIHeight
+jag::oldscape::graphics::NXTPixScreen	116	4	m_zoomValue	float	GetZoomValue
+jag::oldscape::graphics::NXTPixScreen	120	4	m_scaledUIQuality		SetScaledUIQuality
+jag::oldscape::graphics::NXTPixScreen	144	4	m_fogParams		SetFogParams
+jag::oldscape::graphics::NXTPixScreen	152	4	m_minSize		SetMinSize
+jag::oldscape::graphics::NXTPixToolkit	16	0	m_screen		GetScreen
+jag::oldscape::graphics::NXTPixToolkit	56	1	m_uIVisible		GetUIVisible
+jag::oldscape::graphics::NXTPixToolkit	58	1	m_depthBufferEnabled		SetDepthBufferEnabled
+jag::oldscape::graphics::NXTPixToolkit	176	40	m_pix2D		GetPix2D
+jag::oldscape::graphics::NXTPixToolkit	232	0	m_pix3D		GetPix3D
+jag::oldscape::graphics::OffscreenSoftwarePixToolkit	64	144	m_pix3D		GetPix3D
+jag::oldscape::graphics::OffscreenSoftwarePixToolkit	208	4	m_pWorldRenderer	float *	GetWorldRenderer
+jag::oldscape::graphics::animation::OldscapeAnimCurve	112	4	m_start		GetStart
+jag::oldscape::graphics::animation::OldscapeAnimCurve	116	4	m_end		GetEnd
+jag::oldscape::graphics::animation::OldscapeAnimKeyFrameSet	128	4	m_start	uint	GetStart
+jag::oldscape::graphics::animation::OldscapeAnimKeyFrameSet	132	4	m_end	uint	GetEnd
+jag::oldscape::graphics::animation::OldscapeAnimKeyFrameSet	136	0	m_base		GetBase
+jag::oldscape::graphics::animation::OldscapeAnimKeyFrameSet	152	4	m_bind	uint	GetBind
+jag::oldscape::graphics::animation::OldscapeAnimKeyFrameSet	156	1	m_transAnim		GetTransAnim
+jag::oldscape::graphics::animation::OldscapeJoint	144	1	m_local		GetLocal
+jag::oldscape::input::ClientKeyboardListener	324	1	m_forceCrashDown		IsForceCrashDown
+jag::oldscape::jagex3::Js5	20	0	m_indexCrc		GetIndexCrc
+jag::oldscape::jagex3::Js5	28	0	m_indexVersion	undefined4	GetIndexVersion
+jag::oldscape::jagex3::Js5	98	1	m_optional		IsOptional
+jag::oldscape::jagex3::RAII_RequestFailureHandler	16	4	m_code		SetCode
+jag::oldscape::javapal::GameShell	120	4	m_minimumCanvasWidth	int	GetMinimumCanvasWidth
+jag::oldscape::javapal::GameShell	124	4	m_minimumCanvasHeight		GetMinimumCanvasHeight
+jag::oldscape::javapal::GameShell	144	8	m_pPixToolkit	Js5MemoryCache *	GetPixToolkit
+jag::oldscape::javapal::GameShell	152	8	m_pGraphicsApp		GetGraphicsApp
+jag::oldscape::javapal::GameShell	8100	4	m_frameWidth	int	GetFrameWidth
+jag::oldscape::javapal::GameShell	8104	4	m_frameHeight	int	GetFrameHeight
+jag::oldscape::javapal::GameShell	8116	0	m_safeArea		GetSafeArea
+jag::oldscape::javapal::GameShell	8136	4	m_publishingPlatformType		GetPublishingPlatformType
+jag::oldscape::midi2::MidiPlayer	1200	4	m_globalVolume	int	GetGlobalVolume
+jag::oldscape::midi2::MidiTask	88	1	m_hasError		HasError
+jag::oldscape::minimap::Minimap	12	4	m_level	int	GetLevel
+jag::oldscape::minimap::Minimap	25720	4	m_zoom	int	GetZoom
+jag::oldscape::minimap::Minimap	25784	4	m_toggle		SetToggle
+jag::oldscape::minimap::Minimap	25788	1	m_zoomable		GetZoomable
+jag::oldscape::minimap::Minimap	25792	4	m_iconZoomLimit	int	GetIconZoomLimit
+jag::oldscape::minimap::Minimap	26080	0	m_mapEdgeArrow		GetMapEdgeArrow
+jag::oldscape::minimenu::Minimenu	113	1	m_simulatedShiftActive		GetSimulatedShiftActive
+jag::oldscape::minimenu::Minimenu	120	1	m_targetMode		SetTargetMode
+jag::oldscape::minimenu::Minimenu	124	4	m_targetComponent	int	GetTargetComponent
+jag::oldscape::minimenu::Minimenu	128	4	m_targetSubinterfaceId	int	GetTargetSubinterfaceId
+jag::oldscape::minimenu::Minimenu	132	4	m_targetLinkObject	int	GetTargetLinkObject
+jag::oldscape::minimenu::Minimenu	240	0	m_playerOps		GetPlayerOps
+jag::oldscape::minimenu::Minimenu	784	1	m_open		IsOpen
+jag::oldscape::minimenu::Minimenu	792	4	m_startHoverIndex		SetStartHoverIndex
+jag::oldscape::minimenu::Minimenu	796	4	m_numEntries	int	GetNumEntries
+jag::oldscape::minimenu::Minimenu	68800	1	m_followerLowPriority		SetFollowerLowPriority
+jag::oldscape::minimenu::Minimenu	68801	1	m_shiftClickEnabled		SetShiftClickEnabled
+jag::oldscape::minimenu::Minimenu	68804	4	m_attackPriorityPlayer		SetAttackPriorityPlayer
+jag::oldscape::minimenu::Minimenu	68808	4	m_attackPriorityNpc		SetAttackPriorityNpc
+jag::oldscape::minimenu::Minimenu	68928	1	m_feedbackShowPopupText		SetFeedbackShowPopupText
+jag::oldscape::minimenu::MinimenuEntry	4	4	m_z		SetZ
+jag::oldscape::minimenu::MinimenuEntry	56	0	m_subjectName		GetSubjectName
+jag::oldscape::minimenu::MinimenuEntry	88	4	m_subjectType	int	GetSubjectType
+jag::oldscape::minimenu::MinimenuEntry	96	8	m_subjectTypecode		GetSubjectTypecode
+jag::oldscape::minimenu::MinimenuEntry	104	4	m_objCount	int	GetObjCount
+jag::oldscape::option::IOption	16	8	m_name	undefined8	GetName
+jag::oldscape::option::IScriptOption	8	4	m_id	uint	GetId
+jag::oldscape::rs2lib::ActiveOffersReply::ActiveOffer	8	4	m_nodeId	uint	GetNodeId
+jag::oldscape::rs2lib::ActiveOffersReply::ActiveOffer	16	8	m_offerMade	undefined8	GetOfferMade
+jag::oldscape::rs2lib::CoordGrid	0	4	m_level	uint	GetLevel
+jag::oldscape::rs2lib::CoordGrid	4	4	m_x	uint	GetX
+jag::oldscape::rs2lib::CoordGrid	8	4	m_z	uint	GetZ
+jag::oldscape::rs2lib::CoordMapSquare	0	4	m_x	uint	GetX
+jag::oldscape::rs2lib::CoordMapSquare	4	4	m_z	uint	GetZ
+jag::oldscape::rs2lib::CoordZoneSource	0	4	m_zoneX	uint	GetZoneX
+jag::oldscape::rs2lib::CoordZoneSource	4	4	m_zoneZ	uint	GetZoneZ
+jag::oldscape::rs2lib::CoordZoneSource	8	4	m_level	uint	GetLevel
+jag::oldscape::rs2lib::CoordZoneSource	12	4	m_rotation	int	GetRotation
+jag::oldscape::rs2lib::InputField	80	80	m_placeholderContents		GetPlaceholderContents
+jag::oldscape::rs2lib::InputField	160	1	m_hasFocus	char	HasFocus
+jag::oldscape::rs2lib::InputField	180	1	m_hasFont		HasFont
+jag::oldscape::rs2lib::InputField	184	4	m_enterAction		SetEnterAction
+jag::oldscape::rs2lib::InputField	192	4	m_filter	uint	GetFilter
+jag::oldscape::rs2lib::InputField	200	8	m_caretIndex		GetCaretIndex
+jag::oldscape::rs2lib::InputField	208	8	m_pSelectionStart	RenderTargetsManager *	GetSelectionStart
+jag::oldscape::rs2lib::InputField	232	8	m_characterLimit	ulong	GetCharacterLimit
+jag::oldscape::rs2lib::InputField	248	4	m_scrollX		GetScrollX
+jag::oldscape::rs2lib::PlayerModel	292	4	m_pronoun		GetPronoun
+jag::oldscape::rs2lib::PlayerModel	296	4	m_bodytype		SetBodytype
+jag::oldscape::rs2lib::StockPlayerOffer	0	1	m_offerStatus	byte	GetOfferStatus
+jag::oldscape::rs2lib::StockPlayerOffer	1	1	m_offerType	byte	GetOfferType
+jag::oldscape::rs2lib::StockPlayerOffer	4	4	m_item	uint	GetItem
+jag::oldscape::rs2lib::StockPlayerOffer	8	4	m_price		SetPrice
+jag::oldscape::rs2lib::StockPlayerOffer	12	4	m_addedCount	int	GetAddedCount
+jag::oldscape::rs2lib::StockPlayerOffer	16	4	m_completedCount	int	GetCompletedCount
+jag::oldscape::rs2lib::StockPlayerOffer	20	4	m_completedGold		GetCompletedGold
+jag::oldscape::rs2lib::social::DisplayName	32	0	m_baseDisplayName		GetBaseDisplayName
+jag::oldscape::rs2lib::worldmap::MapZoneData	192	4	m_zoneX	uint	GetZoneX
+jag::oldscape::rs2lib::worldmap::MapZoneData	196	4	m_zoneZ	uint	GetZoneZ
+jag::oldscape::rs2lib::worldmap::MapZoneData	200	4	m_targetZoneX	uint	GetTargetZoneX
+jag::oldscape::rs2lib::worldmap::MapZoneData	204	4	m_targetZoneZ	uint	GetTargetZoneZ
+jag::oldscape::rs2lib::worldmap::MultiLocMapElement	56	4	m_melTypeId		GetMelTypeId
+jag::oldscape::rs2lib::worldmap::MultiLocMapElement	72	4	m_width		GetWidth
+jag::oldscape::rs2lib::worldmap::MultiLocMapElement	76	4	m_height		GetHeight
+jag::oldscape::rs2lib::worldmap::PackableArea	128	4	m_areaGeographyPackID		SetAreaGeographyPackID
+jag::oldscape::rs2lib::worldmap::PackableArea	168	4	m_baseLevel		GetBaseLevel
+jag::oldscape::rs2lib::worldmap::PackableArea	176	4	m_targetMapSquareX	int	GetTargetMapSquareX
+jag::oldscape::rs2lib::worldmap::PackableArea	180	4	m_targetMapSquareZ	int	GetTargetMapSquareZ
+jag::oldscape::rs2lib::worldmap::PackableArea	184	4	m_maxLevels	int	GetMaxLevels
+jag::oldscape::rs2lib::worldmap::StaticMapElement	44	4	m_melTypeId	int	GetMelTypeId
+jag::oldscape::rs2lib::worldmap::StaticMapElement	56	4	m_width		GetWidth
+jag::oldscape::rs2lib::worldmap::StaticMapElement	60	4	m_height		GetHeight
+jag::oldscape::rs2lib::worldmap::WorldmapAreaMetadata	0	4	m_id	uint	GetId
+jag::oldscape::rs2lib::worldmap::WorldmapAreaMetadata	72	8	m_backgroundColour	int	GetBackgroundColour
+jag::oldscape::rs2lib::worldmap::WorldmapAreaMetadata	76	4	m_advisedZoom	uint	GetAdvisedZoom
+jag::oldscape::rs2lib::worldmap::WorldmapAreaMetadata	80	12	m_origin		GetOrigin
+jag::oldscape::rs2lib::worldmap::WorldmapAreaMetadata	92	4	m_minMapX	int	GetMinMapX
+jag::oldscape::rs2lib::worldmap::WorldmapAreaMetadata	96	4	m_maxMapX		GetMaxMapX
+jag::oldscape::rs2lib::worldmap::WorldmapAreaMetadata	100	4	m_minMapZ		SetMinMapZ
+jag::oldscape::rs2lib::worldmap::WorldmapAreaMetadata	104	4	m_maxMapZ	int	GetMaxMapZ
+jag::oldscape::rs2lib::worldmap::WorldmapRenderer	8	1	m_valid		IsValid
+jag::oldscape::rs2lib::worldmap::WorldmapRenderer	40	0	m_mapElements		GetMapElements
+jag::oldscape::rseven::OSRenderCore_TextureDataProvider	8	4	m_gamma	float	SetGamma
+jag::oldscape::rseven::OSRenderCore_TextureDataProvider	80	8	m_pTexturesCompressedDXTArchive	Js5ConfigGroup *	GetTexturesCompressedDXTArchive
+jag::oldscape::rseven::OSRenderCore_TextureDataProvider	88	0	m_texturesCompressedETCArchive		GetTexturesCompressedETCArchive
+jag::oldscape::rseven::OSRenderCore_TextureDataProvider	96	0	m_texturesUncompressedMippedArchive		GetTexturesUncompressedMippedArchive
+jag::oldscape::rseven::OSRenderCore_TextureDataProvider	104	8	m_pSpritesArchive	ParticleManagerHeightProvider *	GetSpritesArchive
+jag::oldscape::rseven::Scene	944	0	m_sceneGraphRoot		GetSceneGraphRoot
+jag::oldscape::sound::Floor::FloorDecoder	8	1	m_hasResidue		HasResidue
+jag::oldscape::sound::Mixer	88	4	m_streamCountLastMix	int	GetStreamCountLastMix
+jag::oldscape::widgets::CommandLineWidget	88	4	m_highlightColour		SetHighlightColour
+jag::oldscape::widgets::CommandLineWidget	92	0	m_selectedTextColour		SetSelectedTextColour
+jag::oldscape::widgets::OutputWidget	92	4	m_bottomLine		SetBottomLine
+jag::oldscape::widgets::ScrollBarWidget	76	1	m_thumbVisible		SetThumbVisible
+jag::oldscape::widgets::ScrollBarWidget	88	20	m_thumbBounds		GetThumbBounds
+jag::oldscape::widgets::Widget	8	4	m_backgroundColour		SetBackgroundColour
+jag::oldscape::widgets::Widget	12	4	m_borderColour		SetBorderColour
+jag::oldscape::widgets::Widget	16	4	m_textColour	int	GetTextColour
+jag::oldscape::widgets::Widget	21	1	m_borderLeft		SetBorderLeft
+jag::oldscape::widgets::Widget	22	1	m_borderTop		SetBorderTop
+jag::oldscape::widgets::Widget	28	0	m_padding		GetPadding
+jag::oldscape::widgets::Widget	44	20	m_bounds		GetBounds
+jag::oldscape::widgets::Widget	60	0	m_contentBounds		GetContentBounds
+jag::oldscape::worldmap::Worldmap	288	4	m_tileWidth		GetTileWidth
+jag::oldscape::worldmap::Worldmap	292	4	m_tileHeight		GetTileHeight
+jag::oldscape::worldmap::Worldmap	312	1	m_perpetualFlash		SetPerpetualFlash
+jag::oldscape::worldmap::WorldmapLoader	40	4	m_progress	int	GetProgress
+jag::oldscape::worldmap::WorldmapLoader	44	1	m_loadComplete		IsLoadComplete
+jag::postprocess::AvgLuminanceFilter	24	1	m_shaderOutputFormat	undefined4	GetShaderOutputFormat
+jag::postprocess::PostProcessEffect	8	1	m_enabled		SetEnabled
+jag::postprocess::PostProcessEffect	12	4	m_iD	int	GetID
+jag::postprocess::PostProcessEffect	16	4	m_priority	int	GetPriority
+jag::postprocess::PostProcessManager	208	8	m_pRenderTargetsManager	RenderTargetsManager *	GetRenderTargetsManager
+jag::postprocess::PostProcessManager	296	0	m_downSampledSourceRTs		GetDownSampledSourceRTs
+jag::postprocess::PostProcessManager	320	0	m_downSampledSourceDepthMinRTs		GetDownSampledSourceDepthMinRTs
+jag::postprocess::PostProcessManager	448	0	m_brightPassFilter		GetBrightPassFilter
+jag::postprocess::PostProcessManager	680	0	m_gaussianBlurFilter		GetGaussianBlurFilter
+jag::postprocess::PostProcessManager	728	0	m_kawaseBlurFilter		GetKawaseBlurFilter
+jag::postprocess::PostProcessManager	968	0	m_dualFilteringBlurFilter		GetDualFilteringBlurFilter
+jag::postprocess::PostProcessManager	1024	0	m_viewTransforms		GetViewTransforms
+jag::postprocess::PostProcessManager	1232	0	m_renderToTexture		GetRenderToTexture
+jag::render::BufferInterface	8	4	m_nativeBuffer	uint	GetNativeBuffer
+jag::render::BufferInterface	36	4	m_sizeInBytes	undefined4	GetSizeInBytes
+jag::render::BufferInterface	40	4	m_physicalSizeInBytes	int	GetPhysicalSizeInBytes
+jag::render::BufferInterface	44	1	m_creationFlags		GetCreationFlags
+jag::render::ComputePipelineState	168	0	m_cSTextureSamplerPairs		GetCSTextureSamplerPairs
+jag::render::ComputePipelineState	464	0	m_cSTextureImages		GetCSTextureImages
+jag::render::ComputePipelineState	632	8	m_pShaderProgram	ShaderProgram *	GetShaderProgram
+jag::render::GPUMemoryAllocatorZone	584	0	m_exclusiveObjectMemory		GetExclusiveObjectMemory
+jag::render::GPUMemoryAllocatorZone	29688	4	m_inclusiveAllocations	int	GetInclusiveAllocations
+jag::render::GPUMemoryAllocatorZone	29696	0	m_inclusiveObjectMemory		GetInclusiveObjectMemory
+jag::render::GPUMemoryAllocatorZoneMonitor	60268776	8	m_pRootZone	GPUMemoryAllocatorZone *	GetRootZone
+jag::render::ImmediateRenderContext	0	1	m_insideBeginEnd		IsInsideBeginEnd
+jag::render::ImmediateRenderContext	44	0	m_stats		GetStats
+jag::render::ImmediateRenderContext	152	8	m_threadID		GetThreadID
+jag::render::ImmediateRenderContext	164	4	m_gLCoreProfileVerMajor	int	GetGLCoreProfileVerMajor
+jag::render::ImmediateRenderContext	168	4	m_gLCoreProfileVerMinor		GetGLCoreProfileVerMinor
+jag::render::ImmediateRenderContext	2208	8	m_pStateCache		GetStateCache
+jag::render::ImmediateRenderContext	3144	4	m_vSyncMode	int	GetVSyncMode
+jag::render::IndexBuffer	80	4	m_dataType	int	GetDataType
+jag::render::IndexBuffer	84	4	m_indexCount		GetIndexCount
+jag::render::InputAssemblerState	0	4	m_primitiveType	uint	GetPrimitiveType
+jag::render::InputAssemblerState	16	8	m_pVertexBuffers		GetVertexBuffers
+jag::render::InputAssemblerState	120	8	m_pIndexBuffer	BufferInterface *	GetIndexBuffer
+jag::render::InputAssemblerState	128	4	m_flags		SetFlags
+jag::render::InputAssemblerState	152	4	m_gLIndexBuffer	uint	GetGLIndexBuffer
+jag::render::InputAssemblerState	156	0	m_gLVertexBuffers		GetGLVertexBuffers
+jag::render::OutputMergerState	64	0	m_scissorRects		GetScissorRects
+jag::render::OutputMergerState	192	4	m_depthClear	float	GetDepthClear
+jag::render::OutputMergerState	196	1	m_stencilClear	uchar	GetStencilClear
+jag::render::OutputMergerState	200	4	m_clearFlags	int	GetClearFlags
+jag::render::QueryView	8	4	m_subQueryCount	uint	GetSubQueryCount
+jag::render::RenderContext	16	3168	m_immediateContextUnsafe		GetImmediateContextUnsafe
+jag::render::RenderContext	3440	113	m_destroyRenderThreadFence		GetDestroyRenderThreadFence
+jag::render::RenderContext	4064	8	m_pCurrentState		GetCurrentState
+jag::render::RenderDevice	96	4	m_gPUVendor		GetGPUVendor
+jag::render::RenderDevice	104	0	m_deviceCaps		GetDeviceCaps
+jag::render::RenderDevice	488	4	m_gpuMemoryProfile	int	GetGpuMemoryProfile
+jag::render::RenderDevice	1152	8	m_totalAllocatedGPUMemory	ulong	GetTotalAllocatedGPUMemory
+jag::render::RenderPipelineState	16	8	m_rasteriserState	undefined8	GetRasteriserState
+jag::render::RenderPipelineState	24	8	m_pShaderProgram		SetShaderProgram
+jag::render::RenderPipelineState	200	0	m_vSStorageBuffers		GetVSStorageBuffers
+jag::render::RenderPipelineState	256	0	m_vSTextureSamplerPairs		GetVSTextureSamplerPairs
+jag::render::RenderPipelineState	328	0	m_pSConstBuffers		GetPSConstBuffers
+jag::render::RenderPipelineState	496	0	m_pSStorageBuffers		GetPSStorageBuffers
+jag::render::RenderPipelineState	552	0	m_pSTextureSamplerPairs		GetPSTextureSamplerPairs
+jag::render::RenderStats	52	0	m_avgDrawCalls		GetAvgDrawCalls
+jag::render::RenderStats	60	0	m_triangleCount		GetTriangleCount
+jag::render::RenderStats	64	4	m_avgTriangleCount	uint	GetAvgTriangleCount
+jag::render::RenderStats	72	4	m_lineCount	int	GetLineCount
+jag::render::Shader	72	4	m_nativeShader	int	GetNativeShader
+jag::render::ShaderProgram	120	1	m_vertexShaderSource		GetVertexShaderSource
+jag::render::ShaderProgram	176	1	m_pixelShaderSource		GetPixelShaderSource
+jag::render::ShaderProgram	232	0	m_computeShaderSource		GetComputeShaderSource
+jag::render::ShaderProgram	332	4	m_lastUsedTimeSeconds		SetLastUsedTimeSeconds
+jag::render::ShaderProgram	368	1	m_compileFlags	uchar	GetCompileFlags
+jag::render::ShaderProgram	1832	4	m_nativeShaderProgram	uint	GetNativeShaderProgram
+jag::render::Texture	16	4	m_type	int	GetType
+jag::render::Texture	88	4	m_faceMipLevels	int	GetFaceMipLevels
+jag::render::Texture	296	4	m_nativeTextureId		GetNativeTextureId
+jag::render::Texture	304	0	m_samplerState		GetSamplerState
+jag::render::Texture	368	0	m_gLWriteMutex		GetGLWriteMutex
+jag::render::TextureFormatBitSet	0	4	m_bits	uint	GetBits
+jag::render::VertexArrayObject	0	4	m_nativeVAO	uint	GetNativeVAO
+jag::render::VertexArrayObject	4	4	m_lastUsageSeconds	float	GetLastUsageSeconds
+jag::render::VertexDeclaration	88	4	m_numVertexStreams	int	GetNumVertexStreams
+jag::testframework::TestResults	36	4	m_numFailed	undefined4	GetNumFailed
+jag::testframework::TestResultsWriter	320	0	m_resultsFormatted		GetResultsFormatted
+jag::testframework::TestRunner	672	0	m_autorunCredentials		GetAutorunCredentials
+jag::testframework::TestRunner	704	4	m_testRunnerState		GetTestRunnerState
+jag::testframework::TestVM	264	1	m_testRunning		IsTestRunning
+jag::tweak::ColourPicker	444	4	m_intensity	float	GetIntensity
+jag::tweak::Container	288	4	m_direction		SetDirection
+jag::tweak::Control	32	4	m_type		GetType
+jag::tweak::Control	136	4	m_pPlacement	uint *	GetPlacement
+jag::tweak::Control	208	1	m_mouseOver		SetMouseOver
+jag::tweak::Control	209	1	m_hasBeenShown	char	HasBeenShown
+jag::tweak::Control	210	1	m_ignoreTags		SetIgnoreTags
+jag::tweak::DropdownGroup	208	1	m_mouseOver		SetMouseOver
+jag::tweak::DropdownGroup	334	1	m_hasKeyboardNavigation		HasKeyboardNavigation
+jag::tweak::EditLine	0	4	m_drawOffset	uint	GetDrawOffset
+jag::tweak::EditLine	4	4	m_pos		SetPos
+jag::tweak::EditLine	304	4	m_selectionStart		SetSelectionStart
+jag::tweak::EditLine	308	1	m_selecting		SetSelecting
+jag::tweak::EditLine	309	1	m_cursorShown		SetCursorShown
+jag::tweak::Label	212	4	m_maxWidth		SetMaxWidth
+jag::tweak::Slider	616	4	m_currentValue	float	GetCurrentValue
+jag::tweak::Tickable	211	1	m_ticked		SetTicked
+jag::tweak::Tweaky	16	16	m_root		GetRoot
+jag::tweak::Tweaky	48	8	m_pRT7Core	AuthLibWrapper *	GetRT7Core
+jag::tweak::Tweaky	56	8	m_pFontHelper		GetFontHelper
+jag::tweak::Tweaky	64	16	m_font		GetFont
+jag::tweak::Tweaky	104	4	m_placement		GetPlacement
+jag::tweak::Tweaky	140	4	m_visibleArea		SetVisibleArea
+jag::tweak::Tweaky	148	4	m_colour		SetColour
+jag::tweak::Tweaky	157	1	m_attached		IsAttached
+jag::tweak::Tweaky	158	1	m_minimised		SetMinimised
+jag::ui::Button	392	8	m_pValueRepresentation		GetValueRepresentation
+jag::ui::Button	556	4	m_linkObjType		SetLinkObjType
+jag::ui::Button	560	8	m_linkObjCount		SetLinkObjCount
+jag::ui::ButtonElement	4	4	m_trigger	uint	GetTrigger
+jag::ui::ButtonElement	9	1	m_mouseOver		IsMouseOver
+jag::ui::ButtonElement	10	1	m_pressed		IsPressed
+jag::ui::ButtonElement	25	1	m_toggled		IsToggled
+jag::ui::Carousel	392	8	m_valueRepresentation		GetValueRepresentation
+jag::ui::Check	392	8	m_pValueRepresentation		GetValueRepresentation
+jag::ui::ComboField	392	8	m_pValueRepresentation		GetValueRepresentation
+jag::ui::ComboField	832	1	m_entryHeight	byte	GetEntryHeight
+jag::ui::ComboField	833	1	m_dropdownMaxVisibleEntries	byte	GetDropdownMaxVisibleEntries
+jag::ui::Component	48	1	m_parentPageIndex	uchar	GetParentPageIndex
+jag::ui::Component	52	1	m_modeWidth	byte	GetModeWidth
+jag::ui::Component	53	1	m_modeHeight	char	GetModeHeight
+jag::ui::Component	64	4	m_dataWidth	uint	GetDataWidth
+jag::ui::Component	68	4	m_dataHeight	uint	GetDataHeight
+jag::ui::Component	80	4	m_currentX	int	GetCurrentX
+jag::ui::Component	84	4	m_currentY		GetCurrentY
+jag::ui::Component	88	4	m_currentWidth	int	GetCurrentWidth
+jag::ui::Component	92	4	m_currentHeight	int	GetCurrentHeight
+jag::ui::Component	96	4	m_rGB		GetRGB
+jag::ui::Component	100	1	m_alpha	byte	GetAlpha
+jag::ui::Component	102	2	m_styleSheetPackID		SetStyleSheetPackID
+jag::ui::Component	112	0	m_opConfig		GetOpConfig
+jag::ui::Component	256	0	m_cursorConfig		GetCursorConfig
+jag::ui::Component	264	24	m_dragConfig		GetDragConfig
+jag::ui::Component	288	0	m_swipeConfig		GetSwipeConfig
+jag::ui::Component	296	0	m_serverConfig		GetServerConfig
+jag::ui::Component	312	0	m_params		GetParams
+jag::ui::Component	360	0	m_debugName		GetDebugName
+jag::ui::ComponentCollection	432	4	m_scrollWidth	int	GetScrollWidth
+jag::ui::ComponentCollection	436	4	m_scrollHeight	int	GetScrollHeight
+jag::ui::ComponentCollection	440	0	m_staticChildren		GetStaticChildren
+jag::ui::ComponentCollection	472	0	m_staticChildrenRenderOrderCollection		GetStaticChildrenRenderOrderCollection
+jag::ui::ComponentCollection	504	0	m_dynamicChildren		GetDynamicChildren
+jag::ui::ComponentCollection	536	0	m_dynamicChildrenRenderOrderCollection		GetDynamicChildrenRenderOrderCollection
+jag::ui::ComponentCollectionBase::DynamicNestedChildren	44	4	m_nextFreeId	int	GetNextFreeId
+jag::ui::ComponentContainer	0	1	m_hidden		GetHidden
+jag::ui::ComponentCursorConfig	0	2	m_mouseOverCursor		SetMouseOverCursor
+jag::ui::ComponentCursorConfig	2	2	m_validTargetCursor		SetValidTargetCursor
+jag::ui::ComponentCursorConfig	4	2	m_invalidTargetCursor		SetInvalidTargetCursor
+jag::ui::ComponentDragConfig	16	4	m_renderBehaviour	byte	GetRenderBehaviour
+jag::ui::ComponentSwipeConfig	0	1	m_deadZoneVertical	byte	GetDeadZoneVertical
+jag::ui::ComponentSwipeConfig	1	1	m_deadZoneHorizontal	byte	GetDeadZoneHorizontal
+jag::ui::ComponentSwipeConfig	2	1	m_directionMask		GetDirectionMask
+jag::ui::ComponentSwipeConfig	3	1	m_deceleration		GetDeceleration
+jag::ui::ComponentSwipeConfig	4	1	m_stopExponent		GetStopExponent
+jag::ui::ConsoleEditLine	0	4	m_drawOffset	uint	GetDrawOffset
+jag::ui::ConsoleEditLine	4	4	m_pos	uint	GetPos
+jag::ui::ConsoleEditLine	309	1	m_cursorShown		SetCursorShown
+jag::ui::ConsoleUI	2520	4	m_consoleHeight	int	GetConsoleHeight
+jag::ui::DragState	100	1	m_beenDragged		SetBeenDragged
+jag::ui::Grid	581	1	m_layoutDirty		IsLayoutDirty
+jag::ui::HTTPSpriteData	56	16	m_texture		GetTexture
+jag::ui::InputField	856	0	m_contents		GetContents
+jag::ui::Interface	0	4	m_interfaceID	uint	GetInterfaceID
+jag::ui::Line	392	4	m_lineStrokeWidth	uint	GetLineStrokeWidth
+jag::ui::Line	396	1	m_lineFlipDiagonal		GetLineFlipDiagonal
+jag::ui::List	400	8	m_valueRepresentation		GetValueRepresentation
+jag::ui::PagedCarousel	1088	1	m_layoutDirty		IsLayoutDirty
+jag::ui::PagedLayer	424	8	m_pValueRepresentation		GetValueRepresentation
+jag::ui::PagedLayer	432	0	m_staticChildren		GetStaticChildren
+jag::ui::PagedLayer	464	0	m_dynamicChildren		GetDynamicChildren
+jag::ui::PagedLayer	1016	1	m_staticPageCount	byte	GetStaticPageCount
+jag::ui::PagedLayer	1017	1	m_activePage	uchar	GetActivePage
+jag::ui::PagedLayer	1018	1	m_previousValue	uchar	GetPreviousValue
+jag::ui::Panel	568	1	m_layoutDirty		IsLayoutDirty
+jag::ui::PinchState	112	1	m_verticallyPinched		SetVerticallyPinched
+jag::ui::PinchState	113	1	m_horizontallyPinched		SetHorizontallyPinched
+jag::ui::RadioGroup	392	8	m_valueRepresentation		GetValueRepresentation
+jag::ui::Rectangle	392	1	m_rectangleFill		GetRectangleFill
+jag::ui::ScrollBar	48	48	m_buttonSprite		GetButtonSprite
+jag::ui::ScrollBar	96	48	m_handleSprite		GetHandleSprite
+jag::ui::ScrollBar	144	1	m_size	byte	GetSize
+jag::ui::Slider	392	8	m_pValueRepresentation		GetValueRepresentation
+jag::ui::Slider	616	4	m_currentValue	int	GetCurrentValue
+jag::ui::Slider	644	1	m_hasRecentValueChange		HasRecentValueChange
+jag::ui::Sprite	440	4	m_linkObjType	int	GetLinkObjType
+jag::ui::Sprite	448	8	m_linkObjCount	ulonglong	GetLinkObjCount
+jag::ui::Sprite	457	1	m_linkCountChanged		SetLinkCountChanged
+jag::ui::Sprite	460	4	m_hTTPImage		GetHTTPImage
+jag::ui::SpriteData	0	4	m_spriteID	uint	GetSpriteID
+jag::ui::SpriteData	4	4	m_spriteShadowRGB	uint	GetSpriteShadowRGB
+jag::ui::SpriteData	8	2	m_spriteRotate	ushort	GetSpriteRotate
+jag::ui::SpriteData	10	1	m_spriteOutline		SetSpriteOutline
+jag::ui::SpriteData	12	4	m_spriteRGB	int	GetSpriteRGB
+jag::ui::SpriteData	16	1	m_spriteAlpha	byte	GetSpriteAlpha
+jag::ui::SpriteData	24	8	m_spriteAtlasReference		SetSpriteAtlasReference
+jag::ui::SwipeState	16	4	m_startPosition		SetStartPosition
+jag::ui::SwipeState	24	4	m_lastPosition		SetLastPosition
+jag::ui::SwipeState	32	4	m_swipeMovement		SetSwipeMovement
+jag::ui::SwipeState	48	8	m_pSwipeTime		SetSwipeTime
+jag::ui::SwipeState	56	1	m_verticallySwiped		SetVerticallySwiped
+jag::ui::SwipeState	57	1	m_horizontallySwiped		SetHorizontallySwiped
+jag::ui::SwipeState	60	4	m_deadZoneVertical		SetDeadZoneVertical
+jag::ui::SwipeState	64	4	m_deadZoneHorizontal		SetDeadZoneHorizontal
+jag::ui::SwipeState	128	1	m_isDrifting		SetIsDrifting
+jag::ui::SwipeState	132	4	m_driftSpeed		SetDriftSpeed
+jag::ui::SwipeState	140	4	m_driftDelta		SetDriftDelta
+jag::ui::SwipeState	148	4	m_stopThreshold		SetStopThreshold
+jag::ui::Text	456	4	m_linkObjType	int	GetLinkObjType
+jag::ui::Text	464	8	m_linkObjCount	ulonglong	GetLinkObjCount
+jag::ui::TextData	16	0	m_textString		GetTextString
+jag::ui::TextData	40	1	m_textFontID	int	GetTextFontID
+jag::ui::TextData	45	1	m_textMaxLines		SetTextMaxLines
+jag::ui::TextData	46	1	m_textHAlign		GetTextHAlign
+jag::ui::TextData	47	1	m_textVAlign		GetTextVAlign
+jag::ui::TextData	48	4	m_textColour		GetTextColour
+jag::ui::TextData	52	1	m_textAlpha	byte	GetTextAlpha

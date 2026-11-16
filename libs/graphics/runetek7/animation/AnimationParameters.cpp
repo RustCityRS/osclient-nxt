@@ -7,37 +7,37 @@
 
 namespace jag::graphics {
     // 0x1000dc670: the linker folded this into oldscape::javapal::GameShell::GetMinimumCanvasHeight() const, which has identical code
-    AnimationParameters::GetLoopsCompleted() const;
+    uint AnimationParameters::GetLoopsCompleted() const;
 
     // 0x10012f260: the linker folded this into oldscape::social::OnlinePlayerData<oldscape::social::FriendChatUser>::GetWorldId() const, which has identical code
-    AnimationParameters::GetDelay() const;
+    uint AnimationParameters::GetDelay() const;
 
     // 0x10015dc30: the linker folded this into oldscape::auth::AuthLibWrapper::GetPurchaseShopItemStatus(), which has identical code
-    AnimationParameters::GetCurrentIndex() const;
+    uint AnimationParameters::GetCurrentIndex() const;
 
     // 0x1001cd990: the linker folded this into PointLightIndicesEffect::GetVisiblePointLights(), which has identical code
     AnimationParameters::GetAnimation() const;
 
     // 0x1003cbc60: the linker folded this into game::MapArea::GetBackgroundRGBA() const, which has identical code
-    AnimationParameters::GetLoopLength() const;
+    uint AnimationParameters::GetLoopLength() const;
 
     // 0x1003cf280: the linker folded this into game::MapElementType::GetTextBackgroundFillRGBA() const, which has identical code
-    AnimationParameters::GetAnimationLength() const;
+    uint AnimationParameters::GetAnimationLength() const;
 
     // 0x1003f9260: the linker folded this into game::EffectAnimType::CastsShadows() const, which has identical code
     AnimationParameters::GetPaused() const;
 
     // 0x100410520: the linker folded this into game::ChangeLocationRequest::GetSourceLogicTick() const, which has identical code
-    AnimationParameters::GetLoopBehaviour() const;
+    int AnimationParameters::GetLoopBehaviour() const;
 
     // 0x1004af330: the linker folded this into game::MapArea::ShouldAutoFind() const, which has identical code
     AnimationParameters::GetTweenLastFrameToFirst() const;
 
     // 0x100869a60: the linker folded this into Material::GetAlphaMode() const, which has identical code
-    AnimationParameters::GetLastUpdateTimeNS() const;
+    long AnimationParameters::GetLastUpdateTimeNS() const;
 
     // 0x100869a70: the linker folded this into Material::GetBlendMode() const, which has identical code
-    AnimationParameters::GetStartTimeNS() const;
+    ulong AnimationParameters::GetStartTimeNS() const;
 
     // 0x1009897c0, 656 bytes, base-object constructor, placed by class name and debug map
     // AnimationParameters::AnimationParameters(shared_ptr<Animation> const&, AnimationLoopBehaviour, unsigned int, unsigned int, bool, int, unsigned int, bool)
@@ -66,9 +66,9 @@ namespace jag::graphics {
         this_00 = &field_96;
         new (this_00) shared_ptr<oldscape::dash3d::Decor>(param_1);
         m_loopBehaviour = param_3;
-        field_116 = param_7;
-        field_120 = param_9;
-        field_124 = 0;
+        m_loopLength = param_7;
+        m_tweenLastFrameToFirst = param_9;
+        m_loopsCompleted = 0;
         field_128 = param_8;
         m_finished = 0;
         m_delay = param_4;
@@ -181,7 +181,7 @@ namespace jag::graphics {
                 m_currentIndex = m_currentIndex - 1;
             }
         }
-        field_124 = 0;
+        m_loopsCompleted = 0;
         m_finished = 0;
         m_delay = param_2;
     }
@@ -232,7 +232,7 @@ namespace jag::graphics {
         uint uVar14;
         uint uVar15;
 
-        field_124 = param_3;
+        m_loopsCompleted = param_3;
         m_finished = 0;
         m_currentIndex = 0;
         uVar12 = (ulong)(param_4 - param_2);
@@ -276,11 +276,11 @@ namespace jag::graphics {
                 uVar4 = m_currentIndex;
                 uVar7 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_04);
             }
-            if (((field_116 != 4294967295) && (m_loopBehaviour != 2)) &&
-                (m_currentIndex = m_currentIndex - field_116, m_loopBehaviour == 0)) {
-                field_124 = field_124 + 1;
+            if (((m_loopLength != 4294967295) && (m_loopBehaviour != 2)) &&
+                (m_currentIndex = m_currentIndex - m_loopLength, m_loopBehaviour == 0)) {
+                m_loopsCompleted = m_loopsCompleted + 1;
             }
-            if (field_124 < field_128) {
+            if (m_loopsCompleted < field_128) {
                 uVar4 = m_currentIndex;
                 pAVar5 = (Animation*)shared_ptr<Animation>::operator->((shared_ptr<Animation>*)this_00);
                 uVar2 = pAVar5->GetFrameCount();
@@ -302,15 +302,15 @@ namespace jag::graphics {
         }
         uVar2 = GetPreLoopLength(this);
         m_currentIndex = uVar14;
-        uVar4 = field_116;
+        uVar4 = m_loopLength;
         if (((uVar4 != 4294967295) && (m_loopBehaviour != 2)) && ((int)uVar2 <= (int)uVar14)) {
             m_currentIndex = uVar2;
             if (m_loopBehaviour == 0) {
-                field_124 = field_124 + (int)(uVar14 - uVar2) / (int)uVar4;
+                m_loopsCompleted = m_loopsCompleted + (int)(uVar14 - uVar2) / (int)uVar4;
             }
             m_currentIndex = (int)(uVar14 - uVar2) % (int)uVar4 + uVar2;
         }
-        if (field_124 < field_128) {
+        if (m_loopsCompleted < field_128) {
             uVar4 = m_currentIndex;
             pAVar5 = (Animation*)shared_ptr<Animation>::operator->((shared_ptr<Animation>*)this_00);
             uVar3 = pAVar5->GetFrameCount();
@@ -330,8 +330,8 @@ namespace jag::graphics {
         }
         iVar13 = m_loopBehaviour;
         uVar4 = m_animationLength;
-        if ((iVar13 == 2) || (uVar3 = uVar4, field_116 != 4294967295)) {
-            uVar3 = field_116;
+        if ((iVar13 == 2) || (uVar3 = uVar4, m_loopLength != 4294967295)) {
+            uVar3 = m_loopLength;
         }
         if ((iVar13 != 2) && (uVar4 < uVar14)) {
             uVar15 = uVar14 - uVar2;
@@ -361,7 +361,7 @@ namespace jag::graphics {
         ulong uVar6;
         uint uVar7;
 
-        if (field_116 == 4294967295) {
+        if (m_loopLength == 4294967295) {
             uVar7 = m_animationLength;
         } else {
             this_00 = &field_96;
@@ -371,12 +371,12 @@ namespace jag::graphics {
             pAVar4 = (Animation*)shared_ptr<Animation>::operator->((shared_ptr<Animation>*)this_00);
             if (bVar1) {
                 iVar2 = pAVar4->GetFrameCount();
-                uVar7 = iVar2 - field_116;
+                uVar7 = iVar2 - m_loopLength;
             } else {
                 this_03 = (Array<unsigned int, eastl::allocator>*)pAVar4->GetLogStreams();
                 pAVar4 = (Animation*)shared_ptr<Animation>::operator->((shared_ptr<Animation>*)this_00);
                 iVar2 = pAVar4->GetFrameCount();
-                uVar3 = iVar2 - field_116;
+                uVar3 = iVar2 - m_loopLength;
                 if (uVar3 == 0) {
                     uVar7 = 0;
                 } else {
@@ -405,8 +405,8 @@ namespace jag::graphics {
         pAVar2 = (Animation*)shared_ptr<Animation>::operator->((shared_ptr<Animation>*)&field_96);
         uVar1 = pAVar2->GetFrameCount();
         if (uVar1 <= uVar3) {
-            if ((field_116 != 4294967295) || (uVar1 = 0, field_120 == '\0')) {
-                uVar1 = field_156 - field_116;
+            if ((m_loopLength != 4294967295) || (uVar1 = 0, m_tweenLastFrameToFirst == '\0')) {
+                uVar1 = field_156 - m_loopLength;
             }
             field_156 = uVar1;
             pAVar2 = (Animation*)shared_ptr<Animation>::operator->((shared_ptr<Animation>*)&field_96);
@@ -510,11 +510,11 @@ namespace jag::graphics {
                     this_05 = (Array<unsigned int, eastl::allocator>*)this_04->GetLogStreams();
                     if (uVar12 < 101)
                         goto LAB_10098a41f;
-                    if ((int)field_116 < 1)
+                    if ((int)m_loopLength < 1)
                         goto LAB_10098a41f;
                     pAVar5 = (Animation*)shared_ptr<Animation>::operator->((shared_ptr<Animation>*)this_00);
                     iVar2 = pAVar5->GetFrameCount();
-                    uVar8 = iVar2 - field_116;
+                    uVar8 = iVar2 - m_loopLength;
                     uVar3 = m_currentIndex;
                     for (; (uVar3 < uVar8 &&
                             (puVar6 = (uint*)Array<unsigned int, eastl::allocator>::operator[](this_05, (ulong)uVar3),
@@ -543,7 +543,7 @@ namespace jag::graphics {
                         }
                         if (m_loopBehaviour == 0) {
                             dVar13 = (double)floor<unsigned int>(uVar12 / uVar11);
-                            field_124 = field_124 + (int)(long)dVar13;
+                            m_loopsCompleted = m_loopsCompleted + (int)(long)dVar13;
                         }
                         uVar12 = uVar12 % uVar11;
                     }
@@ -572,11 +572,11 @@ namespace jag::graphics {
                             pAVar5 = (Animation*)shared_ptr<Animation>::operator->((shared_ptr<Animation>*)this_00);
                             uVar3 = pAVar5->GetFrameCount();
                         } while (uVar8 < uVar3);
-                        if (((field_116 != 4294967295) && (m_loopBehaviour != 2)) &&
-                            (m_currentIndex = m_currentIndex - field_116, m_loopBehaviour == 0)) {
-                            field_124 = field_124 + 1;
+                        if (((m_loopLength != 4294967295) && (m_loopBehaviour != 2)) &&
+                            (m_currentIndex = m_currentIndex - m_loopLength, m_loopBehaviour == 0)) {
+                            m_loopsCompleted = m_loopsCompleted + 1;
                         }
-                        if (field_128 <= field_124)
+                        if (field_128 <= m_loopsCompleted)
                             break;
                         uVar3 = m_currentIndex;
                         pAVar5 = (Animation*)shared_ptr<Animation>::operator->((shared_ptr<Animation>*)this_00);
@@ -631,7 +631,7 @@ namespace jag::graphics {
                 this_01 = (shared_ptr<AnimKeyFrameSet>*)this_00->GetPixelBuffer();
                 this_02 = (AnimKeyFrameSet*)shared_ptr<AnimKeyFrameSet>::operator->(this_01);
                 if ((float)this_02->GetEnd() <= (float)uVar2) {
-                    if ((field_116 == 4294967295) || (m_loopBehaviour == 2)) {
+                    if ((m_loopLength == 4294967295) || (m_loopBehaviour == 2)) {
                         m_finished = 1;
                         if (operator_cast_to_bool()) {
                             fixedfunction::function<void(graphicutils::TextureAtlasSlot_const&), 64ul, 16ul,
@@ -643,9 +643,9 @@ namespace jag::graphics {
                         }
                         return;
                     }
-                    m_currentIndex = m_currentIndex - field_116;
+                    m_currentIndex = m_currentIndex - m_loopLength;
                     if (m_loopBehaviour == 0) {
-                        field_124 = field_124 + 1;
+                        m_loopsCompleted = m_loopsCompleted + 1;
                     }
                 }
                 field_144 = field_148;

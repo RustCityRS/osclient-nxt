@@ -8,7 +8,7 @@ namespace jag::ui {
     class ComponentContainer {
     public:
         GetComponent() const;
-        GetHidden() const;
+        bool GetHidden() const;
         SetHiddenUnsafe(bool);
         ~ComponentContainer();
         get() const;
@@ -27,7 +27,7 @@ namespace jag::ui {
         ComponentContainer* operator=(ComponentContainer const&);
 
         // data members, from how the methods use this: 16 bytes
-        bool field_0; // offset 0
+        bool m_hidden; // offset 0
         char _unknown_1[15];
     };
 
@@ -46,7 +46,7 @@ namespace jag::ui {
     void ComponentContainer::ComponentContainer() {
         _func_decltype_nullptr* in_RSI;
 
-        field_0 = true;
+        m_hidden = true;
         new (&field_8, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
     }
 
@@ -67,7 +67,7 @@ namespace jag::ui {
     /* ComponentContainer::TEMPNAMEPLACEHOLDERVALUE(ComponentContainer&&) */
 
     ComponentContainer* ComponentContainer::operator=(ComponentContainer* param_1) {
-        field_0 = param_1->field_0;
+        m_hidden = param_1->m_hidden;
         shared_ptr<Component>::operator=((shared_ptr<Component>*)&field_8, (shared_ptr*)&param_1->field_8);
         return this;
     }
@@ -117,7 +117,7 @@ namespace jag::ui {
     // 0x1006b22c0, 32 bytes, base-object constructor, inline, placed by class name
     // ComponentContainer::ComponentContainer(shared_ptr<Component> const&, bool)
     void ComponentContainer::ComponentContainer(shared_ptr* param_1, bool param_2) {
-        field_0 = param_2;
+        m_hidden = param_2;
         new (&field_8, param_1) shared_ptr<oldscape::dash3d::Decor>();
     }
 
@@ -127,7 +127,7 @@ namespace jag::ui {
         Component* this_00;
 
         this_00 = (Component*)shared_ptr<Component>::operator->((shared_ptr<Component>*)param_1);
-        field_0 = (bool)this_00->IsInitiallyHidden();
+        m_hidden = (bool)this_00->IsInitiallyHidden();
         new (&field_8, param_1) shared_ptr<oldscape::dash3d::Decor>();
     }
 
@@ -137,7 +137,7 @@ namespace jag::ui {
     // 0x1006cf720, 32 bytes, base-object constructor, inline, placed by class name
     // ComponentContainer::ComponentContainer(ComponentContainer const&)
     void ComponentContainer::ComponentContainer(ComponentContainer* param_1) {
-        field_0 = param_1->field_0;
+        m_hidden = param_1->m_hidden;
         new (&field_8, (shared_ptr*)&param_1->field_8) shared_ptr<oldscape::dash3d::Decor>();
     }
 
@@ -147,7 +147,7 @@ namespace jag::ui {
     // 0x1006cf8e0, 32 bytes, base-object constructor, inline, placed by class name
     // ComponentContainer::ComponentContainer(ComponentContainer&&)
     void ComponentContainer::ComponentContainer(ComponentContainer* param_1) {
-        field_0 = param_1->field_0;
+        m_hidden = param_1->m_hidden;
         shared_ptr<oldscape::RSevenDebugPresetProvider>::shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(
             (shared_ptr<oldscape::RSevenDebugPresetProvider>*)&field_8, (shared_ptr*)&param_1->field_8);
     }
@@ -157,7 +157,7 @@ namespace jag::ui {
     /* ComponentContainer::TEMPNAMEPLACEHOLDERVALUE(ComponentContainer const&) */
 
     ComponentContainer* ComponentContainer::operator=(ComponentContainer* param_1) {
-        field_0 = param_1->field_0;
+        m_hidden = param_1->m_hidden;
         shared_ptr<Component>::operator=((shared_ptr<Component>*)&field_8, (shared_ptr*)&param_1->field_8);
         return this;
     }

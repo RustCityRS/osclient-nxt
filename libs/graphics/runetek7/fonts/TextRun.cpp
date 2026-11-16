@@ -10,25 +10,25 @@ namespace jag::graphics {
     TextRun::GetFontMetrics() const;
 
     // 0x100066b70: the linker folded this into oldscape::widgets::Widget::GetTextColour() const, which has identical code
-    TextRun::GetMaxLineWidth() const;
+    int TextRun::GetMaxLineWidth() const;
 
     // 0x1000fa840: the linker folded this into oldscape::graphics::NXTPixScreen::GetHeight() const, which has identical code
-    TextRun::GetVisibility() const;
+    int TextRun::GetVisibility() const;
 
     // 0x10012dc00: the linker folded this into oldscape::graphics::NXTPixScreen::GetViewportX(), which has identical code
-    TextRun::GetWrapMode() const;
+    int TextRun::GetWrapMode() const;
 
     // 0x10018b300: the linker folded this into oldscape::jagex3::Js5::GetIndexVersion() const, which has identical code
-    TextRun::GetVerticalAlignment() const;
+    int TextRun::GetVerticalAlignment() const;
 
     // 0x1001a3c10: the linker folded this into MainLoopFrameTimer::GetFPSCounter(), which has identical code
     TextRun::GetContents() const;
 
     // 0x1003cf2a0: the linker folded this into game::WorldMapDefaults::GetDropShadowColourRGBA() const, which has identical code
-    TextRun::GetHorizontalAlignment() const;
+    int TextRun::GetHorizontalAlignment() const;
 
     // 0x10080e330: the linker folded this into GeometryBatch::GetBoneCount() const, which has identical code
-    TextRun::GetMaxLineCount() const;
+    uchar TextRun::GetMaxLineCount() const;
 
     // 0x1008e2a10, 112 bytes, placed by debug map only (low confidence)
     // TextRunSlice::GetVerticalOrigin() const
@@ -298,8 +298,8 @@ namespace jag::graphics {
     // 0x1008e8850, 32 bytes, placed by class name
     // TextRun::SetContentVisibility(TextContentVisibility)
     void TextRun::SetContentVisibility(int param_2) {
-        if (field_36 != param_2) {
-            field_36 = param_2;
+        if (m_visibility != param_2) {
+            m_visibility = param_2;
             UpdatePositioning(this);
         }
     }
@@ -342,9 +342,9 @@ namespace jag::graphics {
     // 0x1008e8960, 32 bytes, placed by class name
     // TextRun::SetAlignment(TextHorizontalAlignment, TextVerticalAlignment)
     undefined1 TextRun::SetAlignment(int param_2, int param_3) {
-        if ((field_24 != param_2) || (field_28 != param_3)) {
-            field_24 = param_2;
-            field_28 = param_3;
+        if ((m_horizontalAlignment != param_2) || (m_verticalAlignment != param_3)) {
+            m_horizontalAlignment = param_2;
+            m_verticalAlignment = param_3;
             UpdatePositioning(this);
         }
         return 1;
@@ -645,7 +645,7 @@ namespace jag::graphics {
                     uVar17 = uVar17 + 1;
                 } while (uVar17 <= uVar11);
             }
-            if ((field_28 != 0) && (bVar3)) {
+            if ((m_verticalAlignment != 0) && (bVar3)) {
                 iVar4 = GetLineHeight(this);
                 iVar4 = GetTopOffsetForVerticalAlignment(this, local_44 * iVar4);
                 lVar10 = this_00->size();
@@ -854,7 +854,7 @@ namespace jag::graphics {
 
         uVar4 = 0;
         if (*(int*)param_1 != FontHelpers::newlineCharCode) {
-            if ((param_2) || (field_36 == 0)) {
+            if ((param_2) || (m_visibility == 0)) {
                 pFVar5 = (FontMetrics*)shared_ptr<FontMetrics>::operator->((shared_ptr<FontMetrics>*)this);
                 bVar3 = pFVar5->GetGlyphAdvance(*(int*)param_1);
                 iVar2 = FontHelpers::tabCharCode;
@@ -1259,7 +1259,7 @@ namespace jag::graphics {
         int iVar1;
         int iVar2;
 
-        iVar1 = field_24;
+        iVar1 = m_horizontalAlignment;
         iVar2 = 0;
         if (iVar1 != 0) {
             if (iVar1 == 2) {
@@ -1283,7 +1283,7 @@ namespace jag::graphics {
         int iVar1;
         int iVar2;
 
-        iVar1 = field_28;
+        iVar1 = m_verticalAlignment;
         iVar2 = 0;
         if (iVar1 != 0) {
             if (iVar1 == 2) {

@@ -16,7 +16,7 @@ namespace jag::oldscape::sound {
     Mixer::QueuedOp::~QueuedOp();
 
     // 0x1000b7900: the linker folded this into minimenu::MinimenuEntry::GetSubjectType() const, which has identical code
-    Mixer::GetStreamCountLastMix() const;
+    int Mixer::GetStreamCountLastMix() const;
 
     // 0x10029d6f0, 96 bytes, placed by class name and debug map
     // Mixer::QueueStopStream(shared_ptr<PCMStream> const&)

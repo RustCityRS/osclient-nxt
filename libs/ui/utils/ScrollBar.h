@@ -8,8 +8,8 @@ namespace jag::ui {
     class ScrollBar {
     public:
         GetBackgroundSprite();
-        GetButtonSprite();
-        GetHandleSprite();
+        SpriteData GetButtonSprite();
+        SpriteData GetHandleSprite();
         ScrollBar();
         void Decode(PacketT<Array<unsigned char, eastl::allocator>>&, int);
         void Draw(graphics::RT7Core&, int, int, int, int, int, int, bool, unsigned char);
@@ -46,10 +46,10 @@ namespace jag::ui {
         float field_12; // offset 12
         byte field_16;  // offset 16
         char _unknown_17[31];
-        SpriteData field_48; // offset 48
-        SpriteData field_96; // offset 96
-        byte m_size;         // offset 144
-        byte field_145;      // offset 145
+        SpriteData m_buttonSprite; // offset 48
+        SpriteData m_handleSprite; // offset 96
+        byte m_size;               // offset 144
+        byte field_145;            // offset 145
         char _unknown_146[2];
         int field_148;        // offset 148
         int field_152;        // offset 152
@@ -173,8 +173,8 @@ namespace jag::ui {
     // 0x1006b0320, 48 bytes, base-object destructor, inline, placed by class name
     // ScrollBar::~ScrollBar()
     void ScrollBar::~ScrollBar() {
-        field_96->~Sprite();
-        field_48->~Sprite();
+        m_handleSprite->~Sprite();
+        m_buttonSprite->~Sprite();
         ~Sprite();
     }
 

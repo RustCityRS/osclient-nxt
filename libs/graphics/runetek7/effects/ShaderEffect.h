@@ -15,7 +15,7 @@ namespace jag::graphics {
         virtual void __pure_slot_7() = 0;
         virtual void CreateRenderingResources();
         virtual void DestroyRenderingResources();
-        GetQuality() const;
+        uint GetQuality() const;
         SetQuality(GraphicsQuality);
         ShaderEffect(RT7Core&);
 
@@ -24,7 +24,7 @@ namespace jag::graphics {
     };
 
     // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    ShaderEffect::GetQuality() const;
+    uint ShaderEffect::GetQuality() const;
 
     // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
     ShaderEffect::~ShaderEffect();
@@ -38,8 +38,8 @@ namespace jag::graphics {
         undefined8 uVar1;
 
         uVar1 = 1;
-        if (field_8 != param_2) {
-            field_8 = param_2;
+        if (m_quality != param_2) {
+            m_quality = param_2;
             uVar1 = (*(code*)field_0[13])();
         }
         return uVar1;
@@ -50,7 +50,7 @@ namespace jag::graphics {
     void ShaderEffect::ShaderEffect(RT7Core* param_1) {
         new (this) Effect(param_1);
         field_0 = (undefined**)(PTR_vtable_100ee8730 + 16);
-        field_8 = 4294967295;
+        m_quality = 4294967295;
         field_16 = param_1;
     }
 
@@ -328,10 +328,10 @@ namespace jag::oldscape {
                 uVar2 = *(uint*)(lVar13 + 4);
                 iVar6 = 0;
                 if (uVar2 < local_3c) {
-                    iVar6 = field_1578928;
+                    iVar6 = m_scaledUIQuality;
                 }
                 if (uVar1 < local_40) {
-                    iVar6 = field_1578928;
+                    iVar6 = m_scaledUIQuality;
                 }
                 if (iVar6 == 1) {
                     pSVar23 = (ShaderProgram*)&field_1577072;

@@ -17,7 +17,7 @@ namespace jag::input::gesture {
     void GestureManager::GestureManager() {
         allocator local_28[8];
 
-        field_0 = 0;
+        m_numTouches = 0;
         eastl::allocator::allocator(local_28, "EASTL vector");
         new (&field_8, 256, local_28) eastl::vector<TouchPoint, eastl::allocator>();
         eastl::allocator::allocator(local_28, "EASTL set");

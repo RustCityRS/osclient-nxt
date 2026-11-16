@@ -21,7 +21,7 @@ namespace jag::graphics {
         SetViewportMapID(int);
         void SetAlphaTestThreshold(unsigned char);
         void SetOption(unsigned int, bool);
-        GetViewportMapID() const;
+        int GetViewportMapID() const;
         SetEnvironmentMaterialID(int);
         void CanRenderInPasses(RenderPassBitSet const&) const;
         void GetOption(unsigned int) const;
@@ -38,12 +38,12 @@ namespace jag::graphics {
 
         // data members, from how the methods use this: 544 bytes, the first 9 are RenderDeviceOnEndFrame
         char _unknown_9[7];
-        undefined* field_16;        // offset 16
-        undefined* field_24;        // offset 24
+        undefined* m_alphaMode;     // offset 16
+        undefined* m_pBlendMode;    // offset 24
         uchar m_alphaTestThreshold; // offset 32
         char _unknown_33[3];
-        undefined4 field_36; // offset 36
-        undefined4 field_40; // offset 40
+        undefined4 m_environmentMaterialID; // offset 36
+        int m_viewportMapID;                // offset 40
         char _unknown_44[484];
         Callstack field_528; // offset 528
     };
@@ -80,7 +80,7 @@ namespace jag::graphics {
     undefined8 RenderMaterial::IsAlpha() {
         undefined* puVar1;
 
-        puVar1 = field_16;
+        puVar1 = m_alphaMode;
         return CONCAT71((int7)((ulong)puVar1 >> 8),
                         puVar1 == AlphaMode::ALPHA_BLENDED || puVar1 == AlphaMode::ALPHA_TESTED);
     }
@@ -125,11 +125,11 @@ namespace jag::graphics {
     void RenderMaterial::RenderMaterial() {
         field_0 = &PTR__SkyBoxMaterial_100f184f0;
         new (&field_8) eastl::bitset<56ul, unsigned long long>();
-        field_16 = AlphaMode::ALPHA_OPAQUE;
-        field_24 = BlendMode::NORMAL;
+        m_alphaMode = AlphaMode::ALPHA_OPAQUE;
+        m_pBlendMode = BlendMode::NORMAL;
         m_alphaTestThreshold = '\0';
-        field_36 = 4294967295;
-        field_40 = 4294967295;
+        m_environmentMaterialID = 4294967295;
+        m_viewportMapID = -1;
         new (&field_48) std::array<RenderPassEffect, 10ul>();
         new (field_528) callstack::Callstack();
     }

@@ -26,7 +26,7 @@ namespace jag::tweak {
         GetType() const;
         GetRadioValue() const;
         GetCurrentListItem() const;
-        GetPlacement() const;
+        int GetPlacement() const;
         void SetText<eastl::fixed_string<char, 256, true, eastl::allocator>>(
             eastl::fixed_string<char, 256, true, eastl::allocator> const&);
         void SetIgnoreTags(bool);
@@ -58,13 +58,13 @@ namespace jag::tweak {
         char _unknown_8[16];
         int field_24;        // offset 24
         undefined4 field_28; // offset 28
-        undefined4 field_32; // offset 32
+        undefined4 m_type;   // offset 32
         undefined8 field_36; // offset 36
         char _unknown_44[92];
-        int field_136; // offset 136
-        int field_140; // offset 140
-        int field_144; // offset 144
-        int field_148; // offset 148
+        int m_pPlacement; // offset 136
+        int field_140;    // offset 140
+        int field_144;    // offset 144
+        int field_148;    // offset 148
         char _unknown_152[56];
         bool m_mouseOver;    // offset 208
         char m_hasBeenShown; // offset 209
@@ -104,7 +104,7 @@ namespace jag::tweak {
     // 0x100a3d880, 80 bytes, inline, placed by class name
     // Control::BoundsCheck(float, float) const
     bool Control::BoundsCheck(float param_1, float param_2) {
-        if ((((float)field_136 <= param_1) && (param_1 <= (float)field_144)) && ((float)field_140 <= param_2)) {
+        if ((((float)m_pPlacement <= param_1) && (param_1 <= (float)field_144)) && ((float)field_140 <= param_2)) {
             return param_2 <= (float)field_148;
         }
         return false;

@@ -531,11 +531,11 @@ namespace jag::graphics {
             lVar4 = 0;
             do {
                 pRVar5 = (RT7Core*)pRVar5->GetRenderContext();
-                pRVar1 = (RenderTargets*)((param_1->field_448 + lVar4 + 432))->end();
+                pRVar1 = (RenderTargets*)((param_1->m_postProcessManager + lVar4 + 432))->end();
                 pRVar5->ClearRenderTargets(pRVar1, local_48, 1);
                 lVar4 = lVar4 + 16;
             } while (lVar4 != 32);
-            this_00 = (RT7Core*)(param_1->field_448 + 464);
+            this_00 = (RT7Core*)(param_1->m_postProcessManager + 464);
             pRVar5 = this_00;
             if (this_00->operator_cast_to_bool()) {
                 this = (RenderContext*)pRVar5->GetRenderContext();
@@ -1061,10 +1061,10 @@ namespace jag::graphics {
         }
         local_98 = (RenderContext*)this_02->GetRenderContext();
         this = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(
-            (shared_ptr<render::RenderTargets>*)(param_1->field_448 + 432));
+            (shared_ptr<render::RenderTargets>*)(param_1->m_postProcessManager + 432));
         pTVar4 = (Texture*)GetDepthStencilTargetTexture();
-        local_a8 = (RenderTargets*)((param_1->field_448 + 936))->end();
-        local_a0 = (RenderTargets*)((param_1->field_448 + 920))->end();
+        local_a8 = (RenderTargets*)((param_1->m_postProcessManager + 936))->end();
+        local_a0 = (RenderTargets*)((param_1->m_postProcessManager + 920))->end();
         pvVar5 = (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
                      local_a0->GetColourTargetTextures();
         puVar6 = (undefined8*)
@@ -1077,11 +1077,11 @@ namespace jag::graphics {
         new (&local_118) render::Viewport(0, 0, *puVar7, puVar7[1], 0.0, 1.0);
         eastl::fixed_vector<render::Viewport, 2ul, true, eastl::allocator>::push_back(local_90, (Viewport*)&local_118);
         this_00 = (ShaderProgram*)shared_ptr<render::ShaderProgram>::operator*(
-            (shared_ptr<render::ShaderProgram>*)(param_1->field_448 + 952));
+            (shared_ptr<render::ShaderProgram>*)(param_1->m_postProcessManager + 952));
         new (&local_118) render::DrawCallState();
         this_01 = (InputAssemblerState*)local_118.GetInputAssemblerState();
         pVVar8 = (VertexDeclaration*)this_00->second();
-        this_03 = (GeometryBatch*)(param_1->field_448 + 480);
+        this_03 = (GeometryBatch*)(param_1->m_postProcessManager + 480);
         pVVar9 = (VertexBuffer*)this_03->GetBoneIDMap();
         this_01->SetVertexStreamData(pVVar8, pVVar9);
         pVVar10 = (Viewport*)local_118.GetOutputMergerState();

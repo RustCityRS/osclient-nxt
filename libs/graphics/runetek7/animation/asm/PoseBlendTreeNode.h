@@ -27,7 +27,7 @@ namespace jag::graphics {
         undefined4 field_20; // offset 20
         ColourHSL field_24;  // offset 24
         char _unknown_40[24];
-        undefined1 field_64; // offset 64
+        undefined1 m_bindInfo; // offset 64
         char _unknown_65[15];
         undefined1 field_80; // offset 80
     };
@@ -73,7 +73,7 @@ namespace jag::graphics {
         pJVar1 = (JointPose*)param_1->end();
         uVar2 = param_1->HeapBeginPtr();
         (&field_40, pJVar1, uVar2)->assign();
-        BindInfo::operator=((BindInfo*)&field_64, param_2);
+        BindInfo::operator=((BindInfo*)&m_bindInfo, param_2);
     }
 
     // 0x100992990, 96 bytes, base-object constructor, inline, placed by class name
@@ -82,14 +82,14 @@ namespace jag::graphics {
         new (this) BlendTreeNode();
         field_0 = &PTR__PoseBlendTreeNode_100f1b3e8;
         new (&field_40) Array<JointPose, eastl::allocator>();
-        new (&field_64) oldscape::graphics::animation::OldscapeAnimKeyFrameSet::OldscapeAnimCurveLoadJob();
+        new (&m_bindInfo) oldscape::graphics::animation::OldscapeAnimKeyFrameSet::OldscapeAnimCurveLoadJob();
     }
 
     // 0x1009929f0, 64 bytes, base-object destructor, inline, placed by class name
     // PoseBlendTreeNode::~PoseBlendTreeNode()
     void PoseBlendTreeNode::~PoseBlendTreeNode() {
         field_0 = &PTR__PoseBlendTreeNode_100f1b3e8;
-        (&field_64)->~LRUHashCacheWrapper();
+        (&m_bindInfo)->~LRUHashCacheWrapper();
         (&field_40)->~Array();
         ~AutoSingleton();
     }

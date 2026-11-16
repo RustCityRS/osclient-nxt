@@ -10,10 +10,10 @@ namespace jag::game {
     shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> HitmarkType::NullHitmarkType;
 
     // 0x1003cf2c0: the linker folded this into MapElementType::GetTextRGBA() const, which has identical code
-    HitmarkType::GetOverride() const;
+    uint HitmarkType::GetOverride() const;
 
     // 0x1003f65a0: the linker folded this into EntityRoute::GetStalledTickCount() const, which has identical code
-    HitmarkType::GetDuration() const;
+    uint HitmarkType::GetDuration() const;
 
     // 0x100544e30, 192 bytes, base-object constructor, placed by class name and debug map
     // HitmarkType::HitmarkType(BaseTemplateConfigTypeList<HitmarkType>*, int)

@@ -10,7 +10,7 @@ namespace jag::graphics {
         byte MaterialsReady() const;
         ~MaterialManager();
         MaterialManager();
-        GetDefaultMaterial() const;
+        Material GetDefaultMaterial() const;
         GetMaterial(int) const;
         IsValidMaterial(int) const;
         void Initialise(MaterialRawProvider*);

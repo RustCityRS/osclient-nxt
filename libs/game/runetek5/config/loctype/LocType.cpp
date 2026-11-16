@@ -206,9 +206,9 @@ namespace jag::game {
         new (&field_544) Array<int, eastl::allocator>();
         new (&field_568) Array<LocShape, eastl::allocator>();
         new (&field_592) Array<Array<int, eastl::allocator>, eastl::allocator>();
-        new (field_616, 1.0, 1.0, 1.0) math::ColourHSL();
-        new ((field_616 + 12)) math::Vector3T<int>();
-        new (&field_640) math::Vector3T<int>();
+        new (m_resize, 1.0, 1.0, 1.0) math::ColourHSL();
+        new ((m_resize + 12)) math::Vector3T<int>();
+        new (m_pPostOffset) math::Vector3T<int>();
         field_652 = 0;
         new (&field_656) Array<unsigned short, eastl::allocator>();
         new (&field_680) Array<unsigned short, eastl::allocator>();
@@ -443,7 +443,7 @@ namespace jag::game {
                 if (uVar34 < 3) {
                     uVar4 = param_1->g2();
                     fVar38 = (float)uVar4 * 0.0078125;
-                    this_04 = (Vector3T<float>*)field_616;
+                    this_04 = (Vector3T<float>*)m_resize;
                     goto LAB_100526018;
                 }
                 switch (param_2) {
@@ -455,7 +455,7 @@ namespace jag::game {
                 case 72:
                     sVar6 = param_1->g2s();
                     iVar13 = (int)sVar6 << 2;
-                    this_04 = (Vector3T<float>*)(field_616 + 12);
+                    this_04 = (Vector3T<float>*)(m_resize + 12);
                     uVar34 = param_2 - 70;
                 LAB_10052623b:
                     fVar38 = (float)iVar13;
@@ -463,7 +463,7 @@ namespace jag::game {
                 case 71:
                     sVar6 = param_1->g2s();
                     fVar38 = (float)(sVar6 * -4);
-                    this_04 = (Vector3T<float>*)(field_616 + 12);
+                    this_04 = (Vector3T<float>*)(m_resize + 12);
                     uVar34 = 1;
                 LAB_100526018:
                     pfVar20 = (float*)math::Vector3T<float>::operator[](this_04, uVar34);
@@ -709,7 +709,7 @@ namespace jag::game {
                     case 166:
                         sVar6 = param_1->g2s();
                         iVar13 = (int)sVar6;
-                        this_04 = (Vector3T<float>*)&field_640;
+                        this_04 = (Vector3T<float>*)m_pPostOffset;
                         uVar34 = param_2 - 164;
                         goto LAB_10052623b;
                     case 167:
@@ -1797,7 +1797,7 @@ namespace jag::game {
                                                              std::default_delete<LoadingScreenScript::AnimLayer>>,
                                              eastl::allocator>*)
                                 Array<Array<int, eastl::allocator>, eastl::allocator>::operator[](
-                                    (Array<Array<int, eastl::allocator>, eastl::allocator>*)&pJVar6[9].field_16,
+                                    (Array<Array<int, eastl::allocator>, eastl::allocator>*)&pJVar6[9].m_openPriority,
                                     (ulong)param_2);
                         }
                         puVar19 = (uint*)pAVar18->data();
@@ -1913,12 +1913,13 @@ namespace jag::game {
                                     if (bVar11 == 0) {
                                         pBVar25 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(
                                             (shared_ptr<BuildModelMain>*)&local_a8);
-                                        pBVar25->SetRecolor((Array*)&pJVar6[10].field_16, (Array*)&pJVar6[10].field_40);
+                                        pBVar25->SetRecolor((Array*)&pJVar6[10].m_openPriority,
+                                                            (Array*)&pJVar6[10].m_pLocalFileName);
                                     } else {
                                         pBVar25 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(
                                             (shared_ptr<BuildModelMain>*)&local_a8);
                                         pAVar26 = (Array*)param_10->GetDefaultValue();
-                                        pBVar25->SetCustomRecolor((Array*)&pJVar6[10].field_16, pAVar26);
+                                        pBVar25->SetCustomRecolor((Array*)&pJVar6[10].m_openPriority, pAVar26);
                                     }
                                     pBVar25 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(
                                         (shared_ptr<BuildModelMain>*)&local_a8);
@@ -1948,12 +1949,12 @@ namespace jag::game {
                                     pBVar25->SetShareLight(*(bool*)((long)&pJVar6[13].field_8 + 7));
                                     pBVar25 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(
                                         (shared_ptr<BuildModelMain>*)&local_a8);
-                                    local_c0._0_8_ = math::operator-((Vector3T*)&pJVar6[9].field_52, &local_89);
+                                    local_c0._0_8_ = math::operator-((Vector3T*)&pJVar6[9].m_diskCacheSize, &local_89);
                                     local_c0.field_8._0_4_ = param_2_00;
                                     pBVar25->SetGlobalTranslation((Vector3T*)&local_c0);
                                     pBVar25 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(
                                         (shared_ptr<BuildModelMain>*)&local_a8);
-                                    local_c0._0_8_ = math::operator*((Vector3T*)&pJVar6[9].field_40, &local_89);
+                                    local_c0._0_8_ = math::operator*((Vector3T*)&pJVar6[9].m_pLocalFileName, &local_89);
                                     local_c0.field_8._0_4_ = param_2_00;
                                     pBVar25->SetResize((Vector3T*)&local_c0);
                                     new (&local_c0) shared_ptr<oldscape::dash3d::Decor>(&local_a8);

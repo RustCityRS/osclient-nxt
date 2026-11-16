@@ -1371,7 +1371,7 @@ namespace jag::oldscape {
             uVar11 = pSVar27->g2();
             pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
             uVar13 = pSVar26->g3();
-            local_80.field_0 = (uVar13 >> 4 & 7) + ((int)uVar13 >> 16);
+            local_80.m_argType = (uVar13 >> 4 & 7) + ((int)uVar13 >> 16);
             local_b8._0_4_ = (uVar13 & 7) + (uVar13 >> 8 & 255);
             pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480->p2_alt2();
             bVar5 = pPVar38->g1();
@@ -1380,14 +1380,14 @@ namespace jag::oldscape {
             bVar5 = pCVar44->g1();
             uVar20 = local_b8._48_8_;
             local_b8._36_4_ = ZEXT14(bVar5);
-            if ((((int)local_80.field_0 < 104) && (-1 < (int)local_80.field_0)) &&
+            if ((((int)local_80.m_argType < 104) && (-1 < (int)local_80.m_argType)) &&
                 ((-1 < (int)local_b8._0_4_ &&
-                  (((int)local_b8._0_4_ < 104 && (iVar12 = (int)cVar3 + local_80.field_0, -1 < iVar12)))))) {
+                  (((int)local_b8._0_4_ < 104 && (iVar12 = (int)cVar3 + local_80.m_argType, -1 < iVar12)))))) {
                 uVar15 = (int)(char)uVar15 + local_b8._0_4_;
                 pHVar36 = (HookArg*)(ulong)uVar15;
                 if ((-1 < (int)uVar15) && (((iVar12 < 104 && ((int)uVar15 < 104)) && (local_110[0]._0_4_ != 65535)))) {
                     local_c0 = (array<int, 32ul>*)CONCAT62(local_c0._2_6_, uVar11);
-                    uVar64 = local_80.field_0 << 7;
+                    uVar64 = local_80.m_argType << 7;
                     local_80._0_8_ = CONCAT44(local_80._4_4_, uVar64) | 64;
                     uVar13 = local_b8._0_4_ << 7;
                     local_b8._0_8_ = CONCAT44(local_b8._4_4_, uVar13) | 64;
@@ -1477,7 +1477,7 @@ namespace jag::oldscape {
             sVar9 = pCVar44->g2s();
             sVar10 = pCVar44->g2s();
             uVar20 = local_b8._48_8_;
-            local_80.field_0 = dash3d::world::ClampPitchAngle(*(int*)(local_b8._48_8_ + 53100) + (int)sVar10 & 2027);
+            local_80.m_argType = dash3d::world::ClampPitchAngle(*(int*)(local_b8._48_8_ + 53100) + (int)sVar10 & 2027);
             local_b8._0_4_ = *(uint*)(uVar20 + 53104) + (int)sVar9;
             uVar8 = ((local_4c0 + 8))->g2();
             local_f0[0].field_0._0_4_ = (uint)uVar8;
@@ -1491,7 +1491,7 @@ namespace jag::oldscape {
                     "client_network.cpp",
                     3088, "cam_rotateby yaw:%d (target yaw:%d) pitch:%d (target pitch:%d) cycles:%d easing:%d",
                     CONCAT44(uVar74, (int)sVar9), CONCAT44(uVar75, local_b8._0_4_), CONCAT44(uVar77, (int)sVar10),
-                    CONCAT44(uVar78, local_80.field_0), CONCAT44(uVar14, (uint)local_f0[0].field_0),
+                    CONCAT44(uVar78, local_80.m_argType), CONCAT44(uVar14, (uint)local_f0[0].field_0),
                     CONCAT44(uVar76, local_110[0]._0_4_));
             }
             pCVar44 = (Client*)local_b8._48_8_;
@@ -2236,7 +2236,7 @@ namespace jag::oldscape {
             *(uint*)(local_b8._48_8_ + 53008) = (uint)bVar5;
             uVar15 = pCVar44->g2();
             uVar8 = pCVar44->g2();
-            local_80.field_0 = (uint)uVar8;
+            local_80.m_argType = (uint)uVar8;
             cVar3 = pCVar44->g1();
             *(bool*)(local_b8._48_8_ + 53000) = cVar3 == '\x01';
             local_b8[0] = pCVar44->g1();
@@ -2250,7 +2250,8 @@ namespace jag::oldscape {
                                     3023, "cam_moveto_cycles lx:%d lz:%d hei:%d cycles:%d ignoreTerrain:%d easing:%d",
                                     CONCAT44(uVar74, *(int*)(local_b8._48_8_ + 53004)),
                                     CONCAT44(uVar75, *(int*)(local_b8._48_8_ + 53008)),
-                                    CONCAT44(uVar77, uVar15) & 18446744069414649855, CONCAT44(uVar78, local_80.field_0),
+                                    CONCAT44(uVar77, uVar15) & 18446744069414649855,
+                                    CONCAT44(uVar78, local_80.m_argType),
                                     CONCAT44(uVar14, (uint)(byte) * (undefined1*)(local_b8._48_8_ + 53000)),
                                     CONCAT44(uVar76, local_b8._0_4_));
             }
@@ -2580,7 +2581,7 @@ namespace jag::oldscape {
             uVar8 = pCVar44->g2();
             *(uint*)(local_b8._48_8_ + 53032) = (uint)uVar8;
             uVar8 = pCVar44->g2();
-            local_80.field_0 = (uint)uVar8;
+            local_80.m_argType = (uint)uVar8;
             local_b8[0] = pCVar44->g1();
             uVar20 = local_b8._48_8_;
             local_b8._1_3_ = 0;
@@ -2604,7 +2605,7 @@ namespace jag::oldscape {
                                     3066, "cam_rotateto_coordinate lx:%d lz:%d hei:%d cycles:%d easing:%d",
                                     CONCAT44(uVar74, *(int*)(uVar20 + 53024)),
                                     CONCAT44(uVar75, *(int*)(uVar20 + 53028)),
-                                    CONCAT44(uVar77, *(int*)(uVar20 + 53032)), CONCAT44(uVar78, local_80.field_0),
+                                    CONCAT44(uVar77, *(int*)(uVar20 + 53032)), CONCAT44(uVar78, local_80.m_argType),
                                     CONCAT44(uVar14, local_b8._0_4_));
             }
             std::make_unique<CinemaCameraRotationTween, int&, int const&, int const&, CinemaCameraTween::Easing_const&>(
@@ -2757,7 +2758,7 @@ namespace jag::oldscape {
                     "cam_moveto_arc lx:%d lz:%d hei:%d tertiaryx:%d tertiaryz:%d cycles:%d ignoreTerrain:%d easing:%d",
                     CONCAT44(uVar74, *(int*)(local_b8._48_8_ + 53004)),
                     CONCAT44(uVar75, *(int*)(local_b8._48_8_ + 53008)), CONCAT44(uVar77, uVar15) & 18446744069414649855,
-                    CONCAT44(uVar78, local_80.field_0), CONCAT44(uVar14, local_b8._0_4_),
+                    CONCAT44(uVar78, local_80.m_argType), CONCAT44(uVar14, local_b8._0_4_),
                     CONCAT44(uVar76, (uint)local_f0[0].field_0), *(undefined1*)(local_b8._48_8_ + 53000),
                     local_110[0]._0_4_);
             }
@@ -4003,7 +4004,7 @@ namespace jag::oldscape {
             *(undefined2*)(local_b8._48_8_ + 52996) = 256;
             *(char*)(local_b8._48_8_ + 52999) = '\x01';
             uVar15 = pCVar44->g2s();
-            local_80.field_0 = WrapYawAngle((Client*)uVar20, uVar15 & 2027);
+            local_80.m_argType = WrapYawAngle((Client*)uVar20, uVar15 & 2027);
             uVar15 = pCVar44->g2s();
             local_b8._0_4_ = dash3d::world::ClampPitchAngle(uVar15 & 2027);
             uVar8 = pCVar44->g2();
@@ -4016,7 +4017,7 @@ namespace jag::oldscape {
                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
                                     "osclient/client_network.cpp",
                                     3107, "cam_rotateto yaw:%d pitch:%d cycles:%d easing:%d",
-                                    CONCAT44(uVar74, local_80.field_0), CONCAT44(uVar75, local_b8._0_4_),
+                                    CONCAT44(uVar74, local_80.m_argType), CONCAT44(uVar75, local_b8._0_4_),
                                     CONCAT44(uVar77, (uint)local_f0[0].field_0), CONCAT44(uVar78, local_110[0]._0_4_));
             }
             pCVar44 = (Client*)local_b8._48_8_;
@@ -4417,7 +4418,7 @@ namespace jag::oldscape {
             local_f0[0].field_0._0_4_ = (uint)uVar8;
             pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
             uVar15 = pSVar26->g3();
-            local_80.field_0 = (uVar15 >> 4 & 7) + ((int)uVar15 >> 16);
+            local_80.m_argType = (uVar15 >> 4 & 7) + ((int)uVar15 >> 16);
             local_b8._0_4_ = (uVar15 & 7) + (uVar15 >> 8 & 255);
             pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
             uVar15 = pSVar39->g1();
@@ -4425,9 +4426,9 @@ namespace jag::oldscape {
             uVar8 = pCVar44->g2();
             uVar20 = local_b8._48_8_;
             local_110[0]._0_4_ = ZEXT24(uVar8);
-            if (((((int)local_80.field_0 < 104) && (-1 < (int)local_80.field_0)) && (-1 < (int)local_b8._0_4_)) &&
+            if (((((int)local_80.m_argType < 104) && (-1 < (int)local_80.m_argType)) && (-1 < (int)local_b8._0_4_)) &&
                 ((int)local_b8._0_4_ < 104)) {
-                uVar17 = local_80.field_0 << 7;
+                uVar17 = local_80.m_argType << 7;
                 local_80._0_8_ = CONCAT44(local_80._4_4_, uVar17) | 64;
                 uVar18 = local_b8._0_4_ << 7;
                 local_b8._0_8_ = CONCAT44(local_b8._4_4_, uVar18) | 64;
@@ -4894,9 +4895,9 @@ namespace jag::oldscape {
             uVar17 = pSVar39->g2();
             pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
             uVar8 = pSVar26->g2();
-            local_80.field_0 = 4294967295;
+            local_80.m_argType = 4294967295;
             if (uVar8 != 65535) {
-                local_80.field_0 = (uint)uVar8;
+                local_80.m_argType = (uint)uVar8;
             }
             new (local_b8) eastl::allocator("EASTL vector");
             eastl::vector<int, eastl::allocator>::vector(local_480, &local_80, 2, local_b8);
@@ -5590,8 +5591,8 @@ namespace jag::oldscape {
             pSVar22 = (ShuffledPacket2*)local_48.p2_alt2();
             bVar5 = pSVar22->g1();
             pCVar34 = local_50;
-            local_70.field_0 = (bVar5 >> 4 & 7) + *(int*)&local_50->field_1115284;
-            local_a0.field_0 = (bVar5 & 7) + *(int*)&local_50->field_1115288;
+            local_70.m_level = (bVar5 >> 4 & 7) + *(int*)&local_50->field_1115284;
+            local_a0.m_level = (bVar5 & 7) + *(int*)&local_50->field_1115288;
             pSVar21 = (ShuffledPacket4*)local_48.p2_alt2();
             cVar4 = pSVar21->g1s();
             pSVar19 = (ShuffledPacket3*)local_48.p2_alt2();
@@ -5621,8 +5622,8 @@ namespace jag::oldscape {
                     eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>>,
                     eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
                     eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)(ulong)uVar10;
-            iVar35 = (int)cVar6 + local_70.field_0;
-            iVar37 = (int)cVar4 + local_a0.field_0;
+            iVar35 = (int)cVar6 + local_70.m_level;
+            iVar37 = (int)cVar4 + local_a0.m_level;
             if (pCVar34->field_54760 != '\0') {
                 pCVar23 = (Client*)logger::default_logger();
                 logger::Logger::Log(pCVar23, 0, 5,
@@ -5631,22 +5632,22 @@ namespace jag::oldscape {
                                     4656,
                                     "Received projanim x:%i z:%i x2:%i z2:%i targetEntity:%i spotanim:%i h1:%i h2:%i "
                                     "t1:%i t2:%i angle:%i startpos:%i",
-                                    CONCAT44(uVar44, local_70.field_0), CONCAT44(uVar47, local_a0.field_0),
+                                    CONCAT44(uVar44, local_70.m_level), CONCAT44(uVar47, local_a0.m_level),
                                     CONCAT44(uVar49, iVar35), CONCAT44(uVar50, iVar37), CONCAT44(uVar13, local_90[0]),
                                     CONCAT44(uVar15, local_54), CONCAT44(uVar14, (uint)bVar5 * 4), local_58,
                                     (int)local_80, (uint)local_88, local_5c, local_34);
             }
             pCVar34 = local_50;
-            if (103 < (int)local_70.field_0) {
+            if (103 < (int)local_70.m_level) {
                 return;
             }
-            if ((int)local_70.field_0 < 0) {
+            if ((int)local_70.m_level < 0) {
                 return;
             }
-            if ((int)local_a0.field_0 < 0) {
+            if ((int)local_a0.m_level < 0) {
                 return;
             }
-            if (103 < (int)local_a0.field_0) {
+            if (103 < (int)local_a0.m_level) {
                 return;
             }
             if (iVar35 < 0) {
@@ -5664,10 +5665,10 @@ namespace jag::oldscape {
             if (local_54 == 65535) {
                 return;
             }
-            local_70.field_0 = local_70.field_0 << 7 | 64;
-            local_a0.field_0 = local_a0.field_0 << 7 | 64;
+            local_70.m_level = local_70.m_level << 7 | 64;
+            local_a0.m_level = local_a0.m_level << 7 | 64;
             piVar17 = &local_50->m_playerLevel;
-            iVar12 = GetAvH(pCVar23, local_70.field_0, local_a0.field_0, local_50->m_playerLevel);
+            iVar12 = GetAvH(pCVar23, local_70.m_level, local_a0.m_level, local_50->m_playerLevel);
             local_38 = iVar12 + (uint)bVar5 * -4;
             local_78 = (int)local_80 + pCVar34->field_8488;
             local_b4 = pCVar34->field_8488 + (uint)local_88;
@@ -5696,7 +5697,7 @@ namespace jag::oldscape {
             local_58 = (uint)uVar10;
             pSVar19 = (ShuffledPacket3*)local_48.p2_alt2();
             bVar5 = pSVar19->g1();
-            local_a0.field_0 = (bVar5 >> 4 & 7) + *(int*)&local_50->field_1115284;
+            local_a0.m_level = (bVar5 >> 4 & 7) + *(int*)&local_50->field_1115284;
             local_90[0] = (bVar5 & 7) + *(int*)&local_50->field_1115288;
             local_80 =
                 (hashtable<
@@ -5711,14 +5712,14 @@ namespace jag::oldscape {
                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
                                     "osclient/client_network.cpp",
                                     4428, "Received loc_anim x:%i z:%i seq:%i layer:%u",
-                                    CONCAT44(uVar44, local_a0.field_0), CONCAT44(uVar47, local_90[0]),
+                                    CONCAT44(uVar44, local_a0.m_level), CONCAT44(uVar47, local_90[0]),
                                     CONCAT44(uVar49, local_58), CONCAT44(uVar50, (int)local_80));
             }
             pCVar34 = local_50;
-            if (102 < (int)local_a0.field_0) {
+            if (102 < (int)local_a0.m_level) {
                 return;
             }
-            if ((int)local_a0.field_0 < 0) {
+            if ((int)local_a0.m_level < 0) {
                 return;
             }
             if ((int)local_90[0] < 0) {
@@ -5957,7 +5958,7 @@ namespace jag::oldscape {
                 }
                 local_48.~shared_ptr();
             }
-            LocChangeAnim(local_50, local_50->m_playerLevel, local_a0.field_0, local_90[0], local_80, local_58);
+            LocChangeAnim(local_50, local_50->m_playerLevel, local_a0.m_level, local_90[0], local_80, local_58);
             break;
         case 3:
             new (&local_48) SuperShuffledPacketFactory(param_3);
@@ -5990,7 +5991,7 @@ namespace jag::oldscape {
                                 (ListIterator<console::Line, console::Line*, console::Line&>*)&local_48);
                         pAVar26 = (AnimationWrapper*)eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(
                             pvVar25);
-                        if (*(uint*)(pAVar26->field_16 + 8) == (uVar10 & 32767)) {
+                        if (*(uint*)(pAVar26->m_source + 8) == (uVar10 & 32767)) {
                             pAVar26->SetReadyAnim(SUB41(uVar13, 0));
                             return;
                         }
@@ -6122,8 +6123,8 @@ namespace jag::oldscape {
             pSVar19 = (ShuffledPacket3*)local_48.p2_alt2();
             bVar5 = pSVar19->g1();
             pCVar34 = local_50;
-            local_70.field_0 = (bVar5 >> 4 & 7) + *(int*)&local_50->field_1115284;
-            local_a0.field_0 = (bVar5 & 7) + *(int*)&local_50->field_1115288;
+            local_70.m_level = (bVar5 >> 4 & 7) + *(int*)&local_50->field_1115284;
+            local_a0.m_level = (bVar5 & 7) + *(int*)&local_50->field_1115288;
             pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_48.p2_alt2();
             uVar10 = pPVar20->g2();
             local_54 = (uint)uVar10;
@@ -6138,15 +6139,15 @@ namespace jag::oldscape {
                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
                                     "osclient/client_network.cpp",
                                     4757, "Received map_anim x:%d z:%d spotanim:%d height:%d time:%d",
-                                    CONCAT44(uVar44, local_70.field_0), CONCAT44(uVar47, local_a0.field_0),
+                                    CONCAT44(uVar44, local_70.m_level), CONCAT44(uVar47, local_a0.m_level),
                                     CONCAT44(uVar49, local_90[0]), CONCAT44(uVar50, (uint)bVar5),
                                     CONCAT44(uVar13, local_54));
             }
-            if ((((int)local_70.field_0 < 104) && (-1 < (int)local_70.field_0)) &&
-                ((-1 < (int)local_a0.field_0 && ((int)local_a0.field_0 < 104)))) {
-                local_70.field_0 = local_70.field_0 << 7 | 64;
-                local_a0.field_0 = local_a0.field_0 << 7 | 64;
-                iVar35 = GetAvH(pCVar23, local_70.field_0, local_a0.field_0, pCVar34->m_playerLevel);
+            if ((((int)local_70.m_level < 104) && (-1 < (int)local_70.m_level)) &&
+                ((-1 < (int)local_a0.m_level && ((int)local_a0.m_level < 104)))) {
+                local_70.m_level = local_70.m_level << 7 | 64;
+                local_a0.m_level = local_a0.m_level << 7 | 64;
+                iVar35 = GetAvH(pCVar23, local_70.m_level, local_a0.m_level, pCVar34->m_playerLevel);
                 local_58 = iVar35 - (uint)bVar5;
                 make_shared<MapSpotAnim, int&, int&, int&, int&, int, int&, int&>(
                     (jag*)&local_48, (int*)local_90, &pCVar34->m_playerLevel, (int*)&local_70, (int*)&local_a0,
@@ -6352,8 +6353,8 @@ namespace jag::oldscape {
                 make_shared<ClientObj>((jag*)&local_48);
                 pAVar26 = (AnimationWrapper*)local_48.end();
                 pCVar34 = local_50;
-                *(uint*)(pAVar26->field_16 + 8) = uVar36;
-                *(undefined4*)(pAVar26->field_16 + 12) = local_b0;
+                *(uint*)(pAVar26->m_source + 8) = uVar36;
+                *(undefined4*)(pAVar26->m_source + 12) = local_b0;
                 iVar12 = local_50->field_8492;
                 pAVar26->field_32 = (uVar2 & 65535) + iVar12;
                 pAVar26->field_36 = (uint)uVar10 + iVar12;
@@ -6544,13 +6545,13 @@ namespace jag::oldscape {
             pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_48.p2_alt2();
             bVar7 = pPVar20->g1();
             pCVar34 = local_50;
-            local_70.field_0 = (bVar7 >> 4 & 7) + *(int*)&local_50->field_1115284;
-            local_a0.field_0 = (bVar7 & 7) + *(int*)&local_50->field_1115288;
+            local_70.m_level = (bVar7 >> 4 & 7) + *(int*)&local_50->field_1115284;
+            local_a0.m_level = (bVar7 & 7) + *(int*)&local_50->field_1115288;
             pCVar23 = (Client*)local_48.p2_alt2();
             uVar10 = pCVar23->g2();
             local_54 = (uint)uVar10;
-            iVar35 = (int)cVar4 + local_70.field_0;
-            iVar37 = (int)cVar6 + local_a0.field_0;
+            iVar35 = (int)cVar4 + local_70.m_level;
+            iVar37 = (int)cVar6 + local_a0.m_level;
             if (pCVar34->field_54760 != '\0') {
                 pCVar23 = (Client*)logger::default_logger();
                 logger::Logger::Log(pCVar23, 0, 5,
@@ -6559,21 +6560,21 @@ namespace jag::oldscape {
                                     4720,
                                     "Received projanim x:%i z:%i x2:%i z2:%i sourceEntity:%i targetEntity:%i "
                                     "spotanim:%i h1:%i h2:%i t1:%i t2:%i angle:%i startpos:%i",
-                                    CONCAT44(uVar44, local_70.field_0), CONCAT44(uVar47, local_a0.field_0),
+                                    CONCAT44(uVar44, local_70.m_level), CONCAT44(uVar47, local_a0.m_level),
                                     CONCAT44(uVar49, iVar35), CONCAT44(uVar50, iVar37), CONCAT44(uVar13, local_38),
                                     CONCAT44(uVar15, local_90[0]), CONCAT44(uVar14, local_54), (uint)bVar5 * 4,
                                     local_58, (int)local_80, (uint)local_88, local_5c, local_34);
             }
-            if (103 < (int)local_70.field_0) {
+            if (103 < (int)local_70.m_level) {
                 return;
             }
-            if ((int)local_70.field_0 < 0) {
+            if ((int)local_70.m_level < 0) {
                 return;
             }
-            if ((int)local_a0.field_0 < 0) {
+            if ((int)local_a0.m_level < 0) {
                 return;
             }
-            if (103 < (int)local_a0.field_0) {
+            if (103 < (int)local_a0.m_level) {
                 return;
             }
             if (iVar35 < 0) {
@@ -6591,9 +6592,9 @@ namespace jag::oldscape {
             if (local_54 == 65535) {
                 return;
             }
-            local_70.field_0 = local_70.field_0 << 7 | 64;
-            local_a0.field_0 = local_a0.field_0 << 7 | 64;
-            iVar12 = GetAvH(pCVar23, local_70.field_0, local_a0.field_0, pCVar34->m_playerLevel);
+            local_70.m_level = local_70.m_level << 7 | 64;
+            local_a0.m_level = local_a0.m_level << 7 | 64;
+            iVar12 = GetAvH(pCVar23, local_70.m_level, local_a0.m_level, pCVar34->m_playerLevel);
             local_78 = iVar12 + (uint)bVar5 * -4;
             local_b4 = (int)local_80 + pCVar34->field_8488;
             local_cc = pCVar34->field_8488 + (uint)local_88;

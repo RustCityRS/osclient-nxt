@@ -226,7 +226,7 @@ namespace jag::graphics {
             pDVar19 = &local_b0;
             pDVar19->SetInputAssemblerState(pIVar18);
             DrawPrimitives((BillboardBatchRenderer*)pDVar19, (BillboardBatch*)local_38, pRVar20, &local_b0,
-                           (vector*)(local_48->field_656 + 80), *(vector_map**)(param_1 + 104));
+                           (vector*)(local_48->m_vertexAnimation + 80), *(vector_map**)(param_1 + 104));
             local_b0.~DrawCallState();
         }
     }

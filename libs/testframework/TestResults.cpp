@@ -10,14 +10,14 @@ namespace jag::testframework {
     TestResults::GetResults() const;
 
     // 0x1000fa840: the linker folded this into oldscape::graphics::NXTPixScreen::GetHeight() const, which has identical code
-    TestResults::GetNumFailed() const;
+    int TestResults::GetNumFailed() const;
 
     // 0x100ba57d0, 48 bytes, placed by class name and debug map
     // TestResults::AddResult(TestResult const&)
     void TestResults::AddResult(TestResult* param_1) {
         push_back(param_1);
         if (*(char*)((long)&param_1->field_96 + 1) == '\0') {
-            field_36 = field_36 + 1;
+            m_numFailed = m_numFailed + 1;
         } else {
             field_32 = field_32 + 1;
         }

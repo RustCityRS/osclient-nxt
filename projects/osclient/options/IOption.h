@@ -12,13 +12,13 @@ namespace jag::oldscape::option {
         virtual ~IOption();
         GetOwningStore();
         IOption(OptionStore&, char const*, OptionFlags);
-        GetName() const;
+        long GetName() const;
         bool HasFlags(OptionFlags) const;
 
         // data members, from how the methods use this: 32 bytes
         undefined* field_0;   // offset 0, vtable pointer
         OptionStore* field_8; // offset 8
-        long field_16;        // offset 16
+        long m_name;          // offset 16
         undefined4 field_24;  // offset 24
         char _unknown_28[4];
     };

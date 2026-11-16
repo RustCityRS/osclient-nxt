@@ -55,7 +55,7 @@ namespace jag::tweak {
     Control::GetCurrentListItem() const;
 
     // 0x10017a5a0: the linker folded this into http::HTTPRequest::GetData() const, which has identical code
-    Control::GetPlacement() const;
+    int Control::GetPlacement() const;
 
     // 0x100a3f930, 160 bytes, placed by class name and debug map
     // Control::SetColour(unsigned int, bool)
@@ -131,7 +131,7 @@ namespace jag::tweak {
         undefined8 uStack_18;
 
         new (&local_20) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(in_RSI);
-        field_136 = (undefined4)local_20;
+        m_pPlacement = (undefined4)local_20;
         field_140 = local_20._4_4_;
         field_144 = (undefined4)uStack_18;
         field_148 = uStack_18._4_4_;
@@ -184,12 +184,12 @@ namespace jag::tweak {
         field_0 = &PTR__OptionStore_100f1d2c8;
         field_24 = (int)param_2_00;
         field_28 = param_2;
-        field_32 = param_4;
+        m_type = param_4;
         field_36 = 0;
         new (&field_48) eastl::fixed_string<char, 16, true, eastl::allocator>();
         new (&field_104, param_2_00) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         new (&field_120, param_2_00) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (&field_136, param_2_00) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (&m_pPlacement, param_2_00) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         std::function<void(Event_const&)>::function((function<void(Event_const&)>*)&field_160);
         m_mouseOver = false;
         m_hasBeenShown = '\0';
@@ -223,14 +223,14 @@ namespace jag::tweak {
         field_0 = &PTR__OptionStore_100f1d2c8;
         field_24 = param_1;
         field_28 = param_2;
-        field_32 = param_4;
+        m_type = param_4;
         field_36 = 0;
         new (&field_48, (char*)param_5) eastl::fixed_string<char, 16, true, eastl::allocator>();
         local_40 = &field_48;
         new (&field_104, param_5) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         local_38 = &field_104;
         new (&field_120, param_5) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (&field_136, param_5) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (&m_pPlacement, param_5) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         std::function<void(Event_const&)>::function((function<void(Event_const&)>*)&field_160);
         m_mouseOver = false;
         m_hasBeenShown = '\0';

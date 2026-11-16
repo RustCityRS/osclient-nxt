@@ -32,7 +32,7 @@ namespace jag {
     FileSystem::SetIndexUpdateCallback(std::function<Array<unsigned char, eastl::allocator>*(int)> const&);
 
     // 0x10017a580: the linker folded this into http::HTTPRequest::GetErrorCode() const, which has identical code
-    FileSystem::GetScope() const;
+    int FileSystem::GetScope() const;
 
     // 0x100b1cae0, 352 bytes, placed by class name and debug map
     // FileSystem::Service()
@@ -111,7 +111,7 @@ namespace jag {
         new (field_8, param_1) Filename();
         this_00 = field_312;
         new (this_00) Filename();
-        field_616 = param_3;
+        m_scope = param_3;
         new (local_168) eastl::allocator("EASTL basic_string");
         new (&field_624, param_4, (allocator*)local_168) eastl::string();
         *(undefined2*)&m_ready = 0;
@@ -181,7 +181,7 @@ namespace jag {
         long local_20;
 
         local_20 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if (field_616 == 0) {
+        if (m_scope == 0) {
             this_00 = (Filename*)GetCacheFolder();
             Filename::operator/(local_150, this_00, (fixed_string*)&field_624);
             (*(code*)field_0[9])(this, local_150);
@@ -201,7 +201,7 @@ namespace jag {
         long local_20;
 
         local_20 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if (field_616 == 1) {
+        if (m_scope == 1) {
             this_00 = (Filename*)GetUserFolder();
             Filename::operator/(local_150, this_00, (fixed_string*)&field_624);
             (*(code*)field_0[9])(this, local_150);

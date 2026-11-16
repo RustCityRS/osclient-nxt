@@ -7,11 +7,11 @@
 namespace jag::oldscape::rs2lib {
     class CoordGrid {
     public:
-        GetZ() const;
-        GetX() const;
+        uint GetZ() const;
+        uint GetX() const;
         void IsSet() const;
         uint BitPack(int, int, int);
-        GetLevel() const;
+        uint GetLevel() const;
         void InRegion() const;
         GetZoneX() const;
         int GetZoneZ() const;
@@ -47,9 +47,9 @@ namespace jag::oldscape::rs2lib {
         static CoordGrid /* 16 bytes */ CoordGridNull; // = CoordGrid(-1, -1, -1)
 
         // data members, from how the methods use this: 16 bytes
-        uint field_0; // offset 0
-        uint field_4; // offset 4
-        uint field_8; // offset 8
+        uint m_level; // offset 0
+        uint m_x;     // offset 4
+        uint m_z;     // offset 8
         char _unknown_12[4];
     };
 
@@ -68,7 +68,7 @@ namespace jag::oldscape::rs2lib {
     // 0x1000e5ce0, 16 bytes, inline, placed by class name
     // CoordGrid::InRegion() const
     void CoordGrid::InRegion() {
-        constants::MapConstants::IsRegionCoord(field_4);
+        constants::MapConstants::IsRegionCoord(m_x);
     }
 
     // 0x1000e5cf0, 16 bytes, inline, placed by class name
@@ -77,49 +77,49 @@ namespace jag::oldscape::rs2lib {
     /* CoordZoneSource::GetMapSquareZ() const */
 
     int CoordZoneSource::GetMapSquareZ() {
-        return (int)field_4 >> 3;
+        return (int)m_zoneZ >> 3;
     }
 
     // 0x1000e5d00, 16 bytes, inline, placed by class name
     // CoordGrid::GetZoneZ() const
     int CoordGrid::GetZoneZ() {
-        return (int)field_8 >> 3;
+        return (int)m_z >> 3;
     }
 
     // 0x1000e5d10, 32 bytes, inline, placed by class name
     // CoordGrid::SetZoneX(int)
     void CoordGrid::SetZoneX(int param_1) {
-        field_4 = (field_4 & 7) + (param_1 & 2047U) * 8;
+        m_x = (m_x & 7) + (param_1 & 2047U) * 8;
     }
 
     // 0x1000e5d30, 32 bytes, inline, placed by class name
     // CoordGrid::SetZoneZ(int)
     void CoordGrid::SetZoneZ(int param_1) {
-        field_8 = (field_8 & 7) + (param_1 & 2047U) * 8;
+        m_z = (m_z & 7) + (param_1 & 2047U) * 8;
     }
 
     // 0x1000e5d60, 16 bytes, inline, placed by class name
     // CoordGrid::GetZoneTileX() const
     uint CoordGrid::GetZoneTileX() {
-        return field_4 & 7;
+        return m_x & 7;
     }
 
     // 0x1000e5d70, 16 bytes, inline, placed by class name
     // CoordGrid::GetZoneTileZ() const
     uint CoordGrid::GetZoneTileZ() {
-        return field_8 & 7;
+        return m_z & 7;
     }
 
     // 0x1000e5d80, 32 bytes, inline, placed by class name
     // CoordGrid::SetZoneTileX(int)
     void CoordGrid::SetZoneTileX(int param_1) {
-        field_4 = param_1 & 7U | field_4 & 4294967288;
+        m_x = param_1 & 7U | m_x & 4294967288;
     }
 
     // 0x1000e5da0, 32 bytes, inline, placed by class name
     // CoordGrid::SetZoneTileZ(int)
     void CoordGrid::SetZoneTileZ(int param_1) {
-        field_8 = param_1 & 7U | field_8 & 4294967288;
+        m_z = param_1 & 7U | m_z & 4294967288;
     }
 
     // 0x10011c9c0, 32 bytes, inline, placed by class name
@@ -127,10 +127,10 @@ namespace jag::oldscape::rs2lib {
     void CoordGrid::Unset() {
         undefined4 uVar1;
 
-        field_8 = DAT_100fc9248;
+        m_z = DAT_100fc9248;
         uVar1 = CoordGridNull._4_4_;
-        field_0 = (undefined4)CoordGridNull;
-        field_4 = uVar1;
+        m_level = (undefined4)CoordGridNull;
+        m_x = uVar1;
     }
 
     // 0x100124fd0, 16 bytes, inline, placed by class name
@@ -155,37 +155,37 @@ namespace jag::oldscape::rs2lib {
     // 0x10015ecc0, 16 bytes, inline, placed by class name
     // CoordGrid::SetX(int)
     void CoordGrid::SetX(int param_1) {
-        field_4 = param_1 & 7;
+        m_x = param_1 & 7;
     }
 
     // 0x10015ecd0, 16 bytes, inline, placed by class name
     // CoordGrid::SetZ(int)
     void CoordGrid::SetZ(int param_1) {
-        field_8 = param_1 & 7;
+        m_z = param_1 & 7;
     }
 
     // 0x10016e270, 16 bytes, inline, placed by class name
     // CoordGrid::SetLevel(int)
     void CoordGrid::SetLevel(int param_1) {
-        field_0 = param_1 & 3;
+        m_level = param_1 & 3;
     }
 
     // 0x1001fc300, 16 bytes, inline, placed by class name
     // CoordGrid::GetMapSquareX() const
     int CoordGrid::GetMapSquareX() {
-        return (int)field_4 >> 6;
+        return (int)m_x >> 6;
     }
 
     // 0x1001fc310, 16 bytes, inline, placed by class name
     // CoordGrid::GetMapSquareZ() const
     int CoordGrid::GetMapSquareZ() {
-        return (int)field_8 >> 6;
+        return (int)m_z >> 6;
     }
 
     // 0x100213700, 32 bytes, inline, placed by class name
     // CoordGrid::ToBitPacked() const
     void CoordGrid::ToBitPacked() {
-        BitPack(field_0, field_4, field_8);
+        BitPack(m_level, m_x, m_z);
     }
 
     // 0x100214c40, 16 bytes, inline, placed by class name

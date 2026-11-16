@@ -37,7 +37,7 @@ namespace jag::graphics {
     /* ViewTransforms::SetProjMatrix(math::Matrix44T<float> const&) */
 
     void ViewTransforms::SetProjMatrix(Matrix44T* param_1) {
-        math::Matrix44T<float>::operator=((Matrix44T<float>*)&field_80, param_1);
+        math::Matrix44T<float>::operator=((Matrix44T<float>*)&m_projMatrix, param_1);
     }
 
     // 0x10091ba80, 16 bytes, inline, placed by class name

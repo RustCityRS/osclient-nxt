@@ -8,21 +8,21 @@
 namespace jag::game {
     class GraphicsDefaults {
     public:
-        GetMaxHeadbarsSimultaneous() const;
-        GetMaxHitmarks() const;
+        uint GetMaxHeadbarsSimultaneous() const;
+        uint GetMaxHitmarks() const;
         GetFont11pxRegularID() const;
         GetFont12pxRegularID() const;
         GetSpriteCompassID() const;
         GetSpriteModIconsID() const;
-        GetMaxHeadbarsQueued() const;
+        uint GetMaxHeadbarsQueued() const;
         GetPlayerRecolSource() const;
         GetPlayerRematDest() const;
         GetObjStackColourMillions() const;
-        GetObjStackColourBillions() const;
+        int GetObjStackColourBillions() const;
         GetObjStackColourTrillions() const;
-        GetObjStackColourQuadrillions() const;
+        int GetObjStackColourQuadrillions() const;
         GetPlayerRematSource() const;
-        GetNpcChatTimeout() const;
+        uint GetNpcChatTimeout() const;
         GetObjStackColourUnits() const;
         GetObjStackColourThousands() const;
         GetPlayerRecolDest() const;
@@ -38,33 +38,33 @@ namespace jag::game {
         GetSpriteHintMapEdgeID() const;
 
         // data members, from how the methods use this: 340 bytes
-        uint field_0; // offset 0
+        uint m_maxHitmarks; // offset 0
         char _unknown_4[52];
-        uint field_56;       // offset 56
-        uint field_60;       // offset 60
-        uint field_64;       // offset 64
-        undefined4 field_68; // offset 68
-        undefined4 field_72; // offset 72
-        undefined4 field_76; // offset 76
-        undefined1 field_80; // offset 80
+        uint m_maxHeadbarsQueued;       // offset 56
+        uint m_maxHeadbarsSimultaneous; // offset 60
+        uint field_64;                  // offset 64
+        undefined4 field_68;            // offset 68
+        undefined4 field_72;            // offset 72
+        undefined4 field_76;            // offset 76
+        undefined1 field_80;            // offset 80
         char _unknown_81[3];
         uint field_84; // offset 84
         uint field_88; // offset 88
         char _unknown_92[100];
         undefined1 field_192; // offset 192
         char _unknown_193[3];
-        uint field_196;       // offset 196
-        undefined1 field_200; // offset 200
+        uint m_npcChatTimeout; // offset 196
+        undefined1 field_200;  // offset 200
         char _unknown_201[3];
         uint field_204;       // offset 204
         undefined1 field_208; // offset 208
         char _unknown_209[3];
         undefined4 m_objStackColourUnits;     // offset 212
         undefined4 m_objStackColourThousands; // offset 216
-        undefined4 field_220;                 // offset 220
-        undefined4 field_224;                 // offset 224
+        undefined4 m_objStackColourMillions;  // offset 220
+        int m_objStackColourBillions;         // offset 224
         undefined4 m_objStackColourTrillions; // offset 228
-        undefined4 field_232;                 // offset 232
+        int m_objStackColourQuadrillions;     // offset 232
         uint field_236;                       // offset 236
         uint field_240;                       // offset 240
         uint field_244;                       // offset 244

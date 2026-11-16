@@ -25,9 +25,9 @@ namespace jag::ui {
         undefined1* this_00;
 
         new (this) Component();
-        new (&field_392) ComponentSingleValueMixin();
+        new (&m_pValueRepresentation) ComponentSingleValueMixin();
         field_0 = &PTR__Button_100f0e3d0;
-        field_392 = &PTR__Button_100f0e518;
+        m_pValueRepresentation = &PTR__Button_100f0e518;
         new (field_400, 1, 1) ButtonElement();
         this_00 = &field_432;
         new (this_00) TextData();

@@ -17,9 +17,9 @@ namespace jag::graphics {
         ~DrawableGroup();
 
         // data members, from how the methods use this: 24 bytes
-        undefined4 field_0; // offset 0
-        undefined4 field_4; // offset 4
-        undefined4 field_8; // offset 8
+        undefined4 field_0;               // offset 0
+        undefined4 field_4;               // offset 4
+        undefined4 m_drawableSortKeyType; // offset 8
         char _unknown_12[12];
     };
 
@@ -53,7 +53,7 @@ namespace jag::graphics {
     void DrawableGroup::DrawableGroup(undefined4 param_2, undefined4 param_3) {
         field_0 = 0;
         field_4 = param_2;
-        field_8 = param_3;
+        m_drawableSortKeyType = param_3;
         new (&field_16) eastl::vector<DrawableElementInfo, eastl::allocator>();
     }
 

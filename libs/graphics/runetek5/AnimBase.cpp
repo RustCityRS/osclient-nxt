@@ -7,7 +7,7 @@
 
 namespace jag::graphics {
     // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    AnimBase::GetBaseID();
+    uint AnimBase::GetBaseID();
 
     // 0x10016ea80: the linker folded this into oldscape::minimenu::Minimenu::GetPlayerOps() const, which has identical code
     AnimBase::GetLabelSetToJointMap() const;
@@ -16,7 +16,7 @@ namespace jag::graphics {
     AnimBase::GetJointMoveMap();
 
     // 0x1006ac930: the linker folded this into ui::SpriteData::GetSpriteRotate() const, which has identical code
-    AnimBase::GetTransformCount() const;
+    ushort AnimBase::GetTransformCount() const;
 
     // 0x100976910, 352 bytes, base-object constructor, placed by class name
     // AnimBase::AnimBase()
@@ -30,7 +30,7 @@ namespace jag::graphics {
 
         new (this) MakeSharedPool<AnimBase, 256>();
         field_0 = 0;
-        field_4 = 0;
+        m_baseID = 0;
         m_transformCount = 0;
         local_58 = &field_16;
         new (local_58) Array<AnimTransform, eastl::allocator>();
@@ -110,7 +110,7 @@ namespace jag::graphics {
 
         new (this) MakeSharedPool<AnimBase, 256>();
         field_0 = 0;
-        field_4 = 0;
+        m_baseID = 0;
         m_transformCount = 0;
         local_70 = (Array<AnimTransform, eastl::allocator>*)&field_16;
         Array<AnimTransform, eastl::allocator>::Array(local_70);
@@ -134,7 +134,7 @@ namespace jag::graphics {
         local_98 = (Array<unsigned short, eastl::allocator>*)&field_240;
         Array<unsigned short, eastl::allocator>::Array(local_98);
         m_numJoints = 0;
-        field_4 = param_1;
+        m_baseID = param_1;
         uVar3 = param_2->g2();
         m_transformCount = uVar3;
         local_70->set_max_size((ulong)uVar3, 0);

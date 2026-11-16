@@ -34,7 +34,7 @@ namespace jag::game {
 
     class ServerSyncingCycle {
     public:
-        GetCycle() const;
+        uint GetCycle() const;
         ulong AllReady() const;
         void Add(ServerSyncingUser&);
         void Remove(ServerSyncingUser&);
@@ -49,7 +49,7 @@ namespace jag::game {
         ~ServerSyncingCycle();
 
         // data members, from how the methods use this: 1700 bytes
-        uint field_0;       // offset 0
+        uint m_cycle;       // offset 0
         int field_4;        // offset 4
         undefined1 field_8; // offset 8
         char _unknown_9[1679];

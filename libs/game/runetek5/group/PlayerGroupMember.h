@@ -7,9 +7,9 @@
 namespace jag::game {
     class PlayerGroupMember {
     public:
-        GetKnownVariablesAtJoin() const;
+        VarContainerSparse GetKnownVariablesAtJoin() const;
         void SetStatus(PlayerGroupMemberStatus);
-        GetStatus() const;
+        uint GetStatus() const;
         uchar GetRank() const;
         void SetRank(unsigned char);
         void SetOnline(bool);
@@ -34,12 +34,12 @@ namespace jag::game {
         bool m_online;          // offset 60
         uchar m_rank;           // offset 61
         undefined2 field_62;    // offset 62
-        uint field_64;          // offset 64
+        uint m_status;          // offset 64
         uchar m_team;           // offset 68
         char _unknown_69[3];
         VarContainerSparse field_72; // offset 72
         char _unknown_88[48];
-        VarContainerSparse field_136; // offset 136
+        VarContainerSparse m_pKnownVariablesAtJoin; // offset 136
     };
 
     // 0x1004b9c60, 16 bytes, inline, placed by class name and debug map
@@ -96,7 +96,7 @@ namespace jag::game {
         uVar5 = param_1->field_62;
         uVar6 = param_1->m_rank;
         uVar7 = param_1->field_62;
-        uVar8 = param_1->field_64;
+        uVar8 = param_1->m_status;
         uVar9 = param_1->m_team;
         field_56 = param_1->field_56;
         field_57 = uVar1;
@@ -106,10 +106,11 @@ namespace jag::game {
         field_62 = uVar5;
         m_rank = uVar6;
         field_62 = uVar7;
-        field_64 = uVar8;
+        m_status = uVar8;
         m_team = uVar9;
         VarContainerSparse::operator=((VarContainerSparse*)field_72, (VarContainerSparse*)param_1->field_72);
-        VarContainerSparse::operator=((VarContainerSparse*)field_136, (VarContainerSparse*)param_1->field_136);
+        VarContainerSparse::operator=((VarContainerSparse*)m_pKnownVariablesAtJoin,
+                                      (VarContainerSparse*)param_1->m_pKnownVariablesAtJoin);
         return this;
     }
 
@@ -125,13 +126,13 @@ namespace jag::game {
         new (this) Array<PlayerStat, eastl::allocator>();
         new (&field_24) eastl::string();
         new (field_72) VarContainerSparse();
-        new (field_136) VarContainerSparse();
+        new (m_pKnownVariablesAtJoin) VarContainerSparse();
     }
 
     // 0x1004bd2c0, 64 bytes, base-object destructor, inline, placed by class name
     // PlayerGroupMember::~PlayerGroupMember()
     void PlayerGroupMember::~PlayerGroupMember() {
-        field_136->~VarContainerSparse();
+        m_pKnownVariablesAtJoin->~VarContainerSparse();
         field_72->~VarContainerSparse();
         (&field_24)->~basic_string();
         ~Array();
@@ -162,11 +163,11 @@ namespace jag::game {
         uVar8 = param_1->m_rank;
         uVar9 = param_1->field_62;
         uVar1 = param_1->field_62;
-        uVar2 = param_1->field_64;
+        uVar2 = param_1->m_status;
         uVar3 = param_1->m_team;
         m_rank = param_1->m_rank;
         field_62 = uVar1;
-        field_64 = uVar2;
+        m_status = uVar2;
         m_team = uVar3;
         field_56 = bVar4;
         field_57 = uVar5;
@@ -175,7 +176,7 @@ namespace jag::game {
         m_rank = uVar8;
         field_62 = uVar9;
         new (field_72, (VarContainerSparse*)param_1->field_72) VarContainerSparse();
-        new (field_136, (VarContainerSparse*)param_1->field_136) VarContainerSparse();
+        new (m_pKnownVariablesAtJoin, (VarContainerSparse*)param_1->m_pKnownVariablesAtJoin) VarContainerSparse();
     }
 
     // 0x1004beb60, 16 bytes, complete-object constructor, inline, placed by class name
@@ -203,11 +204,11 @@ namespace jag::game {
         uVar8 = param_1->m_rank;
         uVar9 = param_1->field_62;
         uVar1 = param_1->field_62;
-        uVar2 = param_1->field_64;
+        uVar2 = param_1->m_status;
         uVar3 = param_1->m_team;
         m_rank = param_1->m_rank;
         field_62 = uVar1;
-        field_64 = uVar2;
+        m_status = uVar2;
         m_team = uVar3;
         field_56 = bVar4;
         field_57 = uVar5;
@@ -216,7 +217,7 @@ namespace jag::game {
         m_rank = uVar8;
         field_62 = uVar9;
         new (field_72, (VarContainerSparse*)param_1->field_72) VarContainerSparse();
-        new (field_136, (VarContainerSparse*)param_1->field_136) VarContainerSparse();
+        new (m_pKnownVariablesAtJoin, (VarContainerSparse*)param_1->m_pKnownVariablesAtJoin) VarContainerSparse();
     }
 
 } // namespace jag::game

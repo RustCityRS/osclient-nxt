@@ -28,8 +28,8 @@ namespace jag::graphics {
 
     class BlendSpace2DDescriptor::LocationInfo {
     public:
-        GetPositionY() const;
-        GetPositionX() const;
+        float GetPositionY() const;
+        float GetPositionX() const;
         void GetBlendTree() const;
         LocationInfo(PacketT<Array<unsigned char, eastl::allocator>>&);
         ~LocationInfo();
@@ -40,8 +40,8 @@ namespace jag::graphics {
 
         // data members, from how the methods use this: 20 bytes
         char _unknown_0[8];
-        float field_8;  // offset 8
-        float field_12; // offset 12
+        float m_positionX; // offset 8
+        float m_positionY; // offset 12
         char _unknown_16[4];
     };
 
@@ -205,8 +205,8 @@ namespace jag::graphics {
         std::unique_ptr<BlendTreeNodeDescriptor, std::default_delete<BlendTreeNodeDescriptor>>::operator=(
             (unique_ptr<BlendTreeNodeDescriptor, std::default_delete<BlendTreeNodeDescriptor>>*)this, local_28);
         local_28->~unique_ptr();
-        field_8 = param_1->field_8;
-        field_12 = param_1->field_12;
+        m_positionX = param_1->m_positionX;
+        m_positionY = param_1->m_positionY;
     }
 
     // 0x1009648c0, 16 bytes, complete-object constructor, inline, placed by class name and debug map
@@ -218,9 +218,9 @@ namespace jag::graphics {
         float fVar1;
 
         new (this) std::unique_ptr<BlendTreeNodeDescriptor, std::default_delete<BlendTreeNodeDescriptor>>(param_1);
-        fVar1 = param_1->field_12;
-        field_8 = param_1->field_8;
-        field_12 = fVar1;
+        fVar1 = param_1->m_positionY;
+        m_positionX = param_1->m_positionX;
+        m_positionY = fVar1;
     }
 
     // 0x100974090, 16 bytes, complete-object constructor, inline, placed by class name
@@ -236,8 +236,8 @@ namespace jag::graphics {
                                                                                            float param_2,
                                                                                            float param_3) {
         new (this) std::unique_ptr<BlendTreeNodeDescriptor, std::default_delete<BlendTreeNodeDescriptor>>(param_1);
-        field_8 = param_2;
-        field_12 = param_3;
+        m_positionX = param_2;
+        m_positionY = param_3;
     }
 
     // 0x1009741d0, 16 bytes, complete-object constructor, inline, placed by class name

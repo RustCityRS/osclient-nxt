@@ -16,7 +16,7 @@ namespace jag::graphics {
     // SSAOContext::SSAOContext()
     void SSAOContext::SSAOContext() {
         new (this) SSAOParams();
-        field_48 = 0;
+        m_pNativeContext = 0;
     }
 
     // 0x1008aa590, 16 bytes, complete-object constructor, placed by class name and debug map

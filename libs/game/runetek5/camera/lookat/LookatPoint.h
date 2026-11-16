@@ -9,7 +9,7 @@ namespace jag::game {
     public:
         // virtual methods in vtable order
         virtual ~LookatPoint();
-        virtual GetCurrentLookat() const;
+        virtual AABB GetCurrentLookat() const;
         virtual void GetLookatData(LookatData&);
         virtual Vector3T* GetLookatOffset(math::Vector3T<double>&) const;
         virtual void GetLookatPosition(math::Vector3T<double>&) const;
@@ -30,10 +30,10 @@ namespace jag::game {
         undefined4 field_8;  // offset 8
         undefined1 field_12; // offset 12
         char _unknown_13[3];
-        AABB field_16; // offset 16
-        AABB field_40; // offset 40
-        AABB field_64; // offset 64
-        uint field_88; // offset 88
+        AABB m_currentLookat; // offset 16
+        AABB field_40;        // offset 40
+        AABB field_64;        // offset 64
+        uint field_88;        // offset 88
         char _unknown_92[4];
         AABB field_96; // offset 96
     };
@@ -54,7 +54,7 @@ namespace jag::game {
     // 0x10061da80, 32 bytes, inline, placed by class name and debug map
     // LookatPoint::GetLookatPosition(math::Vector3T<double>&) const
     void LookatPoint::GetLookatPosition(Vector3T* param_1) {
-        math::Vector3T<double>::operator=((Vector3T<double>*)param_1, (Vector3T*)field_16);
+        math::Vector3T<double>::operator=((Vector3T<double>*)param_1, (Vector3T*)m_currentLookat);
     }
 
     // 0x10061daa0, 32 bytes, inline, placed by class name and debug map
@@ -72,7 +72,7 @@ namespace jag::game {
         new (this) ILookatManager(0);
         field_0 = &PTR__ScriptOption_100f0c338;
         field_12 = 0;
-        new (field_16) oldscape::dash3d::ModelLit::AABB();
+        new (m_currentLookat) oldscape::dash3d::ModelLit::AABB();
         new (field_40) oldscape::dash3d::ModelLit::AABB();
         new (field_64) oldscape::dash3d::ModelLit::AABB();
         field_88 = 4294967295;

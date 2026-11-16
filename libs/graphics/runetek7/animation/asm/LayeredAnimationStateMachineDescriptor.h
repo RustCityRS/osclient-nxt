@@ -24,7 +24,7 @@ namespace jag::graphics {
         GetAnimationStateMachineDescriptor();
         GetAnimationStateMachineDescriptor() const;
         GetTransitionOutTime() const;
-        GetBlendType() const;
+        int GetBlendType() const;
         GetTransitionInTime() const;
         GetBlendVar() const;
         LayeredAnimationStateMachineLayerDescriptor(Json::Value const&);
@@ -34,9 +34,9 @@ namespace jag::graphics {
 
         // data members, from how the methods use this: 160 bytes
         char _unknown_0[104];
-        undefined4 field_104; // offset 104
+        int m_blendType; // offset 104
         char _unknown_108[36];
-        undefined8 field_144;           // offset 144
+        undefined8 m_pTransitionInTime; // offset 144
         undefined8 m_transitionOutTime; // offset 152
     };
 

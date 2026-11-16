@@ -9,15 +9,15 @@ namespace jag {
     public:
         GetEncodeType() const;
         IsHTTPServed() const;
-        GetOpenPriority() const;
-        GetArchiveID() const;
+        int GetOpenPriority() const;
+        uint GetArchiveID() const;
         GetGroupIDLimit() const;
         Js5ArchiveSettings(unsigned int, Priority const*, int, bool, EncodeType const*, bool, Js5DiskCacheFormat,
                            char const*);
-        GetLocalFileName() const;
+        char* GetLocalFileName() const;
         Js5ArchiveSettings();
-        GetTotalSize() const;
-        GetDiskCacheSize() const;
+        uint GetTotalSize() const;
+        int GetDiskCacheSize() const;
         void SetGroupIDLimit(unsigned int);
         uint GetPreloadSize() const;
         GetPrefetchPriority() const;
@@ -25,15 +25,15 @@ namespace jag {
         void SetHTTPValidated(bool);
         void SetTotalSize(unsigned int);
         int GetDiskEncodeType() const;
-        IsHTTPValidated() const;
+        bool IsHTTPValidated() const;
         IsLangSpecific() const;
         GetCanSaveToDisk() const;
 
         // data members, from how the methods use this: 64 bytes
-        undefined4 field_0; // offset 0
+        uint m_archiveID; // offset 0
         char _unknown_4[4];
         undefined* field_8;          // offset 8
-        undefined4 field_16;         // offset 16
+        int m_openPriority;          // offset 16
         undefined1 m_preloadEnabled; // offset 20
         undefined1 m_langSpecific;   // offset 21
         char _unknown_22[2];
@@ -43,10 +43,10 @@ namespace jag {
         char m_diskEncodeType;      // offset 34
         undefined1 m_canSaveToDisk; // offset 35
         char _unknown_36[4];
-        char* field_40;      // offset 40
-        uint m_groupIDLimit; // offset 48
-        int field_52;        // offset 52
-        uint m_totalSize;    // offset 56
+        char* m_pLocalFileName; // offset 40
+        uint m_groupIDLimit;    // offset 48
+        int m_diskCacheSize;    // offset 52
+        uint m_totalSize;       // offset 56
         char _unknown_60[4];
     };
 
@@ -58,21 +58,20 @@ namespace jag {
 
     // 0x10013f3f0, 80 bytes, base-object constructor, inline, placed by class name
     // Js5ArchiveSettings::Js5ArchiveSettings(unsigned int, Priority const*, int, bool, EncodeType const*, bool, Js5DiskCacheFormat, char const*)
-    void Js5ArchiveSettings::Js5ArchiveSettings(undefined4 param_1, undefined* param_2, undefined4 param_3,
-                                                undefined1 param_4, undefined* param_5, undefined1 param_6,
-                                                char param_8, char* param_9) {
-        field_0 = param_1;
+    void Js5ArchiveSettings::Js5ArchiveSettings(uint param_1, undefined* param_2, int param_3, undefined1 param_4,
+                                                undefined* param_5, undefined1 param_6, char param_8, char* param_9) {
+        m_archiveID = param_1;
         field_8 = param_2;
-        field_16 = param_3;
+        m_openPriority = param_3;
         m_preloadEnabled = 1;
         m_langSpecific = param_4;
         field_24 = param_5;
         field_32 = param_6;
         m_diskEncodeType = param_8;
         m_canSaveToDisk = 1;
-        field_40 = param_9;
+        m_pLocalFileName = param_9;
         m_groupIDLimit = 0;
-        field_52 = 0;
+        m_diskCacheSize = 0;
         m_totalSize = 0;
     }
 
@@ -82,18 +81,18 @@ namespace jag {
     // 0x1001d7dc0, 96 bytes, base-object constructor, inline, placed by class name
     // Js5ArchiveSettings::Js5ArchiveSettings()
     void Js5ArchiveSettings::Js5ArchiveSettings() {
-        field_0 = 0;
+        m_archiveID = 0;
         field_8 = (undefined*)0;
-        field_16 = 0;
+        m_openPriority = 0;
         m_preloadEnabled = 1;
         m_langSpecific = 0;
         field_24 = EncodeType::NONE;
         field_32 = 0;
         m_diskEncodeType = '\x01';
         m_canSaveToDisk = 1;
-        field_40 = "";
+        m_pLocalFileName = "";
         m_groupIDLimit = 0;
-        field_52 = 0;
+        m_diskCacheSize = 0;
         m_totalSize = 0;
     }
 

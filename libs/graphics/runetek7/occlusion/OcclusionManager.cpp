@@ -778,7 +778,7 @@ namespace jag::graphics {
                 cVar2 = *(char*)&param_1[19].field_28;
             } else {
                 std::__atomic_base<unsigned int, true>::operator++(
-                    (__atomic_base<unsigned int, true>*)&param_1[18].field_16);
+                    (__atomic_base<unsigned int, true>*)&param_1[18].m_maximum);
                 this = (Array<std::unique_ptr<LoadingScreenScript::AnimLayer,
                                               std::default_delete<LoadingScreenScript::AnimLayer>>,
                               eastl::allocator>*)

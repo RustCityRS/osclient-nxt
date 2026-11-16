@@ -800,7 +800,7 @@ namespace jag::render {
                               "buffers/PooledBuffer.cpp",
                               184, (char*)0);
                 }
-                pBVar15->field_36 = uVar3;
+                pBVar15->m_sizeInBytes = uVar3;
                 uVar13 = CONCAT71((int7)((ulong)(lVar6 + 80) >> 8), 1);
                 if (pvVar14 != (void*)0) {
                     pBVar15->Update(0, uVar3, pvVar14, 2);
@@ -848,7 +848,7 @@ namespace jag::render {
             pBVar15->Update(0, uVar3, pvVar14, 0);
         }
         uVar13 = (ulong)uVar4;
-        pBVar15->field_36 = uVar3;
+        pBVar15->m_sizeInBytes = uVar3;
     LAB_100c0f55b:
         return uVar13 & 4294967295;
     }
@@ -1211,7 +1211,7 @@ namespace jag::render {
                               "buffers/PooledBuffer.cpp",
                               184, (char*)0);
                 }
-                pBVar15->field_36 = uVar3;
+                pBVar15->m_sizeInBytes = uVar3;
                 uVar13 = CONCAT71((int7)((ulong)(lVar6 + 80) >> 8), 1);
                 if (pvVar14 != (void*)0) {
                     pBVar15->Update(0, uVar3, pvVar14, 2);
@@ -1259,7 +1259,7 @@ namespace jag::render {
             pBVar15->Update(0, uVar3, pvVar14, 0);
         }
         uVar13 = (ulong)uVar4;
-        pBVar15->field_36 = uVar3;
+        pBVar15->m_sizeInBytes = uVar3;
     LAB_100c10b9b:
         return uVar13 & 4294967295;
     }
@@ -1619,7 +1619,7 @@ namespace jag::render {
                               "buffers/PooledBuffer.cpp",
                               184, (char*)0);
                 }
-                pBVar15->field_36 = uVar3;
+                pBVar15->m_sizeInBytes = uVar3;
                 uVar13 = CONCAT71((int7)((ulong)(lVar6 + 80) >> 8), 1);
                 if (pvVar14 != (void*)0) {
                     pBVar15->Update(0, uVar3, pvVar14, 2);
@@ -1667,7 +1667,7 @@ namespace jag::render {
             pBVar15->Update(0, uVar3, pvVar14, 0);
         }
         uVar13 = (ulong)uVar4;
-        pBVar15->field_36 = uVar3;
+        pBVar15->m_sizeInBytes = uVar3;
     LAB_100c121cb:
         return uVar13 & 4294967295;
     }

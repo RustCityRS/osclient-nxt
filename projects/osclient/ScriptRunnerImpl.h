@@ -174,9 +174,9 @@ namespace jag::oldscape {
         CoordGrid local_20;
 
         new (&local_20) rs2lib::CoordGrid(param_1, param_2, param_3);
-        *(uint*)(field_140944 + 8) = local_20.field_8;
-        *(uint*)(field_140944 + 0) = local_20.field_0;
-        *(uint*)(field_140944 + 4) = local_20.field_4;
+        *(uint*)(field_140944 + 8) = local_20.m_z;
+        *(uint*)(field_140944 + 0) = local_20.m_level;
+        *(uint*)(field_140944 + 4) = local_20.m_x;
     }
 
     // 0x10018f4f0, 16 bytes, inline, placed by class name

@@ -382,10 +382,10 @@ namespace jag::oldscape::rseven {
                         pMVar7 = (MapRebuildSquare*)eastl::vector<MapRebuildSquare, eastl::allocator>::operator[](
                             (vector<MapRebuildSquare, eastl::allocator>*)local_60, uVar8);
                         uVar8 = uVar8 + 1;
-                        uVar6 = param_2->field_4;
-                        *(uint*)(pMVar7->field_80 + 0) = param_2->field_0;
+                        uVar6 = param_2->m_x;
+                        *(uint*)(pMVar7->field_80 + 0) = param_2->m_level;
                         *(uint*)(pMVar7->field_80 + 4) = uVar6;
-                        *(uint*)(pMVar7->field_80 + 8) = param_2->field_8;
+                        *(uint*)(pMVar7->field_80 + 8) = param_2->m_z;
                         *(int*)(pMVar7->field_80 + 12) = (int)local_48;
                         *(int*)&pMVar7->field_96 = iVar2;
                         RebuildSquare(param_1, pMVar7, local_58);

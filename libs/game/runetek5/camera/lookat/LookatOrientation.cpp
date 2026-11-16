@@ -25,7 +25,7 @@ namespace jag::game {
     LookatOrientation::SetOrientationXRotation(int);
 
     // 0x100060710: the linker folded this into oldscape::widgets::ScrollBarWidget::GetThumbBounds() const, which has identical code
-    LookatOrientation::GetCurrentLookat() const;
+    AABB LookatOrientation::GetCurrentLookat() const;
 
     // 0x10014d2f0: the linker folded this into oldscape::ApplicationContext::GetScreenRatio(), which has identical code
     LookatOrientation::GetZRotation() const;
@@ -52,7 +52,7 @@ namespace jag::game {
         QuaternionT<float> local_28[16];
 
         math::QuaternionT<float>::QuaternionT(local_28, param_1, false);
-        math::Rect<float>::operator=((Rect<float>*)&field_136, (Rect*)local_28);
+        math::Rect<float>::operator=((Rect<float>*)m_pCurrentOrientation, (Rect*)local_28);
         field_80 = 1;
     }
 
@@ -68,7 +68,7 @@ namespace jag::game {
 
         local_48 = param_1;
         local_40 = param_2;
-        (&field_136)->SetToIdentity();
+        m_pCurrentOrientation->SetToIdentity();
         math::QuaternionT<float>::QuaternionT(local_68);
         math::Matrix33T<float>::Matrix33T(local_90);
         new (&local_38) math::ColourHSL(0.0, 1.0, 0.0);
@@ -77,7 +77,7 @@ namespace jag::game {
         local_68->FromRotationMatrix(local_90);
         local_58->Conjugate();
         math::Rect<float>::operator=((Rect<float>*)local_68, (Rect*)local_58);
-        (&field_136, (Vector4T*)local_68)->Set();
+        (m_pCurrentOrientation, (Vector4T*)local_68)->Set();
         field_80 = 1;
     }
 
@@ -91,21 +91,21 @@ namespace jag::game {
         undefined8 local_40;
         float local_38;
 
-        if ((field_12 != 0) || (field_16 != 0)) {
+        if ((m_orientationXRotation != 0) || (m_orientationYRotation != 0)) {
             new (&local_70) math::QuaternionT<float>();
-            fVar2 = (float)math::conversion::JagexAngleToRadians(field_12);
+            fVar2 = (float)math::conversion::JagexAngleToRadians(m_orientationXRotation);
             local_70.FromAxisAngle(PTR_RIGHT_100ee66f0, fVar2);
-            math::QuaternionT<float>::operator*=((QuaternionT<float>*)&field_136, (QuaternionT*)&local_70);
+            math::QuaternionT<float>::operator*=((QuaternionT<float>*)m_pCurrentOrientation, (QuaternionT*)&local_70);
             local_38 = *(float*)(PTR_UP_100ee66d0 + 8);
             local_40 = *(undefined8*)PTR_UP_100ee66d0;
             local_58->Conjugate();
             math::Vector3T<float>::operator*=((Vector3T<float>*)&local_40, (QuaternionT*)local_58);
             local_40.Normalize();
-            fVar2 = (float)math::conversion::JagexAngleToRadians(field_16);
+            fVar2 = (float)math::conversion::JagexAngleToRadians(m_orientationYRotation);
             local_70.FromAxisAngle((Vector3T*)&local_40, -fVar2);
-            math::QuaternionT<float>::operator*=((QuaternionT<float>*)&field_136, (QuaternionT*)&local_70);
-            field_12 = 0;
-            field_16 = 0;
+            math::QuaternionT<float>::operator*=((QuaternionT<float>*)m_pCurrentOrientation, (QuaternionT*)&local_70);
+            m_orientationXRotation = 0;
+            m_orientationYRotation = 0;
         }
         if ((m_orientationZMovement == 0.0) && (m_orientationXMovement == 0.0)) {
             uVar1 = 0;
@@ -113,15 +113,15 @@ namespace jag::game {
             new (&local_70) oldscape::dash3d::ModelLit::AABB();
             new (&local_40) math::Vector3T<int>();
             local_38 = m_orientationZMovement;
-            math::Vector3T<float>::operator*=((Vector3T<float>*)&local_40, (QuaternionT*)&field_136);
+            math::Vector3T<float>::operator*=((Vector3T<float>*)&local_40, (QuaternionT*)m_pCurrentOrientation);
             math::Vector3T<double>::Vector3T<float>((Vector3T<double>*)local_58, (Vector3T*)&local_40);
             math::Vector3T<double>::operator+=((Vector3T<double>*)&local_70, (Vector3T*)local_58);
             local_40.SetToZero();
             local_40 = CONCAT44(local_40._4_4_, m_orientationXMovement);
-            math::Vector3T<float>::operator*=((Vector3T<float>*)&local_40, (QuaternionT*)&field_136);
+            math::Vector3T<float>::operator*=((Vector3T<float>*)&local_40, (QuaternionT*)m_pCurrentOrientation);
             math::Vector3T<double>::Vector3T<float>((Vector3T<double>*)local_58, (Vector3T*)&local_40);
             math::Vector3T<double>::operator+=((Vector3T<double>*)&local_70, (Vector3T*)local_58);
-            math::operator+((math*)local_58, (Vector3T*)field_88, (Vector3T*)&local_70);
+            math::operator+((math*)local_58, (Vector3T*)m_currentLookat, (Vector3T*)&local_70);
             math::Vector3T<double>::operator=((Vector3T<double>*)&field_112, (Vector3T*)local_58);
             ClampBoundary(this, (Vector3T*)&field_112);
             m_orientationXMovement = 0.0;
@@ -210,13 +210,13 @@ namespace jag::game {
     // 0x10061d460, 32 bytes, placed by class name and debug map
     // LookatOrientation::GetLookatPosition(math::Vector3T<double>&) const
     void LookatOrientation::GetLookatPosition(Vector3T* param_1) {
-        math::Vector3T<double>::operator=((Vector3T<double>*)param_1, (Vector3T*)field_88);
+        math::Vector3T<double>::operator=((Vector3T<double>*)param_1, (Vector3T*)m_currentLookat);
     }
 
     // 0x10061d480, 16 bytes, placed by class name and debug map
     // LookatOrientation::SetCurrentLookat(math::Vector3T<double> const&)
     void LookatOrientation::SetCurrentLookat(Vector3T* param_1) {
-        math::Vector3T<double>::operator=((Vector3T<double>*)field_88, param_1);
+        math::Vector3T<double>::operator=((Vector3T<double>*)m_currentLookat, param_1);
     }
 
     // 0x10061d490, 32 bytes, placed by class name and debug map

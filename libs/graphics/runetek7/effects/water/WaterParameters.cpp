@@ -112,7 +112,7 @@ namespace jag::graphics {
     WaterParameters::GetFoamTexture() const;
 
     // 0x1004c69a0: the linker folded this into game::WaterType::GetEmissiveFlowRotationDegrees() const, which has identical code
-    WaterParameters::GetEmissiveMapMaterialScale() const;
+    float WaterParameters::GetEmissiveMapMaterialScale() const;
 
     // 0x100920140, 64 bytes, placed by class name and debug map
     // WaterParameters::GetWaterNormalMapTextureScalesFlowNoiseScale() const
@@ -271,7 +271,7 @@ namespace jag::graphics {
 
         puVar1 = &m_forceFlowAlignedEmissiveUVOverride;
         if (m_overrideEnabled == '\0') {
-            puVar1 = &field_421;
+            puVar1 = &m_emissiveUVMode;
         }
         return *puVar1;
     }

@@ -131,7 +131,7 @@ namespace jag::game {
 
 namespace jag::graphics {
     // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    ScriptedPointLight::GetRadius();
+    uint ScriptedPointLight::GetRadius();
 
     // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
     TextureAtlasUsageMap::GetUsed();

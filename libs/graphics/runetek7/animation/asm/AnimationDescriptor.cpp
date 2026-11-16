@@ -14,13 +14,13 @@ namespace jag::graphics {
     };
 
     // 0x10011cd30: the linker folded this into oldscape::configdecoder::NPCTypeCustomisation::UsePlayerModel() const, which has identical code
-    AnimationDescriptor::GetTweenLastFrameToFirst() const;
+    bool AnimationDescriptor::GetTweenLastFrameToFirst() const;
 
     // 0x10012dc00: the linker folded this into oldscape::graphics::NXTPixScreen::GetViewportX(), which has identical code
-    AnimationDescriptor::GetBasAnimType() const;
+    int AnimationDescriptor::GetBasAnimType() const;
 
     // 0x10016b4a0: the linker folded this into oldscape::rs2lib::worldmap::WorldmapAreaMetadata::GetAdvisedZoom() const, which has identical code
-    AnimationDescriptor::GetSeqID() const;
+    uint AnimationDescriptor::GetSeqID() const;
 
     // 0x1001cd990: the linker folded this into PointLightIndicesEffect::GetVisiblePointLights(), which has identical code
     AnimationDescriptor::GetOnFinishedCallback() const;
@@ -32,11 +32,11 @@ namespace jag::graphics {
     // AnimationDescriptor::AnimationDescriptor(Json::Value const&)
     void AnimationDescriptor::AnimationDescriptor(Value* param_1) {
         new (this) eastl::fixed_string<char, 32, true, eastl::allocator>();
-        field_72 = 21;
-        field_76 = 4294967295;
-        field_80 = 0;
+        m_basAnimType = 21;
+        m_seqID = 4294967295;
+        m_loopBehaviour = 0;
         m_loopLength = 4294967295;
-        field_88 = true;
+        m_tweenLastFrameToFirst = true;
         new (&field_96) math::Vector2T<int>();
         field_192 = false;
         new (&field_200) eastl::string();
@@ -48,9 +48,9 @@ namespace jag::graphics {
     void AnimationDescriptor::ReadFromJson(Value* param_1) {
         char cVar1;
         bool bVar2;
-        undefined4 uVar3;
-        Value* pVVar4;
-        char* pcVar5;
+        undefined4 uVar5;
+        Value* pVVar6;
+        char* pcVar7;
         char* extraout_RDX;
         char* extraout_RDX_00;
         char* extraout_RDX_01;
@@ -60,30 +60,28 @@ namespace jag::graphics {
         cVar1 = Json::Value::isMember(param_1, "SeqID");
         if (cVar1 != '\0') {
             Json::Value::operator[](param_1, "SeqID");
-            uVar3 = Json::Value::asInt();
-            field_76 = uVar3;
+            m_seqID = Json::Value::asInt();
         }
         cVar1 = Json::Value::isMember(param_1, "BasAnimType");
         if (cVar1 != '\0') {
-            pVVar4 = (Value*)Json::Value::operator[](param_1, "BasAnimType");
-            pcVar5 = (char*)Json::Value::asCString(pVVar4);
+            pVVar6 = (Value*)Json::Value::operator[](param_1, "BasAnimType");
+            pcVar7 = (char*)Json::Value::asCString(pVVar6);
             eastl::allocator::allocator(local_48, "EASTL basic_string");
-            eastl::string::basic_string(local_68, pcVar5, local_48);
-            uVar3 = BasAnimTypeFromString((basic_string*)local_68);
-            field_72 = uVar3;
+            eastl::string::basic_string(local_68, pcVar7, local_48);
+            m_basAnimType = BasAnimTypeFromString((basic_string*)local_68);
             eastl::string::~basic_string(local_68);
         }
-        pVVar4 = (Value*)Json::Value::operator[](param_1, "LoopBehaviour");
-        pcVar5 = (char*)Json::Value::asCString(pVVar4);
+        pVVar6 = (Value*)Json::Value::operator[](param_1, "LoopBehaviour");
+        pcVar7 = (char*)Json::Value::asCString(pVVar6);
         eastl::allocator::allocator(local_48, "EASTL basic_string");
-        eastl::string::basic_string(local_68, pcVar5, local_48);
+        eastl::string::basic_string(local_68, pcVar7, local_48);
         bVar2 = eastl::operator==((eastl*)local_68, (basic_string*)"Never", extraout_RDX);
         if (bVar2) {
-            field_80 = 2;
+            m_loopBehaviour = 2;
         } else {
             bVar2 = eastl::operator==((eastl*)local_68, (basic_string*)"Default", extraout_RDX_00);
             if (bVar2) {
-                field_80 = 0;
+                m_loopBehaviour = 0;
             } else {
                 bVar2 = eastl::operator==((eastl*)local_68, (basic_string*)"Always", extraout_RDX_01);
                 if (!bVar2) {
@@ -92,21 +90,21 @@ namespace jag::graphics {
                                     "runetek7/animation/asm/AnimationDescriptor.cpp",
                                     65, (char*)0);
                 }
-                field_80 = 1;
+                m_loopBehaviour = 1;
             }
         }
-        pVVar4 = (Value*)Json::Value::operator[](param_1, "LoopLength");
-        pcVar5 = (char*)Json::Value::asCString(pVVar4);
-        std::string::string<decltype(nullptr)>((string*)local_48, pcVar5);
-        bVar2 = std::operator==((string*)local_48, pcVar5);
-        uVar3 = 2147483647;
+        pVVar6 = (Value*)Json::Value::operator[](param_1, "LoopLength");
+        pcVar7 = (char*)Json::Value::asCString(pVVar6);
+        std::string::string<decltype(nullptr)>((string*)local_48, pcVar7);
+        bVar2 = std::operator==((string*)local_48, pcVar7);
+        uVar5 = 2147483647;
         if (!bVar2) {
-            uVar3 = std::stoi((string*)local_48, (ulong*)0, 10);
+            uVar5 = std::stoi((string*)local_48, (ulong*)0, 10);
         }
-        m_loopLength = uVar3;
-        pVVar4 = (Value*)Json::Value::operator[](param_1, "TweenLastFrameToFirst");
-        bVar2 = (bool)Json::Value::asBool(pVVar4);
-        field_88 = bVar2;
+        m_loopLength = uVar5;
+        pVVar6 = (Value*)Json::Value::operator[](param_1, "TweenLastFrameToFirst");
+        bVar2 = (bool)Json::Value::asBool(pVVar6);
+        m_tweenLastFrameToFirst = bVar2;
         local_48->~string();
         eastl::string::~basic_string(local_68);
     }
@@ -139,29 +137,30 @@ namespace jag::graphics {
     // AnimationDescriptor::AnimationDescriptor(PacketT<Array<unsigned char, eastl::allocator> >&)
     void AnimationDescriptor::AnimationDescriptor(PacketT* param_1) {
         char cVar1;
-        undefined4 uVar2;
+        uint uVar2;
         int iVar3;
+        undefined4 uVar4;
         PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>> local_48[32];
 
         new (this) eastl::fixed_string<char, 32, true, eastl::allocator>();
-        field_72 = 21;
-        field_76 = 4294967295;
-        field_80 = 0;
+        m_basAnimType = 21;
+        m_seqID = 4294967295;
+        m_loopBehaviour = 0;
         m_loopLength = 4294967295;
-        field_88 = true;
+        m_tweenLastFrameToFirst = true;
         new (&field_96) math::Vector2T<int>();
         field_192 = false;
         new (&field_200) eastl::string();
         uVar2 = param_1->g4s();
-        field_76 = uVar2;
-        uVar2 = param_1->g4s();
-        field_72 = uVar2;
-        uVar2 = param_1->g4s();
-        field_80 = uVar2;
-        uVar2 = param_1->g4s();
-        m_loopLength = uVar2;
+        m_seqID = uVar2;
+        iVar3 = param_1->g4s();
+        m_basAnimType = iVar3;
+        iVar3 = param_1->g4s();
+        m_loopBehaviour = iVar3;
+        uVar4 = param_1->g4s();
+        m_loopLength = uVar4;
         cVar1 = param_1->g1();
-        field_88 = cVar1 != '\0';
+        m_tweenLastFrameToFirst = cVar1 != '\0';
         cVar1 = param_1->g1();
         field_192 = cVar1 != '\0';
         if (cVar1 != '\0') {
@@ -177,8 +176,8 @@ namespace jag::graphics {
                 local_48, SUB81(param_1, 0));
             eastl::string::operator=((eastl::string*)&field_200, (basic_string*)local_48);
             local_48->~basic_string();
-            uVar2 = param_1->g4();
-            field_232 = uVar2;
+            uVar4 = param_1->g4();
+            field_232 = uVar4;
         }
     }
 

@@ -46,7 +46,7 @@ namespace jag {
         RepeatLastOverrideAnimationFrameWhenFinished(int) const;
         IsPlayer() const;
         LineIntersectionSupport() const;
-        GetAnimatedModel() const;
+        PathingEntityAnimatedModel GetAnimatedModel() const;
         PathingEntity(PathingEntityParams const&, graphics::GraphNode*, shared_ptr<game::World> const&,
                       game::EntityType, int);
         void AddRouteWaypointFine(game::CoordFine const&, MoveSpeed const*, bool);
@@ -172,7 +172,7 @@ namespace jag {
         char _unknown_737[63];
         undefined4 field_800; // offset 800
         char _unknown_804[60];
-        PathingEntityAnimatedModel field_864; // offset 864
+        PathingEntityAnimatedModel m_animatedModel; // offset 864
         char _unknown_3224[8];
         undefined8 field_3232; // offset 3232
         char _unknown_3240[168];

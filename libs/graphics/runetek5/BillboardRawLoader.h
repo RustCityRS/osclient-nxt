@@ -10,8 +10,8 @@ namespace jag::graphics {
     public:
         GetBillboardTypes() const;
         Initialise(Js5ResourceProvider*, Js5ArchiveSettings const*);
-        GetBillboardCount() const;
-        GetMaxBillboardID() const;
+        int GetBillboardCount() const;
+        uint GetMaxBillboardID() const;
         ulong MainLogic();
         void Destruct();
         BillboardRawLoader();
@@ -20,8 +20,8 @@ namespace jag::graphics {
         // data members, from how the methods use this: 32 bytes
         Js5ResourceProvider* field_0; // offset 0
         Js5ArchiveSettings* field_8;  // offset 8
-        int field_16;                 // offset 16
-        uint field_20;                // offset 20
+        int m_billboardCount;         // offset 16
+        uint m_maxBillboardID;        // offset 20
         char _unknown_24[8];
     };
 

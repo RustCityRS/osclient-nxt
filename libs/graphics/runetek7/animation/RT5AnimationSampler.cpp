@@ -16,7 +16,7 @@ namespace jag::graphics {
         field_0 = &PTR__RT5AnimationSampler_100f1b028;
         new (field_32) VertexTransformData();
         field_80 = (VertexTransformData*)0;
-        field_88 = 1;
+        m_transformMaskToggle = 1;
         new (&field_96) AnimationInfo();
         m_pOverrideAnimationInfo = (AnimationInfo*)0;
     }
@@ -333,7 +333,7 @@ namespace jag::graphics {
             pAVar10 =
                 (AnimationFrameRT5*)shared_ptr<AnimationFrameRT5>::operator*((shared_ptr<AnimationFrameRT5>*)&local_60);
             local_64 = local_74;
-            bVar2 = (bool)field_88;
+            bVar2 = (bool)m_transformMaskToggle;
             this_01 = (NXTRenderCanvas*)shared_ptr<Animation>::operator->((shared_ptr<Animation>*)this_00);
             psVar8 = (shared_ptr*)this_01->GetPixelBuffer();
             bVar3 = operator!=(psVar8, (_func_decltype_nullptr*)0);

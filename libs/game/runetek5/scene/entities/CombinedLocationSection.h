@@ -19,7 +19,7 @@ namespace jag::game {
         virtual void NotifyMouseover(unsigned int);
         virtual void NotifyPickable(unsigned int, bool, float);
         virtual void GetID() const;
-        virtual GetLocationType() const;
+        virtual shared_ptr GetLocationType() const;
         virtual GetShape() const;
         virtual GetRotation90() const;
         virtual GetTransform() const;
@@ -32,7 +32,7 @@ namespace jag::game {
         void DeactivateRoofRemove();
         void Unhide();
         IsHidden() const;
-        GetHighlightState();
+        EntityHighlightState GetHighlightState();
         CombinedLocationSection(graphics::GraphNode*, shared_ptr<World> const&, int, int, int,
                                 shared_ptr<LocType> const&, LocData const&, bool, int, int, math::AABB const&, int);
         CombinedLocationSection();
@@ -42,9 +42,9 @@ namespace jag::game {
 
         // data members, from how the methods use this: 332 bytes, the first 220 are LocationInterface
         char _unknown_220[12];
-        shared_ptr field_232;    // offset 232
-        undefined1 m_shape;      // offset 248
-        undefined1 m_rotation90; // offset 249
+        shared_ptr m_locationType; // offset 232
+        undefined1 m_shape;        // offset 248
+        undefined1 m_rotation90;   // offset 249
         char _unknown_250[50];
         undefined1 field_300; // offset 300
         char _unknown_301[1];
@@ -54,7 +54,7 @@ namespace jag::game {
         undefined1 field_307;      // offset 307
         short m_attachedWallWidth; // offset 308
         char _unknown_310[2];
-        EntityHighlightState field_312; // offset 312
+        EntityHighlightState m_highlightState; // offset 312
     };
 
     // 0x100446790, 32 bytes, inline, placed by class name and debug map
@@ -115,7 +115,7 @@ namespace jag::game {
     void CombinedLocationSection::GetID() {
         GameToken* this_00;
 
-        this_00 = (GameToken*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)field_232);
+        this_00 = (GameToken*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
         this_00->GetStatus();
     }
 
@@ -145,7 +145,7 @@ namespace jag::game {
     void CombinedLocationSection::GetLocationLength() {
         LocType* pLVar1;
 
-        pLVar1 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)field_232);
+        pLVar1 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
         pLVar1->GetGridLength(m_rotation90);
     }
 
@@ -154,7 +154,7 @@ namespace jag::game {
     void CombinedLocationSection::GetLocationWidth() {
         LocType* pLVar1;
 
-        pLVar1 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)field_232);
+        pLVar1 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
         pLVar1->GetGridWidth(m_rotation90);
     }
 
@@ -169,7 +169,7 @@ namespace jag::game {
     void CombinedLocationSection::~CombinedLocationSection() {
         field_0 = &PTR__CombinedLocationSection_100f00430;
         field_8 = &PTR__CombinedLocationSection_100f005c8;
-        field_232->~shared_ptr();
+        m_locationType->~shared_ptr();
         ~LocationInterface();
     }
 

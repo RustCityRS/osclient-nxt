@@ -8,7 +8,7 @@ namespace jag::graphics {
     class GUIAnimationInstance {
     public:
         GetAnimation() const;
-        GetOnFinishHook() const;
+        Hook GetOnFinishHook() const;
         GetComponent() const;
         void GetTarget() const;
         void BindIndirect<math::Vector2T<int>, ui::Component::BindAnimation(GUIAnimationInstance&)::$_32>(
@@ -57,7 +57,7 @@ namespace jag::graphics {
         uint field_44;  // offset 44
         float field_48; // offset 48
         char _unknown_52[4];
-        Hook field_56; // offset 56
+        Hook m_onFinishHook; // offset 56
         char _unknown_72[224];
         undefined1 field_296; // offset 296
         char _unknown_297[15];
@@ -608,13 +608,13 @@ namespace jag::graphics {
     // 0x1008f81e0, 16 bytes, inline, placed by class name
     // GUIAnimationInstance::SetOnFinishHook(game::Hook&&)
     void GUIAnimationInstance::SetOnFinishHook(Hook* param_1) {
-        game::Hook::operator=((Hook*)field_56, param_1);
+        game::Hook::operator=((Hook*)m_onFinishHook, param_1);
     }
 
     // 0x1008f8320, 16 bytes, inline, placed by class name
     // GUIAnimationInstance::HasOnFinishHook() const
     void GUIAnimationInstance::HasOnFinishHook() {
-        field_56->IsInit();
+        m_onFinishHook->IsInit();
     }
 
     // 0x10090e900, 16 bytes, complete-object destructor, inline, placed by class name
@@ -624,7 +624,7 @@ namespace jag::graphics {
     // GUIAnimationInstance::~GUIAnimationInstance()
     void GUIAnimationInstance::~GUIAnimationInstance() {
         eastl::function<void()>::~function((function<void()>*)&field_336);
-        field_56->~Hook();
+        m_onFinishHook->~Hook();
         (&field_16)->~shared_ptr();
         ~shared_ptr();
     }

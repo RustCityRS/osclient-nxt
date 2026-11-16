@@ -89,8 +89,8 @@ namespace jag::oldscape::dash3d {
         int field_60;        // offset 60
         bool field_64;       // offset 64
         char _unknown_65[3];
-        undefined4 field_68; // offset 68
-        bool field_72;       // offset 72
+        undefined4 m_scaledUIQuality; // offset 68
+        bool field_72;                // offset 72
         char _unknown_73[7];
         undefined8 field_80;       // offset 80
         undefined8 field_88;       // offset 88
@@ -108,8 +108,8 @@ namespace jag::oldscape::dash3d {
         OperationRecordEntry(shared_ptr<Operation> const&, ResolvedModel const&, ResolvedModel const&);
         ~OperationRecordEntry();
         OperationRecordEntry* GetOperation() const;
-        GetOutputModel() const;
-        GetInputModel() const;
+        ResolvedModel GetOutputModel() const;
+        ResolvedModel GetInputModel() const;
         OperationRecordEntry* operator=(OperationRecordEntry const&);
         OperationRecordEntry(OperationRecordEntry const&);
         OperationRecordEntry(OperationRecordEntry&&);

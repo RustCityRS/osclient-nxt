@@ -10,7 +10,7 @@ namespace jag::game {
     WaterLoader::GetWaterPatches() const;
 
     // 0x1001cd990: the linker folded this into graphics::PointLightIndicesEffect::GetVisiblePointLights(), which has identical code
-    WaterLoader::GetDefaultWaterType() const;
+    shared_ptr WaterLoader::GetDefaultWaterType() const;
 
     // 0x1003de6b0, 336 bytes, base-object constructor, placed by class name
     // WaterLoader::WaterLoader(unsigned int, unsigned int, shared_ptr<ClientCompositeData> const&)
@@ -30,7 +30,8 @@ namespace jag::game {
         eastl::vector<unsigned short, BucketAllocatorEASTL>::vector();
         new (&field_80, (_func_decltype_nullptr*)param_3)
             shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (field_96, (_func_decltype_nullptr*)param_3) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (m_defaultWaterType, (_func_decltype_nullptr*)param_3)
+            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         new (field_112, 0.0, 0.0, 1.0) math::ColourHSL();
         make_shared<eastl::vector<graphics::WaterPatchConfig, eastl::allocator>>((jag*)&local_40);
         shared_ptr<eastl::vector<graphics::WaterPatchConfig, eastl::allocator>>::operator=(
@@ -85,7 +86,7 @@ namespace jag::game {
         undefined** ppuVar12;
         ulong uVar13;
 
-        puVar1 = field_96;
+        puVar1 = m_defaultWaterType;
         bVar3 = puVar1->operator_cast_to_bool();
         if (bVar3) {
         LAB_1003dea01:

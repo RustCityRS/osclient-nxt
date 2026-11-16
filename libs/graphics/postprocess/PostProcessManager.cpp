@@ -10,7 +10,7 @@ namespace jag::postprocess {
     PostProcessManager::GetPostProcessParams();
 
     // 0x100102fa0: the linker folded this into oldscape::rs2lib::InputField::GetSelectionStart() const, which has identical code
-    PostProcessManager::GetRenderTargetsManager();
+    RenderTargetsManager* PostProcessManager::GetRenderTargetsManager();
 
     // 0x1001c4880: the linker folded this into graphics::RT7Core::GetPostProcessManager(), which has identical code
     PostProcessManager::GetBrightPassFilter();

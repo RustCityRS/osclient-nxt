@@ -7,7 +7,7 @@
 namespace jag::graphics {
     class PointLightGridTexture {
     public:
-        GetEffect() const;
+        shared_ptr GetEffect() const;
         PointLightGridTexture();
         ~PointLightGridTexture();
         void Create(PointLightGridTextureData const*, RT7Core&, int, int);
@@ -19,7 +19,7 @@ namespace jag::graphics {
         // data members, from how the methods use this: 48 bytes
         char _unknown_0[8];
         long field_8;        // offset 8
-        shared_ptr field_16; // offset 16
+        shared_ptr m_effect; // offset 16
         undefined8 field_32; // offset 32
         char _unknown_40[8];
     };
@@ -45,7 +45,7 @@ namespace jag::graphics {
         _func_decltype_nullptr* in_RSI;
 
         new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(in_RSI);
-        new (field_16, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (m_effect, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         field_32 = 0;
         new (&field_40) std::future<void>();
     }

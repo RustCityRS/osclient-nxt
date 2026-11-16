@@ -1869,7 +1869,7 @@ namespace jag::oldscape::dash3d {
     void ModelRSevenCommon::ModelRSevenCommon(shared_ptr* param_1, bool param_2) {
         new (this) OperationBuffer();
         new (field_16) ShareLightBuffer();
-        field_72 = param_2;
+        m_dynamic = param_2;
         AddOperation<SetModelOperation, shared_ptr<jag::graphics::Model>>(this, param_1);
     }
 

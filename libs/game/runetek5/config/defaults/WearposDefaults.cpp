@@ -16,10 +16,10 @@ namespace jag::game {
     WearposDefaults::GetReplaceHeldRightResetWearPos() const;
 
     // 0x100061e30: the linker folded this into render::RenderStats::GetTriangleCount() const, which has identical code
-    WearposDefaults::GetReplaceHeldRightWearPos() const;
+    uint WearposDefaults::GetReplaceHeldRightWearPos() const;
 
     // 0x1001be5d0: the linker folded this into graphics::SunlightOptions::GetShadowQuality() const, which has identical code
-    WearposDefaults::GetReplaceHeldLeftWearPos() const;
+    uint WearposDefaults::GetReplaceHeldLeftWearPos() const;
 
     // 0x10054ed70, 832 bytes, base-object constructor, placed by class name
     // WearposDefaults::WearposDefaults(PacketT<Array<unsigned char, eastl::allocator> >&)
@@ -43,8 +43,8 @@ namespace jag::game {
         new (this_00) Array<unsigned int, eastl::allocator>();
         field_48 = 0;
         field_52 = 0;
-        field_56 = 4294967295;
-        field_60 = 4294967295;
+        m_replaceHeldLeftWearPos = 4294967295;
+        m_replaceHeldRightWearPos = 4294967295;
         this_01 = &field_64;
         new (this_01) Array<unsigned int, eastl::allocator>();
         this_02 = &field_88;
@@ -94,11 +94,11 @@ namespace jag::game {
                 break;
             case 3:
                 bVar2 = param_1->g1();
-                field_56 = (uint)bVar2;
+                m_replaceHeldLeftWearPos = (uint)bVar2;
                 break;
             case 4:
                 bVar2 = param_1->g1();
-                field_60 = (uint)bVar2;
+                m_replaceHeldRightWearPos = (uint)bVar2;
                 break;
             case 5:
                 bVar2 = param_1->g1();

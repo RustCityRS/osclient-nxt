@@ -26,7 +26,7 @@ namespace jag {
         virtual void SetFastUpdateLoopEnabled(bool);
         virtual void GetFastUpdateLoopEnabled() const;
         virtual void SetPresentEnabled(bool);
-        virtual GetPresentEnabled() const;
+        virtual bool GetPresentEnabled() const;
         virtual void MainLogic();
         virtual IsInsideMainLogic();
         virtual void ProcessArguments(SystemInitParams const&);

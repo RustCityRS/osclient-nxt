@@ -504,10 +504,10 @@ namespace jag::oldscape {
 
 namespace jag::ui {
     // 0x1000b7680: the linker folded this into oldscape::LocInfo::GetLevel() const, which has identical code
-    ComponentSwipeConfig::GetDeadZoneVertical() const;
+    byte ComponentSwipeConfig::GetDeadZoneVertical() const;
 
     // 0x1000b7690: the linker folded this into oldscape::LocInfo::GetX() const, which has identical code
-    ComponentSwipeConfig::GetDeadZoneHorizontal() const;
+    byte ComponentSwipeConfig::GetDeadZoneHorizontal() const;
 
     // 0x1000b76a0: the linker folded this into oldscape::LocInfo::GetZ() const, which has identical code
     ComponentSwipeConfig::GetDirectionMask() const;

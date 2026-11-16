@@ -11,7 +11,7 @@ namespace jag::render {
     void QueryView::Begin(uint param_1) {
         Query* this_00;
 
-        if (field_8 <= param_1) {
+        if (m_subQueryCount <= param_1) {
             /* WARNING: Subroutine does not return */
             LogAssert(
                 "subQueryIndex < m_queryCount",
@@ -27,7 +27,7 @@ namespace jag::render {
     void QueryView::End(uint param_1) {
         Query* this_00;
 
-        if (field_8 <= param_1) {
+        if (m_subQueryCount <= param_1) {
             /* WARNING: Subroutine does not return */
             LogAssert(
                 "subQueryIndex < m_queryCount",

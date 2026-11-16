@@ -13,22 +13,22 @@ namespace jag {
     Js5ArchiveSettings::IsHTTPServed() const;
 
     // 0x100066b70: the linker folded this into oldscape::widgets::Widget::GetTextColour() const, which has identical code
-    Js5ArchiveSettings::GetOpenPriority() const;
+    int Js5ArchiveSettings::GetOpenPriority() const;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    Js5ArchiveSettings::GetArchiveID() const;
+    uint Js5ArchiveSettings::GetArchiveID() const;
 
     // 0x1000b9a40: the linker folded this into oldscape::configdecoder::DBRowType::GetDbTableId() const, which has identical code
     Js5ArchiveSettings::GetGroupIDLimit() const;
 
     // 0x10019bbb0: the linker folded this into SystemSettings::GetModeGame() const, which has identical code
-    Js5ArchiveSettings::GetLocalFileName() const;
+    char* Js5ArchiveSettings::GetLocalFileName() const;
 
     // 0x1001be5d0: the linker folded this into graphics::SunlightOptions::GetShadowQuality() const, which has identical code
-    Js5ArchiveSettings::GetTotalSize() const;
+    uint Js5ArchiveSettings::GetTotalSize() const;
 
     // 0x100429880: the linker folded this into Headbar::GetDuration() const, which has identical code
-    Js5ArchiveSettings::GetDiskCacheSize() const;
+    int Js5ArchiveSettings::GetDiskCacheSize() const;
 
     // 0x1006acd00: the linker folded this into ui::TextData::SetTextColour(unsigned int), which has identical code
     Js5ArchiveSettings::SetGroupIDLimit(unsigned int);
@@ -42,8 +42,8 @@ namespace jag {
             return 0;
         }
         uVar1 = m_totalSize;
-        if (field_52 != 0) {
-            uVar1 = field_52;
+        if (m_diskCacheSize != 0) {
+            uVar1 = m_diskCacheSize;
         }
         return uVar1;
     }

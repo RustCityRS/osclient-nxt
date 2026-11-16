@@ -34,13 +34,13 @@ void ____ZN3jag6Window7SetViewERKNS_10shared_ptrINS_10OpenGLViewEEE_block_invoke
 
     this = *(Window**)(param_1 + 32);
     IVar1 = field_656;
-    pOVar2 = (OpenGLView*)jag::shared_ptr<jag::OpenGLView>::operator->((shared_ptr<jag::OpenGLView>*)field_200);
+    pOVar2 = (OpenGLView*)jag::shared_ptr<jag::OpenGLView>::operator->((shared_ptr<jag::OpenGLView>*)m_view);
     uVar3 = pOVar2->GetNSView();
     uVar3 = _objc_retainAutoreleasedReturnValue(uVar3);
     (*(code*)PTR__objc_msgSend_100ee9e50)(IVar1, "setContentView:", uVar3);
     (*(code*)PTR__objc_release_100ee9e60)(uVar3);
     IVar1 = field_656;
-    pOVar2 = (OpenGLView*)jag::shared_ptr<jag::OpenGLView>::operator->((shared_ptr<jag::OpenGLView>*)field_200);
+    pOVar2 = (OpenGLView*)jag::shared_ptr<jag::OpenGLView>::operator->((shared_ptr<jag::OpenGLView>*)m_view);
     uVar3 = pOVar2->GetNSView();
     uVar3 = _objc_retainAutoreleasedReturnValue(uVar3);
     (*(code*)PTR__objc_msgSend_100ee9e50)(IVar1, "makeFirstResponder:", uVar3);
@@ -1028,9 +1028,9 @@ namespace jag {
         float local_20;
         float local_1c;
 
-        *(int*)(field_264 + 64) = param_1;
+        *(int*)(m_windowInitParams + 64) = param_1;
         local_24 = (float)param_1;
-        *(int*)(field_264 + 68) = param_2;
+        *(int*)(m_windowInitParams + 68) = param_2;
         if ((m_width <= local_24 && local_24 != m_width) ||
             (m_height <= (float)param_2 && (float)param_2 != m_height)) {
             pfVar1 = std::max<float>(&m_width, &local_24);
@@ -1049,9 +1049,9 @@ namespace jag {
         m_width = param_1;
         m_height = param_2;
         uVar1 = math::RoundFloatToInt(param_1);
-        *(undefined4*)field_264 = uVar1;
+        *(undefined4*)m_windowInitParams = uVar1;
         uVar1 = math::RoundFloatToInt(param_2);
-        *(undefined4*)(field_264 + 4) = uVar1;
+        *(undefined4*)(m_windowInitParams + 4) = uVar1;
         EventListeners<std::function<bool(float, float)>>::CallListeners<Window::SetSize(float, float)::__0>(
             (EventListeners<std::function<bool(float, float)>>*)param_1, &field_8);
     }
@@ -1078,8 +1078,8 @@ namespace jag {
         OpenGLView* this_00;
 
         if (m_fullScreen == false) {
-            if (field_200->operator_cast_to_bool()) {
-                this_00 = (OpenGLView*)shared_ptr<OpenGLView>::operator->((shared_ptr<OpenGLView>*)field_200);
+            if (m_view->operator_cast_to_bool()) {
+                this_00 = (OpenGLView*)shared_ptr<OpenGLView>::operator->((shared_ptr<OpenGLView>*)m_view);
                 return this_00->HasFixedModeSetting();
             }
         }
@@ -1091,8 +1091,8 @@ namespace jag {
     byte Window::GetWindowMode() {
         OpenGLView* this_00;
 
-        if (field_200->operator_cast_to_bool()) {
-            this_00 = (OpenGLView*)shared_ptr<OpenGLView>::operator->((shared_ptr<OpenGLView>*)field_200);
+        if (m_view->operator_cast_to_bool()) {
+            this_00 = (OpenGLView*)shared_ptr<OpenGLView>::operator->((shared_ptr<OpenGLView>*)m_view);
             if (this_00->HasFixedModeSetting() != '\0') {
                 return 1;
             }
@@ -1236,8 +1236,8 @@ namespace jag {
         m_width = (float)(int)dVar1;
         m_height = (float)(int)dVar2;
         std::atomic<bool>::operator=((atomic<bool>*)&field_576, true);
-        if (field_200->operator_cast_to_bool()) {
-            this_00 = (OpenGLView*)shared_ptr<OpenGLView>::operator->((shared_ptr<OpenGLView>*)field_200);
+        if (m_view->operator_cast_to_bool()) {
+            this_00 = (OpenGLView*)shared_ptr<OpenGLView>::operator->((shared_ptr<OpenGLView>*)m_view);
             this_00->OnSize();
         }
     }
@@ -1269,8 +1269,8 @@ namespace jag {
         field_688 = (undefined4)uStack_30;
         field_692 = uStack_30._4_4_;
         m_maximized = (*(code*)PTR__objc_msgSend_100ee9e50)(field_656, "isZoomed") != '\0';
-        if (field_200->operator_cast_to_bool()) {
-            this_00 = (OpenGLView*)shared_ptr<OpenGLView>::operator->((shared_ptr<OpenGLView>*)field_200);
+        if (m_view->operator_cast_to_bool()) {
+            this_00 = (OpenGLView*)shared_ptr<OpenGLView>::operator->((shared_ptr<OpenGLView>*)m_view);
             this_00->OnMove();
         }
     }
@@ -1307,8 +1307,8 @@ namespace jag {
     void Window::OnFocus(bool param_1) {
         OpenGLView* this_00;
 
-        if (field_200->operator_cast_to_bool()) {
-            this_00 = (OpenGLView*)shared_ptr<OpenGLView>::operator->((shared_ptr<OpenGLView>*)field_200);
+        if (m_view->operator_cast_to_bool()) {
+            this_00 = (OpenGLView*)shared_ptr<OpenGLView>::operator->((shared_ptr<OpenGLView>*)m_view);
             this_00->SetFocused(param_1);
         }
     }
@@ -1343,7 +1343,7 @@ namespace jag {
     }
 
     // 0x100414eb0: the linker folded this into game::MapSquare::GetClientCompositeData() const, which has identical code
-    Window::GetView() const;
+    shared_ptr Window::GetView() const;
 
 } // namespace jag
 

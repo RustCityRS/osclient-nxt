@@ -28,7 +28,7 @@ namespace jag::game {
         char _unknown_33[63];
         undefined1 field_96; // offset 96
         char _unknown_97[31];
-        undefined1 field_128; // offset 128
+        undefined1 m_searchable; // offset 128
         char _unknown_129[3];
         int field_132;                      // offset 132
         QuickChatPhraseTypeList* field_136; // offset 136
@@ -54,7 +54,7 @@ namespace jag::game {
         new (&field_32) eastl::vector<int, eastl::allocator>();
         new (&field_64) eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>();
         new (&field_96) eastl::vector<int, eastl::allocator>();
-        field_128 = 1;
+        m_searchable = 1;
         field_132 = param_1;
         field_136 = param_2;
     }

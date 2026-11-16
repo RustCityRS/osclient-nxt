@@ -39,10 +39,10 @@ namespace jag {
     Bucket::GetAllocator() const;
 
     // 0x100102fa0: the linker folded this into oldscape::rs2lib::InputField::GetSelectionStart() const, which has identical code
-    Bucket::GetStart() const;
+    long Bucket::GetStart() const;
 
     // 0x100159b20: the linker folded this into oldscape::rs2lib::InputField::GetCharacterLimit() const, which has identical code
-    Bucket::GetSlotAlignment() const;
+    ulong Bucket::GetSlotAlignment() const;
 
     // 0x100cbac60, 16 bytes, complete-object destructor, placed by debug map only (low confidence)
     // BucketManager::StaticDestructor::~StaticDestructor(): jumps straight to the base-object destructor
@@ -143,7 +143,7 @@ namespace jag {
         }
         new (this) SimpleAllocator(param_2, param_1, param_4 | 1, uVar2);
         lVar1 = GetAuthWrapper();
-        field_208 = lVar1;
+        m_pStart = lVar1;
         m_end = param_2 * param_1 + lVar1;
         m_slotSize = param_1;
         m_slotAlignment = uVar2;

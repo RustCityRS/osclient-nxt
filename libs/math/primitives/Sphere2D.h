@@ -8,18 +8,18 @@ namespace jag::math {
     class Sphere2D {
     public:
         GetCentre() const;
-        GetRadius() const;
-        IsValid() const;
+        uint GetRadius() const;
+        char IsValid() const;
         Sphere2D* operator=(Sphere2D const&);
         Sphere2D();
         PointInside(int, int, int) const;
         bool Set(Matrix44T<float> const&, Matrix44T<float> const&, Matrix44T<float> const&, int, int, AABB const&);
 
         // data members, from how the methods use this: 16 bytes
-        uint field_0;       // offset 0
-        uint field_4;       // offset 4
-        undefined4 field_8; // offset 8
-        char field_12;      // offset 12
+        uint field_0;  // offset 0
+        uint field_4;  // offset 4
+        uint m_radius; // offset 8
+        char m_valid;  // offset 12
         char _unknown_13[3];
     };
 
@@ -41,8 +41,8 @@ namespace jag::math {
 
         Point<int>::Point(local_28, (Point*)param_1);
         Point<int>::operator=((Point<int>*)this, local_28);
-        field_8 = param_1->field_8;
-        field_12 = param_1->field_12;
+        m_radius = param_1->m_radius;
+        m_valid = param_1->m_valid;
         return this;
     }
 

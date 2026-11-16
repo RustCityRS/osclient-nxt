@@ -35,12 +35,12 @@ namespace jag::ui {
         eastl local_38[8];
 
         new (this) Component();
-        new (&field_392) ComponentMultiValueMixin();
+        new (&m_pValueRepresentation) ComponentMultiValueMixin();
         new (&field_400) FocusComponent();
         new (this) MakeSharedPool<ComboField, 16>();
         new (&field_408) oldscape::graphics::animation::OldscapeAnimKeyFrameSet::OldscapeAnimCurveLoadJob();
         field_0 = &PTR__ComboField_100f0e988;
-        field_392 = &PTR__ComboField_100f0eaf0;
+        m_pValueRepresentation = &PTR__ComboField_100f0eaf0;
         field_400 = &PTR__ComboField_100f0eb28;
         new (field_424) SpriteData();
         new ((field_424 + 48)) SpriteData();

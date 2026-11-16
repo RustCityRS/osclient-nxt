@@ -7,7 +7,7 @@
 
 namespace jag::ui {
     // 0x10017a580: the linker folded this into http::HTTPRequest::GetErrorCode() const, which has identical code
-    Slider::GetCurrentValue() const;
+    int Slider::GetCurrentValue() const;
 
     // 0x100269ba0: the linker folded this into oldscape::rs2lib::social::ClanSettingsDelta::SetClanName::GetID() const, which has identical code
     Slider::GetType() const;
@@ -16,10 +16,10 @@ namespace jag::ui {
     // Slider::Slider()
     void Slider::Slider() {
         new (this) Component();
-        new (&field_392) ComponentSingleValueMultiOptionMixin();
+        new (&m_pValueRepresentation) ComponentSingleValueMultiOptionMixin();
         new (this) MakeSharedPool<Slider, 32>();
         field_0 = &PTR__Slider_100f0fb40;
-        field_392 = &PTR__Slider_100f0fc68;
+        m_pValueRepresentation = &PTR__Slider_100f0fc68;
         new (&field_400) SpriteData();
         new (&field_448) SpriteData();
         new (&field_496) SpriteData();

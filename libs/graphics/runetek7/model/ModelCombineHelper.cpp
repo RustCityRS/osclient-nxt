@@ -544,12 +544,12 @@ namespace jag::graphics {
 
         this_00 = (GeometryBatchCombineHelper*)(&field_16)->HeapBeginPtr();
         pGVar1 = (GeometryBatchCombineHelper*)(&field_16)->end();
-        for (; this_00 != pGVar1; this_00 = (GeometryBatchCombineHelper*)&this_00[1].field_16) {
+        for (; this_00 != pGVar1; this_00 = (GeometryBatchCombineHelper*)&this_00[1].m_vertexCount) {
             this_00->FinishCombine();
         }
         this_01 = (BillboardBatchCombineHelper*)(&field_40)->HeapBeginPtr();
         pBVar2 = (BillboardBatchCombineHelper*)(&field_40)->end();
-        for (; this_01 != pBVar2; this_01 = (BillboardBatchCombineHelper*)&this_01[1].field_16) {
+        for (; this_01 != pBVar2; this_01 = (BillboardBatchCombineHelper*)&this_01[1].m_vertexCount) {
             this_01->FinishCombine();
         }
         field_0->BakeShareLight();

@@ -10,7 +10,7 @@ namespace jag::graphics {
     GUIAnimationInstance::GetAnimation() const;
 
     // 0x1000b7910: the linker folded this into oldscape::minimenu::MinimenuEntry::GetSubjectName() const, which has identical code
-    GUIAnimationInstance::GetOnFinishHook() const;
+    Hook GUIAnimationInstance::GetOnFinishHook() const;
 
     // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
     GUIAnimationInstance::GetComponent() const;
@@ -26,7 +26,7 @@ namespace jag::graphics {
         field_40 = param_6;
         field_44 = param_5;
         field_48 = -3.4028235e+38;
-        new (field_56) game::Hook();
+        new (m_onFinishHook) game::Hook();
         std::variant<unsigned char*, int*>::variant<true, 0>();
         std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
                      GUIAnimationRGB>::variant<true, 0>();
@@ -56,7 +56,7 @@ namespace jag::graphics {
         field_40 = param_6;
         field_44 = param_5;
         field_48 = -3.4028235e+38;
-        new (field_56, param_7) game::Hook();
+        new (m_onFinishHook, param_7) game::Hook();
         std::variant<unsigned char*, int*>::variant<true, 0>();
         std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
                      GUIAnimationRGB>::variant<true, 0>();

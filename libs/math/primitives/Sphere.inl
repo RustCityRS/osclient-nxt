@@ -17,7 +17,7 @@ namespace jag::math {
         local_28 = math::operator-((Vector3T*)pvVar1, (Vector3T*)this);
         local_1c = Vector3Dot<float>((Vector3T*)&local_28, (Vector3T*)&local_28);
         fVar2 = (float)param_1->GetOutlineRadiusAdjustment();
-        fVar2 = fVar2 + field_12;
+        fVar2 = fVar2 + m_radius;
         return (local_1c <= fVar2 * fVar2) * '\x02';
     }
 

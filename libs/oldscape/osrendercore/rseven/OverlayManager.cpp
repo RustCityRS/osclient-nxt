@@ -131,7 +131,7 @@ namespace jag::oldscape::rseven {
                     pRVar12 = (RenderPass*)(*local_360)->GetForwardLightingPass();
                     pRVar18->RenderPassPushBack(pRVar12);
                     pRVar13 = (RenderContext*)pRVar18->GetRenderContext();
-                    local_338[0].field_0 = 0;
+                    local_338[0].m_stackFrames = 0;
                     new ((local_350 + 24)) callstack::Callstack();
                     local_368->RenderViewBegin(pRVar13, &local_2d8, param_4, (RenderPassBitSet*)(local_350 + 24));
                     plVar14 = (long*)shared_ptr<DynamicGeometry>::operator->((shared_ptr<DynamicGeometry>*)this_03);

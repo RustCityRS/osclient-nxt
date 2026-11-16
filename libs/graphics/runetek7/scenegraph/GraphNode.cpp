@@ -30,7 +30,7 @@ namespace jag::graphics {
     GraphNode::GetAABB();
 
     // 0x1001d07d0: the linker folded this into SceneViewData::GetViewFrustum() const, which has identical code
-    GraphNode::GetTranslation();
+    float GraphNode::GetTranslation();
 
     // 0x1007aeda0, 304 bytes, base-object constructor, placed by class name and debug map
     // GraphNode::GraphNode(int)

@@ -9,37 +9,37 @@ namespace jag::graphics {
     public:
         GetEnvironmentMaterialID() const;
         IsValid() const;
-        GetSize() const;
+        uint GetSize() const;
         GetMetalnessRoughnessMapSize() const;
-        GetSpecularExponent() const;
-        GetID() const;
+        float GetSpecularExponent() const;
+        uint GetID() const;
         GetMetalnessRoughnessMapID() const;
         GetWrapV() const;
         GetDiffuseMapID() const;
-        GetAlphaTestThreshold() const;
+        int GetAlphaTestThreshold() const;
         GetViewportMapID() const;
         GetHideFacesMode() const;
         GetNormalEmissiveMapSize() const;
         HasCubemap() const;
         HasHighlighting() const;
         GetViewportMapUVScaleAndAnim() const;
-        GetDiffuseAlphaMapID() const;
+        int GetDiffuseAlphaMapID() const;
         GetHDRNormalMapID() const;
         GetDiffuseAlphaMapSize() const;
-        GetEmissiveSourceColourARGB() const;
+        int GetEmissiveSourceColourARGB() const;
         GetMaterialAnimationH() const;
         bool IsRT7() const;
-        HasDiffuseMap() const;
-        GetFresnelExponent() const;
+        char HasDiffuseMap() const;
+        float GetFresnelExponent() const;
         GetDefaultNonMetalSpecular() const;
-        IsLegacyMaterial() const;
+        byte IsLegacyMaterial() const;
         GetWrapU() const;
         uint GetVertexColourStrengthAsWhiteness() const;
         GetLegacyWhiteness() const;
         GetLegacyBrightness() const;
         ulong HasTextures() const;
-        HasSpecularMap() const;
-        HasEmissiveMap() const;
+        bool HasSpecularMap() const;
+        bool HasEmissiveMap() const;
         IsGlobalEnvironmentMapped() const;
         IsUnlit() const;
         IsShadowCaster() const;
@@ -65,44 +65,44 @@ namespace jag::graphics {
         void InitialiseLoading(bool);
 
         // data members, from how the methods use this: 216 bytes
-        undefined1 field_0; // offset 0
+        undefined1 m_valid; // offset 0
         char field_1;       // offset 1
         char _unknown_2[2];
-        uint field_4;           // offset 4
-        undefined4 field_8;     // offset 8
-        undefined1 field_12;    // offset 12
-        undefined1 field_13;    // offset 13
-        undefined1 field_14;    // offset 14
-        undefined1 m_hasHDRMap; // offset 15
-        char field_16;          // offset 16
-        bool m_hasEmissiveMap;  // offset 17
-        bool m_hasSpecularMap;  // offset 18
+        uint m_iD;                 // offset 4
+        uint m_size;               // offset 8
+        char m_hasDiffuseMap;      // offset 12
+        undefined1 m_hasNormalMap; // offset 13
+        undefined1 field_14;       // offset 14
+        undefined1 m_hasHDRMap;    // offset 15
+        char field_16;             // offset 16
+        bool m_hasEmissiveMap;     // offset 17
+        bool m_hasSpecularMap;     // offset 18
         char _unknown_19[1];
-        undefined4 field_20;                  // offset 20
-        undefined4 field_24;                  // offset 24
+        undefined4 m_diffuseMapID;            // offset 20
+        undefined4 m_hDRNormalMapID;          // offset 24
         undefined1 m_globalEnvironmentMapped; // offset 28
         undefined1 field_29;                  // offset 29
         char _unknown_30[2];
-        undefined4 field_32;                  // offset 32
-        undefined1 field_36;                  // offset 36
-        undefined1 m_legacyWhiteness;         // offset 37
-        undefined1 m_legacyBrightness;        // offset 38
-        char field_39;                        // offset 39
-        undefined4 field_40;                  // offset 40
-        undefined4 m_normalEmissiveMapID;     // offset 44
-        undefined4 field_48;                  // offset 48
-        undefined4 m_diffuseAlphaMapSize;     // offset 52
-        undefined4 field_56;                  // offset 56
-        undefined4 field_60;                  // offset 60
-        int field_64;                         // offset 64
-        undefined4 m_emissiveScale;           // offset 68
-        undefined4 field_72;                  // offset 72
-        undefined4 m_defaultNonMetalSpecular; // offset 76
-        float field_80;                       // offset 80
+        float m_specularExponent;               // offset 32
+        byte m_legacyMaterial;                  // offset 36
+        undefined1 m_legacyWhiteness;           // offset 37
+        undefined1 m_legacyBrightness;          // offset 38
+        char field_39;                          // offset 39
+        int m_diffuseAlphaMapID;                // offset 40
+        undefined4 m_normalEmissiveMapID;       // offset 44
+        undefined4 m_metalnessRoughnessMapID;   // offset 48
+        undefined4 m_diffuseAlphaMapSize;       // offset 52
+        undefined4 m_normalEmissiveMapSize;     // offset 56
+        undefined4 m_metalnessRoughnessMapSize; // offset 60
+        int m_emissiveSourceColourARGB;         // offset 64
+        undefined4 m_emissiveScale;             // offset 68
+        float m_fresnelExponent;                // offset 72
+        undefined4 m_defaultNonMetalSpecular;   // offset 76
+        float field_80;                         // offset 80
         char _unknown_84[4];
-        undefined* field_88;  // offset 88
-        undefined4 field_96;  // offset 96
-        undefined4 field_100; // offset 100
+        undefined* m_pHideFacesMode;        // offset 88
+        undefined4 m_environmentMaterialID; // offset 96
+        undefined4 m_viewportMapID;         // offset 100
         char _unknown_104[24];
         undefined4 m_materialAnimationH;    // offset 128
         undefined4 m_materialAnimationV;    // offset 132
@@ -119,9 +119,9 @@ namespace jag::graphics {
         undefined4 m_refractionIndex;     // offset 156
         undefined4 m_refractionDepthBias; // offset 160
         char _unknown_164[4];
-        undefined* field_168; // offset 168
-        undefined* field_176; // offset 176
-        undefined4 field_184; // offset 184
+        undefined* m_blendMode;   // offset 168
+        undefined* m_alphaMode;   // offset 176
+        int m_alphaTestThreshold; // offset 184
         char _unknown_188[4];
         undefined* m_pWrapU;  // offset 192
         undefined* m_pWrapV;  // offset 200
@@ -286,7 +286,7 @@ namespace jag::graphics {
     // 0x10085f960, 16 bytes, inline, placed by class name
     // Material::HasEmissiveSourceColour() const
     bool Material::HasEmissiveSourceColour() {
-        return field_64 != 0;
+        return m_emissiveSourceColourARGB != 0;
     }
 
     // 0x100869a60, 16 bytes, inline, placed by class name

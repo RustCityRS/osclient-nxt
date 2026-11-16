@@ -20,7 +20,7 @@ namespace jag::oldscape::configdecoder {
         long field_0; // offset 0
         long field_8; // offset 8
         char _unknown_16[56];
-        undefined1 field_72; // offset 72
+        undefined1 m_indices; // offset 72
         char _unknown_73[7];
     };
 
@@ -41,7 +41,7 @@ namespace jag::oldscape::configdecoder {
     /* game::NPCHeadIconCustomisation::~NPCHeadIconCustomisation() */
 
     void game::NPCHeadIconCustomisation::~NPCHeadIconCustomisation() {
-        (&field_72)->~fixed_vector();
+        (&m_index)->~fixed_vector();
         ~fixed_vector();
     }
 

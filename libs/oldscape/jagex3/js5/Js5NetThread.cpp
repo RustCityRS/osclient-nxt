@@ -294,15 +294,15 @@ namespace jag::oldscape::jagex3 {
             new (local_38) std::__cxx_atomic_base_impl<FolderSelection::FolderPathRequestStatus>(54);
         } else {
             uVar3 = this_00->g1();
-            EVar5.field_0 = this_00->g2();
+            EVar5.m_code = this_00->g2();
             bVar4 = this_00->g1();
             iVar6 = this_00->g4();
-            local_48 = (Js5RemoteRequestData*)Run_AdoptRequestFromMain(this, uVar3, EVar5.field_0 & 65535);
+            local_48 = (Js5RemoteRequestData*)Run_AdoptRequestFromMain(this, uVar3, EVar5.m_code & 65535);
             new (local_a0) RAII_RequestFailureHandler(field_0, local_48, -1);
             if (local_48 == (Js5RemoteRequestData*)0) {
                 new (local_38) std::__cxx_atomic_base_impl<FolderSelection::FolderPathRequestStatus>(53);
                 local_a0->SetCompletedCount(-2);
-                EVar5.field_0 = local_38[0].field_0;
+                EVar5.m_code = local_38[0].m_code;
             } else {
                 uVar12 = iVar6 + (uint)(bVar4 != 0) * 4;
                 *(uint*)((long)&local_48->field_56 + 4) = uVar12 + 5;
@@ -327,7 +327,7 @@ namespace jag::oldscape::jagex3 {
                     if (cVar2 == '\0') {
                     LAB_1002bbf50:
                         bVar1 = true;
-                        EVar5.field_0 = local_38[0].field_0;
+                        EVar5.m_code = local_38[0].m_code;
                     } else {
                         uVar12 = uVar12 - uVar11;
                         if (uVar12 == 0) {
@@ -338,7 +338,7 @@ namespace jag::oldscape::jagex3 {
                                     local_a0->SetCompletedCount(-3);
                                     uVar12 = 0;
                                     bVar1 = true;
-                                    EVar5.field_0 = local_38[0].field_0;
+                                    EVar5.m_code = local_38[0].m_code;
                                     goto LAB_1002bbf59;
                                 }
                             }
@@ -368,7 +368,7 @@ namespace jag::oldscape::jagex3 {
                         iVar6 = local_4c;
                         if (cVar2 == '\0') {
                             bVar1 = true;
-                            EVar5.field_0 = local_38[0].field_0;
+                            EVar5.m_code = local_38[0].m_code;
                         } else if (local_39 == 255) {
                             bVar1 = false;
                             local_58->Read(&local_39, 1, 0);
@@ -381,7 +381,7 @@ namespace jag::oldscape::jagex3 {
                                 eastl::equal_to<Js5RequestKey>, eastl::hash<Js5RequestKey>, eastl::mod_range_hashing,
                                 eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true,
                                 true>::emplace<Js5RequestKey&, Js5RemoteRequestData*&>(local_c0, local_a8);
-                            EVar5.field_0 = Run_ReceivePacket((Js5NetThread*)this, iVar6);
+                            EVar5.m_code = Run_ReceivePacket((Js5NetThread*)this, iVar6);
                             bVar1 = true;
                         }
                         local_88._32_8_ = local_88._32_8_ + (ulong)uVar11;
@@ -391,10 +391,10 @@ namespace jag::oldscape::jagex3 {
                 } while (!bVar1);
             }
             local_a0->~RAII_RequestFailureHandler();
-            local_38[0].field_0 = EVar5.field_0;
+            local_38[0].m_code = EVar5.m_code;
         }
         local_88->~WindowSavedPosition();
-        return local_38[0].field_0;
+        return local_38[0].m_code;
     }
 
     // 0x1002bc200, 576 bytes, placed by class name

@@ -10,10 +10,10 @@ namespace jag::render {
     IndexBuffer::BUFFER_TYPE_NAME = "IndexBuffer";
 
     // 0x10043b780: the linker folded this into game::StaticPointLight::GetLightTypeToLoad() const, which has identical code
-    IndexBuffer::GetIndexCount() const;
+    uint IndexBuffer::GetIndexCount() const;
 
     // 0x100659510: the linker folded this into graphics::AnimationDescriptor::GetLoopBehaviour() const, which has identical code
-    IndexBuffer::GetDataType() const;
+    int IndexBuffer::GetDataType() const;
 
     // 0x100c0cc90, 48 bytes, placed by class name and debug map
     // IndexBuffer::UpdateMaxIndex(void const*, bool)
@@ -30,8 +30,8 @@ namespace jag::render {
     // IndexBuffer::IndexBuffer()
     void IndexBuffer::IndexBuffer() {
         new (this) BufferInterface();
-        field_80 = 4294967295;
-        field_84 = 0;
+        m_dataType = -1;
+        m_indexCount = 0;
     }
 
     // 0x100c0cf60, 48 bytes, base-object destructor, placed by class name
@@ -43,12 +43,12 @@ namespace jag::render {
 
     // 0x100c0d440, 96 bytes, placed by class name
     // IndexBuffer::Create(unsigned int, unsigned int, void const*, IndexType)
-    undefined4 IndexBuffer::Create(uint param_1, uint param_2, void* param_3, undefined4 param_5) {
+    undefined4 IndexBuffer::Create(uint param_1, uint param_2, void* param_3, int param_5) {
         undefined4 uVar1;
 
         uVar1 = CreateBuffer("IndexBuffer", 34963, 35044, 35048, param_1, param_2, param_3);
         if ((char)uVar1 != '\0') {
-            field_80 = param_5;
+            m_dataType = param_5;
             UpdateMaxIndex(this, (bool)86);
         }
         return uVar1;
@@ -71,8 +71,8 @@ namespace jag::render {
             this_00->InvalidateIndexBuffer(this);
         }
         ReleaseNativeResources("IndexBuffer", 34963);
-        field_80 = 4294967295;
-        field_84 = 0;
+        m_dataType = -1;
+        m_indexCount = 0;
     }
 
     // 0x100c149d0, 16 bytes, complete-object constructor, placed by class name

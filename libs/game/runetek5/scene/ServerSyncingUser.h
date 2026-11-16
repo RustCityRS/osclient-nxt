@@ -9,7 +9,7 @@ namespace jag::game {
     class ServerSyncingUser {
     public:
         SetDescription(char const*);
-        GetSyncCycle() const;
+        uint GetSyncCycle() const;
         char* GetDescription() const;
         ServerSyncingUser(ServerSyncingPriority);
         ~ServerSyncingUser();
@@ -24,7 +24,7 @@ namespace jag::game {
         // data members, from how the methods use this: 21 bytes
         undefined4 field_0; // offset 0
         uint field_4;       // offset 4
-        uint field_8;       // offset 8
+        uint m_syncCycle;   // offset 8
         char field_12;      // offset 12
         char field_13;      // offset 13
         char _unknown_14[7];
@@ -39,7 +39,7 @@ namespace jag::game {
     // 0x10046a9a0, 48 bytes, base-object constructor, placed by debug map only (low confidence)
     // ServerSyncingCycle::ServerSyncingCycle(unsigned int)
     void ServerSyncingCycle::ServerSyncingCycle(uint param_1) {
-        field_0 = param_1;
+        m_cycle = param_1;
         field_4 = 1;
         new (&field_8)
             eastl::fixed_map<int, ServerSyncingCycle::SyncUserEntry, 32ul, true, eastl::less<int>, eastl::allocator>();
@@ -56,7 +56,7 @@ namespace jag::game {
    const */
 
     undefined4 ServerSyncingCycle::operator==(ServerSyncingCycle* param_1) {
-        return CONCAT31((int3)(field_0 >> 8), field_0 == param_1->field_0);
+        return CONCAT31((int3)(m_cycle >> 8), m_cycle == param_1->m_cycle);
     }
 
     // 0x100669790, 128 bytes, inline, placed by class name
@@ -70,7 +70,7 @@ namespace jag::game {
                       52, "Don\'t cross the streams!");
         }
         eastl::swap<unsigned int>(&field_4, &param_1->field_4);
-        eastl::swap<unsigned int>(&field_8, &param_1->field_8);
+        eastl::swap<unsigned int>(&m_syncCycle, &param_1->m_syncCycle);
         eastl::swap<signed char>((signed*)&field_12, (signed*)&param_1->field_12);
         eastl::swap<signed char>((signed*)&field_13, (signed*)&param_1->field_13);
     }

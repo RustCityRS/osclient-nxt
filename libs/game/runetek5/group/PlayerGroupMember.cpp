@@ -7,13 +7,13 @@
 
 namespace jag::game {
     // 0x10017a5a0: the linker folded this into http::HTTPRequest::GetData() const, which has identical code
-    PlayerGroupMember::GetKnownVariablesAtJoin() const;
+    VarContainerSparse PlayerGroupMember::GetKnownVariablesAtJoin() const;
 
     // 0x1001cdf70: the linker folded this into StaticPointLight::SetRGB(unsigned int), which has identical code
     PlayerGroupMember::SetStatus(PlayerGroupMemberStatus);
 
     // 0x100429b10: the linker folded this into StaticPointLight::GetRGB() const, which has identical code
-    PlayerGroupMember::GetStatus() const;
+    uint PlayerGroupMember::GetStatus() const;
 
     // 0x1004ba220, 304 bytes, placed by class name and debug map
     // PlayerGroupMember::UpdateBase(PlayerGroupMember const&)
@@ -60,7 +60,7 @@ namespace jag::game {
             } while (bVar2);
         }
         field_56 = param_1->field_56;
-        field_136->Clear();
+        m_pKnownVariablesAtJoin->Clear();
         this_02 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
                                        eastl::allocator, 0>*)param_1->GetMSAASampleCount();
         this_03 = (hashtable<int, eastl::pair<int const, unsigned int>, eastl::allocator,
@@ -83,7 +83,7 @@ namespace jag::game {
         if (bVar2) {
             do {
                 piVar4 = (int*)local_50.HeapBeginPtr();
-                (field_136, *piVar4, (VarValue*)(piVar4 + 2))->SetVarValueByID();
+                (m_pKnownVariablesAtJoin, *piVar4, (VarValue*)(piVar4 + 2))->SetVarValueByID();
                 eastl::hashtable_iterator<
                     eastl::pair<unsigned int const, eastl::vector<eastl::string, eastl::allocator>>, false, false>::
                 operator++(
@@ -133,7 +133,7 @@ namespace jag::game {
         new (local_48) eastl::string();
         local_58 = field_72;
         new (local_58) VarContainerSparse();
-        local_40 = (VarContainerSparse*)field_136;
+        local_40 = (VarContainerSparse*)m_pKnownVariablesAtJoin;
         VarContainerSparse::VarContainerSparse(local_40);
         if (param_2) {
             PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::gStringCP1252ToUTF8<eastl::string>(
@@ -212,7 +212,7 @@ namespace jag::game {
             uVar3 = pPVar1->g1();
             m_rank = uVar3;
             bVar2 = pPVar1->g1();
-            field_64 = (uint)bVar2;
+            m_status = (uint)bVar2;
             uVar3 = pPVar1->g1();
             m_team = uVar3;
         }

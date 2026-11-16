@@ -41,7 +41,7 @@ namespace jag {
         undefined1 m_show;           // offset 120
         undefined1 m_expandedForced; // offset 121
         char _unknown_122[2];
-        undefined4 field_124; // offset 124
+        undefined4 m_sectionType; // offset 124
         char _unknown_128[4];
     };
 

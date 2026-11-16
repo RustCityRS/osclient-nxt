@@ -9,13 +9,13 @@ namespace jag::game {
     // 0x1004aac90, 128 bytes, placed by debug map only (low confidence)
     // EnvLightingSettings::SetDefaults()
     void EnvLightingSettings::SetDefaults() {
-        field_0 = 4294967295;
+        m_sunRGBA = 4294967295;
         (&field_4, -50.0, 60.0, -60.0)->Set();
         m_ambientLight = 1.1523438;
-        field_20 = 0.69921875;
+        m_contrast = 0.69921875;
         field_24 = 1.2;
-        field_36 = 1.0;
-        field_28 = 1.1;
+        m_sunlightShadowStrength = 1.0;
+        m_specularHorzOcclusionScale = 1.1;
         m_envMapIrradianceScale = 2.75;
     }
 
@@ -31,7 +31,7 @@ namespace jag::game {
         float fVar7;
 
         iVar3 = param_1->g4();
-        field_0 = iVar3 << 8 | 255;
+        m_sunRGBA = iVar3 << 8 | 255;
         sVar1 = param_1->g2s();
         this_00 = &field_4;
         pvVar4 = this_00->SSOBeginPtr(param_1);
@@ -45,15 +45,15 @@ namespace jag::game {
         uVar2 = param_1->g2();
         m_ambientLight = (float)uVar2 * 0.00390625;
         uVar2 = param_1->g2();
-        field_20 = (float)uVar2 * 0.00390625;
+        m_contrast = (float)uVar2 * 0.00390625;
         uVar2 = param_1->g2();
         field_24 = (float)uVar2 * 0.00390625;
         fVar7 = (float)param_1->gFloat();
-        field_28 = fVar7;
+        m_specularHorzOcclusionScale = fVar7;
         fVar7 = (float)param_1->gFloat();
         m_envMapIrradianceScale = fVar7;
         fVar7 = (float)param_1->gFloat();
-        field_36 = fVar7;
+        m_sunlightShadowStrength = fVar7;
     }
 
     // 0x1004aae40, 144 bytes, placed by debug map only (low confidence)
@@ -67,12 +67,15 @@ namespace jag::game {
                 (EnvironmentOverrideParam<unsigned int>*)(pvVar1 + 4), (ToneMapOperator*)this);
             EnvironmentOverrideParam<float>::ApplyTo<float>((EnvironmentOverrideParam<float>*)(pvVar1 + 12),
                                                             &m_ambientLight);
-            EnvironmentOverrideParam<float>::ApplyTo<float>((EnvironmentOverrideParam<float>*)(pvVar1 + 20), &field_20);
+            EnvironmentOverrideParam<float>::ApplyTo<float>((EnvironmentOverrideParam<float>*)(pvVar1 + 20),
+                                                            &m_contrast);
             EnvironmentOverrideParam<float>::ApplyTo<float>((EnvironmentOverrideParam<float>*)(pvVar1 + 28), &field_24);
             EnvironmentOverrideParam<math::Vector3T<float>>::ApplyTo<math::Vector3T<float>>(
                 (EnvironmentOverrideParam<math::Vector3T<float>>*)(pvVar1 + 36), (Vector3T*)&field_4);
-            EnvironmentOverrideParam<float>::ApplyTo<float>((EnvironmentOverrideParam<float>*)(pvVar1 + 52), &field_36);
-            EnvironmentOverrideParam<float>::ApplyTo<float>((EnvironmentOverrideParam<float>*)(pvVar1 + 60), &field_28);
+            EnvironmentOverrideParam<float>::ApplyTo<float>((EnvironmentOverrideParam<float>*)(pvVar1 + 52),
+                                                            &m_sunlightShadowStrength);
+            EnvironmentOverrideParam<float>::ApplyTo<float>((EnvironmentOverrideParam<float>*)(pvVar1 + 60),
+                                                            &m_specularHorzOcclusionScale);
             EnvironmentOverrideParam<float>::ApplyTo<float>((EnvironmentOverrideParam<float>*)(pvVar1 + 68),
                                                             &m_envMapIrradianceScale);
         }
@@ -87,11 +90,12 @@ namespace jag::game {
         bool bVar1;
         undefined7 extraout_var;
 
-        if ((((field_0 == param_1->field_0) &&
+        if ((((m_sunRGBA == param_1->m_sunRGBA) &&
               (bVar1 = math::operator==((Vector3T*)&field_4, (Vector3T*)&param_1->field_4), bVar1)) &&
              (m_ambientLight == param_1->m_ambientLight)) &&
-            (((field_20 == param_1->field_20 && (field_24 == param_1->field_24)) &&
-              ((field_36 == param_1->field_36 && (field_28 == param_1->field_28)))))) {
+            (((m_contrast == param_1->m_contrast && (field_24 == param_1->field_24)) &&
+              ((m_sunlightShadowStrength == param_1->m_sunlightShadowStrength &&
+                (m_specularHorzOcclusionScale == param_1->m_specularHorzOcclusionScale)))))) {
             return CONCAT71(extraout_var, m_envMapIrradianceScale == param_1->m_envMapIrradianceScale);
         }
         return 0;
@@ -104,14 +108,14 @@ namespace jag::game {
         ulong local_20;
 
         local_20 = 0;
-        hash_combine<unsigned int>(&local_20, &field_0);
+        hash_combine<unsigned int>(&local_20, &m_sunRGBA);
         uVar1 = (&field_4)->hash();
         hash_combine(&local_20, uVar1);
         hash_combine<float>(&local_20, &m_ambientLight);
-        hash_combine<float>(&local_20, &field_20);
+        hash_combine<float>(&local_20, &m_contrast);
         hash_combine<float>(&local_20, &field_24);
-        hash_combine<float>(&local_20, &field_36);
-        hash_combine<float>(&local_20, &field_28);
+        hash_combine<float>(&local_20, &m_sunlightShadowStrength);
+        hash_combine<float>(&local_20, &m_specularHorzOcclusionScale);
         hash_combine<float>(&local_20, &m_envMapIrradianceScale);
         return local_20;
     }
@@ -120,10 +124,10 @@ namespace jag::game {
     // EnvFogSettings::SetDefaults()
     void EnvFogSettings::SetDefaults() {
         field_0 = true;
-        field_4 = 3368069375;
-        field_8 = 0;
-        field_12 = 0.0;
-        field_16 = 32.0;
+        m_fogRGBA = 3368069375;
+        m_fogDepth = 0;
+        m_fogMaxDistance = 0.0;
+        m_fogConstantAngleFalloff = 32.0;
         m_fogDepthAngleFalloff = 8.0;
         field_24 = 0.0;
     }
@@ -137,22 +141,22 @@ namespace jag::game {
         float fVar4;
 
         iVar3 = param_1->g4();
-        field_4 = iVar3 << 8 | 255;
+        m_fogRGBA = iVar3 << 8 | 255;
         uVar2 = param_1->g2();
-        field_8 = (uint)uVar2;
+        m_fogDepth = (uint)uVar2;
         cVar1 = param_1->g1();
         field_0 = cVar1 == '\x01';
         fVar4 = (float)param_1->gFloat();
-        field_12 = fVar4;
+        m_fogMaxDistance = fVar4;
         fVar4 = (float)param_1->gFloat();
-        field_16 = fVar4;
+        m_fogConstantAngleFalloff = fVar4;
         fVar4 = (float)param_1->gFloat();
         m_fogDepthAngleFalloff = fVar4;
         fVar4 = (float)param_1->gFloat();
         field_24 = fVar4;
         if (field_0 == false) {
-            field_8 = 0;
-            field_12 = 3.4028235e+38;
+            m_fogDepth = 0;
+            m_fogMaxDistance = 3.4028235e+38;
         }
     }
 
@@ -163,11 +167,13 @@ namespace jag::game {
 
         lVar1 = param_1->GetFogOverrides();
         EnvironmentOverrideParam<unsigned int>::ApplyTo<postprocess::ToneMapOperator>(
-            (EnvironmentOverrideParam<unsigned int>*)(lVar1 + 4), (ToneMapOperator*)&field_4);
+            (EnvironmentOverrideParam<unsigned int>*)(lVar1 + 4), (ToneMapOperator*)&m_fogRGBA);
         EnvironmentOverrideParam<unsigned int>::ApplyTo<postprocess::ToneMapOperator>(
-            (EnvironmentOverrideParam<unsigned int>*)(lVar1 + 12), (ToneMapOperator*)&field_8);
-        EnvironmentOverrideParam<float>::ApplyTo<float>((EnvironmentOverrideParam<float>*)(lVar1 + 20), &field_12);
-        EnvironmentOverrideParam<float>::ApplyTo<float>((EnvironmentOverrideParam<float>*)(lVar1 + 28), &field_16);
+            (EnvironmentOverrideParam<unsigned int>*)(lVar1 + 12), (ToneMapOperator*)&m_fogDepth);
+        EnvironmentOverrideParam<float>::ApplyTo<float>((EnvironmentOverrideParam<float>*)(lVar1 + 20),
+                                                        &m_fogMaxDistance);
+        EnvironmentOverrideParam<float>::ApplyTo<float>((EnvironmentOverrideParam<float>*)(lVar1 + 28),
+                                                        &m_fogConstantAngleFalloff);
         EnvironmentOverrideParam<float>::ApplyTo<float>((EnvironmentOverrideParam<float>*)(lVar1 + 36),
                                                         &m_fogDepthAngleFalloff);
         EnvironmentOverrideParam<float>::ApplyTo<float>((EnvironmentOverrideParam<float>*)(lVar1 + 44), &field_24);
@@ -178,10 +184,12 @@ namespace jag::game {
     /* EnvFogSettings::TEMPNAMEPLACEHOLDERVALUE(EnvFogSettings const&) const */
 
     undefined4 EnvFogSettings::operator==(EnvFogSettings* param_1) {
-        if ((((field_0 == param_1->field_0) && (field_4 == param_1->field_4)) && (field_8 == param_1->field_8)) &&
-            (((field_12 == param_1->field_12 && (field_16 == param_1->field_16)) &&
+        if ((((field_0 == param_1->field_0) && (m_fogRGBA == param_1->m_fogRGBA)) &&
+             (m_fogDepth == param_1->m_fogDepth)) &&
+            (((m_fogMaxDistance == param_1->m_fogMaxDistance &&
+               (m_fogConstantAngleFalloff == param_1->m_fogConstantAngleFalloff)) &&
               (m_fogDepthAngleFalloff == param_1->m_fogDepthAngleFalloff)))) {
-            return CONCAT31((int3)(field_8 >> 8), field_24 == param_1->field_24);
+            return CONCAT31((int3)(m_fogDepth >> 8), field_24 == param_1->field_24);
         }
         return 0;
     }
@@ -193,10 +201,10 @@ namespace jag::game {
 
         local_20 = 0;
         hash_combine<bool>(&local_20, &field_0);
-        hash_combine<unsigned int>(&local_20, &field_4);
-        hash_combine<unsigned int>(&local_20, &field_8);
-        hash_combine<float>(&local_20, &field_12);
-        hash_combine<float>(&local_20, &field_16);
+        hash_combine<unsigned int>(&local_20, &m_fogRGBA);
+        hash_combine<unsigned int>(&local_20, &m_fogDepth);
+        hash_combine<float>(&local_20, &m_fogMaxDistance);
+        hash_combine<float>(&local_20, &m_fogConstantAngleFalloff);
         hash_combine<float>(&local_20, &m_fogDepthAngleFalloff);
         hash_combine<float>(&local_20, &field_24);
         return local_20;
@@ -411,8 +419,8 @@ namespace jag::game {
     // 0x1004ab8b0, 144 bytes, placed by debug map only (low confidence)
     // EnvToneMapSettings::SetDefaults()
     void EnvToneMapSettings::SetDefaults() {
-        field_0[0] = 1;
-        field_4 = 3;
+        m_toneMappingEnabled[0] = 1;
+        m_toneMapOperator = 3;
         math::Transitionable<float>::operator=((Transitionable<float>*)field_8,
                                                (float*)&graphics::DEF_RS_MIN_BLACK_LUM);
         math::Transitionable<float>::operator=((Transitionable<float>*)(field_8 + 32),
@@ -435,9 +443,9 @@ namespace jag::game {
         float local_1c;
 
         cVar1 = param_1->g1();
-        field_0[0] = cVar1 == '\x01';
+        m_toneMappingEnabled[0] = cVar1 == '\x01';
         bVar2 = param_1->g1();
-        field_4 = (uint)bVar2;
+        m_toneMapOperator = (uint)bVar2;
         local_1c = (float)param_1->gFloat();
         math::Transitionable<float>::operator=((Transitionable<float>*)field_8, &local_1c);
         local_1c = (float)param_1->gFloat();
@@ -459,7 +467,7 @@ namespace jag::game {
         if (*pcVar1 != '\0') {
             EnvironmentOverrideParam<bool>::ApplyTo<bool>((EnvironmentOverrideParam<bool>*)(pcVar1 + 1), (bool*)this);
             EnvironmentOverrideParam<unsigned int>::ApplyTo<postprocess::ToneMapOperator>(
-                (EnvironmentOverrideParam<unsigned int>*)(pcVar1 + 4), (ToneMapOperator*)&field_4);
+                (EnvironmentOverrideParam<unsigned int>*)(pcVar1 + 4), (ToneMapOperator*)&m_toneMapOperator);
             EnvironmentOverrideParam<float>::ApplyTo<math::Transitionable<float>>(
                 (EnvironmentOverrideParam<float>*)(pcVar1 + 12), (Transitionable*)field_8);
             EnvironmentOverrideParam<float>::ApplyTo<math::Transitionable<float>>(
@@ -481,7 +489,8 @@ namespace jag::game {
     undefined8 EnvToneMapSettings::operator==(EnvToneMapSettings* param_1) {
         undefined8 uVar1;
 
-        if ((field_0[0] == param_1->field_0[0]) && (field_4 == param_1->field_4)) {
+        if ((m_toneMappingEnabled[0] == param_1->m_toneMappingEnabled[0]) &&
+            (m_toneMapOperator == param_1->m_toneMapOperator)) {
             uVar1 = postprocess::PostProcessParams::operator==((PostProcessParams*)field_8,
                                                                (PostProcessParams*)param_1->field_8);
             return uVar1;
@@ -497,7 +506,7 @@ namespace jag::game {
 
         local_20 = 0;
         hash_combine<bool>(&local_20, (bool*)this);
-        hash_combine<postprocess::ToneMapOperator>(&local_20, (ToneMapOperator*)&field_4);
+        hash_combine<postprocess::ToneMapOperator>(&local_20, (ToneMapOperator*)&m_toneMapOperator);
         uVar1 = field_8->hash();
         hash_combine(&local_20, uVar1);
         return local_20;

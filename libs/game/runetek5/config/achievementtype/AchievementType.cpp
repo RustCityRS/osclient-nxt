@@ -7,7 +7,7 @@
 
 namespace jag::game {
     // 0x1003cf290: the linker folded this into MapElementType::GetTextBackgroundOutlineRGBA() const, which has identical code
-    AchievementType::GetRuneScore() const;
+    uint AchievementType::GetRuneScore() const;
 
     // 0x1005531d0, 5360 bytes, placed by class name and debug map
     // AchievementType::DecodeType(PacketT<Array<unsigned char, eastl::allocator> >&, unsigned int)

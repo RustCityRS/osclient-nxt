@@ -107,7 +107,7 @@ namespace jag::oldscape {
 
     class ClientEntityID {
     public:
-        GetSlotID() const;
+        int GetSlotID() const;
         ClientEntityID();
         ClientEntityID(bool, int);
         bool IsValid() const;
@@ -116,7 +116,7 @@ namespace jag::oldscape {
         // data members, from how the methods use this: 12 bytes
         undefined2 field_0; // offset 0
         char _unknown_2[2];
-        int field_4; // offset 4
+        int m_slotID; // offset 4
         char _unknown_8[4];
     };
 
@@ -141,7 +141,7 @@ namespace jag::oldscape {
         int iVar2;
 
         uVar1 = *(undefined2*)&param_1->field_2;
-        iVar2 = param_1->field_4;
+        iVar2 = param_1->m_slotID;
         *(undefined2*)(m_hiddenBy + 0) = param_1->field_0;
         *(undefined2*)(m_hiddenBy + 2) = uVar1;
         *(int*)(m_hiddenBy + 4) = iVar2;

@@ -7,7 +7,7 @@
 namespace jag::game {
     class LODSettings {
     public:
-        GetLODMinimumDistance() const;
+        int GetLODMinimumDistance() const;
         GetLODDistance(LODLevel) const;
         LODSettings();
         GetLowestUsableLOD() const;
@@ -21,7 +21,7 @@ namespace jag::game {
         uint field_4;                 // offset 4
         uint field_8;                 // offset 8
         uint field_12;                // offset 12
-        int field_16;                 // offset 16
+        int m_lODMinimumDistance;     // offset 16
         undefined1 m_lowestUsableLOD; // offset 20
         byte field_21;                // offset 21
         char _unknown_22[6];

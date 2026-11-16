@@ -8,7 +8,7 @@
 namespace jag::render {
     class TextureFormatBitSet {
     public:
-        GetBits() const;
+        uint GetBits() const;
         TextureFormatBitSet();
         Clear();
         void AddFormatType(TextureFormatType);
@@ -20,7 +20,7 @@ namespace jag::render {
         TextureFormatBitSet(std::initializer_list<TextureFormatType>);
 
         // data members, from how the methods use this: 4 bytes
-        uint field_0; // offset 0
+        uint m_bits; // offset 0
     };
 
     class TextureSamplerStateTracker {
@@ -39,10 +39,10 @@ namespace jag::render {
     Texture::GetDesc() const;
 
     // 0x100066b70: the linker folded this into oldscape::widgets::Widget::GetTextColour() const, which has identical code
-    Texture::GetType() const;
+    int Texture::GetType() const;
 
     // 0x1000b7900: the linker folded this into oldscape::minimenu::MinimenuEntry::GetSubjectType() const, which has identical code
-    Texture::GetFaceMipLevels() const;
+    uint Texture::GetFaceMipLevels() const;
 
     // 0x100123da0: the linker folded this into oldscape::LoginManager::GetDevCredentialsFilename(), which has identical code
     Texture::GetGLWriteMutex() const;
@@ -81,7 +81,7 @@ namespace jag::render {
         undefined8 local_30;
         undefined8 local_28;
 
-        field_0 = 0;
+        m_bits = 0;
         local_30 = param_2;
         local_28 = param_3;
         puVar1 = (undefined4*)local_30.begin();
@@ -158,7 +158,7 @@ namespace jag::render {
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/textures/Texture.cpp",
                 37, (char*)0);
         }
-        if (field_88 <= param_1) {
+        if (m_faceMipLevels <= param_1) {
             /* WARNING: Subroutine does not return */
             LogAssert(
                 "iMip < m_faceMipLevels",
@@ -170,7 +170,7 @@ namespace jag::render {
     // 0x100bc8990, 48 bytes, placed by class name and debug map
     // Texture::GetImageDataSize() const
     void Texture::GetImageDataSize() {
-        GetTextureImageDataSize(field_16, field_24, field_28, field_32, field_36, field_88);
+        GetTextureImageDataSize(m_type, field_24, field_28, field_32, field_36, m_faceMipLevels);
     }
 
     // 0x100bc98f0, 272 bytes, base-object constructor, placed by class name
@@ -178,9 +178,9 @@ namespace jag::render {
     void Texture::Texture(char* param_1) {
         new (&field_8) RenderResource();
         field_0 = &PTR____cxa_pure_virtual_100f27d48;
-        field_16 = -1;
+        m_type = -1;
         new (&field_24) Desc();
-        field_88 = 0;
+        m_faceMipLevels = 0;
         field_92 = 0;
         new (&field_96, param_1) eastl::fixed_string<char, 128, true, eastl::allocator>();
         field_264 = 0.0;

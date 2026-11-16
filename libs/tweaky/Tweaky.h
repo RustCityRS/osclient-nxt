@@ -375,11 +375,11 @@ namespace jag::tweak {
 
     class Tweaky {
     public:
-        GetFont() const;
-        GetPlacement() const;
-        GetRoot() const;
-        GetRT7Core() const;
-        GetFontHelper() const;
+        shared_ptr GetFont() const;
+        int GetPlacement() const;
+        shared_ptr GetRoot() const;
+        RT7Core* GetRT7Core() const;
+        FontHelpers* GetFontHelper() const;
         Tweaky* GetFocus() const;
         Tweaky(graphics::RT7Core*, graphics::FontHelpers*, input::Input*);
         ~Tweaky();
@@ -402,7 +402,7 @@ namespace jag::tweak {
         void DetectTweakyShown();
         int GetVisibleX() const;
         int GetVisibleY() const;
-        IsAttached();
+        bool IsAttached();
         void DrawScrollBar(Placement, bool, int, int, int, bool);
         void Clear();
         void DrawLine(int, int, int, int, bool);
@@ -448,16 +448,16 @@ namespace jag::tweak {
 
         // data members, from how the methods use this: 164 bytes
         char _unknown_0[16];
-        shared_ptr field_16; // offset 16
+        shared_ptr m_root; // offset 16
         char _unknown_32[16];
-        RT7Core* field_48;     // offset 48
-        FontHelpers* field_56; // offset 56
-        shared_ptr field_64;   // offset 64
-        uint field_80;         // offset 80
+        RT7Core* m_pRT7Core;        // offset 48
+        FontHelpers* m_pFontHelper; // offset 56
+        shared_ptr m_font;          // offset 64
+        uint field_80;              // offset 80
         char _unknown_84[4];
         Input* field_88;      // offset 88
         undefined8 field_96;  // offset 96
-        int field_104;        // offset 104
+        int m_placement;      // offset 104
         int field_108;        // offset 108
         int field_112;        // offset 112
         int field_116;        // offset 116
@@ -492,7 +492,7 @@ namespace jag::tweak {
     // Tweaky::GetVisibleX() const
     int Tweaky::GetVisibleX() {
         if (m_visibleX == -1) {
-            return field_112 - field_104;
+            return field_112 - m_placement;
         }
         return m_visibleX;
     }
@@ -522,7 +522,7 @@ namespace jag::tweak {
         int iVar5;
         GridRect local_48;
 
-        iVar1 = field_104;
+        iVar1 = m_placement;
         iVar2 = field_108;
         local_48._16_4_ = param_2;
         iVar4 = GetVisibleX(this);
@@ -552,12 +552,12 @@ namespace jag::tweak {
         TextFlags local_38[8];
 
         graphics::TextFlags::TextFlags(local_38, 1, param_6);
-        new (&local_80) graphics::TextProperties((shared_ptr*)field_64, in_stack_ffffffffffffff58);
+        new (&local_80) graphics::TextProperties((shared_ptr*)m_font, in_stack_ffffffffffffff58);
         local_80.SetAlignment(0, 0);
         uVar1 = m_colour;
         eastl::optional<unsigned int>::optional(local_58, &field_152);
         local_80.SetColours(uVar1, local_58);
-        this_00 = field_56;
+        this_00 = m_pFontHelper;
         if (param_4 < 1) {
             StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_90,
                                                                                           (fixed_string*)param_3);

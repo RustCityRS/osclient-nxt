@@ -10,7 +10,7 @@ namespace jag::graphics {
         GetLastLoadAttempt() const;
         GetCurves() const;
         GetJointCurves() const;
-        GetBase() const;
+        shared_ptr GetBase() const;
         GetAnimatesColour() const;
         GetBindID() const;
         void GetJointPosesFromKeyFrameData(WrapArray<JointPose>, float, AnimCurveSegmentCacheBase&) const;
@@ -52,11 +52,11 @@ namespace jag::graphics {
         Js5ResourceProvider* field_88;   // offset 88
         Js5ArchiveSettings* field_96;    // offset 96
         Js5ArchiveSettings* field_104;   // offset 104
-        undefined2 field_112;            // offset 112
+        undefined2 m_animatesColour;     // offset 112
         undefined1 m_animatesBillboards; // offset 114
         char _unknown_115[5];
         shared_ptr field_120; // offset 120
-        shared_ptr field_136; // offset 136
+        shared_ptr m_pBase;   // offset 136
     };
 
     // 0x10097af80, 16 bytes, inline, placed by class name and debug map
@@ -68,13 +68,13 @@ namespace jag::graphics {
     // 0x1009841a0, 32 bytes, inline, placed by class name
     // AnimKeyFrameSet::IsLoaded() const
     void AnimKeyFrameSet::IsLoaded() {
-        operator!=((shared_ptr*)field_136, (_func_decltype_nullptr*)0);
+        operator!=((shared_ptr*)m_pBase, (_func_decltype_nullptr*)0);
     }
 
     // 0x100986880, 16 bytes, inline, placed by class name
     // AnimKeyFrameSet::GetAnimatesTransparency() const
     undefined1 AnimKeyFrameSet::GetAnimatesTransparency() {
-        return *(undefined1*)((long)&field_112 + 1);
+        return *(undefined1*)((long)&m_animatesColour + 1);
     }
 
     // 0x100986890, 16 bytes, inline, placed by class name
@@ -101,7 +101,7 @@ namespace jag::graphics {
     // 0x10099f2c0, 64 bytes, base-object destructor, inline, placed by class name
     // AnimKeyFrameSet::~AnimKeyFrameSet()
     void AnimKeyFrameSet::~AnimKeyFrameSet() {
-        field_136->~shared_ptr();
+        m_pBase->~shared_ptr();
         field_120->~shared_ptr();
         (&field_40)->~vector();
         (&field_8)->~vector();

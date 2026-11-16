@@ -8,11 +8,11 @@
 namespace jag::graphics {
     class AnimationParameters {
     public:
-        GetLoopsCompleted() const;
-        GetDelay() const;
+        uint GetLoopsCompleted() const;
+        uint GetDelay() const;
         uint GetCurrentIndex() const;
         GetAnimation() const;
-        GetLoopLength() const;
+        uint GetLoopLength() const;
         uint GetAnimationLength() const;
         GetPaused() const;
         void ResetLoopCounter();
@@ -44,11 +44,11 @@ namespace jag::graphics {
         undefined8 field_80; // offset 80
         undefined8 field_88; // offset 88
         char _unknown_96[16];
-        int m_loopBehaviour;  // offset 112
-        uint field_116;       // offset 116
-        undefined1 field_120; // offset 120
+        int m_loopBehaviour;                // offset 112
+        uint m_loopLength;                  // offset 116
+        undefined1 m_tweenLastFrameToFirst; // offset 120
         char _unknown_121[3];
-        uint field_124;        // offset 124
+        uint m_loopsCompleted; // offset 124
         uint field_128;        // offset 128
         undefined1 m_finished; // offset 132
         char _unknown_133[3];
@@ -68,7 +68,7 @@ namespace jag::graphics {
     // 0x1004015a0, 16 bytes, inline, placed by class name and debug map
     // AnimationParameters::ResetLoopCounter()
     void AnimationParameters::ResetLoopCounter() {
-        field_124 = 0;
+        m_loopsCompleted = 0;
     }
 
     // 0x1004017f0, 16 bytes, inline, placed by class name and debug map

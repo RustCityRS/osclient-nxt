@@ -8,7 +8,7 @@
 namespace jag::math {
     class Capsule2D {
     public:
-        GetRadius() const;
+        int GetRadius() const;
         Capsule2D(Point<int> const&, Point<int> const&, int);
         Capsule2D();
         PointInside(int, int, int) const;
@@ -19,20 +19,20 @@ namespace jag::math {
         uint field_0; // offset 0
         uint field_4; // offset 4
         char _unknown_8[8];
-        int field_16;        // offset 16
+        int m_radius;        // offset 16
         undefined1 field_20; // offset 20
         char _unknown_21[3];
     };
 
     // 0x100066b70: the linker folded this into oldscape::widgets::Widget::GetTextColour() const, which has identical code
-    Capsule2D::GetRadius() const;
+    int Capsule2D::GetRadius() const;
 
     // 0x100c68c90, 64 bytes, base-object constructor, placed by class name
     // Capsule2D::Capsule2D(Point<int> const&, Point<int> const&, int)
     void Capsule2D::Capsule2D(Point* param_1, Point* param_2, int param_3) {
         new (this) Point<int>(param_1);
         new (&field_8, param_2) Point<int>();
-        field_16 = param_3;
+        m_radius = param_3;
         field_20 = 0;
     }
 
@@ -44,7 +44,7 @@ namespace jag::math {
     void Capsule2D::Capsule2D() {
         new (this) Vector2T<int>();
         new (&field_8) Vector2T<int>();
-        field_16 = 0;
+        m_radius = 0;
         field_20 = 0;
     }
 
@@ -64,7 +64,7 @@ namespace jag::math {
         float fVar7;
         float fVar8;
 
-        iVar6 = field_16;
+        iVar6 = m_radius;
         this_00 = &field_8;
         iVar1 = this_00->GetX();
         iVar2 = GetX();
@@ -118,35 +118,35 @@ namespace jag::math {
             iVar2 = GetX();
             if (iVar1 < iVar2) {
                 iVar2 = this_01->GetX();
-                iVar1 = field_16;
+                iVar1 = m_radius;
                 pvVar3 = param_1->SSOBeginPtr(param_1);
                 *(int*)pvVar3 = iVar2 - iVar1;
                 this_00 = this;
             } else {
                 iVar2 = GetX();
-                iVar1 = field_16;
+                iVar1 = m_radius;
                 pvVar3 = param_1->SSOBeginPtr(param_1);
                 *(int*)pvVar3 = iVar2 - iVar1;
                 this_00 = this_01;
             }
             iVar1 = this_00->GetX();
-            param_1->SetRight(iVar1 + field_16);
+            param_1->SetRight(iVar1 + m_radius);
             iVar1 = this_01->GetZ();
             iVar2 = GetZ();
             if (iVar1 < iVar2) {
                 iVar2 = this_01->GetZ();
-                iVar1 = field_16;
+                iVar1 = m_radius;
                 piVar4 = (int*)param_1->y();
                 *piVar4 = iVar2 - iVar1;
                 this_01 = this;
             } else {
                 iVar2 = GetZ();
-                iVar1 = field_16;
+                iVar1 = m_radius;
                 piVar4 = (int*)param_1->y();
                 *piVar4 = iVar2 - iVar1;
             }
             iVar1 = this_01->GetZ();
-            param_1->SetBottom(iVar1 + field_16);
+            param_1->SetBottom(iVar1 + m_radius);
         }
     }
 
@@ -289,7 +289,7 @@ namespace jag::math {
                     fVar1 = *pfVar3;
                     piVar4 = (int*)(&this_01->field_8)->y();
                     *piVar4 = (int)fVar1;
-                    this_01->field_16 = (int)local_34;
+                    this_01->m_radius = (int)local_34;
                     this_01->field_20 = 1;
                     return 1;
                 }

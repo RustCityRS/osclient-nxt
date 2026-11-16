@@ -137,7 +137,7 @@ namespace jag::oldscape::javapal {
         piVar5 = std::max<int>(piVar5, &m_minimumCanvasWidth);
         m_frameWidth = *piVar5;
         piVar5 = (int*)local_28->qw();
-        piVar5 = std::max<int>(piVar5, &field_124);
+        piVar5 = std::max<int>(piVar5, &m_minimumCanvasHeight);
         iVar1 = *piVar5;
         m_frameHeight = iVar1;
         if (m_frameWidth < 1) {

@@ -7,7 +7,7 @@
 
 namespace jag::render {
     // 0x10012dc00: the linker folded this into oldscape::graphics::NXTPixScreen::GetViewportX(), which has identical code
-    Shader::GetNativeShader() const;
+    int Shader::GetNativeShader() const;
 
     // 0x100be8770, 112 bytes, base-object constructor, placed by class name
     // Shader::Shader()
@@ -17,7 +17,7 @@ namespace jag::render {
         new (&field_40) std::atomic<ShaderCompileState>();
         field_41 = '\0';
         new (field_48) game::EntityHighlightGlobalState::RadialHighlightState();
-        field_72 = 0;
+        m_nativeShader = 0;
         new (&field_80) std::mutex();
     }
 

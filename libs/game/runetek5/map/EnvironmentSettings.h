@@ -23,16 +23,16 @@ namespace jag::game {
         char _unknown_4[4];
         undefined1 field_8; // offset 8
         char _unknown_9[55];
-        undefined1 field_64; // offset 64
+        undefined1 m_colourRemapWeightings; // offset 64
         char _unknown_65[7];
     };
 
     class EnvFogSettings {
     public:
-        GetFogDepth() const;
-        GetFogMaxDistance() const;
-        GetFogConstantAngleFalloff() const;
-        GetFogRGBA() const;
+        uint GetFogDepth() const;
+        float GetFogMaxDistance() const;
+        float GetFogConstantAngleFalloff() const;
+        uint GetFogRGBA() const;
         float GetFogDepthAngleFalloff() const;
         GetFogAngleOffset() const;
         void SetDefaults();
@@ -45,12 +45,12 @@ namespace jag::game {
         // data members, from how the methods use this: 32 bytes
         bool field_0; // offset 0
         char _unknown_1[3];
-        uint field_4;                 // offset 4
-        uint field_8;                 // offset 8
-        float field_12;               // offset 12
-        float field_16;               // offset 16
-        float m_fogDepthAngleFalloff; // offset 20
-        float field_24;               // offset 24
+        uint m_fogRGBA;                  // offset 4
+        uint m_fogDepth;                 // offset 8
+        float m_fogMaxDistance;          // offset 12
+        float m_fogConstantAngleFalloff; // offset 16
+        float m_fogDepthAngleFalloff;    // offset 20
+        float field_24;                  // offset 24
         char _unknown_28[4];
     };
 
@@ -58,11 +58,11 @@ namespace jag::game {
     public:
         float GetAmbientLight() const;
         float GetEnvMapIrradianceScale() const;
-        GetSunRGBA() const;
+        uint GetSunRGBA() const;
         GetSunPosition() const;
-        GetContrast() const;
-        GetSunlightShadowStrength() const;
-        GetSpecularHorzOcclusionScale() const;
+        float GetContrast() const;
+        float GetSunlightShadowStrength() const;
+        float GetSpecularHorzOcclusionScale() const;
         void SetDefaults();
         void Set(PacketT<Array<unsigned char, eastl::allocator>>&);
         void ApplyOverride(EnvironmentOverride const&);
@@ -71,14 +71,14 @@ namespace jag::game {
         EnvLightingSettings();
 
         // data members, from how the methods use this: 44 bytes
-        uint field_0; // offset 0
+        uint m_sunRGBA; // offset 0
         char _unknown_4[12];
-        float m_ambientLight;          // offset 16
-        float field_20;                // offset 20
-        float field_24;                // offset 24
-        float field_28;                // offset 28
-        float m_envMapIrradianceScale; // offset 32
-        float field_36;                // offset 36
+        float m_ambientLight;               // offset 16
+        float m_contrast;                   // offset 20
+        float field_24;                     // offset 24
+        float m_specularHorzOcclusionScale; // offset 28
+        float m_envMapIrradianceScale;      // offset 32
+        float m_sunlightShadowStrength;     // offset 36
         char _unknown_40[4];
     };
 
@@ -109,8 +109,8 @@ namespace jag::game {
     class EnvToneMapSettings {
     public:
         GetToneMapParams() const;
-        GetToneMappingEnabled() const;
-        GetToneMapOperator() const;
+        EnvironmentOverrideParam<bool> GetToneMappingEnabled() const;
+        uint GetToneMapOperator() const;
         void SetDefaults();
         void Set(PacketT<Array<unsigned char, eastl::allocator>>&);
         void ApplyOverride(EnvironmentOverride const&);
@@ -119,9 +119,9 @@ namespace jag::game {
         EnvToneMapSettings();
 
         // data members, from how the methods use this: 208 bytes
-        EnvironmentOverrideParam<bool> field_0; // offset 0
+        EnvironmentOverrideParam<bool> m_toneMappingEnabled; // offset 0
         char _unknown_1[3];
-        uint field_4;              // offset 4
+        uint m_toneMapOperator;    // offset 4
         PostProcessParams field_8; // offset 8
     };
 
@@ -160,7 +160,7 @@ namespace jag::game {
     // 0x100455010, 48 bytes, base-object destructor, inline, placed by debug map only (low confidence)
     // EnvColourGradingSettings::~EnvColourGradingSettings()
     void EnvColourGradingSettings::~EnvColourGradingSettings() {
-        (&field_64)->~fixed_vector();
+        (&m_colourRemapWeightings)->~fixed_vector();
         (&field_8)->~fixed_vector();
     }
 
@@ -177,7 +177,8 @@ namespace jag::game {
     void EnvColourGradingSettings::EnvColourGradingSettings(EnvColourGradingSettings* param_1) {
         field_0 = param_1->field_0;
         new (&field_8, (fixed_vector*)&param_1->field_8) eastl::fixed_vector<int, 3ul, true, eastl::allocator>();
-        new (&field_64, (fixed_vector*)&param_1->field_64) eastl::fixed_vector<float, 3ul, true, eastl::allocator>();
+        new (&m_colourRemapWeightings, (fixed_vector*)&param_1->m_colourRemapWeightings)
+            eastl::fixed_vector<float, 3ul, true, eastl::allocator>();
     }
 
     // 0x1004558a0, 48 bytes, base-object destructor, inline, placed by debug map only (low confidence)
@@ -270,7 +271,7 @@ namespace jag::game {
     // EnvColourGradingSettings::EnvColourGradingSettings()
     void EnvColourGradingSettings::EnvColourGradingSettings() {
         eastl::fixed_vector<int, 3ul, true, eastl::allocator>::fixed_vector((ulong)&field_8);
-        eastl::fixed_vector<float, 3ul, true, eastl::allocator>::fixed_vector((ulong)&field_64);
+        eastl::fixed_vector<float, 3ul, true, eastl::allocator>::fixed_vector((ulong)&m_colourRemapWeightings);
         SetDefaults(this);
     }
 

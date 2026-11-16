@@ -10,15 +10,15 @@ namespace jag::hardware {
     public:
         GetCPUBrand() const;
         GetCPUVendor() const;
-        GetCPUSignature() const;
+        int GetCPUSignature() const;
         Is64BitOS() const;
-        GetSystemMemoryMB() const;
+        int GetSystemMemoryMB() const;
         void GetOSVersionAndBuild(OperatingSystem&, int&, int&, int&) const;
         void GetOSVersion(OperatingSystem&, int&, int&) const;
         ~HardwareInfo();
         GetClientType() const;
-        GetNumLogicalProcessors() const;
-        GetNumPhyscicalProcessors() const;
+        uint GetNumLogicalProcessors() const;
+        int GetNumPhyscicalProcessors() const;
         GetCPUFeatureFlags() const;
         GetDeviceFullName() const;
         uint GetLegacyOSVersion() const;
@@ -45,11 +45,11 @@ namespace jag::hardware {
         char _unknown_9[7];
         undefined1 field_16; // offset 16
         char _unknown_17[47];
-        int field_64;        // offset 64
-        undefined4 field_68; // offset 68
-        int field_72;        // offset 72
+        int m_numPhyscicalProcessors; // offset 64
+        uint m_numLogicalProcessors;  // offset 68
+        int m_systemMemoryMB;         // offset 72
         char _unknown_76[12];
-        undefined4 field_88; // offset 88
+        int m_cPUSignature; // offset 88
         char _unknown_92[68];
         undefined4 field_160;   // offset 160
         uint field_164;         // offset 164
@@ -60,8 +60,8 @@ namespace jag::hardware {
         char _unknown_181[3];
         undefined8 m_gPUDriverDate; // offset 184
         char _unknown_192[64];
-        undefined4 field_256; // offset 256
-        undefined1 field_260; // offset 260
+        undefined4 m_gpuMemoryMB; // offset 256
+        undefined1 field_260;     // offset 260
         char _unknown_261[3];
         undefined4 m_dPI; // offset 264
         char _unknown_268[8];
@@ -76,13 +76,13 @@ namespace jag::hardware {
     HardwareInfo::GetCPUVendor() const;
 
     // 0x1000b7900: the linker folded this into oldscape::minimenu::MinimenuEntry::GetSubjectType() const, which has identical code
-    HardwareInfo::GetCPUSignature() const;
+    int HardwareInfo::GetCPUSignature() const;
 
     // 0x100102f00: the linker folded this into oldscape::rs2lib::InputField::HasFont() const, which has identical code
     HardwareInfo::Is64BitOS() const;
 
     // 0x10012dc00: the linker folded this into oldscape::graphics::NXTPixScreen::GetViewportX(), which has identical code
-    HardwareInfo::GetSystemMemoryMB() const;
+    int HardwareInfo::GetSystemMemoryMB() const;
 
     // 0x100146270, 32 bytes, inline, placed by class name and debug map
     // HardwareInfo::GetOSVersionAndBuild(OperatingSystem&, int&, int&, int&) const
@@ -125,10 +125,10 @@ namespace jag::hardware {
     HardwareInfo::GetClientType() const;
 
     // 0x1003f65a0: the linker folded this into EntityRoute::GetStalledTickCount() const, which has identical code
-    HardwareInfo::GetNumLogicalProcessors() const;
+    uint HardwareInfo::GetNumLogicalProcessors() const;
 
     // 0x100429b10: the linker folded this into game::StaticPointLight::GetRGB() const, which has identical code
-    HardwareInfo::GetNumPhyscicalProcessors() const;
+    int HardwareInfo::GetNumPhyscicalProcessors() const;
 
     // 0x100443d40: the linker folded this into game::Entity::GetBoundingCapsule() const, which has identical code
     HardwareInfo::GetCPUFeatureFlags() const;

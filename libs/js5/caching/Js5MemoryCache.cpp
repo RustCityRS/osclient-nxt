@@ -7,7 +7,7 @@
 
 namespace jag {
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    Js5MemoryCache::GetCacheSize() const;
+    uint Js5MemoryCache::GetCacheSize() const;
 
     // 0x1009e3f90, 16 bytes, complete-object constructor, placed by class name and debug map
     // Js5MemoryCache::Js5MemoryCache(unsigned int, unsigned int): jumps straight to the base-object constructor
@@ -111,7 +111,7 @@ namespace jag {
     // 0x1009ef360, 32 bytes, base-object constructor, placed by class name
     // Js5MemoryCache::Js5MemoryCache(unsigned int, unsigned int)
     void Js5MemoryCache::Js5MemoryCache(uint param_1, uint param_2) {
-        field_0 = param_1;
+        m_cacheSize = param_1;
         field_4 = param_2;
         new (field_8, param_1, "Js5MemoryCache")
             LRUHashCache<Js5MemoryCacheWrapper, 4096ul, 4097ul, true, unsigned long long>();

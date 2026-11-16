@@ -401,11 +401,11 @@ namespace jag::oldscape {
         undefined8 local_30;
         ScriptVarType* local_28;
 
-        field_0 = param_1;
+        m_iD = param_1;
         field_8 = param_2;
         new (&field_16, in_RCX) game::VarValue();
         local_28 = (ScriptVarType*)this;
-        local_38[0] = eastl::make_pair<unsigned int const&, game::ScriptVarType*>(&field_0, &local_28);
+        local_38[0] = eastl::make_pair<unsigned int const&, game::ScriptVarType*>(&m_iD, &local_28);
         local_30 = extraout_RDX;
         eastl::pair<unsigned int const, game::VarDomainType*>::pair<unsigned int, game::VarDomainType*, void>(
             local_48, (pair*)local_38);

@@ -8,14 +8,14 @@ namespace jag {
     class Js5Index {
     public:
         GetIndexWhirlpool() const;
-        GetIndexCRC() const;
-        GetIndexVersion() const;
-        GetTotalPackedGroupSize() const;
+        uint GetIndexCRC() const;
+        uint GetIndexVersion() const;
+        long GetTotalPackedGroupSize() const;
         Js5Index();
         ~Js5Index();
         GetGroupList() const;
-        GetGroupCount() const;
-        GetMaximumGroupID() const;
+        uint GetGroupCount() const;
+        uint GetMaximumGroupID() const;
         DataStatus const* GetGroupID<char[17]>(unsigned int&, char const (&)[17]);
         DataStatus const* GetGroupID<eastl::string>(unsigned int&, eastl::string const&);
         IsFileListContiguous(unsigned int) const;
@@ -48,34 +48,34 @@ namespace jag {
         static /* 8 bytes */ HASH_MAIN; // = stringtools::hash32("main")
 
         // data members, from how the methods use this: 256 bytes
-        uint field_0; // offset 0
+        uint m_indexCRC; // offset 0
         char _unknown_4[28];
-        uint field_32;       // offset 32
+        uint m_indexVersion; // offset 32
         undefined1 field_36; // offset 36
         undefined3 field_37; // offset 37
-        uint field_40;       // offset 40
+        uint m_groupCount;   // offset 40
         char _unknown_44[92];
-        uint field_136; // offset 136
-        uint field_140; // offset 140
-        long field_144; // offset 144
+        uint field_136;               // offset 136
+        uint m_maximumGroupID;        // offset 140
+        long m_pTotalPackedGroupSize; // offset 144
         char _unknown_152[104];
     };
 
     // 0x10018b1a0, 352 bytes, base-object constructor, inline, placed by class name and debug map
     // Js5Index::Js5Index()
     void Js5Index::Js5Index() {
-        field_0 = 0;
+        m_indexCRC = 0;
         new (&field_8) Array<unsigned char, eastl::allocator>();
-        field_32 = 0;
+        m_indexVersion = 0;
         field_36 = 0;
-        field_40 = 0;
+        m_groupCount = 0;
         new (&field_48) Array<unsigned int, eastl::allocator>();
         new (&field_72) Array<int, eastl::allocator>();
         new (&field_96) eastl::vector_map<int, unsigned int, eastl::less<int>, eastl::allocator,
                                           eastl::vector<eastl::pair<int, unsigned int>, eastl::allocator>>();
         field_136 = 4294967295;
-        field_140 = 0;
-        field_144 = 0;
+        m_maximumGroupID = 0;
+        m_pTotalPackedGroupSize = 0;
         new (&field_152) Array<int, eastl::allocator>();
         new (&field_176) Array<Array<unsigned char, eastl::allocator>, eastl::allocator>();
         new (&field_200) Array<int, eastl::allocator>();
@@ -170,7 +170,7 @@ namespace jag {
                 uVar1 = (uint)*puVar3;
             }
         } else {
-            uVar1 = field_40;
+            uVar1 = m_groupCount;
         }
         return uVar1;
     }
@@ -185,15 +185,15 @@ namespace jag {
         undefined3 uVar3;
         uint uVar4;
 
-        field_0 = param_1->field_0;
+        m_indexCRC = param_1->m_indexCRC;
         Array<unsigned char, eastl::allocator>::operator=((Array<unsigned char, eastl::allocator>*)&field_8,
                                                           (Array*)&param_1->field_8);
         uVar2 = param_1->field_36;
         uVar3 = param_1->field_37;
-        field_32 = param_1->field_32;
+        m_indexVersion = param_1->m_indexVersion;
         field_36 = uVar2;
         field_37 = uVar3;
-        field_40 = param_1->field_40;
+        m_groupCount = param_1->m_groupCount;
         Array<unsigned int, eastl::allocator>::operator=((Array<unsigned int, eastl::allocator>*)&field_48,
                                                          (Array*)&param_1->field_48);
         Array<int, eastl::allocator>::operator=((Array<int, eastl::allocator>*)&field_72, (Array*)&param_1->field_72);
@@ -202,11 +202,11 @@ namespace jag {
         operator=((vector_map<int, unsigned int, eastl::less<int>, eastl::allocator,
                               eastl::vector<eastl::pair<int, unsigned int>, eastl::allocator>>*)&field_96,
                   (vector_map*)&param_1->field_96);
-        uVar4 = param_1->field_140;
-        lVar1 = param_1->field_144;
+        uVar4 = param_1->m_maximumGroupID;
+        lVar1 = param_1->m_pTotalPackedGroupSize;
         field_136 = param_1->field_136;
-        field_140 = uVar4;
-        field_144 = lVar1;
+        m_maximumGroupID = uVar4;
+        m_pTotalPackedGroupSize = lVar1;
         Array<int, eastl::allocator>::operator=((Array<int, eastl::allocator>*)&field_152, (Array*)&param_1->field_152);
         Array<Array<unsigned char, eastl::allocator>, eastl::allocator>::operator=(
             (Array<Array<unsigned char, eastl::allocator>, eastl::allocator>*)&field_176, (Array*)&param_1->field_176);
@@ -233,15 +233,15 @@ namespace jag {
         undefined3 uVar3;
         uint uVar4;
 
-        field_0 = param_1->field_0;
+        m_indexCRC = param_1->m_indexCRC;
         Array<unsigned char, eastl::allocator>::operator=((Array<unsigned char, eastl::allocator>*)&field_8,
                                                           (Array*)&param_1->field_8);
         uVar2 = param_1->field_36;
         uVar3 = param_1->field_37;
-        field_32 = param_1->field_32;
+        m_indexVersion = param_1->m_indexVersion;
         field_36 = uVar2;
         field_37 = uVar3;
-        field_40 = param_1->field_40;
+        m_groupCount = param_1->m_groupCount;
         Array<unsigned int, eastl::allocator>::operator=((Array<unsigned int, eastl::allocator>*)&field_48,
                                                          (Array*)&param_1->field_48);
         Array<int, eastl::allocator>::operator=((Array<int, eastl::allocator>*)&field_72, (Array*)&param_1->field_72);
@@ -250,11 +250,11 @@ namespace jag {
         operator=((vector_map<int, unsigned int, eastl::less<int>, eastl::allocator,
                               eastl::vector<eastl::pair<int, unsigned int>, eastl::allocator>>*)&field_96,
                   (vector_map*)&param_1->field_96);
-        uVar4 = param_1->field_140;
-        lVar1 = param_1->field_144;
+        uVar4 = param_1->m_maximumGroupID;
+        lVar1 = param_1->m_pTotalPackedGroupSize;
         field_136 = param_1->field_136;
-        field_140 = uVar4;
-        field_144 = lVar1;
+        m_maximumGroupID = uVar4;
+        m_pTotalPackedGroupSize = lVar1;
         Array<int, eastl::allocator>::operator=((Array<int, eastl::allocator>*)&field_152, (Array*)&param_1->field_152);
         Array<Array<unsigned char, eastl::allocator>, eastl::allocator>::operator=(
             (Array<Array<unsigned char, eastl::allocator>, eastl::allocator>*)&field_176, (Array*)&param_1->field_176);
@@ -277,7 +277,7 @@ namespace jag {
         char cVar1;
         int* piVar2;
 
-        if (param_1 <= field_140) {
+        if (param_1 <= m_maximumGroupID) {
             cVar1 = (&field_200)->empty();
             if (cVar1 == '\0') {
                 piVar2 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_200,
@@ -316,7 +316,7 @@ namespace jag {
                 uVar1 = *puVar3;
             }
         } else {
-            uVar1 = field_0;
+            uVar1 = m_indexCRC;
         }
         return uVar1;
     }
@@ -337,7 +337,7 @@ namespace jag {
                 uVar1 = *puVar3;
             }
         } else {
-            uVar1 = field_32;
+            uVar1 = m_indexVersion;
         }
         return uVar1;
     }
@@ -424,18 +424,18 @@ namespace jag {
     // 0x1009f7c30, 336 bytes, base-object constructor, inline, placed by class name
     // Js5Index::Js5Index(unsigned int, unsigned int, unsigned int)
     void Js5Index::Js5Index(uint param_1, uint param_2, uint param_3) {
-        field_0 = param_2;
+        m_indexCRC = param_2;
         new (&field_8) Array<unsigned char, eastl::allocator>();
-        field_32 = param_3;
+        m_indexVersion = param_3;
         field_36 = 0;
-        field_40 = param_1;
+        m_groupCount = param_1;
         new (&field_48) Array<unsigned int, eastl::allocator>();
         new (&field_72) Array<int, eastl::allocator>();
         new (&field_96) eastl::vector_map<int, unsigned int, eastl::less<int>, eastl::allocator,
                                           eastl::vector<eastl::pair<int, unsigned int>, eastl::allocator>>();
         field_136 = 4294967295;
-        field_140 = 0;
-        field_144 = 0;
+        m_maximumGroupID = 0;
+        m_pTotalPackedGroupSize = 0;
         new (&field_152) Array<int, eastl::allocator>();
         new (&field_176) Array<Array<unsigned char, eastl::allocator>, eastl::allocator>();
         new (&field_200) Array<int, eastl::allocator>();

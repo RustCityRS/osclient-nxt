@@ -7,7 +7,7 @@
 
 namespace jag::graphics {
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    VFXAttachmentInfo::GetTemplateID() const;
+    uint VFXAttachmentInfo::GetTemplateID() const;
 
     // 0x10014e180: the linker folded this into math::Vector2T<float>::y() const, which has identical code
     VFXAttachmentInfo::GetBonePositions() const;
@@ -16,7 +16,7 @@ namespace jag::graphics {
     VFXAttachmentInfo::SetSourceModelExternalID(int);
 
     // 0x100429b10: the linker folded this into game::StaticPointLight::GetRGB() const, which has identical code
-    VFXAttachmentInfo::GetSourceModelExternalID() const;
+    uint VFXAttachmentInfo::GetSourceModelExternalID() const;
 
     // 0x1004900d0: the linker folded this into game::MapEnvironmentSettings::GetVolumetricSettings() const, which has identical code
     VFXAttachmentInfo::GetWorldTransform() const;
@@ -83,9 +83,9 @@ namespace jag::graphics {
         undefined8 uVar7;
 
         new (this) MakeSharedPool<VFXAttachmentInfo, 768>();
-        field_0 = (uint)(ushort)param_1->field_0;
+        m_templateID = (uint)(ushort)param_1->field_0;
         new (&field_4) std::array<VFXAttachmentInfo::VertexBonePos, 3ul>();
-        field_64 = 0;
+        m_sourceModelExternalID = 0;
         new (&field_72)
             eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
                               eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>>();
@@ -105,7 +105,7 @@ namespace jag::graphics {
         field_200 = uVar6;
         field_176 = uVar3;
         field_184 = uVar4;
-        field_160 = uVar1;
+        m_worldTransform = uVar1;
         field_168 = uVar2;
         Update(this, param_1, param_2);
     }
@@ -120,7 +120,7 @@ namespace jag::graphics {
 
         local_80[0] = (&param_1->field_16)->GetPos();
         local_58[0] = param_2->TransformPoint(local_80);
-        (&field_160, (Vector3T*)local_58)->SetPos();
+        (&m_worldTransform, (Vector3T*)local_58)->SetPos();
         cVar1 = (&param_1->field_80, 0)->test();
         if (cVar1 == '\0') {
             local_80->GetRot();
@@ -129,7 +129,7 @@ namespace jag::graphics {
         } else {
             local_58->GetRot();
         }
-        (&field_160, (Matrix33T*)local_58)->SetRot();
+        (&m_worldTransform, (Matrix33T*)local_58)->SetRot();
     }
 
     // 0x1007d7370, 16 bytes, complete-object constructor, placed by class name and debug map
@@ -148,7 +148,7 @@ namespace jag::graphics {
         undefined8 uVar7;
 
         new (this) MakeSharedPool<VFXAttachmentInfo, 768>();
-        field_0 = param_1;
+        m_templateID = param_1;
         field_20 = param_2->field_16;
         uVar1 = *(undefined8*)&param_2->field_8;
         field_4 = param_2->field_0;
@@ -161,7 +161,7 @@ namespace jag::graphics {
         uVar1 = *(undefined8*)&param_4->field_8;
         field_44 = param_4->field_0;
         field_52 = uVar1;
-        field_64 = 0;
+        m_sourceModelExternalID = 0;
         new (&field_72)
             eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
                               eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>>();
@@ -181,7 +181,7 @@ namespace jag::graphics {
         field_200 = uVar6;
         field_176 = uVar3;
         field_184 = uVar4;
-        field_160 = uVar1;
+        m_worldTransform = uVar1;
         field_168 = uVar2;
     }
 
@@ -200,7 +200,7 @@ namespace jag::graphics {
         undefined8 uVar7;
 
         new (this) MakeSharedPool<VFXAttachmentInfo, 768>();
-        field_0 = param_1;
+        m_templateID = param_1;
         field_20 = param_2->field_16;
         uVar1 = *(undefined8*)&param_2->field_8;
         field_4 = param_2->field_0;
@@ -213,7 +213,7 @@ namespace jag::graphics {
         uVar1 = *(undefined8*)&param_2->field_8;
         field_44 = param_2->field_0;
         field_52 = uVar1;
-        field_64 = 0;
+        m_sourceModelExternalID = 0;
         new (&field_72)
             eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
                               eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>>();
@@ -233,7 +233,7 @@ namespace jag::graphics {
         field_200 = uVar6;
         field_176 = uVar3;
         field_184 = uVar4;
-        field_160 = uVar1;
+        m_worldTransform = uVar1;
         field_168 = uVar2;
     }
 
@@ -370,7 +370,7 @@ namespace jag::graphics {
             local_c8[0] = math::Vector3Cross<float>((Vector3T*)local_80, (Vector3T*)local_90);
             math::Matrix33T<float>::Matrix33T(local_160, (Vector3T*)local_c8, (Vector3T*)local_80, (Vector3T*)local_90);
             new (&local_138) math::Matrix44T<float>(local_160, local_f8);
-            math::Matrix44T<float>::operator=((Matrix44T<float>*)&local_98->field_160, &local_138);
+            math::Matrix44T<float>::operator=((Matrix44T<float>*)&local_98->m_worldTransform, &local_138);
             fVar9 = local_70._0_4_;
         }
         if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {

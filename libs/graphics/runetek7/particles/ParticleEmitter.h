@@ -8,7 +8,7 @@ namespace jag::graphics {
     class ParticleEmitter {
     public:
         GetEmitterSource() const;
-        GetEmitterTemplate() const;
+        ParticleEmitterTemplate* GetEmitterTemplate() const;
         GetParticles() const;
         ParticleEmitter(shared_ptr<ModelParticleSource> const&, ParticleManager*, ParticleSystem*);
         void Initialise(shared_ptr<ModelParticleSource> const&, ParticleManager*, ParticleSystem*);
@@ -23,7 +23,7 @@ namespace jag::graphics {
         void GetNewParticlePosition(math::Vector3T<float>&);
         bool GenerateNewParticle();
         void SortParticles();
-        IsHidden() const;
+        bool IsHidden() const;
         void UpdatePosition(math::Vector3T<float> const&, math::Vector3T<float> const&, math::Vector3T<float> const&);
         void TranslateParticles(math::Vector3T<float> const&);
         void RenderDebug() const;
@@ -58,13 +58,13 @@ namespace jag::graphics {
 
         // data members, from how the methods use this: 10532 bytes
         char _unknown_0[16];
-        ParticleEmitterTemplate* field_16; // offset 16
-        ParticleManager* field_24;         // offset 24
-        ParticleSystem* field_32;          // offset 32
-        long* field_40;                    // offset 40
-        undefined1 field_48;               // offset 48
-        undefined7 field_49;               // offset 49
-        undefined8 field_56;               // offset 56
+        ParticleEmitterTemplate* m_emitterTemplate; // offset 16
+        ParticleManager* field_24;                  // offset 24
+        ParticleSystem* field_32;                   // offset 32
+        long* field_40;                             // offset 40
+        undefined1 field_48;                        // offset 48
+        undefined7 field_49;                        // offset 49
+        undefined8 field_56;                        // offset 56
         char _unknown_64[4];
         undefined1 field_68; // offset 68
         undefined3 field_69; // offset 69
@@ -201,7 +201,7 @@ namespace jag::graphics {
         uVar5 = param_1->field_48;
         uVar6 = param_1->field_49;
         uVar1 = param_1->field_56;
-        field_16 = param_1->field_16;
+        m_emitterTemplate = param_1->m_emitterTemplate;
         field_24 = pPVar2;
         field_32 = pPVar3;
         field_40 = plVar4;
@@ -259,7 +259,7 @@ namespace jag::graphics {
 
         shared_ptr<oldscape::RSevenDebugPresetProvider>::shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(
             (shared_ptr<oldscape::RSevenDebugPresetProvider>*)this, (shared_ptr*)param_1);
-        _memcpy(&field_16, &param_1->field_16, 134);
+        _memcpy(&m_emitterTemplate, &param_1->m_emitterTemplate, 134);
         new (&field_160, (fixed_vector*)&param_1->field_160)
             eastl::fixed_vector<Particle, 128ul, true, eastl::allocator>();
         m_hidden = param_1->m_hidden;

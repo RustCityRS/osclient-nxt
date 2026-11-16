@@ -313,7 +313,7 @@ namespace jag::graphics {
         local_118.GetRot();
         new (&local_158) math::Matrix44T<float>((Matrix33T*)&local_118, PTR_ZERO_100ee66e8);
         new (&local_118) math::Frustum(&local_158, (Matrix44T*)&field_80);
-        local_58 = (Frustum*)&param_3->field_208;
+        local_58 = (Frustum*)param_3->m_pViewFrustum;
         this_00 = &field_208;
         pVVar1 = (Vector2T<float>*)Array<SkyBoxVertex, eastl::allocator>::operator[](
             (Array<SkyBoxVertex, eastl::allocator>*)this_00, 0);

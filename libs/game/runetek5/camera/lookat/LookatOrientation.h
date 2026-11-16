@@ -10,7 +10,7 @@ namespace jag::game {
     public:
         // virtual methods in vtable order
         virtual ~LookatOrientation();
-        virtual GetCurrentLookat() const;
+        virtual AABB GetCurrentLookat() const;
         virtual GetLookatData(LookatData&);
         virtual Vector3T* GetLookatOffset(math::Vector3T<double>&) const;
         virtual void GetLookatPosition(math::Vector3T<double>&) const;
@@ -35,9 +35,10 @@ namespace jag::game {
         LookatOrientation();
 
         // data members, from how the methods use this: 144 bytes, the first 120 are LookatPoint
-        double field_120; // offset 120
-        double field_128; // offset 128
-        char _unknown_136[8];
+        double field_120;                    // offset 120
+        double field_128;                    // offset 128
+        undefined1 m_pCurrentOrientation[4]; // offset 136
+        char _unknown_140[4];
     };
 
     // 0x10061da00, 64 bytes, inline, placed by class name and debug map
@@ -61,16 +62,16 @@ namespace jag::game {
     void LookatOrientation::LookatOrientation() {
         new (this) ILookatManager(3);
         field_0 = &PTR__ScriptOption_100f0c288;
-        field_12 = 0;
-        field_16 = 0;
+        m_orientationXRotation = 0;
+        m_orientationYRotation = 0;
         m_orientationXMovement = 0.0;
         m_orientationZMovement = 0.0;
         new (&field_32, -1.0, -1.0, -1.0) math::Vector3T<double>();
         new (&field_56, -1.0, -1.0, -1.0) math::Vector3T<double>();
         *(undefined2*)&field_80 = 0;
-        new (field_88) oldscape::dash3d::ModelLit::AABB();
+        new (m_currentLookat) oldscape::dash3d::ModelLit::AABB();
         new (&field_112) oldscape::dash3d::ModelLit::AABB();
-        new (&field_136) math::QuaternionT<float>();
+        new (m_pCurrentOrientation) math::QuaternionT<float>();
     }
 
 } // namespace jag::game

@@ -124,20 +124,20 @@ namespace jag::math {
         local_28._9_3_ = 0;
         local_28._12_4_ = 255;
         iVar1 = Clamp<int>((int*)&local_28.field_4, (int*)&local_28.field_8, (int*)&local_28.field_12);
-        local_28.field_0._0_3_ = CONCAT12((char)iVar1, (undefined2)local_28.field_0);
+        local_28.m_stackFrames._0_3_ = CONCAT12((char)iVar1, (undefined2)local_28.m_stackFrames);
         local_28._4_4_ = RoundFloatToInt((float)(param_1 >> 8 & 255) * 1.5);
         local_28.field_8 = 0;
         local_28._9_3_ = 0;
         local_28._12_4_ = 255;
         iVar1 = Clamp<int>((int*)&local_28.field_4, (int*)&local_28.field_8, (int*)&local_28.field_12);
-        local_28.field_0._0_2_ = CONCAT11((char)iVar1, (undefined1)local_28.field_0);
+        local_28.m_stackFrames._0_2_ = CONCAT11((char)iVar1, (undefined1)local_28.m_stackFrames);
         local_28._4_4_ = RoundFloatToInt((float)(param_1 & 255) * 1.5);
         local_28.field_8 = 0;
         local_28._9_3_ = 0;
         local_28._12_4_ = 255;
         uVar2 = Clamp<int>((int*)&local_28.field_4, (int*)&local_28.field_8, (int*)&local_28.field_12);
-        local_28.field_0 = uVar2 & 255;
-        return local_28.field_0;
+        local_28.m_stackFrames = uVar2 & 255;
+        return local_28.m_stackFrames;
     }
 
 } // namespace jag::math

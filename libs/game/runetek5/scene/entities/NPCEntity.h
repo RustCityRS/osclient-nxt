@@ -71,8 +71,8 @@ namespace jag {
         FilterRenderPasses(graphics::SceneViewData const&);
         bool RefreshCachedHighlightType(unsigned int);
         void SetVisibleCombatLevelToParent();
-        GetNPCType() const;
-        GetParentNPCType() const;
+        shared_ptr GetNPCType() const;
+        shared_ptr GetParentNPCType() const;
         int GetNPCTypeID() const;
         GetHiddenOpsMask() const;
         GetVisibleCombatLevel() const;

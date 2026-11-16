@@ -79,7 +79,7 @@ namespace jag::render {
 
         // data members, from how the methods use this: 62238400 bytes
         char _unknown_0[96];
-        undefined4 field_96; // offset 96
+        undefined4 m_gPUVendor; // offset 96
         char _unknown_100[36];
         int field_136; // offset 136
         char _unknown_140[52];

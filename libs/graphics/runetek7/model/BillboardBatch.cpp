@@ -43,7 +43,7 @@ namespace jag::graphics {
     BillboardBatch::GetBoneVertices() const;
 
     // 0x1006a9040: the linker folded this into ui::Rectangle::GetRectangleFill() const, which has identical code
-    BillboardBatch::IsLowPrecision() const;
+    bool BillboardBatch::IsLowPrecision() const;
 
     // 0x1007a5650: the linker folded this into SunlightDirectLighting::GetShaderConsts() const, which has identical code
     BillboardBatch::GetBillboardLabelIDMap();
@@ -56,7 +56,7 @@ namespace jag::graphics {
     void BillboardBatch::BillboardBatch() {
         new (this) MakeSharedPool<BillboardBatch, 64>();
         new (this) math::AABB();
-        field_32 = 0;
+        m_transformed = 0;
         m_faceLabelCount = 1;
         new (&field_40)
             eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
@@ -96,7 +96,7 @@ namespace jag::graphics {
     void BillboardBatch::BillboardBatch(BillboardBatch* param_1) {
         new (this) MakeSharedPool<BillboardBatch, 64>();
         new (this) math::AABB(param_1);
-        field_32 = param_1->field_32;
+        m_transformed = param_1->m_transformed;
         m_faceLabelCount = param_1->m_faceLabelCount;
         new (&field_40, (vector_map*)&param_1->field_40)
             eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
@@ -136,7 +136,7 @@ namespace jag::graphics {
     void BillboardBatch::BillboardBatch(BillboardBatch* param_1) {
         new (this) MakeSharedPool<BillboardBatch, 64>();
         new (this) math::AABB(param_1);
-        field_32 = param_1->field_32;
+        m_transformed = param_1->m_transformed;
         m_faceLabelCount = param_1->m_faceLabelCount;
         new (&field_40, (vector_map*)&param_1->field_40)
             eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
@@ -282,7 +282,7 @@ namespace jag::graphics {
         float local_3c;
         ushort local_38[4];
 
-        field_32 = 0;
+        m_transformed = 0;
         uVar6 = param_1->g2LE();
         this_02 = &field_264;
         eastl::vector<unsigned short, eastl::allocator>::resize((ulong)this_02);
@@ -903,7 +903,7 @@ namespace jag::graphics {
         if (this != param_1) {
             DestroyRenderingResources(this);
             math::AABB::operator=((AABB*)this, (AABB*)param_1);
-            field_32 = param_1->field_32;
+            m_transformed = param_1->m_transformed;
             m_boneCount = param_1->m_boneCount;
             eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
                               eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>>::
@@ -1034,7 +1034,7 @@ namespace jag::graphics {
             pAVar8 = (AABB*)param_1->SSOBeginPtr(pBVar23);
             Union(pAVar8);
         }
-        field_32 = field_32 | param_1->field_32;
+        m_transformed = m_transformed | param_1->m_transformed;
         puVar1 = &field_264;
         local_58 = (ushort*)puVar1->size();
         local_48 = (vector<game::WorldMap::MapElementInstance, eastl::allocator>*)&field_360;
@@ -1196,10 +1196,10 @@ namespace jag::graphics {
                             (BillboardBatchVertex*)eastl::vector<BillboardBatchVertex, eastl::allocator>::operator[](
                                 (vector<BillboardBatchVertex, eastl::allocator>*)this_02, uVar9);
                         BillboardBatchVertex::operator=((BillboardBatchVertex*)local_40, pBVar20);
-                        if (((char)local_58 == '\0') || (local_40->field_32 == 0)) {
-                            local_40->field_32 = 0;
+                        if (((char)local_58 == '\0') || (local_40->m_boneCount == 0)) {
+                            local_40->m_boneCount = 0;
                         } else {
-                            local_34 = CONCAT22(local_34._2_2_, (ushort)local_40->field_32);
+                            local_34 = CONCAT22(local_34._2_2_, (ushort)local_40->m_boneCount);
                             local_a8 = uVar9;
                             lVar10 =
                                 eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>,
@@ -1209,7 +1209,7 @@ namespace jag::graphics {
                             lVar16 = local_138->end();
                             pvVar3 = local_98;
                             if (lVar10 == lVar16) {
-                                local_40->field_32 = 0;
+                                local_40->m_boneCount = 0;
                                 uVar9 = local_a8;
                             } else {
                                 lVar16 =
@@ -1229,7 +1229,7 @@ namespace jag::graphics {
                                         insert<eastl::pair<unsigned short, unsigned char>, void>(local_98,
                                                                                                  (pair*)&local_34);
                                     bVar7 = *local_88;
-                                    local_40->field_32 = bVar7;
+                                    local_40->m_boneCount = bVar7;
                                     bVar7 = bVar7 + 1;
                                     *local_88 = bVar7;
                                     if (56 < bVar7) {
@@ -1240,9 +1240,9 @@ namespace jag::graphics {
                                                   486, (char*)0);
                                     }
                                 } else {
-                                    local_40->field_32 = *(byte*)(lVar16 + 2);
+                                    local_40->m_boneCount = *(byte*)(lVar16 + 2);
                                 }
-                                local_34._0_2_ = (ushort)local_40->field_32;
+                                local_34._0_2_ = (ushort)local_40->m_boneCount;
                                 this_00 = (vector<unsigned short, eastl::allocator>*)eastl::vector_map<
                                     unsigned short, eastl::vector<unsigned short, eastl::allocator>,
                                     eastl::less<unsigned short>, eastl::allocator,
@@ -1408,7 +1408,7 @@ namespace jag::graphics {
         for (; this_00 != pVVar1; this_00 = this_00 + 36) {
             math::Vector3T<float>::operator*=(this_00, param_1);
         }
-        field_32 = 1;
+        m_transformed = 1;
     }
 
     // 0x100864d00, 112 bytes, placed by class name
@@ -1422,7 +1422,7 @@ namespace jag::graphics {
         for (; this_00 != pVVar1; this_00 = this_00 + 36) {
             math::Vector3T<float>::operator+=(this_00, param_1);
         }
-        field_32 = 1;
+        m_transformed = 1;
     }
 
     // 0x100864d70, 112 bytes, placed by class name
@@ -1514,7 +1514,7 @@ namespace jag::graphics {
                 uVar3 = uVar3 + 1;
             } while (uVar4 < uVar2);
         }
-        field_32 = 1;
+        m_transformed = 1;
     }
 
     // 0x100864f90, 112 bytes, placed by class name
@@ -1540,7 +1540,7 @@ namespace jag::graphics {
                 uVar3 = uVar3 + 1;
             } while (uVar4 < uVar2);
         }
-        field_32 = 1;
+        m_transformed = 1;
     }
 
     // 0x100865000, 176 bytes, placed by class name
@@ -1559,7 +1559,7 @@ namespace jag::graphics {
             pfVar3 = (float*)this_00->y();
             *pfVar3 = (float)iVar1;
         }
-        field_32 = 1;
+        m_transformed = 1;
     }
 
     // 0x1008650b0, 144 bytes, placed by class name

@@ -116,7 +116,7 @@ namespace jag {
     // EntityWaypoint::EntityWaypoint()
     void EntityWaypoint::EntityWaypoint() {
         new (this) game::CoordFine(-1, -1.0, -1.0);
-        field_16 = (MoveSpeed*)0;
+        m_pMoveSpeed = (MoveSpeed*)0;
     }
 
     // 0x1003eaf40, 32 bytes, base-object constructor, inline, placed by debug map only (low confidence)

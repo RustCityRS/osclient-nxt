@@ -198,7 +198,7 @@ namespace jag::graphics {
                       118, "Destroy() not called on PointLightGridTexture");
         }
         (&field_40)->~future();
-        field_16->~shared_ptr();
+        m_effect->~shared_ptr();
         ~shared_ptr();
     }
 
@@ -279,7 +279,7 @@ namespace jag::graphics {
         RT7Core* extraout_RDX;
         shared_ptr local_48;
 
-        this_00 = field_16;
+        this_00 = m_effect;
         bVar1 = this_00->operator_cast_to_bool();
         if (!bVar1) {
             MakeSharedPool<PointLightIndicesEffect, 64>::MakeShared<RT7Core&>(
@@ -322,7 +322,7 @@ namespace jag::graphics {
         if (bVar2) {
             shared_ptr<render::Texture2D>::reset();
         }
-        bVar2 = field_16->operator_cast_to_bool();
+        bVar2 = m_effect->operator_cast_to_bool();
         if (bVar2) {
             param_1->RemoveEffect(param_2);
             shared_ptr<PointLightIndicesEffect>::reset();

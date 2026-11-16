@@ -22,13 +22,13 @@ namespace jag::oldscape::rs2lib {
     StockPlayerOffer::SetAddedCount(int);
 
     // 0x100066b70: the linker folded this into widgets::Widget::GetTextColour() const, which has identical code
-    StockPlayerOffer::GetCompletedCount() const;
+    int StockPlayerOffer::GetCompletedCount() const;
 
     // 0x100073980: the linker folded this into jag::math::Rect<int>::MinY() const, which has identical code
-    StockPlayerOffer::GetItem() const;
+    uint StockPlayerOffer::GetItem() const;
 
     // 0x1000e5d50: the linker folded this into CoordZoneSource::GetRotation() const, which has identical code
-    StockPlayerOffer::GetAddedCount() const;
+    int StockPlayerOffer::GetAddedCount() const;
 
     // 0x1001117e0: the linker folded this into jagex3::Js5::GetIndexCrc() const, which has identical code
     StockPlayerOffer::GetCompletedGold() const;
@@ -61,11 +61,11 @@ namespace jag::oldscape::rs2lib {
         uVar1 = param_1->g1();
         DecodeTypeStatus(this, uVar1);
         uVar2 = param_1->g2();
-        field_4 = (uint)uVar2;
+        m_item = (uint)uVar2;
         uVar3 = param_1->g4();
-        field_8 = uVar3;
-        uVar3 = param_1->g4();
-        field_12 = uVar3;
+        m_price = uVar3;
+        iVar4 = param_1->g4();
+        m_addedCount = iVar4;
         iVar4 = param_1->g4();
         m_completedCount = iVar4;
         uVar3 = param_1->g4();
@@ -85,11 +85,11 @@ namespace jag::oldscape::rs2lib {
         PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<shared::LoginProt::ID>(
             (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, uVar1);
         PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p2<int>(
-            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, field_4);
+            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, m_item);
         PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p4<int>(
-            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, field_8);
+            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, m_price);
         PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p4<int>(
-            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, field_12);
+            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, m_addedCount);
         PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p4<int>(
             (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, m_completedCount);
         PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p4<int>(
@@ -105,9 +105,9 @@ namespace jag::oldscape::rs2lib {
         m_offerStatus = 0;
         m_offerType = 1;
         field_28 = 0;
-        field_4 = 0;
-        field_8 = 0;
-        field_12 = 0;
+        m_item = 0;
+        m_price = 0;
+        m_addedCount = 0;
         m_completedCount = 0;
         *(undefined8*)((long)&m_completedCount + 1) = 0;
     }
@@ -125,11 +125,11 @@ namespace jag::oldscape::rs2lib {
         uVar1 = param_1->g1();
         DecodeTypeStatus(this, uVar1);
         uVar2 = param_1->g2();
-        field_4 = (uint)uVar2;
+        m_item = (uint)uVar2;
         uVar3 = param_1->g4();
-        field_8 = uVar3;
-        uVar3 = param_1->g4();
-        field_12 = uVar3;
+        m_price = uVar3;
+        iVar4 = param_1->g4();
+        m_addedCount = iVar4;
         iVar4 = param_1->g4();
         m_completedCount = iVar4;
         uVar3 = param_1->g4();

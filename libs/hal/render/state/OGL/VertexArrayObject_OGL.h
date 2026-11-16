@@ -7,8 +7,8 @@
 namespace jag::render {
     class VertexArrayObject {
     public:
-        GetLastUsageSeconds() const;
-        GetNativeVAO() const;
+        float GetLastUsageSeconds() const;
+        uint GetNativeVAO() const;
         bool IsValid() const;
         void Create(ImmediateRenderContext&);
         void Bind(ImmediateRenderContext&) const;
@@ -17,8 +17,8 @@ namespace jag::render {
         VertexArrayObject();
 
         // data members, from how the methods use this: 12 bytes
-        uint field_0;       // offset 0
-        undefined4 field_4; // offset 4
+        uint m_nativeVAO;         // offset 0
+        float m_lastUsageSeconds; // offset 4
         char _unknown_8[4];
     };
 

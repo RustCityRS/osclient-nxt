@@ -7,7 +7,7 @@
 
 namespace jag::callstack {
     // 0x10011cec0: the linker folded this into oldscape::configdecoder::NPCHeadIconCustomisation::GetIndices() const, which has identical code
-    JagException::GetCallstackRaw() const;
+    CoordMapSquare JagException::GetCallstackRaw() const;
 
     // 0x100cae3d0, 320 bytes, base-object constructor, placed by class name and debug map
     // JagException::JagException(Callstack const&, char const*, ...)

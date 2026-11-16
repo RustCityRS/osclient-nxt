@@ -16,7 +16,7 @@ namespace jag {
         virtual GroupPreloaded(Js5ArchiveSettings const&, unsigned int, bool, bool&);
         virtual bool EnsureArchiveLoadedIfAvailableOnDisk(Js5ArchiveSettings const&);
         GetJs5WorkerThread() const;
-        GetDiskCache() const;
+        Js5DiskCache* GetDiskCache() const;
         Js5MemoryCache* GetMemoryCache();
         Js5ResourceProvider(eastl::string const&, eastl::string const&, eastl::string const&, SystemSettings*,
                             PacketT<Array<unsigned char, eastl::allocator>> const&, unsigned int,
@@ -74,15 +74,15 @@ namespace jag {
         char _unknown_48[32];
         Js5ArchiveSetSettings* field_80; // offset 80
         char _unknown_88[16];
-        BigInteger* field_104; // offset 104
-        BigInteger* field_112; // offset 112
-        undefined1 field_120;  // offset 120
+        BigInteger* field_104;  // offset 104
+        BigInteger* field_112;  // offset 112
+        undefined1 m_localMode; // offset 120
         char _unknown_121[7];
         Array<eastl::string, eastl::allocator>* field_128; // offset 128
         Array<std::unique_ptr<Js5LocalModeLoader, std::default_delete<Js5LocalModeLoader>>, eastl::allocator>*
             field_136;                  // offset 136
         Js5MemoryCache* m_pMemoryCache; // offset 144
-        Js5DiskCache* field_152;        // offset 152
+        Js5DiskCache* m_pDiskCache;     // offset 152
         char _unknown_160[11184];
         undefined1 field_11344; // offset 11344
         char _unknown_11345[3];
@@ -134,12 +134,12 @@ namespace jag {
         field_80 = param_7;
         field_104 = param_9;
         field_112 = param_10;
-        field_120 = 0;
+        m_localMode = 0;
         field_128 = (Array<eastl::string, eastl::allocator>*)0;
         field_136 =
             (Array<std::unique_ptr<Js5LocalModeLoader, std::default_delete<Js5LocalModeLoader>>, eastl::allocator>*)0;
         m_pMemoryCache = (Js5MemoryCache*)0;
-        field_152 = (Js5DiskCache*)0;
+        m_pDiskCache = (Js5DiskCache*)0;
         std::array<eastl::map<unsigned int, Priority_const*, eastl::less<unsigned int>, SafeBucketAllocatorEASTL>,
                    67ul>::array();
         new (&field_3392) std::array<std::mutex, 4ul>();
@@ -303,7 +303,7 @@ namespace jag {
         uVar3 = std::count_if<unsigned int const*,
                               (Js5ArchiveSettings_const&)->UpdateMissingGroupsCountForArchive()::_lambda(int) _1_>(
             uVar1, uVar2, this, param_1);
-        this_00 = field_152;
+        this_00 = m_pDiskCache;
         iVar4 = param_1->GetX();
         this_00->UpdateMissingGroupCount(iVar4, uVar3);
     }
@@ -409,11 +409,11 @@ namespace jag {
         pJVar4 = (Js5Index*)std::array<Js5Index, 67ul>::operator[]((array<Js5Index, 67ul>*)&field_11664, (ulong)uVar3);
         cVar2 = pJVar4->IsValid();
         if (cVar2 != '\0') {
-            cVar2 = (field_152, uVar3)->HasReadOnlyArchive();
+            cVar2 = (m_pDiskCache, uVar3)->HasReadOnlyArchive();
             if (cVar2 == '\0') {
                 return DataStatus::READY;
             }
-            cVar2 = (field_152, uVar3)->HasReadOnlyArchive();
+            cVar2 = (m_pDiskCache, uVar3)->HasReadOnlyArchive();
             if (cVar2 != '\0') {
                 pJVar4 = (Js5Index*)std::array<Js5Index, 67ul>::operator[]((array<Js5Index, 67ul>*)&field_29888,
                                                                            (ulong)uVar3);

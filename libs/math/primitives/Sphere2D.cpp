@@ -10,14 +10,14 @@ namespace jag::math {
     Sphere2D::GetCentre() const;
 
     // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    Sphere2D::GetRadius() const;
+    uint Sphere2D::GetRadius() const;
 
     // 0x100c6cd60, 32 bytes, base-object constructor, placed by class name and debug map
     // Sphere2D::Sphere2D()
     void Sphere2D::Sphere2D() {
         new (this) Vector2T<int>();
-        field_8 = 0;
-        field_12 = '\0';
+        m_radius = 0;
+        m_valid = '\0';
     }
 
     // 0x100c6cd80, 16 bytes, complete-object constructor, placed by class name and debug map
@@ -33,7 +33,7 @@ namespace jag::math {
         iVar1 = GetX();
         iVar2 = GetZ();
         uVar3 = (iVar2 - param_2) * (iVar2 - param_2) + (iVar1 - param_1) * (iVar1 - param_1);
-        iVar1 = param_3 + field_8;
+        iVar1 = param_3 + m_radius;
         return CONCAT31((int3)(uVar3 >> 8), uVar3 <= (uint)(iVar1 * iVar1));
     }
 
@@ -66,11 +66,11 @@ namespace jag::math {
         undefined4 uStack_40;
         float fStack_3c;
 
-        field_12 = '\0';
+        m_valid = '\0';
         local_98 = param_3;
         cVar2 = param_6->IsValid();
         if (cVar2 == '\0') {
-            cVar2 = field_12;
+            cVar2 = m_valid;
         LAB_100c6d09f:
             bVar6 = cVar2 != '\0';
         } else {

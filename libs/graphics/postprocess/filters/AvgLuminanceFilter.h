@@ -21,7 +21,7 @@ namespace jag::postprocess {
         undefined* field_0;              // offset 0, vtable pointer
         RenderTargetsManager* field_8;   // offset 8
         RenderToTextureHelper* field_16; // offset 16
-        undefined1 field_24;             // offset 24
+        undefined1 m_shaderOutputFormat; // offset 24
         char _unknown_25[3];
         undefined1 field_28; // offset 28
         char _unknown_29[3];

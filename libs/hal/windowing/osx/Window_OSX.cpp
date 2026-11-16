@@ -98,8 +98,7 @@ namespace jag {
             (EventListeners<std::function<bool(float, float)>>*)local_48);
         EventListeners<std::function<bool()>>::EventListeners((EventListeners<std::function<bool()>>*)&field_104);
         local_40 = &field_104;
-        new (field_200, (_func_decltype_nullptr*)param_1)
-            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (m_view, (_func_decltype_nullptr*)param_1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         m_width = (float)*(uint*)&param_3->field_0;
         m_height = (float)*(uint*)((long)&param_3->field_0 + 4);
         field_224 = 0;
@@ -108,8 +107,8 @@ namespace jag {
         field_240 = param_1;
         m_pNativeApplication = (void*)0;
         *(undefined4*)((long)&m_pNativeApplication + 7) = 0;
-        local_38 = field_200;
-        new (field_264, param_3) WindowInitParams();
+        local_38 = m_view;
+        new (m_windowInitParams, param_3) WindowInitParams();
         new (&field_368) MenuItem();
         field_512 = 1;
         std::function<void()>::function((function<void()>*)&field_528);
@@ -376,8 +375,8 @@ namespace jag {
         std::function<bool(float, float)>::~function((function<bool(float, float)>*)&field_608);
         std::function<void()>::~function((function<void()>*)&field_528);
         (&field_368)->~MenuItem();
-        field_264->~WindowInitParams();
-        field_200->~shared_ptr();
+        m_windowInitParams->~WindowInitParams();
+        m_view->~shared_ptr();
         EventListeners<std::function<bool()>>::~EventListeners((EventListeners<std::function<bool()>>*)&field_104);
         EventListeners<std::function<bool(float, float)>>::~EventListeners(
             (EventListeners<std::function<bool(float, float)>>*)&field_8);
@@ -493,8 +492,8 @@ namespace jag {
         undefined* local_28;
         Window* local_20;
 
-        shared_ptr<OpenGLView>::operator=((shared_ptr<OpenGLView>*)field_200, param_1);
-        bVar2 = field_200->operator_cast_to_bool();
+        shared_ptr<OpenGLView>::operator=((shared_ptr<OpenGLView>*)m_view, param_1);
+        bVar2 = m_view->operator_cast_to_bool();
         puVar1 = PTR___dispatch_main_q_100ee9db8;
         if (bVar2) {
             _objc_retainAutorelease(PTR___dispatch_main_q_100ee9db8);
@@ -919,10 +918,10 @@ void ____ZN3jag6WindowC2EPNS_11GraphicsAppERKNS_16SystemInitParamsERKNS_16Window
     undefined8 local_38;
 
     this = *(Window**)&param_1->field_32;
-    cVar1 = param_1->DecodeSavedPositionData(&local_78, (PacketT*)(field_264 + 72));
+    cVar1 = param_1->DecodeSavedPositionData(&local_78, (PacketT*)(m_windowInitParams + 72));
     if (cVar1 == '\0') {
         uVar2 = jag::logger::default_logger();
-        uVar3 = ((field_264 + 72))->GetTextureAtlas();
+        uVar3 = ((m_windowInitParams + 72))->GetTextureAtlas();
         jag::logger::Logger::Log(
             uVar2, 0, 8,
             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/windowing/osx/Window_OSX.cpp",
@@ -976,7 +975,7 @@ void ____ZN3jag6WindowC2EPNS_11GraphicsAppERKNS_16SystemInitParamsERKNS_16Window
     field_664 = IVar4;
     (*(code*)PTR__objc_release_100ee9e60)(uVar3);
     (*(code*)PTR__objc_msgSend_100ee9e50)(field_656, "setDelegate:", field_664);
-    if ((*(int*)(field_264 + 64) != -1) && (*(int*)(field_264 + 68) != -1)) {
+    if ((*(int*)(m_windowInitParams + 64) != -1) && (*(int*)(m_windowInitParams + 68) != -1)) {
         (*(code*)PTR__objc_msgSend_100ee9e50)(SUB84((double)*(int*)(*(long*)&param_1->field_40 + 64), 0),
                                               SUB84((double)*(int*)(*(long*)&param_1->field_40 + 68), 0), field_656,
                                               "setContentMinSize:");

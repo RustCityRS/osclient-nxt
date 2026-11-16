@@ -9,8 +9,8 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~WaterMaterial();
-        GetWaterParameters() const;
-        GetWaterParameters();
+        WaterParameters GetWaterParameters() const;
+        WaterParameters GetWaterParameters();
         WaterMaterial();
         WaterMaterial(WaterMaterial&&);
         WaterMaterial(WaterMaterial const&);

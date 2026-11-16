@@ -454,7 +454,7 @@ namespace jag::render {
                       "ImmediateRenderContext_OGL.cpp",
                       519, (char*)0);
         }
-        if ((field_0 == false) || (param_1 == (Vector4T*)0)) {
+        if ((m_insideBeginEnd == false) || (param_1 == (Vector4T*)0)) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_InsideBeginEnd && pClearColours",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/context/OGL/"
@@ -518,7 +518,7 @@ namespace jag::render {
                       "ImmediateRenderContext_OGL.cpp",
                       538, (char*)0);
         }
-        if (field_0 == false) {
+        if (m_insideBeginEnd == false) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_InsideBeginEnd",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/context/OGL/"
@@ -687,7 +687,7 @@ namespace jag::render {
                       "ImmediateRenderContext_OGL.cpp",
                       658, (char*)0);
         }
-        if (this_00->field_0 == false) {
+        if (this_00->m_insideBeginEnd == false) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_InsideBeginEnd",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/context/OGL/"
@@ -835,7 +835,7 @@ namespace jag::render {
                       "ImmediateRenderContext_OGL.cpp",
                       2106, (char*)0);
         }
-        if ((field_0 == false) || (param_2 == (ShaderConstBuffer*)0)) {
+        if ((m_insideBeginEnd == false) || (param_2 == (ShaderConstBuffer*)0)) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_InsideBeginEnd && pShaderConstBuffer",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/context/OGL/"
@@ -1618,7 +1618,7 @@ namespace jag::render {
                       "ImmediateRenderContext_OGL.cpp",
                       421, (char*)0);
         }
-        if ((((field_0 == false) || (param_1 == (Viewport*)0)) || (param_2 == 0)) || (2 < param_2)) {
+        if ((((m_insideBeginEnd == false) || (param_1 == (Viewport*)0)) || (param_2 == 0)) || (2 < param_2)) {
             /* WARNING: Subroutine does not return */
             LogAssert(
                 "m_InsideBeginEnd && pViewports && (numViewports > 0) && (numViewports <= MAX_RENDER_TARGET_TEXTURES)",
@@ -1678,7 +1678,7 @@ namespace jag::render {
                       "ImmediateRenderContext_OGL.cpp",
                       461, (char*)0);
         }
-        if (field_0 == false) {
+        if (m_insideBeginEnd == false) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_InsideBeginEnd",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/context/OGL/"
@@ -1853,7 +1853,7 @@ namespace jag::render {
                       "ImmediateRenderContext_OGL.cpp",
                       774, (char*)0);
         }
-        if ((field_0 == false) || ((Mixer*)param_1 == (Mixer*)0)) {
+        if ((m_insideBeginEnd == false) || ((Mixer*)param_1 == (Mixer*)0)) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_InsideBeginEnd && pVertexDecl",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/context/OGL/"
@@ -3000,14 +3000,14 @@ namespace jag::render {
     // 0x100c26950, 416 bytes, base-object constructor, placed by class name and neighbouring functions
     // ImmediateRenderContext::ImmediateRenderContext()
     void ImmediateRenderContext::ImmediateRenderContext() {
-        field_0 = false;
+        m_insideBeginEnd = false;
         new (&field_8) RenderContextDesc();
         new (&field_40) std::atomic<RenderContextReadyState>();
         new (&field_44, 60) RenderStats();
         field_136 = (ShaderProgram*)0;
         std::unique_ptr<RenderTargetResolver, std::default_delete<RenderTargetResolver>>::unique_ptr<true, void>(
             (unique_ptr<RenderTargetResolver, std::default_delete<RenderTargetResolver>>*)&field_144);
-        field_152 = 0;
+        m_threadID = 0;
         field_160 = 0;
         m_gLCoreProfileVerMajor = 0;
         m_gLCoreProfileVerMinor = 0;
@@ -3389,7 +3389,7 @@ namespace jag::render {
                       "ImmediateRenderContext_OGL.cpp",
                       701, (char*)0);
         }
-        if (field_0 == false) {
+        if (m_insideBeginEnd == false) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_InsideBeginEnd",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/context/OGL/"
@@ -3436,7 +3436,7 @@ namespace jag::render {
                       "ImmediateRenderContext_OGL.cpp",
                       734, (char*)0);
         }
-        if (field_0 == false) {
+        if (m_insideBeginEnd == false) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_InsideBeginEnd",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/context/OGL/"
@@ -3510,7 +3510,7 @@ namespace jag::render {
                       "ImmediateRenderContext_OGL.cpp",
                       891, (char*)0);
         }
-        if (field_0 == false) {
+        if (m_insideBeginEnd == false) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_InsideBeginEnd",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/context/OGL/"
@@ -3899,7 +3899,7 @@ namespace jag::render {
                       "ImmediateRenderContext_OGL.cpp",
                       2131, (char*)0);
         }
-        if ((field_0 == false) || (param_2 == (ShaderStorageBuffer*)0)) {
+        if ((m_insideBeginEnd == false) || (param_2 == (ShaderStorageBuffer*)0)) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_InsideBeginEnd && pShaderStorageBuffer",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/context/OGL/"
@@ -3949,7 +3949,7 @@ namespace jag::render {
                       "ImmediateRenderContext_OGL.cpp",
                       1318, (char*)0);
         }
-        if (field_0 == false) {
+        if (m_insideBeginEnd == false) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_InsideBeginEnd",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/context/OGL/"

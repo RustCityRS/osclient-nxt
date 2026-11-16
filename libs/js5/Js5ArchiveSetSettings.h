@@ -7,7 +7,7 @@
 namespace jag {
     class Js5ArchiveSetSettings {
     public:
-        GetMaxArchiveID() const;
+        uint GetMaxArchiveID() const;
         Js5ArchiveSetSettings();
         ~Js5ArchiveSetSettings();
         void AddUpdateHandler();
@@ -19,7 +19,7 @@ namespace jag {
         GetByArchiveID(unsigned int) const;
 
         // data members, from how the methods use this: 48 bytes
-        uint field_0; // offset 0
+        uint m_maxArchiveID; // offset 0
         char _unknown_4[4];
         undefined1 field_8; // offset 8
         char _unknown_9[31];
@@ -33,7 +33,7 @@ namespace jag {
     // 0x10019b740, 48 bytes, base-object constructor, inline, placed by class name
     // Js5ArchiveSetSettings::Js5ArchiveSetSettings()
     void Js5ArchiveSetSettings::Js5ArchiveSetSettings() {
-        field_0 = 0;
+        m_maxArchiveID = 0;
         new (&field_8) eastl::vector<Js5ArchiveSettings*, eastl::allocator>();
         field_40 = 0;
     }

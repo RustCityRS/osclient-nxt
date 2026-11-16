@@ -19,7 +19,7 @@ namespace jag::hal::audio {
     AudioBuffer::NumberOfChannels() const;
 
     // 0x100444920: the linker folded this into game::LocationContainer::GetMapSquareX() const, which has identical code
-    AudioBuffer::GetMaximumSamples() const;
+    uint AudioBuffer::GetMaximumSamples() const;
 
     // 0x1006211f0: the linker folded this into game::Camera::GetLookatMode() const, which has identical code
     AudioBuffer::SampleRate() const;
@@ -42,7 +42,7 @@ namespace jag::hal::audio {
         field_200 = param_3;
         field_204 = param_3;
         field_208 = 0;
-        field_212 = uVar2 >> (*(byte*)&field_8->field_16 & 31);
+        m_maximumSamples = uVar2 >> (*(byte*)&field_8->field_16 & 31);
         if (field_8->field_20 == false) {
             param_2 = 1;
         }
@@ -112,7 +112,7 @@ namespace jag::hal::audio {
         field_200 = 0;
         field_204 = 0;
         field_208 = 1;
-        field_212 = (uint)param_1 >> (*(byte*)&field_8->field_16 & 31);
+        m_maximumSamples = (uint)param_1 >> (*(byte*)&field_8->field_16 & 31);
         this_00 = (AudioDataContainer*)std::array<AudioBuffer::AudioDataContainer, 2ul>::operator[](
             (array<AudioBuffer::AudioDataContainer, 2ul>*)&field_16, 0);
         this_00->Resize(param_1);
@@ -138,7 +138,7 @@ namespace jag::hal::audio {
         field_200 = param_4;
         field_204 = param_4;
         field_208 = 0;
-        field_212 = uVar3 >> (*(byte*)&field_8->field_16 & 31);
+        m_maximumSamples = uVar3 >> (*(byte*)&field_8->field_16 & 31);
         iVar2 = 1;
         if (field_8->field_20 != false) {
             iVar2 = param_3;
@@ -208,12 +208,12 @@ namespace jag::hal::audio {
 
         pAVar2 = field_8;
         bVar1 = pAVar2->field_20;
-        uVar6 = field_212;
+        uVar6 = m_maximumSamples;
         if (bVar1 != false) {
             uVar6 = uVar6 * field_196;
         }
         if (uVar6 < param_2 + param_1) {
-            local_38 = field_212;
+            local_38 = m_maximumSamples;
             if (bVar1 != false) {
                 local_38 = local_38 * field_196;
             }
@@ -448,7 +448,7 @@ namespace jag::hal::audio {
                     *(uint*)(lVar3 + 80) = uVar5;
                 }
                 if ((param_1 & 33U) != 0) {
-                    uVar5 = field_212;
+                    uVar5 = m_maximumSamples;
                     if (bVar1 != false) {
                         uVar5 = uVar5 * field_196;
                     }

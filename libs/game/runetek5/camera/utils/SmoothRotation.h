@@ -9,7 +9,7 @@ namespace jag::math {
     public:
         IsActive() const;
         GetCurrentRotation() const;
-        IsTurningLeft() const;
+        bool IsTurningLeft() const;
         SmoothRotation();
         GetFinalRotation() const;
         operator bool() const;
@@ -23,12 +23,12 @@ namespace jag::math {
         void RotateWithCheck(Vector3T<float> const&, QuaternionT<float> const&);
 
         // data members, from how the methods use this: 88 bytes
-        undefined1 field_0; // offset 0
+        undefined1 m_active; // offset 0
         char _unknown_1[51];
-        float field_52; // offset 52
-        int field_56;   // offset 56
-        float field_60; // offset 60
-        bool field_64;  // offset 64
+        float field_52;     // offset 52
+        int field_56;       // offset 56
+        float field_60;     // offset 60
+        bool m_turningLeft; // offset 64
         char _unknown_65[23];
     };
 
@@ -97,14 +97,14 @@ namespace jag::math {
     // 0x1003eae20, 96 bytes, base-object constructor, inline, placed by class name
     // SmoothRotation::SmoothRotation()
     void SmoothRotation::SmoothRotation() {
-        field_0 = 0;
+        m_active = 0;
         new (&field_4) QuaternionT<float>();
         new (&field_20) QuaternionT<float>();
         new (&field_36) QuaternionT<float>();
         field_52 = 0.0;
         field_56 = 0;
         field_60 = 0.0;
-        field_64 = true;
+        m_turningLeft = true;
         new (&field_68) Vector3T<int>();
         new (&field_80) Vector3T<int>();
     }

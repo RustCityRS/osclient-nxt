@@ -22,7 +22,7 @@ namespace jag::graphics {
     ModelParticleSource::GetVertex1() const;
 
     // 0x1000e5d50: the linker folded this into oldscape::rs2lib::CoordZoneSource::GetRotation() const, which has identical code
-    ModelParticleSource::GetTemplateID() const;
+    uint ModelParticleSource::GetTemplateID() const;
 
     // 0x10016b4a0: the linker folded this into oldscape::rs2lib::worldmap::WorldmapAreaMetadata::GetAdvisedZoom() const, which has identical code
     ModelParticleSource::GetSourceModelExternalID() const;
@@ -42,9 +42,9 @@ namespace jag::graphics {
     // 0x10081d4b0, 64 bytes, placed by class name and debug map
     // ModelParticleSource::Scale(math::Vector3T<float> const&)
     void ModelParticleSource::Scale(Vector3T* param_1) {
-        math::Vector3T<float>::operator*=((Vector3T<float>*)&field_16, param_1);
+        math::Vector3T<float>::operator*=((Vector3T<float>*)&m_vertex1, param_1);
         math::Vector3T<float>::operator*=((Vector3T<float>*)&m_vertex2, param_1);
-        math::Vector3T<float>::operator*=((Vector3T<float>*)&field_56, param_1);
+        math::Vector3T<float>::operator*=((Vector3T<float>*)&m_vertex3, param_1);
     }
 
     // 0x10081d6a0, 64 bytes, placed by class name and debug map
@@ -62,15 +62,15 @@ namespace jag::graphics {
         float* pfVar1;
         int iVar2;
 
-        iVar2 = LocationHelpers::HillChangeVertex(param_2, param_3, param_6, param_4, param_5, &field_16);
-        pfVar1 = (float*)(&field_16)->y();
+        iVar2 = LocationHelpers::HillChangeVertex(param_2, param_3, param_6, param_4, param_5, &m_vertex1);
+        pfVar1 = (float*)(&m_vertex1)->y();
         *pfVar1 = (float)iVar2;
         if (field_8 != '\0') {
             iVar2 = LocationHelpers::HillChangeVertex(param_2, param_3, param_6, param_4, param_5, &m_vertex2);
             pfVar1 = (float*)(&m_vertex2)->y();
             *pfVar1 = (float)iVar2;
-            iVar2 = LocationHelpers::HillChangeVertex(param_2, param_3, param_6, param_4, param_5, &field_56);
-            pfVar1 = (float*)(&field_56)->y();
+            iVar2 = LocationHelpers::HillChangeVertex(param_2, param_3, param_6, param_4, param_5, &m_vertex3);
+            pfVar1 = (float*)(&m_vertex3)->y();
             *pfVar1 = (float)iVar2;
         }
     }
@@ -82,10 +82,10 @@ namespace jag::graphics {
         new (this) MakeSharedPool<ModelParticleSource, 768>();
         field_0 = &PTR_Transform_100f15808;
         field_8 = 0;
-        field_12 = 0;
-        new (&field_16) VertexBonePos();
+        m_templateID = 0;
+        new (&m_vertex1) VertexBonePos();
         new (&m_vertex2) VertexBonePos();
-        new (&field_56) VertexBonePos();
+        new (&m_vertex3) VertexBonePos();
         m_sourceModelExternalID = 0;
     }
 
@@ -103,11 +103,11 @@ namespace jag::graphics {
         new (this) MakeSharedPool<ModelParticleSource, 768>();
         field_0 = &PTR_Transform_100f15808;
         field_8 = 1;
-        field_12 = param_1;
+        m_templateID = param_1;
         field_32 = param_2->field_16;
         uVar1 = param_2->field_8;
         iVar2 = param_2->field_12;
-        field_16 = param_2->field_0;
+        m_vertex1 = param_2->field_0;
         field_24 = uVar1;
         *(int*)&field_28 = iVar2;
         uVar1 = param_3->field_8;
@@ -119,7 +119,7 @@ namespace jag::graphics {
         field_72 = param_4->field_16;
         uVar1 = param_4->field_8;
         iVar2 = param_4->field_12;
-        field_56 = param_4->field_0;
+        m_vertex3 = param_4->field_0;
         field_64 = uVar1;
         *(int*)&field_68 = iVar2;
         m_sourceModelExternalID = 0;
@@ -138,11 +138,11 @@ namespace jag::graphics {
         new (this) MakeSharedPool<ModelParticleSource, 768>();
         field_0 = &PTR_Transform_100f15808;
         field_8 = 0;
-        field_12 = param_1;
+        m_templateID = param_1;
         field_32 = param_2->field_16;
         uVar1 = param_2->field_8;
         iVar2 = param_2->field_12;
-        field_16 = param_2->field_0;
+        m_vertex1 = param_2->field_0;
         field_24 = uVar1;
         *(int*)&field_28 = iVar2;
         uVar1 = param_2->field_8;
@@ -154,7 +154,7 @@ namespace jag::graphics {
         field_72 = param_2->field_16;
         uVar1 = param_2->field_8;
         iVar2 = param_2->field_12;
-        field_56 = param_2->field_0;
+        m_vertex3 = param_2->field_0;
         field_64 = uVar1;
         *(int*)&field_68 = iVar2;
         m_sourceModelExternalID = 0;
@@ -173,11 +173,11 @@ namespace jag::graphics {
         new (this) MakeSharedPool<ModelParticleSource, 768>();
         field_0 = &PTR_Transform_100f15808;
         field_8 = param_1->field_8;
-        field_12 = param_1->field_12;
+        m_templateID = param_1->m_templateID;
         field_32 = param_1->field_32;
         uVar1 = param_1->field_24;
         uVar2 = *(undefined4*)&param_1->field_28;
-        field_16 = param_1->field_16;
+        m_vertex1 = param_1->m_vertex1;
         field_24 = uVar1;
         *(undefined4*)&field_28 = uVar2;
         field_52 = param_1->field_52;
@@ -188,7 +188,7 @@ namespace jag::graphics {
         *(undefined4*)&field_48 = uVar2;
         uVar1 = param_1->field_64;
         uVar2 = *(undefined4*)&param_1->field_68;
-        field_56 = param_1->field_56;
+        m_vertex3 = param_1->m_vertex3;
         field_64 = uVar1;
         *(undefined4*)&field_68 = uVar2;
         field_72 = param_1->field_72;
@@ -201,30 +201,30 @@ namespace jag::graphics {
     // 0x1008222d0, 64 bytes, placed by class name
     // ModelParticleSource::Transform(math::Matrix44T<float> const&)
     void ModelParticleSource::Transform(Matrix44T* param_1) {
-        math::Vector3T<float>::operator*=((Vector3T<float>*)&field_16, param_1);
+        math::Vector3T<float>::operator*=((Vector3T<float>*)&m_vertex1, param_1);
         if (field_8 != '\0') {
             math::Vector3T<float>::operator*=((Vector3T<float>*)&m_vertex2, param_1);
-            math::Vector3T<float>::operator*=((Vector3T<float>*)&field_56, param_1);
+            math::Vector3T<float>::operator*=((Vector3T<float>*)&m_vertex3, param_1);
         }
     }
 
     // 0x100822310, 64 bytes, placed by class name
     // ModelParticleSource::Translate(math::Vector3T<float> const&)
     void ModelParticleSource::Translate(Vector3T* param_1) {
-        math::Vector3T<float>::operator+=((Vector3T<float>*)&field_16, param_1);
+        math::Vector3T<float>::operator+=((Vector3T<float>*)&m_vertex1, param_1);
         if (field_8 != '\0') {
             math::Vector3T<float>::operator+=((Vector3T<float>*)&m_vertex2, param_1);
-            math::Vector3T<float>::operator+=((Vector3T<float>*)&field_56, param_1);
+            math::Vector3T<float>::operator+=((Vector3T<float>*)&m_vertex3, param_1);
         }
     }
 
     // 0x100822350, 64 bytes, placed by class name
     // ModelParticleSource::Rotate(math::QuaternionT<float> const&, bool)
     void ModelParticleSource::Rotate(QuaternionT* param_1, bool param_2) {
-        math::Vector3T<float>::operator*=((Vector3T<float>*)&field_16, param_1);
+        math::Vector3T<float>::operator*=((Vector3T<float>*)&m_vertex1, param_1);
         if (field_8 != '\0') {
             math::Vector3T<float>::operator*=((Vector3T<float>*)&m_vertex2, param_1);
-            math::Vector3T<float>::operator*=((Vector3T<float>*)&field_56, param_1);
+            math::Vector3T<float>::operator*=((Vector3T<float>*)&m_vertex3, param_1);
         }
     }
 
@@ -247,9 +247,9 @@ namespace jag::graphics {
 
         if ((int)param_2 != 0) {
             cVar1 = (char)param_2;
-            local_60 = &field_16;
+            local_60 = &m_vertex1;
             local_58 = &m_vertex2;
-            local_50 = &field_56;
+            local_50 = &m_vertex3;
             puVar2 = (undefined8*)local_60.begin();
             puVar3 = (undefined8*)local_60.end();
             for (; puVar2 != puVar3; puVar2 = puVar2 + 1) {

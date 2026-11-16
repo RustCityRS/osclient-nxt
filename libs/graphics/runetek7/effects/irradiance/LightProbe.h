@@ -13,7 +13,7 @@ namespace jag::graphics {
         virtual void GatherDrawableElements(DrawableQueue&, RT7Core&, SceneViewData const&, EffectManager const&);
         GetMaterial();
         void SetWorldPosition(math::Vector3T<float> const&);
-        GetEnvMapRT();
+        shared_ptr GetEnvMapRT();
         LightProbe();
         void Initialise(LightProbeRenderer&);
         void SetRenderingResources(shared_ptr<render::BufferedRenderTargets>&);
@@ -33,7 +33,7 @@ namespace jag::graphics {
         uint field_8;        // offset 8
         char _unknown_12[20];
         LightProbeMaterial field_32; // offset 32
-        shared_ptr field_688;        // offset 688
+        shared_ptr m_envMapRT;       // offset 688
         char _unknown_704[8];
     };
 

@@ -64,7 +64,7 @@ namespace jag::game {
                         uVar11 = uVar11 - 1;
                     } while (uVar11 != 0);
                 }
-                field_112 = uVar3 != 0;
+                m_walkMerge = uVar3 != 0;
                 return DataStatus::READY;
             }
             if (param_2 != 2) {
@@ -94,7 +94,7 @@ namespace jag::game {
                 } while (uVar10 != 0);
             }
         }
-        ((SeqGroupType*)this)->field_112 = uVar11 != 0;
+        ((SeqGroupType*)this)->m_walkMerge = uVar11 != 0;
         return DataStatus::READY;
     }
 

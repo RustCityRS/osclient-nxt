@@ -77,8 +77,8 @@ namespace jag::ui {
         char _unknown_353[3];
         undefined4 field_356; // offset 356
         char _unknown_360[32];
-        undefined** field_392;   // offset 392
-        ButtonElement field_400; // offset 400
+        undefined** m_pValueRepresentation; // offset 392
+        ButtonElement field_400;            // offset 400
         char _unknown_432[112];
         bool field_544;       // offset 544
         bool field_545;       // offset 545
@@ -193,10 +193,10 @@ namespace jag::ui {
         NpcUID* in_RSI;
 
         field_0 = &PTR__Button_100f0e3d0;
-        field_392 = &PTR__Button_100f0e518;
+        m_pValueRepresentation = &PTR__Button_100f0e518;
         (&field_496)->~Sprite();
         (&field_432)->~TextData();
-        eastl::destruct<oldscape::highlight::NpcUID*>((eastl*)&field_392, in_RSI, extraout_RDX);
+        eastl::destruct<oldscape::highlight::NpcUID*>((eastl*)&m_pValueRepresentation, in_RSI, extraout_RDX);
         ~Component();
     }
 

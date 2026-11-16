@@ -33,14 +33,14 @@ namespace jag::game {
         new (this) MakeSharedPool<MapEnvironmentSettings, 48>();
         new (this) EnvLightingSettings();
         new (&field_40) EnvFogSettings();
-        new (&field_80) EnvScatteringSettings();
-        new (&field_160) EnvVolumetricSettings();
-        new (&field_240) EnvToneMapSettings();
-        new (&field_448) EnvBloomSettings();
-        new (field_464) EnvSkySettings();
+        new (&m_scatteringSettings) EnvScatteringSettings();
+        new (&m_volumetricSettings) EnvVolumetricSettings();
+        new (&m_toneMapSettings) EnvToneMapSettings();
+        new (&m_bloomSettings) EnvBloomSettings();
+        new (m_skySettings) EnvSkySettings();
         new (&m_reflectionSettings) EnvReflectionSettings();
         new (&field_528) EnvColourGradingSettings();
-        new (&field_648) EnvLightProbeSettings();
+        new (&m_pLightProbeSettings) EnvLightProbeSettings();
         SetToDefaults(this);
     }
 
@@ -49,14 +49,14 @@ namespace jag::game {
     void MapEnvironmentSettings::SetToDefaults() {
         SetDefaults();
         (&field_40)->SetDefaults();
-        (&field_80)->SetDefaults();
-        (&field_160)->SetDefaults();
-        (&field_240)->SetDefaults();
-        (&field_448)->SetDefaults();
-        field_464->SetDefaults();
+        (&m_scatteringSettings)->SetDefaults();
+        (&m_volumetricSettings)->SetDefaults();
+        (&m_toneMapSettings)->SetDefaults();
+        (&m_bloomSettings)->SetDefaults();
+        m_skySettings->SetDefaults();
         (&m_reflectionSettings)->SetDefaults();
         (&field_528)->SetDefaults();
-        (&field_648)->SetDefaults();
+        (&m_pLightProbeSettings)->SetDefaults();
     }
 
     // 0x1004af770, 16 bytes, complete-object constructor, placed by class name and debug map
@@ -68,24 +68,24 @@ namespace jag::game {
         new (this) MakeSharedPool<MapEnvironmentSettings, 48>();
         new (this) EnvLightingSettings();
         new (&field_40) EnvFogSettings();
-        new (&field_80) EnvScatteringSettings();
-        new (&field_160) EnvVolumetricSettings();
-        new (&field_240) EnvToneMapSettings();
-        new (&field_448) EnvBloomSettings();
-        new (field_464) EnvSkySettings();
+        new (&m_scatteringSettings) EnvScatteringSettings();
+        new (&m_volumetricSettings) EnvVolumetricSettings();
+        new (&m_toneMapSettings) EnvToneMapSettings();
+        new (&m_bloomSettings) EnvBloomSettings();
+        new (m_skySettings) EnvSkySettings();
         new (&m_reflectionSettings) EnvReflectionSettings();
         new (&field_528) EnvColourGradingSettings();
-        new (&field_648) EnvLightProbeSettings();
+        new (&m_pLightProbeSettings) EnvLightProbeSettings();
         Set(param_1);
         (&field_40, param_1)->Set();
-        (&field_80, param_1)->Set();
-        (&field_160, param_1)->Set();
-        (&field_240, param_1)->Set();
-        (&field_448, param_1)->Set();
-        (field_464, param_1)->Set();
+        (&m_scatteringSettings, param_1)->Set();
+        (&m_volumetricSettings, param_1)->Set();
+        (&m_toneMapSettings, param_1)->Set();
+        (&m_bloomSettings, param_1)->Set();
+        (m_skySettings, param_1)->Set();
         (&m_reflectionSettings, param_1)->Set();
         (&field_528, param_1)->Set();
-        (&field_648, param_1)->Set();
+        (&m_pLightProbeSettings, param_1)->Set();
     }
 
     // 0x1004af920, 16 bytes, complete-object constructor, placed by class name and debug map
@@ -97,14 +97,14 @@ namespace jag::game {
         if (param_1->HasAnyOverrides() != '\0') {
             ApplyOverride(param_1);
             (&field_40, param_1)->ApplyOverride();
-            (&field_80, param_1)->ApplyOverride();
-            (&field_160, param_1)->ApplyOverride();
-            (&field_240, param_1)->ApplyOverride();
-            (&field_448, param_1)->ApplyOverride();
-            (field_464, param_1)->ApplyOverride();
+            (&m_scatteringSettings, param_1)->ApplyOverride();
+            (&m_volumetricSettings, param_1)->ApplyOverride();
+            (&m_toneMapSettings, param_1)->ApplyOverride();
+            (&m_bloomSettings, param_1)->ApplyOverride();
+            (m_skySettings, param_1)->ApplyOverride();
             (&m_reflectionSettings, param_1)->ApplyOverride();
             (&field_528, param_1)->ApplyOverride();
-            (&field_648, param_1)->ApplyOverride();
+            (&m_pLightProbeSettings, param_1)->ApplyOverride();
         }
     }
 
@@ -134,7 +134,7 @@ namespace jag::game {
         TextureFormatBitSet local_30[2];
 
         local_38->~AutoSingleton("Sky_Box");
-        this_04 = field_464;
+        this_04 = m_skySettings;
         iVar3 = this_04->GetX();
         if (iVar3 == -1) {
         LAB_1004afc0e:
@@ -155,7 +155,7 @@ namespace jag::game {
                 iVar3 = this_01->GetSeqDelay();
                 if (iVar3 == -1)
                     goto LAB_1004afc0e;
-                TVar4.field_0 = param_2->GetTextureManager();
+                TVar4.m_bits = param_2->GetTextureManager();
                 this_05 = (Callstack*)local_30;
                 callstack::Callstack::Callstack(this_05);
                 pMVar7 = (MapArea*)this_05->Instance();
@@ -214,7 +214,7 @@ namespace jag::game {
         AutoSingleton<ShaderThreadPoolSingleton> local_38[8];
 
         local_38->~AutoSingleton("Sky_Box");
-        this_04 = field_464;
+        this_04 = m_skySettings;
         iVar3 = this_04->GetX();
         if (iVar3 == -1) {
             ppuVar8 = &DataStatus::MISSING;
@@ -295,15 +295,16 @@ namespace jag::game {
         if (((((cVar1 == '\0') ||
                (cVar1 = EnvFogSettings::operator==((EnvFogSettings*)&field_40, (EnvFogSettings*)&param_1->field_40),
                 cVar1 == '\0')) ||
-              (cVar1 = EnvScatteringSettings::operator==((EnvScatteringSettings*)&field_80,
-                                                         (EnvScatteringSettings*)&param_1->field_80),
+              (cVar1 = EnvScatteringSettings::operator==((EnvScatteringSettings*)&m_scatteringSettings,
+                                                         (EnvScatteringSettings*)&param_1->m_scatteringSettings),
                cVar1 == '\0')) ||
-             ((cVar1 = EnvToneMapSettings::operator==((EnvToneMapSettings*)&field_240,
-                                                      (EnvToneMapSettings*)&param_1->field_240),
-               cVar1 == '\0' || (cVar1 = EnvBloomSettings::operator==((EnvBloomSettings*)&field_448,
-                                                                      (EnvBloomSettings*)&param_1->field_448),
+             ((cVar1 = EnvToneMapSettings::operator==((EnvToneMapSettings*)&m_toneMapSettings,
+                                                      (EnvToneMapSettings*)&param_1->m_toneMapSettings),
+               cVar1 == '\0' || (cVar1 = EnvBloomSettings::operator==((EnvBloomSettings*)&m_bloomSettings,
+                                                                      (EnvBloomSettings*)&param_1->m_bloomSettings),
                                  cVar1 == '\0')))) ||
-            ((cVar1 = EnvSkySettings::operator==((EnvSkySettings*)field_464, (EnvSkySettings*)param_1->field_464),
+            ((cVar1 =
+                  EnvSkySettings::operator==((EnvSkySettings*)m_skySettings, (EnvSkySettings*)param_1->m_skySettings),
               cVar1 == '\0' ||
                   ((cVar1 = EnvReflectionSettings::operator==((EnvReflectionSettings*)&m_reflectionSettings,
                                                               (EnvReflectionSettings*)&param_1->m_reflectionSettings),
@@ -313,8 +314,8 @@ namespace jag::game {
                          cVar1 == '\0')))))) {
             return 0;
         }
-        uVar2 = EnvLightProbeSettings::operator==((EnvLightProbeSettings*)&field_648,
-                                                  (EnvLightProbeSettings*)&param_1->field_648);
+        uVar2 = EnvLightProbeSettings::operator==((EnvLightProbeSettings*)&m_pLightProbeSettings,
+                                                  (EnvLightProbeSettings*)&param_1->m_pLightProbeSettings);
         return uVar2;
     }
 
@@ -329,19 +330,19 @@ namespace jag::game {
         hash_combine(&local_20, uVar1);
         uVar1 = (&field_40)->hash();
         hash_combine(&local_20, uVar1);
-        uVar1 = (&field_80)->hash();
+        uVar1 = (&m_scatteringSettings)->hash();
         hash_combine(&local_20, uVar1);
-        uVar1 = (&field_240)->hash();
+        uVar1 = (&m_toneMapSettings)->hash();
         hash_combine(&local_20, uVar1);
-        uVar1 = (&field_448)->hash();
+        uVar1 = (&m_bloomSettings)->hash();
         hash_combine(&local_20, uVar1);
-        uVar1 = field_464->hash();
+        uVar1 = m_skySettings->hash();
         hash_combine(&local_20, uVar1);
         uVar1 = (&m_reflectionSettings)->hash();
         hash_combine(&local_20, uVar1);
         uVar1 = (&field_528)->hash();
         hash_combine(&local_20, uVar1);
-        uVar1 = (&field_648)->hash();
+        uVar1 = (&m_pLightProbeSettings)->hash();
         hash_combine(&local_20, uVar1);
         return local_20;
     }

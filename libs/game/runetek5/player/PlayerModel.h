@@ -9,7 +9,7 @@ namespace jag::game {
     public:
         GetPlayerRematerialSlots() const;
         GetPlayerRecolourSlots() const;
-        GetGender() const;
+        int GetGender() const;
         PlayerModel(ConfigProvider*, PlayerVarDomain*);
         void SetAppearance(Array<PlayerModelWearSlot, BucketAllocatorEASTL> const&,
                            Array<shared_ptr<ObjTypeCustomisation>, BucketAllocatorEASTL> const&,
@@ -50,7 +50,7 @@ namespace jag::game {
         ConfigProvider* field_16;  // offset 16
         PlayerVarDomain* field_24; // offset 24
         char _unknown_32[96];
-        int field_128;    // offset 128
+        int m_gender;     // offset 128
         uint field_132;   // offset 132
         ushort field_136; // offset 136
         char _unknown_138[6];

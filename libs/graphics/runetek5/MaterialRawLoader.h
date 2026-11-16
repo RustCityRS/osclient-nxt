@@ -8,9 +8,9 @@ namespace jag::graphics {
     class MaterialRawLoader {
     public:
         Initialise(MaterialRawProvider*);
-        GetMaterialCount() const;
+        uint GetMaterialCount() const;
         GetMaterialRaws() const;
-        GetMaxMaterialID() const;
+        uint GetMaxMaterialID() const;
         GetDefaultMaterial() const;
         ~MaterialRawLoader();
         MaterialRawLoader();
@@ -18,9 +18,9 @@ namespace jag::graphics {
         void Destruct();
 
         // data members, from how the methods use this: 56 bytes
-        long* field_0; // offset 0
-        uint field_8;  // offset 8
-        uint field_12; // offset 12
+        long* field_0;        // offset 0
+        uint m_materialCount; // offset 8
+        uint m_maxMaterialID; // offset 12
         char _unknown_16[40];
     };
 
@@ -39,8 +39,8 @@ namespace jag::graphics {
     // 0x1001e1410, 80 bytes, base-object constructor, inline, placed by class name and debug map
     // MaterialRawLoader::MaterialRawLoader()
     void MaterialRawLoader::MaterialRawLoader() {
-        field_8 = 0;
-        field_12 = 0;
+        m_materialCount = 0;
+        m_maxMaterialID = 0;
         new (&field_16) Array<MaterialRaw, eastl::allocator>();
         new (&field_48) MaterialRaw();
     }

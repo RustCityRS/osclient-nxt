@@ -38,7 +38,7 @@ namespace jag::hal::audio {
     AudioRenderer::Resume();
 
     // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    AudioRenderer::GetStartParams() const;
+    AudioSystemStartParams AudioRenderer::GetStartParams() const;
 
     // 0x100663fb0: the linker folded this into AudioRenderer::GetActiveDecoders() const, which has identical code
     AudioRenderer::ActiveDecoderCount() const;
@@ -112,10 +112,10 @@ namespace jag::hal::audio {
         field_0 = &PTR__AudioRenderer_100f26890;
         std::unique_ptr<AudioMixer, std::default_delete<AudioMixer>>::unique_ptr<true, void>(
             (unique_ptr<AudioMixer, std::default_delete<AudioMixer>>*)&field_8);
-        new (field_16) AudioSystemStartParams();
+        new (m_startParams) AudioSystemStartParams();
         field_32 = 0;
         field_36 = 0;
-        field_40 = 0;
+        m_state = 0;
         new (&field_48) std::array<decoders::vorbis::VorbisDecoder, 6ul>();
         field_244 = 0;
         field_240 = 0;
@@ -175,8 +175,8 @@ namespace jag::hal::audio {
         undefined1 local_38[16];
 
         uVar2 = param_2->field_8;
-        *(undefined8*)field_16 = param_2->field_0;
-        *(undefined8*)(field_16 + 8) = uVar2;
+        *(undefined8*)m_startParams = param_2->field_0;
+        *(undefined8*)(m_startParams + 8) = uVar2;
         this_00 = &field_8;
         local_38._0_8_ = param_1;
         bVar3 = this_00->operator_cast_to_bool();
@@ -214,7 +214,7 @@ namespace jag::hal::audio {
         undefined1* this_00;
         AudioMixer* this_01;
 
-        field_40 = 3;
+        m_state = 3;
         this_00 = &field_8;
         if (this_00->operator_cast_to_bool()) {
             this_01 = (AudioMixer*)std::unique_ptr<AudioMixer, std::default_delete<AudioMixer>>::operator->(

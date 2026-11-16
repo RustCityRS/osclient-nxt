@@ -27,7 +27,7 @@ namespace jag::game {
         SeqType(BaseTemplateConfigTypeList<SeqType>*, int);
         uint GetLoops() const;
         uint GetMaxLoops() const;
-        GetSeqGroup() const;
+        shared_ptr GetSeqGroup() const;
         bool HasSounds() const;
         void GetSounds() const;
         GetVolume(int) const;

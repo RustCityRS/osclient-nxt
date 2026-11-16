@@ -17,7 +17,7 @@ namespace jag::game {
         virtual void Destruct();
         GetDynamicChangedLocations() const;
         GetDynamicMultiLocations() const;
-        GetMinGridX() const;
+        int GetMinGridX() const;
         int GetMinGridZ() const;
         LocationContainer(ConfigProvider*, PlayerVarDomain*, graphics::GraphNode*, shared_ptr<World> const&, int, int,
                           int, int, int, int, eastl::vector<shared_ptr<MapSquareLocation>, eastl::allocator> const&);
@@ -80,11 +80,11 @@ namespace jag::game {
         ulong IsHighPriority() const;
         HasStartedBuild() const;
         SetHasStartedBuild(bool);
-        GetMapSquareX() const;
-        GetMapSquareZ() const;
+        int GetMapSquareX() const;
+        int GetMapSquareZ() const;
         int GetGridSizeX() const;
         int GetGridSizeZ() const;
-        GetConfigProvider() const;
+        ConfigProvider* GetConfigProvider() const;
         static /* 8 bytes */ NullContainer;
 
         // data members, from how the methods use this: 472 bytes
@@ -100,14 +100,14 @@ namespace jag::game {
         char _unknown_76[40];
         undefined4 field_116; // offset 116
         char _unknown_120[56];
-        shared_ptr field_176;       // offset 176
-        ConfigProvider* field_192;  // offset 192
-        PlayerVarDomain* field_200; // offset 200
-        byte field_208;             // offset 208
+        shared_ptr field_176;              // offset 176
+        ConfigProvider* m_pConfigProvider; // offset 192
+        PlayerVarDomain* field_200;        // offset 200
+        byte field_208;                    // offset 208
         char _unknown_209[3];
-        int field_212;                // offset 212
-        int field_216;                // offset 216
-        int field_220;                // offset 220
+        int m_mapSquareX;             // offset 212
+        int m_mapSquareZ;             // offset 216
+        int m_minGridX;               // offset 220
         int m_minGridZ;               // offset 224
         int field_228;                // offset 228
         int field_232;                // offset 232
@@ -318,7 +318,7 @@ namespace jag::game {
     // 0x100444940, 32 bytes, inline, placed by class name
     // LocationContainer::GetGridSizeX() const
     int LocationContainer::GetGridSizeX() {
-        return field_228 - field_220;
+        return field_228 - m_minGridX;
     }
 
     // 0x100444960, 32 bytes, inline, placed by class name

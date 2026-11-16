@@ -143,6 +143,6 @@ namespace jag::oldscape {
 
 namespace jag::game {
     // 0x1001d2000: the linker folded this into oldscape::rseven::OSRenderCore_TextureDataProvider::GetTexturesCompressedDXTArchive() const, which has identical code
-    BaseConfigTypeList::GetConfigGroup() const;
+    Js5ConfigGroup* BaseConfigTypeList::GetConfigGroup() const;
 
 } // namespace jag::game

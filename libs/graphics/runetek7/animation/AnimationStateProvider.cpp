@@ -10,7 +10,7 @@ namespace jag::graphics {
     AnimationStateProvider::m_useAsyncAnimUpdate = 1;
 
     // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    AnimationStateProvider::GetLastFrameCount() const;
+    uint AnimationStateProvider::GetLastFrameCount() const;
 
     // 0x10062ef00: the linker folded this into game::PositionEntity::LockCamera(), which has identical code
     AnimationStateProvider::InvalidateAsyncUpdate();
@@ -36,7 +36,7 @@ namespace jag::graphics {
 
         if (m_useAsyncAnimUpdate != '\0') {
             if (GetPos() != param_2) {
-                field_8 = param_2;
+                m_lastFrameCount = param_2;
                 field_12 = 0;
                 WaitForAsyncTasks(this);
                 local_48 = this;

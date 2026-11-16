@@ -42,7 +42,9 @@ namespace jag::game {
         bool field_1; // offset 1
         char _unknown_2[6];
         ulong field_8; // offset 8
-        char _unknown_16[248];
+        char _unknown_16[192];
+        undefined1 m_pRecolourDest[4]; // offset 208
+        char _unknown_212[52];
     };
 
     // 0x1004256a0, 16 bytes, complete-object destructor, inline, placed by class name and debug map
@@ -53,7 +55,7 @@ namespace jag::game {
     void NPCTypeCustomisation::~NPCTypeCustomisation() {
         (&field_256)->~Array();
         (&field_232)->~Array();
-        (&field_208)->~Array();
+        m_pRecolourDest->~Array();
         (&field_176)->~vector();
         (&field_144)->~vector();
         (&field_112)->~vector();

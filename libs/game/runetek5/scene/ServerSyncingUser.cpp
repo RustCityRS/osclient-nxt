@@ -10,14 +10,14 @@ namespace jag::game {
     ServerSyncingUser::SetDescription(char const*);
 
     // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    ServerSyncingUser::GetSyncCycle() const;
+    uint ServerSyncingUser::GetSyncCycle() const;
 
     // 0x10046ad30, 32 bytes, base-object constructor, placed by class name and debug map
     // ServerSyncingUser::ServerSyncingUser(ServerSyncingPriority)
     void ServerSyncingUser::ServerSyncingUser(undefined4 param_2) {
         field_0 = param_2;
         field_4 = 4294967295;
-        field_8 = 0;
+        m_syncCycle = 0;
         field_12 = '\0';
         field_13 = '\0';
     }
@@ -36,7 +36,7 @@ namespace jag::game {
     void ServerSyncingUser::UnSync() {
         ServerSyncing* this_00;
 
-        if (field_8 != 0) {
+        if (m_syncCycle != 0) {
             this_00 = (ServerSyncing*)Instance();
             this_00->Remove(this);
         }

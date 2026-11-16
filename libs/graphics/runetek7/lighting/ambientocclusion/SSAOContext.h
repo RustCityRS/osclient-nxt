@@ -18,7 +18,7 @@ namespace jag::graphics {
 
         // data members, from how the methods use this: 56 bytes
         char _unknown_0[48];
-        undefined8 field_48; // offset 48
+        undefined8 m_pNativeContext; // offset 48
     };
 
     class SSAOParams {

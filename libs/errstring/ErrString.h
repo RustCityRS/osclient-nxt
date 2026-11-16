@@ -10,7 +10,7 @@ namespace jag {
     public:
         SetCode(int);
         Error(int);
-        GetCode() const;
+        int GetCode() const;
         Error();
         IsError() const;
         GetErrorString() const;
@@ -19,7 +19,7 @@ namespace jag {
             eastl::fixed_string<char, 256, true, eastl::allocator>&) const;
 
         // data members, from how the methods use this: 4 bytes
-        int field_0; // offset 0
+        int m_code; // offset 0
     };
 
     // 0x1001838b0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
@@ -53,13 +53,13 @@ namespace jag {
     /* callstack::Callstack::Callstack() */
 
     void callstack::Callstack::Callstack() {
-        field_0 = 0;
+        m_stackFrames = 0;
     }
 
     // 0x1009eef90, 16 bytes, inline, placed by class header (inline)
     // Error::IsErrorFileExists() const
     bool Error::IsErrorFileExists() {
-        return field_0 == 17;
+        return m_code == 17;
     }
 
     // 0x100b206e0, 48 bytes, inline, placed by class header (inline)
@@ -68,7 +68,7 @@ namespace jag {
         char* pcVar1;
 
         eastl::string::clear();
-        pcVar1 = GetErrorString<eastl::fixed_string<char, 256, true, eastl::allocator>>(param_1, field_0);
+        pcVar1 = GetErrorString<eastl::fixed_string<char, 256, true, eastl::allocator>>(param_1, m_code);
         return pcVar1;
     }
 

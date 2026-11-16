@@ -14,7 +14,7 @@ namespace jag::graphics {
 
         new (this) FullscreenQuadPass(11);
         *(undefined***)field_0 = &PTR__DepthDownsamplePass_100f14110;
-        field_624 = 0;
+        m_depthTexture = 0;
         puVar1 = &field_632;
         new (puVar1) EffectList();
         new (&field_648) render::BlendState();
@@ -103,7 +103,7 @@ namespace jag::graphics {
         EffectManager* local_40;
         byte local_31;
 
-        if (field_624 == 0) {
+        if (m_depthTexture == 0) {
             return;
         }
         new (&local_88) render::DrawCallState(param_2);
@@ -126,7 +126,7 @@ namespace jag::graphics {
                     render::Texture*,
                     eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::operator[](pvVar11, 0);
                 puVar13 = (uint*)(*puVar12)->second();
-                this_03 = (RT7Core*)field_624;
+                this_03 = (RT7Core*)m_depthTexture;
                 puVar14 = (uint*)this_03->second();
                 uVar1 = puVar13[3];
                 local_31 = uVar1 == 21;
@@ -145,7 +145,7 @@ namespace jag::graphics {
                                                2>::compressed_pair_imp(auVar25._0_8_, (EntityHighlight**)&field_648,
                                                                        auVar25._8_8_);
                 }
-                lVar9 = field_624->second();
+                lVar9 = m_depthTexture->second();
                 (&field_632, 89, 1 < *(uint*)(lVar9 + 16))->Set();
                 local_90 = puVar13;
                 local_58 = EffectManager::GetEffect<SunlightDirectLighting>(local_40);
@@ -188,7 +188,7 @@ namespace jag::graphics {
                 pHVar22 = (HashedString*)graphics::operator*((graphics*)83);
                 pSVar20->SetShaderConstFloat2(pHVar22, 1.0 / (float)*local_90, 1.0 / (float)local_90[1]);
                 pRVar18 = (RenderPipelineState*)local_88.GetRenderPipelineState();
-                pTVar2 = (Texture*)field_624;
+                pTVar2 = (Texture*)m_depthTexture;
                 pHVar22 = (HashedString*)graphics::operator*((graphics*)107);
                 iVar7 = pSVar20->GetConstIndex(pHVar22);
                 lVar9 = pSVar20->Instance();
@@ -237,7 +237,7 @@ namespace jag::graphics {
     // DepthDownsamplePass::DestroyRenderingResources()
     void DepthDownsamplePass::DestroyRenderingResources() {
         DestroyRenderingResources();
-        field_624 = 0;
+        m_depthTexture = 0;
         field_728->Destroy();
     }
 

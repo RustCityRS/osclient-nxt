@@ -7,9 +7,9 @@
 namespace jag::graphics {
     class GUIManager {
     public:
-        GetProjectionMode() const;
-        GetLastViewportWidth() const;
-        GetLastViewportHeight() const;
+        int GetProjectionMode() const;
+        uint GetLastViewportWidth() const;
+        uint GetLastViewportHeight() const;
         void AddElement(math::Rect<int> const&, unsigned int, math::Rect<float> const&, render::Texture const*,
                         BlendMode);
         void AddElementIn3DSpace(math::Vector3T<float> const&, int, int, math::Matrix44T<float> const&,
@@ -106,11 +106,11 @@ namespace jag::graphics {
         static /* 6 bytes */ m_skipLineElements;
 
         // data members, from how the methods use this: 2264 bytes
-        RT7Core* field_0; // offset 0
-        int field_8;      // offset 8
+        RT7Core* field_0;     // offset 0
+        int m_projectionMode; // offset 8
         char _unknown_12[20];
-        uint field_32; // offset 32
-        uint field_36; // offset 36
+        uint m_lastViewportWidth;  // offset 32
+        uint m_lastViewportHeight; // offset 36
         char _unknown_40[32];
         undefined1 field_72; // offset 72
         char _unknown_73[3];

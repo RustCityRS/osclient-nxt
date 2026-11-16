@@ -7,14 +7,14 @@
 
 namespace jag::game {
     // 0x100429b10: the linker folded this into StaticPointLight::GetRGB() const, which has identical code
-    ParamType::GetDefaultNumber() const;
+    uint ParamType::GetDefaultNumber() const;
 
     // 0x1004f3780, 224 bytes, placed by class name and debug map
     // ParamType::DecodeType(PacketT<Array<unsigned char, eastl::allocator> >&, unsigned int)
     undefined* ParamType::DecodeType(PacketT* param_1, uint param_2) {
         uchar uVar1;
         ushort uVar2;
-        undefined4 uVar3;
+        uint uVar3;
         undefined8 uVar4;
 
         switch (param_2) {
@@ -25,7 +25,7 @@ namespace jag::game {
             break;
         case 2:
             uVar3 = param_1->g4s();
-            field_64 = uVar3;
+            m_defaultNumber = uVar3;
             break;
         case 4:
             m_autoDisable = 0;

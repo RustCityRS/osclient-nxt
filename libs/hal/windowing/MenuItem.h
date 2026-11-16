@@ -28,7 +28,7 @@ namespace jag {
         long field_0; // offset 0
         long field_8; // offset 8
         char _unknown_16[16];
-        undefined4 field_32; // offset 32
+        undefined4 m_commandIndex; // offset 32
         char _unknown_36[92];
         undefined8 field_128; // offset 128
     };
@@ -94,7 +94,7 @@ namespace jag {
     // MenuItem::MenuItem()
     void MenuItem::MenuItem() {
         new (this) eastl::vector<MenuItem, eastl::allocator>();
-        field_32 = 0;
+        m_commandIndex = 0;
         new (&field_40) eastl::string();
         std::function<void()>::function((function<void()>*)&field_80);
         field_128 = 0;

@@ -284,7 +284,8 @@ namespace jag::logger {
         _strftime(local_9a8, 32, "%d/%m/%Y %H:%M:%S", &local_4be0);
         local_4b80 = local_4b68.time_since_epoch();
         local_ad0[0] = 1;
-        std::chrono::duration<long long, std::ratio<1l, 1l>>::duration<int>(&local_4f08[0].field_0, (type*)local_ad0);
+        std::chrono::duration<long long, std::ratio<1l, 1l>>::duration<int>(&local_4f08[0].m_stackFrames,
+                                                                            (type*)local_ad0);
         pCVar14 = local_4b50;
         std::chrono::duration<long long, std::ratio<1l, 1000000l>>::duration<long long, std::ratio<1l, 1l>>(
             (duration*)pCVar14, (type*)local_4f08);

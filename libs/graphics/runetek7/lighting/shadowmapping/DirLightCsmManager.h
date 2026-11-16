@@ -10,10 +10,10 @@ namespace jag::graphics {
         class Config;
         // virtual methods in vtable order
         virtual ~DirLightCsmManager();
-        GetLightViewMat() const;
+        math GetLightViewMat() const;
         GetCamViewMat() const;
         void SetCascadeSplitWeight(float);
-        GetConfig() const;
+        uint GetConfig() const;
         char UpdatePaused() const;
         GetShadowMapAtlasViewport() const;
         void GetShadowMapCascade(unsigned int);
@@ -56,7 +56,7 @@ namespace jag::graphics {
         // data members, from how the methods use this: 884 bytes
         undefined** field_0; // offset 0, vtable pointer
         char _unknown_8[8];
-        math field_16; // offset 16
+        math m_lightViewMat; // offset 16
         char _unknown_112[432];
         undefined1 field_544; // offset 544
         char _unknown_545[63];
@@ -66,7 +66,7 @@ namespace jag::graphics {
         uint field_688;       // offset 688
         float field_692;      // offset 692
         char _unknown_696[48];
-        uint field_744; // offset 744
+        uint m_config;  // offset 744
         uint field_748; // offset 748
         uint field_752; // offset 752
         char _unknown_756[4];

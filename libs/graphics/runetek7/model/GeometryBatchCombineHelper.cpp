@@ -7,10 +7,10 @@
 
 namespace jag::graphics {
     // 0x100066b70: the linker folded this into oldscape::widgets::Widget::GetTextColour() const, which has identical code
-    GeometryBatchCombineHelper::GetVertexCount() const;
+    int GeometryBatchCombineHelper::GetVertexCount() const;
 
     // 0x1000e5d50: the linker folded this into oldscape::rs2lib::CoordZoneSource::GetRotation() const, which has identical code
-    GeometryBatchCombineHelper::GetIndexCount() const;
+    int GeometryBatchCombineHelper::GetIndexCount() const;
 
     // 0x10080c800, 144 bytes, base-object constructor, placed by class name and debug map
     // GeometryBatchCombineHelper::GeometryBatchCombineHelper(GeometryBatchInstance*, int, bool)
@@ -18,8 +18,8 @@ namespace jag::graphics {
                                                                 bool param_3) {
         field_0 = (GeometryBatchInstance*)0;
         field_8 = false;
-        field_12 = 0;
-        field_16 = 0;
+        m_indexCount = 0;
+        m_vertexCount = 0;
         field_20 = 1;
         field_24 = 1;
         field_32 = (GeometryBatchInstance*)0;
@@ -38,16 +38,16 @@ namespace jag::graphics {
 
         field_0 = param_1;
         field_8 = param_3;
-        field_12 = 0;
-        field_16 = 0;
+        m_indexCount = 0;
+        m_vertexCount = 0;
         field_20 = 1;
         field_24 = 1;
         if (param_1 != (GeometryBatchInstance*)0) {
             this_00 = (GeometryBatch*)param_1->GetGeometryBatch();
             iVar1 = this_00->GetIndexCount();
-            field_12 = field_12 + iVar1;
+            m_indexCount = m_indexCount + iVar1;
             iVar1 = this_00->GetVertexCount();
-            field_16 = field_16 + iVar1;
+            m_vertexCount = m_vertexCount + iVar1;
             if (field_8 != false) {
                 pvVar3 = (vector<unsigned int, eastl::allocator>*)this_00->GetBoneIDMap();
                 iVar1 = eastl::vector<unsigned int, eastl::allocator>::size(pvVar3);
@@ -86,7 +86,7 @@ namespace jag::graphics {
         long lVar10;
 
         this_00 = (GeometryBatch*)param_1->GetGeometryBatch();
-        iVar1 = field_12;
+        iVar1 = m_indexCount;
         iVar7 = this_00->GetIndexCount();
         this_01 = (GeometryBatch*)field_0->GetGeometryBatch();
         bVar4 = this_01->HasFaceTransparency();
@@ -131,9 +131,9 @@ namespace jag::graphics {
             field_32 = param_1;
         }
         iVar1 = this_00->GetIndexCount();
-        field_12 = field_12 + iVar1;
+        m_indexCount = m_indexCount + iVar1;
         iVar1 = this_00->GetVertexCount();
-        field_16 = field_16 + iVar1;
+        m_vertexCount = m_vertexCount + iVar1;
         if (field_8 != false) {
             pvVar4 = (vector<unsigned int, eastl::allocator>*)this_00->GetBoneIDMap();
             iVar1 = eastl::vector<unsigned int, eastl::allocator>::size(pvVar4);

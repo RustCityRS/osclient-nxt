@@ -13,10 +13,10 @@ namespace jag::graphics {
     ParticleRawLoader::GetEffectorTypes() const;
 
     // 0x100061e30: the linker folded this into render::RenderStats::GetTriangleCount() const, which has identical code
-    ParticleRawLoader::GetMaxEffectorID() const;
+    int ParticleRawLoader::GetMaxEffectorID() const;
 
     // 0x10018b300: the linker folded this into oldscape::jagex3::Js5::GetIndexVersion() const, which has identical code
-    ParticleRawLoader::GetMaxEmitterID() const;
+    int ParticleRawLoader::GetMaxEmitterID() const;
 
     // 0x10097d910, 32 bytes, placed by class name and debug map
     // ParticleRawLoader::Initialise(Js5ResourceProvider*, Js5ArchiveSettings const*, unsigned int, unsigned int)
@@ -34,7 +34,7 @@ namespace jag::graphics {
         *(undefined8*)&field_24 = 0;
         (&field_32, 0, 0)->set_max_size();
         field_56 = 0;
-        field_60 = 0;
+        m_maxEffectorID = 0;
         (&field_64, 0, 0)->set_max_size();
     }
 
@@ -89,7 +89,7 @@ namespace jag::graphics {
                     }
                     iVar2 = local_40->GetMaximumFileID(field_16);
                     pAVar12 = local_38;
-                    field_28 = iVar2;
+                    m_maxEmitterID = iVar2;
                     psVar8 = (shared_ptr*)(ulong)(iVar2 + 1);
                     local_48 = this;
                     local_38->set_max_size((ulong)psVar8, 0);
@@ -149,7 +149,7 @@ namespace jag::graphics {
                     }
                     iVar2 = local_40->GetMaximumFileID(field_20);
                     pAVar12 = local_38;
-                    field_60 = iVar2;
+                    m_maxEffectorID = iVar2;
                     psVar8 = (shared_ptr*)(ulong)(iVar2 + 1);
                     local_38->set_max_size((ulong)psVar8, 0);
                     lVar6 = pAVar12->end();

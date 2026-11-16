@@ -7,7 +7,7 @@
 
 namespace jag::graphics {
     // 0x10047dbc0: the linker folded this into PointLightShadows::GetPointLightSMManager(), which has identical code
-    PointLightShadows::GetPointLightSMManager() const;
+    SceneManager PointLightShadows::GetPointLightSMManager() const;
 
     // 0x100918c20, 304 bytes, base-object constructor, placed by class name and debug map
     // PointLightShadows::PointLightShadows(RT7Core&, int)

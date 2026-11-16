@@ -8,9 +8,9 @@ namespace jag::graphics {
     class CausticsManager {
     public:
         class Config;
-        GetCullFrustum() const;
-        GetViewTransforms() const;
-        GetCausticsPlaneHeight() const;
+        Frustum GetCullFrustum() const;
+        ViewTransforms GetViewTransforms() const;
+        float GetCausticsPlaneHeight() const;
         CausticsManager(render::RenderTargetsManager&);
         ~CausticsManager();
         void Destroy();
@@ -31,11 +31,11 @@ namespace jag::graphics {
         // data members, from how the methods use this: 448 bytes
         undefined8 field_0; // offset 0
         char _unknown_8[8];
-        Frustum field_16; // offset 16
+        Frustum m_cullFrustum; // offset 16
         char _unknown_120[56];
-        ViewTransforms field_176; // offset 176
+        ViewTransforms m_viewTransforms; // offset 176
         char _unknown_328[56];
-        float field_384; // offset 384
+        float m_causticsPlaneHeight; // offset 384
         char _unknown_388[4];
         shared_ptr field_392;            // offset 392
         shared_ptr field_408;            // offset 408

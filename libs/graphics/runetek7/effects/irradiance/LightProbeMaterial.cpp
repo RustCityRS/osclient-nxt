@@ -32,7 +32,7 @@ namespace jag::graphics {
     void LightProbeMaterial::LightProbeMaterial() {
         new (this) RenderMaterial();
         field_0 = (undefined**)(PTR_vtable_100ee87c8 + 16);
-        new (&field_544) IrradianceSHCoefConsts();
+        new (&m_irradianceSHConsts) IrradianceSHCoefConsts();
     }
 
     // 0x10092fde0, 144 bytes, base-object constructor, placed by class name
@@ -55,7 +55,7 @@ namespace jag::graphics {
         uVar5 = param_1->field_584;
         uVar6 = param_1->field_592;
         uVar7 = param_1->field_600;
-        field_544 = param_1->field_544;
+        m_irradianceSHConsts = param_1->m_irradianceSHConsts;
         field_552 = uVar1;
         field_560 = uVar2;
         field_568 = uVar3;
@@ -97,7 +97,7 @@ namespace jag::graphics {
         uVar5 = param_1->field_584;
         uVar6 = param_1->field_592;
         uVar7 = param_1->field_600;
-        field_544 = param_1->field_544;
+        m_irradianceSHConsts = param_1->m_irradianceSHConsts;
         field_552 = uVar1;
         field_560 = uVar2;
         field_568 = uVar3;
@@ -160,8 +160,8 @@ namespace jag::graphics {
 
     LightProbeMaterial* LightProbeMaterial::operator=(LightProbeMaterial* param_1) {
         RenderMaterial::operator=((RenderMaterial*)this, (RenderMaterial*)param_1);
-        IrradianceSHCoefConsts::operator=((IrradianceSHCoefConsts*)&field_544,
-                                          (IrradianceSHCoefConsts*)&param_1->field_544);
+        IrradianceSHCoefConsts::operator=((IrradianceSHCoefConsts*)&m_irradianceSHConsts,
+                                          (IrradianceSHCoefConsts*)&param_1->m_irradianceSHConsts);
         return this;
     }
 

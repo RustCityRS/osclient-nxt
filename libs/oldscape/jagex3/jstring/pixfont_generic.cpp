@@ -2810,11 +2810,11 @@ namespace jag::oldscape::jstring {
         if ((param_1 - 1U < 255) && (param_2 != -1)) {
             local_28._4_4_ = 255 - param_1;
             local_28._8_4_ = param_1 << 24 | param_2;
-            local_28.field_0 = param_1;
+            local_28.m_stackFrames = param_1;
             local_28._12_4_ = graphics::ComputeCompositeRGB(param_2, param_1);
         }
         auVar1._4_4_ = local_28._4_4_;
-        auVar1._0_4_ = local_28.field_0;
+        auVar1._0_4_ = local_28.m_stackFrames;
         auVar1._8_4_ = local_28._8_4_;
         auVar1._12_4_ = local_28._12_4_;
         return auVar1;

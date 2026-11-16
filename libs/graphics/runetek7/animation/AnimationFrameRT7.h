@@ -9,7 +9,7 @@ namespace jag::graphics {
     public:
         GetBoneTransforms() const;
         GetSkipTweenLabel() const;
-        GetMaximumBoneID() const;
+        uint GetMaximumBoneID() const;
         GetSkipTweenBillboard() const;
         GetLabelDeltas() const;
         GetSkipTweenBone() const;
@@ -53,7 +53,7 @@ namespace jag::graphics {
         undefined1 m_animatesColour;       // offset 101
         undefined1 m_animatesBillboards;   // offset 102
         char _unknown_103[1];
-        uint field_104; // offset 104
+        uint m_maximumBoneID; // offset 104
         char _unknown_108[12];
     };
 

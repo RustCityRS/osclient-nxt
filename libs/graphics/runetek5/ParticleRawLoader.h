@@ -9,8 +9,8 @@ namespace jag::graphics {
     public:
         GetEmitterTypes() const;
         GetEffectorTypes() const;
-        GetMaxEffectorID() const;
-        GetMaxEmitterID() const;
+        int GetMaxEffectorID() const;
+        int GetMaxEmitterID() const;
         ParticleRawLoader();
         ~ParticleRawLoader();
         void Initialise(Js5ResourceProvider*, Js5ArchiveSettings const*, unsigned int, unsigned int);
@@ -23,10 +23,10 @@ namespace jag::graphics {
         uint field_16;                // offset 16
         uint field_20;                // offset 20
         char _unknown_24[4];
-        int field_28; // offset 28
+        int m_maxEmitterID; // offset 28
         char _unknown_32[24];
-        int field_56; // offset 56
-        int field_60; // offset 60
+        int field_56;        // offset 56
+        int m_maxEffectorID; // offset 60
         char _unknown_64[8];
     };
 
@@ -46,7 +46,7 @@ namespace jag::graphics {
         field_8 = (Js5ArchiveSettings*)0;
         new (&field_32) Array<ParticleEmitterRaw, eastl::allocator>();
         field_56 = 0;
-        field_60 = 0;
+        m_maxEffectorID = 0;
         new (&field_64) Array<ParticleEffectorRaw, eastl::allocator>();
     }
 

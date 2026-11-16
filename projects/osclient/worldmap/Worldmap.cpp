@@ -1237,7 +1237,7 @@ namespace jag::oldscape::worldmap {
                                     param_6);
                 local_88->~basic_string();
             }
-            pWVar1->field_288 = (int)local_48;
+            pWVar1->m_tileWidth = (int)local_48;
             pWVar1->m_tileHeight = local_38._0_4_;
             graphics::XPlotBlender<graphics::XPlot_NormalAlpha>::XPlotBlender<int>(
                 (XPlotBlender<graphics::XPlot_NormalAlpha>*)local_88, (int)uVar2);

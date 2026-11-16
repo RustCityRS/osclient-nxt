@@ -72,10 +72,10 @@ namespace jag::graphics {
         array<std::array<Array<unsigned char, eastl::allocator>, 5ul>, 6ul>();
 
     // 0x100066b70: the linker folded this into oldscape::widgets::Widget::GetTextColour() const, which has identical code
-    TextureAtlas::GetID() const;
+    int TextureAtlas::GetID() const;
 
     // 0x100324d40: the linker folded this into oldscape::graphics::NXTPixToolkit::GetPix2D(), which has identical code
-    TextureAtlas::GetFormatTypeRequest() const;
+    Callstack TextureAtlas::GetFormatTypeRequest() const;
 
     // 0x100856720, 608 bytes, base-object constructor, placed by class name and debug map
     // TextureAtlas::TextureAtlas(graphicutils::TextureAtlasQuality const&, graphicutils::TextureAtlasUsage const*, bool)
@@ -94,10 +94,10 @@ namespace jag::graphics {
 
         field_0 = &PTR__TextureAtlas_100f160e0;
         field_8 = (TextureManager*)0;
-        field_16 = -1;
+        m_iD = -1;
         new (field_24, param_1, param_2, param_3) graphicutils::TextureAtlasSlotPacker();
-        new (field_176) callstack::Callstack();
-        new ((field_176 + 8), local_80, local_78)
+        new (m_formatTypeRequest) callstack::Callstack();
+        new ((m_formatTypeRequest + 8), local_80, local_78)
             eastl::fixed_hash_map<int, TextureAtlasTextureMapping, 1024ul, 1025ul, true, eastl::hash<int>,
                                   eastl::equal_to<int>, false, eastl::allocator>();
         new (&field_33104, local_70, local_68)
@@ -162,7 +162,7 @@ namespace jag::graphics {
         local_3c = iVar4 * 2 + 4;
         local_b8 = 18446744069414584319;
         uStack_b0 = 18446744060824649725;
-        local_a0._24_8_ = field_176 + 8;
+        local_a0._24_8_ = m_formatTypeRequest + 8;
         uVar9 = 0;
         uVar10 = 0;
         local_78 = this;
@@ -271,12 +271,12 @@ namespace jag::graphics {
 
         field_0 = &PTR__TextureAtlas_100f160e0;
         field_8 = param_1;
-        field_16 = param_2;
+        m_iD = param_2;
         this_00 = (TextureAtlasManager*)param_1->GetTextureAtlasManager();
         lVar1 = this_00->GetSettings();
         new (field_24, (TextureAtlasQuality*)(lVar1 + 144), param_4, false) graphicutils::TextureAtlasSlotPacker();
-        new (field_176) callstack::Callstack();
-        new ((field_176 + 8), local_90, local_88)
+        new (m_formatTypeRequest) callstack::Callstack();
+        new ((m_formatTypeRequest + 8), local_90, local_88)
             eastl::fixed_hash_map<int, TextureAtlasTextureMapping, 1024ul, 1025ul, true, eastl::hash<int>,
                                   eastl::equal_to<int>, false, eastl::allocator>();
         new (&field_33104, local_80, local_78)
@@ -414,7 +414,7 @@ namespace jag::graphics {
                                                           eastl::equal_to<int>,
                                                           eastl::fixed_hashtable_allocator<1026ul, 24ul, 1024ul, 4ul,
                                                                                            0ul, true, eastl::allocator>,
-                                                          false>*)(field_176 + 8),
+                                                          false>*)(m_formatTypeRequest + 8),
                                                 &local_34),
                          *(char*)(lVar9 + 11) != '\0')) {
                         uVar7 = logger::default_logger();
@@ -439,7 +439,7 @@ namespace jag::graphics {
                                   eastl::equal_to<int>, false, eastl::allocator>::
             operator=((fixed_hash_map<int, TextureAtlasTextureMapping, 1024ul, 1025ul, true, eastl::hash<int>,
                                       eastl::equal_to<int>, false, eastl::allocator>*)&pTVar11->field_33104,
-                      (fixed_hash_map*)(field_176 + 8));
+                      (fixed_hash_map*)(m_formatTypeRequest + 8));
             eastl::fixed_hash_map<int, TextureAtlasMaterialMapping, 1024ul, 1025ul, true, eastl::hash<int>,
                                   eastl::equal_to<int>, false, eastl::allocator>::
             operator=((fixed_hash_map<int, TextureAtlasMaterialMapping, 1024ul, 1025ul, true, eastl::hash<int>,
@@ -467,7 +467,7 @@ namespace jag::graphics {
         (&field_115344)->~fixed_hash_map();
         (&field_66024)->~fixed_hash_map();
         (&field_33104)->~fixed_hash_map();
-        ((field_176 + 8))->~fixed_hash_map();
+        ((m_formatTypeRequest + 8))->~fixed_hash_map();
         field_24->~TextureAtlasSlotPacker();
     }
 
@@ -481,7 +481,7 @@ namespace jag::graphics {
 
         cVar1 = this_thread::IsMainThread();
         if (cVar1 == '\0') {
-            if (field_16 != -1) {
+            if (m_iD != -1) {
                 /* WARNING: Subroutine does not return */
                 LogAssert("m_id == ATLAS_ID_VIRTUAL",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
@@ -538,7 +538,7 @@ namespace jag::graphics {
         eastl local_40[8];
         TextureFormatBitSet local_38[2];
 
-        local_38[0].field_0 = param_4.field_0;
+        local_38[0].m_bits = param_4.m_bits;
         eastl::destruct<oldscape::highlight::NpcUID*>(local_40, (NpcUID*)"TextureAtlas::CreateAtlasTextures",
                                                       (NpcUID*)param_3);
         cVar1 = local_38->IsValid();
@@ -571,7 +571,7 @@ namespace jag::graphics {
             GenerateDummyTextureData(param_1, param_2);
             pTVar6 = param_3;
             graphicutils::CreateHALTexture2D<render::Texture2D>(param_3, 128, 128, (uchar*)0, 1, 0, false, false, false,
-                                                                (TextureFormatBitSet)local_50.field_0, 0);
+                                                                (TextureFormatBitSet)local_50.m_stackFrames, 0);
             lVar5 = pTVar6->Instance();
             (*(code*)param_3->field_0[3])(param_3, lVar5 + 80, 1);
             GenerateDummyMaterialSettings(param_1);
@@ -595,7 +595,7 @@ namespace jag::graphics {
         int iVar8;
         undefined8 local_38;
 
-        local_38 = CONCAT44((int)((ulong)in_RAX >> 32), param_3.field_0);
+        local_38 = CONCAT44((int)((ulong)in_RAX >> 32), param_3.m_bits);
         *param_1 = 0;
         ptVar7 = (type*)param_1;
         bVar1 = local_38.IsUncompressed();
@@ -775,8 +775,8 @@ namespace jag::graphics {
         TextureFormatBitSet local_38[2];
 
         local_40 = param_1;
-        local_38[0].field_0 = param_4.field_0;
-        if (field_16 == -1) {
+        local_38[0].m_bits = param_4.m_bits;
+        if (m_iD == -1) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_id != ATLAS_ID_VIRTUAL",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
@@ -863,7 +863,7 @@ namespace jag::graphics {
         undefined8 uVar5;
         Singleton<render::RenderDevice>* this_03;
 
-        this_01 = field_176;
+        this_01 = m_formatTypeRequest;
         new (this_01) callstack::Callstack();
         this_00 = field_24;
         puVar2 = (undefined*)this_00->GetAuthWrapper();
@@ -903,7 +903,7 @@ namespace jag::graphics {
     LAB_1008580de:
         this_03 = (Singleton<render::RenderDevice>*)this_01;
         this_01->AddFormatType(uVar5);
-        if (field_16 != -1) {
+        if (m_iD != -1) {
             pMVar3 = (MapArea*)this_03->Instance();
             lVar4 = pMVar3->GetOrigin();
             if (*(char*)(lVar4 + 147) != '\0') {
@@ -958,8 +958,8 @@ namespace jag::graphics {
 
         local_70 = param_1;
         local_50 = param_5;
-        local_38[0].field_0 = param_2.field_0;
-        if (field_16 == -1) {
+        local_38[0].m_bits = param_2.m_bits;
+        if (m_iD == -1) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_id != ATLAS_ID_VIRTUAL",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
@@ -1169,7 +1169,7 @@ namespace jag::graphics {
                            eastl::fixed_hashtable_allocator<1026ul, 24ul, 1024ul, 4ul, 0ul, true, eastl::allocator>,
                            eastl::use_first<eastl::pair<int const, TextureAtlasTextureMapping>>, eastl::equal_to<int>,
                            eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                           eastl::prime_rehash_policy, false, true, true>*)(field_176 + 8);
+                           eastl::prime_rehash_policy, false, true, true>*)(m_formatTypeRequest + 8);
             local_68 = (ImPool<ImGuiTabBar>*)field_24;
             uVar9 = 0;
             local_60 = (array<unsigned int, 3ul>*)param_1;
@@ -1331,7 +1331,7 @@ namespace jag::graphics {
                            eastl::fixed_hashtable_allocator<1026ul, 24ul, 1024ul, 4ul, 0ul, true, eastl::allocator>,
                            eastl::use_first<eastl::pair<int const, TextureAtlasTextureMapping>>, eastl::equal_to<int>,
                            eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                           eastl::prime_rehash_policy, false, true, true>*)(field_176 + 8);
+                           eastl::prime_rehash_policy, false, true, true>*)(m_formatTypeRequest + 8);
             uVar7 = 0;
             do {
                 lVar5 = local_68->HeapBeginPtr();
@@ -1959,7 +1959,7 @@ namespace jag::graphics {
                        eastl::prime_rehash_policy, false, true, true>*)&local_a8->field_66024;
         this_01 = (hash_map<int, TextureAtlasTextureMapping, eastl::hash<int>, eastl::equal_to<int>,
                             eastl::fixed_hashtable_allocator<1026ul, 24ul, 1024ul, 4ul, 0ul, true, eastl::allocator>,
-                            false>*)(local_a8->field_176 + 8);
+                            false>*)(local_a8->m_formatTypeRequest + 8);
         local_b8 = param_1;
         if ((int)pfVar8 == 0) {
             local_9c = 0;
@@ -2256,7 +2256,7 @@ namespace jag::graphics {
         param_2->field_20 = 0;
         local_88 = (TextureAtlasSlotPacker*)field_24;
         bVar5 = local_88->GetGutteringSlotCount();
-        local_60 = field_176 + 8;
+        local_60 = m_formatTypeRequest + 8;
         local_3c = (uint)bVar5;
         uVar14 = 0;
         do {
@@ -2574,7 +2574,7 @@ namespace jag::graphics {
                          eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
                          eastl::prime_rehash_policy, false, true, true>::emplace<unsigned int&,
                                                                                  TextureAtlasTextureMapping&>(
-            local_68, (TextureAtlasTextureMapping*)(field_176 + 8));
+            local_68, (TextureAtlasTextureMapping*)(m_formatTypeRequest + 8));
         std::scoped_lock<std::recursive_mutex>::~scoped_lock(local_40);
     }
 
@@ -3005,7 +3005,7 @@ namespace jag::graphics {
         bVar6 = local_b0->GetGutteringSlotCount();
         local_c0 = (array<int, 3ul>*)(lVar9 + 4);
         local_b8 = (array<int, 3ul>*)(lVar8 + 4);
-        local_68 = pTVar4->field_176 + 8;
+        local_68 = pTVar4->m_formatTypeRequest + 8;
         local_a0 = (fixed_vector<unsigned int, 256ul, true, eastl::allocator>*)&pTVar4->field_166760;
         local_a8 = (array<unsigned int, 3ul>*)(lVar8 + 16);
         local_80 = (uint)bVar6;
@@ -3282,7 +3282,7 @@ namespace jag::graphics {
                                         (uint) * (ushort*)(lVar2 + 12));
         (field_24, (TextureAtlasSlot2D*)&local_38)->FreeSlot2D();
         local_38._0_4_ = param_1;
-        ((field_176 + 8), (int*)&local_38)->erase();
+        ((m_formatTypeRequest + 8), (int*)&local_38)->erase();
         std::scoped_lock<std::recursive_mutex>::~scoped_lock(local_40);
     }
 
@@ -3327,7 +3327,7 @@ namespace jag::graphics {
                                       eastl::equal_to<int>, false, eastl::allocator>::
                 operator=((fixed_hash_map<int, TextureAtlasTextureMapping, 1024ul, 1025ul, true, eastl::hash<int>,
                                           eastl::equal_to<int>, false, eastl::allocator>*)&field_33104,
-                          (fixed_hash_map*)(field_176 + 8));
+                          (fixed_hash_map*)(m_formatTypeRequest + 8));
                 eastl::fixed_hash_map<int, TextureAtlasMaterialMapping, 1024ul, 1025ul, true, eastl::hash<int>,
                                       eastl::equal_to<int>, false, eastl::allocator>::
                 operator=((fixed_hash_map<int, TextureAtlasMaterialMapping, 1024ul, 1025ul, true, eastl::hash<int>,
@@ -3452,7 +3452,7 @@ namespace jag::graphics {
                          eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
                          eastl::prime_rehash_policy, false, true, true>::end();
         local_f8 = &field_66024;
-        local_128 = field_176 + 8;
+        local_128 = m_formatTypeRequest + 8;
         local_e8 = (list<game::MiniMap::MapSquareState,
                          eastl::fixed_node_allocator<5776ul, 16ul, 8ul, 0ul, true, eastl::allocator>>*)&field_187816;
         phVar7 = extraout_RDX;
@@ -3603,7 +3603,7 @@ namespace jag::graphics {
                                   eastl::use_first<eastl::pair<int const, unsigned int>>, eastl::equal_to<int>,
                                   eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
                                   eastl::prime_rehash_policy, false, true, true>::begin();
-        auVar3 = ((field_176 + 8))->end();
+        auVar3 = ((m_formatTypeRequest + 8))->end();
         uVar1 =
             eastl::count_if<eastl::hashtable_iterator<eastl::pair<int const, TextureAtlasTextureMapping>, true, false>,
                             TextureAtlas::GetNumLoadingTextures() const ::__3>(auVar2._0_8_, auVar2._8_8_, auVar3._0_8_,
@@ -3680,7 +3680,7 @@ namespace jag::graphics {
                                            eastl::use_first<eastl::pair<int const, unsigned int>>, eastl::equal_to<int>,
                                            eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
                                            eastl::prime_rehash_policy, false, true, true>::begin();
-        local_c0._0_16_ = ((field_176 + 8))->end();
+        local_c0._0_16_ = ((m_formatTypeRequest + 8))->end();
         bVar1 = eastl::operator!=(local_a0, local_c0, local_c0._8_8_);
         if (bVar1) {
             puVar8 = local_60->field_24;

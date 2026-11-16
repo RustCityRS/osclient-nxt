@@ -12,7 +12,7 @@ namespace jag::hal::audio {
         void SetLoopIterations(int);
         SetGain(float);
         SetPriority(float);
-        GetPan() const;
+        float GetPan() const;
         SetVirtual(bool);
         void SetBussID(BussType);
         void SetPreSendControls(float, float);
@@ -44,15 +44,15 @@ namespace jag::hal::audio {
         ~VoiceInstance();
 
         // data members, from how the methods use this: 348 bytes
-        AudioRenderer* field_0; // offset 0
-        DebugUIElement field_8; // offset 8
+        AudioRenderer* field_0;   // offset 0
+        DebugUIElement m_virtual; // offset 8
         char _unknown_9[3];
-        float field_12;      // offset 12
+        float m_priority;    // offset 12
         undefined1 field_16; // offset 16
         char _unknown_17[3];
         float m_preSendControls; // offset 20
-        float field_24;          // offset 24
-        float field_28;          // offset 28
+        float m_gain;            // offset 24
+        float m_pan;             // offset 28
         int m_loopIterations;    // offset 32
         int field_36;            // offset 36
         Layout* field_40;        // offset 40
@@ -67,8 +67,8 @@ namespace jag::hal::audio {
         char _unknown_284[4];
         AudioSend field_288; // offset 288
         char _unknown_329[7];
-        undefined4 field_336; // offset 336
-        undefined4 field_340; // offset 340
+        undefined4 m_bussID;    // offset 336
+        undefined4 m_soundType; // offset 340
         char _unknown_344[4];
     };
 
@@ -76,13 +76,13 @@ namespace jag::hal::audio {
     // VoiceInstance::SetPreSendControls(float, float)
     void VoiceInstance::SetPreSendControls(float param_1, float param_2) {
         m_preSendControls = param_1;
-        field_28 = param_2;
+        m_pan = param_2;
     }
 
     // 0x100b8a460, 16 bytes, inline, placed by class name and debug map
     // VoiceInstance::SetSoundType(game::SoundType)
     void VoiceInstance::SetSoundType(undefined4 param_2) {
-        field_340 = param_2;
+        m_soundType = param_2;
     }
 
     // 0x100b8a4c0, 16 bytes, inline, placed by class name and debug map
@@ -108,7 +108,7 @@ namespace jag::hal::audio {
     undefined4 VoiceInstance::IsPersistent() {
         uint uVar1;
 
-        uVar1 = field_340 & 4294967294;
+        uVar1 = m_soundType & 4294967294;
         return CONCAT31((int3)(uVar1 >> 8), uVar1 == 10);
     }
 
@@ -121,7 +121,7 @@ namespace jag::hal::audio {
     // 0x100b8ffc0, 16 bytes, inline, placed by class name
     // VoiceInstance::GetGain() const
     float VoiceInstance::GetGain() {
-        return field_24 * m_preSendControls;
+        return m_gain * m_preSendControls;
     }
 
     // 0x100b8ffd0, 16 bytes, inline, placed by class name

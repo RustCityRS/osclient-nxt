@@ -137,7 +137,7 @@ namespace jag::game {
             }
             break;
         case 4:
-            field_128 = 0;
+            m_searchable = 0;
             break;
         default:
             uVar4 = logger::default_logger();

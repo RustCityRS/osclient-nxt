@@ -7,8 +7,8 @@
 namespace jag::game {
     class PlayerStat {
     public:
-        GetActualXPLevel() const;
-        GetActualXP() const;
+        uint GetActualXPLevel() const;
+        uint GetActualXP() const;
         GetGameplayLevel() const;
         void SetGameplayLevel(unsigned int);
         ulong GetCappedXP(ModeAccountType const*) const;
@@ -24,7 +24,7 @@ namespace jag::game {
         bool field_8;         // offset 8
         char _unknown_9[3];
         uint m_xP;            // offset 12
-        uint field_16;        // offset 16
+        uint m_actualXPLevel; // offset 16
         uint m_gameplayLevel; // offset 20
         char _unknown_24[4];
     };
@@ -38,7 +38,7 @@ namespace jag::game {
         field_0 = param_1;
         field_8 = param_2;
         m_xP = 0;
-        field_16 = 1;
+        m_actualXPLevel = 1;
         m_gameplayLevel = 1;
     }
 
@@ -51,7 +51,7 @@ namespace jag::game {
         field_0 = (PlayerSkill*)0;
         field_8 = false;
         m_xP = 0;
-        field_16 = 1;
+        m_actualXPLevel = 1;
         m_gameplayLevel = 1;
     }
 

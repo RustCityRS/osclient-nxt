@@ -19,14 +19,14 @@ namespace jag::game {
                            math::Rect<int> const&, float, Cutscene2DResources const&,
                            GlobalCutscene2DResources const&) const;
         LoadFromPacket(PacketT<Array<unsigned char, eastl::allocator>>&, int);
-        GetPlaybackEnd() const;
+        float GetPlaybackEnd() const;
         GetName() const;
         Scene();
 
         // data members, from how the methods use this: 536 bytes
         char _unknown_0[72];
         float m_playbackStart; // offset 72
-        float field_76;        // offset 76
+        float m_playbackEnd;   // offset 76
         char _unknown_80[456];
     };
 
@@ -52,9 +52,9 @@ namespace jag::game {
         float fVar1;
 
         new (this) eastl::fixed_string<char, 32, true, eastl::allocator>(param_1);
-        fVar1 = param_1->field_76;
+        fVar1 = param_1->m_playbackEnd;
         m_playbackStart = param_1->m_playbackStart;
-        field_76 = fVar1;
+        m_playbackEnd = fVar1;
         new (&field_80, (fixed_vector*)&param_1->field_80)
             eastl::fixed_vector<Cutscene2DImageElement, 1ul, true, eastl::allocator>();
         new (&field_408, (fixed_vector*)&param_1->field_408)
@@ -72,9 +72,9 @@ namespace jag::game {
 
         eastl::fixed_string<char, 4096, true, eastl::allocator>::operator=(
             (fixed_string<char, 4096, true, eastl::allocator>*)this, (fixed_string*)param_1);
-        fVar1 = param_1->field_76;
+        fVar1 = param_1->m_playbackEnd;
         m_playbackStart = param_1->m_playbackStart;
-        field_76 = fVar1;
+        m_playbackEnd = fVar1;
         eastl::fixed_vector<Cutscene2DImageElement, 1ul, true, eastl::allocator>::operator=(
             (fixed_vector<Cutscene2DImageElement, 1ul, true, eastl::allocator>*)&field_80,
             (fixed_vector*)&param_1->field_80);
@@ -93,7 +93,7 @@ namespace jag::game {
         if (param_1 < m_playbackStart) {
             return false;
         }
-        return param_1 < field_76;
+        return param_1 < m_playbackEnd;
     }
 
     // 0x10053c040, 16 bytes, inline, placed by class name

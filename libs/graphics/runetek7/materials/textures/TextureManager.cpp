@@ -37,7 +37,7 @@ namespace jag::graphics {
     TextureManager::DEBUG_TEXTURE_ATLAS_MATERIAL_SETTINGS;
 
     // 0x1002eeed0: the linker folded this into Model::GetLabelCentres() const, which has identical code
-    TextureManager::GetTextureAtlasManager();
+    TextureAtlasManager TextureManager::GetTextureAtlasManager();
 
     // 0x10085b7b0, 128 bytes, placed by class name and debug map
     // TextureManager::GetMaterialSettings(TextureAtlasMaterialSettings&, unsigned int)
@@ -81,9 +81,9 @@ namespace jag::graphics {
         jag local_48[16];
         TextureFormatBitSet local_38[2];
 
-        local_38[0].field_0 = in_R8D.field_0;
+        local_38[0].m_bits = in_R8D.m_bits;
         local_50 = GetTextureCacheKey((TextureManager*)param_1, in_ECX,
-                                      (TextureType*)CONCAT44(in_register_00000014, param_3.field_0), local_38, false);
+                                      (TextureType*)CONCAT44(in_register_00000014, param_3.m_bits), local_38, false);
         local_70 = (shared_ptr*)(CONCAT44(in_register_00000034, param_2) + 552);
         local_80.Find(local_70);
         if (shared_ptr::operator_cast_to_bool(&local_80)) {
@@ -91,7 +91,7 @@ namespace jag::graphics {
         } else {
             new (&local_68) TextureData();
             puVar2 = (undefined*)(*(TextureDataProvider**)(CONCAT44(in_register_00000034, param_2) + 16))
-                         ->GetTextureData(&local_68, (TextureType*)CONCAT44(in_register_00000014, param_3.field_0),
+                         ->GetTextureData(&local_68, (TextureType*)CONCAT44(in_register_00000014, param_3.m_bits),
                                           in_ECX, local_38[0]);
             if (puVar2 == DataStatus::READY) {
                 make_shared<TextureData>(local_48);
@@ -469,7 +469,7 @@ namespace jag::graphics {
                         pEVar21 = (EntityHighlightGlobalState*)pLVar7->end();
                         iVar25 = local_70;
                         for (; local_70 = iVar25, pEVar20 != pEVar21;
-                             pEVar20 = (EntityHighlightGlobalState*)&pEVar20->field_16) {
+                             pEVar20 = (EntityHighlightGlobalState*)&pEVar20->m_playerNPCAttackOpPriority) {
                             fVar34 = (float)pEVar20->GetOverbright();
                             uVar24 = local_74;
                             fVar38 = (float)local_6c;
@@ -490,7 +490,7 @@ namespace jag::graphics {
                         pEVar21 = (EntityHighlightGlobalState*)pLVar7->end();
                         iVar25 = local_70;
                         for (; local_70 = iVar25, pEVar20 != pEVar21;
-                             pEVar20 = (EntityHighlightGlobalState*)&pEVar20->field_16) {
+                             pEVar20 = (EntityHighlightGlobalState*)&pEVar20->m_playerNPCAttackOpPriority) {
                             fVar34 = (float)pEVar20->GetOverbright();
                             uVar24 = local_74;
                             fVar38 = (float)local_6c;
@@ -511,7 +511,7 @@ namespace jag::graphics {
                         pEVar21 = (EntityHighlightGlobalState*)pLVar7->end();
                         iVar25 = local_70;
                         for (; local_70 = iVar25, pEVar20 != pEVar21;
-                             pEVar20 = (EntityHighlightGlobalState*)&pEVar20->field_16) {
+                             pEVar20 = (EntityHighlightGlobalState*)&pEVar20->m_playerNPCAttackOpPriority) {
                             fVar34 = (float)pEVar20->GetOverbright();
                             uVar24 = local_74;
                             fVar38 = (float)local_6c;
@@ -709,8 +709,8 @@ namespace jag::graphics {
         shared_ptr local_48;
         TextureFormatBitSet local_38[2];
 
-        local_38[0].field_0 = (uint)CONCAT71(in_register_00000081, param_5);
-        if ((TextureType*)TextureType::CUBEMAP == (TextureType*)CONCAT44(in_register_00000014, param_3.field_0)) {
+        local_38[0].m_bits = (uint)CONCAT71(in_register_00000081, param_5);
+        if ((TextureType*)TextureType::CUBEMAP == (TextureType*)CONCAT44(in_register_00000014, param_3.m_bits)) {
             /* WARNING: Subroutine does not return */
             LogAssert("textureType != TextureType::CUBEMAP",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
@@ -719,7 +719,7 @@ namespace jag::graphics {
         }
         local_4c = in_R9D;
         GetTextureCacheKey((TextureManager*)param_1, (uint)CONCAT71(in_register_00000009, param_4),
-                           (TextureType*)CONCAT44(in_register_00000014, param_3.field_0), local_38, in_stack_00000008);
+                           (TextureType*)CONCAT44(in_register_00000014, param_3.m_bits), local_38, in_stack_00000008);
         local_68 = (shared_ptr*)(CONCAT44(in_register_00000034, param_2) + 24);
         ((asStack_94 + 4))->Find(local_68);
         bVar3 = ((asStack_94 + 4))->operator_cast_to_bool();
@@ -746,7 +746,7 @@ namespace jag::graphics {
                     lVar5 = shared_ptr<TextureData>::operator->((shared_ptr<TextureData>*)&local_48);
                     graphicutils::CreateHALTexture2D<render::Texture2D>(
                         &local_60, (graphicutils*)(ulong)uVar7, uVar1, uVar4, (uchar*)(ulong)uVar2, *(uint*)(lVar5 + 8),
-                        local_4c & 255, true, true, SUB41(local_38[0].field_0, 0), (TextureFormatBitSet)0,
+                        local_4c & 255, true, true, SUB41(local_38[0].m_bits, 0), (TextureFormatBitSet)0,
                         in_stack_ffffffffffffff70);
                     shared_ptr<render::Texture>::operator=((shared_ptr<render::Texture>*)local_78, &local_60);
                     local_60.~shared_ptr();
@@ -906,7 +906,7 @@ namespace jag::graphics {
         TextureType* this_01;
 
         this_01 = (TextureType*)CONCAT44(in_register_0000003c, param_1);
-        this = (MaterialManager*)(*(RT7Core**)CONCAT44(in_register_00000034, param_2.field_0))->GetMaterialManager();
+        this = (MaterialManager*)(*(RT7Core**)CONCAT44(in_register_00000034, param_2.m_bits))->GetMaterialManager();
         cVar1 = MaterialsReady();
         if (cVar1 == '\0') {
             new (this_01) shared_ptr<oldscape::dash3d::Decor>((shared_ptr*)&NullTextureData);
@@ -937,7 +937,7 @@ namespace jag::graphics {
                                 (ulong)in_EDX);
             }
             this_00->GetCompletedGold();
-            GetTextureData(this_01, param_2.field_0, (TextureFormatBitSet)(uint)TextureType::CUBEMAP);
+            GetTextureData(this_01, param_2.m_bits, (TextureFormatBitSet)(uint)TextureType::CUBEMAP);
         }
         return this_01;
     }
@@ -967,11 +967,11 @@ namespace jag::graphics {
         TextureFormatBitSet local_38[2];
 
         this_01 = (TextureManager*)CONCAT44(in_register_0000003c, param_1);
-        local_38[0].field_0 = in_ECX.field_0;
+        local_38[0].m_bits = in_ECX.m_bits;
         local_50 = (bool)in_R8B;
         local_68._16_8_ = GetTextureCacheKey(this_01, (uint)CONCAT71(in_register_00000011, param_3),
                                              (TextureType*)TextureType::CUBEMAP, local_38, false);
-        psVar1 = (shared_ptr*)(CONCAT44(in_register_00000034, param_2.field_0) + 288);
+        psVar1 = (shared_ptr*)(CONCAT44(in_register_00000034, param_2.m_bits) + 288);
         local_78.Find(psVar1);
         bVar4 = shared_ptr::operator_cast_to_bool(&local_78);
         if (bVar4) {

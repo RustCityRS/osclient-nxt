@@ -26,7 +26,7 @@ namespace jag::oldscape::configdecoder {
         uint uVar7;
 
         eastl::fixed_vector<int, 8ul, true, eastl::allocator>::fixed_vector((ulong)this);
-        this_00 = &field_72;
+        this_00 = &m_indices;
         eastl::fixed_vector<int, 8ul, true, eastl::allocator>::fixed_vector((ulong)this_00);
         uVar6 = 0;
         do {
@@ -107,7 +107,7 @@ namespace jag::oldscape::configdecoder {
         *piVar1 = param_2;
         piVar1 = (int*)
             eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)&field_72,
+                (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)&m_indices,
                 (long)param_1);
         *piVar1 = param_3;
     }
@@ -118,7 +118,7 @@ namespace jag::oldscape::configdecoder {
         eastl::fixed_vector<int, 8ul, true, eastl::allocator>::operator=(
             (fixed_vector<int, 8ul, true, eastl::allocator>*)this, param_1);
         eastl::fixed_vector<int, 8ul, true, eastl::allocator>::operator=(
-            (fixed_vector<int, 8ul, true, eastl::allocator>*)&field_72, param_2);
+            (fixed_vector<int, 8ul, true, eastl::allocator>*)&m_indices, param_2);
     }
 
 } // namespace jag::oldscape::configdecoder

@@ -10,7 +10,7 @@ namespace jag::game {
     PositionSpline::IsSpline() const;
 
     // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    PositionSpline::GetSpline();
+    SplineMovement PositionSpline::GetSpline();
 
     // 0x100615ce0, 80 bytes, placed by class name and debug map
     // PositionSpline::GetSplineParameter()
@@ -23,7 +23,7 @@ namespace jag::game {
         undefined1* this_03;
         undefined8 uVar3;
 
-        this_03 = field_16;
+        this_03 = m_spline;
         this_00 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)
                       this_03->GetScreen();
         cVar2 = eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(
@@ -45,7 +45,7 @@ namespace jag::game {
 
         IPositionManager::IPositionManager();
         field_0 = &PTR__PositionSpline_100f0be58;
-        puVar1 = field_16;
+        puVar1 = m_spline;
         new (puVar1) SplineMovement(1);
         new (field_288) oldscape::dash3d::ModelLit::AABB();
         if (param_2 == 2) {
@@ -74,7 +74,7 @@ namespace jag::game {
 
         local_38[0] = math::Vector3FromVector3T<double>((math*)param_2, param_2);
         local_28 = math::Vector3FromVector3T<double>((math*)param_3, param_2);
-        (field_16, param_1, (Vector3T*)local_38, (Vector3T*)&local_28)->Update();
+        (m_spline, param_1, (Vector3T*)local_38, (Vector3T*)&local_28)->Update();
     }
 
     // 0x100617e20, 192 bytes, placed by class name

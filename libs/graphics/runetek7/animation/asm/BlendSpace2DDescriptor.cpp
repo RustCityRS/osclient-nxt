@@ -7,10 +7,10 @@
 
 namespace jag::graphics {
     // 0x1000641f0: the linker folded this into SunlightOptions::GetSunElevation() const, which has identical code
-    BlendSpace2DDescriptor::LocationInfo::GetPositionY() const;
+    float BlendSpace2DDescriptor::LocationInfo::GetPositionY() const;
 
     // 0x1001c4510: the linker folded this into oldscape::rseven::OSRenderCore_TextureDataProvider::Gamma() const, which has identical code
-    BlendSpace2DDescriptor::LocationInfo::GetPositionX() const;
+    float BlendSpace2DDescriptor::LocationInfo::GetPositionX() const;
 
     // 0x1002699a0: the linker folded this into oldscape::rs2lib::social::ClanChannelDelta::DeleteUser::GetID() const, which has identical code
     BlendSpace2DDescriptor::GetNodeType() const;
@@ -27,9 +27,9 @@ namespace jag::graphics {
         std::unique_ptr<BlendTreeNodeDescriptor, std::default_delete<BlendTreeNodeDescriptor>>::unique_ptr<true, void>(
             (unique_ptr<BlendTreeNodeDescriptor, std::default_delete<BlendTreeNodeDescriptor>>*)this);
         fVar1 = (float)param_1->gFloat();
-        field_8 = fVar1;
+        m_positionX = fVar1;
         fVar1 = (float)param_1->gFloat();
-        field_12 = fVar1;
+        m_positionY = fVar1;
         local_20.FromPacket(param_1);
         std::unique_ptr<BlendTreeNodeDescriptor, std::default_delete<BlendTreeNodeDescriptor>>::operator=(
             (unique_ptr<BlendTreeNodeDescriptor, std::default_delete<BlendTreeNodeDescriptor>>*)this,
@@ -160,7 +160,7 @@ namespace jag::graphics {
                     std::unique_ptr<BlendTreeNode, std::default_delete<BlendTreeNode>>, float, float>(
                     (unique_ptr*)local_88, (float*)local_a8, (float*)&local_38);
                 std::unique_ptr<BlendTreeNode, std::default_delete<BlendTreeNode>>::~unique_ptr(local_a8);
-                this_01 = (EntityHighlightGlobalState*)&this_01->field_16;
+                this_01 = (EntityHighlightGlobalState*)&this_01->m_playerNPCAttackOpPriority;
             } while (this_01 != pEVar5);
         }
         pAVar1 = local_68;
@@ -275,7 +275,7 @@ namespace jag::graphics {
                 eastl::operator+(local_58, (basic_string*)local_90, (value_type*)"}\n");
                 eastl::string::operator+=((eastl::string*)(BlendSpace2DDescriptor*)this, (basic_string*)local_58);
                 local_58->~basic_string();
-                this_00 = (EntityHighlightGlobalState*)&this_00->field_16;
+                this_00 = (EntityHighlightGlobalState*)&this_00->m_playerNPCAttackOpPriority;
             } while (this_00 != local_70);
         }
         eastl::operator+(local_58, (basic_string*)local_b0, (value_type*)"}\n");

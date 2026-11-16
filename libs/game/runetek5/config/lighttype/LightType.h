@@ -13,13 +13,13 @@ namespace jag::game {
         virtual DecodeType(PacketT<Array<unsigned char, eastl::allocator>>&, unsigned int);
         virtual PostDecode();
         GetJitterMoveTimeOffsetRandomMS() const;
-        GetOffset() const;
-        GetJitterMoveTimeMS() const;
+        int GetOffset() const;
+        int GetJitterMoveTimeMS() const;
         GetJitterRadiusRandom() const;
-        GetWaveType() const;
-        GetFrequency() const;
+        uint GetWaveType() const;
+        uint GetFrequency() const;
         uint GetAmplitude() const;
-        GetJitterRadius() const;
+        float GetJitterRadius() const;
         GetJitterMovePower() const;
         GetJitterIntensityStrength() const;
         LightType(BaseTemplateConfigTypeList<LightType>*, int);
@@ -30,20 +30,20 @@ namespace jag::game {
         BaseTemplateConfigTypeList* field_24; // offset 24
         int field_32;                         // offset 32
         char _unknown_36[20];
-        uint field_56;       // offset 56
-        int field_60;        // offset 60
-        uint m_amplitude;    // offset 64
-        uint field_68;       // offset 68
-        undefined4 field_72; // offset 72
-        undefined4 field_76; // offset 76
-        undefined4 field_80; // offset 80
-        undefined4 field_84; // offset 84
-        undefined1 field_88; // offset 88
+        uint m_waveType;                 // offset 56
+        int m_offset;                    // offset 60
+        uint m_amplitude;                // offset 64
+        uint m_frequency;                // offset 68
+        undefined4 field_72;             // offset 72
+        undefined4 field_76;             // offset 76
+        undefined4 field_80;             // offset 80
+        float m_jitterRadius;            // offset 84
+        undefined1 m_jitterRadiusRandom; // offset 88
         char _unknown_89[3];
-        undefined4 field_92;                  // offset 92
-        undefined4 field_96;                  // offset 96
-        undefined4 m_jitterMovePower;         // offset 100
-        undefined4 m_jitterIntensityStrength; // offset 104
+        int m_jitterMoveTimeMS;                    // offset 92
+        undefined4 m_jitterMoveTimeOffsetRandomMS; // offset 96
+        undefined4 m_jitterMovePower;              // offset 100
+        undefined4 m_jitterIntensityStrength;      // offset 104
         char _unknown_108[4];
     };
 
@@ -93,17 +93,17 @@ namespace jag::game {
         new (this) ConfigType<LightType>(param_1, param_2);
         new (this) MakeSharedPool<LightType, 32>();
         field_0 = &PTR__LightType_100f034b0;
-        field_56 = 0;
-        field_60 = 0;
+        m_waveType = 0;
+        m_offset = 0;
         m_amplitude = 2048;
-        field_68 = 2048;
+        m_frequency = 2048;
         field_72 = 1097859072;
         field_76 = 1080033280;
-        field_92 = 0;
-        field_96 = 0;
+        m_jitterMoveTimeMS = 0;
+        m_jitterMoveTimeOffsetRandomMS = 0;
         field_80 = 0;
-        field_84 = 0;
-        field_88 = 0;
+        m_jitterRadius = 0.0;
+        m_jitterRadiusRandom = 0;
         m_jitterMovePower = 1065353216;
         m_jitterIntensityStrength = 0;
     }

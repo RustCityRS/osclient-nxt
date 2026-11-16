@@ -924,7 +924,7 @@ namespace jag::ui {
     }
 
     // 0x1006acf00: the linker folded this into Button::GetValueRepresentation(), which has identical code
-    Carousel::GetValueRepresentation();
+    ComponentSingleValueMultiOptionMixin Carousel::GetValueRepresentation();
 
     // 0x1006c5d10, 16 bytes, placed by class name
     // Carousel::GetEntryIndexById(int) const::$_25::operator()(Carousel::Entry const&, int) const

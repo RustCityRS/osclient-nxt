@@ -68,7 +68,7 @@ namespace jag::ui {
         char _unknown_353[3];
         undefined4 field_356; // offset 356
         char _unknown_360[32];
-        undefined** field_392; // offset 392
+        undefined** m_pValueRepresentation; // offset 392
         char _unknown_400[112];
         int field_512;        // offset 512
         undefined1 field_516; // offset 516
@@ -135,10 +135,10 @@ namespace jag::ui {
         NpcUID* in_RSI;
 
         field_0 = &PTR__Check_100f0e810;
-        field_392 = &PTR__Check_100f0e940;
+        m_pValueRepresentation = &PTR__Check_100f0e940;
         (&field_464)->~Sprite();
         (&field_400)->~TextData();
-        eastl::destruct<oldscape::highlight::NpcUID*>((eastl*)&field_392, in_RSI, extraout_RDX);
+        eastl::destruct<oldscape::highlight::NpcUID*>((eastl*)&m_pValueRepresentation, in_RSI, extraout_RDX);
         ~Component();
     }
 

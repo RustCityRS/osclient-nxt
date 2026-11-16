@@ -16,7 +16,7 @@ namespace jag::graphics {
                                                EffectManager const&);
 
     // 0x100102fc0: the linker folded this into oldscape::rs2lib::InputField::GetPlaceholderContents() const, which has identical code
-    Renderer::GetDrawableQueue();
+    DrawableQueue Renderer::GetDrawableQueue();
 
     // 0x1007e40b0, 192 bytes, base-object constructor, placed by class name and debug map
     // Renderer::Renderer(RT7Core*, eastl::fixed_vector<DrawableQueue::RenderPassDrawableGroupsConfig, 10ul, true, eastl::allocator> const&, unsigned long, unsigned long)
@@ -28,7 +28,7 @@ namespace jag::graphics {
         new (&field_16) eastl::vector<DrawableList*, eastl::allocator>();
         new (&field_48) eastl::vector<Drawable*, eastl::allocator>();
         pTVar1 = (ThreadPool*)param_1->GetImmediateThreadPool();
-        new (field_80, pTVar1, param_2) DrawableQueue();
+        new (m_drawableQueue, pTVar1, param_2) DrawableQueue();
         (&field_16, param_4)->reserve();
         (&field_48, param_3)->reserve();
     }
@@ -40,7 +40,7 @@ namespace jag::graphics {
     // Renderer::~Renderer()
     void Renderer::~Renderer() {
         field_0 = &PTR__Renderer_100f14d90;
-        field_80->~DrawableQueue();
+        m_drawableQueue->~DrawableQueue();
         (&field_48)->~vector();
         (&field_16)->~vector();
     }
@@ -156,7 +156,7 @@ namespace jag::graphics {
                       75, (char*)0);
         }
         pRVar1 = (RenderContext*)GetRenderContext();
-        local_40.field_0 = 0;
+        local_40.m_stackFrames = 0;
         new (&local_40) callstack::Callstack();
         RenderViewBegin(this, pRVar2, param_3, param_5, (RenderPassBitSet*)&local_40);
         GatherDrawableElements(this, param_1, param_3, param_4, param_2, param_5);
@@ -196,7 +196,7 @@ namespace jag::graphics {
                 if (param_4->GetX() == 0) {
                 LAB_1007e46a0:
                     param_1 = (RenderContext*)field_8;
-                    (**(code**)(*(long*)*plVar4 + 16))((long*)*plVar4, param_1, param_3, param_2, field_80);
+                    (**(code**)(*(long*)*plVar4 + 16))((long*)*plVar4, param_1, param_3, param_2, m_drawableQueue);
                 } else {
                     uVar3 = (*plVar4)->GetPos();
                     param_1 = (RenderContext*)(ulong)uVar3;
@@ -227,7 +227,7 @@ namespace jag::graphics {
         undefined8* puVar1;
         undefined8* puVar2;
 
-        this_00 = field_80;
+        this_00 = m_drawableQueue;
         this_00->ClearAllGroupsInAllPasses();
         SetupDrawableGroups(this);
         puVar1 = (undefined8*)(&field_16)->HeapBeginPtr();
@@ -262,7 +262,7 @@ namespace jag::graphics {
         plVar5 = (long*)(&param_1->field_520)->HeapBeginPtr();
         local_58 = (long*)(&param_1->field_520)->end();
         if (plVar5 != local_58) {
-            puVar1 = ((Renderer*)this)->field_80;
+            puVar1 = ((Renderer*)this)->m_drawableQueue;
             do {
                 if (*plVar5 == 0) {
                     /* WARNING: Subroutine does not return */
@@ -336,7 +336,7 @@ namespace jag::graphics {
         undefined8* puVar1;
         undefined8* puVar2;
 
-        this_00 = field_80;
+        this_00 = m_drawableQueue;
         this_00->ClearAllGroupsInAllPasses();
         SetupDrawableGroups(this);
         puVar1 = (undefined8*)(&field_16)->HeapBeginPtr();
@@ -380,10 +380,10 @@ namespace jag::graphics {
         uint uVar3;
 
         uVar3 = ForwardLightingPass::GetSortByMaterial();
-        pSVar1 = (ServerConnectionWorkItem*)(field_80, 4, 0)->GetDrawableGroup();
+        pSVar1 = (ServerConnectionWorkItem*)(m_drawableQueue, 4, 0)->GetDrawableGroup();
         iVar2 = (uVar3 & 255) * 2;
         oldscape::ServerConnectionWorkItem::ServerConnectionWorkItem(pSVar1, iVar2);
-        pSVar1 = (ServerConnectionWorkItem*)(field_80, 4, 1)->GetDrawableGroup();
+        pSVar1 = (ServerConnectionWorkItem*)(m_drawableQueue, 4, 1)->GetDrawableGroup();
         oldscape::ServerConnectionWorkItem::ServerConnectionWorkItem(pSVar1, iVar2);
     }
 

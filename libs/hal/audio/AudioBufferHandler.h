@@ -16,7 +16,7 @@ namespace jag::hal::audio {
         virtual void ReadSample(unsigned int, unsigned int, bool) const;
         virtual void SetRate(unsigned int);
         virtual void GetData(unsigned int);
-        virtual GetReadOffsetSamples(unsigned int) const;
+        virtual uint GetReadOffsetSamples(unsigned int) const;
         virtual void GetMaximumSamples() const;
         AudioBufferHandler(unsigned int, shared_ptr<AudioBuffer> const&);
         void ConsumedSamples(unsigned int);
@@ -26,16 +26,16 @@ namespace jag::hal::audio {
         // data members, from how the methods use this: 40 bytes
         undefined** field_0; // offset 0, vtable pointer
         char _unknown_8[16];
-        uint field_24; // offset 24
-        uint field_28; // offset 28
-        uint field_32; // offset 32
+        uint m_readOffsetSamples; // offset 24
+        uint field_28;            // offset 28
+        uint field_32;            // offset 32
         char _unknown_36[4];
     };
 
     // 0x100b90020, 16 bytes, inline, placed by class name and debug map
     // AudioBufferHandler::ConsumedSamples(unsigned int)
     void AudioBufferHandler::ConsumedSamples(uint param_1) {
-        field_24 = field_24 + param_1;
+        m_readOffsetSamples = m_readOffsetSamples + param_1;
     }
 
     // 0x100b90670, 48 bytes, inline, placed by class name
@@ -44,13 +44,13 @@ namespace jag::hal::audio {
         long* plVar2;
 
         plVar2 = (long*)shared_ptr<AudioBuffer>::operator->((shared_ptr<AudioBuffer>*)&field_8);
-        return (**(code**)(*plVar2 + 80))(plVar2) == field_24;
+        return (**(code**)(*plVar2 + 80))(plVar2) == m_readOffsetSamples;
     }
 
     // 0x100b906a0, 16 bytes, inline, placed by class name
     // AudioBufferHandler::ResetReadPosition()
     void AudioBufferHandler::ResetReadPosition() {
-        field_24 = 0;
+        m_readOffsetSamples = 0;
     }
 
     // 0x100b97060, 16 bytes, complete-object destructor, inline, placed by class name
@@ -88,7 +88,7 @@ namespace jag::hal::audio {
         undefined7 in_register_00000009;
 
         plVar1 = (long*)shared_ptr<AudioBuffer>::operator->((shared_ptr<AudioBuffer>*)&field_8);
-        (**(code**)(*plVar1 + 48))(plVar1, param_1, param_2 + field_24,
+        (**(code**)(*plVar1 + 48))(plVar1, param_1, param_2 + m_readOffsetSamples,
                                    CONCAT71(in_register_00000009, param_3) & 4294967295);
     }
 

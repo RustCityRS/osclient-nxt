@@ -372,8 +372,8 @@ namespace jag {
             local_208 = (TimedGraph*)0;
         }
         local_1d8 = (int)(local_1d4 * *(int*)param_1) / *(int*)(param_1 + 8);
-        local_160[0].field_0 = 0;
-        local_1d8 = math::Clamp<int>(&local_1d8, &local_160[0].field_0, (int*)&local_1d4);
+        local_160[0].m_stackFrames = 0;
+        local_1d8 = math::Clamp<int>(&local_1d8, &local_160[0].m_stackFrames, (int*)&local_1d4);
         pGVar5 = local_1e0;
         uVar4 = local_1f0;
         uVar1 = local_200._8_8_;

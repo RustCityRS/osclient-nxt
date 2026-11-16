@@ -457,7 +457,7 @@ namespace jag {
                 }
                 local_92 = bVar3;
                 if ((bVar3 != 0) && ((bVar2 & 1) != 0)) {
-                    local_d8.field_40 = 0;
+                    local_d8.m_textureAtlasID = 0;
                     local_d8.field_44 = 0;
                     local_d8._45_3_ = 0;
                     do {
@@ -472,7 +472,7 @@ namespace jag {
                                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/"
                                 "Js5Compression.cpp",
                                 463, "Failed to entirely load mipped PNG image, PNG decode failed at mip level %d/%d.",
-                                (ulong)(local_d8.field_40 + 1), (ulong)(uint)bVar3);
+                                (ulong)(local_d8.m_textureAtlasID + 1), (ulong)(uint)bVar3);
                         }
                         lVar10 = local_108.data();
                         if (lVar10 != lVar9 + (ulong)uVar5) {
@@ -484,7 +484,7 @@ namespace jag {
                         }
                         iVar6 = local_90.GetX();
                         iVar7 = local_90.GetZ();
-                        if (local_d8.field_40 != 0) {
+                        if (local_d8.m_textureAtlasID != 0) {
                             puVar12 = (uchar*)0;
                         } else {
                             puVar12 = (uchar*)0;
@@ -501,7 +501,7 @@ namespace jag {
                             }
                         }
                         uVar5 = (uint)bVar3;
-                        if (local_98 == 0 && local_d8.field_40 == 0) {
+                        if (local_98 == 0 && local_d8.m_textureAtlasID == 0) {
                             local_d8.Reserve((long)puVar12 * local_d8._32_8_ + 9);
                             PacketT<Array<unsigned char, eastl::allocator>>::p1<unsigned long>(
                                 (PacketT<Array<unsigned char, eastl::allocator>>*)&local_d8, (ulong)uVar5);
@@ -528,7 +528,7 @@ namespace jag {
                             }
                         } else {
                             bVar1 = false;
-                            if (local_d8.field_40 != 0 || puVar12 == local_a8) {
+                            if (local_d8.m_textureAtlasID != 0 || puVar12 == local_a8) {
                                 bVar2 = 0;
                                 puVar12 = local_a8;
                                 if (local_9c == uVar5)
@@ -538,9 +538,9 @@ namespace jag {
                             }
                         }
                         local_90.~RGBAImage();
-                    } while (
-                        ((bVar1) && (uVar8 = local_d8.field_40 + 1, local_d8._40_8_ = ZEXT48(uVar8), uVar8 < uVar5)) &&
-                        ((bVar2 & 1) != 0));
+                    } while (((bVar1) && (uVar8 = local_d8.m_textureAtlasID + 1, local_d8._40_8_ = ZEXT48(uVar8),
+                                          uVar8 < uVar5)) &&
+                             ((bVar2 & 1) != 0));
                 }
                 local_98 = local_98 + 1;
             } while ((local_98 < (uint)local_d8._32_4_) && ((bVar2 & 1) != 0));

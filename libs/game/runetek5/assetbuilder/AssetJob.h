@@ -12,10 +12,10 @@ namespace jag::game {
         virtual void __pure_slot_2() = 0;
         virtual void __pure_slot_3() = 0;
         virtual DecodeResult(shared_ptr<void> const&);
-        GetJobID() const;
+        int GetJobID() const;
         GetFirstResult() const;
         GetResultDataDecoded() const;
-        GetPriority() const;
+        int GetPriority() const;
         GetStatus() const;
         GetResultData() const;
         GetAssetWorker() const;
@@ -33,13 +33,13 @@ namespace jag::game {
         static /* 8 bytes */ nextAssetJobID;
 
         // data members, from how the methods use this: 72 bytes
-        undefined* field_0;  // offset 0, vtable pointer
-        int field_8;         // offset 8
-        undefined4 field_12; // offset 12
-        undefined4 field_16; // offset 16
-        undefined4 field_20; // offset 20
-        undefined4 field_24; // offset 24
-        undefined4 field_28; // offset 28
+        undefined* field_0;       // offset 0, vtable pointer
+        int m_jobID;              // offset 8
+        undefined4 field_12;      // offset 12
+        int m_priority;           // offset 16
+        undefined4 m_status;      // offset 20
+        undefined4 m_assetWorker; // offset 24
+        undefined4 field_28;      // offset 28
         char _unknown_32[40];
     };
 
@@ -52,7 +52,7 @@ namespace jag::game {
     // 0x100430cc0, 16 bytes, inline, placed by class name
     // AssetJob::IsFinished() const
     bool AssetJob::IsFinished() {
-        return field_20 == 6;
+        return m_status == 6;
     }
 
     // 0x100430cd0, 16 bytes, inline, placed by class name

@@ -87,7 +87,7 @@ namespace jag::oldscape::configdecoder {
         uVar2 = (undefined4)((ulong)in_RAX >> 32);
         if (param_2 == 4) {
             uVar2 = param_1->gVarInt();
-            field_48 = uVar2;
+            m_dbTableId = uVar2;
         } else if (param_2 == 3) {
             bVar1 = param_1->g1();
             set_max_size((ulong)bVar1, 0);

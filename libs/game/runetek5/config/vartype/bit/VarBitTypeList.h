@@ -17,7 +17,7 @@ namespace jag::game {
         // data members, from how the methods use this: 120 bytes
         undefined* field_0; // offset 0, vtable pointer
         char _unknown_8[104];
-        undefined8 field_112; // offset 112
+        undefined8 m_configProvider; // offset 112
     };
 
     // 0x1004c5ce0, 16 bytes, inline, placed by class name and debug map
@@ -39,7 +39,7 @@ namespace jag::game {
 
         BaseTemplateConfigTypeList<VarBitType>::BaseTemplateConfigTypeList();
         field_0 = PTR_vtable_100ee7f68 + 16;
-        field_112 = in_R9;
+        m_configProvider = in_R9;
     }
 
     // 0x100587760, 16 bytes, complete-object destructor, inline, placed by class name

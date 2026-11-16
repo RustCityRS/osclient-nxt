@@ -1415,7 +1415,7 @@ namespace jag::input {
 namespace jag::input::gesture {
     class GestureManager {
     public:
-        GetNumTouches() const;
+        int GetNumTouches() const;
         GestureManager();
         ~GestureManager();
         void AddGesture(GestureBase*);
@@ -1429,7 +1429,7 @@ namespace jag::input::gesture {
         void GetLastTouch(unsigned long) const;
 
         // data members, from how the methods use this: 48 bytes
-        int field_0; // offset 0
+        int m_numTouches; // offset 0
         char _unknown_4[44];
     };
 
@@ -1471,7 +1471,7 @@ namespace jag::input::gesture {
         TouchPoint local_50;
         undefined8 local_38;
 
-        field_0 = field_0 + 1;
+        m_numTouches = m_numTouches + 1;
         new (&local_50) TouchPoint(param_1, param_2, param_3);
         puVar2 = (ulong*)eastl::vector<TouchPoint, eastl::allocator>::operator[](
             (vector<TouchPoint, eastl::allocator>*)&field_8, param_1);
@@ -1587,10 +1587,10 @@ namespace jag::input::gesture {
         TouchPoint local_50;
         ulong local_30;
 
-        local_50.field_0 = CONCAT44(local_50.field_0._4_4_, field_0 + -1);
+        local_50.field_0 = CONCAT44(local_50.field_0._4_4_, m_numTouches + -1);
         local_30 = local_30 & 18446744069414584320;
         piVar2 = std::max<int>((int*)&local_50, (int*)&local_30);
-        field_0 = *piVar2;
+        m_numTouches = *piVar2;
         local_30 =
             eastl::rbtree<eastl::string, eastl::pair<eastl::stringconst, bool>, eastl::less<eastl::string>,
                           eastl::allocator, eastl::use_first<eastl::pair<eastl::stringconst, bool>>, true, true>::end();
@@ -1642,7 +1642,7 @@ namespace jag::input::gesture {
         TouchPoint* this_00;
         TouchPoint* pTVar1;
 
-        field_0 = 0;
+        m_numTouches = 0;
         this_00 = (TouchPoint*)(&field_8)->HeapBeginPtr();
         pTVar1 = (TouchPoint*)(&field_8)->end();
         for (; this_00 != pTVar1; this_00 = this_00 + 1) {

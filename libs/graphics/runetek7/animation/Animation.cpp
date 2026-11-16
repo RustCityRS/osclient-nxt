@@ -10,7 +10,7 @@ namespace jag::graphics {
     Animation::GetFrames() const;
 
     // 0x100023af0: the linker folded this into hal::Haptics::GetEnabled() const, which has identical code
-    Animation::IsConstructed() const;
+    char Animation::IsConstructed() const;
 
     // 0x10002d850: the linker folded this into oldscape::option::Option<int>::GetDefaultValue() const, which has identical code
     Animation::GetRT5Frames() const;
@@ -19,7 +19,7 @@ namespace jag::graphics {
     Animation::GetFrameDelays() const;
 
     // 0x1000b7a80: the linker folded this into oldscape::minimenu::MinimenuEntry::GetObjCount() const, which has identical code
-    Animation::GetAnimationLength() const;
+    int Animation::GetAnimationLength() const;
 
     // 0x100102fc0: the linker folded this into oldscape::rs2lib::InputField::GetPlaceholderContents() const, which has identical code
     Animation::GetFrameStartTimes() const;
@@ -28,10 +28,10 @@ namespace jag::graphics {
     Animation::GetRT5FrameCount() const;
 
     // 0x1001fb280: the linker folded this into http::CRMData::GetActionInfo() const, which has identical code
-    Animation::GetAnimKeyFrameSet() const;
+    shared_ptr Animation::GetAnimKeyFrameSet() const;
 
     // 0x1003cf2c0: the linker folded this into game::MapElementType::GetTextRGBA() const, which has identical code
-    Animation::GetMaximumUsedBoneID() const;
+    int Animation::GetMaximumUsedBoneID() const;
 
     // 0x1009863f0, 368 bytes, base-object constructor, placed by class name and debug map
     // Animation::Animation(Array<shared_ptr<AnimationFrameRT5>, eastl::allocator> const&, Array<unsigned int, eastl::allocator>&, Array<LabelData, BucketAllocatorEASTL> const&, shared_ptr<AnimKeyFrameSet>)
@@ -41,18 +41,18 @@ namespace jag::graphics {
         shared_ptr in_stack_ffffffffffffff88;
 
         new (this) MakeSharedPool<Animation, 512>();
-        field_0 = '\0';
+        m_constructed = '\0';
         new (&field_8) Array<shared_ptr<AnimationFrameRT7>, eastl::allocator>();
         new (&field_32) Array<shared_ptr<AnimationFrameRT5>, eastl::allocator>();
         new (&field_56) Array<unsigned int, eastl::allocator>();
         new (&field_80) Array<unsigned int, eastl::allocator>();
-        field_104 = -1;
+        m_animationLength = -1;
         m_animatesTransparency = 0;
         m_animatedColourType = '\x02';
         m_animatesBillboards = 0;
-        new (field_112, (_func_decltype_nullptr*)param_1)
+        new (m_animKeyFrameSet, (_func_decltype_nullptr*)param_1)
             shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        field_128 = -1;
+        m_maximumUsedBoneID = -1;
         new (&field_136) eastl::vector<std::future<void>, eastl::allocator>();
         new (&field_168) Array<AnimKeyFrameSample, eastl::allocator>();
         shared_ptr<oldscape::dash3d::Decor>::shared_ptr(asStackY_f8 + 128, in_R8);
@@ -65,7 +65,7 @@ namespace jag::graphics {
     void Animation::ConstructAnimation(Array* param_1, Array* param_2, Array* param_3, shared_ptr param_4) {
         shared_ptr* in_R8;
 
-        if (field_0 != '\0') {
+        if (m_constructed != '\0') {
             /* WARNING: Subroutine does not return */
             LogAssert("!m_constructed",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
@@ -92,18 +92,18 @@ namespace jag::graphics {
         char cVar2;
 
         new (this) MakeSharedPool<Animation, 512>();
-        field_0 = '\0';
+        m_constructed = '\0';
         new (&field_8) Array<shared_ptr<AnimationFrameRT7>, eastl::allocator>();
         new (&field_32) Array<shared_ptr<AnimationFrameRT5>, eastl::allocator>();
         new (&field_56) Array<unsigned int, eastl::allocator>();
         new (&field_80) Array<unsigned int, eastl::allocator>();
-        field_104 = -1;
+        m_animationLength = -1;
         m_animatesTransparency = 0;
         m_animatedColourType = '\x02';
         m_animatesBillboards = 0;
-        this_00 = field_112;
+        this_00 = m_animKeyFrameSet;
         new (this_00) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(param_1);
-        field_128 = -1;
+        m_maximumUsedBoneID = -1;
         new (&field_136) eastl::vector<std::future<void>, eastl::allocator>();
         new (&field_168) Array<AnimKeyFrameSample, eastl::allocator>();
         shared_ptr<AnimKeyFrameSet>::operator=((shared_ptr<AnimKeyFrameSet>*)this_00, param_1);
@@ -113,8 +113,8 @@ namespace jag::graphics {
         pAVar1 = (AnimKeyFrameSet*)shared_ptr<AnimKeyFrameSet>::operator->((shared_ptr<AnimKeyFrameSet>*)this_00);
         m_animatesTransparency = pAVar1->GetAnimatesTransparency();
         pAVar1 = (AnimKeyFrameSet*)shared_ptr<AnimKeyFrameSet>::operator->((shared_ptr<AnimKeyFrameSet>*)this_00);
-        field_104 = pAVar1->GetDuration();
-        field_0 = '\x01';
+        m_animationLength = pAVar1->GetDuration();
+        m_constructed = '\x01';
     }
 
     // 0x1009868a0, 16 bytes, complete-object constructor, placed by class name and debug map
@@ -135,7 +135,7 @@ namespace jag::graphics {
         }
         (&field_168)->~Array();
         this_00->~vector();
-        field_112->~shared_ptr();
+        m_animKeyFrameSet->~shared_ptr();
         (&field_80)->~Array();
         (&field_56)->~Array();
         (&field_32)->~Array();
@@ -276,8 +276,8 @@ namespace jag::graphics {
         while (iVar5 = std::__atomic_base::operator_cast_to_int(local_60), iVar5 != 0) {
             this_thread::Sleep(0);
         }
-        field_104 = local_44;
-        shared_ptr<AnimKeyFrameSet>::operator=((shared_ptr<AnimKeyFrameSet>*)field_112, &local_40);
+        m_animationLength = local_44;
+        shared_ptr<AnimKeyFrameSet>::operator=((shared_ptr<AnimKeyFrameSet>*)m_animKeyFrameSet, &local_40);
         pAVar6 = (AnimKeyFrameSet*)shared_ptr<AnimKeyFrameSet>::operator->((shared_ptr<AnimKeyFrameSet>*)&local_40);
         bVar3 = pAVar6->GetAnimatesTransparency();
         m_animatesTransparency = bVar3;
@@ -287,7 +287,7 @@ namespace jag::graphics {
         pAVar6 = (AnimKeyFrameSet*)shared_ptr<AnimKeyFrameSet>::operator->((shared_ptr<AnimKeyFrameSet>*)&local_40);
         bVar3 = pAVar6->GetAnimatesBillboards();
         m_animatesBillboards = bVar3;
-        field_0 = '\x01';
+        m_constructed = '\x01';
         local_80->~vector();
         local_40.~shared_ptr();
     }
@@ -396,12 +396,12 @@ namespace jag::graphics {
                 uVar12 = uVar12 + 1;
             } while (uVar5 < uVar7);
         }
-        field_128 = local_3c;
-        field_104 = local_38;
+        m_maximumUsedBoneID = local_3c;
+        m_animationLength = local_38;
         new (&local_58) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(0);
-        shared_ptr<AnimKeyFrameSet>::operator=((shared_ptr<AnimKeyFrameSet>*)field_112, &local_58);
+        shared_ptr<AnimKeyFrameSet>::operator=((shared_ptr<AnimKeyFrameSet>*)m_animKeyFrameSet, &local_58);
         local_58.~shared_ptr();
-        field_0 = '\x01';
+        m_constructed = '\x01';
     }
 
 } // namespace jag::graphics

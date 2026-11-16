@@ -31,7 +31,7 @@ namespace jag::oldscape {
     // 0x100110780, 16 bytes, inline, placed by debug map only (low confidence)
     // ClientEntityID::IsValid() const
     bool ClientEntityID::IsValid() {
-        return -1 < field_4;
+        return -1 < m_slotID;
     }
 
     // 0x100110790, 16 bytes, inline, placed by debug map only (low confidence)

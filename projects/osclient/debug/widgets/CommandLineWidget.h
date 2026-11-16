@@ -23,8 +23,8 @@ namespace jag::oldscape::widgets {
         char _unknown_21[7];
         GridRect field_28; // offset 28
         char _unknown_48[32];
-        CommandLine* field_80; // offset 80
-        undefined4 field_88;   // offset 88
+        CommandLine* field_80;        // offset 80
+        undefined4 m_highlightColour; // offset 88
         char _unknown_92[8];
     };
 

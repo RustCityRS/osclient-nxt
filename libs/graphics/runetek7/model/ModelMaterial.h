@@ -23,7 +23,7 @@ namespace jag::graphics {
         void InitRenderPassEffects(bool);
         bool IsRefractionEnabled() const;
         void UpdateEnvironmentMap(TextureManager&);
-        GetEnvironmentMap() const;
+        shared_ptr GetEnvironmentMap() const;
         void SetTextureAtlasReference(shared_ptr<TextureAtlasReference> const&);
         void DestroyEnvironmentMap();
 
@@ -36,12 +36,12 @@ namespace jag::graphics {
         undefined4 field_36; // offset 36
         int field_40;        // offset 40
         char _unknown_44[492];
-        shared_ptr field_536; // offset 536
-        shared_ptr field_552; // offset 552
+        shared_ptr field_536;        // offset 536
+        shared_ptr m_environmentMap; // offset 552
         char _unknown_568[8];
         undefined8 m_refractionParams; // offset 576
         undefined8 field_584;          // offset 584
-        undefined* field_592;          // offset 592
+        undefined* m_hideFacesMode;    // offset 592
     };
 
     // 0x10080d4f0, 16 bytes, complete-object destructor, inline, placed by class name and debug map
@@ -67,7 +67,7 @@ namespace jag::graphics {
                 if (cVar1 == cVar2) {
                     cVar1 = GetOption(8);
                     cVar2 = param_1->GetOption(8);
-                    if ((cVar1 == cVar2) && (field_592 == param_1->field_592)) {
+                    if ((cVar1 == cVar2) && (m_hideFacesMode == param_1->m_hideFacesMode)) {
                         cVar1 = GetOption(10);
                         cVar2 = param_1->GetOption(10);
                         if (cVar1 == cVar2) {
@@ -128,7 +128,7 @@ namespace jag::graphics {
     // ModelMaterial::~ModelMaterial()
     void ModelMaterial::~ModelMaterial() {
         field_0 = &PTR__ModelMaterial_100f157d8;
-        field_552->~shared_ptr();
+        m_environmentMap->~shared_ptr();
         field_536->~shared_ptr();
         ~RenderMaterial();
     }

@@ -61,13 +61,13 @@ namespace jag::ui {
     Component::SetCurrentHeight(int);
 
     // 0x1000b7900: the linker folded this into oldscape::minimenu::MinimenuEntry::GetSubjectType() const, which has identical code
-    Component::GetCurrentWidth() const;
+    int Component::GetCurrentWidth() const;
 
     // 0x1000b7900: the linker folded this into oldscape::minimenu::MinimenuEntry::GetSubjectType() const, which has identical code
     Component::GetVisibleWidth() const;
 
     // 0x1000e31a0: the linker folded this into oldscape::graphics::NXTPixScreen::GetUIWidth() const, which has identical code
-    Component::GetCurrentHeight() const;
+    int Component::GetCurrentHeight() const;
 
     // 0x1000e31a0: the linker folded this into oldscape::graphics::NXTPixScreen::GetUIWidth() const, which has identical code
     Component::GetVisibleHeight() const;
@@ -85,7 +85,7 @@ namespace jag::ui {
     Component::GetOpConfig();
 
     // 0x1003a4970: the linker folded this into Window::GetWindowInitParams(), which has identical code
-    Component::GetDragConfig();
+    VisibleShadowCastingLightInfo Component::GetDragConfig();
 
     // 0x1003bb930, 128 bytes, placed by the data it initialises
     // ___cxx_global_var_init.28
@@ -104,16 +104,16 @@ namespace jag::ui {
     Component::GetSwipeConfig();
 
     // 0x1003f65a0: the linker folded this into EntityRoute::GetStalledTickCount() const, which has identical code
-    Component::GetDataHeight() const;
+    int Component::GetDataHeight() const;
 
     // 0x100429b10: the linker folded this into game::StaticPointLight::GetRGB() const, which has identical code
-    Component::GetDataWidth() const;
+    int Component::GetDataWidth() const;
 
     // 0x100431760: the linker folded this into game::Location::GetLocationType() const, which has identical code
     Component::GetCursorConfig();
 
     // 0x10043b780: the linker folded this into game::StaticPointLight::GetLightTypeToLoad() const, which has identical code
-    Component::GetCurrentY() const;
+    int Component::GetCurrentY() const;
 
     // 0x1004491a0: the linker folded this into game::CombinedLocationSection::GetHighlightState(), which has identical code
     Component::GetParams();
@@ -122,7 +122,7 @@ namespace jag::ui {
     Component::GetParent() const;
 
     // 0x100659510: the linker folded this into graphics::AnimationDescriptor::GetLoopBehaviour() const, which has identical code
-    Component::GetCurrentX() const;
+    int Component::GetCurrentX() const;
 
     // 0x1006922c0, 80 bytes, placed by class name and debug map
     // Component::Initialise(void (*)(Component*, PacketT<Array<unsigned char, eastl::allocator> >&, int), int, int, unsigned int, PacketT<Array<unsigned char, eastl::allocator> >&, char const*)
@@ -257,7 +257,7 @@ namespace jag::ui {
 
         iVar1 = CalculatePositionValue(field_50, m_dataX, m_currentWidth, param_1);
         m_currentX = iVar1;
-        iVar1 = CalculatePositionValue(field_51, m_dataY, field_92, param_2);
+        iVar1 = CalculatePositionValue(field_51, m_dataY, m_currentHeight, param_2);
         m_currentY = iVar1;
         if (field_54 != '\0') {
             iVar1 = param_3->GetX();
@@ -277,26 +277,26 @@ namespace jag::ui {
         bool bVar5;
 
         iVar2 = m_currentWidth;
-        iVar3 = field_92;
-        iVar4 = CalculateSizeValue(field_52, m_dataWidth, param_1);
+        iVar3 = m_currentHeight;
+        iVar4 = CalculateSizeValue(m_modeWidth, m_dataWidth, param_1);
         m_currentWidth = iVar4;
         iVar4 = CalculateSizeValue(m_modeHeight, m_dataHeight, param_2);
-        field_92 = iVar4;
-        if (field_52 == '\x04') {
+        m_currentHeight = iVar4;
+        if (m_modeWidth == '\x04') {
             m_currentWidth = (iVar4 * m_aspectRatioWidth) / m_aspectRatioHeight;
             cVar1 = m_modeHeight;
         } else {
             cVar1 = m_modeHeight;
         }
         if (cVar1 == '\x04') {
-            if (field_52 == '\x04') {
+            if (m_modeWidth == '\x04') {
                 /* WARNING: Subroutine does not return */
                 LogAssert(
                     "m_modeWidth != ComponentSizeMode::ASPECTRATIO",
                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/Component.cpp",
                     92, (char*)0);
             }
-            field_92 = (m_aspectRatioHeight * m_currentWidth) / m_aspectRatioWidth;
+            m_currentHeight = (m_aspectRatioHeight * m_currentWidth) / m_aspectRatioWidth;
             cVar1 = field_54;
         } else {
             cVar1 = field_54;
@@ -305,11 +305,11 @@ namespace jag::ui {
             iVar4 = param_3->Right();
             m_currentWidth = m_currentWidth - iVar4;
             iVar4 = param_3->MaxZ();
-            field_92 = field_92 - iVar4;
+            m_currentHeight = m_currentHeight - iVar4;
         }
         bVar5 = true;
         if (iVar2 == m_currentWidth) {
-            bVar5 = iVar3 != field_92;
+            bVar5 = iVar3 != m_currentHeight;
         }
         return bVar5;
     }
@@ -346,18 +346,18 @@ namespace jag::ui {
             iStack_1c = m_dataY;
             break;
         case '\x01':
-            iStack_1c = -(field_92 / 2);
+            iStack_1c = -(m_currentHeight / 2);
             break;
         case '\x02':
-            iStack_1c = -field_92;
+            iStack_1c = -m_currentHeight;
             break;
         case '\x03':
             goto switchD_100692977_caseD_3;
         case '\x04':
-            iStack_1c = -(field_92 / 2);
+            iStack_1c = -(m_currentHeight / 2);
             goto switchD_100692977_caseD_3;
         case '\x05':
-            iStack_1c = -field_92;
+            iStack_1c = -m_currentHeight;
         switchD_100692977_caseD_3:
         }
         return CONCAT44(iStack_1c, local_20);
@@ -407,8 +407,8 @@ namespace jag::ui {
         ulong in_RDX;
         undefined1 auVar5[16];
 
-        if (field_52 == '\x04') {
-            lVar1 = (long)(m_aspectRatioWidth * field_92);
+        if (m_modeWidth == '\x04') {
+            lVar1 = (long)(m_aspectRatioWidth * m_currentHeight);
             lVar2 = lVar1 / (long)m_aspectRatioHeight;
             uVar3 = lVar1 % (long)m_aspectRatioHeight;
             m_currentWidth = (int)lVar2;
@@ -421,7 +421,7 @@ namespace jag::ui {
             lVar1 = (long)(m_aspectRatioHeight * m_currentWidth);
             lVar2 = lVar1 / (long)m_aspectRatioWidth;
             uVar3 = lVar1 % (long)m_aspectRatioWidth;
-            field_92 = (int)lVar2;
+            m_currentHeight = (int)lVar2;
         }
         auVar5._8_8_ = uVar3 & 4294967295;
         auVar5._1_7_ = (uint7)((ulong)lVar2 >> 8) & 16777215;
@@ -477,7 +477,7 @@ namespace jag::ui {
             } else {
                 iVar2 = param_1->GetTargetMode();
                 if (iVar2 == 2) {
-                    new (&local_28) oldscape::sidebars::SideBarData(m_currentWidth, field_92);
+                    new (&local_28) oldscape::sidebars::SideBarData(m_currentWidth, m_currentHeight);
                     graphics::GUIAnimationInstance::BindIndirect<
                         math::Vector2T<int>, (graphics::GUIAnimationInstance&)->BindAnimation()::__39>(
                         param_1, (Vector2T*)&local_28, (__39*)local_30);
@@ -528,7 +528,7 @@ namespace jag::ui {
                 iVar2 = param_1->GetTargetMode();
                 if (iVar2 == 2) {
                     graphics::GUIAnimationInstance::BindIndirect<
-                        unsigned int&, (graphics::GUIAnimationInstance&)->BindAnimation()::__36>(param_1, &field_96,
+                        unsigned int&, (graphics::GUIAnimationInstance&)->BindAnimation()::__36>(param_1, &m_rGB,
                                                                                                  (__36*)&local_28);
                 } else {
                     graphics::GUIAnimationInstance::BindIndirect<Component::BindAnimation(

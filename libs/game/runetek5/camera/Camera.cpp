@@ -19,25 +19,25 @@ namespace jag::game {
     Camera::GetLinearPositionAcceleration() const;
 
     // 0x1001d07d0: the linker folded this into graphics::SceneViewData::GetViewFrustum() const, which has identical code
-    Camera::GetLookatManager() const;
+    shared_ptr Camera::GetLookatManager() const;
 
     // 0x100324d50: the linker folded this into oldscape::graphics::NXTPixToolkit::GetPix3D(), which has identical code
-    Camera::GetPositionManager() const;
+    shared_ptr Camera::GetPositionManager() const;
 
     // 0x10036f470: the linker folded this into graphics::GeometryBatch::GetFaceHSLBuffer(), which has identical code
-    Camera::GetLinearPositionMaxSpeed() const;
+    AABB Camera::GetLinearPositionMaxSpeed() const;
 
     // 0x1003f51a0: the linker folded this into BASType::GetHillRotateLength() const, which has identical code
-    Camera::GetPositionMode() const;
+    int Camera::GetPositionMode() const;
 
     // 0x100412e50: the linker folded this into MapSquarePointLights::GetPointLightTexture(), which has identical code
     Camera::GetLinearLookatAcceleration() const;
 
     // 0x1004198f0: the linker folded this into GraphicsDefaults::GetNpcChatTimeout() const, which has identical code
-    Camera::GetProjectionMode() const;
+    uint Camera::GetProjectionMode() const;
 
     // 0x1004ab8a0: the linker folded this into EnvironmentOverride::GetVolumetricOverrides() const, which has identical code
-    Camera::GetLinearLookatMaxSpeed() const;
+    AABB Camera::GetLinearLookatMaxSpeed() const;
 
     // 0x100623060: the linker folded this into OldCamera::Ready() const, which has identical code
     Camera::Ready() const;
@@ -55,17 +55,19 @@ namespace jag::game {
 
         ppuVar1 = *(undefined***)param_1;
         field_0 = ppuVar1;
-        *(undefined8*)(field_208 + (long)(ppuVar1[-33] + -208)) = *(undefined8*)(param_1 + 8);
+        *(undefined8*)(m_pLookatManager + (long)(ppuVar1[-33] + -208)) = *(undefined8*)(param_1 + 8);
         new (&field_16) math::Matrix44T<float>();
         new (&field_80) math::Matrix44T<float>();
         std::function<shared_ptr<Entity>(CameraTrackableType, int)>::function(
             (function<shared_ptr<Entity>(CameraTrackableType, int)>*)&field_144, in_RDX);
         m_clientControlled = 1;
-        field_196 = 0;
-        field_200 = 1;
-        new (field_208, (_func_decltype_nullptr*)in_RDX) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        field_224 = 1;
-        new (field_232, (_func_decltype_nullptr*)in_RDX) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        m_projectionMode = 0;
+        m_lookatMode = 1;
+        new (m_pLookatManager, (_func_decltype_nullptr*)in_RDX)
+            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        m_positionMode = 1;
+        new (m_positionManager, (_func_decltype_nullptr*)in_RDX)
+            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         new (&field_248)
             eastl::vector_map<int, shared_ptr<ICameraEffect>, eastl::less<int>, eastl::allocator,
                               eastl::vector<eastl::pair<int, shared_ptr<ICameraEffect>>, eastl::allocator>>();
@@ -80,14 +82,14 @@ namespace jag::game {
         field_336 = 1280;
         field_340 = 10;
         field_344 = 1;
-        new (field_352) oldscape::dash3d::ModelLit::AABB();
+        new (m_linearLookatMaxSpeed) oldscape::dash3d::ModelLit::AABB();
         new (m_linearPositionMaxSpeed) oldscape::dash3d::ModelLit::AABB();
         field_416 = DAT_1039bc158;
         uVar2 = uRam00000001039bc150;
         m_linearLookatAcceleration = _infiniteAcceleration;
         field_408 = uVar2;
         uVar2 = uRam00000001039bc150;
-        field_424 = _infiniteAcceleration;
+        m_linearPositionAcceleration = _infiniteAcceleration;
         field_432 = uVar2;
         field_440 = DAT_1039bc158;
         new (field_448) oldscape::dash3d::ModelLit::AABB();
@@ -127,12 +129,12 @@ namespace jag::game {
         std::function<shared_ptr<Entity>(CameraTrackableType, int)>::function(
             (function<shared_ptr<Entity>(CameraTrackableType, int)>*)&field_144, param_1);
         m_clientControlled = 1;
-        field_196 = 0;
-        field_200 = 1;
-        new (field_208, (_func_decltype_nullptr*)param_1)
+        m_projectionMode = 0;
+        m_lookatMode = 1;
+        new (m_pLookatManager, (_func_decltype_nullptr*)param_1)
             shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        field_224 = 1;
-        new (field_232, (_func_decltype_nullptr*)param_1)
+        m_positionMode = 1;
+        new (m_positionManager, (_func_decltype_nullptr*)param_1)
             shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         new (&field_248)
             eastl::vector_map<int, shared_ptr<ICameraEffect>, eastl::less<int>, eastl::allocator,
@@ -148,14 +150,14 @@ namespace jag::game {
         field_336 = 1280;
         field_340 = 10;
         field_344 = 1;
-        new (field_352) oldscape::dash3d::ModelLit::AABB();
+        new (m_linearLookatMaxSpeed) oldscape::dash3d::ModelLit::AABB();
         new (m_linearPositionMaxSpeed) oldscape::dash3d::ModelLit::AABB();
         field_416 = DAT_1039bc158;
         uVar1 = uRam00000001039bc150;
         m_linearLookatAcceleration = _infiniteAcceleration;
         field_408 = uVar1;
         uVar1 = uRam00000001039bc150;
-        field_424 = _infiniteAcceleration;
+        m_linearPositionAcceleration = _infiniteAcceleration;
         field_432 = uVar1;
         field_440 = DAT_1039bc158;
         new (field_448) oldscape::dash3d::ModelLit::AABB();
@@ -185,13 +187,14 @@ namespace jag::game {
         bool bVar1;
         long* plVar3;
 
-        bVar1 = field_208->operator_cast_to_bool();
+        bVar1 = m_pLookatManager->operator_cast_to_bool();
         if (bVar1) {
-            plVar3 = (long*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)field_208);
+            plVar3 = (long*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)m_pLookatManager);
             if ((**(code**)(*plVar3 + 104))(plVar3) != '\0') {
-                bVar1 = field_232->operator_cast_to_bool();
+                bVar1 = m_positionManager->operator_cast_to_bool();
                 if (bVar1) {
-                    plVar3 = (long*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)field_232);
+                    plVar3 = (long*)shared_ptr<IPositionManager>::operator->(
+                        (shared_ptr<IPositionManager>*)m_positionManager);
                     return (**(code**)(*plVar3 + 32))(plVar3);
                 }
             }
@@ -207,8 +210,8 @@ namespace jag::game {
         PositionPoint* this_02;
         undefined8 uVar3;
 
-        this_00 = field_232;
-        if ((this_00->operator_cast_to_bool()) && (field_224 == 1)) {
+        this_00 = m_positionManager;
+        if ((this_00->operator_cast_to_bool()) && (m_positionMode == 1)) {
             this_01 = (CommandLine*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)this_00);
             if (this_01->GetPos() != 1) {
                 /* WARNING: Subroutine does not return */
@@ -232,8 +235,9 @@ namespace jag::game {
         PositionEntity* this_01;
         QuaternionT<double> local_38[32];
 
-        if (field_224 == 1) {
-            this_00 = (CommandLine*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)field_232);
+        if (m_positionMode == 1) {
+            this_00 = (CommandLine*)shared_ptr<IPositionManager>::operator->(
+                (shared_ptr<IPositionManager>*)m_positionManager);
             if (this_00->GetPos() != 1) {
                 /* WARNING: Subroutine does not return */
                 LogAssert("m_positionManager->GetMode() == PositionMode::ENTITY",
@@ -241,7 +245,7 @@ namespace jag::game {
                           "Camera.cpp",
                           68, (char*)0);
             }
-            this_01 = (PositionEntity*)field_232->end();
+            this_01 = (PositionEntity*)m_positionManager->end();
             this_01->InvalidateAsyncUpdate();
             math::QuaternionT<double>::QuaternionT(local_38);
             CameraHelpers::OldJagexAnglesToQuaternion((QuaternionT*)local_38, 256, 0, 0);
@@ -256,8 +260,8 @@ namespace jag::game {
         CommandLine* this_01;
         PositionEntity* this_02;
 
-        this_00 = field_232;
-        if ((this_00->operator_cast_to_bool()) && (field_224 == 1)) {
+        this_00 = m_positionManager;
+        if ((this_00->operator_cast_to_bool()) && (m_positionMode == 1)) {
             this_01 = (CommandLine*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)this_00);
             if (this_01->GetPos() != 1) {
                 /* WARNING: Subroutine does not return */
@@ -289,29 +293,29 @@ namespace jag::game {
             switch (param_2) {
             case 0:
                 make_shared<LookatPoint>((jag*)&local_30);
-                shared_ptr<ILookatManager>::operator=((shared_ptr<ILookatManager>*)field_208, &local_30);
+                shared_ptr<ILookatManager>::operator=((shared_ptr<ILookatManager>*)m_pLookatManager, &local_30);
                 local_30.~shared_ptr();
                 break;
             case 1:
                 make_shared<LookatEntity>((jag*)&local_30);
-                shared_ptr<ILookatManager>::operator=((shared_ptr<ILookatManager>*)field_208, &local_30);
+                shared_ptr<ILookatManager>::operator=((shared_ptr<ILookatManager>*)m_pLookatManager, &local_30);
                 local_30.~shared_ptr();
                 break;
             case 2:
             case 4:
             case 6:
                 make_shared<LookatSpline, LookatMode&>((jag*)&local_30, (LookatMode*)&local_1c);
-                shared_ptr<ILookatManager>::operator=((shared_ptr<ILookatManager>*)field_208, &local_30);
+                shared_ptr<ILookatManager>::operator=((shared_ptr<ILookatManager>*)m_pLookatManager, &local_30);
                 local_30.~shared_ptr();
                 break;
             case 3:
                 make_shared<LookatOrientation>((jag*)&local_30);
-                shared_ptr<ILookatManager>::operator=((shared_ptr<ILookatManager>*)field_208, &local_30);
+                shared_ptr<ILookatManager>::operator=((shared_ptr<ILookatManager>*)m_pLookatManager, &local_30);
                 local_30.~shared_ptr();
                 break;
             case 5:
                 make_shared<LookatSplineMatchPosition>((jag*)&local_30);
-                shared_ptr<ILookatManager>::operator=((shared_ptr<ILookatManager>*)field_208, &local_30);
+                shared_ptr<ILookatManager>::operator=((shared_ptr<ILookatManager>*)m_pLookatManager, &local_30);
                 local_30.~shared_ptr();
                 break;
             default:
@@ -321,7 +325,7 @@ namespace jag::game {
                                     "runetek5/camera/Camera.cpp",
                                     116, "Camera.setLookatMode: unknown mode %d", local_1c);
             }
-            field_200 = local_1c;
+            m_lookatMode = local_1c;
         }
     }
 
@@ -347,11 +351,11 @@ namespace jag::game {
         } else {
             if (param_2 - 2U < 3) {
                 make_shared<PositionSpline, PositionMode&>((jag*)&local_30, (PositionMode*)&local_1c);
-                shared_ptr<IPositionManager>::operator=((shared_ptr<IPositionManager>*)field_232, &local_30);
+                shared_ptr<IPositionManager>::operator=((shared_ptr<IPositionManager>*)m_positionManager, &local_30);
                 local_30.~shared_ptr();
             } else if (param_2 == 1) {
                 make_shared<PositionEntity>((jag*)&local_30);
-                shared_ptr<IPositionManager>::operator=((shared_ptr<IPositionManager>*)field_232, &local_30);
+                shared_ptr<IPositionManager>::operator=((shared_ptr<IPositionManager>*)m_positionManager, &local_30);
                 local_30.~shared_ptr();
             } else {
                 if (param_2 != 0) {
@@ -361,10 +365,10 @@ namespace jag::game {
                     goto LAB_10062f5ac;
                 }
                 make_shared<PositionPoint>((jag*)&local_30);
-                shared_ptr<IPositionManager>::operator=((shared_ptr<IPositionManager>*)field_232, &local_30);
+                shared_ptr<IPositionManager>::operator=((shared_ptr<IPositionManager>*)m_positionManager, &local_30);
                 local_30.~shared_ptr();
             }
-            field_224 = local_1c;
+            m_positionMode = local_1c;
         }
     }
 
@@ -417,10 +421,10 @@ namespace jag::game {
         double local_38;
 
         new (&local_80) oldscape::dash3d::ModelLit::AABB();
-        plVar1 = (long*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)field_208);
+        plVar1 = (long*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)m_pLookatManager);
         (**(code**)(*plVar1 + 56))(plVar1, &local_80);
         new (&local_68) oldscape::dash3d::ModelLit::AABB();
-        plVar1 = (long*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)field_232);
+        plVar1 = (long*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)m_positionManager);
         (**(code**)(*plVar1 + 80))(plVar1, &local_68, param_1);
         math::Vector3Cross<double>((math*)local_50, (Vector3T*)&local_80, (Vector3T*)&local_68);
         pvVar2 = local_50->SSOBeginPtr((type*)&local_80);
@@ -476,7 +480,7 @@ namespace jag::game {
         Vector3T<double>* local_38;
 
         local_38 = (Vector3T<double>*)CONCAT44(local_38._4_4_, param_2);
-        this_00 = field_208;
+        this_00 = m_pLookatManager;
         this_02 = (ILookatManager*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)this_00);
         cVar2 = this_02->IsSpline();
         if (cVar2 == '\0') {
@@ -493,15 +497,15 @@ namespace jag::game {
                             local_38._0_4_, (Vector3T*)local_50, param_3, local_48, local_40, (Vector3T*)field_448,
                             field_496, field_336, field_344);
                     } else if (uVar1 == 1) {
-                        local_50->LinearMovementUpdateCameraSpace(local_38._0_4_, param_3, local_48, local_40,
-                                                                  (Vector3T*)&m_linearLookatAcceleration,
-                                                                  (Vector3T*)field_352, (Vector3T*)(ulong)field_320,
-                                                                  field_336, field_328, field_340, 6486777);
+                        local_50->LinearMovementUpdateCameraSpace(
+                            local_38._0_4_, param_3, local_48, local_40, (Vector3T*)&m_linearLookatAcceleration,
+                            (Vector3T*)m_linearLookatMaxSpeed, (Vector3T*)(ulong)field_320, field_336, field_328,
+                            field_340, 6486777);
                     } else if (uVar1 == 0) {
                         local_50->LinearMovementUpdateWorldSpace(
                             local_38._0_4_, local_48, local_40, (Vector3T*)&m_linearLookatAcceleration,
-                            (Vector3T*)field_352, (Vector3T*)(ulong)field_320, field_336, field_328, field_340,
-                            in_stack_ffffffffffffff48);
+                            (Vector3T*)m_linearLookatMaxSpeed, (Vector3T*)(ulong)field_320, field_336, field_328,
+                            field_340, in_stack_ffffffffffffff48);
                     }
                 } else {
                     new (&local_70) oldscape::dash3d::ModelLit::AABB();
@@ -530,7 +534,7 @@ namespace jag::game {
             }
         } else {
             plVar3 = (long*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)this_00);
-            (**(code**)(*plVar3 + 24))(local_38._0_4_, plVar3, field_352, &m_linearLookatAcceleration);
+            (**(code**)(*plVar3 + 24))(local_38._0_4_, plVar3, m_linearLookatMaxSpeed, &m_linearLookatAcceleration);
         }
     }
 
@@ -560,7 +564,7 @@ namespace jag::game {
         float local_34;
 
         pVVar6 = (Vector3T*)CONCAT44(in_register_0000008c, param_6);
-        this_00 = field_232;
+        this_00 = m_positionManager;
         local_34 = param_2;
         plVar5 = (long*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)this_00);
         cVar2 = (**(code**)(*plVar5 + 16))(plVar5);
@@ -579,13 +583,14 @@ namespace jag::game {
                                                                               field_504, field_336, field_344);
                     } else if (uVar1 == 1) {
                         local_50->LinearMovementUpdateCameraSpace(
-                            local_34, param_5, local_48, local_40, (Vector3T*)&field_424,
+                            local_34, param_5, local_48, local_40, (Vector3T*)&m_linearPositionAcceleration,
                             (Vector3T*)m_linearPositionMaxSpeed, (Vector3T*)(ulong)field_320, field_336, field_328,
                             field_340, iVar4);
                     } else if (uVar1 == 0) {
                         local_50->LinearMovementUpdateWorldSpace(
-                            local_34, local_48, local_40, (Vector3T*)&field_424, (Vector3T*)m_linearPositionMaxSpeed,
-                            (Vector3T*)(ulong)field_320, field_336, field_328, field_340, in_stack_ffffffffffffff38);
+                            local_34, local_48, local_40, (Vector3T*)&m_linearPositionAcceleration,
+                            (Vector3T*)m_linearPositionMaxSpeed, (Vector3T*)(ulong)field_320, field_336, field_328,
+                            field_340, in_stack_ffffffffffffff38);
                     }
                 } else {
                     this_02 = (shared_ptr<IPositionManager>*)(*(code*)field_0[25])(this);
@@ -624,7 +629,7 @@ namespace jag::game {
             }
         } else {
             plVar5 = (long*)this_00->end();
-            (**(code**)(*plVar5 + 24))(local_34, plVar5, m_linearPositionMaxSpeed, &field_424);
+            (**(code**)(*plVar5 + 24))(local_34, plVar5, m_linearPositionMaxSpeed, &m_linearPositionAcceleration);
         }
     }
 
@@ -650,7 +655,8 @@ namespace jag::game {
         uVar4 = FrameTime::GetCurrentTimeMS();
         math::QuaternionT<double>::QuaternionT(local_68);
         if (ManagersReady(this) != '\0') {
-            pCVar5 = (CommandLine*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)field_208);
+            pCVar5 =
+                (CommandLine*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)m_pLookatManager);
             iVar3 = pCVar5->GetPos();
             if (iVar3 != 3) {
                 GetOrientationQuat(this, uVar4, (QuaternionT*)local_68);
@@ -659,11 +665,11 @@ namespace jag::game {
         }
         local_68->SetToIdentity();
     LAB_100630353:
-        bVar2 = field_208->operator_cast_to_bool();
+        bVar2 = m_pLookatManager->operator_cast_to_bool();
         if (bVar2) {
             (*(code*)field_0[32])(param_1, this, uVar4, local_68);
         }
-        this_00 = field_232;
+        this_00 = m_positionManager;
         local_48 = uVar4;
         bVar2 = this_00->operator_cast_to_bool();
         if (bVar2) {
@@ -705,7 +711,7 @@ namespace jag::game {
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/camera/Camera.cpp",
                 381, "Camera::GetViewVector: lookat or position manager is not ready!");
         } else {
-            plVar2 = (long*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)field_208);
+            plVar2 = (long*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)m_pLookatManager);
             (**(code**)(*plVar2 + 56))(plVar2, param_1);
             new (&local_40) oldscape::dash3d::ModelLit::AABB();
             uVar3 = FrameTime::GetCurrentTimeMS();
@@ -723,7 +729,7 @@ namespace jag::game {
         CommandLine* this_01;
         long* plVar2;
 
-        this_00 = field_232;
+        this_00 = m_positionManager;
         this_01 = (CommandLine*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)this_00);
         if (this_01->GetPos() == 1) {
             plVar2 = (long*)this_00->end();
@@ -743,7 +749,7 @@ namespace jag::game {
         undefined8 uVar5;
         ulong uVar6;
 
-        this_00 = field_232;
+        this_00 = m_positionManager;
         if (this_00->operator_cast_to_bool()) {
             plVar3 = (long*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)this_00);
             if ((**(code**)(*plVar3 + 32))(plVar3) != '\0') {
@@ -774,7 +780,7 @@ namespace jag::game {
         undefined1 local_50[24];
         undefined8 local_38[2];
 
-        plVar2 = (long*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)field_232);
+        plVar2 = (long*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)m_positionManager);
         uVar1 = (**(code**)(*plVar2 + 32))(plVar2);
         if ((char)uVar1 == '\0') {
             uVar4 = logger::default_logger();
@@ -802,7 +808,7 @@ namespace jag::game {
         ulong uVar5;
         Vector3T local_30[24];
 
-        this_00 = field_232;
+        this_00 = m_positionManager;
         if (this_00->operator_cast_to_bool()) {
             plVar3 = (long*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)this_00);
             if ((**(code**)(*plVar3 + 32))(plVar3) != '\0') {
@@ -834,7 +840,7 @@ namespace jag::game {
         undefined1 local_40[24];
         undefined8 local_28[2];
 
-        this_00 = field_232;
+        this_00 = m_positionManager;
         if (this_00->operator_cast_to_bool()) {
             plVar3 = (long*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)this_00);
             if ((**(code**)(*plVar3 + 32))(plVar3) != '\0') {
@@ -865,7 +871,7 @@ namespace jag::game {
         ulong uVar5;
         Vector3T local_30[24];
 
-        this_00 = field_232;
+        this_00 = m_positionManager;
         if (this_00->operator_cast_to_bool()) {
             plVar3 = (long*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)this_00);
             if ((**(code**)(*plVar3 + 32))(plVar3) != '\0') {
@@ -897,7 +903,7 @@ namespace jag::game {
         undefined1 local_40[24];
         undefined8 local_28[2];
 
-        this_00 = field_232;
+        this_00 = m_positionManager;
         if (this_00->operator_cast_to_bool()) {
             plVar3 = (long*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)this_00);
             if ((**(code**)(*plVar3 + 32))(plVar3) != '\0') {
@@ -927,7 +933,7 @@ namespace jag::game {
         undefined1* this_00;
         ulong uVar5;
 
-        this_00 = field_208;
+        this_00 = m_pLookatManager;
         if (this_00->operator_cast_to_bool()) {
             plVar3 = (long*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)this_00);
             if ((**(code**)(*plVar3 + 104))(plVar3) != '\0') {
@@ -958,7 +964,7 @@ namespace jag::game {
         undefined1 local_48[24];
         undefined8 local_30[2];
 
-        this_00 = field_208;
+        this_00 = m_pLookatManager;
         if (this_00->operator_cast_to_bool()) {
             plVar3 = (long*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)this_00);
             if ((**(code**)(*plVar3 + 104))(plVar3) != '\0') {
@@ -991,7 +997,7 @@ namespace jag::game {
         undefined1* this_00;
         ulong uVar6;
 
-        this_00 = field_208;
+        this_00 = m_pLookatManager;
         if (this_00->operator_cast_to_bool()) {
             plVar3 = (long*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)this_00);
             if ((**(code**)(*plVar3 + 104))(plVar3) != '\0') {
@@ -1022,7 +1028,7 @@ namespace jag::game {
         ulong uVar5;
         undefined8 local_28[2];
 
-        this_01 = field_208;
+        this_01 = m_pLookatManager;
         if (this_01->operator_cast_to_bool()) {
             plVar3 = (long*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)this_01);
             if ((**(code**)(*plVar3 + 104))(plVar3) != '\0') {
@@ -1071,13 +1077,14 @@ namespace jag::game {
                 517, "Camera.getCameraMatrix: lookat or position manager is not ready!");
         } else {
             uVar2 = FrameTime::GetCurrentTimeMS();
-            if (field_200 == 3) {
+            if (m_lookatMode == 3) {
                 UpdateOrientation(this, param_1, uVar2);
             } else {
                 local_38 = uVar2;
                 new (&local_c8) oldscape::dash3d::ModelLit::AABB();
                 math::QuaternionT<double>::QuaternionT(local_80);
-                plVar6 = (long*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)field_232);
+                plVar6 =
+                    (long*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)m_positionManager);
                 local_48 = (double)(**(code**)(*plVar6 + 144))(plVar6);
                 (*(code*)field_0[10])(this, &local_c8);
                 local_80->FromAxisAngle((Vector3T*)&local_c8, -local_48);
@@ -1089,7 +1096,7 @@ namespace jag::game {
                 new (&local_b0) oldscape::dash3d::ModelLit::AABB();
                 new (&local_98) oldscape::dash3d::ModelLit::AABB();
                 GetPosition(this, (Vector3T*)&local_b0, local_38);
-                plVar6 = (long*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)field_208);
+                plVar6 = (long*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)m_pLookatManager);
                 (**(code**)(*plVar6 + 56))(plVar6, &local_98);
                 math::Matrix44LookAtLH<float>(param_1, (Vector3T*)&local_b0, (Vector3T*)&local_98, (Vector3T*)local_60);
             }
@@ -1119,13 +1126,13 @@ namespace jag::game {
         PositionPoint* local_48;
         undefined8 local_40[2];
 
-        plVar2 = (long*)field_208->end();
-        this_00 = field_232;
+        plVar2 = (long*)m_pLookatManager->end();
+        this_00 = m_positionManager;
         plVar3 = (long*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)this_00);
         (**(code**)(*plVar3 + 48))(local_90, plVar3);
         (**(code**)(*plVar2 + 64))(plVar2, local_90);
         param_1->SetToIdentity();
-        if (((**(code**)(*plVar2 + 136))(plVar2) != '\0') && (field_224 == 0)) {
+        if (((**(code**)(*plVar2 + 136))(plVar2) != '\0') && (m_positionMode == 0)) {
             local_48 = (PositionPoint*)this_00->end();
             new (local_68) CoordFine();
             new (local_90) oldscape::dash3d::ModelLit::AABB();
@@ -1154,9 +1161,9 @@ namespace jag::game {
         long* plVar1;
 
         if (m_debugCameraEffects != '\0') {
-            plVar1 = (long*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)field_232);
+            plVar1 = (long*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)m_positionManager);
             (**(code**)(*plVar1 + 160))(plVar1, 4278255360);
-            plVar1 = (long*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)field_208);
+            plVar1 = (long*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)m_pLookatManager);
             (**(code**)(*plVar1 + 120))(plVar1, 4278190335);
         }
     }
@@ -1169,7 +1176,7 @@ namespace jag::game {
         PositionEntity* this_01;
         undefined1* this_02;
 
-        this_02 = field_232;
+        this_02 = m_positionManager;
         if (this_02->operator_cast_to_bool()) {
             plVar4 = (long*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)this_02);
             if ((**(code**)(*plVar4 + 32))(plVar4) != '\0') {
@@ -1194,7 +1201,7 @@ namespace jag::game {
         PositionEntity* this_01;
         undefined1* this_02;
 
-        this_02 = field_232;
+        this_02 = m_positionManager;
         if (this_02->operator_cast_to_bool()) {
             plVar4 = (long*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)this_02);
             if ((**(code**)(*plVar4 + 32))(plVar4) != '\0') {
@@ -1219,7 +1226,7 @@ namespace jag::game {
         undefined1* this_00;
         ulong uVar5;
 
-        this_00 = field_232;
+        this_00 = m_positionManager;
         if (this_00->operator_cast_to_bool()) {
             plVar3 = (long*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)this_00);
             if ((**(code**)(*plVar3 + 32))(plVar3) != '\0') {
@@ -1248,7 +1255,7 @@ namespace jag::game {
         undefined1* this_00;
         ulong uVar5;
 
-        this_00 = field_208;
+        this_00 = m_pLookatManager;
         if (this_00->operator_cast_to_bool()) {
             plVar3 = (long*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)this_00);
             if ((**(code**)(*plVar3 + 104))(plVar3) != '\0') {
@@ -1278,7 +1285,7 @@ namespace jag::game {
         uVar1 = (*(code*)*field_0)();
         dVar3 = 0.0;
         if ((char)uVar1 != '\0') {
-            plVar2 = (long*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)field_232);
+            plVar2 = (long*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)m_positionManager);
             dVar3 = (double)(**(code**)(*plVar2 + 128))(plVar2, param_2);
         }
         *param_1 = dVar3;
@@ -1296,7 +1303,7 @@ namespace jag::game {
         cVar1 = (*(code*)*field_0)();
         uVar3 = 0;
         if (cVar1 != '\0') {
-            plVar2 = (long*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)field_232);
+            plVar2 = (long*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)m_positionManager);
             dVar4 = (double)(**(code**)(*plVar2 + 120))(plVar2);
             uVar3 = ~-(ulong)(dVar4 < 0.0) & (ulong)dVar4 | (ulong)(dVar4 + 6.2831854820251465) & -(ulong)(dVar4 < 0.0);
         }
@@ -1378,7 +1385,7 @@ namespace jag::game {
             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/camera/Camera.cpp",
             730, "%s - cannot set at this time", "SetLinearPositionAcceleration");
     LAB_100631a8e:
-        math::Vector3T<double>::operator=((Vector3T<double>*)&field_424, param_1);
+        math::Vector3T<double>::operator=((Vector3T<double>*)&m_linearPositionAcceleration, param_1);
     }
 
     // 0x100631ac0, 128 bytes, placed by class name
@@ -1396,7 +1403,7 @@ namespace jag::game {
             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/camera/Camera.cpp",
             739, "%s - cannot set at this time", "SetLinearLookatMaxSpeed");
     LAB_100631b1e:
-        math::Vector3T<double>::operator=((Vector3T<double>*)field_352, param_1);
+        math::Vector3T<double>::operator=((Vector3T<double>*)m_linearLookatMaxSpeed, param_1);
     }
 
     // 0x100631b40, 128 bytes, placed by class name
@@ -1492,7 +1499,7 @@ namespace jag::game {
             pcVar6 = "%s - client not in control of camera";
             uVar5 = 789;
         } else {
-            this_01 = field_208;
+            this_01 = m_pLookatManager;
             if (this_01->operator_cast_to_bool()) {
                 pCVar3 = (CommandLine*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)this_01);
                 iVar2 = pCVar3->GetPos();
@@ -1541,7 +1548,7 @@ namespace jag::game {
             pcVar6 = "%s - client not in control of camera";
             uVar5 = 811;
         } else {
-            this_01 = field_232;
+            this_01 = m_positionManager;
             if (this_01->operator_cast_to_bool()) {
                 pCVar3 = (CommandLine*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)this_01);
                 iVar2 = pCVar3->GetPos();
@@ -1590,7 +1597,7 @@ namespace jag::game {
             pcVar5 = "%s - client not in control of camera";
             uVar4 = 833;
         } else {
-            this_02 = field_232;
+            this_02 = m_positionManager;
             if (this_02->operator_cast_to_bool()) {
                 this_00 =
                     (CommandLine*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)this_02);
@@ -1641,7 +1648,7 @@ namespace jag::game {
         undefined8 uVar2;
         Minimap* this_01;
 
-        this_00 = (CommandLine*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)field_208);
+        this_00 = (CommandLine*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)m_pLookatManager);
         if (this_00->GetPos() != 3) {
             uVar2 = logger::default_logger();
             logger::Logger::Log(
@@ -1650,7 +1657,7 @@ namespace jag::game {
                 866, "%s - Tried to set an OrientationLookatManager when not in LookAtOrientation Mode!",
                 "SetLookatOrientationXRotation");
         }
-        this_01 = (Minimap*)field_208->end();
+        this_01 = (Minimap*)m_pLookatManager->end();
         this_01->SetLevel(param_1);
     }
 
@@ -1661,7 +1668,7 @@ namespace jag::game {
         undefined8 uVar2;
         StockPlayerOffer* this_01;
 
-        this_00 = (CommandLine*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)field_208);
+        this_00 = (CommandLine*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)m_pLookatManager);
         if (this_00->GetPos() != 3) {
             uVar2 = logger::default_logger();
             logger::Logger::Log(
@@ -1670,7 +1677,7 @@ namespace jag::game {
                 876, "%s - Tried to set an OrientationLookatManager when not in LookAtOrientation Mode!",
                 "SetLookatOrientationYRotation");
         }
-        this_01 = (StockPlayerOffer*)field_208->end();
+        this_01 = (StockPlayerOffer*)m_pLookatManager->end();
         this_01->SetCompletedCount(param_1);
     }
 
@@ -1681,7 +1688,7 @@ namespace jag::game {
         undefined8 uVar2;
         LookatOrientation* this_01;
 
-        this_00 = (CommandLine*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)field_208);
+        this_00 = (CommandLine*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)m_pLookatManager);
         if (this_00->GetPos() != 3) {
             uVar2 = logger::default_logger();
             logger::Logger::Log(
@@ -1690,7 +1697,7 @@ namespace jag::game {
                 886, "%s - Tried to set an OrientationLookatManager when not in LookAtOrientation Mode!",
                 "SetLookatOrientationXMovement");
         }
-        this_01 = (LookatOrientation*)field_208->end();
+        this_01 = (LookatOrientation*)m_pLookatManager->end();
         this_01->SetOrientationXMovement(param_1);
     }
 
@@ -1701,7 +1708,7 @@ namespace jag::game {
         undefined8 uVar2;
         LookatOrientation* this_01;
 
-        this_00 = (CommandLine*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)field_208);
+        this_00 = (CommandLine*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)m_pLookatManager);
         if (this_00->GetPos() != 3) {
             uVar2 = logger::default_logger();
             logger::Logger::Log(
@@ -1710,7 +1717,7 @@ namespace jag::game {
                 896, "%s - Tried to set an OrientationLookatManager when not in LookAtOrientation Mode!",
                 "SetLookatOrientationZMovement");
         }
-        this_01 = (LookatOrientation*)field_208->end();
+        this_01 = (LookatOrientation*)m_pLookatManager->end();
         this_01->SetOrientationZMovement(param_1);
     }
 
@@ -1722,7 +1729,7 @@ namespace jag::game {
         undefined8 uVar2;
         LookatOrientation* this_01;
 
-        this_00 = (CommandLine*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)field_208);
+        this_00 = (CommandLine*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)m_pLookatManager);
         if (this_00->GetPos() != 3) {
             uVar2 = logger::default_logger();
             logger::Logger::Log(
@@ -1731,7 +1738,7 @@ namespace jag::game {
                 906, "%s - Tried to set an OrientationLookatManager when not in LookAtOrientation Mode!",
                 "SetMaxDistanceClamping");
         }
-        this_01 = (LookatOrientation*)field_208->end();
+        this_01 = (LookatOrientation*)m_pLookatManager->end();
         this_01->SetMaxDistanceClamping(param_1, param_2, param_3, param_4, param_5, param_6, param_7);
     }
 
@@ -1811,10 +1818,10 @@ namespace jag::game {
         local_80 = param_1->size();
         bVar1 = param_1->g1();
         m_clientControlled = bVar1 & 1;
-        if (((bVar1 & 8) != 0) && (bVar2 = param_1->g1(), field_200 != (uint)bVar2)) {
+        if (((bVar1 & 8) != 0) && (bVar2 = param_1->g1(), m_lookatMode != (uint)bVar2)) {
             SetLookatMode(this, bVar2, 1);
         }
-        if (((bVar1 & 16) != 0) && (bVar2 = param_1->g1(), field_224 != (uint)bVar2)) {
+        if (((bVar1 & 16) != 0) && (bVar2 = param_1->g1(), m_positionMode != (uint)bVar2)) {
             SetPositionMode(this, bVar2, 1);
         }
         if ((char)bVar1 < '\0') {
@@ -1824,7 +1831,7 @@ namespace jag::game {
             if ((uVar5 & 1) != 0) {
                 new (&local_48) math::Vector3T<float>(param_1, false);
                 math::Vector3T<double>::Vector3T<float>((Vector3T<double>*)&local_78, (Vector3T*)&local_48);
-                math::Vector3T<double>::operator=((Vector3T<double>*)field_352, (Vector3T*)&local_78);
+                math::Vector3T<double>::operator=((Vector3T<double>*)m_linearLookatMaxSpeed, (Vector3T*)&local_78);
             }
             if ((uVar5 & 2) != 0) {
                 new (&local_48) math::Vector3T<float>(param_1, false);
@@ -1839,7 +1846,8 @@ namespace jag::game {
             if ((uVar5 & 8) != 0) {
                 new (&local_48) math::Vector3T<float>(param_1, false);
                 math::Vector3T<double>::Vector3T<float>((Vector3T<double>*)&local_78, (Vector3T*)&local_48);
-                math::Vector3T<double>::operator=((Vector3T<double>*)&field_424, (Vector3T*)&local_78);
+                math::Vector3T<double>::operator=((Vector3T<double>*)&m_linearPositionAcceleration,
+                                                  (Vector3T*)&local_78);
             }
             if ((uVar5 & 16) != 0) {
                 fVar10 = (float)param_1->gFloat();
@@ -1857,7 +1865,7 @@ namespace jag::game {
             }
             if ((uVar5 & 64) != 0) {
                 bVar1 = param_1->g1();
-                field_196 = (uint)bVar1;
+                m_projectionMode = (uint)bVar1;
             }
             if ((char)uVar5 < '\0') {
                 param_1->Skip(3);
@@ -1944,14 +1952,14 @@ namespace jag::game {
                 m_angularPositionInterpolant = (double)fVar10;
             }
         }
-        bVar4 = field_208->operator_cast_to_bool();
+        bVar4 = m_pLookatManager->operator_cast_to_bool();
         if ((bVar4) && ((bVar1 & 32) != 0)) {
-            plVar6 = (long*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)field_208);
+            plVar6 = (long*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)m_pLookatManager);
             (**(code**)(*plVar6 + 112))(plVar6, param_1, &field_144);
         }
-        bVar4 = field_232->operator_cast_to_bool();
+        bVar4 = m_positionManager->operator_cast_to_bool();
         if ((bVar4) && ((bVar1 & 64) != 0)) {
-            plVar6 = (long*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)field_232);
+            plVar6 = (long*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)m_positionManager);
             (**(code**)(*plVar6 + 112))(plVar6, param_1, &field_144);
         }
         lVar7 = param_1->size();
@@ -1982,7 +1990,7 @@ namespace jag::game {
         } else {
             cVar1 = IsClientControlled(this);
             if (cVar1 != '\0') {
-                if (field_224 == 1) {
+                if (m_positionMode == 1) {
                     this_00 =
                         (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)(*(code*)field_0[25])(this);
                     this_01 =
@@ -2010,17 +2018,17 @@ namespace jag::game {
         PositionEntity* this_01;
         bool bVar1;
 
-        if (field_200 == 1) {
-            bVar1 = field_208->operator_cast_to_bool();
+        if (m_lookatMode == 1) {
+            bVar1 = m_pLookatManager->operator_cast_to_bool();
             if (bVar1) {
-                this_00 = (LookatEntity*)field_208->end();
+                this_00 = (LookatEntity*)m_pLookatManager->end();
                 this_00->UpdateLookAtEntity((function*)&field_144);
             }
         }
-        if (field_224 == 1) {
-            bVar1 = field_232->operator_cast_to_bool();
+        if (m_positionMode == 1) {
+            bVar1 = m_positionManager->operator_cast_to_bool();
             if (bVar1) {
-                this_01 = (PositionEntity*)field_232->end();
+                this_01 = (PositionEntity*)m_positionManager->end();
                 this_01->UpdatePositionEntity((function*)&field_144);
             }
         }
@@ -2039,13 +2047,14 @@ namespace jag::game {
         math::Vector3T<double>::Vector3T(local_58, (double)param_2, (double)param_3, (double)param_4);
         math::QuaternionT<double>::QuaternionT(local_78);
         CameraHelpers::JagexAnglesToQuaternion((QuaternionT*)local_78, param_5, param_6, 0);
-        if (field_224 != 1) {
-            field_224 = 1;
+        if (m_positionMode != 1) {
+            m_positionMode = 1;
             make_shared<PositionEntity>((jag*)&local_40);
-            shared_ptr<IPositionManager>::operator=((shared_ptr<IPositionManager>*)field_232, &local_40);
+            shared_ptr<IPositionManager>::operator=((shared_ptr<IPositionManager>*)m_positionManager, &local_40);
             local_40.~shared_ptr();
         }
-        this_00 = (CommandLine*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)field_232);
+        this_00 =
+            (CommandLine*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)m_positionManager);
         if (this_00->GetPos() != 1) {
             /* WARNING: Subroutine does not return */
             LogAssert(
@@ -2053,7 +2062,7 @@ namespace jag::game {
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/camera/Camera.cpp",
                 1196, (char*)0);
         }
-        this_01 = (PositionEntity*)field_232->end();
+        this_01 = (PositionEntity*)m_positionManager->end();
         this_01->SetPositionEntity(param_1, local_58, local_78, param_7, param_8, param_9, param_5, param_6);
     }
 
@@ -2066,13 +2075,13 @@ namespace jag::game {
         shared_ptr local_38;
 
         math::Vector3T<double>::Vector3T(local_50, (double)param_2, (double)param_3, (double)param_4);
-        if (field_200 != 1) {
-            field_200 = 1;
+        if (m_lookatMode != 1) {
+            m_lookatMode = 1;
             make_shared<LookatEntity>((jag*)&local_38);
-            shared_ptr<ILookatManager>::operator=((shared_ptr<ILookatManager>*)field_208, &local_38);
+            shared_ptr<ILookatManager>::operator=((shared_ptr<ILookatManager>*)m_pLookatManager, &local_38);
             local_38.~shared_ptr();
         }
-        this_00 = (CommandLine*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)field_208);
+        this_00 = (CommandLine*)shared_ptr<ILookatManager>::operator->((shared_ptr<ILookatManager>*)m_pLookatManager);
         if (this_00->GetPos() != 1) {
             /* WARNING: Subroutine does not return */
             LogAssert(
@@ -2080,7 +2089,7 @@ namespace jag::game {
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/camera/Camera.cpp",
                 1211, (char*)0);
         }
-        this_01 = (LookatEntity*)field_208->end();
+        this_01 = (LookatEntity*)m_pLookatManager->end();
         this_01->SetLookatEntity(param_1, local_50, param_5);
     }
 
@@ -2130,7 +2139,8 @@ namespace jag::game {
         int iVar1;
         float fVar2;
 
-        this_00 = (CommandLine*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)field_232);
+        this_00 =
+            (CommandLine*)shared_ptr<IPositionManager>::operator->((shared_ptr<IPositionManager>*)m_positionManager);
         iVar1 = this_00->GetPos();
         fVar2 = m_fieldOfView;
         if (iVar1 == 1) {
@@ -2164,16 +2174,16 @@ namespace jag {
     Camera::SetProjectionMode(ProjectionMode);
 
     // 0x1000605a0: the linker folded this into oldscape::widgets::Widget::GetContentBounds() const, which has identical code
-    Camera::GetPos() const;
+    ColourHSL Camera::GetPos() const;
 
     // 0x1000641f0: the linker folded this into graphics::SunlightOptions::GetSunElevation() const, which has identical code
     Camera::GetVerticalFov() const;
 
     // 0x100064210: the linker folded this into graphics::SunlightOptions::GetSunAngle() const, which has identical code
-    Camera::GetAspect() const;
+    float Camera::GetAspect() const;
 
     // 0x100064240: the linker folded this into graphics::SunlightOptions::GetSunIntensity() const, which has identical code
-    Camera::GetTopClip() const;
+    float Camera::GetTopClip() const;
 
     // 0x1003e9e60: the linker folded this into FacingController::SetTurnSpeedMultiplier(float), which has identical code
     Camera::SetVerticalFov(float);
@@ -2182,16 +2192,16 @@ namespace jag {
     Camera::GetLeftClip() const;
 
     // 0x10048fca0: the linker folded this into game::EnvLightingSettings::GetSunlightShadowStrength() const, which has identical code
-    Camera::GetNearClip() const;
+    float Camera::GetNearClip() const;
 
     // 0x10048fce0: the linker folded this into game::EnvLightingSettings::GetSpecularHorzOcclusionScale() const, which has identical code
-    Camera::GetBottomClip() const;
+    float Camera::GetBottomClip() const;
 
     // 0x100490070: the linker folded this into game::EnvFogSettings::GetFogAngleOffset() const, which has identical code
     Camera::GetRightClip() const;
 
     // 0x1007dda80: the linker folded this into graphics::GeometryBatch::GetVertexScale() const, which has identical code
-    Camera::GetFarClip() const;
+    float Camera::GetFarClip() const;
 
 } // namespace jag
 

@@ -37,18 +37,18 @@ namespace jag::oldscape::jagex3 {
             }
             cVar2 = local_28->IsValid();
             if (cVar2 == '\0') {
-                local_28[0].field_0 = (field_312, 255, param_1)->Initialize();
+                local_28[0].m_code = (field_312, 255, param_1)->Initialize();
             }
             cVar2 = local_28->IsValid();
             if (cVar2 == '\0') {
-                local_28[0].field_0 = (field_8832, param_1)->Initialize();
+                local_28[0].m_code = (field_8832, param_1)->Initialize();
             }
             local_30.field_0 = this;
             std::thread::thread<Js5LocalCache::Initialize(Filename_const&)::__1, , void>(local_38, &local_30);
             std::thread::operator=((thread*)this, local_38);
             std::thread::~thread(local_38);
         }
-        return local_28[0].field_0;
+        return local_28[0].m_code;
     }
 
     // 0x1002b8a00, 192 bytes, placed by class name and debug map

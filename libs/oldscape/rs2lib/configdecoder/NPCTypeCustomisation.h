@@ -10,7 +10,7 @@ namespace jag::oldscape::configdecoder {
         GetModelList() const;
         GetRetextureDest() const;
         GetRecolourDest() const;
-        GetUniqueID() const;
+        uint GetUniqueID() const;
         UsePlayerModel() const;
         ~NPCTypeCustomisation();
         NPCTypeCustomisation(bool, eastl::vector<int, eastl::allocator>&&, Array<short, eastl::allocator>&&,
@@ -24,7 +24,7 @@ namespace jag::oldscape::configdecoder {
         // data members, from how the methods use this: 89 bytes
         bool field_0; // offset 0
         char _unknown_1[3];
-        undefined4 field_4; // offset 4
+        uint m_uniqueID; // offset 4
         char _unknown_8[80];
         bool field_88; // offset 88
     };

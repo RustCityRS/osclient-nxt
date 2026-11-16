@@ -7,7 +7,7 @@
 
 namespace jag::game {
     // 0x100049810: the linker folded this into oldscape::option::Option<oldscape::WindowSavedPosition>::GetDefaultValue() const, which has identical code
-    RT5AnimationResourceManager::GetModel() const;
+    shared_ptr RT5AnimationResourceManager::GetModel() const;
 
     // 0x100658810, 176 bytes, base-object constructor, placed by class name and debug map
     // RT5AnimationResourceManager::RT5AnimationResourceManager(AssetBuilder&, ConfigProvider const&)
@@ -25,7 +25,7 @@ namespace jag::game {
                           eastl::allocator>>();
         field_48 = param_1;
         field_56 = param_2;
-        new (field_64, (_func_decltype_nullptr*)param_1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (m_model, (_func_decltype_nullptr*)param_1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>::shared_ptr(local_38, (_func_decltype_nullptr*)0);
         new (&field_80, (weak_ptr*)local_38) weak_ptr<oldscape::dash3d::Decor>();
         local_38->~shared_ptr();
@@ -47,7 +47,7 @@ namespace jag::game {
         compressed_pair<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator>*
             this_03;
 
-        bVar1 = field_64->operator_cast_to_bool();
+        bVar1 = m_model->operator_cast_to_bool();
         if (bVar1) {
             this_03 = (compressed_pair<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
                                        eastl::allocator>*)(&field_8)
@@ -267,7 +267,7 @@ namespace jag::game {
             uVar15 = CONCAT71((int7)((ulong)param_3 >> 8), 1);
             if (!bVar2)
                 goto LAB_100658f7e;
-            this_04 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)field_64);
+            this_04 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)m_model);
             uVar6 = this_04->GetModelRawUniqueID();
             if (param_2->field_16 != uVar6) {
                 param_2->field_16 = uVar6;
@@ -276,7 +276,7 @@ namespace jag::game {
             pSVar9 = (SeqType*)shared_ptr<SeqType>::operator->((shared_ptr<SeqType>*)param_2);
             pAVar16 = field_48;
             this_00 = param_2->field_24;
-            puVar10 = (undefined*)pSVar9->GetAnimation(pAVar16, this_00, uVar6, field_64);
+            puVar10 = (undefined*)pSVar9->GetAnimation(pAVar16, this_00, uVar6, m_model);
             if (((puVar10 == DataStatus::READY) && (cVar3 = this_00->IsTaskDone(), cVar3 != '\0')) &&
                 (cVar3 = this_00->IsEmpty(), cVar3 == '\0')) {
                 pvVar11 = this_00->SSOBeginPtr(pAVar16);

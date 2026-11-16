@@ -7,7 +7,7 @@
 namespace jag::game {
     class EntityCombinedID {
     public:
-        GetEntityID() const;
+        uint GetEntityID() const;
         ulong GenerateCombinedID(EntityType, int);
         EntityCombinedID(EntityType, int);
         EntityCombinedID(int);

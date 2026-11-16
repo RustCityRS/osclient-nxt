@@ -72,8 +72,8 @@ namespace jag::render {
     public:
         class Desc;
         GetDesc() const;
-        GetType() const;
-        GetFaceMipLevels() const;
+        int GetType() const;
+        uint GetFaceMipLevels() const;
         GetGLWriteMutex() const;
         GetSamplerState() const;
         void ValidateUpdateParams(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int,
@@ -104,7 +104,7 @@ namespace jag::render {
         undefined** field_0; // offset 0, vtable pointer
         undefined4 field_8;  // offset 8
         char _unknown_12[4];
-        int field_16; // offset 16
+        int m_type; // offset 16
         char _unknown_20[4];
         uint field_24;       // offset 24
         uint field_28;       // offset 28
@@ -114,9 +114,9 @@ namespace jag::render {
         uint field_52;       // offset 52
         undefined1 field_56; // offset 56
         char _unknown_57[27];
-        int field_84;        // offset 84
-        uint field_88;       // offset 88
-        undefined1 field_92; // offset 92
+        int field_84;         // offset 84
+        uint m_faceMipLevels; // offset 88
+        undefined1 field_92;  // offset 92
         char _unknown_93[171];
         float field_264; // offset 264
         char _unknown_268[4];

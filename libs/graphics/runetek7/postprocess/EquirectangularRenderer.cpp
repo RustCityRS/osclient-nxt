@@ -7,7 +7,7 @@
 
 namespace jag::graphics {
     // 0x1003fab80: the linker folded this into game::WaterType::OverrideDefaultWaterType() const, which has identical code
-    EquirectangularRenderer::GetEnabled();
+    bool EquirectangularRenderer::GetEnabled();
 
     // 0x1007de850, 224 bytes, base-object constructor, placed by class name and debug map
     // EquirectangularRenderer::EquirectangularRenderer(RT7Core*)
@@ -20,7 +20,7 @@ namespace jag::graphics {
         psVar1 = (shared_ptr*)param_1->GetEquirectangularEffect();
         new (&field_24, psVar1) shared_ptr<oldscape::dash3d::Decor>();
         new (field_40, (_func_decltype_nullptr*)psVar1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        field_56 = false;
+        m_enabled = false;
         *(undefined8*)&field_60 = 72340172821234688;
         field_68 = 257;
         std::unique_ptr<EffectStateSaveRestore, BucketDeleter<EffectStateSaveRestore>>::unique_ptr<true, void>(
@@ -89,7 +89,7 @@ namespace jag::graphics {
         array<render::Texture::Desc, 2ul> local_f8[128];
         undefined1 local_78[80];
 
-        if (field_56 != false) {
+        if (m_enabled != false) {
             CalculateCubeMapRes(this);
             std::array<render::Texture::Desc, 2ul>::array(local_f8);
             iVar1 = field_60;
@@ -161,18 +161,18 @@ namespace jag::graphics {
         long local_28;
 
         local_28 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        field_56 = param_1;
+        m_enabled = param_1;
         this_00 = (PostProcessController*)field_16->GetPostProcessController();
         lVar2 = this_00->GetCurrentConfig();
         *(bool*)(lVar2 + 552) = param_1;
-        bVar1 = field_56;
+        bVar1 = m_enabled;
         this_01 = (NXTPixToolkit*)field_16->GetForwardOcclusionRenderPass();
         this_01->GetScreen();
         OcclusionManager::m_OcclusionEnabled = bVar1 ^ 1;
         this_02 = (SunlightShadows*)EffectManager::GetEffect<SunlightDirectLighting>(param_2);
         this_03 = (DirLightCsmManager*)this_02->GetSunlightCsmManager();
-        this_03->SetCascadeFarClip(*(float*)(&DAT_100d4aba8 + (ulong)(field_56 == false) * 4));
-        if (field_56 == false) {
+        this_03->SetCascadeFarClip(*(float*)(&DAT_100d4aba8 + (ulong)(m_enabled == false) * 4));
+        if (m_enabled == false) {
             lVar2 = (&field_72)->get();
             if (lVar2 != 0) {
                 (&field_72, (EffectStateSaveRestore*)0)->reset();
@@ -324,7 +324,7 @@ namespace jag::graphics {
         this_00 = *(EquirectangularRenderer**)this;
         if (param_1->field_16 == 1) {
             plVar2 = (long*)shared_ptr<tweak::Control>::operator->((shared_ptr<tweak::Control>*)param_1);
-            (**(code**)(*plVar2 + 128))(plVar2, this_00->field_56);
+            (**(code**)(*plVar2 + 128))(plVar2, this_00->m_enabled);
         }
         if (param_1->field_16 == 3) {
             plVar2 = (long*)shared_ptr<tweak::Control>::operator->((shared_ptr<tweak::Control>*)param_1);

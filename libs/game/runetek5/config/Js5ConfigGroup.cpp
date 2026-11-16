@@ -256,10 +256,10 @@ namespace jag::game {
     };
 
     // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    Js5ConfigGroup::GetGroupBitSize() const;
+    uint Js5ConfigGroup::GetGroupBitSize() const;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    Js5ConfigGroup::GetGroupID() const;
+    int Js5ConfigGroup::GetGroupID() const;
 
     // 0x1000e53d0: the linker folded this into oldscape::rs2lib::CoordMapSquare::CoordMapSquare(int, int), which has identical code
     Js5ConfigGroup::Js5ConfigGroup(unsigned int, unsigned int);
@@ -272,7 +272,7 @@ namespace jag::game {
     undefined4 Js5ConfigGroup::IgnoreEntryCount() {
         uint uVar1;
 
-        uVar1 = field_0 - 27;
+        uVar1 = m_groupID - 27;
         return CONCAT31((int3)(uVar1 >> 8), uVar1 < 2);
     }
 
@@ -311,7 +311,7 @@ namespace jag::game {
         uint uVar1;
         uint uVar2;
 
-        this_00 = field_64;
+        this_00 = m_pResourceProvider;
         uVar1 = GetClientGroupID(this, param_3);
         uVar2 = GetClientFileID(this, param_3);
         this_00->GetFile(param_1, param_2, uVar1, uVar2, param_4, param_5, false, false);

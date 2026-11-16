@@ -32,7 +32,7 @@ namespace jag::graphics {
         SunlightOptions* operator=(SunlightOptions&&);
         SunlightOptions* operator=(SunlightOptions const&);
         GetSunDirection() const;
-        GetShadowStrength() const;
+        float GetShadowStrength() const;
         GetShadowQuality() const;
         SunlightOptions();
 
@@ -46,9 +46,9 @@ namespace jag::graphics {
         char _unknown_28[4];
         float m_sunIntensity; // offset 32
         char _unknown_36[12];
-        float m_ambientIntensity; // offset 48
-        float m_shadowStrength;   // offset 52
-        undefined4 field_56;      // offset 56
+        float m_ambientIntensity;   // offset 48
+        float m_shadowStrength;     // offset 52
+        undefined4 m_shadowQuality; // offset 56
         char _unknown_60[4];
     };
 
@@ -118,7 +118,7 @@ namespace jag::graphics {
         fVar1 = param_1->m_shadowStrength;
         m_ambientIntensity = param_1->m_ambientIntensity;
         m_shadowStrength = fVar1;
-        field_56 = param_1->field_56;
+        m_shadowQuality = param_1->m_shadowQuality;
         return this;
     }
 
@@ -147,7 +147,7 @@ namespace jag::graphics {
     }
 
     // 0x1001be5d0: the linker folded this into SunlightOptions::GetShadowQuality() const, which has identical code
-    ScriptedPointLight::GetScriptID() const;
+    int ScriptedPointLight::GetScriptID() const;
 
     // 0x1001d4a80, 16 bytes, complete-object constructor, inline, placed by class name
     // SunlightOptions::SunlightOptions(): jumps straight to the base-object constructor
@@ -163,7 +163,7 @@ namespace jag::graphics {
         new (&field_36, 1.0, 1.0, 1.0) math::ColourHSL();
         m_ambientIntensity = 0.25;
         m_shadowStrength = 0.6;
-        field_56 = 3;
+        m_shadowQuality = 3;
         CalculateSunDirection(this);
     }
 
@@ -171,15 +171,15 @@ namespace jag::graphics {
 
 namespace jag::game {
     // 0x1000641f0: the linker folded this into graphics::SunlightOptions::GetSunElevation() const, which has identical code
-    EnvFogSettings::GetFogMaxDistance() const;
+    float EnvFogSettings::GetFogMaxDistance() const;
 
     // 0x100064210: the linker folded this into graphics::SunlightOptions::GetSunAngle() const, which has identical code
-    EnvFogSettings::GetFogConstantAngleFalloff() const;
+    float EnvFogSettings::GetFogConstantAngleFalloff() const;
 
     // 0x100064210: the linker folded this into graphics::SunlightOptions::GetSunAngle() const, which has identical code
-    EnvLightingSettings::GetAmbientLight() const;
+    float EnvLightingSettings::GetAmbientLight() const;
 
     // 0x100064240: the linker folded this into graphics::SunlightOptions::GetSunIntensity() const, which has identical code
-    EnvLightingSettings::GetEnvMapIrradianceScale() const;
+    float EnvLightingSettings::GetEnvMapIrradianceScale() const;
 
 } // namespace jag::game

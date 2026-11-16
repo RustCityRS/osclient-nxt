@@ -20,7 +20,7 @@ namespace jag::graphics {
         static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ NullAnimFrame;
 
         // data members, from how the methods use this: 40 bytes
-        undefined1 field_0; // offset 0
+        undefined1 m_valid; // offset 0
         char _unknown_1[23];
         uint field_24; // offset 24
         char _unknown_28[12];

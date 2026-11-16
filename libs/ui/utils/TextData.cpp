@@ -16,7 +16,7 @@ namespace jag::ui {
     TextData::GetTextFontID() const;
 
     // 0x100547830: the linker folded this into Component::GetModeWidth() const, which has identical code
-    TextData::GetTextAlpha() const;
+    byte TextData::GetTextAlpha() const;
 
     // 0x100679e60, 192 bytes, placed by class name and debug map
     // TextData::PopulateTextProperties(graphics::TextProperties&, unsigned int, unsigned char) const
@@ -83,8 +83,8 @@ namespace jag::ui {
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/utils/TextData.cpp", 55,
                       (char*)0);
         }
-        StyleSheet::LoadPropertyValueIfSet<int>(param_3, &field_40, param_2, 1);
-        StyleSheet::LoadPropertyValueIfSet<unsigned int>(param_3, &field_48, param_2 + 1, 1);
+        StyleSheet::LoadPropertyValueIfSet<int>(param_3, &m_textFontID, param_2, 1);
+        StyleSheet::LoadPropertyValueIfSet<unsigned int>(param_3, &m_textColour, param_2 + 1, 1);
         StyleSheet::LoadPropertyValueIfSet<unsigned char>(param_3, &m_textAlpha, param_2 + 2, 1);
         local_50->FindProperty(param_3, param_2 + 3, 1);
         StyleSheet::LoadPropertyValueIfSet<unsigned char>(param_3, &m_textHAlign, param_2 + 4, 1);
@@ -113,7 +113,7 @@ namespace jag::ui {
         undefined4 uVar5;
 
         uVar5 = param_1->gSmart2or4s();
-        *(undefined4*)&field_40 = uVar5;
+        *(undefined4*)&m_textFontID = uVar5;
         if (1 < param_2) {
             cVar1 = param_1->g1();
             SetFlag(this, 0, cVar1 == '\x01');
@@ -131,7 +131,7 @@ namespace jag::ui {
         cVar1 = param_1->g1();
         SetFlag(this, 1, cVar1 == '\x01');
         uVar5 = param_1->g4();
-        field_48 = uVar5;
+        m_textColour = uVar5;
         bVar2 = param_1->g1();
         m_textAlpha = ~bVar2;
         if (-1 < param_2) {

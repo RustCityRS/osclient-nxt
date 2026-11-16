@@ -11,7 +11,7 @@ namespace jag::oldscape::dash3d {
     Operation::Append(Operation&&);
 
     // 0x100024170: the linker folded this into option::IScriptOption::GetId() const, which has identical code
-    Operation::GetType() const;
+    uint Operation::GetType() const;
 
     // 0x100029ea0: the linker folded this into InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
     Operation::CanAppend() const;
@@ -109,7 +109,7 @@ namespace jag::oldscape::dash3d {
         AABB* in_RDX;
 
         new (this) jag::math::AABB(in_RDX);
-        Transform((Matrix44T*)&param_1->field_16);
+        Transform((Matrix44T*)&param_1->m_maximum);
         return this;
     }
 
@@ -144,7 +144,7 @@ namespace jag::oldscape::dash3d {
         AABB* pAVar1;
 
         this_00 = (NXTPixToolkit*)shared_ptr<jag::graphics::Model>::operator->(
-            (shared_ptr<jag::graphics::Model>*)&param_1->field_16);
+            (shared_ptr<jag::graphics::Model>*)&param_1->m_maximum);
         pAVar1 = (AABB*)this_00->GetScreen();
         new (this) jag::math::AABB(pAVar1);
         return this;
@@ -1067,7 +1067,7 @@ namespace jag::oldscape::dash3d {
 
         if (((param_1->GetPos() == 4) &&
              (bVar1 = jag::math::operator==((Vector3T*)&field_12, (Vector3T*)&param_1->field_12), bVar1)) &&
-            (field_24 == param_1[1].field_8)) {
+            (field_24 == param_1[1].m_type)) {
             return CONCAT31((int3)((uint)field_28 >> 8), field_28 == *(int*)&param_1[1].field_12);
         }
         return 0;

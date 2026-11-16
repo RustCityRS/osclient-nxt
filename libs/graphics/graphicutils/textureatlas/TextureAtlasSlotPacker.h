@@ -9,11 +9,11 @@ namespace jag::graphicutils {
     public:
         class SlotUsageBitmap;
         GetAtlasQuality() const;
-        GetAtlasSlotCount() const;
-        GetAtlasUsage() const;
-        GetTotalSlots() const;
+        int GetAtlasSlotCount() const;
+        TextureAtlasUsage* GetAtlasUsage() const;
+        int GetTotalSlots() const;
         UseCompressedTextures() const;
-        GetAtlasPixelResolution() const;
+        uint GetAtlasPixelResolution() const;
         float GetSlotUVSize() const;
         int GetMaxAtlasSlotCount() const;
         long GetSlot(unsigned int, unsigned int) const;
@@ -41,15 +41,15 @@ namespace jag::graphicutils {
         ushort field_2; // offset 2
         ushort field_4; // offset 4
         char _unknown_6[2];
-        undefined8 field_8;          // offset 8
-        undefined8 field_16;         // offset 16
-        undefined8 field_24;         // offset 24
-        undefined4 field_32;         // offset 32
-        int field_36;                // offset 36
-        int field_40;                // offset 40
-        uint field_44;               // offset 44
-        TextureAtlasUsage* field_48; // offset 48
-        bool field_56;               // offset 56
+        undefined8 field_8;               // offset 8
+        undefined8 field_16;              // offset 16
+        undefined8 field_24;              // offset 24
+        undefined4 field_32;              // offset 32
+        int m_atlasSlotCount;             // offset 36
+        int m_totalSlots;                 // offset 40
+        uint m_atlasPixelResolution;      // offset 44
+        TextureAtlasUsage* m_pAtlasUsage; // offset 48
+        bool field_56;                    // offset 56
         char _unknown_57[79];
         uint field_136; // offset 136
         uint field_140; // offset 140
@@ -98,7 +98,7 @@ namespace jag::graphicutils {
 
         this_00 = (MapArea*)Instance();
         lVar1 = this_00->GetOrigin();
-        return field_36 - (int)*(char*)(lVar1 + 164);
+        return m_atlasSlotCount - (int)*(char*)(lVar1 + 164);
     }
 
     // 0x1008ad9a0, 64 bytes, inline, placed by class name
@@ -124,7 +124,7 @@ namespace jag::graphicutils {
         uint uVar2;
         undefined1 auVar3[16];
 
-        uVar1 = field_44;
+        uVar1 = m_atlasPixelResolution;
         uVar2 = math::IntegerExponentPow<int>(2, field_32);
         auVar3._8_8_ = (ulong)uVar1 % (ulong)uVar2;
         auVar3._0_8_ = (ulong)uVar1 / (ulong)uVar2;

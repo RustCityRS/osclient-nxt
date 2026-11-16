@@ -52,7 +52,7 @@ namespace jag::game {
 
         cVar1 = HasAlphaParticles();
         if (cVar1 == '\0') {
-            field_4 = param_1 + field_4;
+            m_elapsedTimeSec = param_1 + m_elapsedTimeSec;
         }
     }
 
@@ -66,8 +66,8 @@ namespace jag::game {
     // Cutscene2DPlaybackState::Reset()
     void Cutscene2DPlaybackState::Reset() {
         reset();
-        field_4 = 0.0;
-        field_8 = 0.0;
+        m_elapsedTimeSec = 0.0;
+        m_pauseTimeSec = 0.0;
     }
 
     // 0x1005247f0, 64 bytes, inline, placed by debug map only (low confidence)
@@ -77,7 +77,7 @@ namespace jag::game {
 
         cVar1 = HasAlphaParticles();
         if (cVar1 == '\0') {
-            field_8 = field_4;
+            m_pauseTimeSec = m_elapsedTimeSec;
         }
         set(0, param_1);
     }

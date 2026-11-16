@@ -11,7 +11,7 @@ namespace jag::game {
         // virtual methods in vtable order
         virtual ~LookatEntity();
         virtual LookatEntity* GetLookatEntity() const;
-        virtual GetCurrentLookat() const;
+        virtual AABB GetCurrentLookat() const;
         virtual ulong GetLookatData(LookatData&);
         virtual Vector3T* GetLookatOffset(math::Vector3T<double>&) const;
         virtual void GetLookatPosition(math::Vector3T<double>&) const;
@@ -37,7 +37,7 @@ namespace jag::game {
         AABB field_48; // offset 48
         bool field_72; // offset 72
         char _unknown_73[7];
-        AABB field_80;        // offset 80
+        AABB m_currentLookat; // offset 80
         AABB field_104;       // offset 104
         AABB field_128;       // offset 128
         undefined4 field_152; // offset 152
@@ -87,7 +87,7 @@ namespace jag::game {
         field_40 = 0;
         new (field_48) oldscape::dash3d::ModelLit::AABB();
         field_72 = false;
-        new (field_80) oldscape::dash3d::ModelLit::AABB();
+        new (m_currentLookat) oldscape::dash3d::ModelLit::AABB();
         new (field_104) oldscape::dash3d::ModelLit::AABB();
         new (field_128) oldscape::dash3d::ModelLit::AABB();
         field_152 = 4294967295;

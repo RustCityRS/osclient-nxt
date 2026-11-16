@@ -7,8 +7,8 @@
 namespace jag::game {
     class AnimationWrapper {
     public:
-        GetSourceID() const;
-        GetSource() const;
+        int GetSourceID() const;
+        shared_ptr GetSource() const;
         void SetReadyAnim(bool);
         SetAnimationLateness(int);
         void GetAnimationParameters() const;
@@ -17,7 +17,7 @@ namespace jag::game {
         bool AbortOnMove() const;
         void SetDelay(unsigned int);
         void HasAnimationParameters() const;
-        IsReadyAnim() const;
+        bool IsReadyAnim() const;
         void Restart(unsigned int, unsigned int);
         void Reset(unsigned int, unsigned int);
         AnimationWrapper(AssetBuilder&, ConfigProvider const&, int, unsigned int, graphics::AnimationLoopBehaviour,
@@ -42,9 +42,9 @@ namespace jag::game {
 
         // data members, from how the methods use this: 120 bytes
         AssetBuilder* field_0; // offset 0
-        int field_8;           // offset 8
+        int m_sourceID;        // offset 8
         char _unknown_12[4];
-        shared_ptr field_16; // offset 16
+        shared_ptr m_source; // offset 16
         uint field_32;       // offset 32
         undefined4 field_36; // offset 36
         undefined1 field_40; // offset 40
@@ -53,9 +53,9 @@ namespace jag::game {
         bool m_readyAnim;    // offset 56
         undefined1 field_57; // offset 57
         char _unknown_58[2];
-        int field_60;  // offset 60
-        int field_64;  // offset 64
-        uint field_68; // offset 68
+        int field_60;            // offset 60
+        int m_animationLateness; // offset 64
+        uint field_68;           // offset 68
         char _unknown_72[48];
     };
 
@@ -93,9 +93,9 @@ namespace jag::game {
         bool bVar1;
         SeqType* this_00;
 
-        bVar1 = field_16->operator_cast_to_bool();
+        bVar1 = m_source->operator_cast_to_bool();
         if (bVar1) {
-            this_00 = (SeqType*)shared_ptr<SeqType>::operator->((shared_ptr<SeqType>*)field_16);
+            this_00 = (SeqType*)shared_ptr<SeqType>::operator->((shared_ptr<SeqType>*)m_source);
             bVar1 = this_00->GetPostanimMove() == 1;
         } else {
             bVar1 = false;
@@ -158,10 +158,10 @@ namespace jag::game {
         GameToken* this_01;
         shared_ptr* psVar3;
 
-        this_00 = field_16;
+        this_00 = m_source;
         if (this_00->operator_cast_to_bool()) {
             this_01 = (GameToken*)shared_ptr<SeqType>::operator->((shared_ptr<SeqType>*)this_00);
-            if (this_01->GetStatus() != field_8) {
+            if (this_01->GetStatus() != m_sourceID) {
                 /* WARNING: Subroutine does not return */
                 LogAssert("(int)m_seq->GetMyID() == m_seqID",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
@@ -169,7 +169,7 @@ namespace jag::game {
                           67, (char*)0);
             }
         } else {
-            psVar3 = ConfigProvider::GetConfig<SeqType>(param_1, field_8, (DataStatus**)0);
+            psVar3 = ConfigProvider::GetConfig<SeqType>(param_1, m_sourceID, (DataStatus**)0);
             shared_ptr<SeqType>::operator=((shared_ptr<SeqType>*)this_00, psVar3);
         }
         return this_00;
@@ -260,7 +260,7 @@ namespace jag::game {
         long lVar1;
         bool bVar2;
 
-        lVar1 = field_16->end();
+        lVar1 = m_source->end();
         if (lVar1 == 0) {
             bVar2 = false;
         } else {
@@ -276,8 +276,8 @@ namespace jag::game {
         SeqType* this_00;
 
         if (param_1 != 0) {
-            if (field_16->operator_cast_to_bool()) {
-                this_00 = (SeqType*)shared_ptr<SeqType>::operator->((shared_ptr<SeqType>*)field_16);
+            if (m_source->operator_cast_to_bool()) {
+                this_00 = (SeqType*)shared_ptr<SeqType>::operator->((shared_ptr<SeqType>*)m_source);
                 return this_00->GetPreanimMove() == 1;
             }
         }
@@ -294,7 +294,7 @@ namespace jag::game {
             (function<void(int, int, int, int, int, int)>*)&field_112);
         (&field_72)->~ActiveComponent();
         (&field_48)->~unique_ptr();
-        field_16->~shared_ptr();
+        m_source->~shared_ptr();
     }
 
 } // namespace jag::game

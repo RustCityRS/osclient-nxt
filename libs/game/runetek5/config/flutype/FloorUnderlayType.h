@@ -11,10 +11,10 @@ namespace jag::game {
         virtual ~FloorUnderlayType();
         virtual DecodeType(PacketT<Array<unsigned char, eastl::allocator>>&, unsigned int);
         virtual void PostDecode();
-        GetMaterialID() const;
+        uint GetMaterialID() const;
         FloorUnderlayType(BaseTemplateConfigTypeList<FloorUnderlayType>*, int);
         float GetTextureScale() const;
-        GetBlendingEnabled() const;
+        bool GetBlendingEnabled() const;
         void SetBlending(bool);
 
         // data members, from how the methods use this: 76 bytes
@@ -24,8 +24,8 @@ namespace jag::game {
         int field_32;                         // offset 32
         char _unknown_36[20];
         undefined4 field_56;    // offset 56
-        uint field_60;          // offset 60
-        float field_64;         // offset 64
+        uint m_materialID;      // offset 60
+        float m_textureScale;   // offset 64
         undefined1 field_68;    // offset 68
         bool m_blendingEnabled; // offset 69
         char _unknown_70[6];
@@ -73,8 +73,8 @@ namespace jag::game {
         new (this) MakeSharedPool<FloorUnderlayType, 128>();
         field_0 = &PTR__FloorUnderlayType_100f03f88;
         field_56 = 0;
-        field_60 = 4294967295;
-        field_64 = 1.0;
+        m_materialID = 4294967295;
+        m_textureScale = 1.0;
         field_68 = 1;
         m_blendingEnabled = true;
     }

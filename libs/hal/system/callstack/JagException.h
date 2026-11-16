@@ -11,7 +11,7 @@ namespace jag::callstack {
         // virtual methods in vtable order
         virtual ~JagException();
         virtual void what() const;
-        GetCallstackRaw() const;
+        CoordMapSquare GetCallstackRaw() const;
         errorMessage() const;
         JagException(Callstack const&, char const*, ...);
         void BuildErrorString(char const*, int, char const*, __va_list_tag*);

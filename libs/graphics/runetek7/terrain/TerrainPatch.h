@@ -200,11 +200,11 @@ namespace jag::graphics {
         uVar5 = puVar8[4];
         uVar6 = puVar8[5];
         uVar7 = puVar8[7];
-        field_48 = puVar8[6];
+        m_material = puVar8[6];
         field_56 = uVar7;
         field_32 = uVar5;
         field_40 = uVar6;
-        field_16 = uVar3;
+        m_aABB = uVar3;
         field_24 = uVar4;
         field_0 = ppuVar1;
         *(undefined8*)&field_8 = uVar2;

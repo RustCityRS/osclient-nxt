@@ -24,7 +24,7 @@ namespace jag::graphics {
         field_0 = param_1;
         p_Var1 = (_func_decltype_nullptr*)(ulong)param_3;
         new (&field_8, param_3, param_3) math::RectanglePacker<int, BucketAllocatorEASTL>();
-        field_96 = param_2;
+        m_iD = param_2;
         new (&field_104, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         new (&field_120) eastl::vector<std::pair<long long, int>, eastl::allocator>();
         new (&field_152) eastl::vector<SpriteAtlasMapping, eastl::allocator>();

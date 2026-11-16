@@ -328,7 +328,7 @@ namespace jag::oldscape::dash3d {
                         uVar5 = param_11->field_5;
                         uVar6 = param_11->field_6;
                         uVar7 = param_11->field_7;
-                        local_140->field_0 = param_11->field_0;
+                        local_140->m_colour = param_11->m_colour;
                         local_140->field_2 = sVar4;
                         local_140->field_4 = cVar9;
                         local_140->field_5 = uVar5;
@@ -337,7 +337,7 @@ namespace jag::oldscape::dash3d {
                     } else {
                         uVar3._0_1_ = param_11->field_8;
                         uVar3._1_1_ = param_11->field_9;
-                        local_108.field_0._0_2_ = param_11->field_0;
+                        local_108.field_0._0_2_ = param_11->m_colour;
                         local_108.field_0._2_2_ = param_11->field_2;
                         local_108.field_0._4_1_ = param_11->field_4;
                         local_108.field_0._5_1_ = param_11->field_5;
@@ -535,7 +535,7 @@ namespace jag::oldscape::dash3d {
             }
             local_40.field_8 = param_4->field_8;
             local_40.field_9 = param_4->field_9;
-            local_40.field_0 = param_4->field_0;
+            local_40.m_colour = param_4->m_colour;
             local_40.field_2 = param_4->field_2;
             local_40.field_4 = param_4->field_4;
             local_40._5_1_ = param_4->field_5;

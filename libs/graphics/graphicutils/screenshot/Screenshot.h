@@ -301,7 +301,7 @@ namespace jag::graphicutils {
         pair* field_0; // offset 0
         pair* field_8; // offset 8
         char _unknown_16[16];
-        undefined1 field_32; // offset 32
+        undefined1 m_screenshotSaveMode; // offset 32
         char _unknown_33[71];
     };
 
@@ -314,7 +314,7 @@ namespace jag::graphicutils {
         new (this) Singleton<Screengrabber>();
         new (this) eastl::vector<eastl::pair<PacketT<Array<unsigned char, eastl::allocator>>, eastl::string>,
                                  eastl::allocator>();
-        field_32 = 2;
+        m_screenshotSaveMode = 2;
         new (&field_40) eastl::vector<eastl::string, eastl::allocator>();
         eastl::vector<
             std::function<void(std::unique_ptr<unsigned char[], std::default_delete<unsigned char[]>> const&)>,

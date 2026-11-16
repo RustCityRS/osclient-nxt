@@ -10,7 +10,7 @@ namespace jag::oldscape {
     public:
         GetBaseVarType() const;
         GetDefaultValue() const;
-        GetID() const;
+        uint GetID() const;
         GetByID(unsigned int);
         ScriptVarType(unsigned int, game::BaseVarType const*, game::VarValue);
         void Initialise();
@@ -145,7 +145,7 @@ namespace jag::oldscape {
         static /* 8 bytes */ VARP;
 
         // data members, from how the methods use this: 24 bytes
-        uint field_0; // offset 0
+        uint m_iD; // offset 0
         char _unknown_4[4];
         BaseVarType* field_8; // offset 8
         char _unknown_16[8];
@@ -221,60 +221,60 @@ namespace jag::oldscape {
 
 namespace jag::graphics {
     // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    AnimState::GetResources();
+    AnimationStateResourceList AnimState::GetResources();
 
     // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    PointLightGridTexture::GetEffect() const;
+    shared_ptr PointLightGridTexture::GetEffect() const;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    RenderPassBitSet::GetBits() const;
+    uint RenderPassBitSet::GetBits() const;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    ScriptedPointLight::GetRadius() const;
+    uint ScriptedPointLight::GetRadius() const;
 
 } // namespace jag::graphics
 
 namespace jag {
     // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    EntityWaypoint::GetMoveSpeed() const;
+    MoveSpeed* EntityWaypoint::GetMoveSpeed() const;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    EntityWaypoint::GetLevel() const;
+    uint EntityWaypoint::GetLevel() const;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    Error::GetCode() const;
+    int Error::GetCode() const;
 
 } // namespace jag
 
 namespace jag::game {
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    EnvSkySettings::GetSkyBoxID() const;
+    uint EnvSkySettings::GetSkyBoxID() const;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    ServerSyncingCycle::GetCycle() const;
+    uint ServerSyncingCycle::GetCycle() const;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    EnvLightingSettings::GetSunRGBA() const;
+    uint EnvLightingSettings::GetSunRGBA() const;
 
 } // namespace jag::game
 
 namespace jag::render {
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    VertexArrayObject::GetNativeVAO() const;
+    uint VertexArrayObject::GetNativeVAO() const;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    TextureFormatBitSet::GetBits() const;
+    uint TextureFormatBitSet::GetBits() const;
 
 } // namespace jag::render
 
 namespace jag::input::gesture {
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    GestureManager::GetNumTouches() const;
+    int GestureManager::GetNumTouches() const;
 
 } // namespace jag::input::gesture
 
 namespace jag::tweak {
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    EditLine::GetDrawOffset() const;
+    int EditLine::GetDrawOffset() const;
 
 } // namespace jag::tweak

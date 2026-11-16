@@ -38,7 +38,7 @@ namespace jag::ui {
     List::EntryIconData::EntryIconData(List::EntryIconData&&);
 
     // 0x100412e50: the linker folded this into game::MapSquarePointLights::GetPointLightTexture(), which has identical code
-    List::GetValueRepresentation();
+    ComponentMultiValueMixin List::GetValueRepresentation();
 
     // 0x10068ec20: the linker folded this into ComboField::GetDropdownWidth() const, which has identical code
     List::GetDropdownListWidth() const;
@@ -50,12 +50,12 @@ namespace jag::ui {
 
         new (this) Component();
         new (field_392) FocusComponent();
-        new (field_400) ComponentMultiValueMixin();
+        new (m_valueRepresentation) ComponentMultiValueMixin();
         new (this) MakeSharedPool<List, 64>();
         new (&field_408) oldscape::graphics::animation::OldscapeAnimKeyFrameSet::OldscapeAnimCurveLoadJob();
         field_0 = &PTR__List_100f0f100;
         *(undefined***)field_392 = &PTR__List_100f0f258;
-        *(undefined***)field_400 = &PTR__List_100f0f2c0;
+        *(undefined***)m_valueRepresentation = &PTR__List_100f0f2c0;
         new (field_424) SpriteData();
         new (field_472) SpriteData();
         new (field_520) SpriteData();
@@ -125,7 +125,7 @@ namespace jag::ui {
 
         field_0 = &PTR__List_100f0f100;
         *(undefined***)field_392 = &PTR__List_100f0f258;
-        *(undefined***)field_400 = &PTR__List_100f0f2c0;
+        *(undefined***)m_valueRepresentation = &PTR__List_100f0f2c0;
         if (IsDropdown(this) != '\0') {
             CancelFocus(this);
         }
@@ -140,7 +140,7 @@ namespace jag::ui {
         field_472->~Sprite();
         field_424->~Sprite();
         (&field_408)->~enable_shared_from_this();
-        eastl::destruct<oldscape::highlight::NpcUID*>((eastl*)field_400, in_RSI, extraout_RDX);
+        eastl::destruct<oldscape::highlight::NpcUID*>((eastl*)m_valueRepresentation, in_RSI, extraout_RDX);
         field_392->~AutoSingleton();
         ~Component();
     }
@@ -560,10 +560,10 @@ namespace jag::ui {
                                                         eastl::string::Layout::SSOBeginPtr(this_06, (type*)pRVar12);
                                                     puVar22 = (uchar*)shared_ptr<graphics::FontMetrics>::operator*(
                                                         (shared_ptr<graphics::FontMetrics>*)this_07);
-                                                    SVar24.field_8 = puVar22;
-                                                    SVar24.field_0 = (ulong)&local_c8;
+                                                    SVar25.field_8 = puVar22;
+                                                    SVar25.field_0 = (ulong)&local_c8;
                                                     iVar5 = graphics::FontHelpers::GetStringWidth(
-                                                        SVar24, (FontMetrics*)0, (bool)bVar23);
+                                                        SVar25, (FontMetrics*)0, (bool)bVar23);
                                                     iVar5 = (local_34 - iVar4) + (local_38 - iVar5) / 2;
                                                 }
                                             }
@@ -584,10 +584,10 @@ namespace jag::ui {
                                 this_03 = *(FontHelpers**)local_68;
                                 StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(
                                     &local_b8, (fixed_string*)local_50);
-                                SVar25.field_8._0_4_ = local_34;
-                                SVar25.field_0 = (ulong)&local_b8;
-                                SVar25.field_8._4_4_ = 0;
-                                this_03->DrawStringMultiline(SVar25, local_3c, local_38, local_40, 0, (uint*)&local_a8,
+                                SVar24.field_8._0_4_ = local_34;
+                                SVar24.field_0 = (ulong)&local_b8;
+                                SVar24.field_8._4_4_ = 0;
+                                this_03->DrawStringMultiline(SVar24, local_3c, local_38, local_40, 0, (uint*)&local_a8,
                                                              in_stack_ffffffffffffff28);
                             }
                         } else {
@@ -924,9 +924,9 @@ namespace jag::ui {
                                                 this_09 = eastl::string::Layout::SSOBeginPtr(this_08, (type*)pfVar24);
                                                 puVar25 = (uchar*)shared_ptr<graphics::FontMetrics>::operator*(
                                                     (shared_ptr<graphics::FontMetrics>*)this_09);
-                                                SVar33.field_8 = puVar25;
-                                                SVar33.field_0 = (ulong)(local_148 + 24);
-                                                iVar10 = graphics::FontHelpers::GetStringWidth(SVar33, (FontMetrics*)0,
+                                                SVar34.field_8 = puVar25;
+                                                SVar34.field_0 = (ulong)(local_148 + 24);
+                                                iVar10 = graphics::FontHelpers::GetStringWidth(SVar34, (FontMetrics*)0,
                                                                                                (bool)bVar4);
                                                 uVar30 = local_b8;
                                                 uVar12 = (uVar11 - (int)local_b8) + (int)(uVar12 - iVar10) / 2;
@@ -961,10 +961,10 @@ namespace jag::ui {
                                     StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(
                                         &local_118, pfVar24);
                                     in_stack_fffffffffffffe98 = 0;
-                                    SVar34.field_8._0_4_ = local_48;
-                                    SVar34.field_0 = (ulong)&local_118;
-                                    SVar34.field_8._4_4_ = 0;
-                                    this_01->DrawStringMultiline(SVar34, (int)local_50._0_4_, (int)local_88,
+                                    SVar33.field_8._0_4_ = local_48;
+                                    SVar33.field_0 = (ulong)&local_118;
+                                    SVar33.field_8._4_4_ = 0;
+                                    this_01->DrawStringMultiline(SVar33, (int)local_50._0_4_, (int)local_88,
                                                                  (uint)field_658, 0, (uint*)&local_108,
                                                                  (TextProperties*)in_stack_fffffffffffffea8);
                                     uVar11 = (int)local_50._0_4_ + (uint)field_658;

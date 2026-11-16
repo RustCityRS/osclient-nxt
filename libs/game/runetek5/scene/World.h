@@ -12,7 +12,7 @@ namespace jag::game {
         virtual ~World();
         GetSceneManager() const;
         GetDynamicPointLightManager();
-        GetWorldRenderer();
+        SceneRenderManager GetWorldRenderer();
         void GetRootNode();
         GetDetachedParticleSystems();
         void GetLastFrustum() const;
@@ -26,7 +26,7 @@ namespace jag::game {
         GetBuiltZones() const;
         void AddPointLight(unsigned int, shared_ptr<LightSource> const&);
         GetHeightMap() const;
-        GetLinkMap() const;
+        AABB GetLinkMap() const;
         void GetLastCameraProjectionMatrix() const;
         void GetLastViewProjectionMatrix() const;
         void GetLastCameraViewMatrix() const;
@@ -75,8 +75,8 @@ namespace jag::game {
         MainDraw(render::RenderTargets*, unsigned int, ViewTransforms const&, float, float, render::Viewport const&,
                  CoordFine const&, int, int, unsigned int);
         void UpdateLightProbeSH();
-        GetCentreSquare() const;
-        GetCurrentEnvironmentSettings() const;
+        shared_ptr GetCentreSquare() const;
+        shared_ptr GetCurrentEnvironmentSettings() const;
         void CheckEnvironmentParameters(CoordFine const&, float, float);
         void RenderDebug(render::Viewport const&);
         void UpdatePickableEntities(unsigned int, CoordFine const&);
@@ -86,7 +86,7 @@ namespace jag::game {
         void UpdateFogEffect(float, float, unsigned int);
         void GetLastCameraPosition() const;
         GetLastCameraFocusPosition() const;
-        GetDefaultEnvironmentMap() const;
+        shared_ptr GetDefaultEnvironmentMap() const;
         void Preload(unsigned int, math::Vector3T<float> const&, eastl::bitset<6ul, unsigned long long> const&);
         int Build(unsigned int, math::Vector3T<float> const&, eastl::bitset<6ul, unsigned long long> const&,
                   LoadingState);
@@ -102,7 +102,7 @@ namespace jag::game {
         GetEntityLoadImportance(EntityType) const;
         void DestructImpostorMapSquares();
         void NotifyPickableEntities();
-        GetPickableEntities() const;
+        shared_ptr GetPickableEntities() const;
         void TestPickableEntity(eastl::fixed_vector<shared_ptr<Entity>, 128ul, true, eastl::allocator>&,
                                 eastl::fixed_vector<shared_ptr<Entity>, 128ul, true, eastl::allocator>&, int&, int&,
                                 shared_ptr<Entity> const&, math::Point<int> const&, int, unsigned int);
@@ -130,7 +130,7 @@ namespace jag::game {
         void SetBrightnessOffset(option::EnumBrightness);
         IsGroundDecorHidden() const;
         GetTemporaryMap() const;
-        GetWorldArea();
+        shared_ptr GetWorldArea();
         GetClearColour() const;
         GetSceneGraphRoot();
         GetPlayerCameraOffsetScale() const;
@@ -143,7 +143,7 @@ namespace jag::game {
         int GetMapSquareMinZ() const;
         int GetMapSquareMaxZ() const;
         uint GetWorldFocusLevel();
-        GetSkyBox();
+        shared_ptr GetSkyBox();
         void DebugSetPickingCounts(unsigned int, unsigned int);
         GetCentreSquarePosition() const;
         bool IsTargetMapSquare(int, int) const;

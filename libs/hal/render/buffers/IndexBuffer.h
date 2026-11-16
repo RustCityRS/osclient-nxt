@@ -7,8 +7,8 @@
 namespace jag::render {
     class IndexBuffer {
     public:
-        GetIndexCount() const;
-        GetDataType() const;
+        uint GetIndexCount() const;
+        int GetDataType() const;
         void UpdateMaxIndex(void const*, bool);
         IndexBuffer();
         ~IndexBuffer();
@@ -38,15 +38,15 @@ namespace jag::render {
         undefined3 field_45; // offset 45
         char _unknown_48[8];
         GPUMemoryTrackingEntry field_56; // offset 56
-        undefined4 field_80;             // offset 80
-        uint field_84;                   // offset 84
+        int m_dataType;                  // offset 80
+        uint m_indexCount;               // offset 84
         char _unknown_88[4];
     };
 
     // 0x100c0dc60, 16 bytes, inline, placed by class name
     // IndexBuffer::IsRecyclable() const
     bool IndexBuffer::IsRecyclable() {
-        return field_80 == 5123;
+        return m_dataType == 5123;
     }
 
     // 0x100c31340, 32 bytes, base-object constructor, inline, placed by class name
@@ -55,9 +55,9 @@ namespace jag::render {
         uint uVar1;
 
         new (this) BufferInterface(param_1);
-        uVar1 = param_1->field_84;
-        field_80 = param_1->field_80;
-        field_84 = uVar1;
+        uVar1 = param_1->m_indexCount;
+        m_dataType = param_1->m_dataType;
+        m_indexCount = uVar1;
     }
 
     // 0x100c3a6a0, 48 bytes, inline, placed by class name
@@ -68,9 +68,9 @@ namespace jag::render {
         uint uVar1;
 
         BufferInterface::operator=((BufferInterface*)this, (BufferInterface*)param_1);
-        uVar1 = param_1->field_84;
-        field_80 = param_1->field_80;
-        field_84 = uVar1;
+        uVar1 = param_1->m_indexCount;
+        m_dataType = param_1->m_dataType;
+        m_indexCount = uVar1;
         return this;
     }
 

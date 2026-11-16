@@ -180,7 +180,7 @@ namespace jag::ui {
             this_01 = (ComponentSwipeConfig*)this_00->GetSwipeConfig();
             uVar2 = this_01->GetDirectionMask();
             if (((0 < local_38) && ((uVar2 & 1) == 0)) || ((local_38 < 0 && ((uVar2 & 2) == 0)))) {
-                field_32 = 0;
+                m_swipeMovement = 0;
                 field_40 = 0;
                 m_horizontallySwiped = false;
                 local_38 = 0;
@@ -188,27 +188,27 @@ namespace jag::ui {
             if (((0 < local_34) && ((uVar2 & 4) == 0)) || ((local_34 < 0 && ((uVar2 & 8) == 0)))) {
                 field_36 = 0;
                 field_44 = 0;
-                field_56 = false;
+                m_verticallySwiped = false;
                 local_34 = 0;
             }
-            math::Vector2T<int>::operator+=((Vector2T<int>*)&field_32, (Vector2T*)&local_38);
-            if (field_56 == false) {
+            math::Vector2T<int>::operator+=((Vector2T<int>*)&m_swipeMovement, (Vector2T*)&local_38);
+            if (m_verticallySwiped == false) {
                 if ((((int)field_36 < -m_deadZoneVertical) && ((uVar2 & 8) != 0)) ||
                     ((m_deadZoneVertical < (int)field_36 && ((uVar2 & 4) != 0)))) {
                     m_deadZoneVertical = 0;
-                    field_56 = true;
+                    m_verticallySwiped = true;
                 }
             }
             if (m_horizontallySwiped == false) {
-                if ((((int)field_64 < (int)field_32) && ((uVar2 & 1) != 0)) ||
-                    (((int)field_32 < (int)-field_64 && ((uVar2 & 2) != 0)))) {
-                    field_64 = 0;
+                if ((((int)m_deadZoneHorizontal < (int)m_swipeMovement) && ((uVar2 & 1) != 0)) ||
+                    (((int)m_swipeMovement < (int)-m_deadZoneHorizontal && ((uVar2 & 2) != 0)))) {
+                    m_deadZoneHorizontal = 0;
                     m_horizontallySwiped = true;
                 }
             }
             local_40._0_4_ = field_40;
             local_40._4_4_ = field_44;
-            if (field_56 != false) {
+            if (m_verticallySwiped != false) {
                 local_40 = CONCAT44(local_40._4_4_ + local_34, (int)local_40);
             }
             if (m_horizontallySwiped != false) {

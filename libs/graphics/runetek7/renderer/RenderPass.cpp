@@ -15,7 +15,7 @@ namespace jag::graphics {
         RenderDebug(EffectManager&, DrawableQueue&);
         RegisterTweakVarsOcclusion(tweak::Container&);
         EndPass(render::DrawCallState&, render::RenderContext&, EffectManager&, DrawableQueue const&);
-        GetRenderPassType() const;
+        uint GetRenderPassType() const;
         RenderPass(RenderPassType);
         void RegisterTweakVars(tweak::Container&);
         static /* 4 bytes */ m_useAsyncReprojection; // = 1
@@ -24,15 +24,15 @@ namespace jag::graphics {
             m_renderPassList;                               // = vector<RenderPass*,eastl::allocator>()
 
         // data members, from how the methods use this: 16 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        undefined4 field_8;  // offset 8
+        undefined** field_0;   // offset 0, vtable pointer
+        uint m_renderPassType; // offset 8
         char _unknown_12[4];
     };
 
     class RenderPassBitSet {
     public:
         SetBits(unsigned int);
-        GetBits() const;
+        uint GetBits() const;
         RenderPassBitSet();
         Clear();
         AddRenderPass(unsigned int);
@@ -41,7 +41,7 @@ namespace jag::graphics {
         void RemoveRenderPass(unsigned int);
 
         // data members, from how the methods use this: 4 bytes
-        uint field_0; // offset 0
+        uint m_bits; // offset 0
     };
 
     // 0x100f43a1c, 4 bytes, __data
@@ -66,7 +66,7 @@ namespace jag::graphics {
     RenderPass::EndPass(render::DrawCallState&, render::RenderContext&, EffectManager&, DrawableQueue const&);
 
     // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    RenderPass::GetRenderPassType() const;
+    uint RenderPass::GetRenderPassType() const;
 
     // 0x10002d860: the linker folded this into oldscape::option::Option<int>::IsValidValue(int const&) const, which has identical code
     RenderPass::BeginPass(render::DrawCallState&, render::RenderContext&, EffectManager&, SceneViewData const&,
@@ -74,11 +74,11 @@ namespace jag::graphics {
 
     // 0x1007e3e20, 48 bytes, base-object constructor, placed by class name and debug map
     // RenderPass::RenderPass(RenderPassType)
-    void RenderPass::RenderPass(undefined4 param_2) {
+    void RenderPass::RenderPass(uint param_2) {
         RenderPass* local_10;
 
         field_0 = &PTR__RenderPass_100f14d40;
-        field_8 = param_2;
+        m_renderPassType = param_2;
         local_10 = this;
         m_renderPassList.push_back(&local_10);
     }

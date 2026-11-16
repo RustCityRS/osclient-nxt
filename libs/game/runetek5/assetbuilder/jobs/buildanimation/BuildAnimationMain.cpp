@@ -7,10 +7,10 @@
 
 namespace jag::game {
     // 0x100102fc0: the linker folded this into oldscape::rs2lib::InputField::GetPlaceholderContents() const, which has identical code
-    BuildAnimationMain::GetConstructedAsset() const;
+    shared_ptr BuildAnimationMain::GetConstructedAsset() const;
 
     // 0x1001cd990: the linker folded this into graphics::PointLightIndicesEffect::GetVisiblePointLights(), which has identical code
-    BuildAnimationMain::GetRequestData();
+    shared_ptr BuildAnimationMain::GetRequestData();
 
     // 0x100649c90, 592 bytes, base-object constructor, placed by class name and debug map
     // BuildAnimationMain::BuildAnimationMain(int, shared_ptr<graphics::Animation> const&, Array<shared_ptr<graphics::AnimationFrameRT5>, BucketAllocatorEASTL>&&, Array<unsigned int, eastl::allocator> const&, shared_ptr<graphics::Model> const&, shared_ptr<graphics::AnimKeyFrameSet> const&)
@@ -26,8 +26,9 @@ namespace jag::game {
 
         new (this) AssetJob(0, param_1);
         field_0 = &PTR__BuildAnimationMain_100f0d798;
-        new (field_80, (_func_decltype_nullptr*)0) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        this_00 = field_96;
+        new (m_constructedAsset, (_func_decltype_nullptr*)0)
+            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        this_00 = m_requestData;
         new (this_00) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(0);
         if (!shared_ptr::operator_cast_to_bool(param_5)) {
             /* WARNING: Subroutine does not return */
@@ -103,8 +104,8 @@ namespace jag::game {
         shared_ptr* extraout_RDX;
         shared_ptr local_30;
 
-        if (field_96->operator_cast_to_bool()) {
-            static_pointer_cast<oldscape::ClientEntity, shared_ptr<oldscape::ClientNpc>>(&local_30, (jag*)field_96,
+        if (m_requestData->operator_cast_to_bool()) {
+            static_pointer_cast<oldscape::ClientEntity, shared_ptr<oldscape::ClientNpc>>(&local_30, (jag*)m_requestData,
                                                                                          extraout_RDX);
             shared_ptr<void>::operator=((shared_ptr<void>*)&field_32, &local_30);
             local_30.~shared_ptr();
@@ -144,7 +145,8 @@ namespace jag::game {
     // 0x10064a270, 16 bytes, placed by class name and debug map
     // BuildAnimationMain::PostDecodeResultSetup(BuildAnimationResultData&)
     void BuildAnimationMain::PostDecodeResultSetup(BuildAnimationResultData* param_1) {
-        shared_ptr<graphics::Animation>::operator=((shared_ptr<graphics::Animation>*)field_80, (shared_ptr*)param_1);
+        shared_ptr<graphics::Animation>::operator=((shared_ptr<graphics::Animation>*)m_constructedAsset,
+                                                   (shared_ptr*)param_1);
     }
 
 } // namespace jag::game

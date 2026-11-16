@@ -10,8 +10,8 @@ namespace jag::game {
         class RadialHighlightState;
         GetPreviousUpdateLogicTick() const;
         GetOutlineRadiusAdjustment() const;
-        GetPlayerNPCAttackOpPriority() const;
-        GetCurrentUpdateLogicTick() const;
+        int GetPlayerNPCAttackOpPriority() const;
+        uint GetCurrentUpdateLogicTick() const;
         GetPlayerActiveCombatLevel() const;
         IsInteractionFadeOutFrozen() const;
         void Update(float, unsigned int);
@@ -31,17 +31,17 @@ namespace jag::game {
         char field_1;                          // offset 1
         undefined1 field_2;                    // offset 2
         undefined1 m_interactionFadeOutFrozen; // offset 3
-        uint field_4;                          // offset 4
-        undefined3 field_8;                    // offset 8
+        uint m_currentUpdateLogicTick;         // offset 4
+        undefined3 m_previousUpdateLogicTick;  // offset 8
         undefined1 field_11;                   // offset 11
         undefined4 m_outlineRadiusAdjustment;  // offset 12
-        char _unknown_16[4];
-        undefined8 field_20; // offset 20
-        int field_28;        // offset 28
-        float field_32;      // offset 32
-        float field_36;      // offset 36
-        float field_40;      // offset 40
-        float field_44;      // offset 44
+        int m_playerNPCAttackOpPriority;       // offset 16
+        undefined8 m_playerActiveCombatLevel;  // offset 20
+        int field_28;                          // offset 28
+        float field_32;                        // offset 32
+        float field_36;                        // offset 36
+        float field_40;                        // offset 40
+        float field_44;                        // offset 44
         char _unknown_48[4];
     };
 
@@ -103,11 +103,12 @@ namespace jag::game {
         field_1 = '\x01';
         field_2 = 1;
         m_interactionFadeOutFrozen = 0;
-        field_4 = 0;
-        field_8 = 0;
+        m_currentUpdateLogicTick = 0;
+        m_previousUpdateLogicTick = 0;
         field_11 = 0;
-        *(undefined8*)&m_outlineRadiusAdjustment = 5368709120;
-        field_20 = 4294967295;
+        m_outlineRadiusAdjustment = 1073741824;
+        m_playerNPCAttackOpPriority = 1;
+        m_playerActiveCombatLevel = 4294967295;
         new (&field_28) RadialHighlightState();
     }
 

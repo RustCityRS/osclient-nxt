@@ -10,7 +10,7 @@ namespace jag::ui {
     shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> Interface::NullInterfaceShared;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    Interface::GetInterfaceID() const;
+    int Interface::GetInterfaceID() const;
 
     // 0x1003bb9b0, 128 bytes, placed by the data it initialises
     // ___cxx_global_var_init.32
@@ -93,7 +93,7 @@ namespace jag::ui {
         local_100 = param_6;
         local_a0 = param_5;
         new (this) MakeSharedPool<Interface, 128>();
-        field_0 = param_1;
+        m_interfaceID = param_1;
         local_88 = (vector<ComponentContainer, eastl::allocator>*)&field_8;
         local_b4 = param_1;
         eastl::vector<ComponentContainer, eastl::allocator>::vector(local_88);

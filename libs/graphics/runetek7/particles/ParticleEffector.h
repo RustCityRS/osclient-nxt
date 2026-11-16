@@ -21,14 +21,14 @@ namespace jag::graphics {
 
         // data members, from how the methods use this: 76 bytes
         char _unknown_0[16];
-        undefined8 field_16;       // offset 16
-        ParticleManager* field_24; // offset 24
-        ParticleSystem* field_32;  // offset 32
-        undefined8 field_40;       // offset 40
-        undefined8 field_48;       // offset 48
-        undefined8 field_56;       // offset 56
-        undefined4 field_64;       // offset 64
-        undefined4 field_68;       // offset 68
+        undefined8 m_effectorTemplate; // offset 16
+        ParticleManager* field_24;     // offset 24
+        ParticleSystem* field_32;      // offset 32
+        undefined8 field_40;           // offset 40
+        undefined8 field_48;           // offset 48
+        undefined8 field_56;           // offset 56
+        undefined4 field_64;           // offset 64
+        undefined4 field_68;           // offset 68
         char _unknown_72[4];
     };
 
@@ -48,7 +48,7 @@ namespace jag::graphics {
 
         shared_ptr<ModelParticleSource>::operator=((shared_ptr<ModelParticleSource>*)this, (shared_ptr*)param_1);
         pPVar1 = param_1->field_24;
-        field_16 = param_1->field_16;
+        m_effectorTemplate = param_1->m_effectorTemplate;
         field_24 = pPVar1;
         field_32 = param_1->field_32;
         (&field_40, (Vector3T*)&param_1->field_40)->SetXYZ();
@@ -77,7 +77,7 @@ namespace jag::graphics {
         uVar6 = param_1->field_68;
         field_64 = param_1->field_64;
         field_68 = uVar6;
-        uVar1 = param_1->field_16;
+        uVar1 = param_1->m_effectorTemplate;
         pPVar2 = param_1->field_24;
         pPVar3 = param_1->field_32;
         uVar4 = param_1->field_40;
@@ -86,7 +86,7 @@ namespace jag::graphics {
         field_56 = uVar5;
         field_32 = pPVar3;
         field_40 = uVar4;
-        field_16 = uVar1;
+        m_effectorTemplate = uVar1;
         field_24 = pPVar2;
     }
 

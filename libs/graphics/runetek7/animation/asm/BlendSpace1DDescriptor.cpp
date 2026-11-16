@@ -7,7 +7,7 @@
 
 namespace jag::graphics {
     // 0x1001c4510: the linker folded this into oldscape::rseven::OSRenderCore_TextureDataProvider::Gamma() const, which has identical code
-    BlendSpace1DDescriptor::LocationInfo::GetPosition() const;
+    float BlendSpace1DDescriptor::LocationInfo::GetPosition() const;
 
     // 0x1002699e0: the linker folded this into oldscape::rs2lib::social::ClanChannelDelta::UpdateUserDetails::GetID() const, which has identical code
     BlendSpace1DDescriptor::GetNodeType() const;
@@ -21,7 +21,7 @@ namespace jag::graphics {
         std::unique_ptr<BlendTreeNodeDescriptor, std::default_delete<BlendTreeNodeDescriptor>>::unique_ptr<true, void>(
             (unique_ptr<BlendTreeNodeDescriptor, std::default_delete<BlendTreeNodeDescriptor>>*)this);
         fVar1 = (float)param_1->gFloat();
-        field_8 = fVar1;
+        m_position = fVar1;
         local_20.FromPacket(param_1);
         std::unique_ptr<BlendTreeNodeDescriptor, std::default_delete<BlendTreeNodeDescriptor>>::operator=(
             (unique_ptr<BlendTreeNodeDescriptor, std::default_delete<BlendTreeNodeDescriptor>>*)this,

@@ -13,7 +13,7 @@ namespace jag::game {
         virtual void PostDecode();
         virtual GetTransformMask() const;
         virtual GetJointWeights() const;
-        IsWalkMerge() const;
+        bool IsWalkMerge() const;
         SeqGroupType(BaseTemplateConfigTypeList<SeqGroupType>*, int);
 
         // data members, from how the methods use this: 113 bytes
@@ -24,7 +24,7 @@ namespace jag::game {
         char _unknown_36[20];
         undefined** field_56; // offset 56
         char _unknown_64[48];
-        bool field_112; // offset 112
+        bool m_walkMerge; // offset 112
     };
 
     // 0x1004de990, 16 bytes, inline, placed by class name and debug map
@@ -70,7 +70,7 @@ namespace jag::game {
         field_56 = &PTR__SeqGroupType_100f02570;
         new (&field_64) Array<bool, eastl::allocator>();
         new (&field_88) Array<float, eastl::allocator>();
-        field_112 = false;
+        m_walkMerge = false;
     }
 
 } // namespace jag::game

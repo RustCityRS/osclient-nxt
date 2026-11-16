@@ -121,7 +121,7 @@ namespace jag {
         field_800 = 0;
         local_e0 = &field_808;
         new (local_e0) eastl::fixed_vector<int, 4ul, true, eastl::allocator>();
-        local_d8 = field_864;
+        local_d8 = m_animatedModel;
         p_Var2 = field_208;
         new (local_d8) PathingEntityAnimatedModel(p_Var2, field_216, field_224, 0, 0, &field_128, this);
         field_3232 = 0;
@@ -274,7 +274,7 @@ namespace jag {
         (&field_3552)->~fixed_vector();
         (&field_3288)->~PathingEntityModels();
         (&field_3240)->~PathingEntityModels();
-        field_864->~LocationAnimatedModel();
+        m_animatedModel->~LocationAnimatedModel();
         (&field_808)->~fixed_vector();
         ((field_552 + 160))->~unique_ptr();
         field_552->~FacingController();
@@ -426,7 +426,7 @@ namespace jag {
     void PathingEntity::AbortAnimationsOnMove() {
         char cVar1;
 
-        cVar1 = field_864->AbortAnimationsOnMove();
+        cVar1 = m_animatedModel->AbortAnimationsOnMove();
         if (cVar1 != '\0') {
             eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
         }
@@ -568,7 +568,7 @@ namespace jag {
         (&field_3240)->Clear();
         (&field_3288)->Clear();
         shared_ptr<game::BASType>::reset();
-        this_00 = field_864;
+        this_00 = m_animatedModel;
         psVar3 = (shared_ptr*)this_00->GetOverrideAnimation();
         bVar1 = shared_ptr::operator_cast_to_bool(psVar3);
         if (bVar1) {
@@ -993,8 +993,8 @@ namespace jag {
                       418, (char*)0);
         }
         local_48.shared_from_this();
-        weak_ptr<game::Entity>::operator=((weak_ptr<game::Entity>*)(field_864 + 8), &local_48);
-        puVar1 = field_864;
+        weak_ptr<game::Entity>::operator=((weak_ptr<game::Entity>*)(m_animatedModel + 8), &local_48);
+        puVar1 = m_animatedModel;
         local_48.~shared_ptr();
         pGVar7 = (GraphicsApp*)this;
         sVar4 = (*(code*)field_0[42])(this, param_1, param_4);
@@ -1124,7 +1124,7 @@ namespace jag {
         shared_ptr<oldscape::dash3d::Decor> local_50[16];
         shared_ptr local_40;
 
-        this_00 = field_864;
+        this_00 = m_animatedModel;
         psVar3 = (shared_ptr*)this_00->GetCurrentModel();
         bVar2 = shared_ptr::operator_cast_to_bool(psVar3);
         if (bVar2) {
@@ -1215,24 +1215,24 @@ namespace jag {
         if (bVar1) {
             pWVar2 = (World*)shared_ptr<game::World>::operator->((shared_ptr<game::World>*)this_00);
             pDVar3 = (DetachedParticleSystemsDrawable*)pWVar2->GetDetachedParticleSystems();
-            pfVar4 = (fixed_vector*)field_864->GetParticleSystems();
+            pfVar4 = (fixed_vector*)m_animatedModel->GetParticleSystems();
             pDVar3->Add(pfVar4);
             pWVar2 = (World*)shared_ptr<game::World>::operator->((shared_ptr<game::World>*)this_00);
             pDVar3 = (DetachedParticleSystemsDrawable*)pWVar2->GetDetachedParticleSystems();
-            pvVar5 = (vector*)field_864->GetModularParticleSystems();
+            pvVar5 = (vector*)m_animatedModel->GetModularParticleSystems();
             pDVar3->Add(pvVar5);
         }
         bVar1 = field_3896->operator_cast_to_bool();
         if (bVar1) {
             new (&local_38) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(0);
-            (field_864, &local_38)->SetAnimationStateProviderOverride();
+            (m_animatedModel, &local_38)->SetAnimationStateProviderOverride();
             local_38.~shared_ptr();
             shared_ptr<graphics::AnimationStateSystem>::reset();
             shared_ptr<graphics::AnimationStateMachineProvider>::reset();
             shared_ptr<game::RT5AnimationResourceManager>::reset();
         }
         (*(code*)field_0[54])(this);
-        field_864->Destruct();
+        m_animatedModel->Destruct();
         DestroySpotAnimations(this);
     }
 
@@ -1281,7 +1281,7 @@ namespace jag {
             return;
         }
         this_00 = (BASType*)shared_ptr<game::BASType>::operator*((shared_ptr<game::BASType>*)field_3856);
-        this_02 = field_864;
+        this_02 = m_animatedModel;
         pvVar1 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)this_02->GetDefaultAnimation();
         this_01 = (CommandLine*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(pvVar1);
         if (this_01 != (CommandLine*)0) {
@@ -1672,7 +1672,7 @@ namespace jag {
             if (cVar1 != '\0') {
                 cVar1 = (&field_808)->empty();
                 if (cVar1 == '\0') {
-                    this_00 = field_864;
+                    this_00 = m_animatedModel;
                     cVar1 = this_00->HasRequestedOverrideAnimation();
                     if (cVar1 == '\0') {
                         cVar1 = this_00->IsOverrideAnimationInUse();
@@ -1794,7 +1794,7 @@ namespace jag {
                     (vector<int, eastl::fixed_vector_allocator<4ul, 4ul, 4ul, 0ul, true, eastl::allocator>>*)&field_808,
                     (long)*(int*)(param_1 + 8) + 1);
             iVar1 = *piVar2;
-            this_00 = field_864;
+            this_00 = m_animatedModel;
             iVar4 = this_00->GetOverrideAnimationRequestedSeqID();
             if (iVar4 != iVar1) {
                 iVar4 = this_00->GetOverrideAnimationSeqID();
@@ -1823,7 +1823,7 @@ namespace jag {
             (unique_ptr<graphics::GraphNode, graphics::GraphNodeDelete>*)&field_56);
         this_00->SetTranslation(local_28);
         pMVar1 = (Matrix44T*)CalculateWorldTransformationMatrix(this);
-        (field_864, pMVar1, param_1)->SetWorldTransform();
+        (m_animatedModel, pMVar1, param_1)->SetWorldTransform();
     }
 
     // 0x1003f3f20, 192 bytes, placed by class name
@@ -1901,7 +1901,7 @@ namespace jag {
         undefined8 unaff_R15;
         undefined7 uVar7;
 
-        puVar1 = field_864;
+        puVar1 = m_animatedModel;
         cVar2 = puVar1->IsOverrideBlockingMovement(field_800);
         uVar7 = (undefined7)((ulong)unaff_R15 >> 8);
         bVar6 = true;
@@ -2102,7 +2102,7 @@ namespace jag {
                 }
             }
         LAB_1003f4838:
-            (field_864, iVar2, false, false)->RequestDefaultAnimation();
+            (m_animatedModel, iVar2, false, false)->RequestDefaultAnimation();
         }
     }
 
@@ -2369,7 +2369,7 @@ namespace jag {
         compressed_pair<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator>*
             this_02;
 
-        (field_864, param_1)->TranslateParticles();
+        (m_animatedModel, param_1)->TranslateParticles();
         this_02 = (compressed_pair<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
                                    eastl::allocator>*)(&field_4088)
                       ->HeapBeginPtr();
@@ -2717,7 +2717,7 @@ namespace jag {
         fVar6 = (float)GetFloorHeight(param_1, 1);
         local_40 = CONCAT44(fVar6 + 5.0, (undefined4)local_40);
         (&field_720, (Vector3T*)&local_40)->SetXYZ();
-        if ((field_864, field_800)->MayMove() == '\0') {
+        if ((m_animatedModel, field_800)->MayMove() == '\0') {
             return;
         }
         this_01 = (GraphicsApp*)BaseApp::GetAppInstance();
@@ -2786,7 +2786,7 @@ namespace jag {
         uint uVar4;
         undefined1* this_06;
 
-        this_06 = field_864;
+        this_06 = m_animatedModel;
         iVar1 = this_06->GetDefaultAnimationSeqID();
         if (iVar1 != -1) {
             iVar1 = this_06->GetDefaultAnimationSeqID();
@@ -3008,7 +3008,7 @@ namespace jag {
         if (bVar1)
             goto LAB_1003f63fa;
         if ((char)local_48 != '\0') {
-            this_00 = field_864;
+            this_00 = m_animatedModel;
             cVar2 = this_00->MayMove(field_800);
             if (cVar2 == '\0') {
                 local_48 = (AnimatedModel*)this_00;
@@ -3079,7 +3079,7 @@ namespace jag {
                 return uVar4;
             }
         }
-        this_01 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)field_864->GetCurrentModel();
+        this_01 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)m_animatedModel->GetCurrentModel();
         pNVar5 = (NXTPixToolkit*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_01);
         if (pNVar5 == (NXTPixToolkit*)0) {
             uVar4 = 200;
@@ -3150,9 +3150,9 @@ namespace jag {
                     goto LAB_1003f6691;
                 psVar17 = (shared_ptr*)&psVar15->field_1;
             } while (&psVar15->field_1 != (undefined1*)4);
-            this_02 =
-                (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)(((PathingEntity*)this)->field_864)
-                    ->GetOverrideAnimation();
+            this_02 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)(((PathingEntity*)this)
+                                                                                              ->m_animatedModel)
+                          ->GetOverrideAnimation();
             this_03 =
                 (NXTPixToolkit*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_02);
             if ((this_03 != (NXTPixToolkit*)0) && (cVar2 = this_03->IsReady(), cVar2 != '\0')) {
@@ -3244,7 +3244,7 @@ namespace jag {
                 pPVar1->field_800 = uVar7;
             }
             if ((local_34 & 1) == 0) {
-                this_05 = ((PathingEntity*)this)->field_864;
+                this_05 = ((PathingEntity*)this)->m_animatedModel;
                 this_05->SetOverrideDelay((uint)param_2);
                 this_05->SetOverrideSourceTicks(param_4, param_5);
                 this_05->SetOverridePriority(uVar5);
@@ -3263,7 +3263,7 @@ namespace jag {
                 } while (uVar16 != 4);
             } else {
                 eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-                (((PathingEntity*)this)->field_864)->ResetOverrideAnimation();
+                (((PathingEntity*)this)->m_animatedModel)->ResetOverrideAnimation();
             }
         }
     }
@@ -3319,11 +3319,11 @@ namespace jag {
         if ((*(code*)field_0[40])(this) == '\0') {
             (*(code*)field_0[64])(this);
             pMVar7 = (Matrix44T*)CalculateWorldTransformationMatrix(this);
-            this_01 = (shared_ptr*)field_864->GetCurrentModel();
+            this_01 = (shared_ptr*)m_animatedModel->GetCurrentModel();
             bVar1 = shared_ptr::operator_cast_to_bool(this_01);
             if (bVar1) {
                 local_48 = pMVar7;
-                local_40 = (AnimatedModel*)field_864;
+                local_40 = (AnimatedModel*)m_animatedModel;
                 new (local_68) game::CoordFine();
                 GetPositionFine(this, (CoordFine*)local_68);
                 this_02 = (shared_ptr<game::World>*)GetWorld();
@@ -3385,8 +3385,8 @@ namespace jag {
             bVar2 = IsNonCentredEntity(this);
             iVar3 = GetGridSize(this);
             pVVar4 = (Vector3T*)GetWorldPosition();
-            (field_864, pVVar4, (uint)bVar2 + iVar3, (uint)bVar2 + iVar3)->SetPointLightBounds();
-            (field_864, param_1, param_2, param_4, param_5)->GatherDrawableElements();
+            (m_animatedModel, pVVar4, (uint)bVar2 + iVar3, (uint)bVar2 + iVar3)->SetPointLightBounds();
+            (m_animatedModel, param_1, param_2, param_4, param_5)->GatherDrawableElements();
         }
     }
 
@@ -3591,7 +3591,7 @@ namespace jag {
         Vector3T* pVVar8;
         undefined1 local_48[32];
 
-        this_00 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)field_864->GetCurrentModel();
+        this_00 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)m_animatedModel->GetCurrentModel();
         this_01 = (Model*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_00);
         if (((this_01 != (Model*)0) && (cVar2 = (*(code*)field_0[40])(this), cVar2 == '\0')) &&
             (iVar4 = this_01->GetTotalBatchCount(), iVar4 != 0)) {
@@ -3707,11 +3707,11 @@ namespace jag {
         Model* this_01;
         float fVar5;
 
-        cVar2 = field_864->IsLoaded();
+        cVar2 = m_animatedModel->IsLoaded();
         if (cVar2 == '\0') {
             return 0.0;
         }
-        this_00 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)field_864->GetCurrentModel();
+        this_00 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)m_animatedModel->GetCurrentModel();
         this_01 = (Model*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_00);
         if (this_01 == (Model*)0) {
             return 1.0;

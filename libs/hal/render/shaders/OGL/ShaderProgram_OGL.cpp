@@ -20,8 +20,8 @@ namespace jag::render {
             m_compileFlags = m_compileFlags & 252;
         }
         VertexDeclaration::Create((VertexElementDesc*)&field_24, (ulong)param_3, (void*)(ulong)param_4, (ulong)param_3);
-        (&field_120, param_1)->SetSource();
-        (&field_176, param_2)->SetSource();
+        (&m_vertexShaderSource, param_1)->SetSource();
+        (&m_pixelShaderSource, param_2)->SetSource();
         CreateFromSourceString(this);
     }
 
@@ -1727,9 +1727,9 @@ namespace jag::render {
         new (this) RenderDeviceOnEndFrame(false);
         field_0 = &PTR__ShaderProgram_100f28258;
         new (&field_24) VertexDeclaration();
-        new (&field_120) ShaderSource();
+        new (&m_vertexShaderSource) ShaderSource();
         new (field_160, (_func_decltype_nullptr*)0) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (&field_176) ShaderSource();
+        new (&m_pixelShaderSource) ShaderSource();
         new (field_216, (_func_decltype_nullptr*)0) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         new (&field_232) ShaderSource();
         new (field_272, (_func_decltype_nullptr*)0) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
@@ -1779,9 +1779,9 @@ namespace jag::render {
         field_272->~shared_ptr();
         (&field_232)->~hash_node();
         field_216->~shared_ptr();
-        (&field_176)->~hash_node();
+        (&m_pixelShaderSource)->~hash_node();
         field_160->~shared_ptr();
-        (&field_120)->~hash_node();
+        (&m_vertexShaderSource)->~hash_node();
         (&field_24)->~VertexDeclaration();
         ~RenderDeviceOnEndFrame();
         (&field_12)->~RenderResource();
@@ -1909,10 +1909,10 @@ namespace jag::render {
         this_06->UndoMarkAsDead();
         pSVar7 = (ShaderSource*)this_06->Instance();
         puVar1->size();
-        local_48.RegisterFromBinary(pSVar7, (ulong)&field_120);
+        local_48.RegisterFromBinary(pSVar7, (ulong)&m_vertexShaderSource);
         shared_ptr<VertexShader>::operator=((shared_ptr<VertexShader>*)field_160, &local_48);
         local_48.~shared_ptr();
-        this_00 = &field_176;
+        this_00 = &m_pixelShaderSource;
         this_01 = this_00->SSOBeginPtr((type*)&local_48);
         if (eastl::basic_string<char,
                                 eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size() !=
@@ -1956,7 +1956,7 @@ namespace jag::render {
                 uVar5 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_04);
                 BindVertexElementAttribs(this, (VertexElementDesc*)pcVar12, uVar5);
             }
-            (&field_120, (type*)pcVar12)->SSOBeginPtr();
+            (&m_vertexShaderSource, (type*)pcVar12)->SSOBeginPtr();
             pcVar10 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
             this_00->SSOBeginPtr(pcVar12);
             pcVar11 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
@@ -2032,11 +2032,11 @@ namespace jag::render {
             eastl::basic_string<char,
                                 eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
         if (cVar1 != '\0') {
-            (&field_120, (type*)in_RSI)->SSOBeginPtr();
+            (&m_vertexShaderSource, (type*)in_RSI)->SSOBeginPtr();
             cVar1 = eastl::basic_string<
                 char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
             if (cVar1 != '\0') {
-                (&field_120, (type*)in_RSI)->SSOBeginPtr();
+                (&m_vertexShaderSource, (type*)in_RSI)->SSOBeginPtr();
                 cVar1 = eastl::basic_string<
                     char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
                 if (cVar1 != '\0') {
@@ -2049,14 +2049,14 @@ namespace jag::render {
                         "ShaderProgram_OGL.cpp",
                         169, (char*)0);
                 }
-                (&field_176, (type*)in_RSI)->SSOBeginPtr();
+                (&m_pixelShaderSource, (type*)in_RSI)->SSOBeginPtr();
                 cVar1 = eastl::basic_string<
                     char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
                 if (cVar1 != '\0')
                     goto LAB_100bef179;
             }
         }
-        puVar9 = &field_120;
+        puVar9 = &m_vertexShaderSource;
         pvVar4 = puVar9->SSOBeginPtr(in_RSI);
         cVar1 =
             eastl::basic_string<char,
@@ -2079,7 +2079,7 @@ namespace jag::render {
             uVar11 = 176;
         } else {
         LAB_100bef239:
-            puVar9 = &field_176;
+            puVar9 = &m_pixelShaderSource;
             pvVar4 = puVar9->SSOBeginPtr(in_RSI);
             cVar1 = eastl::basic_string<
                 char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
@@ -2323,9 +2323,9 @@ namespace jag::render {
         type* in_RSI;
         undefined8 uVar6;
 
-        (&field_120, in_RSI)->SSOBeginPtr();
+        (&m_vertexShaderSource, in_RSI)->SSOBeginPtr();
         pcVar2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        (&field_176, in_RSI)->SSOBeginPtr();
+        (&m_pixelShaderSource, in_RSI)->SSOBeginPtr();
         pcVar3 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
         (&field_232, in_RSI)->SSOBeginPtr();
         pcVar4 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
@@ -2339,8 +2339,8 @@ namespace jag::render {
             }
             if (cVar1 != '\0') {
                 (&field_1848)->Create();
-                (&field_120)->ClearSourceString();
-                (&field_176)->ClearSourceString();
+                (&m_vertexShaderSource)->ClearSourceString();
+                (&m_pixelShaderSource)->ClearSourceString();
                 (&field_232)->ClearSourceString();
                 uVar6 = 6;
             }
@@ -2421,11 +2421,11 @@ namespace jag::render {
                              335);
         uVar7 = (ulong)local_34;
         if (0 < (long)uVar7) {
-            (&field_176, (type*)pcVar8)->SSOBeginPtr();
+            (&m_pixelShaderSource, (type*)pcVar8)->SSOBeginPtr();
             lVar4 =
                 eastl::basic_string<char,
                                     eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-            (&field_120, (type*)pcVar8)->SSOBeginPtr();
+            (&m_vertexShaderSource, (type*)pcVar8)->SSOBeginPtr();
             lVar5 =
                 eastl::basic_string<char,
                                     eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
@@ -2839,13 +2839,13 @@ namespace jag::render {
         lVar2 = Singleton<ShaderManager<PixelShader>>::InstancePtr();
         if (lVar2 != 0) {
             this_00 = (ShaderManager<PixelShader>*)this_00->Instance();
-            uVar3 = (&field_176)->capacity();
+            uVar3 = (&m_pixelShaderSource)->capacity();
             this_00->Unregister(uVar3, field_216);
         }
         lVar2 = Singleton<ShaderManager<VertexShader>>::InstancePtr();
         if (lVar2 != 0) {
             this_01 = (ShaderManager<VertexShader>*)this_00->Instance();
-            uVar3 = (&field_120)->capacity();
+            uVar3 = (&m_vertexShaderSource)->capacity();
             this_01->Unregister(uVar3, field_160);
         }
         lVar2 = field_216->end();

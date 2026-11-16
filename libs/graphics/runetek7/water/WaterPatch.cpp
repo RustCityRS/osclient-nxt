@@ -22,7 +22,7 @@ namespace jag::graphics {
     WaterPatch::GetAABB() const;
 
     // 0x1001a3c10: the linker folded this into MainLoopFrameTimer::GetFPSCounter(), which has identical code
-    WaterPatch::GetMaterial() const;
+    RenderMaterial WaterPatch::GetMaterial() const;
 
     // 0x1007ba820, 496 bytes, base-object constructor, placed by class name and debug map
     // WaterPatch::WaterPatch(RT7Core*, math::AABB const&, bool, WaterPatchConfig const&, eastl::vector<unsigned short, eastl::allocator>&&, eastl::vector<WaterPatchVertex, eastl::allocator>&&, math::Matrix44T<float> const*)
@@ -34,8 +34,8 @@ namespace jag::graphics {
         new (this) Drawable(2);
         new (this) MakeSharedPool<WaterPatch, 32>();
         field_0 = &PTR__WaterPatch_100f14740;
-        new (&field_16, param_2) math::AABB();
-        new (field_48) WaterMaterial();
+        new (&m_aABB, param_2) math::AABB();
+        new (m_material) WaterMaterial();
         field_1136 = param_3;
         new (&field_1140, (QuaternionT*)&param_4->field_24) math::QuaternionT<float>();
         field_1164 = *(undefined4*)((long)&param_4->field_8 + 4);
@@ -60,7 +60,7 @@ namespace jag::graphics {
         }
         pMVar1 = (MaterialManager*)param_1->GetMaterialManager();
         pTVar2 = (TextureManager*)param_1->GetTextureManager();
-        (field_48, param_4, pMVar1, pTVar2)->Init();
+        (m_material, param_4, pMVar1, pTVar2)->Init();
         CreateRenderingResources(this);
     }
 
@@ -142,7 +142,7 @@ namespace jag::graphics {
         (&field_1272)->~IndexBuffer();
         (&field_1232)->~vector();
         (&field_1200)->~vector();
-        field_48->~WaterMaterial();
+        m_material->~WaterMaterial();
         ~AutoSingleton();
     }
 
@@ -154,7 +154,7 @@ namespace jag::graphics {
         AutoSingleton<ShaderThreadPoolSingleton> local_20[8];
 
         local_20->~AutoSingleton("Water_Patch");
-        this_00 = field_48;
+        this_00 = m_material;
         this_00->DestroyRenderingResources();
         pWVar1 = (WaterParameters*)this_00->GetWaterParameters();
         pWVar1->ClearTextures();
@@ -202,7 +202,7 @@ namespace jag::graphics {
 
         local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
         if (((m_showPatches != '\0') && (field_1136 != false)) && (iVar4 = GetFaceCount(this), iVar4 != 0)) {
-            this_00 = field_48;
+            this_00 = m_material;
             pTVar6 = (TextureManager*)param_2->GetTextureManager();
             cVar2 = this_00->LoadTextures(pTVar6);
             if (cVar2 != '\0') {
@@ -377,9 +377,9 @@ namespace jag::graphics {
             uVar2 = param_7->IsEnabled(85);
         }
         param_5->Set(51, uVar2);
-        uVar2 = field_48->HasNormalMaps();
+        uVar2 = m_material->HasNormalMaps();
         param_5->Set(99, uVar2);
-        uVar2 = field_48->HasFoamMaps();
+        uVar2 = m_material->HasFoamMaps();
         param_5->Set(100, uVar2);
         param_5->Set(102, 1);
         auVar11 = param_7->BuildShaderEffectList(param_5);
@@ -562,7 +562,7 @@ namespace jag::graphics {
             }
             this_00 = (Matrix44T*)(param_3 + 112);
             math::Matrix44T<float>::operator=((Matrix44T<float>*)this_00, pMVar3);
-            new (local_d8) math::AABB((AABB*)&field_16);
+            new (local_d8) math::AABB((AABB*)&m_aABB);
             local_d8->Transform(this_00);
             plVar1 = (long*)DebugPrimitiveCollectorBasic::GetCollector("");
             if (plVar1 != (long*)0) {

@@ -23,7 +23,7 @@ namespace jag::game {
         virtual DecodeType(PacketT<Array<unsigned char, eastl::allocator>>&, unsigned int);
         virtual void PostDecode();
         LegacyDefaultValue() const;
-        GetDataType() const;
+        long GetDataType() const;
         void GetDefaultValue() const;
         VarType(BaseTemplateConfigTypeList<VarType>*, int);
 
@@ -34,7 +34,7 @@ namespace jag::game {
         int field_32;          // offset 32
         char _unknown_36[20];
         long* field_56;      // offset 56
-        long field_64;       // offset 64
+        long m_dataType;     // offset 64
         undefined* field_72; // offset 72
         undefined* field_80; // offset 80
         uint field_88;       // offset 88
@@ -64,7 +64,7 @@ namespace jag::game {
     }
 
     // 0x1004c8de0: the linker folded this into VarType::GetDataType() const, which has identical code
-    BaseConfigTypeList::GetResourceProvider() const;
+    Js5ResourceProvider* BaseConfigTypeList::GetResourceProvider() const;
 
     // 0x1004ce420, 16 bytes, complete-object constructor, inline, placed by class header (inline)
     // DelayedVariable::DelayedVariable(unsigned long long, bool): jumps straight to the base-object constructor

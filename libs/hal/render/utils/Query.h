@@ -51,7 +51,7 @@ namespace jag::render {
 
     class QueryView {
     public:
-        GetSubQueryCount() const;
+        uint GetSubQueryCount() const;
         QueryView();
         QueryView(shared_ptr<Query>*, unsigned int);
         IsValid() const;
@@ -60,8 +60,8 @@ namespace jag::render {
         void End(unsigned int);
 
         // data members, from how the methods use this: 16 bytes
-        long field_0; // offset 0
-        uint field_8; // offset 8
+        long field_0;         // offset 0
+        uint m_subQueryCount; // offset 8
         char _unknown_12[4];
     };
 
@@ -77,7 +77,7 @@ namespace jag::render {
     // 0x100815460, 16 bytes, inline, placed by debug map only (low confidence)
     // QueryView::HasSubQueries() const
     bool QueryView::HasSubQueries() {
-        return 1 < field_8;
+        return 1 < m_subQueryCount;
     }
 
     // 0x1008159a0, 16 bytes, inline, placed by class name and debug map

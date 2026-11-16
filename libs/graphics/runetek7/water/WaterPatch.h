@@ -14,7 +14,7 @@ namespace jag::graphics {
         virtual GetTransformedTriangle(unsigned int, math::Vector4T<float> (&)[3]);
         virtual void RenderDebug(RenderPassType, DrawableElement&) const;
         GetAABB() const;
-        GetMaterial() const;
+        RenderMaterial GetMaterial() const;
         void SetFade(float);
         WaterPatch(RT7Core*, math::AABB const&, bool, WaterPatchConfig const&,
                    eastl::vector<unsigned short, eastl::allocator>&&,
@@ -36,12 +36,12 @@ namespace jag::graphics {
         undefined** field_0; // offset 0, vtable pointer
         uint field_8;        // offset 8
         char _unknown_12[4];
-        undefined8 field_16; // offset 16
+        undefined8 m_aABB;   // offset 16
         undefined8 field_24; // offset 24
         undefined1 field_32; // offset 32
         char _unknown_33[7];
-        undefined8 field_40;     // offset 40
-        RenderMaterial field_48; // offset 48
+        undefined8 field_40;       // offset 40
+        RenderMaterial m_material; // offset 48
         char _unknown_592[544];
         bool field_1136; // offset 1136
         char _unknown_1137[19];
@@ -65,7 +65,7 @@ namespace jag::graphics {
     void WaterPatch::SetFade(float param_1) {
         WaterParameters* this_00;
 
-        this_00 = (WaterParameters*)field_48->GetWaterParameters();
+        this_00 = (WaterParameters*)m_material->GetWaterParameters();
         this_00->SetFade(param_1);
     }
 
@@ -99,11 +99,11 @@ namespace jag::graphics {
         uVar5 = puVar8[4];
         uVar6 = puVar8[5];
         uVar7 = puVar8[7];
-        *(undefined8*)field_48 = puVar8[6];
-        *(undefined8*)(field_48 + 8) = uVar7;
+        *(undefined8*)m_material = puVar8[6];
+        *(undefined8*)(m_material + 8) = uVar7;
         *(undefined8*)&field_32 = uVar5;
         field_40 = uVar6;
-        field_16 = uVar3;
+        m_aABB = uVar3;
         field_24 = uVar4;
         field_0 = ppuVar1;
         *(undefined8*)&field_8 = uVar2;

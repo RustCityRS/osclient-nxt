@@ -18,7 +18,7 @@ namespace jag::game {
         // data members, from how the methods use this: 128 bytes
         undefined* field_0; // offset 0, vtable pointer
         char _unknown_8[104];
-        undefined1 field_112; // offset 112
+        undefined1 m_membersServer; // offset 112
         char _unknown_113[15];
     };
 
@@ -50,7 +50,7 @@ namespace jag::game {
     // Triangulate::SourcePoint::SourcePoint(math::Point<int> const&, int)
     void Triangulate::SourcePoint::SourcePoint(Point* param_1, int param_2) {
         new (this) math::Point<int>(param_1);
-        field_8 = param_2;
+        m_index = param_2;
     }
 
     // 0x1005217a0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
@@ -60,7 +60,7 @@ namespace jag::game {
     // Triangulate::SourcePoint::SourcePoint(Triangulate::SourcePoint&&)
     void Triangulate::SourcePoint::SourcePoint(SourcePoint* param_1) {
         new (this) math::Point<int>(param_1);
-        field_8 = param_1->field_8;
+        m_index = param_1->m_index;
     }
 
     // 0x1005219c0, 64 bytes, inline, placed by debug map only (low confidence)
@@ -73,7 +73,7 @@ namespace jag::game {
 
         math::Point<int>::Point(local_28, (Point*)param_1);
         math::Point<int>::operator=((Point<int>*)this, local_28);
-        field_8 = param_1->field_8;
+        m_index = param_1->m_index;
         return this;
     }
 

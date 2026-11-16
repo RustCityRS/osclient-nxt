@@ -7,7 +7,7 @@
 
 namespace jag::ui {
     // 0x1001ced10: the linker folded this into graphics::GraphNode::GetEntity(), which has identical code
-    Text::GetLinkObjCount() const;
+    ulonglong Text::GetLinkObjCount() const;
 
     // 0x1002699e0: the linker folded this into oldscape::rs2lib::social::ClanChannelDelta::UpdateUserDetails::GetID() const, which has identical code
     Text::GetType() const;
@@ -16,7 +16,7 @@ namespace jag::ui {
     Text::SetLinkObjType(int);
 
     // 0x100431860: the linker folded this into game::Location::GetAttachedWallWidth() const, which has identical code
-    Text::GetLinkObjType() const;
+    int Text::GetLinkObjType() const;
 
     // 0x1006aca10, 672 bytes, placed by class name and debug map
     // Text::MainDraw(ComponentDependencies const&, int, int, float)

@@ -51,7 +51,7 @@ namespace jag::console {
     Console::PendingCommand::~PendingCommand();
 
     // 0x10005d8c0: the linker folded this into oldscape::OSClientConsoleUI::GetBounds() const, which has identical code
-    Console::GetCommandHistory() const;
+    StringVector Console::GetCommandHistory() const;
 
     // 0x1000753f0: the linker folded this into oldscape::ConsoleCommandHelp::~ConsoleCommandHelp(), which has identical code
     Console::PendingCommand::~PendingCommand();
@@ -63,7 +63,7 @@ namespace jag::console {
     Console::GetLastCommandExecutionResult() const;
 
     // 0x1003f51a0: the linker folded this into game::BASType::GetHillRotateLength() const, which has identical code
-    Console::GetShortestHiddenCommandLength() const;
+    int Console::GetShortestHiddenCommandLength() const;
 
     // 0x100417fb0: the linker folded this into game::NPCType::GetHeadIconGraphic() const, which has identical code
     Console::GetStoredVariables() const;
@@ -126,7 +126,7 @@ namespace jag::console {
                                          eastl::vector<eastl::pair<eastl::string, CommandData>, eastl::allocator>>();
         new (&field_48, 1024) eastl::ring_buffer<Line, eastl::vector<Line, eastl::allocator>, eastl::allocator>();
         local_68 = &field_48;
-        new (field_104, 128)
+        new (m_commandHistory, 128)
             eastl::ring_buffer<eastl::string, eastl::vector<eastl::string, eastl::allocator>, eastl::allocator>();
         field_160 = false;
         field_161 = '\0';
@@ -136,9 +136,9 @@ namespace jag::console {
         local_58 = &field_184;
         std::unique_ptr<File, std::default_delete<File>>::unique_ptr<true, void>(
             (unique_ptr<File, std::default_delete<File>>*)local_58);
-        local_60 = field_104;
+        local_60 = m_commandHistory;
         new (&field_192) eastl::string();
-        field_224 = 2147483647;
+        m_shortestHiddenCommandLength = 2147483647;
         local_48 = &field_240;
         std::function<void(StringView, bool, bool)>::function((function<void(StringView, bool, bool)>*)local_48);
         local_40 = &field_288;
@@ -199,7 +199,7 @@ namespace jag::console {
         std::function<void(StringView, bool, bool)>::~function((function<void(StringView, bool, bool)>*)&field_240);
         (&field_192)->~basic_string();
         (&field_184)->~unique_ptr();
-        field_104->~StringVector();
+        m_commandHistory->~StringVector();
         (&field_48)->~ring_buffer();
         (&field_8)->~vector_map();
     }
@@ -473,7 +473,7 @@ namespace jag::console {
             goto LAB_100c7b83d;
         if ((char)param_3.field_8 != '\0') {
             StringView::to_owned_string<eastl::string>(local_1c8);
-            (field_104, (basic_string*)local_1c8)->push_back();
+            (m_commandHistory, (basic_string*)local_1c8)->push_back();
             local_1c8->~basic_string();
         }
         new (&local_1d8) oldscape::graphics::animation::OldscapeAnimKeyFrameSet::OldscapeAnimCurveLoadJob();
@@ -1002,9 +1002,9 @@ namespace jag::console {
         new (local_a0) eastl::fixed_vector<StringView, 4ul, true, eastl::allocator>();
         new (&local_180) StringView(local_b8);
         pSVar14 = local_a0;
-        SVar16.field_8 = (uchar*)&local_c8;
-        SVar16.field_0 = (ulong)&local_180;
-        GetCommandAndArguments(this, SVar16, pSVar14, (fixed_vector*)CONCAT71(in_register_00000081, in_R8B));
+        SVar15.field_8 = (uchar*)&local_c8;
+        SVar15.field_0 = (ulong)&local_180;
+        GetCommandAndArguments(this, SVar15, pSVar14, (fixed_vector*)CONCAT71(in_register_00000081, in_R8B));
         local_b0 = (eastl::string*)&field_192;
         eastl::string::clear();
         cVar1 = local_c8.empty();
@@ -1022,9 +1022,9 @@ namespace jag::console {
                                        local_a0,
                                    0);
                         new (&local_170) StringView("=");
-                        SVar17.field_8 = extraout_RDX;
-                        SVar17.field_0 = (ulong)&local_170;
-                        cVar1 = StringView::operator==(pSVar8, SVar17);
+                        SVar16.field_8 = extraout_RDX;
+                        SVar16.field_0 = (ulong)&local_170;
+                        cVar1 = StringView::operator==(pSVar8, SVar16);
                         if (cVar1 != '\0') {
                             uVar7 = local_a0->size();
                             if (1 < uVar7) {
@@ -1059,10 +1059,10 @@ namespace jag::console {
         }
         if ((&field_240)->operator_cast_to_bool()) {
             new (&local_160) StringView(local_b8);
-            SVar18.field_8 = (uchar*)0;
-            SVar18.field_0 = (ulong)&local_160;
+            SVar17.field_8 = (uchar*)0;
+            SVar17.field_0 = (ulong)&local_160;
             std::function<void(StringView, bool, bool)>::operator()((function<void(StringView, bool, bool)>*)&field_240,
-                                                                    SVar18, true, (bool)in_R8B);
+                                                                    SVar17, true, (bool)in_R8B);
         } else {
             new (local_e8) eastl::vector<StringView, eastl::allocator>();
             iVar3 = local_c8.HeapBeginPtr();
@@ -1071,9 +1071,9 @@ namespace jag::console {
                                     eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
             if ((int)in_ECX <= iVar4 + iVar3) {
                 new (&local_150) StringView((StringView*)&local_c8);
-                SVar15.field_8 = (uchar*)pSVar14;
-                SVar15.field_0 = (ulong)&local_150;
-                GetAlphabeticListOfMatchingCommands(this, (vector*)local_e8, SVar15);
+                SVar18.field_8 = (uchar*)pSVar14;
+                SVar18.field_0 = (ulong)&local_150;
+                GetAlphabeticListOfMatchingCommands(this, (vector*)local_e8, SVar18);
             }
             lVar9 = local_e8->size();
             if (lVar9 == 1) {
@@ -1476,7 +1476,7 @@ namespace jag::console {
 
         this_01 = (Console*)param_1.field_8;
         this_02 = (StringView*)param_1.field_0;
-        this = this_01->field_104;
+        this = this_01->m_commandHistory;
         cVar1 = empty();
         if (cVar1 == '\0') {
             cVar1 = in_RDX->empty();
@@ -1578,7 +1578,7 @@ namespace jag::console {
 
         this_02 = (Console*)param_1.field_8;
         this_03 = (StringView*)param_1.field_0;
-        this = this_02->field_104;
+        this = this_02->m_commandHistory;
         cVar1 = empty();
         if (cVar1 == '\0') {
             cVar1 = in_RDX->empty();

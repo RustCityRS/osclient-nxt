@@ -24,12 +24,12 @@ namespace jag::oldscape::minimenu {
         ~MinimenuEntry();
         MinimenuEntry(eastl::string const&, MinimenuSubject const&, int, int, int, int, int);
         MinimenuEntry(MinimenuEntry const&);
-        GetSubjectType() const;
+        int GetSubjectType() const;
         GetSubjectName() const;
         GetSubject() const;
-        GetSubjectTypecode() const;
+        longlong GetSubjectTypecode() const;
         GetObjType() const;
-        GetObjCount() const;
+        int GetObjCount() const;
         GetComponent() const;
         uint X() const;
         T() const;
@@ -40,9 +40,12 @@ namespace jag::oldscape::minimenu {
         int field_8;  // offset 8
         int field_12; // offset 12
         int field_16; // offset 16
-        char _unknown_20[76];
+        char _unknown_20[68];
+        int m_subjectType; // offset 88
+        char _unknown_92[4];
         longlong m_subjectTypecode; // offset 96
-        char _unknown_104[12];
+        int m_objCount;             // offset 104
+        char _unknown_108[8];
     };
 
     // 0x100028fb0, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
@@ -168,7 +171,7 @@ namespace jag::oldscape::minimenu {
 
 namespace jag::game {
     // 0x1000b7900: the linker folded this into oldscape::minimenu::MinimenuEntry::GetSubjectType() const, which has identical code
-    BaseConfigTypeList::GetEntryCount() const;
+    int BaseConfigTypeList::GetEntryCount() const;
 
     // 0x1000b7910: the linker folded this into oldscape::minimenu::MinimenuEntry::GetSubjectName() const, which has identical code
     LocTypeCustomisation::GetRematerialDest() const;
@@ -204,6 +207,6 @@ namespace jag::oldscape {
 
 namespace jag::graphics {
     // 0x1000b7a80: the linker folded this into oldscape::minimenu::MinimenuEntry::GetObjCount() const, which has identical code
-    LayeredAnimationStateMachineLayerDescriptor::GetBlendType() const;
+    int LayeredAnimationStateMachineLayerDescriptor::GetBlendType() const;
 
 } // namespace jag::graphics

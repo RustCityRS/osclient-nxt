@@ -8,7 +8,7 @@ namespace jag {
     class Bucket {
     public:
         GetAllocator() const;
-        GetStart() const;
+        long GetStart() const;
         ulong GetSlotAlignment() const;
         Bucket();
         Bucket(unsigned long, unsigned long, unsigned long, unsigned int);
@@ -34,7 +34,7 @@ namespace jag {
         char _unknown_56[136];
         undefined1 field_192; // offset 192
         char _unknown_193[15];
-        long field_208;        // offset 208
+        long m_pStart;         // offset 208
         ulong m_end;           // offset 216
         ulong m_slotSize;      // offset 224
         ulong m_slotAlignment; // offset 232

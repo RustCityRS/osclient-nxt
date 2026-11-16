@@ -13,7 +13,7 @@ namespace jag::game {
     MSIType::GetSpriteID() const;
 
     // 0x1001c2200: the linker folded this into oldscape::MutationTracked<graphics::SimpleScatteringParams>::IsDirty() const, which has identical code
-    MSIType::GetResize() const;
+    bool MSIType::GetResize() const;
 
     // 0x1005181b0, 176 bytes, placed by class name and debug map
     // MSIType::DecodeType(PacketT<Array<unsigned char, eastl::allocator> >&, unsigned int)

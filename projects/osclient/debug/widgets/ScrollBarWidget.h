@@ -18,7 +18,7 @@ namespace jag::oldscape::widgets {
         void SetThumbVisible(bool);
         void MoveThumb(int);
         float Value() const;
-        GetThumbBounds() const;
+        GridRect GetThumbBounds() const;
         void RecalculateThumbBounds();
         ScrollBarWidget();
 
@@ -32,9 +32,9 @@ namespace jag::oldscape::widgets {
         char _unknown_48[28];
         bool m_thumbVisible; // offset 76
         char _unknown_77[3];
-        float field_80;    // offset 80
-        float field_84;    // offset 84
-        GridRect field_88; // offset 88
+        float field_80;         // offset 80
+        float field_84;         // offset 84
+        GridRect m_thumbBounds; // offset 88
     };
 
     // 0x1000602b0, 16 bytes, inline, placed by class name and debug map
@@ -74,7 +74,7 @@ namespace jag::oldscape::widgets {
         m_thumbVisible = false;
         field_80 = 0.0;
         field_84 = 0.0;
-        new (field_88, in_RSI) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (m_thumbBounds, in_RSI) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>();
     }
 
 } // namespace jag::oldscape::widgets

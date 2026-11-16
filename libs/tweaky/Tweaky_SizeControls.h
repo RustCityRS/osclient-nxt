@@ -66,12 +66,12 @@ namespace jag::tweak {
         TextFlags local_38[8];
 
         graphics::TextFlags::TextFlags(local_38, 1, param_6);
-        new (&local_80) graphics::TextProperties((shared_ptr*)field_64, in_stack_ffffffffffffff58);
+        new (&local_80) graphics::TextProperties((shared_ptr*)m_font, in_stack_ffffffffffffff58);
         local_80.SetAlignment(0, 0);
         uVar1 = m_colour;
         eastl::optional<unsigned int>::optional(local_58, &field_152);
         local_80.SetColours(uVar1, local_58);
-        this_00 = field_56;
+        this_00 = m_pFontHelper;
         if (param_4 < 1) {
             StringView::StringView<std::basic_string_view<char, std::char_traits<char>>>(&local_90, param_3);
             SVar3.field_8._0_4_ = param_1 - field_136;
@@ -93,7 +93,7 @@ namespace jag::tweak {
     // 0x100a51ff0, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
     // EditLine::EditLine()
     void EditLine::EditLine() {
-        field_0 = 0;
+        m_drawOffset = 0;
         m_pos = 0;
         new (&field_8) eastl::fixed_string<char, 256, true, eastl::allocator>();
         m_selectionStart = -1;

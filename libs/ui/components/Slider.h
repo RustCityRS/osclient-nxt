@@ -83,7 +83,7 @@ namespace jag::ui {
         char _unknown_353[3];
         undefined4 field_356; // offset 356
         char _unknown_360[32];
-        undefined** field_392; // offset 392
+        undefined** m_pValueRepresentation; // offset 392
         char _unknown_400[144];
         TcpConnectionMessageBase field_544; // offset 544
         char _unknown_592[16];
@@ -214,13 +214,13 @@ namespace jag::ui {
         NpcUID* in_RSI;
 
         field_0 = &PTR__Slider_100f0fb40;
-        field_392 = &PTR__Slider_100f0fc68;
+        m_pValueRepresentation = &PTR__Slider_100f0fc68;
         (&field_648)->~fixed_vector();
         field_544->~TextData();
         (&field_496)->~Sprite();
         (&field_448)->~Sprite();
         (&field_400)->~Sprite();
-        eastl::destruct<oldscape::highlight::NpcUID*>((eastl*)&field_392, in_RSI, extraout_RDX);
+        eastl::destruct<oldscape::highlight::NpcUID*>((eastl*)&m_pValueRepresentation, in_RSI, extraout_RDX);
         ~Component();
     }
 

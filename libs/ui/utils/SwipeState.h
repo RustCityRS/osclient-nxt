@@ -39,18 +39,18 @@ namespace jag::ui {
         int field_20;              // offset 20
         int m_lastPosition;        // offset 24
         int field_28;              // offset 28
-        uint field_32;             // offset 32
+        uint m_swipeMovement;      // offset 32
         uint field_36;             // offset 36
         undefined4 field_40;       // offset 40
         undefined4 field_44;       // offset 44
-        Language* field_48;        // offset 48
-        bool field_56;             // offset 56
+        Language* m_pSwipeTime;    // offset 48
+        bool m_verticallySwiped;   // offset 56
         bool m_horizontallySwiped; // offset 57
         char _unknown_58[2];
-        int m_deadZoneVertical; // offset 60
-        uint field_64;          // offset 64
+        int m_deadZoneVertical;    // offset 60
+        uint m_deadZoneHorizontal; // offset 64
         char _unknown_68[60];
-        bool field_128; // offset 128
+        bool m_isDrifting; // offset 128
         char _unknown_129[3];
         float m_driftSpeed;    // offset 132
         float field_136;       // offset 136

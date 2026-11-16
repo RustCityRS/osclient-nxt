@@ -9,7 +9,7 @@ namespace jag::render {
     public:
         GetVertexElemDescs() const;
         GetVertexElementByteOffsets() const;
-        GetNumVertexStreams() const;
+        int GetNumVertexStreams() const;
         hash() const;
         VertexDeclaration();
         ~VertexDeclaration();
@@ -23,7 +23,7 @@ namespace jag::render {
         int field_0;        // offset 0
         undefined1 field_4; // offset 4
         char _unknown_5[83];
-        int field_88; // offset 88
+        int m_numVertexStreams; // offset 88
         char _unknown_92[8];
     };
 
@@ -46,7 +46,7 @@ namespace jag::render {
         char cVar2;
         undefined8 uVar3;
 
-        if (((field_88 == param_1->field_88) &&
+        if (((m_numVertexStreams == param_1->m_numVertexStreams) &&
              (bVar1 = std::operator==((array*)&field_56, (array*)&param_1->field_56), bVar1)) &&
             (cVar2 = Array<VertexElementDesc, eastl::allocator>::operator==(
                  (Array<VertexElementDesc, eastl::allocator>*)&field_8, (Array*)&param_1->field_8),

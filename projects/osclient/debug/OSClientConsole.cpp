@@ -11,10 +11,10 @@ namespace jag::oldscape {
     void OSClientConsole::AddPendingCommandFromInput() {
         char* pcVar1;
 
-        pcVar1 = (char*)field_832->GetText();
+        pcVar1 = (char*)m_commandLineObject->GetText();
         if ((pcVar1 != (char*)0) && (*pcVar1 != '\0')) {
             QueueCommand(pcVar1, "", -1, true);
-            field_832->Reset();
+            m_commandLineObject->Reset();
         }
     }
 
@@ -50,7 +50,7 @@ namespace jag::oldscape {
             }
             lVar3 = local_3c8->find_first_of("\r\n", 0);
             if (lVar3 == -1) {
-                game::console::CommandLine::Insert<eastl::string>((basic_string*)field_832);
+                game::console::CommandLine::Insert<eastl::string>((basic_string*)m_commandLineObject);
             } else {
                 eastl::fixed_vector<eastl::fixed_string<char, 64, true, eastl::allocator>, 8ul, true,
                                     eastl::allocator>::fixed_vector(local_3a0);
@@ -159,8 +159,8 @@ namespace jag::oldscape {
         local_50 = &field_600;
         new (&field_752) eastl::fixed_string<char, 40, true, eastl::allocator>();
         local_48 = &field_752;
-        new (field_832) game::console::CommandLine();
-        field_832[320] = 0;
+        new (m_commandLineObject) game::console::CommandLine();
+        m_commandLineObject[320] = 0;
         local_40 = field_1160;
         new (local_40) Filename("");
         new (field_1464, "") Filename();
@@ -208,7 +208,7 @@ namespace jag::oldscape {
         (&field_592, (OSClientConsoleUI*)0)->reset();
         field_1464->~pair();
         field_1160->~pair();
-        field_832->~CommandLine();
+        m_commandLineObject->~CommandLine();
         /* WARNING: Subroutine does not return */
         (&field_752)->~fixed_string();
     }
@@ -238,7 +238,7 @@ namespace jag::oldscape {
             (OSClientConsoleUI*)std::unique_ptr<OSClientConsoleUI, std::default_delete<OSClientConsoleUI>>::operator->(
                 (unique_ptr<OSClientConsoleUI, std::default_delete<OSClientConsoleUI>>*)&field_592);
         this_00->SetOpacity((bool)field_746[0]);
-        this_02 = (GraphicsApp*)field_832;
+        this_02 = (GraphicsApp*)m_commandLineObject;
         this_02->SetCursorShown((bool)field_746[0]);
         this_01 = (BaseApp*)this_02->Instance();
         local_d0[0] = (__1)field_746[0];
@@ -348,10 +348,10 @@ namespace jag::oldscape {
         StringView local_40[2];
 
         StringView::to_owned_string<eastl::string>(local_40);
-        game::console::CommandLine::SetText<eastl::string>((basic_string*)field_832);
+        game::console::CommandLine::SetText<eastl::string>((basic_string*)m_commandLineObject);
         local_40->~basic_string();
         iVar1 = param_1->HeapBeginPtr();
-        (field_832, iVar1)->SetPos();
+        (m_commandLineObject, iVar1)->SetPos();
     }
 
     // 0x10005eaf0, 16 bytes, placed by class name

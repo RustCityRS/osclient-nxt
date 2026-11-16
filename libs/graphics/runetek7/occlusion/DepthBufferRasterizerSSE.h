@@ -9,16 +9,17 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~DepthBufferRasterizerSSE();
-        GetNumRasterizedTriangles() const;
+        int GetNumRasterizedTriangles() const;
         DepthBufferRasterizerSSE(unsigned int, unsigned int);
         void ClearDepthTile(int, int, int, int, unsigned int);
         void SetCPURenderTargetPixels(unsigned int*, unsigned int);
 
         // data members, from how the methods use this: 56 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        uint field_8;        // offset 8
-        uint field_12;       // offset 12
-        char _unknown_16[40];
+        undefined** field_0;          // offset 0, vtable pointer
+        uint field_8;                 // offset 8
+        uint field_12;                // offset 12
+        int m_numRasterizedTriangles; // offset 16
+        char _unknown_20[36];
     };
 
     // 0x100824440, 16 bytes, inline, placed by class name and debug map

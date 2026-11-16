@@ -8,8 +8,8 @@ namespace jag::graphics {
     class AnimCurve {
     public:
         GetKeyList() const;
-        GetPostInfinity() const;
-        IsWeighted() const;
+        byte GetPostInfinity() const;
+        bool IsWeighted() const;
         ulong GetValue(float, AnimCurveSegmentCacheData&) const;
         void GetNumKeys() const;
         ulong LoadFromPacket(PacketT<Array<unsigned char, eastl::allocator>>&);
@@ -34,7 +34,7 @@ namespace jag::graphics {
         bool m_weighted;          // offset 13
         undefined1 m_static;      // offset 14
         undefined1 m_preInfinity; // offset 15
-        undefined1 field_16;      // offset 16
+        byte m_postInfinity;      // offset 16
         char _unknown_17[15];
     };
 
@@ -113,7 +113,7 @@ namespace jag::graphics {
         undefined1 uVar5;
         undefined1 uVar6;
 
-        field_16 = param_1->field_16;
+        m_postInfinity = param_1->m_postInfinity;
         uVar1 = param_1->field_4;
         uVar2 = param_1->field_8;
         uVar3 = param_1->field_12;

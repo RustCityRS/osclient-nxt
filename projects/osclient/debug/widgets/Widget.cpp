@@ -26,7 +26,7 @@ namespace jag::oldscape::widgets {
         undefined4 in_register_00000034;
         type* ptVar11;
 
-        this_00 = field_44;
+        this_00 = m_bounds;
         pvVar9 = this_00->SSOBeginPtr((type*)CONCAT44(in_register_00000034, param_1));
         if ((((*(int*)pvVar9 == param_1) && (piVar10 = (int*)this_00->y(), *piVar10 == param_2)) &&
              (piVar10 = (int*)this_00->second(), *piVar10 == param_3)) &&
@@ -47,7 +47,7 @@ namespace jag::oldscape::widgets {
         iVar7 = eastl::max<int>(0, *piVar10 - (*(int*)&field_28 + field_36 + (uint)m_borderLeft + (uint)field_23));
         piVar10 = (int*)this_00->qw();
         iVar8 = eastl::max<int>(0, *piVar10 - (field_32 + field_40 + (uint)m_borderTop + (uint)field_24));
-        new ((field_44 + 16), (uint)bVar1 + iVar3 + iVar4, (uint)bVar2 + iVar5 + iVar6, iVar7, iVar8)
+        new ((m_bounds + 16), (uint)bVar1 + iVar3 + iVar4, (uint)bVar2 + iVar5 + iVar6, iVar7, iVar8)
             dash3d::GridRect();
         (*(code*)field_0[3])(this);
     }
@@ -68,7 +68,7 @@ namespace jag::oldscape::widgets {
         int iVar10;
         undefined1 local_50[24];
 
-        this_00 = field_44;
+        this_00 = m_bounds;
         pvVar3 = this_00->SSOBeginPtr(param_1);
         iVar10 = *(int*)pvVar3;
         piVar4 = (int*)this_00->y();
@@ -78,35 +78,35 @@ namespace jag::oldscape::widgets {
         piVar4 = (int*)this_00->qw();
         iVar7 = *piVar4;
         if (m_borderLeft != false) {
-            param_1->Line(iVar10, iVar8, iVar10, iVar7 + iVar8, field_12);
+            param_1->Line(iVar10, iVar8, iVar10, iVar7 + iVar8, m_borderColour);
             iVar10 = iVar10 + 1;
             uVar9 = uVar9 - 1;
         }
         local_50._16_8_ = ZEXT48(uVar9);
         if (m_borderTop != false) {
-            param_1->Line(iVar10, iVar8, uVar9 + iVar10, iVar8, field_12);
+            param_1->Line(iVar10, iVar8, uVar9 + iVar10, iVar8, m_borderColour);
             iVar8 = iVar8 + 1;
             iVar7 = iVar7 + -1;
         }
         if (field_23 != 0) {
             iVar2 = local_50._16_4_;
             iVar6 = iVar2 + iVar10;
-            param_1->Line(iVar6, iVar8, iVar6, iVar7 + iVar8, field_12);
+            param_1->Line(iVar6, iVar8, iVar6, iVar7 + iVar8, m_borderColour);
             local_50._16_8_ = ZEXT48(iVar2 - 1);
         }
         if (field_24 == 0) {
             cVar1 = field_20;
         } else {
-            param_1->Line(iVar10, iVar7 + iVar8, (int)local_50._16_8_ + iVar10, iVar7 + iVar8, field_12);
+            param_1->Line(iVar10, iVar7 + iVar8, (int)local_50._16_8_ + iVar10, iVar7 + iVar8, m_borderColour);
             iVar7 = iVar7 + -1;
             cVar1 = field_20;
         }
         if (cVar1 != '\0') {
             new (local_50) dash3d::GridRect(iVar10, iVar8, (int)local_50._16_8_, iVar7);
-            param_1->FillRect(local_50, field_8);
+            param_1->FillRect(local_50, m_backgroundColour);
         }
-        piVar4 = (int*)((field_44 + 16))->second();
-        if ((0 < *piVar4) && (piVar4 = (int*)((field_44 + 16))->qw(), 0 < *piVar4)) {
+        piVar4 = (int*)((m_bounds + 16))->second();
+        if ((0 < *piVar4) && (piVar4 = (int*)((m_bounds + 16))->qw(), 0 < *piVar4)) {
             (*(code*)field_0[2])(this, param_1);
         }
     }
@@ -115,14 +115,14 @@ namespace jag::oldscape::widgets {
     // Widget::Widget()
     void Widget::Widget() {
         field_0 = &PTR__Widget_100ef2858;
-        field_8 = 4282664004;
-        field_12 = 4289374890;
-        field_16 = 4294967295;
+        m_backgroundColour = 4282664004;
+        m_borderColour = 4289374890;
+        m_textColour = -1;
         field_20 = '\x01';
         new (&m_borderLeft, '\0', '\0', '\0', '\0') jag::math::Vector4T<unsigned char>();
         new (&field_28, 0, 0, 0, 0) dash3d::GridRect();
-        new (field_44, (_func_decltype_nullptr*)0) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>();
-        new ((field_44 + 16), (_func_decltype_nullptr*)0) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (m_bounds, (_func_decltype_nullptr*)0) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>();
+        new ((m_bounds + 16), (_func_decltype_nullptr*)0) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>();
     }
 
     // 0x1000672a0, 16 bytes, base-object destructor, placed by class name

@@ -84,7 +84,7 @@ namespace jag {
         pLVar1 = (Logger*)logger::default_logger();
         new (&field_72, pLVar1) logger::LoggerAssertionPresenter();
         new (&field_88, (IAssertPresenter*)&field_72) ScopedAssertionPresenter();
-        field_96 = 0;
+        m_exitCode = 0;
         eastl::fixed_queue<fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>, 4ul, true>::
             fixed_queue((fixed_queue<fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>,
                                      4ul, true>*)&field_104);

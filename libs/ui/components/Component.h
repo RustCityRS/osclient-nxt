@@ -17,8 +17,8 @@ namespace jag::ui {
         virtual void __pure_slot_7() = 0;
         virtual void __pure_slot_9() = 0;
         virtual NotifyInteracted();
-        virtual GetCurrentWidth() const;
-        virtual GetCurrentHeight() const;
+        virtual int GetCurrentWidth() const;
+        virtual int GetCurrentHeight() const;
         virtual Margin GetMargin(MarginType) const;
         virtual BindAnimation(graphics::GUIAnimationInstance&);
         virtual GetLinkObjType() const;
@@ -46,12 +46,12 @@ namespace jag::ui {
         GetLinkedStaticComponentID() const;
         GetDebugName() const;
         GetOpConfig();
-        GetDragConfig();
+        VisibleShadowCastingLightInfo GetDragConfig();
         GetSwipeConfig();
-        GetDataHeight() const;
-        GetDataWidth() const;
+        int GetDataHeight() const;
+        int GetDataWidth() const;
         GetCursorConfig();
-        GetCurrentY() const;
+        int GetCurrentY() const;
         GetParams();
         void SetDataX(int);
         void SetDataY(int);
@@ -61,7 +61,7 @@ namespace jag::ui {
         void SetModeHeight(ComponentSizeMode);
         void SetModeX(ComponentPositionMode);
         void SetModeY(ComponentPositionMode);
-        GetModeWidth() const;
+        char GetModeWidth() const;
         char GetModeHeight() const;
         void SetAspectRatioWidth(int);
         void SetAspectRatioHeight(int);
@@ -140,7 +140,7 @@ namespace jag::ui {
 
         // data members, from how the methods use this: 24 bytes
         char _unknown_0[16];
-        undefined4 field_16; // offset 16
+        undefined4 m_renderBehaviour; // offset 16
         char _unknown_20[4];
     };
 
@@ -219,15 +219,16 @@ namespace jag::ui {
 
     class ComponentSwipeConfig {
     public:
-        GetDeadZoneVertical() const;
-        GetDeadZoneHorizontal() const;
+        byte GetDeadZoneVertical() const;
+        byte GetDeadZoneHorizontal() const;
         GetDirectionMask() const;
         GetStopExponent() const;
         GetDeceleration() const;
         ComponentSwipeConfig();
 
         // data members, from how the methods use this: 5 bytes
-        char _unknown_0[2];
+        byte m_deadZoneVertical;    // offset 0
+        byte m_deadZoneHorizontal;  // offset 1
         undefined1 m_directionMask; // offset 2
         undefined1 m_deceleration;  // offset 3
         undefined1 m_stopExponent;  // offset 4
@@ -274,10 +275,10 @@ namespace jag::ui {
     // 0x100547770, 48 bytes, inline, placed by class name
     // Component::SetModeWidth(ComponentSizeMode)
     void Component::SetModeWidth(char param_2) {
-        if (field_52 != param_2) {
+        if (m_modeWidth != param_2) {
             FlagParentLayoutDirty();
             (*(code*)field_0[10])(this);
-            field_52 = param_2;
+            m_modeWidth = param_2;
         }
     }
 
@@ -470,7 +471,7 @@ namespace jag::ui {
         field_54 = '\0';
         field_50 = '\0';
         field_51 = '\0';
-        field_52 = '\0';
+        m_modeWidth = '\0';
         m_modeHeight = '\0';
         m_dataX = 0;
         m_dataY = 0;
@@ -481,8 +482,8 @@ namespace jag::ui {
         m_currentX = 0;
         m_currentY = 0;
         m_currentWidth = 0;
-        field_92 = 0;
-        field_96 = 16777215;
+        m_currentHeight = 0;
+        m_rGB = 16777215;
         m_alpha = 255;
         m_styleSheetPackID = -1;
         std::unique_ptr<UIHookProperties, std::default_delete<UIHookProperties>>::unique_ptr<true, void>(
@@ -543,7 +544,7 @@ namespace jag::ui {
     // 0x100689aa0, 32 bytes, inline, placed by class name
     // Component::GetRGBA() const
     uint Component::GetRGBA() {
-        return (uint)m_alpha | field_96 << 8;
+        return (uint)m_alpha | m_rGB << 8;
     }
 
     // 0x100690e00, 32 bytes, inline, placed by class name

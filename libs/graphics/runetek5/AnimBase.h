@@ -8,7 +8,7 @@
 namespace jag::graphics {
     class AnimBase {
     public:
-        GetBaseID();
+        uint GetBaseID();
         GetLabelSetToJointMap() const;
         GetJointMoveMap();
         ushort GetTransformCount() const;
@@ -29,7 +29,7 @@ namespace jag::graphics {
         // data members, from how the methods use this: 272 bytes
         undefined1 field_0; // offset 0
         char _unknown_1[3];
-        uint field_4;            // offset 4
+        uint m_baseID;           // offset 4
         ushort m_transformCount; // offset 8
         char _unknown_10[174];
         undefined2 m_maxLabelID; // offset 184

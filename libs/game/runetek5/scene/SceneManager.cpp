@@ -13,7 +13,7 @@ namespace jag::game {
     SceneManager::GetIrradianceCache();
 
     // 0x100396010: the linker folded this into oldscape::auth::SteamAuthLibWrapper::GetGameToken(), which has identical code
-    SceneManager::GetEntityHighlightGlobalState();
+    EntityHighlightGlobalState SceneManager::GetEntityHighlightGlobalState();
 
     // 0x100460f60, 800 bytes, base-object constructor, placed by class name and debug map
     // SceneManager::SceneManager(Js5ResourceProvider*, graphics::RT7Core*, ConfigProvider*, PlayerVarDomain*, AssetBuilder*)

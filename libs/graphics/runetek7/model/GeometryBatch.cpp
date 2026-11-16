@@ -40,7 +40,7 @@ namespace jag::graphics {
     GeometryBatch::SetShareLight(bool);
 
     // 0x10062b9b0: the linker folded this into Material::IsLegacyMaterial() const, which has identical code
-    GeometryBatch::HasFaceTransparency() const;
+    byte GeometryBatch::HasFaceTransparency() const;
 
     // 0x1006ad5d0: the linker folded this into ui::ComponentCollection::GetDynamicChildrenRenderOrderCollection(), which has identical code
     GeometryBatch::GetVertexDataBufferSkin() const;
@@ -50,14 +50,14 @@ namespace jag::graphics {
     void GeometryBatch::GeometryBatch() {
         new (this) MakeSharedPool<GeometryBatch, 4096>();
         new (this) math::AABB();
-        field_32 = 1;
+        m_boneCount = 1;
         field_33 = 0;
         m_transformed = false;
         field_35 = 0;
         m_hasFaceTransparency = 0;
         m_shareLight = false;
         m_hidden = 0;
-        field_40 = 1.0;
+        m_vertexScale = 1.0;
         m_labelCount = 1;
         new (&field_48)
             eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
@@ -75,9 +75,9 @@ namespace jag::graphics {
                               eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>>();
         m_numLods = 1;
         new (&field_216) std::array<eastl::vector<unsigned short, eastl::allocator>, 5ul>();
-        new (&field_376) eastl::vector<unsigned short, eastl::allocator>();
+        new (&m_faceHSLBuffer) eastl::vector<unsigned short, eastl::allocator>();
         m_faceHSLBaked = false;
-        new (&field_416) eastl::vector<unsigned char, eastl::allocator>();
+        new (&m_faceTransparencyBuffer) eastl::vector<unsigned char, eastl::allocator>();
         new (&field_448) eastl::vector<GeometryBatchVertex, eastl::allocator>();
         new (&field_480) eastl::vector<GeometryBatchVertexPos, eastl::allocator>();
         new (&field_512) Array<GeometryBatchVertexPosLP, eastl::allocator>();
@@ -97,14 +97,14 @@ namespace jag::graphics {
     void GeometryBatch::GeometryBatch(GeometryBatch* param_1) {
         new (this) MakeSharedPool<GeometryBatch, 4096>();
         new (this) math::AABB(param_1);
-        field_32 = param_1->field_32;
+        m_boneCount = param_1->m_boneCount;
         field_33 = param_1->field_33;
         m_transformed = param_1->m_transformed;
         field_35 = param_1->field_35;
         m_hasFaceTransparency = param_1->m_hasFaceTransparency;
         m_shareLight = param_1->m_shareLight;
         m_hidden = param_1->m_hidden;
-        field_40 = 1.0;
+        m_vertexScale = 1.0;
         m_labelCount = param_1->m_labelCount;
         new (&field_48, (vector_map*)&param_1->field_48)
             eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
@@ -123,9 +123,10 @@ namespace jag::graphics {
         m_numLods = param_1->m_numLods;
         new (&field_216, (array*)&param_1->field_216)
             std::array<eastl::vector<unsigned short, eastl::allocator>, 5ul>();
-        new (&field_376, (vector*)&param_1->field_376) eastl::vector<unsigned short, eastl::allocator>();
+        new (&m_faceHSLBuffer, (vector*)&param_1->m_faceHSLBuffer) eastl::vector<unsigned short, eastl::allocator>();
         m_faceHSLBaked = param_1->m_faceHSLBaked;
-        new (&field_416, (vector*)&param_1->field_416) eastl::vector<unsigned char, eastl::allocator>();
+        new (&m_faceTransparencyBuffer, (vector*)&param_1->m_faceTransparencyBuffer)
+            eastl::vector<unsigned char, eastl::allocator>();
         new (&field_448, (vector*)&param_1->field_448) eastl::vector<GeometryBatchVertex, eastl::allocator>();
         new (&field_480, (vector*)&param_1->field_480) eastl::vector<GeometryBatchVertexPos, eastl::allocator>();
         new (&field_512, (Array*)&param_1->field_512) Array<GeometryBatchVertexPosLP, eastl::allocator>();
@@ -146,14 +147,14 @@ namespace jag::graphics {
     void GeometryBatch::GeometryBatch(GeometryBatch* param_1) {
         new (this) MakeSharedPool<GeometryBatch, 4096>();
         new (this) math::AABB(param_1);
-        field_32 = param_1->field_32;
+        m_boneCount = param_1->m_boneCount;
         field_33 = param_1->field_33;
         m_transformed = param_1->m_transformed;
         field_35 = param_1->field_35;
         m_hasFaceTransparency = param_1->m_hasFaceTransparency;
         m_shareLight = param_1->m_shareLight;
         m_hidden = param_1->m_hidden;
-        field_40 = 1.0;
+        m_vertexScale = 1.0;
         m_labelCount = param_1->m_labelCount;
         new (&field_48, (vector_map*)&param_1->field_48)
             eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
@@ -172,9 +173,10 @@ namespace jag::graphics {
         m_numLods = param_1->m_numLods;
         new (&field_216, (array*)&param_1->field_216)
             std::array<eastl::vector<unsigned short, eastl::allocator>, 5ul>();
-        new (&field_376, (vector*)&param_1->field_376) eastl::vector<unsigned short, eastl::allocator>();
+        new (&m_faceHSLBuffer, (vector*)&param_1->m_faceHSLBuffer) eastl::vector<unsigned short, eastl::allocator>();
         m_faceHSLBaked = param_1->m_faceHSLBaked;
-        new (&field_416, (vector*)&param_1->field_416) eastl::vector<unsigned char, eastl::allocator>();
+        new (&m_faceTransparencyBuffer, (vector*)&param_1->m_faceTransparencyBuffer)
+            eastl::vector<unsigned char, eastl::allocator>();
         new (&field_448, (vector*)&param_1->field_448) eastl::vector<GeometryBatchVertex, eastl::allocator>();
         new (&field_480, (vector*)&param_1->field_480) eastl::vector<GeometryBatchVertexPos, eastl::allocator>();
         new (&field_512, (Array*)&param_1->field_512) Array<GeometryBatchVertexPosLP, eastl::allocator>();
@@ -203,8 +205,8 @@ namespace jag::graphics {
         (&field_512)->~Array();
         (&field_480)->~vector();
         (&field_448)->~vector();
-        (&field_416)->~vector();
-        (&field_376)->~vector();
+        (&m_faceTransparencyBuffer)->~vector();
+        (&m_faceHSLBuffer)->~vector();
         (&field_216)->~array();
         (&field_168)->~vector_map();
         (&field_128)->~vector_map();
@@ -261,8 +263,8 @@ namespace jag::graphics {
                     this_01 = (GeometryBatchVertexPosLP*)&this_01->field_8;
                 } while (this_01 != pGVar3);
             }
-            if (field_40 != 1.0) {
-                new (local_38) math::Vector3T<float>(field_40);
+            if (m_vertexScale != 1.0) {
+                new (local_38) math::Vector3T<float>(m_vertexScale);
                 Scale(local_38);
             }
         } else {
@@ -353,7 +355,7 @@ namespace jag::graphics {
         local_6c = param_2;
         uVar8 = param_1->g2LE();
         uVar30 = (ulong)uVar8;
-        puVar11 = &field_376;
+        puVar11 = &m_faceHSLBuffer;
         local_58 = this;
         if (field_35 == 0) {
             eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
@@ -367,7 +369,7 @@ namespace jag::graphics {
                 (vector<unsigned short, eastl::allocator>*)puVar11, 0);
             param_1->g2ArrLE(puVar11, uVar30);
         }
-        puVar26 = &local_58->field_416;
+        puVar26 = &local_58->m_faceTransparencyBuffer;
         if (local_58->m_hasFaceTransparency == 0) {
             eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
             puVar26->reserve(uVar30);
@@ -461,7 +463,7 @@ namespace jag::graphics {
                                eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>>*)&pGVar6
                        ->field_48;
         eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-        pGVar6->field_32 = 1;
+        pGVar6->m_boneCount = 1;
         local_110 = (vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
                                 eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>>*)&pGVar6
                         ->field_88;
@@ -673,9 +675,9 @@ namespace jag::graphics {
                                                                 eastl::allocator>>::find(local_110, (ushort*)local_40);
                             lVar25 = pvVar5->end();
                             if (lVar23 == lVar25) {
-                                bVar7 = local_58->field_32;
+                                bVar7 = local_58->m_boneCount;
                                 *(byte*)(pfVar20 + 3) = bVar7;
-                                local_58->field_32 = bVar7 + 1;
+                                local_58->m_boneCount = bVar7 + 1;
                                 local_40._0_2_ = uVar8;
                                 puVar11 = (ushort*)eastl::vector_map<
                                     unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
@@ -683,7 +685,7 @@ namespace jag::graphics {
                                                   eastl::allocator>>::operator[](pvVar5, (ushort*)local_40);
                                 *puVar11 = (ushort)bVar7;
                                 pVVar29 = local_80;
-                                if (56 < local_58->field_32) {
+                                if (56 < local_58->m_boneCount) {
                                     /* WARNING: Subroutine does not return */
                                     LogAssert("m_boneCount <= AnimationConstants::MAX_BONES_IN_BATCH",
                                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
@@ -832,19 +834,19 @@ namespace jag::graphics {
                                                                 eastl::allocator>>::find(local_50, (ushort*)this_02);
                             lVar25 = local_50->end();
                             if (lVar23 == lVar25) {
-                                bVar7 = local_58->field_32;
+                                bVar7 = local_58->m_boneCount;
                                 pbVar28 = (byte*)math::Vector4T<unsigned char>::operator[](
                                     (Vector4T<unsigned char>*)local_90, uVar9);
                                 *pbVar28 = bVar7;
-                                bVar7 = local_58->field_32;
-                                local_58->field_32 = bVar7 + 1;
+                                bVar7 = local_58->m_boneCount;
+                                local_58->m_boneCount = bVar7 + 1;
                                 puVar11 = (ushort*)eastl::vector_map<
                                     unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
                                     eastl::vector<eastl::pair<unsigned short, unsigned short>,
                                                   eastl::allocator>>::operator[](local_50, (ushort*)this_02);
                                 *puVar11 = (ushort)bVar7;
                                 local_58->field_33 = local_58->field_33 + '\x01';
-                                if (56 < local_58->field_32) {
+                                if (56 < local_58->m_boneCount) {
                                     /* WARNING: Subroutine does not return */
                                     LogAssert("m_boneCount <= AnimationConstants::MAX_BONES_IN_BATCH",
                                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
@@ -1063,7 +1065,7 @@ namespace jag::graphics {
                       "GeometryBatch.cpp",
                       487, (char*)0);
         }
-        puVar10 = &field_376;
+        puVar10 = &m_faceHSLBuffer;
         eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
         puVar10->reserve(uVar14);
         local_40 = (ushort*)puVar10->end();
@@ -1071,7 +1073,7 @@ namespace jag::graphics {
         uVar8 = local_a0->GetX();
         local_34 = math::RunetekColour::RGBToHSL(uVar8);
         puVar10->insert(local_40, uVar14, &local_34);
-        puVar1 = &field_416;
+        puVar1 = &m_faceTransparencyBuffer;
         eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
         puVar1->reserve(uVar14);
         puVar9 = (uchar*)puVar1->end();
@@ -1112,7 +1114,7 @@ namespace jag::graphics {
         eastl::vector<GeometryBatchVertexSkin, eastl::allocator>::resize((ulong)&m_vertexDataBufferSkin);
         m_labelCount = 1;
         eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-        field_32 = 1;
+        m_boneCount = 1;
         eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
         (&field_128)->clear();
         if (uVar14 != 0) {
@@ -1302,7 +1304,7 @@ namespace jag::graphics {
                 do {
                     uVar7 = (uVar8 & 4294967295) / 3;
                     puVar4 = (ushort*)eastl::vector<unsigned short, eastl::allocator>::operator[](
-                        (vector<unsigned short, eastl::allocator>*)&field_376, uVar7);
+                        (vector<unsigned short, eastl::allocator>*)&m_faceHSLBuffer, uVar7);
                     uVar2 = math::RunetekColour::HSLToRGB(*puVar4);
                     uVar3 = math::ApplyOffsetToFaceColour(uVar2, (uint)param_3, param_4, param_5);
                     puVar4 = (ushort*)eastl::vector<unsigned short, eastl::allocator>::operator[](this_01, uVar8);
@@ -1323,7 +1325,7 @@ namespace jag::graphics {
                     puVar6 = (undefined1*)std::array<unsigned char, 3ul>::operator[](this_02, 2);
                     *puVar6 = (char)uVar2;
                     puVar6 = (undefined1*)eastl::vector<unsigned char, eastl::allocator>::operator[](
-                        (vector<unsigned char, eastl::allocator>*)&field_416, uVar7);
+                        (vector<unsigned char, eastl::allocator>*)&m_faceTransparencyBuffer, uVar7);
                     uVar1 = *puVar6;
                     puVar6 = (undefined1*)std::array<unsigned char, 4ul>::operator[](this_00, 3);
                     *puVar6 = uVar1;
@@ -1590,10 +1592,11 @@ namespace jag::graphics {
             new (local_120) eastl::vector<GeometryBatchVertex, eastl::allocator>();
             new ((local_120 + 32)) eastl::vector<GeometryBatchVertexPos, eastl::allocator>();
             new (&local_e0) eastl::vector<GeometryBatchVertexSkin, eastl::allocator>();
-            local_50 = (vector*)&local_38->field_376;
+            local_50 = (vector*)&local_38->m_faceHSLBuffer;
             uVar21 = local_50->size();
             local_a0->reserve(uVar21);
-            local_48 = (array<eastl::vector<unsigned short, eastl::allocator>, 5ul>*)&local_38->field_416;
+            local_48 =
+                (array<eastl::vector<unsigned short, eastl::allocator>, 5ul>*)&local_38->m_faceTransparencyBuffer;
             uVar21 = local_48->size();
             local_c0->reserve(uVar21);
             local_70 = (Layout*)&local_38->field_448;
@@ -1845,7 +1848,7 @@ namespace jag::graphics {
             (vector<SourceModelExternalIndexSection, eastl::allocator>*)param_1, *(ulong*)(lVar4 + 8));
         lVar5 = std::array<IndexRange, 5ul>::operator[]((array<IndexRange, 5ul>*)(lVar4 + 20), 0);
         uVar8 = *(uint*)(lVar5 + 4) / 3;
-        uVar2 = (&field_376)->size();
+        uVar2 = (&m_faceHSLBuffer)->size();
         if (uVar8 == uVar2) {
             local_34 = *(int*)(lVar4 + 64);
             iVar3 = (&field_448)->size();
@@ -1853,7 +1856,7 @@ namespace jag::graphics {
                 return uVar1;
             }
         }
-        uVar6 = (&field_376)->size();
+        uVar6 = (&m_faceHSLBuffer)->size();
         uVar2 = *(uint*)(lVar4 + 64);
         uVar7 = (&field_448)->size();
         /* WARNING: Subroutine does not return */
@@ -1927,7 +1930,7 @@ namespace jag::graphics {
             pfVar3 = std::max<float>(pfVar3, pfVar4);
             pfVar3 = std::max<float>((float*)&local_40, pfVar3);
             fVar9 = 32767.0 / *pfVar3;
-            field_40 = 1.0 / fVar9;
+            m_vertexScale = 1.0 / fVar9;
             local_34 = fVar9;
         } else {
             local_34 = 1.0;
@@ -2001,9 +2004,9 @@ namespace jag::graphics {
             eastl::vector<unsigned short, eastl::allocator>::reserve(this_00, (ulong)uVar1);
         }
         uVar1 = param_1->GetLevel();
-        (&field_376, (ulong)uVar1 / 3)->reserve();
+        (&m_faceHSLBuffer, (ulong)uVar1 / 3)->reserve();
         uVar1 = param_1->GetLevel();
-        (&field_416, (ulong)uVar1 / 3)->reserve();
+        (&m_faceTransparencyBuffer, (ulong)uVar1 / 3)->reserve();
         uVar1 = param_1->GetMaxLineWidth();
         (&field_448, (ulong)uVar1)->reserve();
         uVar1 = param_1->GetMaxLineWidth();
@@ -2030,7 +2033,7 @@ namespace jag::graphics {
                 (vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
                             eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>>*)&field_48,
                 (vector_map*)&param_1->field_48);
-            field_32 = param_1->field_32;
+            m_boneCount = param_1->m_boneCount;
             eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
                               eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>>::
             operator=(
@@ -2052,9 +2055,10 @@ namespace jag::graphics {
             std::array<eastl::vector<unsigned short, eastl::allocator>, 5ul>::operator=(
                 (array<eastl::vector<unsigned short, eastl::allocator>, 5ul>*)&field_216, (array*)&param_1->field_216);
             eastl::vector<unsigned short, eastl::allocator>::operator=(
-                (vector<unsigned short, eastl::allocator>*)&field_376, (vector*)&param_1->field_376);
+                (vector<unsigned short, eastl::allocator>*)&m_faceHSLBuffer, (vector*)&param_1->m_faceHSLBuffer);
             eastl::vector<unsigned char, eastl::allocator>::operator=(
-                (vector<unsigned char, eastl::allocator>*)&field_416, (vector*)&param_1->field_416);
+                (vector<unsigned char, eastl::allocator>*)&m_faceTransparencyBuffer,
+                (vector*)&param_1->m_faceTransparencyBuffer);
             eastl::vector<GeometryBatchVertex, eastl::allocator>::operator=(
                 (vector<GeometryBatchVertex, eastl::allocator>*)&field_448, (vector*)&param_1->field_448);
             eastl::vector<GeometryBatchVertexPos, eastl::allocator>::operator=(
@@ -2221,19 +2225,19 @@ namespace jag::graphics {
                 } while (uVar11 < *(uint*)local_a0);
             }
             pGVar5 = local_98;
-            puVar23 = &local_98->field_376;
+            puVar23 = &local_98->m_faceHSLBuffer;
             local_88 = (GeometryBatchVertex*)puVar23->end();
             pGVar32 = local_a8;
-            puVar24 = &local_a8->field_376;
+            puVar24 = &local_a8->m_faceHSLBuffer;
             puVar16 = (ushort*)puVar24->HeapBeginPtr();
             puVar24->end();
             eastl::vector<unsigned short, eastl::allocator>::insert<unsigned short const*>(puVar23, (ushort*)local_88,
                                                                                            puVar16);
-            local_88 = (GeometryBatchVertex*)(&pGVar5->field_416)->end();
-            puVar17 = (uchar*)(&pGVar32->field_416)->HeapBeginPtr();
-            (&pGVar32->field_416)->end();
-            eastl::vector<unsigned char, eastl::allocator>::insert<unsigned char const*>(&pGVar5->field_416,
-                                                                                         (uchar*)local_88, puVar17);
+            local_88 = (GeometryBatchVertex*)(&pGVar5->m_faceTransparencyBuffer)->end();
+            puVar17 = (uchar*)(&pGVar32->m_faceTransparencyBuffer)->HeapBeginPtr();
+            (&pGVar32->m_faceTransparencyBuffer)->end();
+            eastl::vector<unsigned char, eastl::allocator>::insert<unsigned char const*>(
+                &pGVar5->m_faceTransparencyBuffer, (uchar*)local_88, puVar17);
             pGVar4 = local_d0;
             pGVar5->field_35 = pGVar5->field_35 | pGVar32->field_35;
             pGVar5->m_hasFaceTransparency = pGVar5->m_hasFaceTransparency | pGVar32->m_hasFaceTransparency;
@@ -2283,7 +2287,7 @@ namespace jag::graphics {
             if ((char)local_b8 == '\0') {
                 pGVar5->m_labelCount = 1;
                 eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-                pGVar5->field_32 = 1;
+                pGVar5->m_boneCount = 1;
                 eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
                 (&pGVar5->field_128)->clear();
                 pGVar5->field_33 = 0;
@@ -2353,7 +2357,7 @@ namespace jag::graphics {
                 local_48 = 0;
                 ___bzero(local_348, 512);
                 local_c0 = (array<eastl::vector<unsigned short, eastl::allocator>, 5ul>*)(uVar11 & 65535);
-                local_88 = (GeometryBatchVertex*)&local_98->field_32;
+                local_88 = (GeometryBatchVertex*)&local_98->m_boneCount;
                 lVar25 = eastl::vector<oldscape::highlight::EntityWithCoord<oldscape::dash3d::Decor>,
                                        eastl::allocator>::size(local_a0);
                 if (lVar25 != 0) {
@@ -2650,7 +2654,7 @@ namespace jag::graphics {
         }
         lVar8 = this_00->size();
         if (lVar8 != 0) {
-            local_40 = (GeometryBatch*)&local_40->field_32;
+            local_40 = (GeometryBatch*)&local_40->m_boneCount;
             uVar5 = 0;
             do {
                 local_70 = uVar5;
@@ -2833,7 +2837,7 @@ namespace jag::graphics {
             lVar9 = eastl::vector<shared_ptr<oldscape::dash3d::ModelUnlit>, BucketAllocatorEASTL>::size(this_02);
             if (lVar9 != 0) {
                 local_98 = (vector<GeometryBatchVertexSkin, eastl::allocator>*)&local_48->m_vertexDataBufferSkin;
-                local_58 = &local_48->field_32;
+                local_58 = &local_48->m_boneCount;
                 uVar6 = 0;
                 phVar18 = local_50;
                 local_90 = this_02;
@@ -2889,7 +2893,7 @@ namespace jag::graphics {
                                     puVar13 = (undefined1*)math::Vector4T<unsigned char>::operator[](this_00, uVar17);
                                     *puVar13 = uVar1;
                                     local_48->field_33 = local_48->field_33 + '\x01';
-                                    if (56 < local_48->field_32) {
+                                    if (56 < local_48->m_boneCount) {
                                         /* WARNING: Subroutine does not return */
                                         LogAssert("m_boneCount <= AnimationConstants::MAX_BONES_IN_BATCH",
                                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
@@ -3455,7 +3459,7 @@ namespace jag::graphics {
         ulong uVar4;
         ushort* this_00;
 
-        this_00 = &field_376;
+        this_00 = &m_faceHSLBuffer;
         lVar1 = this_00->size();
         if (lVar1 != 0) {
             uVar4 = 0;
@@ -3484,7 +3488,7 @@ namespace jag::graphics {
         ulong uVar6;
         ushort* this_00;
 
-        this_00 = &field_376;
+        this_00 = &m_faceHSLBuffer;
         lVar1 = this_00->size();
         if (lVar1 != 0) {
             uVar6 = 0;
@@ -3511,7 +3515,7 @@ namespace jag::graphics {
         ulong uVar5;
         ushort* this_00;
 
-        this_00 = &field_376;
+        this_00 = &m_faceHSLBuffer;
         lVar2 = this_00->size();
         if (lVar2 != 0) {
             uVar5 = 0;
@@ -3775,13 +3779,13 @@ namespace jag::graphics {
         ulong uVar5;
         ulong uVar6;
 
-        this_00 = &field_376;
+        this_00 = &m_faceHSLBuffer;
         lVar1 = this_00->size();
         this_01 = (Layout*)std::array<eastl::vector<unsigned short, eastl::allocator>, 5ul>::operator[](
             (array<eastl::vector<unsigned short, eastl::allocator>, 5ul>*)&field_216, 0);
         eastl::vector<unsigned short, eastl::allocator>::resize((ulong)this_01);
         eastl::vector<unsigned short, eastl::allocator>::resize((ulong)this_00);
-        eastl::vector<unsigned char, eastl::allocator>::resize((ulong)&field_416);
+        eastl::vector<unsigned char, eastl::allocator>::resize((ulong)&m_faceTransparencyBuffer);
         this_02 = (Layout*)std::array<eastl::vector<unsigned short, eastl::allocator>, 5ul>::operator[](
             (array<eastl::vector<unsigned short, eastl::allocator>, 5ul>*)&param_1->field_216, 0);
         lVar2 = eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
@@ -3794,16 +3798,16 @@ namespace jag::graphics {
             (ushort*)(lVar2 + (ulong)(uint)((int)CONCAT62(in_register_00000012, param_2) * 3) * 2),
             (ushort*)(lVar3 + (ulong)(uint)((int)CONCAT62(in_register_0000000a, param_3) * 3) * 2),
             (ushort*)(lVar4 + lVar1 * 6));
-        lVar2 = (&param_1->field_376)->HeapBeginPtr();
+        lVar2 = (&param_1->m_faceHSLBuffer)->HeapBeginPtr();
         uVar6 = CONCAT62(in_register_00000012, param_2) & 4294967295;
-        lVar3 = (&param_1->field_376)->HeapBeginPtr();
+        lVar3 = (&param_1->m_faceHSLBuffer)->HeapBeginPtr();
         uVar5 = CONCAT62(in_register_0000000a, param_3) & 4294967295;
         lVar4 = this_00->HeapBeginPtr();
         std::copy<unsigned short const*, unsigned short*>((ushort*)(lVar2 + uVar6 * 2), (ushort*)(lVar3 + uVar5 * 2),
                                                           (ushort*)(lVar4 + lVar1 * 2));
-        lVar2 = (&param_1->field_416)->HeapBeginPtr();
-        lVar3 = (&param_1->field_416)->HeapBeginPtr();
-        lVar4 = (&field_416)->HeapBeginPtr();
+        lVar2 = (&param_1->m_faceTransparencyBuffer)->HeapBeginPtr();
+        lVar3 = (&param_1->m_faceTransparencyBuffer)->HeapBeginPtr();
+        lVar4 = (&m_faceTransparencyBuffer)->HeapBeginPtr();
         std::copy<unsigned char const*, unsigned char*>((uchar*)(uVar6 + lVar2), (uchar*)(uVar5 + lVar3),
                                                         (uchar*)(lVar1 + lVar4));
     }

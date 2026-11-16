@@ -11,7 +11,7 @@ namespace jag::game {
         virtual ~ParamType();
         virtual DecodeType(PacketT<Array<unsigned char, eastl::allocator>>&, unsigned int);
         virtual void PostDecode();
-        GetDefaultNumber() const;
+        uint GetDefaultNumber() const;
         GetAutoDisable() const;
         ParamType(BaseTemplateConfigTypeList<ParamType>*, int);
 
@@ -21,8 +21,8 @@ namespace jag::game {
         BaseTemplateConfigTypeList* field_24; // offset 24
         int field_32;                         // offset 32
         char _unknown_36[20];
-        undefined8 field_56; // offset 56
-        undefined4 field_64; // offset 64
+        undefined8 field_56;  // offset 56
+        uint m_defaultNumber; // offset 64
         char _unknown_68[36];
         undefined1 m_autoDisable; // offset 104
     };
@@ -60,7 +60,7 @@ namespace jag::game {
         new (this) ConfigType<ParamType>(param_1, param_2);
         new (this) MakeSharedPool<ParamType, 640>();
         field_0 = &PTR__ParamType_100f02bb8;
-        field_64 = 0;
+        m_defaultNumber = 0;
         new (&field_72, (basic_string*)&eastl::EMPTY_STRING) eastl::string();
         m_autoDisable = 1;
     }

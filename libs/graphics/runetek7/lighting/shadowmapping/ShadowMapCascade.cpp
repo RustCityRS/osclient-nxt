@@ -101,7 +101,7 @@ namespace jag::graphics {
         new (&local_228) math::Matrix44T<float>();
         lVar6 = field_800->GetHeadList();
         piVar7 = (int*)std::array<LightProjectionFit, 4ul>::operator[]((array<LightProjectionFit, 4ul>*)(lVar6 + 80),
-                                                                       (long)field_796);
+                                                                       (long)m_cascadeID);
         if (*piVar7 == 2) {
             local_108._0_8_ = puVar1->GetAABBMin();
             local_108._8_4_ = fVar11;
@@ -207,7 +207,7 @@ namespace jag::graphics {
                                             ThreadPool* param_4) {
         new (this) ShadowPass(0, param_3);
         field_0 = &PTR__ShadowMapCascade_100f18440;
-        field_796 = param_1;
+        m_cascadeID = param_1;
         field_800 = param_2;
         field_808 = 0.0;
         field_812 = 0.0;
@@ -361,7 +361,7 @@ namespace jag::graphics {
         GetDrawablesCasterReceiverAABB(this, &local_a4, (AABB*)local_168, (AABB*)local_148, (Vector4T*)local_c8,
                                        local_38);
         lVar6 = field_800->GetHeadList();
-        pVVar15 = (Vector3T<float>*)(long)field_796;
+        pVVar15 = (Vector3T<float>*)(long)m_cascadeID;
         local_38 = (DrawableQueue*)this;
         piVar7 = (int*)std::array<LightProjectionFit, 4ul>::operator[]((array<LightProjectionFit, 4ul>*)(lVar6 + 80),
                                                                        (ulong)pVVar15);
@@ -802,7 +802,7 @@ namespace jag::graphics {
         long local_30;
 
         local_30 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_6c = field_796;
+        local_6c = m_cascadeID;
         ToString<eastl::string, int>(local_b0, &local_6c, 10);
         eastl::operator+(local_90, (value_type*)"Enable Shadow Cascade ", (basic_string*)local_b0);
         eastl::operator+(local_68, (basic_string*)local_90, (value_type*)" GPU Depth Readback");
@@ -811,7 +811,7 @@ namespace jag::graphics {
         local_68->~basic_string();
         local_90->~basic_string();
         local_b0->~basic_string();
-        local_6c = field_796;
+        local_6c = m_cascadeID;
         ToString<eastl::string, int>(local_b0, &local_6c, 10);
         eastl::operator+(local_90, (value_type*)"Enable Shadow Cascade ", (basic_string*)local_b0);
         eastl::operator+(local_68, (basic_string*)local_90, (value_type*)" CPU Reprojection Mask");
@@ -820,7 +820,7 @@ namespace jag::graphics {
         local_68->~basic_string();
         local_90->~basic_string();
         local_b0->~basic_string();
-        local_6c = field_796;
+        local_6c = m_cascadeID;
         ToString<eastl::string, int>(local_b0, &local_6c, 10);
         eastl::operator+(local_90, (value_type*)"Show Shadow Cascade ", (basic_string*)local_b0);
         eastl::operator+(local_68, (basic_string*)local_90, (value_type*)" Depth Buffer");
@@ -829,7 +829,7 @@ namespace jag::graphics {
         local_68->~basic_string();
         local_90->~basic_string();
         local_b0->~basic_string();
-        local_6c = field_796;
+        local_6c = m_cascadeID;
         ToString<eastl::string, int>(local_b0, &local_6c, 10);
         eastl::operator+(local_90, (value_type*)"Enable On Shadow Cascade ", (basic_string*)local_b0);
         pcVar2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
@@ -956,7 +956,7 @@ namespace jag::graphics {
         int iVar2;
         long lVar3;
 
-        iVar1 = field_796;
+        iVar1 = m_cascadeID;
         lVar3 = field_800->GetHeadList();
         iVar2 = *(int*)(lVar3 + 8) + -1;
         return CONCAT31((int3)((uint)iVar2 >> 8), iVar1 == iVar2);

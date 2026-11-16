@@ -8,7 +8,7 @@
 namespace jag::ui {
     class Interface {
     public:
-        GetInterfaceID() const;
+        int GetInterfaceID() const;
         void GetStaticComponent(unsigned int) const;
         ~Interface();
         Interface(int, bool, eastl::vector<PacketT<Array<unsigned char, eastl::allocator>>, eastl::allocator>&,
@@ -20,7 +20,7 @@ namespace jag::ui {
         static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ NullInterfaceShared;
 
         // data members, from how the methods use this: 105 bytes
-        int field_0; // offset 0
+        int m_interfaceID; // offset 0
         char _unknown_4[100];
         undefined1 field_104; // offset 104
     };

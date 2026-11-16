@@ -13,7 +13,7 @@ namespace jag::graphics {
     AnimationFrameRT7::GetSkipTweenLabel() const;
 
     // 0x1000b7a80: the linker folded this into oldscape::minimenu::MinimenuEntry::GetObjCount() const, which has identical code
-    AnimationFrameRT7::GetMaximumBoneID() const;
+    uint AnimationFrameRT7::GetMaximumBoneID() const;
 
     // 0x100102fc0: the linker folded this into oldscape::rs2lib::InputField::GetPlaceholderContents() const, which has identical code
     AnimationFrameRT7::GetSkipTweenBillboard() const;
@@ -40,7 +40,7 @@ namespace jag::graphics {
         m_animatesTransparency = 0;
         m_animatesColour = 0;
         m_animatesBillboards = 0;
-        field_104 = 4294967295;
+        m_maximumBoneID = 4294967295;
         new (&field_112, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
     }
 
@@ -88,7 +88,7 @@ namespace jag::graphics {
         m_animatesTransparency = 0;
         m_animatesColour = 0;
         m_animatesBillboards = 0;
-        field_104 = 4294967295;
+        m_maximumBoneID = 4294967295;
         new (&field_112, (_func_decltype_nullptr*)psVar10)
             shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         field_96 = param_2;
@@ -199,7 +199,7 @@ namespace jag::graphics {
                 new (&field_80, puVar7 + uVar14, (long)(int)local_3c + 1) WrapArray<unsigned char>();
             }
             PreProcessTransforms(this, param_1, param_3, param_4);
-            field_104 = local_34;
+            m_maximumBoneID = local_34;
             shared_ptr<AnimationFrameRT5>::operator=((shared_ptr<AnimationFrameRT5>*)&field_112, param_1);
         }
     }

@@ -7,7 +7,7 @@
 
 namespace jag {
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    Js5MasterIndex::GetMaximumArchiveID() const;
+    uint Js5MasterIndex::GetMaximumArchiveID() const;
 
     // 0x1009f0ad0, 1856 bytes, base-object constructor, placed by class name and debug map
     // Js5MasterIndex::Js5MasterIndex(math::BigInteger const*, math::BigInteger const*, PacketT<Array<unsigned char, BucketAllocatorEASTL> >&)
@@ -68,7 +68,7 @@ namespace jag {
         uVar5 = param_3->g4();
         bVar4 = param_3->g1();
         uVar20 = (uint)bVar4;
-        field_0 = uVar20 - 1;
+        m_maximumArchiveID = uVar20 - 1;
         lVar8 = param_3->size();
         local_138._32_8_ = (ulong)uVar20;
         param_3->SetPos((ulong)(uVar20 * 80) + lVar8);

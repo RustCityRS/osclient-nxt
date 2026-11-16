@@ -7,7 +7,7 @@
 
 namespace jag::game {
     // 0x10042eb10: the linker folded this into LocType::GetModelList() const, which has identical code
-    BuildTerrainMain::GetRequestData();
+    shared_ptr BuildTerrainMain::GetRequestData();
 
     // 0x100625fe0, 576 bytes, base-object constructor, placed by class name
     // BuildTerrainMain::BuildTerrainMain(graphics::RT7Core*, int, TerrainInputData&)

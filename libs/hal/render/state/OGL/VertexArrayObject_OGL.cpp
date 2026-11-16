@@ -35,7 +35,7 @@ namespace jag::render {
                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/state/"
                              "OGL/VertexArrayObject_OGL.cpp",
                              20);
-        (*___glewBindVertexArray)(field_0);
+        (*___glewBindVertexArray)(m_nativeVAO);
         CheckGlErrorInternal("glBindVertexArray",
                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/state/"
                              "OGL/VertexArrayObject_OGL.cpp",
@@ -53,7 +53,7 @@ namespace jag::render {
 
         local_28 = *(long*)PTR____stack_chk_guard_100ee9d98;
         new (&local_f0) Key(in_RDX);
-        psVar1 = (shared_ptr*)(&param_1->field_16, &local_f0)->FindResource();
+        psVar1 = (shared_ptr*)(&param_1->m_pVertexBuffers, &local_f0)->FindResource();
         new (this) shared_ptr<oldscape::dash3d::Decor>(psVar1);
         local_f0.~Key();
         if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_28) {
@@ -119,11 +119,11 @@ namespace jag::render {
                       "VertexArrayObject_OGL.cpp",
                       65, (char*)0);
         }
-        field_4 = FrameTime::GetSecondsSinceProgramStart();
+        m_lastUsageSeconds = (float)FrameTime::GetSecondsSinceProgramStart();
         lVar3 = param_1->GetStateCache();
-        if (*(uint*)(lVar3 + 932) != field_0) {
-            SafeGLBindVertexArray(field_0);
-            uVar1 = field_0;
+        if (*(uint*)(lVar3 + 932) != m_nativeVAO) {
+            SafeGLBindVertexArray(m_nativeVAO);
+            uVar1 = m_nativeVAO;
             lVar3 = param_1->GetStateCache();
             *(uint*)(lVar3 + 932) = uVar1;
         }
@@ -160,7 +160,7 @@ namespace jag::render {
                           "VertexArrayObject_OGL.cpp",
                           39, (char*)0);
             }
-            cVar1 = (*___glewIsVertexArray)(field_0);
+            cVar1 = (*___glewIsVertexArray)(m_nativeVAO);
             this_03 = "glIsVertexArray";
             CheckGlErrorInternal("glIsVertexArray",
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
@@ -171,12 +171,12 @@ namespace jag::render {
                 this_00 = (RenderContext*)pRVar2->GetCurrentThreadRenderContext();
                 this_01 = (ImmediateRenderContext*)this_00->GetImmediateContext();
                 lVar3 = this_01->GetStateCache();
-                if ((*(uint*)(lVar3 + 932) == field_0) && (field_0 != 1)) {
+                if ((*(uint*)(lVar3 + 932) == m_nativeVAO) && (m_nativeVAO != 1)) {
                     uVar4 = logger::default_logger();
                     logger::Logger::Log(uVar4, 0, 3,
                                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
                                         "render/state/OGL/VertexArrayObject_OGL.cpp",
-                                        51, "Deleting VAO %u while bound!", CONCAT44(uVar5, field_0));
+                                        51, "Deleting VAO %u while bound!", CONCAT44(uVar5, m_nativeVAO));
                     this_01->SetDefaultVAO();
                 }
             }
@@ -185,7 +185,7 @@ namespace jag::render {
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                  "state/OGL/VertexArrayObject_OGL.cpp",
                                  56);
-            field_0 = 0;
+            m_nativeVAO = 0;
         }
     }
 

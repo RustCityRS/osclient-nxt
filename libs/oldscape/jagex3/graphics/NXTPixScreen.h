@@ -13,13 +13,13 @@ namespace jag::oldscape::graphics {
         virtual void Render(int, int);
         virtual Render(int, int, int, int);
         virtual NXTRenderCanvas* GetCurrentRenderCanvas();
-        virtual GetWidth() const;
-        virtual GetHeight() const;
+        virtual int GetWidth() const;
+        virtual int GetHeight() const;
         GetUIHeight() const;
-        GetUIWidth() const;
-        GetZoomValue() const;
-        GetClampedZoomValue() const;
-        GetViewportX();
+        int GetUIWidth() const;
+        float GetZoomValue() const;
+        float GetClampedZoomValue() const;
+        int GetViewportX();
         NXTPixScreen(int, int, int, int);
         void SetViewportPosition(int, int);
         void SetClientWindowSize(int, int);
@@ -39,8 +39,8 @@ namespace jag::oldscape::graphics {
         // data members, from how the methods use this: 164 bytes
         undefined** field_0; // offset 0, vtable pointer
         char _unknown_8[24];
-        int field_32;  // offset 32
-        int field_36;  // offset 36
+        int m_width;   // offset 32
+        int m_height;  // offset 36
         bool field_40; // offset 40
         bool field_41; // offset 41
         bool field_42; // offset 42
@@ -52,12 +52,12 @@ namespace jag::oldscape::graphics {
         int field_76;                            // offset 76
         int m_clientWindowSize;                  // offset 80
         int field_84;                            // offset 84
-        float field_88;                          // offset 88
-        undefined4 field_92;                     // offset 92
+        float m_clampedZoomValue;                // offset 88
+        int m_uIWidth;                           // offset 92
         undefined4 m_uIHeight;                   // offset 96
         char _unknown_100[16];
-        float field_116;      // offset 116
-        undefined4 field_120; // offset 120
+        float m_zoomValue;            // offset 116
+        undefined4 m_scaledUIQuality; // offset 120
         char _unknown_124[4];
         undefined8 field_128; // offset 128
         undefined8 field_136; // offset 136
@@ -135,7 +135,7 @@ namespace jag::oldscape::graphics {
 
 namespace jag::game {
     // 0x1000e31a0: the linker folded this into oldscape::graphics::NXTPixScreen::GetUIWidth() const, which has identical code
-    BaseConfigTypeList::GetMaxEntryIndex() const;
+    uint BaseConfigTypeList::GetMaxEntryIndex() const;
 
 } // namespace jag::game
 

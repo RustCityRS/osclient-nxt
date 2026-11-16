@@ -20,11 +20,11 @@ namespace jag::render {
         long local_28;
 
         local_28 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        field_0 = 4294967295;
+        m_primitiveType = 4294967295;
         field_8 = (VertexDeclaration*)0;
         local_30 = 0;
         eastl::allocator::allocator(local_38, "EASTL fixed_vector");
-        new (&field_16, (_func_decltype_nullptr*)&local_30, 1, local_38)
+        new (&m_pVertexBuffers, (_func_decltype_nullptr*)&local_30, 1, local_38)
             eastl::fixed_vector<VertexBuffer_const*, 8ul, true, eastl::allocator>();
         m_pIndexBuffer = (BufferInterface*)0;
         m_flags = 0;
@@ -32,7 +32,7 @@ namespace jag::render {
             shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         field_168 = 0;
         field_176 = 0;
-        *(undefined8*)&field_152 = 0;
+        *(undefined8*)&m_gLIndexBuffer = 0;
         field_160 = 0;
         field_184 = 0;
         if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_28) {
@@ -46,13 +46,13 @@ namespace jag::render {
     void InputAssemblerState::~InputAssemblerState() {
         Destroy(this);
         field_136->~shared_ptr();
-        (&field_16)->~fixed_vector();
+        (&m_pVertexBuffers)->~fixed_vector();
     }
 
     // 0x100bf5840, 80 bytes, placed by class name and neighbouring functions
     // InputAssemblerState::Clear()
     void InputAssemblerState::Clear() {
-        field_0 = 4294967295;
+        m_primitiveType = 4294967295;
         field_8 = (VertexDeclaration*)0;
         eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
         m_pIndexBuffer = (BufferInterface*)0;
@@ -93,7 +93,7 @@ namespace jag::render {
         undefined8 uVar11;
         char* pcVar12;
 
-        this_00 = &field_16;
+        this_00 = &m_pVertexBuffers;
         lVar6 = this_00->size();
         if (lVar6 != 0) {
             unaff_RBX = 0;
@@ -284,7 +284,7 @@ namespace jag::render {
         InputAssemblerState* local_38;
 
         local_58 = 0;
-        this_00 = &field_16;
+        this_00 = &m_pVertexBuffers;
         local_38 = this;
         uVar7 = this_00->size();
         if (uVar7 != 0) {
@@ -373,14 +373,14 @@ namespace jag::render {
 
         if (m_pIndexBuffer == (BufferInterface*)0) {
             iVar1 = 0;
-            if (field_152 == 0)
+            if (m_gLIndexBuffer == 0)
                 goto LAB_100bf5e4d;
         } else {
             iVar1 = m_pIndexBuffer->GetNativeBuffer();
-            if (field_152 == iVar1)
+            if (m_gLIndexBuffer == iVar1)
                 goto LAB_100bf5e4d;
         }
-        field_152 = iVar1;
+        m_gLIndexBuffer = iVar1;
         ResetVAO(this);
     LAB_100bf5e4d:
         if ((m_flags & 1) != 0) {
@@ -659,7 +659,7 @@ namespace jag::render {
     // 0x100bf64e0, 64 bytes, placed by __FILE__ string
     // InputAssemblerState::BindIndexBuffer() const
     void InputAssemblerState::BindIndexBuffer() {
-        (*___glewBindBuffer)(34963, field_152);
+        (*___glewBindBuffer)(34963, m_gLIndexBuffer);
         CheckGlErrorInternal("glBindBuffer GL_ELEMENT_ARRAY_BUFFER",
                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/state/"
                              "OGL/InputAssemblerState_OGL.cpp",

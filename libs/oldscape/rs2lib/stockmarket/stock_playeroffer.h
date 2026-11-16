@@ -12,9 +12,9 @@ namespace jag::oldscape::rs2lib {
         SetPrice(int);
         void SetCompletedCount(int);
         SetAddedCount(int);
-        GetCompletedCount() const;
-        GetItem() const;
-        GetAddedCount() const;
+        int GetCompletedCount() const;
+        uint GetItem() const;
+        int GetAddedCount() const;
         GetCompletedGold() const;
         StockPlayerOffer();
         void SetOfferStatus(OFFER_STATUS);
@@ -33,9 +33,9 @@ namespace jag::oldscape::rs2lib {
         byte m_offerStatus;         // offset 0
         byte m_offerType;           // offset 1
         undefined2 field_2;         // offset 2
-        uint field_4;               // offset 4
-        undefined4 field_8;         // offset 8
-        undefined4 field_12;        // offset 12
+        uint m_item;                // offset 4
+        undefined4 m_price;         // offset 8
+        int m_addedCount;           // offset 12
         int m_completedCount;       // offset 16
         undefined4 m_completedGold; // offset 20
         undefined1 field_24;        // offset 24

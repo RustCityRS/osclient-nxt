@@ -22,13 +22,13 @@ namespace jag::graphics {
     GUIManager::m_skipLineElements;
 
     // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    GUIManager::GetProjectionMode() const;
+    int GUIManager::GetProjectionMode() const;
 
     // 0x1000fa830: the linker folded this into oldscape::graphics::NXTPixScreen::GetWidth() const, which has identical code
-    GUIManager::GetLastViewportWidth() const;
+    uint GUIManager::GetLastViewportWidth() const;
 
     // 0x1000fa840: the linker folded this into oldscape::graphics::NXTPixScreen::GetHeight() const, which has identical code
-    GUIManager::GetLastViewportHeight() const;
+    uint GUIManager::GetLastViewportHeight() const;
 
     // 0x1008e5070, 48 bytes, placed by class name and debug map
     // GUIManager::AddTexturedRectangle(int, int, int, int, unsigned int, float, float, float, float, render::Texture const*, GUIManager::BlendMode)
@@ -48,10 +48,10 @@ namespace jag::graphics {
         vector* this_00;
 
         field_0 = (RT7Core*)0;
-        field_8 = 1;
+        m_projectionMode = 1;
         new (&field_16) EffectList();
-        field_32 = 4294967295;
-        field_36 = 4294967295;
+        m_lastViewportWidth = 4294967295;
+        m_lastViewportHeight = 4294967295;
         new (&field_40) eastl::stack<render::DrawCallState, eastl::vector<render::DrawCallState, eastl::allocator>>();
         field_72 = 0;
         field_76 = 2;
@@ -99,8 +99,8 @@ namespace jag::graphics {
         field_88 = (Mixer*)0;
         field_96 = (Texture*)0;
         DestroyRenderingResources(this);
-        field_32 = 4294967295;
-        field_36 = 4294967295;
+        m_lastViewportWidth = 4294967295;
+        m_lastViewportHeight = 4294967295;
         ResetBatchState(this);
     }
 
@@ -293,17 +293,17 @@ namespace jag::graphics {
         uint uVar1;
         uint uVar2;
 
-        uVar1 = field_32;
-        uVar2 = field_36;
+        uVar1 = m_lastViewportWidth;
+        uVar2 = m_lastViewportHeight;
         if (param_2 == 2) {
-            field_32 = param_3;
+            m_lastViewportWidth = param_3;
         } else {
-            field_32 = field_0->GetInterfaceWidth();
+            m_lastViewportWidth = field_0->GetInterfaceWidth();
             param_4 = field_0->GetInterfaceHeight();
         }
-        field_36 = param_4;
-        if (((uVar1 != field_32) || (uVar2 != param_4)) || (field_8 != param_2)) {
-            field_8 = param_2;
+        m_lastViewportHeight = param_4;
+        if (((uVar1 != m_lastViewportWidth) || (uVar2 != param_4)) || (m_projectionMode != param_2)) {
+            m_projectionMode = param_2;
             UpdateProjection(this, true);
         }
     }
@@ -324,17 +324,17 @@ namespace jag::graphics {
         float fVar10;
         Matrix44T local_78;
 
-        uVar1 = field_32;
-        uVar2 = field_36;
-        if (field_8 == 1) {
+        uVar1 = m_lastViewportWidth;
+        uVar2 = m_lastViewportHeight;
+        if (m_projectionMode == 1) {
             uVar4 = field_0->GetInterfaceWidth();
-            field_32 = uVar4;
+            m_lastViewportWidth = uVar4;
             uVar4 = field_0->GetInterfaceHeight();
-            field_36 = uVar4;
+            m_lastViewportHeight = uVar4;
         }
-        if (((param_1) || (uVar1 != field_32)) || (uVar2 != field_36)) {
-            uVar1 = field_32;
-            uVar2 = field_36;
+        if (((param_1) || (uVar1 != m_lastViewportWidth)) || (uVar2 != m_lastViewportHeight)) {
+            uVar1 = m_lastViewportWidth;
+            uVar2 = m_lastViewportHeight;
             uVar4 = field_2240;
             uVar9 = 0;
             uVar6 = uVar2;
@@ -343,7 +343,7 @@ namespace jag::graphics {
                 uVar7 = 0;
             } else {
                 uVar7 = 0;
-                if (field_8 == 1) {
+                if (m_projectionMode == 1) {
                     fVar10 = (float)(int)uVar1 / (float)(int)uVar2;
                     uVar3 = field_2244;
                     uVar7 = m_projectionOverride;
@@ -362,9 +362,9 @@ namespace jag::graphics {
             field_2248 =
                 (int)uVar2 < (int)(uVar6 + uVar9) || ((int)uVar1 < (int)(uVar8 + uVar7) || (int)(uVar7 | uVar9) < 0);
             new (&local_78) math::Matrix44T<float>();
-            math::Matrix44OrthographicLH<float>((float)(int)uVar7, (float)(int)(uVar8 + uVar7),
-                                                (float)(int)(field_36 - (uVar6 + uVar9)),
-                                                (float)(int)(field_36 - uVar9), 1036831949, 1167867904, &local_78, 0);
+            math::Matrix44OrthographicLH<float>(
+                (float)(int)uVar7, (float)(int)(uVar8 + uVar7), (float)(int)(m_lastViewportHeight - (uVar6 + uVar9)),
+                (float)(int)(m_lastViewportHeight - uVar9), 1036831949, 1167867904, &local_78, 0);
             pEVar5 = (EffectManager*)field_0->GetEffectManager();
             this_00 = EffectManager::GetEffect<SunlightDirectLighting>(pEVar5, 80);
             this_00->SetTransforms(&local_78);
@@ -841,7 +841,7 @@ namespace jag::graphics {
             local_38 = -65000.0;
         }
         fVar15 = local_68 - local_44;
-        uVar2 = field_36;
+        uVar2 = m_lastViewportHeight;
         if (0.0 <= fVar15) {
             local_88 = ZEXT416((uint)fVar15);
         } else {
@@ -1191,7 +1191,7 @@ namespace jag::graphics {
                     fVar22 = -65000.0;
                     local_40 = (vector<unsigned int, eastl::allocator>*)CONCAT44(local_40._4_4_, 3346917376);
                 }
-                local_48 = CONCAT44(local_48._4_4_, (float)(int)local_58->field_36 - (float)local_48);
+                local_48 = CONCAT44(local_48._4_4_, (float)(int)local_58->m_lastViewportHeight - (float)local_48);
                 local_38 = fVar22;
                 uVar19 = local_a8._8_8_->size();
                 uVar14 = uVar4->capacity();
@@ -1325,8 +1325,8 @@ namespace jag::graphics {
         uVar10 = uVar9;
     LAB_1008ed45a:
         if ((uint)local_48 != local_40) {
-            iVar14 = field_36 - param_2;
-            local_5c = field_36 - uVar10;
+            iVar14 = m_lastViewportHeight - param_2;
+            local_5c = m_lastViewportHeight - uVar10;
             this_00 = &field_232;
             local_58 = (Array<GUIManagerVertexBase<short>, eastl::allocator>*)this_00;
             if ((param_9 < 1) || (iVar14 - local_5c <= param_9 * 2)) {
@@ -2289,7 +2289,7 @@ namespace jag::graphics {
             param_11 = -65000.0;
             param_13 = -65000.0;
         }
-        local_50 = (float)(int)field_36;
+        local_50 = (float)(int)m_lastViewportHeight;
         local_88 = param_12 - param_10;
         if (local_88 < 0.0) {
             local_88 = -local_88;
@@ -2744,7 +2744,7 @@ namespace jag::graphics {
                 local_34 = -65000.0;
                 local_38 = -65000.0;
             }
-            local_3c = (float)(int)field_36;
+            local_3c = (float)(int)m_lastViewportHeight;
             fVar11 = local_68 - local_48;
             if (0.0 <= fVar11) {
                 local_98 = ZEXT416((uint)fVar11);
@@ -2959,7 +2959,7 @@ namespace jag::graphics {
             param_11 = -65000.0;
             param_13 = -65000.0;
         }
-        local_4c = (float)(int)field_36;
+        local_4c = (float)(int)m_lastViewportHeight;
         local_88 = param_12 - param_10;
         if (local_88 < 0.0) {
             local_88 = -local_88;
@@ -3359,9 +3359,9 @@ namespace jag::graphics {
             *puVar3 = 0;
         }
         pvVar2 = local_48->SSOBeginPtr(param_4);
-        local_34 = (float)(int)field_32 * (*(float*)pvVar2 * 0.5 + 0.5);
+        local_34 = (float)(int)m_lastViewportWidth * (*(float*)pvVar2 * 0.5 + 0.5);
         pfVar1 = (float*)local_48->y();
-        fVar4 = (float)(int)field_36 * (*pfVar1 * 0.5 + 0.5) - (float)param_16;
+        fVar4 = (float)(int)m_lastViewportHeight * (*pfVar1 * 0.5 + 0.5) - (float)param_16;
         AddElementInner(param_1_00._0_4_, param_8, param_9, param_10, this, (int)(local_34 - (float)param_15),
                         (int)fVar4, (int)((float)param_2 + (local_34 - (float)param_15)), (int)((float)param_3 + fVar4),
                         param_6, param_11, 0, 0, param_13, 1, 1);
@@ -3468,7 +3468,7 @@ namespace jag::graphics {
                 fVar1 = *pfVar13;
                 pfVar13 = (float*)eastl::vector<float, eastl::allocator>::operator[](
                     (vector<float, eastl::allocator>*)param_1, uVar10 + 1);
-                uVar4 = field_36;
+                uVar4 = m_lastViewportHeight;
                 fVar2 = *pfVar13;
                 uVar11 = this_00->size();
                 uVar14 = this_00->capacity();
@@ -3529,17 +3529,17 @@ namespace jag::graphics {
             pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 2);
             *pfVar2 = *pfVar2 / local_34;
             pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 0);
-            local_34 = (float)(int)field_32 * (*pfVar2 * 0.5 + 0.5);
+            local_34 = (float)(int)m_lastViewportWidth * (*pfVar2 * 0.5 + 0.5);
             pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 0);
             *pfVar2 = local_34;
             pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 1);
-            local_34 = (float)(int)field_36 * (*pfVar2 * 0.5 + 0.5);
+            local_34 = (float)(int)m_lastViewportHeight * (*pfVar2 * 0.5 + 0.5);
             pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 1);
             *pfVar2 = local_34;
             pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 0);
             /* WARNING: Load size is inaccurate */
             local_48._0_4_ = *(GUIManager**)pfVar2;
-            local_34 = (float)(int)field_36;
+            local_34 = (float)(int)m_lastViewportHeight;
             pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 1);
             local_34 = local_34 - *pfVar2;
             local_88->Set(param_2, 1.0);
@@ -3558,16 +3558,16 @@ namespace jag::graphics {
             pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 2);
             *pfVar2 = *pfVar2 / (param_2)._0_4_;
             pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 0);
-            (param_2)._0_4_ = (float)(int)field_32 * (*pfVar2 * 0.5 + 0.5);
+            (param_2)._0_4_ = (float)(int)m_lastViewportWidth * (*pfVar2 * 0.5 + 0.5);
             pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 0);
             *pfVar2 = (param_2)._0_4_;
             pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 1);
-            (param_2)._0_4_ = (float)(int)field_36 * (*pfVar2 * 0.5 + 0.5);
+            (param_2)._0_4_ = (float)(int)m_lastViewportHeight * (*pfVar2 * 0.5 + 0.5);
             pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 1);
             *pfVar2 = (param_2)._0_4_;
             pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 0);
             (param_2)._0_4_ = *pfVar2;
-            local_48._4_4_ = (float)(int)field_36;
+            local_48._4_4_ = (float)(int)m_lastViewportHeight;
             pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 1);
             fVar5 = local_48._4_4_ - *pfVar2;
             if (((float)(GUIManager*)local_48 != (param_2)._0_4_) || (local_34 != fVar5)) {
@@ -3743,8 +3743,8 @@ namespace jag::graphics {
                     *(float*)&field_112 = local_34;
                     field_108 = local_4c;
                 }
-                local_48 = (float)(int)field_36 - local_48;
-                local_34 = (float)(int)field_36 - param_4;
+                local_48 = (float)(int)m_lastViewportHeight - local_48;
+                local_34 = (float)(int)m_lastViewportHeight - param_4;
                 DoByteReorder<EndianSwap, int>(&local_44);
                 uVar1 = field_1280;
                 field_1280 = uVar1 + 1;

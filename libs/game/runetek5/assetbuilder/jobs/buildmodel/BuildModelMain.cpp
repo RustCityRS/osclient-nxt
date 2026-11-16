@@ -7,10 +7,10 @@
 
 namespace jag::game {
     // 0x1001cd990: the linker folded this into graphics::PointLightIndicesEffect::GetVisiblePointLights(), which has identical code
-    BuildModelMain::GetConstructedAsset() const;
+    shared_ptr BuildModelMain::GetConstructedAsset() const;
 
     // 0x1001fb280: the linker folded this into http::CRMData::GetActionInfo() const, which has identical code
-    BuildModelMain::GetRequestData();
+    shared_ptr BuildModelMain::GetRequestData();
 
     // 0x100643940, 304 bytes, base-object constructor, placed by class name and debug map
     // BuildModelMain::BuildModelMain(int, graphics::ModelConstructedState, bool, graphics::RT7Core*, eastl::fixed_vector<PacketView, 1ul, true, eastl::allocator>&&, shared_ptr<graphics::Model> const&)
@@ -26,9 +26,9 @@ namespace jag::game {
         field_0 = &PTR__BuildModelMain_100f0d578;
         field_80 = param_3;
         field_88 = param_5;
-        new (field_96, param_7) shared_ptr<oldscape::dash3d::Decor>();
-        this_00 = field_112;
-        local_40 = field_96;
+        new (m_constructedAsset, param_7) shared_ptr<oldscape::dash3d::Decor>();
+        this_00 = m_requestData;
+        local_40 = m_constructedAsset;
         new (this_00) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(param_7);
         bucket_make_shared<BuildModelRequestData>((jag*)&local_58);
         shared_ptr<BuildModelRequestData>::operator=((shared_ptr<BuildModelRequestData>*)this_00, &local_58);
@@ -58,7 +58,7 @@ namespace jag::game {
         shared_ptr* extraout_RDX;
         shared_ptr local_30;
 
-        if (field_112->operator_cast_to_bool()) {
+        if (m_requestData->operator_cast_to_bool()) {
             if (field_88 == (RT7Core*)0) {
                 /* WARNING: Subroutine does not return */
                 LogAssert("m_rt7Core != nullptr",
@@ -69,8 +69,8 @@ namespace jag::game {
             if (graphics::Model::IsReadyToConstruct(field_88) == '\0') {
                 ppuVar3 = &DataStatus::NOTLOADED;
             } else {
-                static_pointer_cast<oldscape::ClientEntity, shared_ptr<oldscape::ClientNpc>>(&local_30, (jag*)field_112,
-                                                                                             extraout_RDX);
+                static_pointer_cast<oldscape::ClientEntity, shared_ptr<oldscape::ClientNpc>>(
+                    &local_30, (jag*)m_requestData, extraout_RDX);
                 shared_ptr<void>::operator=((shared_ptr<void>*)&field_32, &local_30);
                 local_30.~shared_ptr();
                 ppuVar3 = &DataStatus::READY;
@@ -119,7 +119,7 @@ namespace jag::game {
         MaterialManager* pMVar3;
         TextureManager* pTVar4;
 
-        this_00 = field_96;
+        this_00 = m_constructedAsset;
         shared_ptr<graphics::Model>::operator=((shared_ptr<graphics::Model>*)this_00, (shared_ptr*)param_1);
         pMVar2 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)this_00);
         bVar1 = pMVar2->GetConstructedState();

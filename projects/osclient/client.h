@@ -20,13 +20,13 @@ namespace jag::oldscape {
         virtual void NotifyResize(bool);
         virtual void QuickResize();
         virtual GetDisplayName() const;
-        IsMapBuildRegionMode();
+        bool IsMapBuildRegionMode();
         void GetMapBuildRegionZoneSource(int, int, int);
         GetNpcList();
-        GetUsingRSeven();
+        bool GetUsingRSeven();
         void SetInterfaceInteraction(shared_ptr<rs2lib::IfType> const&);
         void AddDeepLinkingID(int);
-        GetHighlightManager();
+        HighlightManager GetHighlightManager();
         BuildCoordFromWorldCoord(rs2lib::CoordGrid const&);
         GetObjectsOnTile(rs2lib::CoordGrid const&);
         GetClientNpc(int);
@@ -35,7 +35,7 @@ namespace jag::oldscape {
         FindClientObj(rs2lib::CoordGrid const&, int, int);
         WorldCoordFromBuildCoord(rs2lib::CoordGrid const&);
         void SetUsingOneButtonMouse(bool);
-        GetLootTrackerSaveHandler();
+        LootTrackerSaveHandler GetLootTrackerSaveHandler();
         void GetFinalAmbientVolume();
         StockPlayerOffer* GetJagFx();
         Client(OSClient&);
@@ -96,7 +96,7 @@ namespace jag::oldscape {
         int GetAvH(int, int, int);
         ~Client();
         void SetLowMem();
-        GetLowMem();
+        bool GetLowMem();
         void SetHighMem();
         void DirtyArea(int, int, int, int);
         void BlitArea(int, int, int, int);
@@ -420,7 +420,7 @@ namespace jag::oldscape {
         int GetContentMode();
         GetAccountID() const;
         void GetConsole();
-        GetEntityOverlays();
+        EntityOverlays GetEntityOverlays();
         GetEndpointURLProvider();
         GetHookQueue();
         static /* 32 bytes */ FACING_MAP;                          // = { 768, 1024, 1280, 512, 1536, 256, 0, 1792 }
@@ -526,7 +526,7 @@ namespace jag::oldscape {
         uint field_52360;      // offset 52360
         int field_52364;       // offset 52364
         char _unknown_52368[32];
-        int field_52400;        // offset 52400
+        int m_cameraMode;       // offset 52400
         int field_52404;        // offset 52404
         undefined8 field_52408; // offset 52408
         undefined1 field_52416; // offset 52416
@@ -1247,7 +1247,7 @@ namespace jag::oldscape {
     // 0x100114570, 16 bytes, inline, placed by class name
     // Client::SetCameraMode(shared::FollowCameraMode)
     void Client::SetCameraMode(int param_2) {
-        field_52400 = param_2;
+        m_cameraMode = param_2;
     }
 
     // 0x10011f500, 32 bytes, inline, placed by class name

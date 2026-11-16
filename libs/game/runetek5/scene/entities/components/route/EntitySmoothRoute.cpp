@@ -42,7 +42,7 @@ namespace jag {
         ClearRoute();
         new (&local_30) EntityWaypoint();
         EntityWaypoint::operator=((EntityWaypoint*)field_168, &local_30);
-        local_30.field_0 = 0;
+        local_30.m_level = 0;
         (&field_128, (float*)&local_30, 0, 0)->SetValue();
         field_160 = 4575657221408423936;
         (&field_192, (Vector3T*)PTR_ZERO_100ee66e8)->SetXYZ();
@@ -291,8 +291,8 @@ namespace jag {
         float local_38;
         float local_34;
 
-        RouteMovement::RouteMovement(*(RouteMovement**)((long)&param_2->field_0 + 4), param_2->field_12, 0, this, 0,
-                                     MoveSpeed::STATIONARY);
+        RouteMovement::RouteMovement(*(RouteMovement**)((long)&param_2->field_0 + 4), param_2->m_turnSpeedMultiplier, 0,
+                                     this, 0, MoveSpeed::STATIONARY);
         cVar3 = param_1[8].field_8.IsValid();
         if (cVar3 == '\0') {
             RegenerateFromNewStartPos((EntitySmoothRoute*)param_1, (CoordFine*)param_2);
@@ -325,7 +325,7 @@ namespace jag {
                     0);
                 pfVar7 = (float*)pVVar5->y();
                 if (local_34 == *pfVar7) {
-                    local_34 = param_2->field_12;
+                    local_34 = param_2->m_turnSpeedMultiplier;
                     pVVar5 = (Vector2T<int>*)eastl::ring_buffer<
                         EntityWaypoint, eastl::vector<EntityWaypoint, eastl::allocator>, eastl::allocator>::
                     operator[]((ring_buffer<EntityWaypoint, eastl::vector<EntityWaypoint, eastl::allocator>,

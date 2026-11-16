@@ -10,7 +10,7 @@ namespace jag::graphics {
     ParticleSystem::GetTransformedTriangle(unsigned int, math::Vector4T<float> (&)[3]);
 
     // 0x100049810: the linker folded this into oldscape::option::Option<oldscape::WindowSavedPosition>::GetDefaultValue() const, which has identical code
-    ParticleSystem::GetMaterial();
+    ParticleMaterial ParticleSystem::GetMaterial();
 
     // 0x1007ccff0, 144 bytes, placed by class name and debug map
     // ParticleSystem::GetEffectors(eastl::vector<ParticleEffector const*, BucketAllocatorEASTL>&, unsigned int) const
@@ -46,9 +46,9 @@ namespace jag::graphics {
     void ParticleSystem::DestroyRenderingResources() {
         shared_ptr local_28;
 
-        field_64->DestroyRenderingResources();
+        m_material->DestroyRenderingResources();
         new (&local_28) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(0);
-        (field_64, &local_28)->SetTextureAtlasReference();
+        (m_material, &local_28)->SetTextureAtlasReference();
         local_28.~shared_ptr();
     }
 
@@ -60,7 +60,7 @@ namespace jag::graphics {
         new (this) MakeSharedPool<ParticleSystem, 32>();
         field_0 = &PTR__ParticleSystem_100f14c70;
         new (&field_32) math::AABB();
-        new (field_64) ParticleMaterial();
+        new (m_material) ParticleMaterial();
         field_624 = param_1;
         field_632 = '\0';
         field_633 = '\0';
@@ -70,8 +70,8 @@ namespace jag::graphics {
         new (&field_42800) eastl::vector<ParticleEffector, eastl::allocator>();
         m_particleCount = 0;
         new (&field_42848) std::optional<math::Matrix44T<float>>();
-        this[1].field_64[8] = 0;
-        (field_64, 0)->InitRenderPassEffects();
+        this[1].m_material[8] = 0;
+        (m_material, 0)->InitRenderPassEffects();
         (field_624, this)->RegisterSystem();
     }
 
@@ -86,7 +86,7 @@ namespace jag::graphics {
         (field_624, this)->UnregisterSystem();
         (&field_42800)->~vector();
         (&field_640)->~fixed_vector();
-        field_64->~ParticleMaterial();
+        m_material->~ParticleMaterial();
         (&field_16)->~enable_shared_from_this();
         ~AutoSingleton();
     }
@@ -365,7 +365,7 @@ namespace jag::graphics {
                         bVar1 = true;
                         if (bVar2)
                             break;
-                        pPVar3 = (ParticleEmitter*)&pPVar3->field_16;
+                        pPVar3 = (ParticleEmitter*)&pPVar3->m_emitterTemplate;
                         bVar1 = false;
                     } while (pPVar3 != pPVar4);
                     if (!bVar1)
@@ -417,7 +417,7 @@ namespace jag::graphics {
         local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
         if ((*PTR_m_showParticles_100ee6a58 != '\0') && (field_635 == '\0')) {
             pMVar5 = (MaterialManager*)param_3->GetRenderPassBits();
-            cVar2 = (field_64, (RenderPassBitSet*)pMVar5)->CanRenderInPasses();
+            cVar2 = (m_material, (RenderPassBitSet*)pMVar5)->CanRenderInPasses();
             if (cVar2 != '\0') {
                 if (field_632 != '\0') {
                     pMVar5 = (MaterialManager*)param_2->GetMaterialManager();
@@ -810,7 +810,7 @@ namespace jag::graphics {
                 this_01 = this_01 + 10528;
             } while (this_01 != local_70);
         }
-        puVar14 = local_68->field_64;
+        puVar14 = local_68->m_material;
         puVar14->SetOption(0, 0 < sVar13);
         pMVar11 = local_50;
         pTVar3 = local_60;
@@ -925,13 +925,13 @@ namespace jag::graphics {
             fVar3 = *(float*)ptVar6;
             fVar4 = *(float*)ptVar6;
             uVar7 = (undefined7)((ulong)ptVar6 >> 8);
-            this[1].field_64[8] = (0.0 < fVar4 || fVar3 == 0.0) && (0.0 < fVar2 || fVar1 == 0.0);
+            this[1].m_material[8] = (0.0 < fVar4 || fVar3 == 0.0) && (0.0 < fVar2 || fVar1 == 0.0);
             if ((0.0 < fVar4 || fVar3 == 0.0) && (0.0 < fVar2 || fVar1 == 0.0)) {
                 SortParticles(this);
                 uVar7 = extraout_var_00;
             }
         }
-        return CONCAT71(uVar7, this[1].field_64[8]);
+        return CONCAT71(uVar7, this[1].m_material[8]);
     }
 
     // 0x1007d3570, 320 bytes, placed by class name

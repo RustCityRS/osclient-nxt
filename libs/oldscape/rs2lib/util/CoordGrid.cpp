@@ -10,13 +10,13 @@ namespace jag::oldscape::rs2lib {
     CoordGrid CoordGrid::CoordGridNull = CoordGrid(-1, -1, -1);
 
     // 0x100024170: the linker folded this into option::IScriptOption::GetId() const, which has identical code
-    CoordGrid::GetZ() const;
+    uint CoordGrid::GetZ() const;
 
     // 0x100073980: the linker folded this into jag::math::Rect<int>::MinY() const, which has identical code
-    CoordGrid::GetX() const;
+    uint CoordGrid::GetX() const;
 
     // 0x1000b9960: the linker folded this into ScriptVarType::GetID() const, which has identical code
-    CoordGrid::GetLevel() const;
+    uint CoordGrid::GetLevel() const;
 
     // 0x1001fbad0, 16 bytes, complete-object constructor, placed by class name and debug map
     // CoordGrid::CoordGrid(int, int, int): jumps straight to the base-object constructor
@@ -33,17 +33,17 @@ namespace jag::oldscape::rs2lib {
     // 0x1001fbb00, 16 bytes, base-object constructor, placed by class name and debug map
     // CoordGrid::CoordGrid(int, int, int)
     void CoordGrid::CoordGrid(int param_1, int param_2, int param_3) {
-        field_0 = param_1;
-        field_4 = param_2;
-        field_8 = param_3;
+        m_level = param_1;
+        m_x = param_2;
+        m_z = param_3;
     }
 
     // 0x1001fbb10, 32 bytes, base-object constructor, placed by class name and debug map
     // CoordGrid::CoordGrid(CoordGrid const&)
     void CoordGrid::CoordGrid(CoordGrid* param_1) {
-        field_0 = param_1->field_0;
-        field_4 = param_1->field_4;
-        field_8 = param_1->field_8;
+        m_level = param_1->m_level;
+        m_x = param_1->m_x;
+        m_z = param_1->m_z;
     }
 
     // 0x1001fbb30, 16 bytes, complete-object constructor, placed by class name and debug map
@@ -56,9 +56,9 @@ namespace jag::oldscape::rs2lib {
             Unset(this);
             return;
         }
-        field_0 = (uint)param_1 >> 28 & 3;
-        field_4 = (uint)param_1 >> 14 & 16383;
-        field_8 = param_1 & 16383;
+        m_level = (uint)param_1 >> 28 & 3;
+        m_x = (uint)param_1 >> 14 & 16383;
+        m_z = param_1 & 16383;
     }
 
     // 0x1001fbb80, 16 bytes, complete-object constructor, placed by class name and debug map
@@ -69,11 +69,11 @@ namespace jag::oldscape::rs2lib {
     void CoordGrid::CoordGrid(int param_1, CoordMapSquare* param_2) {
         uint uVar1;
 
-        field_0 = param_1;
+        m_level = param_1;
         uVar1 = param_2->GetX();
-        field_4 = uVar1;
+        m_x = uVar1;
         uVar1 = param_2->GetZ();
-        field_8 = uVar1;
+        m_z = uVar1;
     }
 
     // 0x1001fbbc0, 16 bytes, complete-object constructor, placed by class name and debug map
@@ -150,13 +150,13 @@ namespace jag::oldscape::rs2lib {
             if (cVar2 != '\0') {
                 pbVar7 = (basic_string*)Array<eastl::string, eastl::allocator>::operator[](local_40, 0);
                 uVar3 = core::stringtools::general::StringTools::ParseInt(pbVar7);
-                field_0 = uVar3;
+                m_level = uVar3;
                 pbVar7 = (basic_string*)Array<eastl::string, eastl::allocator>::operator[](local_40, 1);
                 iVar4 = core::stringtools::general::StringTools::ParseInt(pbVar7);
-                field_4 = iVar4 << 6 | 32;
+                m_x = iVar4 << 6 | 32;
                 pbVar7 = (basic_string*)Array<eastl::string, eastl::allocator>::operator[](local_40, 2);
                 iVar4 = core::stringtools::general::StringTools::ParseInt(pbVar7);
-                field_8 = iVar4 << 6 | 32;
+                m_z = iVar4 << 6 | 32;
                 goto LAB_1001fbf1c;
             }
         } else if (lVar6 == 5) {
@@ -188,17 +188,17 @@ namespace jag::oldscape::rs2lib {
             if (cVar2 != '\0') {
                 pbVar7 = (basic_string*)Array<eastl::string, eastl::allocator>::operator[](local_40, 0);
                 uVar3 = core::stringtools::general::StringTools::ParseInt(pbVar7);
-                field_0 = uVar3;
+                m_level = uVar3;
                 pbVar7 = (basic_string*)Array<eastl::string, eastl::allocator>::operator[](local_40, 1);
                 iVar4 = core::stringtools::general::StringTools::ParseInt(pbVar7);
                 pbVar7 = (basic_string*)Array<eastl::string, eastl::allocator>::operator[](local_40, 3);
                 iVar5 = core::stringtools::general::StringTools::ParseInt(pbVar7);
-                field_4 = iVar5 + iVar4 * 64;
+                m_x = iVar5 + iVar4 * 64;
                 pbVar7 = (basic_string*)Array<eastl::string, eastl::allocator>::operator[](local_40, 2);
                 iVar4 = core::stringtools::general::StringTools::ParseInt(pbVar7);
                 pbVar7 = (basic_string*)Array<eastl::string, eastl::allocator>::operator[](local_40, 4);
                 iVar5 = core::stringtools::general::StringTools::ParseInt(pbVar7);
-                field_8 = iVar5 + iVar4 * 64;
+                m_z = iVar5 + iVar4 * 64;
                 goto LAB_1001fbf1c;
             }
         }
@@ -214,17 +214,17 @@ namespace jag::oldscape::rs2lib {
             Unset(this);
             return;
         }
-        field_0 = (uint)param_1 >> 28 & 3;
-        field_4 = (uint)param_1 >> 14 & 16383;
-        field_8 = param_1 & 16383;
+        m_level = (uint)param_1 >> 28 & 3;
+        m_x = (uint)param_1 >> 14 & 16383;
+        m_z = param_1 & 16383;
     }
 
     // 0x1001fc150, 16 bytes, placed by class name and debug map
     // CoordGrid::Set(int, int, int)
     void CoordGrid::Set(int param_1, int param_2, int param_3) {
-        field_0 = param_1;
-        field_4 = param_2;
-        field_8 = param_3;
+        m_level = param_1;
+        m_x = param_2;
+        m_z = param_3;
     }
 
     // 0x1001fc160, 32 bytes, placed by class name and debug map
@@ -233,9 +233,9 @@ namespace jag::oldscape::rs2lib {
         uint* puVar1;
 
         puVar1 = param_1._0_8_;
-        field_0 = *puVar1;
-        field_4 = puVar1[1];
-        field_8 = puVar1[2];
+        m_level = *puVar1;
+        m_x = puVar1[1];
+        m_z = puVar1[2];
     }
 
     // 0x1001fc180, 128 bytes, placed by class name and debug map

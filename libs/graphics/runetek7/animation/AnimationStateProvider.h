@@ -9,7 +9,7 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~AnimationStateProvider();
-        GetLastFrameCount() const;
+        uint GetLastFrameCount() const;
         AnimationStateProvider();
         void InvalidateAsyncUpdate();
         void GetBoneTransforms(
@@ -26,9 +26,9 @@ namespace jag::graphics {
         static /* 4 bytes */ m_useAsyncAnimUpdate; // = 1
 
         // data members, from how the methods use this: 24 bytes
-        undefined* field_0;  // offset 0, vtable pointer
-        uint field_8;        // offset 8
-        undefined1 field_12; // offset 12
+        undefined* field_0;    // offset 0, vtable pointer
+        uint m_lastFrameCount; // offset 8
+        undefined1 field_12;   // offset 12
         char _unknown_13[11];
     };
 
@@ -48,7 +48,7 @@ namespace jag::graphics {
     // AnimationStateProvider::AnimationStateProvider()
     void AnimationStateProvider::AnimationStateProvider() {
         field_0 = PTR_vtable_100ee8858 + 16;
-        field_8 = 2147483647;
+        m_lastFrameCount = 2147483647;
         field_12 = 0;
         new (&field_16) std::future<void>();
     }
@@ -74,7 +74,7 @@ namespace jag::graphics {
     // AnimationStateProvider::AnimationStateProvider(AnimationStateProvider&&)
     void AnimationStateProvider::AnimationStateProvider(AnimationStateProvider* param_1) {
         field_0 = PTR_vtable_100ee8858 + 16;
-        field_8 = param_1->field_8;
+        m_lastFrameCount = param_1->m_lastFrameCount;
         field_12 = param_1->field_12;
         new (&field_16, (future*)&param_1->field_16) std::future<void>();
     }

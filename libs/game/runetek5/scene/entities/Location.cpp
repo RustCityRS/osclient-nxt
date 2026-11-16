@@ -31,7 +31,7 @@ namespace jag::game {
     Location::GetServerPosition() const;
 
     // 0x10016ea80: the linker folded this into oldscape::minimenu::Minimenu::GetPlayerOps() const, which has identical code
-    Location::GetParentLocationType() const;
+    shared_ptr Location::GetParentLocationType() const;
 
     // 0x1001e0d50: the linker folded this into hal::audio::AudioAPI::~AudioAPI(), which has identical code
     Location::VFXData::~VFXData();
@@ -40,7 +40,7 @@ namespace jag::game {
     Location::VFXData::~VFXData();
 
     // 0x1003f5b50: the linker folded this into BASType::GetHillRotateZLimit() const, which has identical code
-    Location::GetID() const;
+    int Location::GetID() const;
 
     // 0x100414b10: the linker folded this into LocationContainer::SetHasStartedBuild(bool), which has identical code
     Location::SetLocationLOD(LODLevel);
@@ -79,7 +79,7 @@ namespace jag::game {
         m_locationLOD = 6;
         field_237 = '\0';
         new (m_parentLocationType, p_Var2) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        local_78 = field_256;
+        local_78 = m_locationType;
         local_80 = m_parentLocationType;
         new (local_78) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(p_Var2);
         local_70 = &field_272;
@@ -97,7 +97,7 @@ namespace jag::game {
         field_444 = -1;
         m_builtGridSize = 1;
         field_452 = 1;
-        field_456 = -1;
+        m_attachedWallWidth = -1;
         m_isWDDBothOffsetMember = false;
         m_hidden = 0;
         field_462 = 0;
@@ -175,7 +175,7 @@ namespace jag::game {
         m_locationLOD = 6;
         field_237 = '\0';
         new (m_parentLocationType, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (field_256, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (m_locationType, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         new (&field_272) LocType::MultiLocTypeCache();
         new (field_352, param_5) LocData();
         field_404 = param_6;
@@ -189,7 +189,7 @@ namespace jag::game {
         field_444 = -1;
         m_builtGridSize = 1;
         field_452 = 1;
-        field_456 = -1;
+        m_attachedWallWidth = -1;
         m_isWDDBothOffsetMember = false;
         m_hidden = 0;
         field_462 = 0;
@@ -250,7 +250,7 @@ namespace jag::game {
         m_locationLOD = 6;
         field_237 = '\0';
         new (m_parentLocationType, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (field_256, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (m_locationType, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         new (&field_272) LocType::MultiLocTypeCache();
         new (field_352, param_5) LocData();
         field_404 = param_6;
@@ -265,7 +265,7 @@ namespace jag::game {
         field_444 = -1;
         m_builtGridSize = 1;
         field_452 = 1;
-        field_456 = param_13;
+        m_attachedWallWidth = param_13;
         m_isWDDBothOffsetMember = param_14;
         m_hidden = 0;
         field_462 = 0;
@@ -324,7 +324,7 @@ namespace jag::game {
         field_472->~shared_ptr();
         (&field_408)->~shared_ptr();
         (&field_272)->~MultiLocTypeCache();
-        field_256->~shared_ptr();
+        m_locationType->~shared_ptr();
         m_parentLocationType->~shared_ptr();
         ~LocationInterface();
     }
@@ -423,7 +423,7 @@ namespace jag::game {
         if (param_2 == 0)
             goto LAB_10042badf;
         this_03 = (shared_ptr*)GetWorld();
-        this_00 = field_256;
+        this_00 = m_locationType;
         bVar3 = this_00->operator_cast_to_bool();
         if (bVar3) {
             this_01 = &field_680;
@@ -590,10 +590,10 @@ namespace jag::game {
         undefined8 uVar2;
         LocType* pLVar3;
 
-        bVar1 = field_256->operator_cast_to_bool();
+        bVar1 = m_locationType->operator_cast_to_bool();
         uVar2 = 4294967295;
         if (bVar1) {
-            pLVar3 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)field_256);
+            pLVar3 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
             uVar2 = pLVar3->GetDefaultAnimation();
             if ((int)uVar2 == -1) {
                 pLVar3 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_parentLocationType);
@@ -630,10 +630,10 @@ namespace jag::game {
 
         uVar2 = (ulong)(uint)field_824;
         if (field_824 == 4294967295) {
-            bVar1 = field_256->operator_cast_to_bool();
+            bVar1 = m_locationType->operator_cast_to_bool();
             uVar2 = 4294967295;
             if (bVar1) {
-                pLVar3 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)field_256);
+                pLVar3 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
                 uVar2 = pLVar3->GetAnimation();
             }
         }
@@ -721,7 +721,7 @@ namespace jag::game {
         this_00 = &field_8;
         cVar2 = this_00->UpdateAudio();
         if (cVar2 != '\0') {
-            this_01 = field_256;
+            this_01 = m_locationType;
             if (this_01->operator_cast_to_bool()) {
                 pLVar8 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_01);
                 iVar4 = pLVar8->GetBackgroundSound();
@@ -780,7 +780,7 @@ namespace jag::game {
         int* piVar13;
         Vector3T* pVVar14;
 
-        this_00 = field_256;
+        this_00 = m_locationType;
         if (this_00->operator_cast_to_bool()) {
             field_840 = field_840 - param_1;
             pLVar12 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
@@ -835,7 +835,7 @@ namespace jag::game {
         undefined8 unaff_R15;
         ulong uVar5;
 
-        lVar4 = field_256->end();
+        lVar4 = m_locationType->end();
         if (lVar4 == 0) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_locationType.get()",
@@ -852,7 +852,7 @@ namespace jag::game {
                 iVar3 = GetOverrideAnimationToPlay(this);
                 uVar5 = CONCAT71((int7)((ulong)unaff_R15 >> 8), 1);
                 if (iVar3 == -1) {
-                    this_02 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)field_256);
+                    this_02 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
                     cVar1 = this_02->HasParticles();
                     if (cVar1 == '\0') {
                         if ((&field_816)->operator_cast_to_bool()) {
@@ -996,7 +996,7 @@ namespace jag::game {
             }
             pLVar13 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_06);
             cVar3 = pLVar13->IsMultiLoc();
-            puVar1 = field_256;
+            puVar1 = m_locationType;
             if (cVar3 == '\0') {
                 shared_ptr<LocType>::operator=((shared_ptr<LocType>*)puVar1, (shared_ptr*)this_06);
             } else {
@@ -1075,7 +1075,7 @@ namespace jag::game {
                         local_a0 = CONCAT71(local_a0._1_7_, uVar5);
                         uVar5 = pLVar2->GetRot();
                         local_44 = CONCAT31(local_44._1_3_, uVar5);
-                        local_a8 = CONCAT44(local_a8._4_4_, field_456);
+                        local_a8 = CONCAT44(local_a8._4_4_, m_attachedWallWidth);
                         bVar4 = m_isWDDBothOffsetMember;
                         lVar15 = local_38->y();
                         in_stack_fffffffffffffed0 = (int*)(lVar15 + 32);
@@ -1354,7 +1354,7 @@ namespace jag::game {
         cVar4 = local_dc._4_8_->IsTaskDone();
         if (cVar4 == '\0') {
         LAB_10042d5ba:
-            puVar1 = field_256;
+            puVar1 = m_locationType;
             this_01 = (BuildTerrainMain*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)puVar1);
             this_02 = (Array<VarValue, eastl::allocator>*)this_01->GetRequestData();
             cVar4 = this_02->empty();
@@ -1671,7 +1671,7 @@ namespace jag::game {
         if (cVar1 == '\0') {
         LAB_10042ded1:
             local_48 = (unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>*)
-                           shared_ptr<LocType>::operator->((shared_ptr<LocType>*)field_256);
+                           shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
             uVar2 = field_352->GetShape();
             local_40 = (ConfigProvider*)param_3;
             uVar3 = field_352->GetRot();
@@ -1722,7 +1722,7 @@ namespace jag::game {
                     local_4c[1] = false;
                     local_4c[2] = false;
                     local_4c[3] = false;
-                    local_40 = (ConfigProvider*)field_256;
+                    local_40 = (ConfigProvider*)m_locationType;
                     pLVar9 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)local_40);
                     local_31 = (function)pLVar9->UseRandomAnimFrame();
                     std::make_unique<LocationAnimatedModel, graphics::RT7Core&, AssetBuilder&, ConfigProvider&,
@@ -1805,7 +1805,7 @@ namespace jag::game {
         local_38 = this;
         cVar1 = local_40->empty();
         if (cVar1 != '\0') {
-            local_58 = (shared_ptr<LocType>*)local_38->field_256;
+            local_58 = (shared_ptr<LocType>*)local_38->m_locationType;
             this_01 = (ObjType*)shared_ptr<LocType>::operator->(local_58);
             this_02 = (Array<std::unique_ptr<LoadingScreenScript::AnimLayer,
                                              std::default_delete<LoadingScreenScript::AnimLayer>>,
@@ -1922,7 +1922,7 @@ namespace jag::game {
                 }
                 field_792 = '\x01';
                 this_07 = this_06;
-                shared_ptr<LocType>::operator=((shared_ptr<LocType>*)field_256, (shared_ptr*)this_06);
+                shared_ptr<LocType>::operator=((shared_ptr<LocType>*)m_locationType, (shared_ptr*)this_06);
                 pGVar8 = (GameToken*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_06);
                 iVar5 = pGVar8->GetStatus();
                 field_488 = iVar5;
@@ -1931,7 +1931,7 @@ namespace jag::game {
                 (&field_848)->clear();
             } else {
                 (*(code*)field_0[25])(this);
-                shared_ptr<LocType>::operator=((shared_ptr<LocType>*)field_256, (shared_ptr*)this_06);
+                shared_ptr<LocType>::operator=((shared_ptr<LocType>*)m_locationType, (shared_ptr*)this_06);
                 field_488 = -1;
                 BlockFadeIn(this);
                 this_07 = this_06;
@@ -2129,9 +2129,9 @@ namespace jag::game {
                 goto LAB_10042eca9;
             local_5c = 1.0;
             if ((EntityHighlightGlobalState::m_allowExamineOnlyHighlights == '\0') && (field_796[16] == '\0')) {
-                bVar1 = field_256->operator_cast_to_bool();
+                bVar1 = m_locationType->operator_cast_to_bool();
                 if (bVar1) {
-                    this_08 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)field_256);
+                    this_08 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
                     cVar2 = this_08->IsExamineOnly();
                     local_5c = 0.0;
                     if (cVar2 == '\0') {
@@ -2282,7 +2282,7 @@ namespace jag::game {
         this_06 = (Matrix44T*)&local_70->field_848;
         lVar14 = this_06->size();
         if (lVar14 != 0) {
-            puVar21 = field_256;
+            puVar21 = m_locationType;
             local_40 = (LocData*)field_352;
             uVar22 = 0;
             local_48 = (AnimatedModel*)puVar21;
@@ -2330,7 +2330,7 @@ namespace jag::game {
         }
         cVar1 = param_1->HasShadowPass();
         if (cVar1 != '\0') {
-            pLVar3 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)field_256);
+            pLVar3 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
             uVar2 = field_352->GetShape();
             cVar1 = pLVar3->CastsShadows(uVar2);
             if (cVar1 == '\0') {
@@ -2490,9 +2490,9 @@ namespace jag::game {
         } else {
             uVar5 = this_01->field_0;
             local_2cc = uVar4;
-            pGVar10 = (GameToken*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)field_256);
+            pGVar10 = (GameToken*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
             uVar4 = pGVar10->GetStatus();
-            pGVar11 = (GeometryBatch*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)field_256);
+            pGVar11 = (GeometryBatch*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
             pGVar11->GetVertexDataBufferPos();
             uVar8 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
             eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::
@@ -2615,7 +2615,7 @@ namespace jag::game {
                                 (**(code**)(*plVar12 + 160))(local_168._0_4_, plVar12, local_1a8, 1, local_160);
                             }
                             new (local_160) eastl::fixed_string<char, 256, true, eastl::allocator>();
-                            this_06 = (GameToken*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)field_256);
+                            this_06 = (GameToken*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
                             uVar5 = this_06->GetStatus();
                             eastl::basic_string<
                                 char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::
@@ -2675,7 +2675,7 @@ namespace jag::game {
 
         bVar1 = m_parentLocationType->operator_cast_to_bool();
         if ((bVar1) && (m_hidden == '\0')) {
-            bVar1 = field_256->operator_cast_to_bool();
+            bVar1 = m_locationType->operator_cast_to_bool();
             if (bVar1) {
                 this_00 = &field_680;
                 cVar2 = this_00->IsTaskDone();
@@ -2694,7 +2694,7 @@ namespace jag::game {
                                 return 0;
                             }
                         }
-                        this_01 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)field_256);
+                        this_01 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
                         cVar2 = this_01->IsRuneTek5Only();
                         if (cVar2 == '\0') {
                             bVar1 = field_496->operator_cast_to_bool();
@@ -2765,7 +2765,7 @@ namespace jag::game {
         this_00 = field_352;
         cVar1 = this_00->GetShape();
         if ((cVar1 == '\n') || (cVar1 = this_00->GetShape(), cVar1 == '\v')) {
-            this_01 = field_256;
+            this_01 = m_locationType;
             pLVar9 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_01);
             uVar2 = this_00->GetRot();
             uVar4 = pLVar9->GetGridWidth(uVar2);
@@ -2864,7 +2864,7 @@ namespace jag::game {
             this_03 = (LinkMap*)param_2->GetLinkMap();
             local_34 = this_03->GetTileLinkZero(field_68, field_428, field_432);
             uVar10 = field_428;
-            this_00 = field_256;
+            this_00 = m_locationType;
             this_01 = field_352;
             pLVar9 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
             uVar3 = this_01->GetRot();
@@ -2907,9 +2907,9 @@ namespace jag::game {
         bool bVar1;
         LocType* this_00;
 
-        bVar1 = field_256->operator_cast_to_bool();
+        bVar1 = m_locationType->operator_cast_to_bool();
         if (bVar1) {
-            this_00 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)field_256);
+            this_00 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
             bVar1 = this_00->GetCustomBounding() == 0;
         } else {
             bVar1 = false;
@@ -2925,10 +2925,10 @@ namespace jag::game {
         undefined3 extraout_var;
         undefined4 uVar2;
 
-        bVar1 = field_256->operator_cast_to_bool();
+        bVar1 = m_locationType->operator_cast_to_bool();
         uVar2 = CONCAT31(extraout_var, 1);
         if (bVar1) {
-            this_00 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)field_256);
+            this_00 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
             uVar2 = this_00->UseFastPickingTests();
         }
         return uVar2;
@@ -3069,10 +3069,10 @@ namespace jag::game {
         }
     joined_r0x000100431386:
         if (EntityHighlightGlobalState::m_allowExamineOnlyHighlights == '\0') {
-            bVar1 = field_256->operator_cast_to_bool();
+            bVar1 = m_locationType->operator_cast_to_bool();
             bVar3 = 1;
             if (bVar1) {
-                this_01 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)field_256);
+                this_01 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
                 bVar3 = this_01->IsExamineOnly();
                 bVar3 = bVar3 ^ 1;
             }
@@ -3113,7 +3113,7 @@ namespace jag::game {
         vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this_02;
         LocType* pLVar4;
 
-        this_00 = field_256;
+        this_00 = m_locationType;
         bVar1 = this_00->operator_cast_to_bool();
         uVar3 = 8;
         if (bVar1) {

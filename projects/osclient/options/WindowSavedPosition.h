@@ -139,12 +139,12 @@ namespace jag::oldscape {
         new (this) ClientEntityID();
         new (field_8) ClientEntityID();
         uVar1 = *(undefined2*)&param_1->field_2;
-        iVar2 = param_1->field_4;
+        iVar2 = param_1->m_slotID;
         field_0 = param_1->field_0;
         field_2 = uVar1;
         field_4 = iVar2;
         uVar1 = *(undefined2*)&param_2->field_2;
-        iVar2 = param_2->field_4;
+        iVar2 = param_2->m_slotID;
         *(undefined2*)(field_8 + 0) = param_2->field_0;
         *(undefined2*)(field_8 + 2) = uVar1;
         *(int*)(field_8 + 4) = iVar2;

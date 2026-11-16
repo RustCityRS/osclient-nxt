@@ -158,7 +158,7 @@ namespace jag::render {
         ResourceList<
             VAOManager::Key, VertexArrayObject,
             eastl::fixed_map<VAOManager::Key, shared_ptr<VertexArrayObject>, 4096ul, true, eastl::less<VAOManager::Key>,
-                             eastl::allocator>>::AddExistingResource<>(local_120, (Key*)&param_1->field_16,
+                             eastl::allocator>>::AddExistingResource<>(local_120, (Key*)&param_1->m_pVertexBuffers,
                                                                        (shared_ptr*)&local_f8);
         local_108.~shared_ptr();
         local_f8.~Key();

@@ -187,7 +187,7 @@ namespace jag::oldscape {
         field_52360 = 0;
         field_52364 = 0;
         new (&field_52368) eastl::string();
-        field_52400 = 0;
+        m_cameraMode = 0;
         field_52404 = 50;
         field_52408 = 25769803788;
         field_52416 = 1;
@@ -4093,10 +4093,10 @@ namespace jag::oldscape {
                             uVar10 = 2147483647;
                         } else {
                             local_1d0 = uVar19;
-                            local_250.field_0 = CoordType<UICoordSpecializer>::operator-(
+                            local_250.m_argType = CoordType<UICoordSpecializer>::operator-(
                                 (CoordType<UICoordSpecializer>*)local_170, *(undefined4*)(local_170._8_8_ + 54856));
                             iVar32 = local_250.GetX();
-                            local_250.field_0 = CoordType<UICoordSpecializer>::operator-(
+                            local_250.m_argType = CoordType<UICoordSpecializer>::operator-(
                                 (CoordType<UICoordSpecializer>*)&local_1a0, *(undefined4*)(uVar15 + 54860));
                             iVar12 = local_250.GetX();
                             psVar24 = local_188;
@@ -4485,7 +4485,7 @@ namespace jag::oldscape {
         if (iVar32 != -1) {
             local_160._0_4_ = local_1c8->GetMinMapX();
             iVar12 = local_160->GetX();
-            local_250.field_0 = this_01->GetUIHeight();
+            local_250.m_argType = this_01->GetUIHeight();
             iVar13 = local_250.GetX();
             in_stack_fffffffffffffd40 = 0;
             in_stack_fffffffffffffd38 = 0;
@@ -4789,9 +4789,9 @@ namespace jag::oldscape {
                                                           (CoordType*)&local_250);
                     } else {
                         local_160._0_4_ = *(undefined4*)&pCVar41->field_19056;
-                        local_250.field_0 = *(undefined4*)&pCVar41->field_19060;
+                        local_250.m_argType = *(uint*)&pCVar41->field_19060;
                     }
-                    (pCVar41->field_52344, local_160._0_4_, local_250.field_0, 0)->StartFeedback();
+                    (pCVar41->field_52344, local_160._0_4_, local_250.m_argType, 0)->StartFeedback();
                 }
             }
         }
@@ -9067,14 +9067,14 @@ namespace jag::oldscape {
             field_53096 = param_3 - iVar2;
             field_53100 = param_4;
             field_53104 = param_5;
-            iVar2 = field_52400;
+            iVar2 = m_cameraMode;
         } else {
             field_53044 = param_1 - iVar6;
             field_53048 = param_2 - iVar8;
             field_53052 = param_3 - iVar2;
             field_53056 = param_4;
             field_53060 = param_5;
-            iVar2 = field_52400;
+            iVar2 = m_cameraMode;
         }
         if (((iVar2 == 1) && (1 < field_53260)) &&
             (uVar5 = field_8488 * -1030792151 + 85899344, (uVar5 >> 1 | (uint)((uVar5 & 1) != 0) << 31) < 85899345)) {
@@ -9149,23 +9149,24 @@ namespace jag::oldscape {
         PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>* pPVar14;
         array<std::array<rs2lib::CoordZoneSource, 13ul>, 13ul>* this_01;
         array<rs2lib::CoordZoneSource, 13ul>* paVar15;
-        CoordZoneSource* pCVar16;
-        ShuffledPacket4* this_02;
-        undefined4* puVar17;
-        undefined8* puVar18;
-        shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>* psVar19;
-        Js5RequestKey* this_03;
-        ostream* poVar20;
-        char* pcVar21;
-        uint uVar22;
-        ulong uVar23;
-        Array<int, eastl::allocator>* pAVar24;
+        ClippingRectangle* this_02;
+        ShuffledPacket4* this_03;
+        undefined4* puVar16;
+        undefined8* puVar17;
+        shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>* psVar18;
+        CoordZoneSource* this_04;
+        Js5RequestKey* this_05;
+        ostream* poVar19;
+        char* pcVar20;
+        uint uVar21;
+        ulong uVar22;
+        Array<int, eastl::allocator>* pAVar23;
         undefined7 in_register_00000031;
-        Array<int, eastl::allocator>* pAVar25;
+        Array<int, eastl::allocator>* pAVar24;
+        ulong uVar25;
         ulong uVar26;
-        ulong uVar27;
-        Client* pCVar28;
-        int iVar29;
+        Client* pCVar27;
+        int iVar28;
         SuperShuffledPacketFactory local_1d0;
         ostream local_1c0[264];
         uint local_b8;
@@ -9191,16 +9192,16 @@ namespace jag::oldscape {
             pPVar14 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_1d0.p2_alt2();
             uVar6 = pPVar14->g2();
             local_70 = (Array<int, eastl::allocator>*)CONCAT62(local_70._2_6_, uVar6);
-            this_02 = (ShuffledPacket4*)local_1d0.p2_alt2();
-            uVar6 = this_02->g2();
+            this_03 = (ShuffledPacket4*)local_1d0.p2_alt2();
+            uVar6 = this_03->g2();
             local_68 = (Array<int, eastl::allocator>*)CONCAT62(local_68._2_6_, uVar6);
             uVar7 = param_2->g2();
             local_58 = (array<std::array<std::array<rs2lib::CoordZoneSource, 13ul>, 13ul>, 4ul>*)&field_1104368;
-            pAVar25 = (Array<int, eastl::allocator>*)(ulong)uVar7;
-            local_58->set_max_size((ulong)pAVar25, 3);
+            pAVar24 = (Array<int, eastl::allocator>*)(ulong)uVar7;
+            local_58->set_max_size((ulong)pAVar24, 3);
             if (uVar7 != 0) {
-                pAVar24 = (Array<int, eastl::allocator>*)0;
-                local_78 = pAVar25;
+                pAVar23 = (Array<int, eastl::allocator>*)0;
+                local_78 = pAVar24;
                 do {
                     uVar11 = param_2->g4();
                     local_38 =
@@ -9209,78 +9210,78 @@ namespace jag::oldscape {
                     uVar11 = param_2->g4();
                     uVar12 = param_2->g4();
                     uVar9 = param_2->g4();
-                    puVar17 = (undefined4*)Array<std::array<int, 4ul>, eastl::allocator>::operator[](
-                        (Array<std::array<int, 4ul>, eastl::allocator>*)local_58, (ulong)pAVar24);
-                    *puVar17 = (int)local_38;
-                    puVar17[1] = uVar11;
-                    puVar17[2] = uVar12;
-                    puVar17[3] = uVar9;
-                    pAVar24 = pAVar24 + 1;
-                    pAVar25 = local_78;
-                } while (local_78 != pAVar24);
+                    puVar16 = (undefined4*)Array<std::array<int, 4ul>, eastl::allocator>::operator[](
+                        (Array<std::array<int, 4ul>, eastl::allocator>*)local_58, (ulong)pAVar23);
+                    *puVar16 = (int)local_38;
+                    puVar16[1] = uVar11;
+                    puVar16[2] = uVar12;
+                    puVar16[3] = uVar9;
+                    pAVar23 = pAVar23 + 1;
+                    pAVar24 = local_78;
+                } while (local_78 != pAVar23);
             }
-            pCVar28 = local_48;
+            pCVar27 = local_48;
             local_58 =
                 (array<std::array<std::array<rs2lib::CoordZoneSource, 13ul>, 13ul>, 4ul>*)&local_48->field_1104272;
-            local_58->set_max_size((ulong)pAVar25, 3);
-            local_40 = (Array<int, eastl::allocator>*)&pCVar28->field_1104296;
-            local_40->set_max_size((ulong)pAVar25, 3);
-            local_88._8_8_ = &pCVar28->field_1104320;
-            local_88._8_8_->set_max_size((ulong)pAVar25, 3);
-            local_50 = (Array<int, eastl::allocator>*)&pCVar28->field_1104344;
-            local_50->set_max_size((ulong)pAVar25, 3);
-            local_38 = (Array<shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>, eastl::allocator>*)&pCVar28
+            local_58->set_max_size((ulong)pAVar24, 3);
+            local_40 = (Array<int, eastl::allocator>*)&pCVar27->field_1104296;
+            local_40->set_max_size((ulong)pAVar24, 3);
+            local_88._8_8_ = &pCVar27->field_1104320;
+            local_88._8_8_->set_max_size((ulong)pAVar24, 3);
+            local_50 = (Array<int, eastl::allocator>*)&pCVar27->field_1104344;
+            local_50->set_max_size((ulong)pAVar24, 3);
+            local_38 = (Array<shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>, eastl::allocator>*)&pCVar27
                            ->field_1104392;
-            local_38->set_max_size((ulong)pAVar25, 3);
-            (&pCVar28->field_1104416, (ulong)pAVar25, 3)->set_max_size();
-            (&pCVar28->field_1104440, (ulong)pAVar25, 3)->set_max_size();
-            if (pAVar25 != (Array<int, eastl::allocator>*)0) {
-                pAVar24 = (Array<int, eastl::allocator>*)0;
+            local_38->set_max_size((ulong)pAVar24, 3);
+            (&pCVar27->field_1104416, (ulong)pAVar24, 3)->set_max_size();
+            (&pCVar27->field_1104440, (ulong)pAVar24, 3)->set_max_size();
+            if (pAVar24 != (Array<int, eastl::allocator>*)0) {
+                pAVar23 = (Array<int, eastl::allocator>*)0;
                 do {
                     local_1d0.field_0 = (PacketT*)0;
                     new (&local_1d0) game::PlayerModelWearSlot();
-                    puVar18 = (undefined8*)Array<rs2lib::CoordMapSquare, eastl::allocator>::operator[](
-                        (Array<rs2lib::CoordMapSquare, eastl::allocator>*)local_58, (ulong)pAVar24);
-                    *puVar18 = local_1d0.field_0;
-                    puVar17 = (undefined4*)Array<int, eastl::allocator>::operator[](local_40, (ulong)pAVar24);
-                    *puVar17 = 0;
-                    puVar17 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                        (Array<int, eastl::allocator>*)local_88._8_8_, (ulong)pAVar24);
-                    *puVar17 = 0;
-                    puVar17 = (undefined4*)Array<int, eastl::allocator>::operator[](local_50, (ulong)pAVar24);
-                    *puVar17 = 0;
+                    puVar17 = (undefined8*)Array<rs2lib::CoordMapSquare, eastl::allocator>::operator[](
+                        (Array<rs2lib::CoordMapSquare, eastl::allocator>*)local_58, (ulong)pAVar23);
+                    *puVar17 = local_1d0.field_0;
+                    puVar16 = (undefined4*)Array<int, eastl::allocator>::operator[](local_40, (ulong)pAVar23);
+                    *puVar16 = 0;
+                    puVar16 = (undefined4*)Array<int, eastl::allocator>::operator[](
+                        (Array<int, eastl::allocator>*)local_88._8_8_, (ulong)pAVar23);
+                    *puVar16 = 0;
+                    puVar16 = (undefined4*)Array<int, eastl::allocator>::operator[](local_50, (ulong)pAVar23);
+                    *puVar16 = 0;
                     new (&local_1d0) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-                    psVar19 = (shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>*)
+                    psVar18 = (shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>*)
                         Array<shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>,
-                              eastl::allocator>::operator[](local_38, (ulong)pAVar24);
-                    shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator=(psVar19,
+                              eastl::allocator>::operator[](local_38, (ulong)pAVar23);
+                    shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator=(psVar18,
                                                                                            (shared_ptr*)&local_1d0);
                     local_1d0.~shared_ptr();
                     new (&local_1d0) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-                    psVar19 = (shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>*)
+                    psVar18 = (shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>*)
                         Array<shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>, eastl::allocator>::
                         operator[]((Array<shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>,
-                                          eastl::allocator>*)&pCVar28->field_1104416,
-                                   (ulong)pAVar24);
-                    shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator=(psVar19,
+                                          eastl::allocator>*)&pCVar27->field_1104416,
+                                   (ulong)pAVar23);
+                    shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator=(psVar18,
                                                                                            (shared_ptr*)&local_1d0);
                     local_1d0.~shared_ptr();
                     new (&local_1d0) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-                    psVar19 = (shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>*)
+                    psVar18 = (shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>*)
                         Array<shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>, eastl::allocator>::
                         operator[]((Array<shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>,
-                                          eastl::allocator>*)&pCVar28->field_1104440,
-                                   (ulong)pAVar24);
-                    shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator=(psVar19,
+                                          eastl::allocator>*)&pCVar27->field_1104440,
+                                   (ulong)pAVar23);
+                    shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator=(psVar18,
                                                                                            (shared_ptr*)&local_1d0);
                     local_1d0.~shared_ptr();
-                    pAVar24 = pAVar24 + 1;
-                } while (pAVar25 != pAVar24);
+                    pAVar23 = pAVar23 + 1;
+                } while (pAVar24 != pAVar23);
             }
             uVar7 = (ushort)local_70;
-            uVar26 = (ulong)local_70 & 65535;
+            uVar25 = (ulong)local_70 & 65535;
             uVar2 = (ushort)local_68;
-            uVar23 = (ulong)local_68 & 65535;
+            uVar22 = (ulong)local_68 & 65535;
             new (&local_1d0) std::stringstream();
             iVar8 = uVar7 + 1;
             if (-1 < (int)(uVar7 - 6)) {
@@ -9288,89 +9289,89 @@ namespace jag::oldscape {
             }
             local_38 = (Array<shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>,
                               eastl::allocator>*)(ulong)(uint)(iVar8 >> 3);
-            uVar22 = uVar7 + 6 >> 3;
+            uVar21 = uVar7 + 6 >> 3;
             iVar10 = uVar2 - 6;
-            iVar29 = uVar2 + 1;
+            iVar28 = uVar2 + 1;
             if (-1 < iVar10) {
-                iVar29 = iVar10;
+                iVar28 = iVar10;
             }
-            local_70 = (Array<int, eastl::allocator>*)CONCAT44(local_70._4_4_, uVar22);
-            pCVar28 = local_48;
-            local_b0 = uVar26;
-            local_60 = uVar23;
-            if (iVar8 >> 3 <= (int)uVar22) {
-                uVar22 = iVar29 >> 3;
-                uVar13 = (int)uVar23 + 6U >> 3;
+            local_70 = (Array<int, eastl::allocator>*)CONCAT44(local_70._4_4_, uVar21);
+            pCVar27 = local_48;
+            local_b0 = uVar25;
+            local_60 = uVar22;
+            if (iVar8 >> 3 <= (int)uVar21) {
+                uVar21 = iVar28 >> 3;
+                uVar13 = (int)uVar22 + 6U >> 3;
                 local_68 = (Array<int, eastl::allocator>*)CONCAT44(local_68._4_4_, uVar13);
-                if ((int)uVar13 < (int)uVar22) {
-                    uVar13 = uVar22;
+                if ((int)uVar13 < (int)uVar21) {
+                    uVar13 = uVar21;
                 }
                 local_78 = (Array<int, eastl::allocator>*)CONCAT44(local_78._4_4_, uVar13 + 1);
-                uVar26 = 0;
-                local_90 = (array<std::array<rs2lib::CoordZoneSource, 13ul>, 13ul>*)CONCAT44(local_90._4_4_, uVar22);
+                uVar25 = 0;
+                local_90 = (array<std::array<rs2lib::CoordZoneSource, 13ul>, 13ul>*)CONCAT44(local_90._4_4_, uVar21);
                 do {
-                    if ((int)uVar22 <= (int)local_68) {
-                        uVar26 = (ulong)(int)uVar26;
+                    if ((int)uVar21 <= (int)local_68) {
+                        uVar25 = (ulong)(int)uVar25;
                         do {
-                            sidebars::SideBarData::SideBarData(local_a8, (int)local_38, uVar22);
-                            puVar18 = (undefined8*)Array<rs2lib::CoordMapSquare, eastl::allocator>::operator[](
-                                (Array<rs2lib::CoordMapSquare, eastl::allocator>*)local_58, uVar26);
-                            *puVar18 = local_a8[0]._0_8_;
+                            sidebars::SideBarData::SideBarData(local_a8, (int)local_38, uVar21);
+                            puVar17 = (undefined8*)Array<rs2lib::CoordMapSquare, eastl::allocator>::operator[](
+                                (Array<rs2lib::CoordMapSquare, eastl::allocator>*)local_58, uVar25);
+                            *puVar17 = local_a8[0]._0_8_;
                             std::string::string<decltype(nullptr)>((string*)local_a8, "");
                             local_1d0.str(local_a8);
                             local_a8->~string();
-                            poVar20 = std::operator<<(local_1c0, "m");
-                            poVar20 = (ostream*)std::ostream::operator<<(poVar20, (int)local_38);
-                            poVar20 = std::operator<<(poVar20, "_");
-                            std::ostream::operator<<(poVar20, uVar22);
-                            pJVar1 = (Js5*)pCVar28->field_54432;
+                            poVar19 = std::operator<<(local_1c0, "m");
+                            poVar19 = (ostream*)std::ostream::operator<<(poVar19, (int)local_38);
+                            poVar19 = std::operator<<(poVar19, "_");
+                            std::ostream::operator<<(poVar19, uVar21);
+                            pJVar1 = (Js5*)pCVar27->field_54432;
                             local_a8->str();
-                            pcVar21 = (char*)local_a8->c_str();
-                            uVar11 = pJVar1->GetGroupId(pcVar21);
-                            puVar17 = (undefined4*)Array<int, eastl::allocator>::operator[](local_40, uVar26);
-                            *puVar17 = uVar11;
+                            pcVar20 = (char*)local_a8->c_str();
+                            uVar11 = pJVar1->GetGroupId(pcVar20);
+                            puVar16 = (undefined4*)Array<int, eastl::allocator>::operator[](local_40, uVar25);
+                            *puVar16 = uVar11;
                             local_a8->~string();
                             std::string::string<decltype(nullptr)>((string*)local_a8, "");
                             local_1d0.str(local_a8);
-                            pCVar28 = local_48;
+                            pCVar27 = local_48;
                             local_a8->~string();
-                            poVar20 = std::operator<<(local_1c0, "l");
-                            poVar20 = (ostream*)std::ostream::operator<<(poVar20, (int)local_38);
-                            poVar20 = std::operator<<(poVar20, "_");
-                            std::ostream::operator<<(poVar20, uVar22);
-                            pJVar1 = (Js5*)pCVar28->field_54432;
+                            poVar19 = std::operator<<(local_1c0, "l");
+                            poVar19 = (ostream*)std::ostream::operator<<(poVar19, (int)local_38);
+                            poVar19 = std::operator<<(poVar19, "_");
+                            std::ostream::operator<<(poVar19, uVar21);
+                            pJVar1 = (Js5*)pCVar27->field_54432;
                             local_a8->str();
-                            pcVar21 = (char*)local_a8->c_str();
-                            uVar11 = pJVar1->GetGroupId(pcVar21);
-                            puVar17 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                                (Array<int, eastl::allocator>*)local_88._8_8_, uVar26);
-                            *puVar17 = uVar11;
+                            pcVar20 = (char*)local_a8->c_str();
+                            uVar11 = pJVar1->GetGroupId(pcVar20);
+                            puVar16 = (undefined4*)Array<int, eastl::allocator>::operator[](
+                                (Array<int, eastl::allocator>*)local_88._8_8_, uVar25);
+                            *puVar16 = uVar11;
                             local_a8->~string();
                             std::string::string<decltype(nullptr)>((string*)local_a8, "");
                             local_1d0.str(local_a8);
                             local_a8->~string();
-                            poVar20 = std::operator<<(local_1c0, "e");
-                            poVar20 = (ostream*)std::ostream::operator<<(poVar20, (int)local_38);
-                            poVar20 = std::operator<<(poVar20, "_");
-                            std::ostream::operator<<(poVar20, uVar22);
-                            pJVar1 = (Js5*)pCVar28->field_54432;
+                            poVar19 = std::operator<<(local_1c0, "e");
+                            poVar19 = (ostream*)std::ostream::operator<<(poVar19, (int)local_38);
+                            poVar19 = std::operator<<(poVar19, "_");
+                            std::ostream::operator<<(poVar19, uVar21);
+                            pJVar1 = (Js5*)pCVar27->field_54432;
                             local_a8->str();
-                            pcVar21 = (char*)local_a8->c_str();
-                            uVar11 = pJVar1->GetGroupId(pcVar21);
-                            puVar17 = (undefined4*)Array<int, eastl::allocator>::operator[](local_50, uVar26);
-                            *puVar17 = uVar11;
+                            pcVar20 = (char*)local_a8->c_str();
+                            uVar11 = pJVar1->GetGroupId(pcVar20);
+                            puVar16 = (undefined4*)Array<int, eastl::allocator>::operator[](local_50, uVar25);
+                            *puVar16 = uVar11;
                             local_a8->~string();
-                            uVar26 = uVar26 + 1;
-                            uVar22 = uVar22 + 1;
-                        } while ((uint)local_78 != uVar22);
-                        uVar22 = (uint)local_90;
+                            uVar25 = uVar25 + 1;
+                            uVar21 = uVar21 + 1;
+                        } while ((uint)local_78 != uVar21);
+                        uVar21 = (uint)local_90;
                     }
                     iVar8 = (int)local_38;
                     local_38 = (Array<shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>,
                                       eastl::allocator>*)(ulong)(iVar8 + 1);
                 } while (iVar8 != (int)local_70);
             }
-            StartRebuild(pCVar28, (int)local_b0, (int)local_60, true);
+            StartRebuild(pCVar27, (int)local_b0, (int)local_60, true);
         } else {
             new (&local_1d0) SuperShuffledPacketFactory(param_2);
             pPVar14 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_1d0.p2_alt2();
@@ -9388,28 +9389,28 @@ namespace jag::oldscape {
             local_58 = (array<std::array<std::array<rs2lib::CoordZoneSource, 13ul>, 13ul>, 4ul>*)&field_1104468;
             local_38 = (Array<shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>, eastl::allocator>*)0;
             do {
-                uVar26 = 0;
+                uVar25 = 0;
                 do {
-                    uVar23 = 0;
+                    uVar22 = 0;
                     do {
                         iVar8 = param_2->gBit(1);
                         this_01 = (array<std::array<rs2lib::CoordZoneSource, 13ul>, 13ul>*)
                             std::array<std::array<std::array<rs2lib::CoordZoneSource, 13ul>, 13ul>, 4ul>::operator[](
                                 local_58, (ulong)local_38);
                         paVar15 = (array<rs2lib::CoordZoneSource, 13ul>*)
-                            std::array<std::array<rs2lib::CoordZoneSource, 13ul>, 13ul>::operator[](this_01, uVar26);
-                        pCVar16 =
-                            (CoordZoneSource*)std::array<rs2lib::CoordZoneSource, 13ul>::operator[](paVar15, uVar23);
+                            std::array<std::array<rs2lib::CoordZoneSource, 13ul>, 13ul>::operator[](this_01, uVar25);
+                        this_02 =
+                            (ClippingRectangle*)std::array<rs2lib::CoordZoneSource, 13ul>::operator[](paVar15, uVar22);
                         if (iVar8 == 1) {
                             iVar8 = param_2->gBit(26);
-                            pCVar16->SetFromPackedCode(iVar8);
+                            this_02->SetFromPackedCode(iVar8);
                         } else {
-                            new (pCVar16) jag::graphics::ClippingRectangle();
+                            jag::graphics::ClippingRectangle::ClippingRectangle(this_02);
                         }
-                        uVar23 = uVar23 + 1;
-                    } while (uVar23 != 13);
-                    uVar26 = uVar26 + 1;
-                } while (uVar26 != 13);
+                        uVar22 = uVar22 + 1;
+                    } while (uVar22 != 13);
+                    uVar25 = uVar25 + 1;
+                } while (uVar25 != 13);
                 local_38 = (Array<shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>,
                                   eastl::allocator>*)((long)local_38 + 1);
             } while (local_38 !=
@@ -9417,10 +9418,10 @@ namespace jag::oldscape {
             param_2->GBitEnd();
             local_88._8_8_ = &local_48->field_1104368;
             sVar3 = (short)local_50;
-            uVar26 = (ulong)local_50 & 65535;
-            local_88._8_8_->set_max_size(uVar26, 3);
+            uVar25 = (ulong)local_50 & 65535;
+            local_88._8_8_->set_max_size(uVar25, 3);
             if (sVar3 != 0) {
-                uVar23 = 0;
+                uVar22 = 0;
                 do {
                     uVar11 = param_2->g4();
                     local_38 =
@@ -9430,160 +9431,160 @@ namespace jag::oldscape {
                     local_40 = (Array<int, eastl::allocator>*)CONCAT44(local_40._4_4_, uVar11);
                     uVar11 = param_2->g4();
                     uVar12 = param_2->g4();
-                    puVar17 = (undefined4*)Array<std::array<int, 4ul>, eastl::allocator>::operator[](
-                        (Array<std::array<int, 4ul>, eastl::allocator>*)local_88._8_8_, uVar23);
-                    *puVar17 = (int)local_38;
-                    puVar17[1] = local_40._0_4_;
-                    puVar17[2] = uVar11;
-                    puVar17[3] = uVar12;
-                    uVar23 = uVar23 + 1;
-                } while (uVar26 != uVar23);
+                    puVar16 = (undefined4*)Array<std::array<int, 4ul>, eastl::allocator>::operator[](
+                        (Array<std::array<int, 4ul>, eastl::allocator>*)local_88._8_8_, uVar22);
+                    *puVar16 = (int)local_38;
+                    puVar16[1] = local_40._0_4_;
+                    puVar16[2] = uVar11;
+                    puVar16[3] = uVar12;
+                    uVar22 = uVar22 + 1;
+                } while (uVar25 != uVar22);
             }
-            pCVar28 = local_48;
+            pCVar27 = local_48;
             this_00 = &local_48->field_1104272;
-            this_00->set_max_size(uVar26, 3);
-            local_78 = (Array<int, eastl::allocator>*)&pCVar28->field_1104296;
-            local_78->set_max_size(uVar26, 3);
-            local_70 = (Array<int, eastl::allocator>*)&pCVar28->field_1104320;
-            local_70->set_max_size(uVar26, 3);
-            local_68 = (Array<int, eastl::allocator>*)&pCVar28->field_1104344;
-            local_68->set_max_size(uVar26, 3);
-            local_38 = (Array<shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>, eastl::allocator>*)&pCVar28
+            this_00->set_max_size(uVar25, 3);
+            local_78 = (Array<int, eastl::allocator>*)&pCVar27->field_1104296;
+            local_78->set_max_size(uVar25, 3);
+            local_70 = (Array<int, eastl::allocator>*)&pCVar27->field_1104320;
+            local_70->set_max_size(uVar25, 3);
+            local_68 = (Array<int, eastl::allocator>*)&pCVar27->field_1104344;
+            local_68->set_max_size(uVar25, 3);
+            local_38 = (Array<shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>, eastl::allocator>*)&pCVar27
                            ->field_1104392;
-            local_38->set_max_size(uVar26, 3);
-            local_40 = (Array<int, eastl::allocator>*)&pCVar28->field_1104416;
-            local_40->set_max_size(uVar26, 3);
-            (&pCVar28->field_1104440, uVar26, 3)->set_max_size();
+            local_38->set_max_size(uVar25, 3);
+            local_40 = (Array<int, eastl::allocator>*)&pCVar27->field_1104416;
+            local_40->set_max_size(uVar25, 3);
+            (&pCVar27->field_1104440, uVar25, 3)->set_max_size();
             if ((short)local_50 != 0) {
-                uVar23 = 0;
+                uVar22 = 0;
                 do {
                     local_1d0.field_0 = (PacketT*)0;
                     new (&local_1d0) game::PlayerModelWearSlot();
-                    puVar18 = (undefined8*)Array<rs2lib::CoordMapSquare, eastl::allocator>::operator[](
-                        (Array<rs2lib::CoordMapSquare, eastl::allocator>*)this_00, uVar23);
-                    *puVar18 = local_1d0.field_0;
-                    puVar17 = (undefined4*)Array<int, eastl::allocator>::operator[](local_78, uVar23);
-                    *puVar17 = 0;
-                    puVar17 = (undefined4*)Array<int, eastl::allocator>::operator[](local_70, uVar23);
-                    *puVar17 = 0;
-                    puVar17 = (undefined4*)Array<int, eastl::allocator>::operator[](local_68, uVar23);
-                    *puVar17 = 0;
+                    puVar17 = (undefined8*)Array<rs2lib::CoordMapSquare, eastl::allocator>::operator[](
+                        (Array<rs2lib::CoordMapSquare, eastl::allocator>*)this_00, uVar22);
+                    *puVar17 = local_1d0.field_0;
+                    puVar16 = (undefined4*)Array<int, eastl::allocator>::operator[](local_78, uVar22);
+                    *puVar16 = 0;
+                    puVar16 = (undefined4*)Array<int, eastl::allocator>::operator[](local_70, uVar22);
+                    *puVar16 = 0;
+                    puVar16 = (undefined4*)Array<int, eastl::allocator>::operator[](local_68, uVar22);
+                    *puVar16 = 0;
                     new (&local_1d0) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-                    psVar19 = (shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>*)
+                    psVar18 = (shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>*)
                         Array<shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>,
-                              eastl::allocator>::operator[](local_38, uVar23);
-                    shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator=(psVar19,
+                              eastl::allocator>::operator[](local_38, uVar22);
+                    shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator=(psVar18,
                                                                                            (shared_ptr*)&local_1d0);
                     local_1d0.~shared_ptr();
                     new (&local_1d0) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-                    psVar19 = (shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>*)
+                    psVar18 = (shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>*)
                         Array<shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>, eastl::allocator>::
                         operator[](
                             (Array<shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>, eastl::allocator>*)
                                 local_40,
-                            uVar23);
-                    shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator=(psVar19,
+                            uVar22);
+                    shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator=(psVar18,
                                                                                            (shared_ptr*)&local_1d0);
                     local_1d0.~shared_ptr();
                     new (&local_1d0) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-                    psVar19 = (shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>*)
+                    psVar18 = (shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>*)
                         Array<shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>, eastl::allocator>::
                         operator[]((Array<shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>,
-                                          eastl::allocator>*)&pCVar28->field_1104440,
-                                   uVar23);
-                    shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator=(psVar19,
+                                          eastl::allocator>*)&pCVar27->field_1104440,
+                                   uVar22);
+                    shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator=(psVar18,
                                                                                            (shared_ptr*)&local_1d0);
                     local_1d0.~shared_ptr();
-                    uVar23 = uVar23 + 1;
-                } while (uVar26 != uVar23);
+                    uVar22 = uVar22 + 1;
+                } while (uVar25 != uVar22);
             }
             local_b8 = (uint)(ushort)local_90;
             local_b4 = (uint)(ushort)local_60;
             new (&local_1d0) std::stringstream();
-            uVar26 = 0;
+            uVar25 = 0;
             local_38 = (Array<shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>,
                               eastl::allocator>*)((ulong)local_38 & 18446744069414584320);
             do {
-                local_60 = uVar26;
+                local_60 = uVar25;
                 local_90 = (array<std::array<rs2lib::CoordZoneSource, 13ul>, 13ul>*)
                     std::array<std::array<std::array<rs2lib::CoordZoneSource, 13ul>, 13ul>, 4ul>::operator[](local_58,
-                                                                                                             uVar26);
-                pAVar25 = (Array<int, eastl::allocator>*)0;
+                                                                                                             uVar25);
+                pAVar24 = (Array<int, eastl::allocator>*)0;
                 do {
-                    local_50 = pAVar25;
+                    local_50 = pAVar24;
                     paVar15 = (array<rs2lib::CoordZoneSource, 13ul>*)
                         std::array<std::array<rs2lib::CoordZoneSource, 13ul>, 13ul>::operator[](local_90,
-                                                                                                (ulong)pAVar25);
-                    uVar26 = 0;
+                                                                                                (ulong)pAVar24);
+                    uVar25 = 0;
                     local_88._8_8_ = paVar15;
                     do {
-                        pCVar16 =
-                            (CoordZoneSource*)std::array<rs2lib::CoordZoneSource, 13ul>::operator[](paVar15, uVar26);
-                        cVar5 = pCVar16->IsSet();
+                        this_04 =
+                            (CoordZoneSource*)std::array<rs2lib::CoordZoneSource, 13ul>::operator[](paVar15, uVar25);
+                        cVar5 = this_04->IsSet();
                         if (cVar5 != '\0') {
-                            new (local_88) rs2lib::CoordMapSquare(pCVar16);
+                            new (local_88) rs2lib::CoordMapSquare(this_04);
                             if (0 < (int)local_38) {
-                                uVar27 = (ulong)local_38 & 4294967295;
-                                uVar23 = 0;
+                                uVar26 = (ulong)local_38 & 4294967295;
+                                uVar22 = 0;
                                 do {
-                                    this_03 =
+                                    this_05 =
                                         (Js5RequestKey*)Array<rs2lib::CoordMapSquare, eastl::allocator>::operator[](
-                                            (Array<rs2lib::CoordMapSquare, eastl::allocator>*)this_00, uVar23);
-                                    cVar5 = jagex3::Js5RequestKey::operator==(this_03, (Js5RequestKey*)local_88);
+                                            (Array<rs2lib::CoordMapSquare, eastl::allocator>*)this_00, uVar22);
+                                    cVar5 = jagex3::Js5RequestKey::operator==(this_05, (Js5RequestKey*)local_88);
                                     if (cVar5 != '\0')
                                         goto LAB_1000e477d;
-                                    uVar23 = uVar23 + 1;
-                                } while (uVar27 != uVar23);
+                                    uVar22 = uVar22 + 1;
+                                } while (uVar26 != uVar22);
                             }
                             local_40 = (Array<int, eastl::allocator>*)(long)(int)local_38;
-                            puVar18 = (undefined8*)Array<rs2lib::CoordMapSquare, eastl::allocator>::operator[](
+                            puVar17 = (undefined8*)Array<rs2lib::CoordMapSquare, eastl::allocator>::operator[](
                                 (Array<rs2lib::CoordMapSquare, eastl::allocator>*)this_00, (ulong)local_40);
-                            *puVar18 = local_88._0_8_;
+                            *puVar17 = local_88._0_8_;
                             std::string::string<decltype(nullptr)>((string*)local_a8, "");
                             local_1d0.str(local_a8);
                             local_a8->~string();
-                            poVar20 = std::operator<<(local_1c0, "m");
+                            poVar19 = std::operator<<(local_1c0, "m");
                             iVar8 = local_88->GetX();
-                            poVar20 = (ostream*)std::ostream::operator<<(poVar20, iVar8);
-                            poVar20 = std::operator<<(poVar20, "_");
+                            poVar19 = (ostream*)std::ostream::operator<<(poVar19, iVar8);
+                            poVar19 = std::operator<<(poVar19, "_");
                             iVar8 = local_88->GetZ();
-                            std::ostream::operator<<(poVar20, iVar8);
+                            std::ostream::operator<<(poVar19, iVar8);
                             pJVar1 = (Js5*)local_48->field_54432;
                             local_a8->str();
-                            pcVar21 = (char*)local_a8->c_str();
-                            uVar11 = pJVar1->GetGroupId(pcVar21);
-                            puVar17 = (undefined4*)Array<int, eastl::allocator>::operator[](local_78, (ulong)local_40);
-                            *puVar17 = uVar11;
+                            pcVar20 = (char*)local_a8->c_str();
+                            uVar11 = pJVar1->GetGroupId(pcVar20);
+                            puVar16 = (undefined4*)Array<int, eastl::allocator>::operator[](local_78, (ulong)local_40);
+                            *puVar16 = uVar11;
                             local_a8->~string();
                             std::string::string<decltype(nullptr)>((string*)local_a8, "");
                             local_1d0.str(local_a8);
                             local_a8->~string();
-                            poVar20 = std::operator<<(local_1c0, "l");
+                            poVar19 = std::operator<<(local_1c0, "l");
                             iVar8 = local_88->GetX();
-                            poVar20 = (ostream*)std::ostream::operator<<(poVar20, iVar8);
-                            poVar20 = std::operator<<(poVar20, "_");
+                            poVar19 = (ostream*)std::ostream::operator<<(poVar19, iVar8);
+                            poVar19 = std::operator<<(poVar19, "_");
                             iVar8 = local_88->GetZ();
-                            std::ostream::operator<<(poVar20, iVar8);
+                            std::ostream::operator<<(poVar19, iVar8);
                             pJVar1 = (Js5*)local_48->field_54432;
                             local_a8->str();
-                            pcVar21 = (char*)local_a8->c_str();
-                            uVar11 = pJVar1->GetGroupId(pcVar21);
-                            puVar17 = (undefined4*)Array<int, eastl::allocator>::operator[](local_70, (ulong)local_40);
-                            *puVar17 = uVar11;
+                            pcVar20 = (char*)local_a8->c_str();
+                            uVar11 = pJVar1->GetGroupId(pcVar20);
+                            puVar16 = (undefined4*)Array<int, eastl::allocator>::operator[](local_70, (ulong)local_40);
+                            *puVar16 = uVar11;
                             local_a8->~string();
                             std::string::string<decltype(nullptr)>((string*)local_a8, "");
                             local_1d0.str(local_a8);
                             local_a8->~string();
-                            poVar20 = std::operator<<(local_1c0, "e");
-                            poVar20 = (ostream*)std::ostream::operator<<(poVar20, (int)local_50);
-                            poVar20 = std::operator<<(poVar20, "_");
-                            std::ostream::operator<<(poVar20, (int)uVar26);
+                            poVar19 = std::operator<<(local_1c0, "e");
+                            poVar19 = (ostream*)std::ostream::operator<<(poVar19, (int)local_50);
+                            poVar19 = std::operator<<(poVar19, "_");
+                            std::ostream::operator<<(poVar19, (int)uVar25);
                             pJVar1 = (Js5*)local_48->field_54432;
                             local_a8->str();
-                            pcVar21 = (char*)local_a8->c_str();
-                            uVar11 = pJVar1->GetGroupId(pcVar21);
-                            puVar17 = (undefined4*)Array<int, eastl::allocator>::operator[](local_68, (ulong)local_40);
-                            *puVar17 = uVar11;
+                            pcVar20 = (char*)local_a8->c_str();
+                            uVar11 = pJVar1->GetGroupId(pcVar20);
+                            puVar16 = (undefined4*)Array<int, eastl::allocator>::operator[](local_68, (ulong)local_40);
+                            *puVar16 = uVar11;
                             local_a8->~string();
                             local_38 =
                                 (Array<shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>, eastl::allocator>*)
@@ -9591,12 +9592,12 @@ namespace jag::oldscape {
                         LAB_1000e477d:
                             paVar15 = (array<rs2lib::CoordZoneSource, 13ul>*)local_88._8_8_;
                         }
-                        uVar26 = uVar26 + 1;
-                    } while (uVar26 != 13);
-                    pAVar25 = local_50 + 1;
-                } while (pAVar25 != (Array<int, eastl::allocator>*)13);
-                uVar26 = local_60 + 1;
-            } while (uVar26 != 4);
+                        uVar25 = uVar25 + 1;
+                    } while (uVar25 != 13);
+                    pAVar24 = local_50 + 1;
+                } while (pAVar24 != (Array<int, eastl::allocator>*)13);
+                uVar25 = local_60 + 1;
+            } while (uVar25 != 4);
             StartRebuild(local_48, local_b4, local_b8, (char)local_b0 != '\x01');
         }
         local_1d0.~stringstream();
@@ -9826,18 +9827,18 @@ namespace jag::oldscape {
         undefined1 local_38[16];
 
         new (this) rs2lib::CoordGrid(in_RDX);
-        if ((char)param_1[69029].field_0 != '\0') {
+        if ((char)param_1[69029].m_level != '\0') {
             cVar1 = InRegion();
             if (cVar1 != '\0') {
                 iVar2 = GetMapSquareZ();
-                uVar7 = iVar2 - ((int)param_1[3326].field_4 >> 3);
+                uVar7 = iVar2 - ((int)param_1[3326].m_x >> 3);
                 iVar2 = GetZoneZ();
-                if (((uVar7 < 13) && (iVar2 = iVar2 - ((int)param_1[3326].field_8 >> 3), -1 < iVar2)) && (iVar2 < 13)) {
+                if (((uVar7 < 13) && (iVar2 = iVar2 - ((int)param_1[3326].m_z >> 3), -1 < iVar2)) && (iVar2 < 13)) {
                     iVar3 = GetX();
                     this_00 = (array<std::array<rs2lib::CoordZoneSource, 13ul>, 13ul>*)
                         std::array<std::array<std::array<rs2lib::CoordZoneSource, 13ul>, 13ul>, 4ul>::operator[](
                             (array<std::array<std::array<rs2lib::CoordZoneSource, 13ul>, 13ul>, 4ul>*)&param_1[69029]
-                                .field_4,
+                                .m_x,
                             (long)iVar3);
                     this_01 = (array<rs2lib::CoordZoneSource, 13ul>*)
                         std::array<std::array<rs2lib::CoordZoneSource, 13ul>, 13ul>::operator[](this_00,
@@ -10249,13 +10250,13 @@ namespace jag::oldscape {
         local_60.MakeClientMessage(75, uVar1);
         this_00->SendClientMessage(&local_60);
         local_60.~ClientMessage();
-        field_52400 = 0;
+        m_cameraMode = 0;
     }
 
     // 0x1000e6bd0, 32 bytes, placed by class name
     // Client::ForceRecentreFreecam()
     void Client::ForceRecentreFreecam() {
-        if (field_52400 == 1) {
+        if (m_cameraMode == 1) {
             field_7294744 = 1;
         }
     }
@@ -12654,7 +12655,7 @@ namespace jag::oldscape {
         if (this_01->GetRemoveRoof() == '\0') {
             local_34 = 3;
             if (field_53100 < 310) {
-                if (field_52400 == 1) {
+                if (m_cameraMode == 1) {
                     uVar3 = field_7294716;
                     pfVar7 = &field_7294724;
                 } else {
@@ -13868,7 +13869,7 @@ namespace jag::oldscape {
         (field_52344, false)->SetTargetMode();
         field_2508752 = 0;
         field_53112 = 0;
-        field_52400 = 0;
+        m_cameraMode = 0;
         std::unique_ptr<Heatmap, std::default_delete<Heatmap>>::operator=(
             (unique_ptr<Heatmap, std::default_delete<Heatmap>>*)&field_52920, p_Var19);
         puVar23 = &field_8152;

@@ -8,15 +8,15 @@ namespace jag::game {
     class Camera {
     public:
         GetLinearPositionAcceleration() const;
-        GetLookatManager() const;
-        GetPositionManager() const;
-        GetLinearPositionMaxSpeed() const;
-        GetPositionMode() const;
+        shared_ptr GetLookatManager() const;
+        shared_ptr GetPositionManager() const;
+        AABB GetLinearPositionMaxSpeed() const;
+        int GetPositionMode() const;
         GetLinearLookatAcceleration() const;
-        GetProjectionMode() const;
-        GetLinearLookatMaxSpeed() const;
+        uint GetProjectionMode() const;
+        AABB GetLinearLookatMaxSpeed() const;
         DoingTimedMove() const;
-        GetLookatMode() const;
+        int GetLookatMode() const;
         void SetLookatManager(shared_ptr<ILookatManager>&);
         void SetPositionManager(shared_ptr<IPositionManager>&);
         void Ready() const;
@@ -105,13 +105,13 @@ namespace jag::game {
         char _unknown_145[47];
         byte m_clientControlled; // offset 192
         char _unknown_193[3];
-        uint field_196; // offset 196
-        int field_200;  // offset 200
+        uint m_projectionMode; // offset 196
+        int m_lookatMode;      // offset 200
         char _unknown_204[4];
-        shared_ptr field_208; // offset 208
-        int field_224;        // offset 224
+        shared_ptr m_pLookatManager; // offset 208
+        int m_positionMode;          // offset 224
         char _unknown_228[4];
-        shared_ptr field_232; // offset 232
+        shared_ptr m_positionManager; // offset 232
         char _unknown_248[40];
         undefined4 field_288; // offset 288
         bool field_292;       // offset 292
@@ -128,26 +128,26 @@ namespace jag::game {
         int field_340;        // offset 340
         undefined4 field_344; // offset 344
         char _unknown_348[4];
-        AABB field_352;                        // offset 352
-        AABB m_linearPositionMaxSpeed;         // offset 376
-        undefined8 m_linearLookatAcceleration; // offset 400
-        undefined8 field_408;                  // offset 408
-        undefined8 field_416;                  // offset 416
-        undefined8 field_424;                  // offset 424
-        undefined8 field_432;                  // offset 432
-        undefined8 field_440;                  // offset 440
-        AABB field_448;                        // offset 448
-        AABB field_472;                        // offset 472
-        double field_496;                      // offset 496
-        double field_504;                      // offset 504
-        float m_fieldOfView;                   // offset 512
-        float field_516;                       // offset 516
-        float m_aspectRatio;                   // offset 520
-        float field_524;                       // offset 524
-        double m_nearPlane;                    // offset 528
-        double field_536;                      // offset 536
-        undefined1 field_544;                  // offset 544
-        undefined1 field_545;                  // offset 545
+        AABB m_linearLookatMaxSpeed;             // offset 352
+        AABB m_linearPositionMaxSpeed;           // offset 376
+        undefined8 m_linearLookatAcceleration;   // offset 400
+        undefined8 field_408;                    // offset 408
+        undefined8 field_416;                    // offset 416
+        undefined8 m_linearPositionAcceleration; // offset 424
+        undefined8 field_432;                    // offset 432
+        undefined8 field_440;                    // offset 440
+        AABB field_448;                          // offset 448
+        AABB field_472;                          // offset 472
+        double field_496;                        // offset 496
+        double field_504;                        // offset 504
+        float m_fieldOfView;                     // offset 512
+        float field_516;                         // offset 516
+        float m_aspectRatio;                     // offset 520
+        float field_524;                         // offset 524
+        double m_nearPlane;                      // offset 528
+        double field_536;                        // offset 536
+        undefined1 field_544;                    // offset 544
+        undefined1 field_545;                    // offset 545
         char _unknown_546[2];
         uint field_548; // offset 548
         uint field_552; // offset 552
@@ -176,13 +176,13 @@ namespace jag::game {
     // 0x100621cb0, 32 bytes, inline, placed by class name
     // Camera::SetLookatManager(shared_ptr<ILookatManager>&)
     void Camera::SetLookatManager(shared_ptr* param_1) {
-        shared_ptr<ILookatManager>::operator=((shared_ptr<ILookatManager>*)field_208, param_1);
+        shared_ptr<ILookatManager>::operator=((shared_ptr<ILookatManager>*)m_pLookatManager, param_1);
     }
 
     // 0x100621cd0, 32 bytes, inline, placed by class name
     // Camera::SetPositionManager(shared_ptr<IPositionManager>&)
     void Camera::SetPositionManager(shared_ptr* param_1) {
-        shared_ptr<IPositionManager>::operator=((shared_ptr<IPositionManager>*)field_232, param_1);
+        shared_ptr<IPositionManager>::operator=((shared_ptr<IPositionManager>*)m_positionManager, param_1);
     }
 
     // 0x100630050, 16 bytes, inline, placed by class name
@@ -236,10 +236,10 @@ namespace jag::game {
 
         ppuVar1 = (undefined**)*in_RSI;
         field_0 = ppuVar1;
-        *(long*)(field_208 + (long)(ppuVar1[-33] + -208)) = in_RSI[1];
+        *(long*)(m_pLookatManager + (long)(ppuVar1[-33] + -208)) = in_RSI[1];
         (&field_248)->~vector_map();
-        field_232->~shared_ptr();
-        field_208->~shared_ptr();
+        m_positionManager->~shared_ptr();
+        m_pLookatManager->~shared_ptr();
         std::function<shared_ptr<Entity>(CameraTrackableType, int)>::~function(
             (function<shared_ptr<Entity>(CameraTrackableType, int)>*)&field_144);
     }
@@ -254,10 +254,10 @@ namespace jag {
         GetProjectionMode() const;
         GetRot() const;
         SetProjectionMode(ProjectionMode);
-        GetPos() const;
+        ColourHSL GetPos() const;
         GetVerticalFov() const;
-        GetAspect() const;
-        GetTopClip() const;
+        float GetAspect() const;
+        float GetTopClip() const;
         void SetTopClip(float);
         SetBottomClip(float);
         SetLeftClip(float);
@@ -269,22 +269,22 @@ namespace jag {
         void SetPos(math::Vector3T<float> const&);
         void SetRot(math::QuaternionT<float> const&);
         GetLeftClip() const;
-        GetNearClip() const;
-        GetBottomClip() const;
+        float GetNearClip() const;
+        float GetBottomClip() const;
         GetRightClip() const;
         float GetFarClip() const;
         Camera(ProjectionMode);
 
         // data members, from how the methods use this: 76 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        undefined4 field_8;  // offset 8
-        float m_verticalFov; // offset 12
-        float m_aspect;      // offset 16
-        undefined8 field_20; // offset 20
-        char _unknown_28[4];
-        float m_topClip;  // offset 32
-        float m_nearClip; // offset 36
-        float m_farClip;  // offset 40
+        undefined** field_0;         // offset 0, vtable pointer
+        undefined4 m_projectionMode; // offset 8
+        float m_verticalFov;         // offset 12
+        float m_aspect;              // offset 16
+        undefined8 m_leftClip;       // offset 20
+        float m_bottomClip;          // offset 28
+        float m_topClip;             // offset 32
+        float m_nearClip;            // offset 36
+        float m_farClip;             // offset 40
         char _unknown_44[16];
         ColourHSL m_pos; // offset 60
     };

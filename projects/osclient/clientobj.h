@@ -25,8 +25,8 @@ namespace jag::oldscape {
         char _unknown_8[8];
         long field_16; // offset 16
         char _unknown_24[24];
-        undefined8 field_48; // offset 48
-        byte field_56;       // offset 56
+        undefined8 m_pHighlight;  // offset 48
+        byte m_enabledOpsBitMask; // offset 56
     };
 
     // 0x100013930, 16 bytes, inline, placed by class name and debug map
@@ -57,7 +57,7 @@ namespace jag::oldscape {
 
         bVar1 = true;
         if ((uint)param_1 < 5) {
-            bVar1 = (field_56 >> (param_1 & 31U) & 1) != 0;
+            bVar1 = (m_enabledOpsBitMask >> (param_1 & 31U) & 1) != 0;
         }
         return bVar1;
     }
@@ -88,8 +88,8 @@ namespace jag::oldscape {
     void ClientObj::ClientObj() {
         new (this) dash3d::UniqueModelSource();
         field_0 = (undefined**)(PTR_vtable_100ee8c70 + 16);
-        field_48 = 0;
-        field_56 = 31;
+        m_pHighlight = 0;
+        m_enabledOpsBitMask = 31;
     }
 
     // 0x100153080, 16 bytes, complete-object destructor, inline, placed by class name
@@ -142,6 +142,6 @@ namespace jag::oldscape::minimenu {
 
 namespace jag::game {
     // 0x1000fcbb0: the linker folded this into oldscape::ClientObj::GetHighlight(), which has identical code
-    BaseConfigTypeList::GetModeGame() const;
+    ModeGame* BaseConfigTypeList::GetModeGame() const;
 
 } // namespace jag::game

@@ -167,12 +167,12 @@ namespace jag::oldscape {
                                     eastl::vector<eastl::pair<int, HookArg>, eastl::allocator>>*)&local_40->field_24;
                     do {
                         uVar5 = local_80.g2();
-                        local_f8.field_0 = (uint)uVar5;
+                        local_f8.m_argType = (uint)uVar5;
                         iVar6 = local_80.g4();
-                        uVar1 = local_f8.field_0;
-                        if (((-1 < (int)local_f8.field_0) && (iVar7 = local_40->end(), (int)uVar1 < iVar7)) &&
+                        uVar1 = local_f8.m_argType;
+                        if (((-1 < (int)local_f8.m_argType) && (iVar7 = local_40->end(), (int)uVar1 < iVar7)) &&
                             (pcVar12 = (char*)Array<bool, eastl::allocator>::operator[](
-                                 (Array<bool, eastl::allocator>*)local_40, (long)(int)local_f8.field_0),
+                                 (Array<bool, eastl::allocator>*)local_40, (long)(int)local_f8.m_argType),
                              *pcVar12 != '\0')) {
                             new (&local_140) HookArg(iVar6);
                             pHVar13 = (HookArg*)

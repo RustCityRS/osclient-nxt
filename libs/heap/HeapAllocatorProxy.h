@@ -10,7 +10,7 @@ namespace jag {
     public:
         // virtual methods in vtable order
         virtual ~HeapAllocatorProxy();
-        GetCallStackGrabbingEnabled() const;
+        bool GetCallStackGrabbingEnabled() const;
         GrabCallStack(unsigned long*, unsigned int);
         PopZoneContext();
         PrintUsageList();
@@ -27,20 +27,20 @@ namespace jag {
         GetZone();
         GetFree() const;
         GetUsed() const;
-        GetCallStackGrabDepth() const;
+        uint GetCallStackGrabDepth() const;
         HeapAllocatorProxy(unsigned int);
         uint SetCallStackGrabDepth(unsigned int);
 
         // data members, from how the methods use this: 20 bytes
-        undefined* field_0; // offset 0, vtable pointer
-        bool field_8;       // offset 8
+        undefined* field_0;              // offset 0, vtable pointer
+        bool m_callStackGrabbingEnabled; // offset 8
         char _unknown_9[3];
         uint m_callStackGrabDepth; // offset 12
         char _unknown_16[4];
     };
 
     // 0x1000096a0: the linker folded this into BaseApp::GetExitAfterInit(), which has identical code
-    HeapAllocatorProxy::GetCallStackGrabbingEnabled() const;
+    bool HeapAllocatorProxy::GetCallStackGrabbingEnabled() const;
 
     // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
     HeapAllocatorProxy::GrabCallStack(unsigned long*, unsigned int);
@@ -94,13 +94,13 @@ namespace jag {
     HeapAllocatorProxy::GetUsed() const;
 
     // 0x1000e5d50: the linker folded this into oldscape::rs2lib::CoordZoneSource::GetRotation() const, which has identical code
-    HeapAllocatorProxy::GetCallStackGrabDepth() const;
+    uint HeapAllocatorProxy::GetCallStackGrabDepth() const;
 
     // 0x100c927a0, 32 bytes, base-object constructor, inline, placed by class name and debug map
     // HeapAllocatorProxy::HeapAllocatorProxy(unsigned int)
     void HeapAllocatorProxy::HeapAllocatorProxy(uint param_1) {
         field_0 = PTR_vtable_100ee7178 + 16;
-        field_8 = false;
+        m_callStackGrabbingEnabled = false;
         m_callStackGrabDepth = param_1;
         SetCallStackGrabDepth(this, param_1);
     }
@@ -112,7 +112,7 @@ namespace jag {
 
         uVar1 = m_callStackGrabDepth;
         m_callStackGrabDepth = param_1;
-        field_8 = param_1 != 0;
+        m_callStackGrabbingEnabled = param_1 != 0;
         return uVar1;
     }
 

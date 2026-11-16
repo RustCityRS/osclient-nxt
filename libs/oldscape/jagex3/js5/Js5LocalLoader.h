@@ -206,7 +206,7 @@ namespace jag::oldscape::jagex3 {
                 puVar6 = (uchar*)param_1->GetDataPtr();
                 (field_432, puVar6, uVar1, 0, local_38)->read();
             }
-            local_40[0] = local_38[0].field_0;
+            local_40[0] = local_38[0].m_code;
         } else {
             graphics::XPlotBlender<graphics::XPlot_NormalAlpha>::XPlotBlender<int>(
                 (XPlotBlender<graphics::XPlot_NormalAlpha>*)local_40, 22);

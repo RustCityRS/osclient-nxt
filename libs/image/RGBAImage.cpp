@@ -16,10 +16,10 @@ namespace jag {
     RGBAImage::GetColourData() const;
 
     // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    RGBAImage::GetHeight() const;
+    uint RGBAImage::GetHeight() const;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    RGBAImage::GetWidth() const;
+    uint RGBAImage::GetWidth() const;
 
     // 0x100a0bf50, 272 bytes, placed by class name and debug map
     // RGBAImage::Create(int, int, void const*)
@@ -55,8 +55,8 @@ namespace jag {
             pvVar2 = (void*)this_00->data();
             _memcpy(pvVar2, param_3, uVar4);
         }
-        field_0 = param_1;
-        field_4 = param_2;
+        m_width = param_1;
+        m_height = param_2;
         local_48 = 0;
         uStack_40 = 0;
         eastl::fixed_vector<int, 4ul, true, eastl::allocator>::operator=(
@@ -79,8 +79,8 @@ namespace jag {
 
         local_18 = *(long*)PTR____stack_chk_guard_100ee9d98;
         (&field_64)->clear();
-        field_0 = 0;
-        field_4 = 0;
+        m_width = 0;
+        m_height = 0;
         local_28 = 0;
         uStack_20 = 0;
         eastl::fixed_vector<int, 4ul, true, eastl::allocator>::operator=(
@@ -96,8 +96,8 @@ namespace jag {
     /* RGBAImage::TEMPNAMEPLACEHOLDERVALUE(RGBAImage&&) */
 
     RGBAImage* RGBAImage::operator=(RGBAImage* param_1) {
-        field_0 = param_1->field_0;
-        field_4 = param_1->field_4;
+        m_width = param_1->m_width;
+        m_height = param_1->m_height;
         eastl::fixed_vector<int, 4ul, true, eastl::allocator>::operator=(
             (fixed_vector<int, 4ul, true, eastl::allocator>*)&field_8, (fixed_vector*)&param_1->field_8);
         Array<unsigned char, BucketAllocatorEASTL>::operator=((Array<unsigned char, BucketAllocatorEASTL>*)&field_64,
@@ -108,8 +108,8 @@ namespace jag {
     // 0x100a0d540, 80 bytes, base-object constructor, placed by class name
     // RGBAImage::RGBAImage()
     void RGBAImage::RGBAImage() {
-        field_0 = 0;
-        field_4 = 0;
+        m_width = 0;
+        m_height = 0;
         new (&field_8) eastl::fixed_vector<int, 4ul, true, eastl::allocator>();
         new (&field_64) Array<unsigned char, BucketAllocatorEASTL>();
     }
@@ -120,8 +120,8 @@ namespace jag {
     // 0x100a0d5a0, 96 bytes, base-object constructor, placed by class name
     // RGBAImage::RGBAImage(RGBAImage const&)
     void RGBAImage::RGBAImage(RGBAImage* param_1) {
-        field_0 = param_1->field_0;
-        field_4 = param_1->field_4;
+        m_width = param_1->m_width;
+        m_height = param_1->m_height;
         new (&field_8, (fixed_vector*)&param_1->field_8) eastl::fixed_vector<int, 4ul, true, eastl::allocator>();
         new (&field_64, (Array*)&param_1->field_64) Array<unsigned char, BucketAllocatorEASTL>();
     }
@@ -132,8 +132,8 @@ namespace jag {
     // 0x100a0d620, 64 bytes, base-object constructor, placed by class name
     // RGBAImage::RGBAImage(RGBAImage&&)
     void RGBAImage::RGBAImage(RGBAImage* param_1) {
-        field_0 = param_1->field_0;
-        field_4 = param_1->field_4;
+        m_width = param_1->m_width;
+        m_height = param_1->m_height;
         new (&field_8, (fixed_vector*)&param_1->field_8) eastl::fixed_vector<int, 4ul, true, eastl::allocator>();
         new (&field_64, (Array*)&param_1->field_64) Array<unsigned char, BucketAllocatorEASTL>();
     }
@@ -146,8 +146,8 @@ namespace jag {
     /* RGBAImage::TEMPNAMEPLACEHOLDERVALUE(RGBAImage const&) */
 
     RGBAImage* RGBAImage::operator=(RGBAImage* param_1) {
-        field_0 = param_1->field_0;
-        field_4 = param_1->field_4;
+        m_width = param_1->m_width;
+        m_height = param_1->m_height;
         eastl::fixed_vector<int, 4ul, true, eastl::allocator>::operator=(
             (fixed_vector<int, 4ul, true, eastl::allocator>*)&field_8, (fixed_vector*)&param_1->field_8);
         Array<unsigned char, BucketAllocatorEASTL>::operator=((Array<unsigned char, BucketAllocatorEASTL>*)&field_64,
@@ -209,8 +209,8 @@ namespace jag {
                 lVar2 = lVar2 + -1;
             } while (lVar2 != 0);
         }
-        field_0 = param_1;
-        field_4 = param_2;
+        m_width = param_1;
+        m_height = param_2;
         local_48 = 0;
         uStack_40 = 0;
         eastl::fixed_vector<int, 4ul, true, eastl::allocator>::operator=(
@@ -241,16 +241,16 @@ namespace jag {
 
         if (param_1 != 1) {
             Array<unsigned char, BucketAllocatorEASTL>::Array(local_40);
-            local_40->set_max_size((long)(int)(param_1 * param_1 * field_0 * field_4 * 4), 0);
+            local_40->set_max_size((long)(int)(param_1 * param_1 * m_width * m_height * 4), 0);
             local_40->swap((Array*)&field_64);
             lVar2 = local_40->data();
             lVar3 = (&field_64)->data();
-            uVar5 = field_4;
+            uVar5 = m_height;
             if (0 < (int)uVar5) {
                 iVar7 = 0;
                 iVar8 = 0;
                 do {
-                    uVar5 = field_0;
+                    uVar5 = m_width;
                     if (0 < (int)uVar5) {
                         iVar10 = 0;
                         do {
@@ -263,7 +263,7 @@ namespace jag {
                                         iVar4 = 0;
                                         do {
                                             *(undefined4*)(lVar3 +
-                                                           (long)(int)((field_0 * iVar6 + iVar10) * param_1 + iVar4) *
+                                                           (long)(int)((m_width * iVar6 + iVar10) * param_1 + iVar4) *
                                                                4) = uVar1;
                                             iVar4 = iVar4 + 1;
                                         } while (param_1 != iVar4);
@@ -273,16 +273,16 @@ namespace jag {
                                 } while (iVar9 != param_1);
                             }
                             iVar10 = iVar10 + 1;
-                            uVar5 = field_0;
+                            uVar5 = m_width;
                         } while (iVar10 < (int)uVar5);
                     }
                     iVar8 = iVar8 + 1;
-                    uVar5 = field_4;
+                    uVar5 = m_height;
                     iVar7 = iVar7 + param_1;
                 } while (iVar8 < (int)uVar5);
             }
-            field_0 = param_1 * field_0;
-            field_4 = uVar5 * param_1;
+            m_width = param_1 * m_width;
+            m_height = uVar5 * param_1;
             local_40->~Array();
         }
     }
@@ -656,9 +656,9 @@ namespace jag {
         uint uVar8;
         int local_38;
 
-        uVar8 = field_4;
+        uVar8 = m_height;
         if (1 < (int)uVar8) {
-            lVar5 = (long)(int)field_0 * 4;
+            lVar5 = (long)(int)m_width * 4;
             this_00 = &field_64;
             iVar4 = -1;
             lVar7 = 0;
@@ -672,7 +672,7 @@ namespace jag {
                                                                    (uchar*)(lVar2 + lVar5 + lVar7),
                                                                    (uchar*)((int)((uVar8 + iVar4) * local_38) + lVar3));
                 lVar6 = lVar6 + 1;
-                uVar8 = field_4;
+                uVar8 = m_height;
                 iVar4 = iVar4 + -1;
                 lVar7 = lVar7 + lVar5;
             } while (lVar6 < (int)uVar8 / 2);
@@ -691,10 +691,10 @@ namespace jag {
         bool bVar7;
 
         lVar3 = (&field_64)->data();
-        if (0 < (int)field_4) {
+        if (0 < (int)m_height) {
             iVar4 = 0;
             do {
-                uVar1 = field_0;
+                uVar1 = m_width;
                 if (1 < (long)(int)uVar1) {
                     puVar5 = (undefined4*)(lVar3 + (long)(int)(uVar1 * iVar4) * 4 + (long)(int)uVar1 * 4 + -4);
                     puVar6 = (undefined4*)(lVar3 + 4 + (long)(int)(uVar1 * iVar4) * 4);
@@ -708,7 +708,7 @@ namespace jag {
                     } while (bVar7);
                 }
                 iVar4 = iVar4 + 1;
-            } while (iVar4 < (int)field_4);
+            } while (iVar4 < (int)m_height);
         }
     }
 

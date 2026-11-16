@@ -10,10 +10,10 @@ namespace jag {
     Js5ResourceProvider::GetJs5WorkerThread() const;
 
     // 0x100029c40: the linker folded this into oldscape::javapal::GameShell::GetGraphicsApp(), which has identical code
-    Js5ResourceProvider::GetDiskCache() const;
+    Js5DiskCache* Js5ResourceProvider::GetDiskCache() const;
 
     // 0x10017f5b0: the linker folded this into oldscape::javapal::GameShell::GetPixToolkit(), which has identical code
-    Js5ResourceProvider::GetMemoryCache();
+    Js5MemoryCache* Js5ResourceProvider::GetMemoryCache();
 
     // 0x1004af330: the linker folded this into game::MapArea::ShouldAutoFind() const, which has identical code
     Js5ResourceProvider::IsLocalMode();
@@ -123,7 +123,7 @@ namespace jag {
         field_80 = local_300;
         field_104 = local_360;
         field_112 = param_6;
-        field_120 = 1;
+        m_localMode = 1;
         field_128 = param_1;
         this_01 = operator_new(24);
         iVar5 = local_300->GetX();
@@ -132,7 +132,7 @@ namespace jag {
         field_136 = this_01;
         local_3c8 = &field_160;
         m_pMemoryCache = (Js5MemoryCache*)0;
-        field_152 = (Js5DiskCache*)0;
+        m_pDiskCache = (Js5DiskCache*)0;
         std::array<eastl::map<unsigned int, Priority_const*, eastl::less<unsigned int>, SafeBucketAllocatorEASTL>,
                    67ul>::array();
         local_3c0 = &field_3392;
@@ -521,7 +521,7 @@ namespace jag {
                 pJVar10 = local_40;
                 Js5DiskCache::Js5DiskCache(this_05, local_40, (basic_string*)&local_40->field_48, local_40->field_66344,
                                            local_40->field_80);
-                pJVar9->field_152 = this_05;
+                pJVar9->m_pDiskCache = this_05;
             }
         } else {
             local_50 = (array<Js5Index, 67ul>*)&field_11664;
@@ -553,7 +553,7 @@ namespace jag {
             } while (uVar1 <= local_34);
         }
         pJVar9 = local_40;
-        local_40->field_152->UpdateIndexSizesForArchives();
+        local_40->m_pDiskCache->UpdateIndexSizesForArchives();
         std::unique_ptr<Js5MasterIndex, std::default_delete<Js5MasterIndex>>::operator=(
             (unique_ptr<Js5MasterIndex, std::default_delete<Js5MasterIndex>>*)&pJVar9->field_11384,
             (_func_decltype_nullptr*)pJVar10);
@@ -579,8 +579,8 @@ namespace jag {
             puVar3 = (undefined4*)std::array<unsigned int, 67ul>::operator[]((array<unsigned int, 67ul>*)&field_11392,
                                                                              (ulong)param_1);
             *puVar3 = 3;
-            if (field_152 != (Js5DiskCache*)0) {
-                (field_152, param_1)->Validate();
+            if (m_pDiskCache != (Js5DiskCache*)0) {
+                (m_pDiskCache, param_1)->Validate();
             }
         } else {
             uVar4 = logger::default_logger();
@@ -624,7 +624,7 @@ namespace jag {
         (&field_11368, (Js5MasterIndex*)0)->reset();
         (&field_11384, (Js5MasterIndex*)0)->reset();
         safe_delete<Js5MemoryCache>(&m_pMemoryCache);
-        safe_delete<Js5DiskCache>(&field_152);
+        safe_delete<Js5DiskCache>(&m_pDiskCache);
         this_01 = &field_7936;
         this_03 =
             (rbtree<unsigned long long, eastl::pair<unsigned long long const, shared_ptr<render::Texture>>,
@@ -673,7 +673,7 @@ namespace jag {
     // 0x1009e3dd0, 32 bytes, placed by class name
     // Js5ResourceProvider::IsDiskCacheReady() const
     bool Js5ResourceProvider::IsDiskCacheReady() {
-        return field_152 != (Js5DiskCache*)0;
+        return m_pDiskCache != (Js5DiskCache*)0;
     }
 
     // 0x1009e3df0, 16 bytes, placed by class name
@@ -724,8 +724,8 @@ namespace jag {
     // 0x1009e3ee0, 32 bytes, placed by class name
     // Js5ResourceProvider::EnableDiskCacheValidation(bool)
     void Js5ResourceProvider::EnableDiskCacheValidation(bool param_1) {
-        if (field_152 != (Js5DiskCache*)0) {
-            (field_152, param_1)->EnableValidate();
+        if (m_pDiskCache != (Js5DiskCache*)0) {
+            (m_pDiskCache, param_1)->EnableValidate();
         }
     }
 
@@ -842,11 +842,11 @@ namespace jag {
         uint local_3c;
         uint local_34;
 
-        if (field_120 == '\0') {
+        if (m_localMode == '\0') {
             if (field_66336 != false) {
                 local_40 = (uint)CONCAT71(in_register_00000081, param_4);
                 uVar6 = param_1->GetX();
-                pJVar1 = field_152;
+                pJVar1 = m_pDiskCache;
                 uVar16 = CONCAT71((int7)((ulong)unaff_R12 >> 8), 1);
                 if (pJVar1 == (Js5DiskCache*)0)
                     goto LAB_1009e4388;
@@ -894,7 +894,7 @@ namespace jag {
                     local_48 =
                         (Js5Index*)std::array<Js5Index, 67ul>::operator[]((array<Js5Index, 67ul>*)&field_11664, uVar19);
                 }
-                cVar5 = (field_152, uVar6)->HasReadOnlyArchive();
+                cVar5 = (m_pDiskCache, uVar6)->HasReadOnlyArchive();
                 if (cVar5 == '\0') {
                     local_34 = 0;
                 } else {
@@ -924,7 +924,7 @@ namespace jag {
                         uVar6 = local_3c;
                     }
                 }
-                cVar5 = (field_152, uVar6, uVar15)->CheckGroup();
+                cVar5 = (m_pDiskCache, uVar6, uVar15)->CheckGroup();
                 if (cVar5 != '\x02') {
                     if (cVar5 != '\x03') {
                         uVar6 = *(uint*)(param_3 + 8);
@@ -954,16 +954,16 @@ namespace jag {
                                     puVar14 = (undefined4*)std::array<unsigned int, 67ul>::operator[](
                                         (array<unsigned int, 67ul>*)&field_11392, local_60);
                                     *puVar14 = 1;
-                                    pJVar1 = field_152;
+                                    pJVar1 = m_pDiskCache;
                                     cVar5 = param_1->GetDiskEncodeType();
                                     uVar6 = local_3c;
                                     pJVar11 = local_48;
                                     local_40 = local_40 & 255;
                                     pJVar1->GetGroup(local_3c, 4294967295, local_48, (int)cVar5, param_3, local_40,
                                                      local_34 & 255);
-                                    cVar5 = (field_152, uVar6)->HasReadOnlyArchive();
+                                    cVar5 = (m_pDiskCache, uVar6)->HasReadOnlyArchive();
                                     if (cVar5 != '\0') {
-                                        pJVar1 = field_152;
+                                        pJVar1 = m_pDiskCache;
                                         cVar5 = param_1->GetDiskEncodeType();
                                         pPVar2 = param_3;
                                         pJVar1->GetGroup(uVar6, 4294967295, pJVar11, (int)cVar5, param_3, local_40, 1);
@@ -972,7 +972,7 @@ namespace jag {
                                         *piVar13 = *piVar13 + 1;
                                     }
                                 } else {
-                                    pJVar1 = field_152;
+                                    pJVar1 = m_pDiskCache;
                                     cVar5 = param_1->GetDiskEncodeType();
                                     pJVar1->GetGroup(local_3c, uVar4, local_48, (int)cVar5, param_3, local_40 & 255,
                                                      local_34 & 255);
@@ -1064,7 +1064,7 @@ namespace jag {
         uint local_34;
 
         local_34 = param_2;
-        if (field_120 != '\0') {
+        if (m_localMode != '\0') {
             RequestGroupFromLocalArchive(this, param_1, param_2);
             return;
         }
@@ -1264,7 +1264,7 @@ namespace jag {
                 ppuVar5 = &DataStatus::READY;
                 goto LAB_1009e500b;
             }
-            cVar1 = (field_152, iVar2)->HasReadOnlyArchive();
+            cVar1 = (m_pDiskCache, iVar2)->HasReadOnlyArchive();
             if (cVar1 != '\0') {
                 this_01 = (Js5Index*)std::array<Js5Index, 67ul>::operator[]((array<Js5Index, 67ul>*)&field_29888,
                                                                             (long)iVar2);
@@ -1287,7 +1287,7 @@ namespace jag {
             }
         } else {
             cVar1 = IsDiskCacheReady(this);
-            if ((cVar1 != '\0') && (cVar1 = (field_152, iVar2, param_2)->CheckGroup(), cVar1 != '\x03'))
+            if ((cVar1 != '\0') && (cVar1 = (m_pDiskCache, iVar2, param_2)->CheckGroup(), cVar1 != '\x03'))
                 goto LAB_1009e4f2e;
         }
         ppuVar5 = &DataStatus::NOTLOADED;
@@ -1369,11 +1369,11 @@ namespace jag {
                     if ((!param_8) || (cVar1 = IsRequested(this, uVar2, param_3), cVar1 == '\0'))
                         goto LAB_1009e5590;
                     do {
-                        field_152->Service();
+                        m_pDiskCache->Service();
                         cVar1 = (m_pMemoryCache, param_1, uVar2, param_3, param_4, this_00, param_7)->GetFile();
                         if (cVar1 != '\0')
                             goto LAB_1009e548b;
-                        cVar1 = (field_152, uVar2, param_3)->CheckGroup();
+                        cVar1 = (m_pDiskCache, uVar2, param_3)->CheckGroup();
                     } while (cVar1 != '\x02');
                 }
                 RequestGroupFromServer(this, param_2, param_3, param_5, param_6);
@@ -1447,7 +1447,7 @@ namespace jag {
         Js5DiskCache* this_00;
         int iVar1;
 
-        this_00 = field_152;
+        this_00 = m_pDiskCache;
         iVar1 = param_1->GetX();
         this_00->GetStateFulllArchiveLoad(iVar1);
     }
@@ -1459,7 +1459,7 @@ namespace jag {
         int iVar1;
 
         if ((undefined*)(*(code*)field_0[2])() == DataStatus::READY) {
-            this_00 = field_152;
+            this_00 = m_pDiskCache;
             iVar1 = param_1->GetX();
             this_00->RequestFullArchive(iVar1);
         }
@@ -1542,8 +1542,8 @@ namespace jag {
                 Js5Index::operator=(pJVar4, &local_170);
                 local_170.~OldscapeToNxtJs5Index();
                 *local_40 = 3;
-                if (pJVar1->field_152 != (Js5DiskCache*)0) {
-                    (pJVar1->field_152, param_1)->Validate();
+                if (pJVar1->m_pDiskCache != (Js5DiskCache*)0) {
+                    (pJVar1->m_pDiskCache, param_1)->Validate();
                 }
             }
             local_60.~VBOMapper();
@@ -1676,7 +1676,7 @@ namespace jag {
                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/Js5ResourceProvider.cpp",
                     1049, "Failed to decompress index from local loader: archive=%i", (ulong)param_5);
             }
-            pJVar1 = field_152;
+            pJVar1 = m_pDiskCache;
             make_shared<PacketT<Array<unsigned char, eastl::allocator>>,
                         PacketT<Array<unsigned char, eastl::allocator>>&>((jag*)&local_90, (PacketT*)local_70);
             uVar3 = param_2->GetX();
@@ -1686,7 +1686,7 @@ namespace jag {
         } else {
             cVar2 = param_1->GetDiskEncodeType();
             if (cVar2 == '\x02') {
-                local_40 = field_152;
+                local_40 = m_pDiskCache;
                 uVar3 = param_2->GetGroupCRC(param_4);
                 uVar4 = param_2->GetGroupVersion(param_4);
                 cVar2 = param_1->GetDiskEncodeType();
@@ -1725,7 +1725,7 @@ namespace jag {
             if (puVar8 == EncodeType::PNG_MIPPED) {
                 Js5Compression::DecodePNG((PacketT*)local_70);
             }
-            pJVar1 = field_152;
+            pJVar1 = m_pDiskCache;
             make_shared<PacketT<Array<unsigned char, eastl::allocator>>,
                         PacketT<Array<unsigned char, eastl::allocator>>&>((jag*)local_50, (PacketT*)local_70);
             uVar3 = param_2->GetGroupCRC(param_4);
@@ -1918,10 +1918,10 @@ namespace jag {
                             (array<Js5Index, 67ul>*)&field_11664, uVar24);
                         Js5Index::operator=(pJVar16, &local_160);
                         local_160.~OldscapeToNxtJs5Index();
-                        if ((field_66336 != false) && (field_152 != (Js5DiskCache*)0)) {
-                            (field_152, uVar24, 4294967295, &local_188, *puVar2, puVar2[1],
+                        if ((field_66336 != false) && (m_pDiskCache != (Js5DiskCache*)0)) {
+                            (m_pDiskCache, uVar24, 4294967295, &local_188, *puVar2, puVar2[1],
                              CONCAT44(uVar9)->ProvideGroup(1));
-                            (field_152, (uint)bVar3)->Validate();
+                            (m_pDiskCache, (uint)bVar3)->Validate();
                         }
                         puVar14 = (undefined4*)std::array<unsigned int, 67ul>::operator[](
                             (array<unsigned int, 67ul>*)&field_11392, uVar24);
@@ -1977,9 +1977,9 @@ namespace jag {
                     uVar10 = local_18c;
                     local_190 = pJVar16->GetGroupCRC(local_18c);
                     uVar11 = pJVar16->GetGroupVersion(uVar10);
-                    if ((field_66336 != false) && (field_152 != (Js5DiskCache*)0)) {
+                    if ((field_66336 != false) && (m_pDiskCache != (Js5DiskCache*)0)) {
                         this_02 = (Js5ArchiveSettings*)(field_80, local_174)->GetByArchiveID();
-                        pJVar1 = field_152;
+                        pJVar1 = m_pDiskCache;
                         cVar5 = this_02->GetDiskEncodeType();
                         uVar10 = local_18c;
                         pJVar1->ProvideGroup(local_174, local_18c, &local_160, local_190, uVar11,
@@ -2211,8 +2211,8 @@ namespace jag {
             }
         }
         pJVar4 = local_38;
-        if (local_38->field_152 != (Js5DiskCache*)0) {
-            local_38->field_152->Service();
+        if (local_38->m_pDiskCache != (Js5DiskCache*)0) {
+            local_38->m_pDiskCache->Service();
         }
         if (pJVar4->m_pMemoryCache != (Js5MemoryCache*)0) {
             pJVar4->m_pMemoryCache->Service();
@@ -2349,8 +2349,8 @@ namespace jag {
     // Js5ResourceProvider::DeleteCaches()
     void Js5ResourceProvider::DeleteCaches() {
         m_pMemoryCache->DeleteCache();
-        if ((field_66336 != false) && (field_152 != (Js5DiskCache*)0)) {
-            field_152->DeleteCache();
+        if ((field_66336 != false) && (m_pDiskCache != (Js5DiskCache*)0)) {
+            m_pDiskCache->DeleteCache();
         }
     }
 
@@ -2358,9 +2358,9 @@ namespace jag {
     // Js5ResourceProvider::ReinitialiseCaches()
     void Js5ResourceProvider::ReinitialiseCaches() {
         m_pMemoryCache->DeleteCache();
-        field_152->ClearFullArchiveRequestState();
-        field_152->Shutdown();
-        field_152->Startup();
+        m_pDiskCache->ClearFullArchiveRequestState();
+        m_pDiskCache->Shutdown();
+        m_pDiskCache->Startup();
     }
 
     // 0x1009e8b40, 32 bytes, placed by class name
@@ -2372,8 +2372,8 @@ namespace jag {
     // 0x1009e8b90, 32 bytes, placed by class name
     // Js5ResourceProvider::Shutdown()
     void Js5ResourceProvider::Shutdown() {
-        if (field_152 != (Js5DiskCache*)0) {
-            field_152->Shutdown();
+        if (m_pDiskCache != (Js5DiskCache*)0) {
+            m_pDiskCache->Shutdown();
         }
     }
 

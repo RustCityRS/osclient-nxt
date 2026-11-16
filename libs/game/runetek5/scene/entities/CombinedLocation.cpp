@@ -28,7 +28,7 @@ namespace jag::game {
     CombinedLocation::IsAnimatable() const;
 
     // 0x100049090: the linker folded this into oldscape::option::Option<eastl::fixed_string<char, 256, true, eastl::allocator> >::GetDefaultValue() const, which has identical code
-    CombinedLocation::GetModel() const;
+    shared_ptr CombinedLocation::GetModel() const;
 
     // 0x1001e0d50: the linker folded this into hal::audio::AudioAPI::~AudioAPI(), which has identical code
     CombinedLocation::VFXData::~VFXData();
@@ -171,7 +171,7 @@ namespace jag::game {
     // 0x1004456d0, 128 bytes, placed by class name
     // CombinedLocation::SectionsToRender::CheckIfActiveSectionsChangedFromDefault() const
     ulong CombinedLocation::SectionsToRender::CheckIfActiveSectionsChangedFromDefault() {
-        undefined4* puVar1;
+        uint* puVar1;
         undefined1* puVar3;
         undefined1* puVar4;
         Material* this_00;
@@ -185,11 +185,11 @@ namespace jag::game {
         if ((!bVar5) && ((puVar3[4] & 1) == 0)) {
             this_00 = (Material*)(puVar3 + 4);
             do {
-                if ((this_00->IsRT7() != '\0') || (bVar5 = &this_00->field_4 == (uint*)puVar4, bVar5))
+                if ((this_00->IsRT7() != '\0') || (bVar5 = &this_00->m_iD == (uint*)puVar4, bVar5))
                     break;
-                puVar1 = &this_00->field_8;
-                this_00 = (Material*)&this_00->field_8;
-            } while ((*(byte*)puVar1 & 1) == 0);
+                puVar1 = &this_00->m_size;
+                this_00 = (Material*)&this_00->m_size;
+            } while ((*puVar1 & 1) == 0);
         }
         return CONCAT71((int7)((ulong)this_01 >> 8), ~bVar5) & 4294967041;
     }

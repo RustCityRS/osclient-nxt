@@ -7,10 +7,10 @@
 
 namespace jag::game {
     // 0x10041b1d0: the linker folded this into NPCType::GetAttackOpIndex() const, which has identical code
-    OldCamera::GetCamHeight() const;
+    int OldCamera::GetCamHeight() const;
 
     // 0x10041b1f0: the linker folded this into NPCType::GetExamineOpIndex() const, which has identical code
-    OldCamera::GetCamZoom() const;
+    int OldCamera::GetCamZoom() const;
 
     // 0x1006200e0, 464 bytes, base-object constructor, placed by class name
     // OldCamera::OldCamera(std::function<shared_ptr<Entity> (CameraTrackableType, int)> const&)

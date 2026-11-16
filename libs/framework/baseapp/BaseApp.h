@@ -166,6 +166,6 @@ namespace jag::graphics {
 
 namespace jag::game {
     // 0x100009720: the linker folded this into BaseApp::GetExitCode(), which has identical code
-    BaseConfigTypeList::GetGroupCount() const;
+    uint BaseConfigTypeList::GetGroupCount() const;
 
 } // namespace jag::game

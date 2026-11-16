@@ -60,7 +60,7 @@ namespace jag::game {
     Entity::GetTrackableType() const;
 
     // 0x10012dc00: the linker folded this into oldscape::graphics::NXTPixScreen::GetViewportX(), which has identical code
-    Entity::GetMaximumRemoveRoofLevel() const;
+    int Entity::GetMaximumRemoveRoofLevel() const;
 
     // 0x1001cdb80: the linker folded this into Entity::GetPosition() const, which has identical code
     Entity::GetTranslation();
@@ -69,13 +69,13 @@ namespace jag::game {
     Entity::GetTranslation() const;
 
     // 0x100324d40: the linker folded this into oldscape::graphics::NXTPixToolkit::GetPix2D(), which has identical code
-    Entity::GetWorld() const;
+    shared_ptr Entity::GetWorld() const;
 
     // 0x1003cbc60: the linker folded this into MapArea::GetBackgroundRGBA() const, which has identical code
     Entity::GetPickingPrepassType() const;
 
     // 0x1003f65a0: the linker folded this into EntityRoute::GetStalledTickCount() const, which has identical code
-    Entity::GetLevel() const;
+    int Entity::GetLevel() const;
 
     // 0x1003f7700: the linker folded this into Entity::GetAABB() const, which has identical code
     Entity::GetAABB();
@@ -96,10 +96,10 @@ namespace jag::game {
         std::unique_ptr<graphics::GraphNode, graphics::GraphNodeDelete>::unique_ptr<true, void>(
             (unique_ptr<graphics::GraphNode, graphics::GraphNodeDelete>*)local_38, param_1);
         field_64 = param_4;
-        field_65 = 6;
+        m_currentLOD = 6;
         m_targetLOD = 6;
         m_occludesView = false;
-        field_68 = param_5;
+        m_level = param_5;
         m_maximumRemoveRoofLevel = -1;
         new (&field_76) math::Capsule2D();
         new (&field_100) math::Sphere2D();
@@ -160,7 +160,7 @@ namespace jag::game {
         undefined1* this_00;
 
         if (IsAtTargetLOD(this) != '\0') {
-            field_65 = game::operator+(field_65, 1);
+            m_currentLOD = game::operator+(m_currentLOD, 1);
             this_00 = &field_56;
             pGVar1 = (GraphNode*)std::unique_ptr<graphics::GraphNode, graphics::GraphNodeDelete>::operator->(
                 (unique_ptr<graphics::GraphNode, graphics::GraphNodeDelete>*)this_00);
@@ -204,7 +204,7 @@ namespace jag::game {
         int iVar4;
         int iVar5;
 
-        iVar5 = field_68;
+        iVar5 = m_level;
         this_00 = (shared_ptr*)GetWorld(this);
         if (shared_ptr::operator_cast_to_bool(this_00)) {
             this_01 = (World*)shared_ptr<World>::operator->((shared_ptr<World>*)this_00);

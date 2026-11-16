@@ -42,7 +42,7 @@ namespace jag::ui {
         virtual bool HasRecentValueChange() const;
         virtual void NotifyRecentValueChangeHandled();
         virtual uchar GetPreviousValue() const;
-        virtual GetActivePage() const;
+        virtual uchar GetActivePage() const;
         virtual void OnActivePageChanged();
         OnActivePageChanging(unsigned char);
         GetDynamicChildren() const;
@@ -75,7 +75,7 @@ namespace jag::ui {
         undefined4 field_96; // offset 96
         byte field_100;      // offset 100
         char _unknown_101[323];
-        undefined** field_424; // offset 424
+        undefined** m_pValueRepresentation; // offset 424
         char _unknown_432[584];
         byte m_staticPageCount; // offset 1016
         uchar m_currentValue;   // offset 1017

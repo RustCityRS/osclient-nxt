@@ -20,7 +20,7 @@ namespace jag::game {
         virtual GetID() const;
         virtual CombinedLocation* GetTransform() const;
         virtual char UpdateAudio();
-        GetModel() const;
+        shared_ptr GetModel() const;
         CombinedLocation(graphics::RT7Core&, graphics::GraphNode*, shared_ptr<World> const&, bool, bool, bool, bool,
                          shared_ptr<graphics::Model> const&,
                          eastl::vector<BuildCombinedLocationResult_GroupSection, eastl::allocator> const&);

@@ -12,7 +12,7 @@ namespace jag::http {
         class ClientDataProvider;
         class ImageElement;
         class LabelElement;
-        GetCRMRequestState() const;
+        int GetCRMRequestState() const;
         GetActionInfo() const;
         GetImageElements() const;
         GetLabelElements() const;
@@ -34,7 +34,7 @@ namespace jag::http {
         static /* 16 bytes */ m_debugSpamEndpointRequests; // = { 0, 0, 0, 0 }
 
         // data members, from how the methods use this: 312 bytes
-        int field_0; // offset 0
+        int m_cRMRequestState; // offset 0
         char _unknown_4[36];
         undefined8 field_40; // offset 40
         char _unknown_48[120];
@@ -170,7 +170,7 @@ namespace jag::http {
         undefined1* local_40;
         undefined1* local_38;
 
-        field_0 = -1;
+        m_cRMRequestState = -1;
         local_40 = &field_8;
         new (local_40) eastl::string();
         field_40 = 0;

@@ -34,7 +34,7 @@ namespace jag::game {
         new (&field_472) Array<int, eastl::allocator>();
         field_496 = 4294967295;
         new (&field_504) Array<int, eastl::allocator>();
-        new (&field_528) eastl::fixed_vector<int, 8ul, true, eastl::allocator>();
+        new (&m_headIconGraphic) eastl::fixed_vector<int, 8ul, true, eastl::allocator>();
         new (&m_headIconIndex) eastl::fixed_vector<int, 8ul, true, eastl::allocator>();
         field_672 = 4294967295;
         m_icon = 4294967295;
@@ -44,10 +44,10 @@ namespace jag::game {
         field_692 = 1;
         field_696 = 4294967295;
         field_700 = 0;
-        field_704 = 6;
-        field_708 = 6;
-        field_712 = 6;
-        new (&field_720) Array<int, eastl::allocator>();
+        m_firstUniqueOpIndex = 6;
+        m_attackOpIndex = 6;
+        m_examineOpIndex = 6;
+        new (&m_bodyList) Array<int, eastl::allocator>();
         new (&m_headList) Array<int, eastl::allocator>();
         new (&field_768) eastl::vector<math::Vector3T<float>, eastl::allocator>();
         new (&field_800) Array<unsigned short, eastl::allocator>();
@@ -164,7 +164,7 @@ namespace jag::game {
         }
         if (param_2 == 1) {
             bVar1 = param_1->g1();
-            (&field_720, (ulong)bVar1, 0)->set_max_size();
+            (&m_bodyList, (ulong)bVar1, 0)->set_max_size();
             if (bVar1 == 0) {
                 return DataStatus::READY;
             }
@@ -172,7 +172,7 @@ namespace jag::game {
             do {
                 uVar13 = param_1->gSmart2or4s();
                 puVar15 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                    (Array<int, eastl::allocator>*)&field_720, uVar31);
+                    (Array<int, eastl::allocator>*)&m_bodyList, uVar31);
                 *puVar15 = uVar13;
                 uVar31 = uVar31 + 1;
             } while (bVar1 != uVar31);
@@ -279,7 +279,7 @@ namespace jag::game {
                         uVar29 = uVar29 >> 1;
                     } while (bVar34);
                 }
-                puVar18 = &field_528;
+                puVar18 = &m_headIconGraphic;
                 eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::resize(
                     (ulong)puVar18);
                 eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::resize(
@@ -523,7 +523,7 @@ namespace jag::game {
                 break;
             case 121:
                 puVar18 = &field_768;
-                uVar31 = (&field_720)->end();
+                uVar31 = (&m_bodyList)->end();
                 puVar18->resize(uVar31);
                 bVar1 = param_1->g1();
                 if (bVar1 != 0) {
@@ -795,7 +795,7 @@ namespace jag::game {
         uVar8 = 0;
         do {
             iVar7 = (int)uVar8;
-            if (field_708 == 6) {
+            if (m_attackOpIndex == 6) {
                 pbVar2 = (basic_string<char, BucketAllocatorEASTL>*)
                     std::array<eastl::fixed_string<char, 24, true, eastl::allocator>, 6ul>::operator[](
                         (array<eastl::fixed_string<char, 24, true, eastl::allocator>, 6ul>*)this_00, uVar8);
@@ -805,10 +805,10 @@ namespace jag::game {
                 iVar6 = eastl::basic_string<char, BucketAllocatorEASTL>::compare(pbVar2, (char*)*puVar4);
                 if (iVar6 != 0)
                     goto LAB_100503a19;
-                field_708 = iVar7;
+                m_attackOpIndex = iVar7;
             } else {
             LAB_100503a19:
-                if (field_712 == 6) {
+                if (m_examineOpIndex == 6) {
                     pbVar2 = (basic_string<char, BucketAllocatorEASTL>*)
                         std::array<eastl::fixed_string<char, 24, true, eastl::allocator>, 6ul>::operator[](
                             (array<eastl::fixed_string<char, 24, true, eastl::allocator>, 6ul>*)this_00, uVar8);
@@ -817,16 +817,16 @@ namespace jag::game {
                         (array<char const*, 7ul>*)&LocalisedText::EXAMINE, (ulong) * (uint*)(lVar3 + 8));
                     iVar6 = eastl::basic_string<char, BucketAllocatorEASTL>::compare(pbVar2, (char*)*puVar4);
                     if (iVar6 == 0) {
-                        field_712 = iVar7;
+                        m_examineOpIndex = iVar7;
                         goto LAB_1005039d0;
                     }
                 }
-                if (field_704 == 6) {
+                if (m_firstUniqueOpIndex == 6) {
                     std::array<eastl::fixed_string<char, 24, true, eastl::allocator>, 6ul>::operator[](
                         (array<eastl::fixed_string<char, 24, true, eastl::allocator>, 6ul>*)this_00, uVar8);
                     if (eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true,
                                                                                 eastl::allocator>>::empty() == '\0') {
-                        field_704 = iVar7;
+                        m_firstUniqueOpIndex = iVar7;
                     }
                 }
             }
@@ -860,7 +860,7 @@ namespace jag::game {
             }
             local_68->~shared_ptr();
         } else {
-            puVar3 = (undefined*)GetModel(this, 0, param_1, param_2, param_3, &field_720, param_4, param_6);
+            puVar3 = (undefined*)GetModel(this, 0, param_1, param_2, param_3, &m_bodyList, param_4, param_6);
         }
         return puVar3;
     }

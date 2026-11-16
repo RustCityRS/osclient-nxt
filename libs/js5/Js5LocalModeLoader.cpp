@@ -7,7 +7,7 @@
 
 namespace jag {
     // 0x1004491a0: the linker folded this into game::CombinedLocationSection::GetHighlightState(), which has identical code
-    Js5LocalModeLoader::GetIndex() const;
+    Js5Index Js5LocalModeLoader::GetIndex() const;
 
     // 0x1009dfc30, 1248 bytes, base-object constructor, placed by class name and debug map
     // Js5LocalModeLoader::Js5LocalModeLoader(Js5ArchiveSettings const*, Filename const&, bool, bool)
@@ -51,7 +51,7 @@ namespace jag {
         field_0 = param_1;
         local_240 = (Filename*)field_8;
         Filename::Filename(local_240, param_2);
-        pGVar12 = (GeometryBatchInstance*)field_312;
+        pGVar12 = (GeometryBatchInstance*)m_index;
         new (pGVar12) Js5Index();
         this_00 = &field_584;
         new (this_00) eastl::vector<PacketT<Array<unsigned char, eastl::allocator>>, eastl::allocator>();

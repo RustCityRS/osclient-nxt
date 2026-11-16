@@ -59,7 +59,7 @@ namespace jag::oldscape::widgets {
 
         this_00 = (Minimap*)GetPos();
         iVar2 = this_00->GetLevel();
-        piVar1 = (int*)field_88->qw();
+        piVar1 = (int*)m_thumbBounds->qw();
         Value(this, (float)param_1 / (float)(iVar2 - *piVar1) + field_80);
     }
 
@@ -70,7 +70,7 @@ namespace jag::oldscape::widgets {
 
         if (m_thumbVisible != false) {
             uVar1 = GetMaxLineWidth();
-            param_1->FillRect((Rect*)field_88, uVar1);
+            param_1->FillRect((Rect*)m_thumbBounds, uVar1);
         }
     }
 
@@ -108,7 +108,7 @@ namespace jag::oldscape::widgets {
             iVar4 = this_00->GetX();
             iVar5 = this_00->GetPos();
         }
-        new (field_88, iVar4, iVar3, iVar5, iVar2) dash3d::GridRect();
+        new (m_thumbBounds, iVar4, iVar3, iVar5, iVar2) dash3d::GridRect();
     }
 
 } // namespace jag::oldscape::widgets

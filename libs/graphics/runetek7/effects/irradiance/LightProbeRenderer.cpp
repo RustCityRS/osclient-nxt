@@ -78,7 +78,7 @@ namespace jag::graphics {
         field_204 = 30;
         new (&field_208) Array<math::Vector3T<float>, eastl::allocator>();
         new (&field_232) Array<math::Vector3T<float>, eastl::allocator>();
-        field_256 = 0;
+        m_probeEnvMapRes = 0;
         new (&field_272, "Texture2D") render::Texture2D();
         pcVar1 = "TextureCube";
         new (&field_784, "TextureCube") render::TextureCube();
@@ -165,16 +165,16 @@ namespace jag::graphics {
         uVar8 = local_78->data();
         local_31 = (&field_112, uVar6 << 2, 0, uVar8, 5125)->Create();
         local_78->~Array();
-        field_256 = 16;
+        m_probeEnvMapRes = 16;
         new (local_78) render::Texture::Desc();
-        local_78._0_4_ = field_256;
+        local_78._0_4_ = m_probeEnvMapRes;
         local_78._12_4_ = 7;
         local_78._4_4_ = local_78._0_4_;
         bVar2 = (&field_784, (Desc*)local_78)->Create();
         this_02 = (Desc*)local_78;
         this_03 = this_02;
         render::Texture::Desc::Desc(this_02);
-        local_78._4_4_ = field_256;
+        local_78._4_4_ = m_probeEnvMapRes;
         local_78._0_4_ = local_78._4_4_ * 6;
         this_01 = (MapArea*)this_03->Instance();
         pRVar9 = (RenderDeviceCaps*)this_01->GetOrigin();
@@ -464,7 +464,7 @@ namespace jag::graphics {
                 puVar1 = &local_40->field_784;
                 iVar19 = 0;
                 do {
-                    iVar3 = local_40->field_256;
+                    iVar3 = local_40->m_probeEnvMapRes;
                     uVar5 = render::GetCubeMapFace(iVar19);
                     param_2->CopyColourTargetData(puVar1, 0, 0, 0, 0, iVar3 * iVar19, 0, iVar3, iVar3, uVar5);
                     iVar19 = iVar19 + 1;

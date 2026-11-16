@@ -7,14 +7,14 @@ namespace jag::game {
     class HashCashChallenge {
     public:
         ~HashCashChallenge();
-        GetBits() const;
+        uint GetBits() const;
         HashCashChallenge(PacketT<Array<unsigned char, eastl::allocator>>&);
         GetFullyQualifiedHeader() const;
         void Out(PacketT<Array<unsigned char, eastl::allocator>>&) const;
 
         // data members, from how the methods use this: 16 bytes
         uint field_0; // offset 0
-        uint field_4; // offset 4
+        uint m_bits;  // offset 4
         char _unknown_8[8];
     };
 
@@ -25,7 +25,7 @@ namespace jag::game {
     HashCashChallenge::~HashCashChallenge();
 
     // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    HashCashChallenge::GetBits() const;
+    uint HashCashChallenge::GetBits() const;
 
     // 0x10049fb40, 144 bytes, base-object constructor, placed by class name and debug map
     // HashCashChallenge::HashCashChallenge(PacketT<Array<unsigned char, eastl::allocator> >&)
@@ -37,7 +37,7 @@ namespace jag::game {
         bVar1 = param_1->g1();
         field_0 = (uint)bVar1;
         bVar1 = param_1->g1();
-        field_4 = (uint)bVar1;
+        m_bits = (uint)bVar1;
         PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::gStringCP1252ToUTF8<eastl::string>(
             local_40, SUB81(param_1, 0));
         eastl::string::operator=((eastl::string*)&field_8, (basic_string*)local_40);
@@ -70,7 +70,7 @@ namespace jag::game {
         PacketT<Array<unsigned char, eastl::allocator>>::p1<unsigned long>(
             (PacketT<Array<unsigned char, eastl::allocator>>*)param_1, (ulong)field_0);
         PacketT<Array<unsigned char, eastl::allocator>>::p1<unsigned long>(
-            (PacketT<Array<unsigned char, eastl::allocator>>*)param_1, (ulong)field_4);
+            (PacketT<Array<unsigned char, eastl::allocator>>*)param_1, (ulong)m_bits);
         PacketT<Array<unsigned char, eastl::allocator>>::pStringUTF8ToCP1252<
             eastl::basic_string<char, BucketAllocatorEASTL>>((PacketT<Array<unsigned char, eastl::allocator>>*)param_1,
                                                              (basic_string*)&field_8, false);

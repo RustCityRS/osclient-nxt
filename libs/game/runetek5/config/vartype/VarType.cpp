@@ -19,7 +19,7 @@ namespace jag::game {
         new (this) MakeSharedPool<VarType, 5504>();
         field_0 = &PTR__VarType_100f01f28;
         field_56 = (long*)0;
-        field_64 = 0;
+        m_dataType = 0;
         field_72 = VarLifetime::TEMPORARY;
         field_80 = VarTransmitLevel::NEVER;
         field_88 = 0;
@@ -43,7 +43,7 @@ namespace jag::game {
         case 3:
             bVar1 = param_1->g1();
             lVar3 = ScriptVarType::GetByID((uint)bVar1);
-            field_64 = lVar3;
+            m_dataType = lVar3;
             if (lVar3 == 0) {
                 /* WARNING: Subroutine does not return */
                 LogAssert("m_dataType != nullptr",

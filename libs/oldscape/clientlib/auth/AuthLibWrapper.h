@@ -37,9 +37,9 @@ namespace jag::oldscape::auth {
         char _unknown_137[2];
         undefined1 field_139; // offset 139
         char _unknown_140[4];
-        ApplicationContext* field_144; // offset 144
-        undefined8 field_152;          // offset 152
-        undefined8 field_160;          // offset 160
+        ApplicationContext* field_144;       // offset 144
+        undefined8 m_purchaseShopItemStatus; // offset 152
+        undefined8 field_160;                // offset 160
         char _unknown_168[4];
         bool m_ignorePendingTransactionsOnFetchGameToken; // offset 172
     };
@@ -66,7 +66,7 @@ namespace jag::oldscape::auth {
         new (&field_137) Nullable<LocLayer>();
         field_139 = 0;
         field_144 = param_1;
-        field_152 = 0;
+        m_purchaseShopItemStatus = 0;
         field_160 = 0;
         *(undefined8*)((long)&field_160 + 5) = 0;
     }
@@ -93,7 +93,7 @@ namespace jag::oldscape::auth {
     // 0x10015dc40, 16 bytes, inline, placed by class name
     // AuthLibWrapper::GetShopDataStatus()
     undefined4 AuthLibWrapper::GetShopDataStatus() {
-        return *(undefined4*)((long)&field_152 + 4);
+        return *(undefined4*)((long)&m_purchaseShopItemStatus + 4);
     }
 
     // 0x100187030, 16 bytes, inline, placed by class name

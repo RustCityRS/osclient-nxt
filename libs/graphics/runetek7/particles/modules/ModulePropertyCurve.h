@@ -75,8 +75,8 @@ namespace jag::graphics {
         new (this) eastl::bitset<4ul, unsigned char>();
         new (&field_8) eastl::string();
         m_numLoops = 0;
-        new (field_44) callstack::Callstack();
-        new ((field_44 + 4)) eastl::fixed_vector<ModularParticleEmitterTemplate, 1ul, true, eastl::allocator>();
+        new (m_renderPassBits) callstack::Callstack();
+        new ((m_renderPassBits + 4)) eastl::fixed_vector<ModularParticleEmitterTemplate, 1ul, true, eastl::allocator>();
     }
 
     // 0x1007ed090, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
@@ -85,7 +85,7 @@ namespace jag::graphics {
     // 0x1007ed0a0, 48 bytes, base-object destructor, inline, placed by debug map only (low confidence)
     // ModularParticleSystemTemplate::~ModularParticleSystemTemplate()
     void ModularParticleSystemTemplate::~ModularParticleSystemTemplate() {
-        ((field_44 + 4))->~fixed_vector();
+        ((m_renderPassBits + 4))->~fixed_vector();
         (&field_8)->~basic_string();
     }
 

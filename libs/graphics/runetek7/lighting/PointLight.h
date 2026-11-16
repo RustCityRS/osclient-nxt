@@ -59,12 +59,12 @@ namespace jag::graphics {
 
     class ScriptedPointLight {
     public:
-        GetRadius();
-        GetRGB() const;
+        uint GetRadius();
+        uint GetRGB() const;
         GetPositionJitterOffset() const;
-        GetRadius() const;
+        uint GetRadius() const;
         GetPositionJitterData();
-        GetScriptID() const;
+        int GetScriptID() const;
         HasRGBChanged();
         ScriptedPointLight(unsigned int, unsigned int, int);
         float GetIntensityScale() const;
@@ -75,9 +75,9 @@ namespace jag::graphics {
         void UpdateIntensityScale(unsigned int);
 
         // data members, from how the methods use this: 132 bytes
-        uint field_0;        // offset 0
+        uint m_radius;       // offset 0
         uint field_4;        // offset 4
-        uint field_8;        // offset 8
+        uint m_rGB;          // offset 8
         uint m_overrideRGB;  // offset 12
         uint field_16;       // offset 16
         uint field_20;       // offset 20
@@ -89,7 +89,7 @@ namespace jag::graphics {
         uint field_44;       // offset 44
         uint field_48;       // offset 48
         uint field_52;       // offset 52
-        int field_56;        // offset 56
+        int m_scriptID;      // offset 56
         undefined1 field_60; // offset 60
         undefined3 field_61; // offset 61
         uint field_64;       // offset 64
@@ -169,9 +169,9 @@ namespace jag::graphics {
     // 0x100429b20, 128 bytes, base-object constructor, inline, placed by class header (inline)
     // ScriptedPointLight::ScriptedPointLight(unsigned int, unsigned int, int)
     void ScriptedPointLight::ScriptedPointLight(uint param_1, uint param_2, int param_3) {
-        field_0 = param_1;
+        m_radius = param_1;
         field_4 = param_2;
-        field_8 = param_2;
+        m_rGB = param_2;
         m_overrideRGB = param_2;
         field_16 = param_2;
         field_20 = 0;
@@ -183,12 +183,12 @@ namespace jag::graphics {
         field_44 = 0;
         field_48 = 0;
         field_52 = 0;
-        field_56 = param_3;
+        m_scriptID = param_3;
         field_60 = 0;
         field_64 = 0;
         field_68 = 0;
         new (&field_72) PointLightPositionJitterData();
-        if (8320 < field_0) {
+        if (8320 < m_radius) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_radius <= constants::MapConstants::MAX_LIGHT_RADIUS",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
@@ -234,9 +234,9 @@ namespace jag::graphics {
         field_61 = param_1->field_61;
         field_64 = uVar1;
         field_68 = uVar2;
-        uVar13 = param_1->field_0;
+        uVar13 = param_1->m_radius;
         uVar14 = param_1->field_4;
-        uVar15 = param_1->field_8;
+        uVar15 = param_1->m_rGB;
         uVar16 = param_1->m_overrideRGB;
         uVar9 = param_1->field_16;
         uVar10 = param_1->field_20;
@@ -247,12 +247,12 @@ namespace jag::graphics {
         fVar7 = param_1->field_40;
         uVar8 = param_1->field_44;
         uVar1 = param_1->field_52;
-        iVar3 = param_1->field_56;
+        iVar3 = param_1->m_scriptID;
         uVar2 = param_1->field_60;
         uVar4 = param_1->field_61;
         field_48 = param_1->field_48;
         field_52 = uVar1;
-        field_56 = iVar3;
+        m_scriptID = iVar3;
         field_60 = uVar2;
         field_61 = uVar4;
         field_32 = fVar5;
@@ -263,9 +263,9 @@ namespace jag::graphics {
         field_20 = uVar10;
         field_24 = uVar11;
         field_28 = uVar12;
-        field_0 = uVar13;
+        m_radius = uVar13;
         field_4 = uVar14;
-        field_8 = uVar15;
+        m_rGB = uVar15;
         m_overrideRGB = uVar16;
         PointLightPositionJitterData::operator=((PointLightPositionJitterData*)&field_72,
                                                 (PointLightPositionJitterData*)&param_1->field_72);

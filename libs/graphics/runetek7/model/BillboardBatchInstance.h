@@ -17,9 +17,9 @@ namespace jag::graphics {
         virtual void Rotate90(Rotation90, bool);
         GetTransformedTriangle(unsigned int, math::Vector4T<float> (&)[3]);
         GetModel() const;
-        GetVertexAnimation() const;
-        GetMaterial();
-        GetMaterial() const;
+        GeometryBatchInstance GetVertexAnimation() const;
+        RenderMaterial GetMaterial();
+        RenderMaterial GetMaterial() const;
         GetApproxMaterialInfoList() const;
         void IsTransformed() const;
         void SetTransformed(bool);
@@ -72,12 +72,12 @@ namespace jag::graphics {
         undefined** field_0; // offset 0, vtable pointer
         uint field_8;        // offset 8
         char _unknown_12[4];
-        undefined** field_16;    // offset 16
-        Model* field_24;         // offset 24
-        shared_ptr field_32;     // offset 32
-        RenderMaterial field_48; // offset 48
+        undefined** field_16;      // offset 16
+        Model* field_24;           // offset 24
+        shared_ptr field_32;       // offset 32
+        RenderMaterial m_material; // offset 48
         char _unknown_592[64];
-        GeometryBatchInstance field_656; // offset 656
+        GeometryBatchInstance m_vertexAnimation; // offset 656
     };
 
     // 0x100817f10, 32 bytes, inline, placed by class name and debug map
@@ -101,7 +101,7 @@ namespace jag::graphics {
     // 0x1008188f0, 32 bytes, inline, placed by class name and debug map
     // BillboardBatchInstance::ClearAnimationState()
     void BillboardBatchInstance::ClearAnimationState() {
-        field_656->ClearAnimationStateProvider();
+        m_vertexAnimation->ClearAnimationStateProvider();
     }
 
     // 0x100865a00, 16 bytes, inline, placed by class name

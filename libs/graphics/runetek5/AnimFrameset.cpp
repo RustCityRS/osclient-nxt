@@ -24,7 +24,7 @@ namespace jag::graphics {
                                     Js5ArchiveSettings* param_4) {
         new (this) MakeSharedPool<AnimFrameset, 256>();
         field_0 = 0;
-        field_8 = 0;
+        m_loaded = 0;
         new (&field_16) Array<shared_ptr<AnimationFrameRT5>, eastl::allocator>();
         field_40 = param_1;
         field_48 = param_2;
@@ -92,7 +92,7 @@ namespace jag::graphics {
 
         uVar9 = FrameTime::GetCurrentTimeMS();
         field_0 = uVar9;
-        if (field_8 != '\0') {
+        if (m_loaded != '\0') {
             return 1;
         }
         local_38 = this;
@@ -306,7 +306,7 @@ namespace jag::graphics {
         }
         eastl::vector<unsigned int, BucketAllocatorEASTL>::set_capacity(local_40, 0);
         local_70->clear();
-        local_38->field_8 = 1;
+        local_38->m_loaded = 1;
         local_c0->~hash_map();
         uVar16 = (ulong)local_64;
     LAB_100978be0:

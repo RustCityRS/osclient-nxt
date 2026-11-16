@@ -16,7 +16,7 @@ namespace jag::game {
     ChangeLocationRequest::GetLevel() const;
 
     // 0x100066b70: the linker folded this into oldscape::widgets::Widget::GetTextColour() const, which has identical code
-    ChangeLocationRequest::GetServerGridZ() const;
+    uint ChangeLocationRequest::GetServerGridZ() const;
 
     // 0x1000b7a70: the linker folded this into oldscape::minimenu::MinimenuEntry::GetObjType() const, which has identical code
     ChangeLocationRequest::GetSourceServerCycle() const;
@@ -31,7 +31,7 @@ namespace jag::game {
     ChangeLocationRequest::GetSeqDelay() const;
 
     // 0x10016b4a0: the linker folded this into oldscape::rs2lib::worldmap::WorldmapAreaMetadata::GetAdvisedZoom() const, which has identical code
-    ChangeLocationRequest::GetLocationID() const;
+    uint ChangeLocationRequest::GetLocationID() const;
 
     // 0x1002f0710: the linker folded this into oldscape::dash3d::ModelRSevenCommon::IsDynamic() const, which has identical code
     ChangeLocationRequest::OverrideTransform() const;
@@ -42,12 +42,12 @@ namespace jag::game {
         CoordGrid local_20;
 
         new (&local_20) game::CoordGrid();
-        field_16 = local_20.field_8;
-        field_8 = local_20._0_8_;
-        field_20[1] = 0;
-        field_76 = 4294967295;
+        m_serverGridZ = local_20.field_8;
+        m_level = local_20._0_8_;
+        m_locData[1] = 0;
+        m_locationID = 4294967295;
         shared_ptr<LocTypeCustomisation>::reset();
-        field_96 = 4294967295;
+        m_seqID = 4294967295;
     }
 
     // 0x100497f80, 144 bytes, placed by class name and debug map
@@ -63,7 +63,7 @@ namespace jag::game {
                       23, (char*)0);
         }
         if (field_104 - 2 < 3) {
-            if (field_76 == -1) {
+            if (m_locationID == 4294967295) {
                 uVar1 = 0;
                 param_1->DeleteLocation(this, 0);
             } else {

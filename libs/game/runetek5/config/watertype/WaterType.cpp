@@ -7,16 +7,16 @@
 
 namespace jag::game {
     // 0x1003c3e20: the linker folded this into MapElementType::GetHAlign() const, which has identical code
-    WaterType::GetEmissiveMapMaterialID() const;
+    uint WaterType::GetEmissiveMapMaterialID() const;
 
     // 0x1003efcf0: the linker folded this into ObjType::GetName() const, which has identical code
-    WaterType::GetExtinctionRGBDepthMetres() const;
+    ColourHSL WaterType::GetExtinctionRGBDepthMetres() const;
 
     // 0x1003f65a0: the linker folded this into EntityRoute::GetStalledTickCount() const, which has identical code
-    WaterType::GetFoamMaterialID() const;
+    uint WaterType::GetFoamMaterialID() const;
 
     // 0x100429b10: the linker folded this into StaticPointLight::GetRGB() const, which has identical code
-    WaterType::GetDepthFoam() const;
+    uint WaterType::GetDepthFoam() const;
 
     // 0x1004ab8a0: the linker folded this into EnvironmentOverride::GetVolumetricOverrides() const, which has identical code
     WaterType::GetEmissiveUVScale() const;
@@ -35,9 +35,9 @@ namespace jag::game {
         field_0 = &PTR__WaterType_100f01c78;
         field_56 = false;
         m_flowNoise = 1048576000;
-        field_64 = 32;
-        field_68 = 4294967295;
-        field_72 = 1.0;
+        m_depthFoam = 32;
+        m_foamMaterialID = 4294967295;
+        m_foamMaterialScale = 1.0;
         field_76 = 18446744073709551615;
         field_84 = 4294967295;
         field_88 = 4575657222473777152;
@@ -57,23 +57,23 @@ namespace jag::game {
         m_emissiveMapRefractionDepth = 0;
         m_emissiveUVMode = 1;
         m_emissiveFlowSpeed = 0;
-        field_384 = 0;
+        m_emissiveFlowRotationDegrees = 0.0;
         m_emissiveBlend = 0;
         m_specularShininess = 0.5;
         m_specularFactor = 800;
         m_fresnelBias = 0;
         m_reflectionStrength = 1.0;
-        new (field_408, 45.0, 75.0, 300.0) math::ColourHSL();
-        *(undefined8*)(field_408 + 12) = 4776067407470763519;
+        new (m_extinctionRGBDepthMetres, 45.0, 75.0, 300.0) math::ColourHSL();
+        *(undefined8*)(m_extinctionRGBDepthMetres + 12) = 4776067407470763519;
         m_causticsScale = 1084227584;
         m_causticsRefractionScale = 1043878380;
         m_causticsDepthFadeCutoff = 1159069696;
         m_causticsDepthFadeScale = 1077936128;
-        field_444 = 1120403456;
+        m_causticsEdgeFadeStart = 100.0;
         m_causticsEdgeFadeEnd = 1128792064;
         m_causticsOverWaterFadeStart = 1143930880;
         m_causticsOverWaterFadeEnd = 1158660096;
-        field_460 = 1365822685;
+        m_baseRGBA = 1365822685;
         field_464 = 4294967295;
         field_468 = 4294967295;
         field_472 = 0;
@@ -395,7 +395,7 @@ namespace jag::game {
 
         if (param_3 == 12) {
             uVar1 = param_1->g4();
-            field_460 = uVar1;
+            m_baseRGBA = uVar1;
         }
         return param_3 == 12;
     }
@@ -408,13 +408,13 @@ namespace jag::game {
 
         if (param_3 == 14) {
             uVar1 = param_1->g2();
-            field_64 = (uint)uVar1;
+            m_depthFoam = (uint)uVar1;
         } else {
             if (param_3 != 9) {
                 return 0;
             }
             uVar1 = param_1->g2();
-            field_68 = (uint)uVar1;
+            m_foamMaterialID = (uint)uVar1;
         }
         return CONCAT71((uint7)(byte)(uVar1 >> 8), 1);
     }
@@ -502,7 +502,7 @@ namespace jag::game {
             break;
         case 10:
             uVar1 = param_1->g2();
-            field_72 = (float)uVar1 * 0.00390625;
+            m_foamMaterialScale = (float)uVar1 * 0.00390625;
             goto LAB_1004c70f2;
         case 32:
             uVar1 = param_1->g2();
@@ -617,7 +617,7 @@ namespace jag::game {
         undefined4 extraout_XMM0_Da_01;
         undefined4 extraout_XMM0_Da_02;
         undefined4 extraout_XMM0_Da_03;
-        undefined4 extraout_XMM0_Da_04;
+        float extraout_XMM0_Da_04;
         undefined4 extraout_XMM0_Da_05;
 
         uVar4 = 0;
@@ -660,7 +660,7 @@ namespace jag::game {
             break;
         case 95:
             param_1->gFloat();
-            field_384 = extraout_XMM0_Da_04;
+            m_emissiveFlowRotationDegrees = extraout_XMM0_Da_04;
             break;
         case 96:
             uVar1 = param_1->g1();
@@ -689,17 +689,17 @@ namespace jag::game {
             m_extinctionVisibilityMetres = extraout_XMM0_Da_00;
         } else if (param_3 == 98) {
             uVar1 = param_1->g4();
-            *(undefined4*)(field_408 + 12) = uVar1;
+            *(undefined4*)(m_extinctionRGBDepthMetres + 12) = uVar1;
         } else {
             if (param_3 != 97) {
                 return 0;
             }
             uVar1 = param_1->gFloat();
-            *(undefined4*)field_408 = uVar1;
+            *(undefined4*)m_extinctionRGBDepthMetres = uVar1;
             uVar1 = param_1->gFloat();
-            *(undefined4*)(field_408 + 4) = uVar1;
+            *(undefined4*)(m_extinctionRGBDepthMetres + 4) = uVar1;
             param_1->gFloat();
-            *(undefined4*)(field_408 + 8) = extraout_XMM0_Da;
+            *(undefined4*)(m_extinctionRGBDepthMetres + 8) = extraout_XMM0_Da;
         }
         return 1;
     }
@@ -713,7 +713,7 @@ namespace jag::game {
         undefined4 extraout_XMM0_Da_00;
         undefined4 extraout_XMM0_Da_01;
         undefined4 extraout_XMM0_Da_02;
-        undefined4 extraout_XMM0_Da_03;
+        float extraout_XMM0_Da_03;
         undefined4 extraout_XMM0_Da_04;
         undefined4 extraout_XMM0_Da_05;
         undefined4 extraout_XMM0_Da_06;
@@ -737,7 +737,7 @@ namespace jag::game {
             break;
         case 104:
             param_1->gFloat();
-            field_444 = extraout_XMM0_Da_03;
+            m_causticsEdgeFadeStart = extraout_XMM0_Da_03;
             break;
         case 105:
             param_1->gFloat();
@@ -788,8 +788,8 @@ namespace jag::game {
         int iVar1;
         int iVar2;
         int iVar3;
-        undefined1 auVar4[16];
-        undefined1 auVar5[12];
+        undefined1 auVar4[12];
+        undefined1 auVar5[16];
         LocationData local_18;
 
         switch (param_2) {
@@ -972,19 +972,19 @@ namespace jag::game {
             iVar1 = 2;
             goto LAB_1004c7775;
         default:
-            auVar5 = WaterNormalParamsTarget::Invalid();
+            auVar4 = WaterNormalParamsTarget::Invalid();
             goto LAB_1004c777a;
         }
         iVar1 = 0;
     LAB_1004c7775:
         new (&local_18) oldscape::rs2lib::worldmap::LocationData(iVar3, iVar2, iVar1);
-        auVar5._8_4_ = local_18.field_8;
-        auVar5._0_4_ = local_18.field_0;
-        auVar5._4_4_ = local_18.field_4;
+        auVar4._8_4_ = local_18.field_8;
+        auVar4._0_4_ = local_18.field_0;
+        auVar4._4_4_ = local_18.field_4;
     LAB_1004c777a:
-        auVar4._12_4_ = 0;
-        auVar4._0_12_ = auVar5;
-        return auVar4;
+        auVar5._12_4_ = 0;
+        auVar5._0_12_ = auVar4;
+        return auVar5;
     }
 
     // 0x1004c7ab0, 48 bytes, placed by class name

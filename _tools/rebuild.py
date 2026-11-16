@@ -1229,6 +1229,29 @@ def decimal_fields(text):
     return FIELD_HEX.sub(lambda m: f'field_{int(m.group(1), 16)}', text)
 
 
+# getters mapped to the member they return (accessor_map.py), for return types the decompile can't give
+accessor_field = {}
+ACCESSORS = os.path.join(os.path.dirname(os.path.abspath(STABS)), 'accessor_names.tsv')
+if os.path.exists(ACCESSORS):
+    for line in open(ACCESSORS, encoding='utf8'):
+        parts = line.rstrip('\n').split('\t')
+        if len(parts) >= 6:
+            accessor_field[(parts[0], parts[5])] = int(parts[1])
+
+
+def accessor_type(f):
+    """The type of the member a getter returns."""
+    if not f['sig'] or not f['scope'] or not base(f['leaf']).startswith(('Get', 'Is', 'Has')):
+        return None
+    key = class_key(f['scope'])
+    off = accessor_field.get((key, base(f['leaf'])))
+    for o, length, typ, name in layouts.get(key, {}).get('fields', []) if off is not None else []:
+        if o == off:
+            t = re.sub(r'\s+\*', '*', re.sub(r'\[\d+\]$', '', typ).strip())
+            return None if t.startswith('undefined') else t
+    return None
+
+
 def layout_lines(key):
     lay = layouts.get(key)
     if not lay or (not lay['fields'] and not lay['size']):
@@ -1261,7 +1284,7 @@ def decl_name(f):
     if base(leaf) in (owner, '~' + str(owner)) or leaf.startswith('operator '):
         ret = ''
     else:
-        ret = ret or ghidra_ret(f) or ''
+        ret = ret or ghidra_ret(f) or accessor_type(f) or ''
     return (ret + ' ' if ret else '') + leaf + params + (' ' + quals if quals else '')
 
 
@@ -1600,8 +1623,9 @@ def tidy_ghidra(code, f):
 def func_text(f):
     sig = f['dem']
     if f.get('alias_of'):
+        ret = accessor_type(f)
         return (f"// {f['addr']:#x}: the linker folded this into {f['alias_of']['dem']}, which has identical code\n"
-                f"{sig};\n")
+                f"{ret + ' ' if ret else ''}{sig};\n")
     v = variant(f)
     head = (f"// {f['addr']:#x}, {f['size']} bytes{', ' + VARIANTS[v] if v else ''}{', inline' if f['weak'] else ''}, "
             f"placed by {PLACED.get(f['how'], f['how'])}")

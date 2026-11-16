@@ -8,7 +8,7 @@ namespace jag::render {
     class ImmediateRenderContext {
     public:
         GetDesc() const;
-        IsInsideBeginEnd() const;
+        bool IsInsideBeginEnd() const;
         GetThreadID() const;
         GetStats() const;
         GetGLCoreProfileVerMinor() const;
@@ -124,7 +124,7 @@ namespace jag::render {
         void unlock();
 
         // data members, from how the methods use this: 3168 bytes
-        bool field_0; // offset 0
+        bool m_insideBeginEnd; // offset 0
         char _unknown_1[11];
         undefined1 field_12; // offset 12
         undefined1 field_13; // offset 13
@@ -136,7 +136,7 @@ namespace jag::render {
         char _unknown_41[95];
         ShaderProgram* field_136; // offset 136
         char _unknown_144[8];
-        undefined8 field_152;               // offset 152
+        undefined8 m_threadID;              // offset 152
         int field_160;                      // offset 160
         int m_gLCoreProfileVerMajor;        // offset 164
         undefined4 m_gLCoreProfileVerMinor; // offset 168
@@ -198,7 +198,7 @@ namespace jag::render {
     // 0x100c162e0, 32 bytes, inline, placed by class name and debug map
     // ImmediateRenderContext::IsContextThread() const
     bool ImmediateRenderContext::IsContextThread() {
-        return this_thread::GetThreadID() == field_152;
+        return this_thread::GetThreadID() == m_threadID;
     }
 
     // 0x100c16bb0, 48 bytes, inline, placed by class name

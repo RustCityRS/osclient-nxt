@@ -203,7 +203,7 @@ namespace jag::game {
                     local_3678.SwapVertexDataBuffer((vector*)&pAVar4[2].field_24);
                     local_3678.SwapVertexDataBufferPos((vector*)&pAVar4[3].field_20);
                     fVar11 = (float)local_3678.GetGridResolution();
-                    pAVar4[4].field_16 = fVar11;
+                    pAVar4[4].m_maximum = fVar11;
                     fVar11 = (float)local_3678.GetGridSize();
                     pAVar4[4].field_20 = fVar11;
                     pfVar20 = (fixed_hash_map*)local_3678.GetRenderChunks();

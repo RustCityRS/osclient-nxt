@@ -17,7 +17,7 @@ namespace jag::game {
         uint uVar2;
 
         iVar1 = param_1->field_4;
-        field_0 = param_1->field_0;
+        m_cycle = param_1->m_cycle;
         field_4 = iVar1;
         eastl::fixed_map<int, ServerSyncingCycle::SyncUserEntry, 32ul, true, eastl::less<int>,
                          eastl::allocator>::operator=((fixed_map<int, ServerSyncingCycle::SyncUserEntry, 32ul, true,
@@ -36,7 +36,7 @@ namespace jag::game {
         uint uVar2;
 
         iVar1 = param_1->field_4;
-        field_0 = param_1->field_0;
+        m_cycle = param_1->m_cycle;
         field_4 = iVar1;
         new (&field_8, (fixed_map*)&param_1->field_8)
             eastl::fixed_map<int, ServerSyncingCycle::SyncUserEntry, 32ul, true, eastl::less<int>, eastl::allocator>();

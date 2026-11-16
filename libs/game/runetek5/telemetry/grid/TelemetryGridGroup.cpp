@@ -17,12 +17,12 @@ namespace jag::game {
     };
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    TelemetryGridGroup::GetId() const;
+    int TelemetryGridGroup::GetId() const;
 
     // 0x1003b43c0, 192 bytes, base-object constructor, placed by class name and debug map
     // TelemetryGridGroup::TelemetryGridGroup(int)
     void TelemetryGridGroup::TelemetryGridGroup(int param_1) {
-        field_0 = param_1;
+        m_id = param_1;
         new (&field_8) eastl::vector<int, eastl::allocator>();
         new (&field_40) eastl::vector<int, eastl::allocator>();
         new (&field_72) eastl::vector<int, eastl::allocator>();
@@ -141,7 +141,7 @@ namespace jag::game {
                 logger::Logger::Log(uVar4, 0, 2,
                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/"
                                     "runetek5/telemetry/grid/TelemetryGridGroup.cpp",
-                                    52, "Already have column with id %d in group %d", local_34, field_0);
+                                    52, "Already have column with id %d in group %d", local_34, m_id);
                 param_2 = -1;
             }
         }

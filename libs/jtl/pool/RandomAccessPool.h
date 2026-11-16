@@ -464,7 +464,7 @@ namespace jag::oldscape {
     // ClientEntityID::ClientEntityID()
     void ClientEntityID::ClientEntityID() {
         field_0 = 0;
-        field_4 = -1;
+        m_slotID = -1;
     }
 
 } // namespace jag::oldscape

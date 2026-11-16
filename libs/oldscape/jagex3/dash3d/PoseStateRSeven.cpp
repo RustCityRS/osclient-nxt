@@ -7,7 +7,7 @@
 
 namespace jag::oldscape::dash3d {
     // 0x100024170: the linker folded this into option::IScriptOption::GetId() const, which has identical code
-    PoseStateRSeven::GetType() const;
+    uint PoseStateRSeven::GetType() const;
 
     // 0x10014d2f0: the linker folded this into ApplicationContext::GetScreenRatio(), which has identical code
     PoseStateRSeven::GetLabelTransparencyDelta(unsigned long) const;

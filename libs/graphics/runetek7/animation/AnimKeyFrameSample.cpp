@@ -16,7 +16,7 @@ namespace jag::graphics {
         new (this) Array<JointPose, eastl::allocator>();
         new (&field_24) Array<float, eastl::allocator>();
         new (&field_48) Array<float, eastl::allocator>();
-        field_72 = 0;
+        m_hasSampleData = 0;
     }
 
     // 0x100983080, 16 bytes, complete-object constructor, placed by class name and debug map
@@ -68,13 +68,13 @@ namespace jag::graphics {
         WrapArray<unsigned char const>::WrapArray<Array<unsigned char, eastl::allocator>>(local_60, (Array*)&field_24);
         WrapArray<unsigned char const>::WrapArray<Array<unsigned char, eastl::allocator>>(local_50, (Array*)&field_48);
         local_34._0_4_->GetLabelDeltasAndBillboardTransforms(param_1, local_60, local_50, param_4);
-        field_72 = 1;
+        m_hasSampleData = 1;
     }
 
     // 0x100983b80, 16 bytes, placed by class name
     // AnimKeyFrameSample::Reset()
     void AnimKeyFrameSample::Reset() {
-        field_72 = 0;
+        m_hasSampleData = 0;
     }
 
 } // namespace jag::graphics

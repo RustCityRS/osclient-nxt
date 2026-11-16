@@ -21,7 +21,7 @@ namespace jag::oldscape::widgets {
         new (this) Widget();
         field_0 = &PTR_destruct<highlight::NpcUID*> _100ef2828;
         field_80 = param_1;
-        field_88 = 4287137928;
+        m_highlightColour = 4287137928;
     }
 
     // 0x100066740, 16 bytes, complete-object constructor, placed by class name and debug map
@@ -88,7 +88,7 @@ namespace jag::oldscape::widgets {
             iVar4 = (int)local_48 + iVar2;
             local_68.~basic_string();
             new (&local_68) dash3d::GridRect(iVar4, local_34 - (int)local_70, iVar3 - iVar2, local_78);
-            param_1->FillRect((Rect*)&local_68, this_00->field_88);
+            param_1->FillRect((Rect*)&local_68, this_00->m_highlightColour);
             eastl::string::substr((ulong)&local_68, (ulong)local_a0);
             param_1->DrawString((basic_string*)&local_68, iVar4, local_34, *(int*)&this_00->field_92);
             local_68.~basic_string();

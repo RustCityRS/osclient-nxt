@@ -1450,7 +1450,7 @@ namespace jag::oldscape {
     // 0x1001bf800, 16 bytes, placed by neighbouring functions
     // OSRenderCore_RenderThread_UI::SetScaledUIQuality(ScaledUIQuality)
     void OSRenderCore_RenderThread_UI::SetScaledUIQuality(int param_2) {
-        field_1578928 = param_2;
+        m_scaledUIQuality = param_2;
     }
 
     // 0x1001bf810, 464 bytes, placed by neighbouring functions

@@ -19,7 +19,7 @@ namespace jag::hal::audio {
         virtual void SetRate(unsigned int);
         virtual long GetData(unsigned int);
         virtual int GetReadOffsetSamples(unsigned int) const;
-        virtual GetMaximumSamples() const;
+        virtual uint GetMaximumSamples() const;
         Format() const;
         int TotalSize() const;
         AudioBuffer(int, int, int, AudioFormat const*, bool);
@@ -58,7 +58,7 @@ namespace jag::hal::audio {
         uint field_204;       // offset 204
         undefined1 field_208; // offset 208
         char _unknown_209[3];
-        uint field_212; // offset 212
+        uint m_maximumSamples; // offset 212
         char _unknown_216[4];
     };
 

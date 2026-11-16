@@ -7,10 +7,10 @@
 
 namespace jag::graphics {
     // 0x1000e5d50: the linker folded this into oldscape::rs2lib::CoordZoneSource::GetRotation() const, which has identical code
-    TextProperties::GetColour() const;
+    uint TextProperties::GetColour() const;
 
     // 0x1001acac0: the linker folded this into Nullable<Array<shared_ptr<oldscape::rs2lib::IfType>, eastl::allocator> >::IsNull(), which has identical code
-    TextProperties::GetFlags() const;
+    byte TextProperties::GetFlags() const;
 
     // 0x10062dc60: the linker folded this into TerrainOverlayShape::GetID() const, which has identical code
     TextProperties::GetHorizontalAlignment() const;

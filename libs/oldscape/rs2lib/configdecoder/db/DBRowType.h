@@ -27,7 +27,7 @@ namespace jag::oldscape::configdecoder {
         ulong field_8;   // offset 8
         Array* field_16; // offset 16
         char _unknown_24[24];
-        undefined4 field_48; // offset 48
+        undefined4 m_dbTableId; // offset 48
         char _unknown_52[4];
     };
 

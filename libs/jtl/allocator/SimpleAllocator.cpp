@@ -29,7 +29,7 @@ namespace jag {
     SimpleAllocator::GetSize() const;
 
     // 0x100023f30: the linker folded this into oldscape::option::IOption::GetName() const, which has identical code
-    SimpleAllocator::GetSlotSize() const;
+    ulong SimpleAllocator::GetSlotSize() const;
 
     // 0x1000fcbb0: the linker folded this into oldscape::ClientObj::GetHighlight(), which has identical code
     SimpleAllocator::begin() const;
@@ -180,7 +180,7 @@ namespace jag {
         }
         uVar1 = field_48;
         uVar2 = field_8;
-        uVar3 = field_16;
+        uVar3 = m_slotSize;
         uVar4 = field_24;
         uVar6 = (&field_80)->size();
         uVar7 = GetOverflowCount(this);
@@ -464,7 +464,7 @@ namespace jag {
         field_56 = 0;
         field_32 = 0;
         field_40 = 0;
-        field_16 = 0;
+        m_slotSize = 0;
         field_24 = 0;
         field_0 = 0;
         field_8 = 0;
@@ -502,7 +502,7 @@ namespace jag {
 
         field_0 = 0;
         field_8 = param_1;
-        field_16 = param_2;
+        m_slotSize = param_2;
         this_02 = &field_64;
         field_24 = 0;
         field_32 = 0;
@@ -525,7 +525,7 @@ namespace jag {
             (unique_ptr<std::mutex, std::default_delete<std::mutex>>*)&field_184);
         field_192 = param_3;
         field_200 = param_4;
-        uVar7 = field_16 * param_1;
+        uVar7 = m_slotSize * param_1;
         if (param_4 == 0) {
             puVar1 = operator_new__(uVar7);
             std::unique_ptr<unsigned char[], std::default_delete<unsigned char[]>>::reset<unsigned char*>(
@@ -677,7 +677,7 @@ namespace jag {
             uVar1 = plVar7[1];
             field_0 = *plVar7;
             field_8 = uVar1;
-            field_16 = plVar7[2];
+            m_slotSize = plVar7[2];
             puVar8 = (undefined8*)this_00->back();
             puVar9 = (undefined8*)eastl::vector<SimpleAllocator::FreeListEntry, eastl::allocator>::operator[](
                 (vector<SimpleAllocator::FreeListEntry, eastl::allocator>*)this_00, 0);
@@ -690,7 +690,7 @@ namespace jag {
             puVar9[3] = uVar4;
             this_00->pop_back();
             if ((int)field_0 != 2) {
-                uVar1 = field_16;
+                uVar1 = m_slotSize;
                 puVar10 = (uint*)std::unique_ptr<unsigned int[], std::default_delete<unsigned int[]>>::operator[](
                     (unique_ptr<unsigned int[], std::default_delete<unsigned int[]>>*)(in_RSI + 8), uVar1 >> 5);
                 *puVar10 = *puVar10 | 1 << ((byte)uVar1 & 31);
@@ -736,7 +736,7 @@ namespace jag {
                         local_58.field_8._4_4_ = uStack_74;
                         if (CONCAT44(uStack_74, uStack_78) != 0) {
                         LAB_100cbd691:
-                            ((SimpleAllocator*)this)->field_16 = local_58.field_16;
+                            ((SimpleAllocator*)this)->m_slotSize = local_58.field_16;
                             ((SimpleAllocator*)this)->field_0 = CONCAT44(local_58._4_4_, local_58.field_0);
                             ((SimpleAllocator*)this)->field_8 =
                                 CONCAT44(local_58.field_8._4_4_, (undefined4)local_58.field_8);
@@ -784,7 +784,7 @@ namespace jag {
             LogAssert("newSlotAddress",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/"
                       "SimpleAllocator.cpp",
-                      308, "Cannot allocate %i bytes from heap for overflow", in_RSI->field_16);
+                      308, "Cannot allocate %i bytes from heap for overflow", in_RSI->m_slotSize);
         }
         lVar2 = in_RSI->field_0;
         lVar4 = (&in_RSI->field_112)->size();
@@ -793,7 +793,7 @@ namespace jag {
         in_RSI->field_24 = *puVar5;
         *(undefined4*)&field_0 = 2;
         field_8 = local_38;
-        field_16 = lVar3 + uVar1;
+        m_slotSize = lVar3 + uVar1;
         return this;
     }
 
@@ -839,7 +839,7 @@ namespace jag {
             AddToFreeList(this, param_1, (int*)0);
             MarkUnAllocated(this, param_1->field_16);
             if ((param_1->field_0 == 1) && ((void*)param_1->field_8 != (void*)0)) {
-                _memset((void*)param_1->field_8, 221, field_16);
+                _memset((void*)param_1->field_8, 221, m_slotSize);
             }
         }
     }
@@ -858,7 +858,7 @@ namespace jag {
                 LogAssert("m_thread == std::this_thread::get_id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/"
                           "SimpleAllocator.cpp",
-                          583, "Unsafe allocator: %p, slotSize:%zu accessed from multiple threads!", this, field_16);
+                          583, "Unsafe allocator: %p, slotSize:%zu accessed from multiple threads!", this, m_slotSize);
             }
         }
     }
@@ -906,10 +906,10 @@ namespace jag {
         field_32 = field_32 + 1;
         if ((field_200 == 0) || ((field_192 & 16) != 0)) {
             pHVar1 = (HeapInterface*)HeapInterface::Instance();
-            pHVar1->Alloc(field_16);
+            pHVar1->Alloc(m_slotSize);
         } else {
             pHVar1 = (HeapInterface*)HeapInterface::Instance();
-            pHVar1->AlignedAlloc(field_16, field_200);
+            pHVar1->AlignedAlloc(m_slotSize, field_200);
         }
     }
 
@@ -962,7 +962,7 @@ namespace jag {
         ulong in_RDX;
 
         new (this) AllocatedBlock();
-        field_16 = in_RDX;
+        m_slotSize = in_RDX;
         if (in_RDX < *(ulong*)(param_1 + 8)) {
             *(undefined4*)&field_0 = 1;
             if (IsAllocated((SimpleAllocator*)param_1, (AllocatedBlock*)this) != '\0') {

@@ -24,7 +24,7 @@ namespace jag::game {
         uint GetVisibleCombatLevel() const;
         GetWalkSmoothing() const;
         byte IsMultiNPC() const;
-        HasBackgroundMovementSound() const;
+        bool HasBackgroundMovementSound() const;
         uint GetBackgroundSoundReady() const;
         uint GetBackgroundSoundRun() const;
         uint GetBackgroundSoundCrawl() const;
@@ -43,9 +43,9 @@ namespace jag::game {
         CastsShadows() const;
         bool HasHighlightOverride() const;
         uint GetHighlightOverride() const;
-        GetAttackOpIndex() const;
-        GetFirstUniqueOpIndex() const;
-        GetExamineOpIndex() const;
+        int GetAttackOpIndex() const;
+        int GetFirstUniqueOpIndex() const;
+        int GetExamineOpIndex() const;
         uint GetReprioritiseAttackOp() const;
         bool IsExamineOnly() const;
         NPCType(BaseTemplateConfigTypeList<NPCType>*, int);
@@ -71,7 +71,7 @@ namespace jag::game {
         char _unknown_56[440];
         uint field_496; // offset 496
         char _unknown_500[28];
-        undefined1 field_528; // offset 528
+        undefined1 m_headIconGraphic; // offset 528
         char _unknown_529[71];
         undefined1 m_headIconIndex; // offset 600
         char _unknown_601[71];
@@ -82,13 +82,13 @@ namespace jag::game {
         uint m_visibleCombatLevel;   // offset 688
         undefined1 field_692;        // offset 692
         char _unknown_693[3];
-        uint field_696; // offset 696
-        uint field_700; // offset 700
-        int field_704;  // offset 704
-        int field_708;  // offset 708
-        int field_712;  // offset 712
+        uint field_696;           // offset 696
+        uint field_700;           // offset 700
+        int m_firstUniqueOpIndex; // offset 704
+        int m_attackOpIndex;      // offset 708
+        int m_examineOpIndex;     // offset 712
         char _unknown_716[4];
-        undefined1 field_720; // offset 720
+        undefined1 m_bodyList; // offset 720
         char _unknown_721[23];
         undefined1 m_headList; // offset 744
         char _unknown_745[223];
@@ -363,8 +363,8 @@ namespace jag::game {
     // 0x10041b220, 48 bytes, inline, placed by class name
     // NPCType::IsExamineOnly() const
     bool NPCType::IsExamineOnly() {
-        if ((field_708 == 6) && (field_704 == 6)) {
-            return field_712 != 6;
+        if ((m_attackOpIndex == 6) && (m_firstUniqueOpIndex == 6)) {
+            return m_examineOpIndex != 6;
         }
         return false;
     }
@@ -418,9 +418,9 @@ namespace jag::game {
         (&field_800)->~Array();
         (&field_768)->~vector();
         (&m_headList)->~Array();
-        (&field_720)->~Array();
+        (&m_bodyList)->~Array();
         (&m_headIconIndex)->~fixed_vector();
-        (&field_528)->~fixed_vector();
+        (&m_headIconGraphic)->~fixed_vector();
         (&field_504)->~Array();
         (&field_472)->~Array();
         (&field_440)->~basic_string();

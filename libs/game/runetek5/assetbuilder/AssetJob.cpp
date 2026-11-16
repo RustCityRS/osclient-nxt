@@ -13,7 +13,7 @@ namespace jag::game {
     AssetJob::nextAssetJobID;
 
     // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    AssetJob::GetJobID() const;
+    int AssetJob::GetJobID() const;
 
     // 0x10002d850: the linker folded this into oldscape::option::Option<int>::GetDefaultValue() const, which has identical code
     AssetJob::GetFirstResult() const;
@@ -22,7 +22,7 @@ namespace jag::game {
     AssetJob::GetResultDataDecoded() const;
 
     // 0x100066b70: the linker folded this into oldscape::widgets::Widget::GetTextColour() const, which has identical code
-    AssetJob::GetPriority() const;
+    int AssetJob::GetPriority() const;
 
     // 0x1001117e0: the linker folded this into oldscape::jagex3::Js5::GetIndexCrc() const, which has identical code
     AssetJob::GetStatus() const;
@@ -41,24 +41,24 @@ namespace jag::game {
 
         iVar1 = nextAssetJobID;
         iVar2 = nextAssetJobID + 1;
-        field_8 = nextAssetJobID;
+        m_jobID = nextAssetJobID;
         nextAssetJobID = iVar2;
         if (65534 < iVar1) {
             nextAssetJobID = 0;
         }
-        field_20 = 1;
+        m_status = 1;
     }
 
     // 0x10065a570, 16 bytes, placed by class name and debug map
     // AssetJob::AwaitWorkerReply()
     void AssetJob::AwaitWorkerReply() {
-        field_20 = 3;
+        m_status = 3;
     }
 
     // 0x10065a620, 16 bytes, placed by class name and debug map
     // AssetJob::AwaitWorkerService()
     void AssetJob::AwaitWorkerService() {
-        field_20 = 4;
+        m_status = 4;
     }
 
     // 0x10065a630, 48 bytes, placed by class name and debug map
@@ -66,23 +66,23 @@ namespace jag::game {
     void AssetJob::WorkerDone(undefined4 param_2, shared_ptr* param_3) {
         shared_ptr<void>::operator=((shared_ptr<void>*)&field_48, param_3);
         field_28 = param_2;
-        field_20 = 5;
+        m_status = 5;
     }
 
     // 0x10065a660, 144 bytes, base-object constructor, placed by class name and debug map
     // AssetJob::AssetJob(AssetJobType, int, int)
-    void AssetJob::AssetJob(_func_decltype_nullptr* param_2, undefined4 param_3, undefined4 param_4) {
+    void AssetJob::AssetJob(_func_decltype_nullptr* param_2, int param_3, undefined4 param_4) {
         undefined4 uVar1;
         undefined4 uVar2;
 
         uVar2 = (undefined4)((ulong)param_2 >> 32);
         uVar1 = SUB84(param_2, 0);
         field_0 = PTR_vtable_100ee85f0 + 16;
-        field_8 = -1;
+        m_jobID = -1;
         field_12 = uVar1;
-        field_16 = param_3;
-        field_20 = 0;
-        field_24 = param_4;
+        m_priority = param_3;
+        m_status = 0;
+        m_assetWorker = param_4;
         field_28 = 4294967295;
         new (&field_32, param_2) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         new (&field_48, (_func_decltype_nullptr*)CONCAT44(uVar2)
@@ -94,14 +94,14 @@ namespace jag::game {
     // 0x10065a6f0, 16 bytes, placed by class name and debug map
     // AssetJob::AwaitWorkerSlot()
     void AssetJob::AwaitWorkerSlot() {
-        field_20 = 2;
+        m_status = 2;
     }
 
     // 0x10065a740, 32 bytes, placed by class name and debug map
     // AssetJob::Finish(shared_ptr<void> const&)
     void AssetJob::Finish(shared_ptr* param_1) {
         shared_ptr<void>::operator=((shared_ptr<void>*)&field_64, param_1);
-        field_20 = 6;
+        m_status = 6;
     }
 
     // 0x100c92b50: the linker folded this into InlineFatalBreak(), which has identical code

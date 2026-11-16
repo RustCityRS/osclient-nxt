@@ -13,10 +13,10 @@ namespace jag::graphics {
     SceneViewData::GetRenderTargets() const;
 
     // 0x10042d4a0: the linker folded this into game::LocType::GetPostOffset() const, which has identical code
-    SceneViewData::GetStippleNearClipParams() const;
+    float SceneViewData::GetStippleNearClipParams() const;
 
     // 0x1004797d0: the linker folded this into game::MapEnvironmentSettings::GetLightProbeSettings(), which has identical code
-    SceneViewData::GetStippleFarClipParams() const;
+    float SceneViewData::GetStippleFarClipParams() const;
 
     // 0x1006adc50: the linker folded this into ui::PagedLayer::GetStaticChildren(), which has identical code
     SceneViewData::GetRenderTargetViewports() const;
@@ -50,7 +50,7 @@ namespace jag::graphics {
         ImVec4 local_38[24];
 
         new (this) ViewTransforms();
-        new (&field_208, (Matrix44T*)PTR_IDENTITY_100ee6730, (Matrix44T*)PTR_IDENTITY_100ee6730) math::Frustum();
+        new (m_pViewFrustum, (Matrix44T*)PTR_IDENTITY_100ee6730, (Matrix44T*)PTR_IDENTITY_100ee6730) math::Frustum();
         ImVec4::ImVec4(local_38, 0.0, 0.0, 0.0, 1.0);
         new (&field_368, (RenderTargets*)0, (Vector4T*)local_38, 1, 1.0, 0) render::RenderTargetData();
         new (&field_432) eastl::fixed_vector<render::Viewport, 2ul, true, eastl::allocator>();
@@ -76,7 +76,7 @@ namespace jag::graphics {
 
         puVar1 = PTR_IDENTITY_100ee6730;
         Set(PTR_IDENTITY_100ee6730, PTR_IDENTITY_100ee6730);
-        (&field_208, (Matrix44T*)puVar1, (Matrix44T*)puVar1)->Set();
+        (m_pViewFrustum, (Matrix44T*)puVar1, (Matrix44T*)puVar1)->Set();
         eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
         eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
         new (&m_renderPassBits) callstack::Callstack();
@@ -99,7 +99,7 @@ namespace jag::graphics {
         Set(param_1);
         pMVar1 = (Matrix44T*)GetScreen();
         pMVar2 = (Matrix44T*)GetOrigin();
-        (&field_208, pMVar1, pMVar2)->Set();
+        (m_pViewFrustum, pMVar1, pMVar2)->Set();
     }
 
     // 0x1007e4eb0, 80 bytes, placed by class name
@@ -111,7 +111,7 @@ namespace jag::graphics {
         ViewTransforms::operator=((ViewTransforms*)this, param_1);
         pMVar1 = (Matrix44T*)GetScreen();
         pMVar2 = (Matrix44T*)GetOrigin();
-        (&field_208, pMVar1, pMVar2)->Set();
+        (m_pViewFrustum, pMVar1, pMVar2)->Set();
     }
 
     // 0x1007e4f00, 80 bytes, placed by class name

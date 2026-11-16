@@ -17,7 +17,7 @@ namespace jag::ui {
         virtual void SetMargin(Component::MarginType, Margin);
         virtual Margin GetMargin(Component::MarginType) const;
         virtual bool SupportsMargin(Component::MarginType) const;
-        virtual GetValueRepresentation();
+        virtual ComponentMultiValueMixin GetValueRepresentation();
         virtual void LoadStyleSheetVisuals(StyleSheet const&);
         virtual GetRecentValueChanges() const;
         virtual void ClearRecentValueChanges();
@@ -87,7 +87,7 @@ namespace jag::ui {
         char _unknown_353[3];
         undefined4 field_356; // offset 356
         char _unknown_360[32];
-        ComponentMultiValueMixin field_392; // offset 392
+        ComponentMultiValueMixin m_valueRepresentation; // offset 392
         char _unknown_400[88];
         byte field_488;  // offset 488
         byte field_489;  // offset 489
@@ -237,12 +237,12 @@ namespace jag::ui {
         NpcUID* in_RSI;
 
         *(undefined***)this = &PTR__RadioGroup_100f0f9e8;
-        *(undefined***)field_392 = &PTR__RadioGroup_100f0fb08;
+        *(undefined***)m_valueRepresentation = &PTR__RadioGroup_100f0fb08;
         field_552->~TextData();
         field_504->~Sprite();
         (&field_432)->~fixed_vector();
         (&field_400)->~vector_map();
-        eastl::destruct<oldscape::highlight::NpcUID*>((eastl*)field_392, in_RSI, extraout_RDX);
+        eastl::destruct<oldscape::highlight::NpcUID*>((eastl*)m_valueRepresentation, in_RSI, extraout_RDX);
         ~Component();
     }
 

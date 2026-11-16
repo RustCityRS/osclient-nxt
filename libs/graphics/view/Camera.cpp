@@ -13,11 +13,12 @@ namespace jag {
         Matrix33T<float> local_48[40];
 
         field_0 = &PTR__Camera_100f1cc30;
-        field_8 = param_2;
+        m_projectionMode = param_2;
         m_verticalFov = (float)math::Deg2Rad(60.0);
         m_aspect = 1.3333334;
-        field_20 = 0;
-        *(undefined8*)&field_28 = 0;
+        m_leftClip = 0;
+        m_bottomClip = 0.0;
+        m_topClip = 0.0;
         m_nearClip = 0.1;
         m_farClip = 10000.0;
         math::Matrix33T<float>::Matrix33T(local_48, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0);

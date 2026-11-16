@@ -92,7 +92,7 @@ namespace jag::game {
         virtual RunFirst(Js5ResourceProvider*, ConfigProvider*);
         virtual BuildTerrainMain* CreateWorker();
         virtual DecodeResult(shared_ptr<void> const&);
-        virtual GetRequestData();
+        virtual shared_ptr GetRequestData();
         BuildTerrainMain(graphics::RT7Core*, int, TerrainInputData&);
         FetchTerrainData(Js5ResourceProvider*);
         FindUsedOverlaysAndUnderlays();

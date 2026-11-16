@@ -134,7 +134,7 @@ namespace jag::game {
     /* jag::Camera::GetRightClip() const */
 
     undefined4 jag::Camera::GetRightClip() {
-        return *(undefined4*)((long)&field_20 + 4);
+        return *(undefined4*)((long)&m_leftClip + 4);
     }
 
 } // namespace jag::game

@@ -13,14 +13,14 @@ namespace jag::game {
         virtual GetLookatEntity() const;
         virtual Update(float, math::Vector3T<double> const&, math::Vector3T<double> const&);
         DrawDebug(unsigned int);
-        GetMode() const;
+        uint GetMode() const;
         IsSpline() const;
         ILookatManager(LookatMode);
         void ToString(eastl::fixed_string<char, 512, true, eastl::allocator>&) const;
 
         // data members, from how the methods use this: 16 bytes
         undefined* field_0; // offset 0, vtable pointer
-        undefined4 field_8; // offset 8
+        uint m_mode;        // offset 8
         char _unknown_12[4];
     };
 
@@ -39,7 +39,7 @@ namespace jag::game {
     ILookatManager::~ILookatManager();
 
     // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    ILookatManager::GetMode() const;
+    uint ILookatManager::GetMode() const;
 
     // 0x1005f9e90: the linker folded this into option::Option<int>::GetValueLabels() const, which has identical code
     ILookatManager::GetLookatEntity() const;
@@ -49,7 +49,7 @@ namespace jag::game {
     undefined4 ILookatManager::IsSpline() {
         uint uVar1;
 
-        uVar1 = field_8 - 2;
+        uVar1 = m_mode - 2;
         return CONCAT31((int3)(uVar1 >> 8), (29U >> (uVar1 & 31) & 1) != 0 && uVar1 < 5);
     }
 
@@ -58,9 +58,9 @@ namespace jag::game {
 
     // 0x100640a30, 32 bytes, base-object constructor, inline, placed by class name
     // ILookatManager::ILookatManager(LookatMode)
-    void ILookatManager::ILookatManager(undefined4 param_2) {
+    void ILookatManager::ILookatManager(uint param_2) {
         field_0 = PTR_vtable_100ee7f50 + 16;
-        field_8 = param_2;
+        m_mode = param_2;
     }
 
     // 0x100640a50, 32 bytes, inline, placed by class name

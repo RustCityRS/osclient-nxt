@@ -10,7 +10,7 @@ namespace jag::graphics {
     VertexAnimation::GetBoneTransforms() const;
 
     // 0x1001a3c10: the linker folded this into MainLoopFrameTimer::GetFPSCounter(), which has identical code
-    VertexAnimation::GetAnimationStateProvider() const;
+    shared_ptr VertexAnimation::GetAnimationStateProvider() const;
 
     // 0x10091e6c0, 608 bytes, placed by class name and debug map
     // VertexAnimation::SetShaderConstants(render::RenderContext&, Shader&) const
@@ -32,7 +32,7 @@ namespace jag::graphics {
         float fVar13;
 
         this_00 = (ShaderProgram*)param_2->GetProgram();
-        bVar1 = field_48->operator_cast_to_bool();
+        bVar1 = m_animationStateProvider->operator_cast_to_bool();
         pHVar4 = (HashedString*)graphics::operator*((graphics*)27);
         pvVar5 = SSOBeginPtr(param_1);
         iVar3 = pvVar5->HeapBeginPtr();
@@ -115,7 +115,7 @@ namespace jag::graphics {
         undefined8 uVar5;
 
         if (field_68 != 0) {
-            this_00 = field_48;
+            this_00 = m_animationStateProvider;
             if (this_00->operator_cast_to_bool()) {
                 this_01 = (AnimationStateProvider*)shared_ptr<AnimationStateProvider>::operator->(
                     (shared_ptr<AnimationStateProvider>*)this_00);
@@ -193,7 +193,7 @@ namespace jag::graphics {
         undefined8 uVar5;
 
         if (field_64 != param_2) {
-            this_00 = field_48;
+            this_00 = m_animationStateProvider;
             if (this_00->operator_cast_to_bool()) {
                 field_64 = param_2;
                 if (AnimationStateProvider::m_useAsyncAnimUpdate == '\0') {
@@ -237,9 +237,9 @@ namespace jag::graphics {
     void VertexAnimation::EndUpdateAnimation() {
         AnimationStateProvider* this_00;
 
-        if (field_48->operator_cast_to_bool()) {
+        if (m_animationStateProvider->operator_cast_to_bool()) {
             this_00 = (AnimationStateProvider*)shared_ptr<AnimationStateProvider>::operator->(
-                (shared_ptr<AnimationStateProvider>*)field_48);
+                (shared_ptr<AnimationStateProvider>*)m_animationStateProvider);
             this_00->WaitForAsyncTasks();
         }
     }

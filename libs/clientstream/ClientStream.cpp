@@ -33,10 +33,10 @@ namespace jag {
     shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> ClientStream::m_connectionPing;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    ClientStream::GetConnectionStatus();
+    uint ClientStream::GetConnectionStatus();
 
     // 0x1004ab500: the linker folded this into game::EnvironmentOverride::GetScatteringOverrides() const, which has identical code
-    ClientStream::GetError() const;
+    WaterNormalParamsTarget ClientStream::GetError() const;
 
     // 0x100b0b4b0, 608 bytes, base-object constructor, placed by class name and debug map
     // ClientStream::ClientStream(char const*, int, int, int, int, bool)
@@ -50,7 +50,7 @@ namespace jag {
         undefined1 local_58[40];
 
         local_58._32_8_ = *(undefined8*)PTR____stack_chk_guard_100ee9d98;
-        field_0 = 1;
+        m_connectionStatus = 1;
         local_88 = (ClientSocket*)&field_8;
         ClientSocket::ClientSocket(local_88, param_2);
         eastl::ring_buffer<unsigned char, eastl::vector<unsigned char, eastl::allocator>,
@@ -62,14 +62,14 @@ namespace jag {
         field_264 = param_6;
         new (m_error) callstack::Callstack();
         eastl::vector<unsigned char, eastl::allocator>::set_capacity(local_98, (long)param_3);
-        field_0 = 1;
+        m_connectionStatus = 1;
         cVar1 = local_88->Connect(param_1, (Error*)m_error, param_4, param_5);
         if (cVar1 == '\0') {
             Close(this);
         } else {
             cVar1 = local_88->IsOpen();
             if (cVar1 != '\0') {
-                field_0 = 2;
+                m_connectionStatus = 2;
             }
         }
         cVar1 = local_88->IsOpen();
@@ -234,7 +234,7 @@ namespace jag {
                 uVar3 = uVar3 + 1;
             } while (uVar4 != uVar3);
         }
-        if ((field_0 == 0) && (cVar1 = this_00->empty(), cVar1 != '\0')) {
+        if ((m_connectionStatus == 0) && (cVar1 = this_00->empty(), cVar1 != '\0')) {
             this_00->clear();
         }
         _m_TotalBytesRead = _m_TotalBytesRead + uVar4;
@@ -306,7 +306,7 @@ namespace jag {
         undefined8 uVar5;
         Error local_50[8];
 
-        if (field_0 != 0) {
+        if (m_connectionStatus != 0) {
             if (field_264 == false) {
                 uVar3 = (&field_8, param_1, param_2, (Error*)m_error)->Write();
                 _m_TotalBytesWritten = _m_TotalBytesWritten + uVar3;
@@ -364,7 +364,7 @@ namespace jag {
         long local_38;
 
         local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if (field_0 != 0) {
+        if (m_connectionStatus != 0) {
             this_02 = (ClientStream*)&field_232;
             this_01 = (SystemTimer*)this_02;
             cVar1 = this_02->empty();
@@ -402,16 +402,16 @@ namespace jag {
                 local_80->GetIPAddress();
                 std::scoped_lock<std::mutex>::scoped_lock(local_88, (mutex*)&m_connectionPingMutex);
                 bVar2 = m_connectionPing.operator_cast_to_bool();
-                EVar10.field_0 = 4294967295;
+                EVar10.m_code = 4294967295;
                 if (bVar2) {
                     this_00 =
                         (Ping*)shared_ptr<network::Ping>::operator->((shared_ptr<network::Ping>*)&m_connectionPing);
                     cVar1 = this_00->Get(local_60, local_80);
                     if (cVar1 != '\0') {
-                        EVar10.field_0 = local_60[8].field_0;
+                        EVar10.m_code = local_60[8].m_code;
                     }
                 }
-                *(int*)field_200 = EVar10.field_0;
+                *(int*)field_200 = EVar10.m_code;
                 std::scoped_lock<std::mutex>::~scoped_lock(local_88);
                 local_80->~IPAddress();
                 local_60->~PingResult();

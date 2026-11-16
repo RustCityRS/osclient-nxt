@@ -27,7 +27,7 @@ namespace jag::game {
         long field_0; // offset 0
         long field_8; // offset 8
         char _unknown_16[56];
-        undefined1 field_72; // offset 72
+        undefined1 m_index; // offset 72
         char _unknown_73[71];
         bool field_144; // offset 144
     };
@@ -51,7 +51,7 @@ namespace jag::game {
         ulong uVar2;
 
         eastl::fixed_vector<int, 8ul, true, eastl::allocator>::fixed_vector((ulong)this);
-        eastl::fixed_vector<int, 8ul, true, eastl::allocator>::fixed_vector((ulong)&field_72);
+        eastl::fixed_vector<int, 8ul, true, eastl::allocator>::fixed_vector((ulong)&m_index);
         field_144 = false;
         uVar2 = 0;
         do {
@@ -62,7 +62,7 @@ namespace jag::game {
             *puVar1 = 4294967295;
             puVar1 = (undefined4*)eastl::
                 vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                    (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)&field_72,
+                    (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)&m_index,
                     uVar2);
             *puVar1 = 4294967295;
             uVar2 = uVar2 + 1;
@@ -77,12 +77,12 @@ namespace jag::game {
     // NPCHeadIconCustomisation::NPCHeadIconCustomisation(eastl::fixed_vector<int, 8ul, true, eastl::allocator> const&, eastl::fixed_vector<int, 8ul, true, eastl::allocator> const&)
     void NPCHeadIconCustomisation::NPCHeadIconCustomisation(fixed_vector* param_1, fixed_vector* param_2) {
         new (this) eastl::fixed_vector<int, 8ul, true, eastl::allocator>();
-        new (&field_72) eastl::fixed_vector<int, 8ul, true, eastl::allocator>();
+        new (&m_index) eastl::fixed_vector<int, 8ul, true, eastl::allocator>();
         field_144 = false;
         eastl::fixed_vector<int, 8ul, true, eastl::allocator>::operator=(
             (fixed_vector<int, 8ul, true, eastl::allocator>*)this, param_1);
         eastl::fixed_vector<int, 8ul, true, eastl::allocator>::operator=(
-            (fixed_vector<int, 8ul, true, eastl::allocator>*)&field_72, param_2);
+            (fixed_vector<int, 8ul, true, eastl::allocator>*)&m_index, param_2);
     }
 
     // 0x100501b80, 16 bytes, complete-object constructor, placed by class name
@@ -105,7 +105,7 @@ namespace jag::game {
         uint uVar7;
 
         eastl::fixed_vector<int, 8ul, true, eastl::allocator>::fixed_vector((ulong)this);
-        this_00 = &field_72;
+        this_00 = &m_index;
         eastl::fixed_vector<int, 8ul, true, eastl::allocator>::fixed_vector((ulong)this_00);
         field_144 = false;
         uVar6 = 0;
@@ -187,7 +187,7 @@ namespace jag::game {
         *piVar1 = param_2;
         piVar1 = (int*)
             eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)&field_72,
+                (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)&m_index,
                 (long)param_1);
         *piVar1 = param_3;
     }
@@ -199,7 +199,7 @@ namespace jag::game {
             eastl::fixed_vector<int, 8ul, true, eastl::allocator>::operator=(
                 (fixed_vector<int, 8ul, true, eastl::allocator>*)this, param_1);
             eastl::fixed_vector<int, 8ul, true, eastl::allocator>::operator=(
-                (fixed_vector<int, 8ul, true, eastl::allocator>*)&field_72, param_2);
+                (fixed_vector<int, 8ul, true, eastl::allocator>*)&m_index, param_2);
         } else {
             Update(this, param_1, param_2);
         }
@@ -248,7 +248,7 @@ namespace jag::game {
                     puVar5 = (undefined4*)
                         eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::
                         operator[]((vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true,
-                                                                              eastl::allocator>>*)&field_72,
+                                                                              eastl::allocator>>*)&m_index,
                                    uVar3);
                     *puVar5 = uVar1;
                 }
@@ -277,7 +277,7 @@ namespace jag::game {
                 piVar1 = (int*)eastl::
                     vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
                         (vector<int,
-                                eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)&field_72,
+                                eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)&m_index,
                         uVar2);
                 if (*piVar1 != -1)
                     break;
@@ -335,7 +335,7 @@ namespace jag::game {
                         puVar4 = (undefined4*)eastl::vector<
                             int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::
                         operator[]((vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true,
-                                                                              eastl::allocator>>*)&field_72,
+                                                                              eastl::allocator>>*)&m_index,
                                    uVar10);
                         *puVar4 = 4294967295;
                     }

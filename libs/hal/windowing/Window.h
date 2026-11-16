@@ -19,7 +19,7 @@ namespace jag {
         void UnregisterWindowCloseddHandler(std::function<bool()>*);
         IsFixedModeEnabled() const;
         byte GetWindowMode() const;
-        IsFullScreen() const;
+        bool IsFullScreen() const;
         GetSafeAreaInsets() const;
         Window* GetSafeAreaInsetsImpl() const;
         void OnUpdateSafeArea();
@@ -33,7 +33,7 @@ namespace jag {
         void OnMenuItemSelected(objc_object*);
         void SetLiveResizing(bool);
         void OnSize();
-        GetWindowInitParams();
+        WindowInitParams GetWindowInitParams();
         void OnMove();
         OnClose();
         void OnFocus(bool);
@@ -56,7 +56,7 @@ namespace jag {
         void SetWindowTitle(char const*);
         void SetWindowCollectionFullscreen(bool);
         void MenuSetup();
-        IsMaximized() const;
+        bool IsMaximized() const;
         WasFullScreenInPreviousSession() const;
         void GetWindowSavePositionData(PacketT<Array<unsigned char, eastl::allocator>>&) const;
         GetCentrePoint() const;
@@ -67,11 +67,11 @@ namespace jag {
         SupportsFullScreen();
         SupportsFixedScreen();
         void SetResizable(bool);
-        IsLiveResizing() const;
+        bool IsLiveResizing() const;
         GetWindowFrame();
         void GetMonitors(eastl::fixed_vector<math::Rect<int>, 12ul, false, eastl::dummy_allocator>&);
         void SetPosition(int, int);
-        GetView() const;
+        shared_ptr GetView() const;
 
         // data members, from how the methods use this: 745 bytes
         undefined** field_0; // offset 0, vtable pointer
@@ -83,12 +83,12 @@ namespace jag {
         undefined4 field_24; // offset 24
         undefined4 field_28; // offset 28
         char _unknown_32[168];
-        shared_ptr field_200; // offset 200
-        float m_width;        // offset 216
-        float m_height;       // offset 220
-        int field_224;        // offset 224
-        int field_228;        // offset 228
-        bool field_232;       // offset 232
+        shared_ptr m_view; // offset 200
+        float m_width;     // offset 216
+        float m_height;    // offset 220
+        int field_224;     // offset 224
+        int field_228;     // offset 228
+        bool field_232;    // offset 232
         char _unknown_233[7];
         GraphicsApp* field_240;     // offset 240
         void* m_pNativeApplication; // offset 248
@@ -96,7 +96,7 @@ namespace jag {
         char _unknown_257[1];
         undefined1 field_258; // offset 258
         char _unknown_259[5];
-        WindowInitParams field_264; // offset 264
+        WindowInitParams m_windowInitParams; // offset 264
         char _unknown_344[168];
         undefined1 field_512; // offset 512
         char _unknown_513[63];

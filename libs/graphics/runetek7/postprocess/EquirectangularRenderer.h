@@ -10,7 +10,7 @@ namespace jag::graphics {
         // virtual methods in vtable order
         virtual ~EquirectangularRenderer();
         virtual void OnWindowResize(math::Rect<unsigned int> const&);
-        GetEnabled();
+        bool GetEnabled();
         void GetRenderTargets();
         GetCubeMapFaceEnabled(int);
         EquirectangularRenderer(RT7Core*);
@@ -28,7 +28,7 @@ namespace jag::graphics {
         RT7Core* field_16;   // offset 16
         char _unknown_24[16];
         shared_ptr field_40; // offset 40
-        bool field_56;       // offset 56
+        bool m_enabled;      // offset 56
         char _unknown_57[3];
         int field_60; // offset 60
         char _unknown_64[4];

@@ -7,10 +7,10 @@
 
 namespace jag::game {
     // 0x100066b70: the linker folded this into oldscape::widgets::Widget::GetTextColour() const, which has identical code
-    PlayerStat::GetActualXPLevel() const;
+    uint PlayerStat::GetActualXPLevel() const;
 
     // 0x1000e5d50: the linker folded this into oldscape::rs2lib::CoordZoneSource::GetRotation() const, which has identical code
-    PlayerStat::GetActualXP() const;
+    uint PlayerStat::GetActualXP() const;
 
     // 0x1001117e0: the linker folded this into oldscape::jagex3::Js5::GetIndexCrc() const, which has identical code
     PlayerStat::GetGameplayLevel() const;
@@ -60,7 +60,7 @@ namespace jag::game {
         } else {
             uVar1 = (field_0, m_xP)->GetLevelFromFineXP();
         }
-        field_16 = uVar1;
+        m_actualXPLevel = uVar1;
     }
 
     // 0x100497e70, 80 bytes, placed by class name
@@ -71,17 +71,17 @@ namespace jag::game {
 
         if (((((ModeAccountType*)ModeAccountType::FREE == param_1) && (cVar1 = field_0->IsValid(), cVar1 != '\0')) &&
              (cVar1 = field_0->HasFreeWorldCap(), cVar1 != '\0')) &&
-            (uVar2 = field_0->GetMaxLineWidth(), (uint)uVar2 < field_16)) {
+            (uVar2 = field_0->GetMaxLineWidth(), (uint)uVar2 < m_actualXPLevel)) {
             return uVar2;
         }
-        return (ulong)field_16;
+        return (ulong)m_actualXPLevel;
     }
 
     // 0x100497ec0, 32 bytes, placed by class name
     // PlayerStat::Reset()
     void PlayerStat::Reset() {
         m_xP = 0;
-        field_16 = 1;
+        m_actualXPLevel = 1;
         m_gameplayLevel = 1;
     }
 

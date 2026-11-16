@@ -33,8 +33,8 @@ namespace jag::graphics {
             uVar1 = field_80;
             WrapArray<game::Cutscene2DAnimation<float>::Key_const>::WrapArray<
                 WrapArray<game::Cutscene2DAnimation<float>::Key_const>>(local_40, param_2);
-            pose::DebugDrawSkeleton(field_12, field_20, *(undefined8*)field_24, *(undefined4*)(field_24 + 8), &field_64,
-                                    uVar1, local_40, param_4);
+            pose::DebugDrawSkeleton(field_12, field_20, *(undefined8*)field_24, *(undefined4*)(field_24 + 8),
+                                    &m_bindInfo, uVar1, local_40, param_4);
         }
     }
 

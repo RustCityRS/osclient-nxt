@@ -13,9 +13,9 @@ namespace jag::game {
         virtual DecodeType(PacketT<Array<unsigned char, eastl::allocator>>&, unsigned int);
         virtual void PostDecode();
         GetHillRotateWidth() const;
-        GetHillRotateLength() const;
+        uint GetHillRotateLength() const;
         GetHillRotateXLimit() const;
-        GetHillRotateZLimit() const;
+        uint GetHillRotateZLimit() const;
         uint GetOverlayHeight() const;
         bool IsRunAnimation(int) const;
         bool IsCrawlAnimation(int) const;
@@ -75,13 +75,13 @@ namespace jag::game {
         undefined4 m_crawlTurnLeft;  // offset 212
         undefined4 m_crawlTurnRight; // offset 216
         char _unknown_220[4];
-        uint field_224; // offset 224
+        uint m_hillRotateLength; // offset 224
         char _unknown_228[4];
-        uint field_232;       // offset 232
-        undefined4 field_236; // offset 236
-        undefined4 field_240; // offset 240
-        uint m_overlayHeight; // offset 244
-        undefined1 field_248; // offset 248
+        uint m_hillRotateZLimit; // offset 232
+        undefined4 field_236;    // offset 236
+        undefined4 field_240;    // offset 240
+        uint m_overlayHeight;    // offset 244
+        undefined1 field_248;    // offset 248
         char _unknown_249[3];
     };
 

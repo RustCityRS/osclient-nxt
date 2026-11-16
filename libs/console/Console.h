@@ -200,7 +200,8 @@ namespace jag::console {
     // Console::SetCommandHistory(eastl::ring_buffer<eastl::string, eastl::vector<eastl::string, eastl::allocator>, eastl::allocator>&&)
     void Console::SetCommandHistory(ring_buffer* param_1) {
         eastl::ring_buffer<eastl::string, eastl::vector<eastl::string, eastl::allocator>, eastl::allocator>::operator=(
-            (ring_buffer<eastl::string, eastl::vector<eastl::string, eastl::allocator>, eastl::allocator>*)field_104,
+            (ring_buffer<eastl::string, eastl::vector<eastl::string, eastl::allocator>, eastl::allocator>*)
+                m_commandHistory,
             param_1);
     }
 

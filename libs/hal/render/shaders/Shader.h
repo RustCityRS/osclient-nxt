@@ -9,7 +9,7 @@ namespace jag::render {
     public:
         // virtual methods in vtable order
         virtual ~Shader();
-        GetNativeShader() const;
+        int GetNativeShader() const;
         Shader();
         void Destroy();
         bool IsReady() const;
@@ -28,7 +28,7 @@ namespace jag::render {
         uchar field_41;      // offset 41
         char _unknown_42[6];
         RadialHighlightState field_48; // offset 48
-        int field_72;                  // offset 72
+        int m_nativeShader;            // offset 72
         char _unknown_76[12];
     };
 
@@ -76,13 +76,13 @@ namespace jag::render {
     // 0x100be8b10, 16 bytes, inline, placed by class name
     // Shader::IsCreatedFromBinary() const
     bool Shader::IsCreatedFromBinary() {
-        return field_72 == -1;
+        return m_nativeShader == -1;
     }
 
     // 0x100be8c20, 16 bytes, inline, placed by class name
     // Shader::IsCreated() const
     bool Shader::IsCreated() {
-        return field_72 != 0;
+        return m_nativeShader != 0;
     }
 
 } // namespace jag::render

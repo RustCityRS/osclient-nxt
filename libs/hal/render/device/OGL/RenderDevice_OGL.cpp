@@ -34,7 +34,7 @@ namespace jag::render {
         new (&field_32) eastl::string();
         local_a8 = &field_32;
         new (&field_64) eastl::string();
-        field_96 = 4294967295;
+        m_gPUVendor = 4294967295;
         local_a0 = &field_64;
         new (&field_104) RenderDeviceCaps();
         std::unique_ptr<RenderContext, std::default_delete<RenderContext>>::unique_ptr<true, void>(
@@ -150,42 +150,42 @@ namespace jag::render {
                             if (lVar6 == -1) {
                                 pcVar10 = (char*)eastl::string::operator[]((eastl::string*)this_00, 0);
                                 if (*pcVar10 == 'N') {
-                                    field_96 = 2;
+                                    m_gPUVendor = 2;
                                 } else {
                                     pcVar10 = (char*)eastl::string::operator[]((eastl::string*)this_00, 0);
                                     if (*pcVar10 == 'I') {
-                                        field_96 = 1;
+                                        m_gPUVendor = 1;
                                     } else {
                                         pcVar10 = (char*)eastl::string::operator[]((eastl::string*)this_00, 0);
                                         if (*pcVar10 == 'A') {
-                                            field_96 = 0;
+                                            m_gPUVendor = 0;
                                         } else {
-                                            field_96 = 4294967295;
+                                            m_gPUVendor = 4294967295;
                                         }
                                     }
                                 }
                             } else {
-                                field_96 = 9;
+                                m_gPUVendor = 9;
                             }
                         } else {
-                            field_96 = 3;
+                            m_gPUVendor = 3;
                         }
                     } else {
-                        field_96 = 7;
+                        m_gPUVendor = 7;
                     }
                 } else {
-                    field_96 = 6;
+                    m_gPUVendor = 6;
                 }
             } else {
                 lVar6 = find("Mali", 0);
                 if (lVar6 == -1) {
-                    field_96 = 5;
+                    m_gPUVendor = 5;
                 } else {
-                    field_96 = 10;
+                    m_gPUVendor = 10;
                 }
             }
         } else {
-            field_96 = 4;
+            m_gPUVendor = 4;
         }
         iVar3 = GetUIHeight();
         uVar7 = logger::default_logger();

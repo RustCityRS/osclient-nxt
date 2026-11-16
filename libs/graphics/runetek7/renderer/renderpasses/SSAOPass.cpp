@@ -578,7 +578,7 @@ namespace jag::graphics {
         RenderTargetsSaveRestore local_40;
         ImVec4 local_28[16];
 
-        this_00 = (RT7Core*)(param_1->field_448 + 200);
+        this_00 = (RT7Core*)(param_1->m_postProcessManager + 200);
         pRVar5 = this_00;
         if (!this_00->operator_cast_to_bool()) {
             /* WARNING: Subroutine does not return */

@@ -106,7 +106,8 @@ namespace jag::postprocess {
         if (!bVar17) {
             bVar17 = true;
             ((local_a0 + 64))
-                ->TryCreateRenderTarget(&field_24, field_8, "View_AvgLum1x1RT", 1, 1, CONCAT44(uVar31, 37305));
+                ->TryCreateRenderTarget(&m_shaderOutputFormat, field_8, "View_AvgLum1x1RT", 1, 1,
+                                        CONCAT44(uVar31, 37305));
             bVar18 = ((local_a0 + 64))->operator_cast_to_bool();
             if (bVar18) {
                 pRVar20 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(

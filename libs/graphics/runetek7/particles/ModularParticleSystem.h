@@ -54,13 +54,13 @@ namespace jag::graphics {
         ~ModularParticleSystemTemplate();
         ulong LoadFromPacket(PacketT<Array<unsigned char, eastl::allocator>>&);
         GetNumLoops() const;
-        GetRenderPassBits() const;
+        Callstack GetRenderPassBits() const;
 
         // data members, from how the methods use this: 60 bytes
         char _unknown_0[40];
         undefined1 m_numLoops; // offset 40
         char _unknown_41[3];
-        Callstack field_44; // offset 44
+        Callstack m_renderPassBits; // offset 44
     };
 
     // 0x10042f4b0, 16 bytes, inline, placed by class name and debug map

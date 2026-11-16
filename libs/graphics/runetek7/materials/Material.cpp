@@ -13,16 +13,16 @@ namespace jag::graphics {
     Material::IsValid() const;
 
     // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    Material::GetSize() const;
+    uint Material::GetSize() const;
 
     // 0x100061e30: the linker folded this into render::RenderStats::GetTriangleCount() const, which has identical code
     Material::GetMetalnessRoughnessMapSize() const;
 
     // 0x100064240: the linker folded this into SunlightOptions::GetSunIntensity() const, which has identical code
-    Material::GetSpecularExponent() const;
+    float Material::GetSpecularExponent() const;
 
     // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    Material::GetID() const;
+    uint Material::GetID() const;
 
     // 0x1000b9a40: the linker folded this into oldscape::configdecoder::DBRowType::GetDbTableId() const, which has identical code
     Material::GetMetalnessRoughnessMapID() const;
@@ -34,7 +34,7 @@ namespace jag::graphics {
     Material::GetDiffuseMapID() const;
 
     // 0x100159b70: the linker folded this into oldscape::rs2lib::InputField::GetEnterAction() const, which has identical code
-    Material::GetAlphaTestThreshold() const;
+    int Material::GetAlphaTestThreshold() const;
 
     // 0x10016b490: the linker folded this into oldscape::rs2lib::worldmap::WorldmapAreaMetadata::GetMinMapZ() const, which has identical code
     Material::GetViewportMapID() const;
@@ -55,7 +55,7 @@ namespace jag::graphics {
     Material::GetViewportMapUVScaleAndAnim() const;
 
     // 0x100293ee0: the linker folded this into hal::audio::AudioRenderer::GetState() const, which has identical code
-    Material::GetDiffuseAlphaMapID() const;
+    int Material::GetDiffuseAlphaMapID() const;
 
     // 0x1003cf2a0: the linker folded this into game::WorldMapDefaults::GetDropShadowColourRGBA() const, which has identical code
     Material::GetHDRNormalMapID() const;
@@ -64,7 +64,7 @@ namespace jag::graphics {
     Material::GetDiffuseAlphaMapSize() const;
 
     // 0x100429b10: the linker folded this into game::StaticPointLight::GetRGB() const, which has identical code
-    Material::GetEmissiveSourceColourARGB() const;
+    int Material::GetEmissiveSourceColourARGB() const;
 
     // 0x100429c00: the linker folded this into game::StaticPointLight::GetShadowStrength() const, which has identical code
     Material::GetMaterialAnimationH() const;
@@ -73,10 +73,10 @@ namespace jag::graphics {
     Material::IsRT7() const;
 
     // 0x1004491e0: the linker folded this into math::Sphere2D::IsValid() const, which has identical code
-    Material::HasDiffuseMap() const;
+    char Material::HasDiffuseMap() const;
 
     // 0x1004c67a0: the linker folded this into game::WaterType::GetFoamMaterialScale() const, which has identical code
-    Material::GetFresnelExponent() const;
+    float Material::GetFresnelExponent() const;
 
     // 0x10053c040: the linker folded this into game::Cutscene2D::Scene::GetPlaybackEnd() const, which has identical code
     Material::GetDefaultNonMetalSpecular() const;
@@ -93,21 +93,21 @@ namespace jag::graphics {
     // 0x1008c6c40, 128 bytes, base-object constructor, placed by class name and debug map
     // Material::Material()
     void Material::Material() {
-        field_0 = 0;
+        m_valid = 0;
         field_1 = '\0';
-        field_32 = 0;
-        field_40 = 4294967295;
+        m_specularExponent = 0.0;
+        m_diffuseAlphaMapID = -1;
         m_normalEmissiveMapID = 4294967295;
-        field_48 = 4294967295;
+        m_metalnessRoughnessMapID = 4294967295;
         m_diffuseAlphaMapSize = 0;
-        field_56 = 0;
-        field_60 = 0;
-        field_64 = 0;
+        m_normalEmissiveMapSize = 0;
+        m_metalnessRoughnessMapSize = 0;
+        m_emissiveSourceColourARGB = 0;
         m_emissiveScale = 1065353216;
-        field_72 = 0;
+        m_fresnelExponent = 0.0;
         m_defaultNonMetalSpecular = 0;
         field_80 = 1.0;
-        field_88 = HideFacesMode::NEVER;
+        m_pHideFacesMode = HideFacesMode::NEVER;
         new (&field_112, 0.0, 0.0, 0.0, 0.0) ImVec4();
         m_refractionAmount = 0;
         m_refractionIndex = 0;
@@ -124,14 +124,14 @@ namespace jag::graphics {
         int iVar2;
         char cVar3;
 
-        field_0 = 1;
+        m_valid = 1;
         field_1 = param_2->field_8;
-        field_4 = param_1;
+        m_iD = param_1;
         cVar3 = IsRT7(this);
         if (cVar3 == '\0') {
-            field_8 = param_2->field_12;
-            field_12 = param_2->field_16;
-            field_13 = param_2->field_17;
+            m_size = param_2->field_12;
+            m_hasDiffuseMap = param_2->field_16;
+            m_hasNormalMap = param_2->field_17;
             field_14 = param_2->field_18;
             m_hasHDRMap = param_2->field_19;
             cVar3 = param_2->field_20;
@@ -139,43 +139,43 @@ namespace jag::graphics {
             iVar2 = param_2->field_44;
             m_hasEmissiveMap = iVar2 == 6;
             m_hasSpecularMap = iVar2 == 1;
-            field_20 = param_2->field_24;
-            field_24 = param_2->field_28;
+            m_diffuseMapID = param_2->field_24;
+            m_hDRNormalMapID = param_2->field_28;
             m_globalEnvironmentMapped = param_2->field_32;
             field_29 = param_2->field_33;
-            field_32 = param_2->field_36;
+            m_specularExponent = (float)param_2->field_36;
             m_hasForcedTextures = param_2->field_65 ^ 1;
-            field_36 = param_2->field_40;
+            m_legacyMaterial = param_2->field_40;
             m_legacyWhiteness = param_2->field_67;
             m_legacyBrightness = param_2->field_66;
             bVar1 = param_2->field_64;
             field_39 = bVar1;
             if (bVar1 != false) {
-                field_88 = HideFacesMode::TEXTURES_ON;
+                m_pHideFacesMode = HideFacesMode::TEXTURES_ON;
             }
-            if ((field_176 != AlphaMode::ALPHA_OPAQUE) && ((iVar2 == 1 || (cVar3 != '\0')))) {
-                field_176 = AlphaMode::ALPHA_OPAQUE;
+            if ((m_alphaMode != AlphaMode::ALPHA_OPAQUE) && ((iVar2 == 1 || (cVar3 != '\0')))) {
+                m_alphaMode = AlphaMode::ALPHA_OPAQUE;
             }
         } else {
-            field_40 = param_2->field_76;
+            m_diffuseAlphaMapID = param_2->field_76;
             m_normalEmissiveMapID = param_2->field_80;
-            field_48 = param_2->field_84;
+            m_metalnessRoughnessMapID = param_2->field_84;
             m_diffuseAlphaMapSize = param_2->field_88;
-            field_56 = param_2->field_92;
-            field_60 = param_2->field_96;
-            field_64 = param_2->field_104;
+            m_normalEmissiveMapSize = param_2->field_92;
+            m_metalnessRoughnessMapSize = param_2->field_96;
+            m_emissiveSourceColourARGB = param_2->field_104;
             m_emissiveScale = param_2->field_108;
             m_specularScale = param_2->field_164;
-            field_72 = param_2->field_112;
+            m_fresnelExponent = (float)param_2->field_112;
             m_defaultNonMetalSpecular = param_2->field_116;
             field_80 = (float)param_2->field_100;
-            field_88 = param_2->field_120;
+            m_pHideFacesMode = param_2->field_120;
             m_hasForcedTextures = param_2->field_72;
         }
         m_materialAnimationH = param_2->field_128;
         m_materialAnimationV = param_2->field_132;
-        field_96 = param_2->field_136;
-        field_100 = param_2->field_140;
+        m_environmentMaterialID = param_2->field_136;
+        m_viewportMapID = param_2->field_140;
         math::Rect<float>::operator=((Rect<float>*)&field_112, (Rect*)&param_2->field_144);
         m_unlit = param_2->field_160;
         m_shadowCaster = param_2->field_161;
@@ -185,9 +185,9 @@ namespace jag::graphics {
         m_refractionAmount = param_2->field_172;
         m_refractionIndex = param_2->field_176;
         m_refractionDepthBias = param_2->field_180;
-        field_168 = param_2->field_184;
-        field_176 = param_2->field_192;
-        field_184 = param_2->field_200;
+        m_blendMode = param_2->field_184;
+        m_alphaMode = param_2->field_192;
+        m_alphaTestThreshold = param_2->field_200;
         m_pWrapU = param_2->field_208;
         m_pWrapV = param_2->field_216;
         m_hasHighlighting = param_2->field_226;
@@ -201,44 +201,44 @@ namespace jag::graphics {
         undefined* puVar1;
         undefined3 in_register_00000031;
 
-        field_0 = 1;
+        m_valid = 1;
         if (CONCAT31(in_register_00000031, param_1) == 0) {
-            field_4 = 4294967295;
-            field_8 = 8;
+            m_iD = 4294967295;
+            m_size = 8;
             field_1 = '\0';
-            field_12 = 0;
-            field_13 = 0;
+            m_hasDiffuseMap = '\0';
+            m_hasNormalMap = 0;
             field_14 = 0;
             m_hasHDRMap = 0;
             m_hasHDRMap = 0;
             field_16 = '\0';
             m_hasEmissiveMap = false;
             m_hasSpecularMap = false;
-            field_20 = 4294967295;
-            field_24 = 4294967294;
-            field_96 = 4294967294;
+            m_diffuseMapID = 4294967295;
+            m_hDRNormalMapID = 4294967294;
+            m_environmentMaterialID = 4294967294;
             m_globalEnvironmentMapped = 0;
             field_29 = 0;
-            field_32 = 0;
-            field_36 = 0;
+            m_specularExponent = 0.0;
+            m_legacyMaterial = 0;
             m_legacyWhiteness = 0;
             m_legacyBrightness = 0;
             field_39 = '\0';
         } else {
-            field_4 = 4294967293;
+            m_iD = 4294967293;
             field_1 = '\x01';
-            field_40 = 4294967295;
+            m_diffuseAlphaMapID = -1;
             m_normalEmissiveMapID = 4294967294;
-            field_48 = 4294967293;
+            m_metalnessRoughnessMapID = 4294967293;
             m_diffuseAlphaMapSize = 8;
-            field_56 = 8;
-            field_60 = 8;
-            field_64 = 0;
+            m_normalEmissiveMapSize = 8;
+            m_metalnessRoughnessMapSize = 8;
+            m_emissiveSourceColourARGB = 0;
             m_emissiveScale = 1065353216;
             m_specularScale = 1065353216;
             field_80 = 0.0;
         }
-        field_100 = 4294967295;
+        m_viewportMapID = 4294967295;
         m_materialAnimationH = 0;
         m_materialAnimationV = 0;
         *(undefined4*)((long)&m_materialAnimationV + 3) = 0;
@@ -247,13 +247,13 @@ namespace jag::graphics {
         m_refractionAmount = 0;
         m_refractionIndex = 1065353216;
         m_refractionDepthBias = 0;
-        field_168 = BlendMode::NORMAL;
-        field_176 = AlphaMode::ALPHA_OPAQUE;
-        field_184 = 255;
+        m_blendMode = BlendMode::NORMAL;
+        m_alphaMode = AlphaMode::ALPHA_OPAQUE;
+        m_alphaTestThreshold = 255;
         puVar1 = graphicutils::TextureWrapMode::CLAMP;
         m_pWrapU = graphicutils::TextureWrapMode::CLAMP;
         m_pWrapV = puVar1;
-        field_88 = HideFacesMode::NEVER;
+        m_pHideFacesMode = HideFacesMode::NEVER;
         m_hasForcedTextures = 0;
         field_208 = 0;
         m_hasHighlighting = 0;
@@ -264,8 +264,8 @@ namespace jag::graphics {
     // Material::InitialiseLoading(bool)
     void Material::InitialiseLoading(bool param_1) {
         InitialiseDummy(this, param_1);
-        field_4 = (uint)(byte)~param_1 * 2 | 4294967292;
-        field_20 = 4294967292;
+        m_iD = (uint)(byte)~param_1 * 2 | 4294967292;
+        m_diffuseMapID = 4294967292;
     }
 
 } // namespace jag::graphics

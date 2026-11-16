@@ -34,9 +34,9 @@ namespace jag::ui {
     // PagedLayer::PagedLayer(InterfaceManager*)
     void PagedLayer::PagedLayer(InterfaceManager* param_1) {
         new (this) ComponentCollectionBase();
-        new (&field_424) ComponentSingleValueMultiOptionMixin();
+        new (&m_pValueRepresentation) ComponentSingleValueMultiOptionMixin();
         field_0 = &PTR__PagedLayer_100f0f560;
-        field_424 = &PTR__PagedLayer_100f0f778;
+        m_pValueRepresentation = &PTR__PagedLayer_100f0f778;
         new (&field_432) eastl::vector<ComponentContainer, eastl::allocator>();
         new (&field_464) eastl::vector<ComponentContainer, eastl::allocator>();
         new (&field_496) eastl::fixed_vector<PagedLayer::PageData, 4ul, true, eastl::allocator>();
@@ -60,7 +60,7 @@ namespace jag::ui {
         NpcUID* in_RSI;
 
         field_0 = &PTR__PagedLayer_100f0f560;
-        field_424 = &PTR__PagedLayer_100f0f778;
+        m_pValueRepresentation = &PTR__PagedLayer_100f0f778;
         if (GetDynamicID() != -1) {
             (*(code*)field_0[45])(this);
         }
@@ -68,7 +68,7 @@ namespace jag::ui {
         (&field_496)->~fixed_vector();
         (&field_464)->~vector();
         (&field_432)->~vector();
-        eastl::destruct<oldscape::highlight::NpcUID*>((eastl*)&field_424, in_RSI, extraout_RDX);
+        eastl::destruct<oldscape::highlight::NpcUID*>((eastl*)&m_pValueRepresentation, in_RSI, extraout_RDX);
         ~ComponentCollectionBase();
     }
 

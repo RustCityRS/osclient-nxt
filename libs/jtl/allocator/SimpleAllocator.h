@@ -11,7 +11,7 @@ namespace jag {
         class AllocatedBlock;
         class FreeListEntry;
         GetSize() const;
-        GetSlotSize() const;
+        ulong GetSlotSize() const;
         begin() const;
         GetOverflowList() const;
         void IsAddressAllocated(void const*) const;
@@ -58,7 +58,7 @@ namespace jag {
         // data members, from how the methods use this: 208 bytes
         long field_0;        // offset 0
         ulong field_8;       // offset 8
-        ulong field_16;      // offset 16
+        ulong m_slotSize;    // offset 16
         undefined8 field_24; // offset 24
         long field_32;       // offset 32
         undefined8 field_40; // offset 40
@@ -290,7 +290,7 @@ namespace jag {
                 do {
                     if ((uVar1 >> ((uint)lVar3 & 31) & 1) == 0) {
                         *(uint*)param_2 = 1 << ((byte)lVar3 & 31) | uVar1;
-                        field_16 = param_3 + lVar3;
+                        m_slotSize = param_3 + lVar3;
                         *(undefined4*)&field_0 = 1;
                         field_8 = (param_3 + lVar3) * *(long*)(param_1 + 4) + *(long*)(param_1 + 12);
                         *(long*)param_1 = *(long*)param_1 + 1;

@@ -17,7 +17,7 @@ namespace jag::graphics {
         int AnimationSpeedPackValue(float);
 
         // data members, from how the methods use this: 232 bytes
-        undefined1 field_0; // offset 0
+        undefined1 m_valid; // offset 0
         char _unknown_1[3];
         int field_4;  // offset 4
         char field_8; // offset 8

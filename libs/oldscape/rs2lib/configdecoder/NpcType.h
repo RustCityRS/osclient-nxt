@@ -311,7 +311,7 @@ namespace jag::oldscape::configdecoder {
         undefined1 field_521; // offset 521
         undefined1 field_522; // offset 522
         char _unknown_523[133];
-        undefined1 field_656; // offset 656
+        undefined1 m_headIconIndices; // offset 656
         char _unknown_657[7];
     };
 
@@ -332,7 +332,7 @@ namespace jag::oldscape::configdecoder {
 
         cVar1 = (&field_584)->empty();
         if (cVar1 == '\0') {
-            uVar2 = (&field_656)->empty();
+            uVar2 = (&m_headIconIndices)->empty();
             uVar2 = uVar2 ^ 1;
         } else {
             uVar2 = 0;
@@ -424,7 +424,7 @@ namespace jag::oldscape::configdecoder {
         new (&field_528, local_70) eastl::hash_map<long long, ParamTypeHelper::ParamVariant, eastl::hash<long long>,
                                                    eastl::equal_to<long long>, eastl::allocator, false>();
         new (&field_584) eastl::fixed_vector<int, 8ul, true, eastl::allocator>();
-        new (&field_656) eastl::fixed_vector<int, 8ul, true, eastl::allocator>();
+        new (&m_headIconIndices) eastl::fixed_vector<int, 8ul, true, eastl::allocator>();
     }
 
     // 0x1002495e0, 16 bytes, complete-object destructor, inline, placed by class name and debug map
@@ -433,7 +433,7 @@ namespace jag::oldscape::configdecoder {
     // 0x1002495f0, 160 bytes, base-object destructor, inline, placed by class name and debug map
     // NpcType::~NpcType()
     void NpcType::~NpcType() {
-        (&field_656)->~fixed_vector();
+        (&m_headIconIndices)->~fixed_vector();
         (&field_584)->~fixed_vector();
         (&field_528)->~hash_map();
         (&field_488)->~Array();

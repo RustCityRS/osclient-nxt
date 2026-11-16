@@ -7,10 +7,10 @@
 
 namespace jag::game {
     // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    AnimationWrapper::GetSourceID() const;
+    int AnimationWrapper::GetSourceID() const;
 
     // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    AnimationWrapper::GetSource() const;
+    shared_ptr AnimationWrapper::GetSource() const;
 
     // 0x1001174c0: the linker folded this into oldscape::ClientObj::SetEnabledOpsBitMask(unsigned char), which has identical code
     AnimationWrapper::SetReadyAnim(bool);
@@ -22,7 +22,7 @@ namespace jag::game {
     AnimationWrapper::GetAnimationParameters();
 
     // 0x1003fab80: the linker folded this into WaterType::OverrideDefaultWaterType() const, which has identical code
-    AnimationWrapper::IsReadyAnim() const;
+    bool AnimationWrapper::IsReadyAnim() const;
 
     // 0x100657ad0, 224 bytes, base-object constructor, placed by class name and debug map
     // AnimationWrapper::AnimationWrapper(AssetBuilder&, ConfigProvider const&, int, unsigned int, graphics::AnimationLoopBehaviour, bool, bool)
@@ -30,8 +30,8 @@ namespace jag::game {
                                             undefined4 param_4, uint param_6, undefined1 param_7, bool param_8) {
         new (this) MakeSharedPool<AnimationWrapper, 512>();
         field_0 = param_1;
-        field_8 = param_3;
-        new (field_16, (_func_decltype_nullptr*)param_1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        m_sourceID = param_3;
+        new (m_source, (_func_decltype_nullptr*)param_1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         field_32 = param_6;
         field_36 = param_4;
         field_40 = param_7;
@@ -44,7 +44,7 @@ namespace jag::game {
         m_readyAnim = false;
         field_57 = 0;
         field_60 = -1;
-        field_64 = 0;
+        m_animationLateness = 0;
         field_68 = 0;
         new (&field_72) BuildRequest<graphics::Animation, BuildAnimationMain>();
         std::function<void(int, int, int, int, int, int)>::function(
@@ -99,7 +99,7 @@ namespace jag::game {
                 field_68 = param_1;
                 (&field_72)->Clear();
             }
-            local_58 = (shared_ptr<SeqType>*)field_16;
+            local_58 = (shared_ptr<SeqType>*)m_source;
             pSVar3 = (SeqType*)shared_ptr<SeqType>::operator->(local_58);
             pAVar6 = field_0;
             this_00 = &field_72;
@@ -155,7 +155,7 @@ namespace jag::game {
         this_00 = &field_48;
         bVar3 = this_00->operator_cast_to_bool();
         if (bVar3) {
-            this_01 = field_16;
+            this_01 = m_source;
             bVar3 = this_01->operator_cast_to_bool();
             if (bVar3) {
                 pSVar1 = (SeqType*)shared_ptr<SeqType>::operator->((shared_ptr<SeqType>*)this_01);
@@ -233,7 +233,7 @@ namespace jag::game {
                                    MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>*)&field_48);
         iVar6 = this_01->GetCurrentIndex();
         if (iVar6 != field_60) {
-            this_00 = field_16;
+            this_00 = m_source;
             bVar2 = this_00->operator_cast_to_bool();
             if (bVar2) {
                 if (iVar6 == 0) {
@@ -309,7 +309,7 @@ namespace jag::game {
                       118, "AnimationWrapper: Cannot update animation state when not ready for use!");
         }
         if (param_3) {
-            this_00 = (SeqType*)shared_ptr<SeqType>::operator->((shared_ptr<SeqType>*)field_16);
+            this_00 = (SeqType*)shared_ptr<SeqType>::operator->((shared_ptr<SeqType>*)m_source);
             this_01 = (shared_ptr*)this_00->GetSeqGroup();
             if (shared_ptr::operator_cast_to_bool(this_01)) {
                 static_pointer_cast<graphics::WalkMergeDataProvider, shared_ptr<SeqGroupType>>(&local_40, (jag*)this_01,
@@ -338,10 +338,10 @@ namespace jag::game {
         int iVar2;
         bool bVar3;
 
-        bVar1 = field_16->operator_cast_to_bool();
+        bVar1 = m_source->operator_cast_to_bool();
         bVar3 = true;
         if (bVar1) {
-            this_00 = (SeqType*)shared_ptr<SeqType>::operator->((shared_ptr<SeqType>*)field_16);
+            this_00 = (SeqType*)shared_ptr<SeqType>::operator->((shared_ptr<SeqType>*)m_source);
             if (param_1 < 1) {
                 iVar2 = this_00->GetPostanimMove();
             } else {
@@ -367,7 +367,7 @@ namespace jag::game {
                                    MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>*)&field_48);
         iVar3 = pAVar5->GetTicksThroughAnimation();
         if ((field_32 & 4294967293) == 0) {
-            iVar1 = field_64;
+            iVar1 = m_animationLateness;
             pAVar5 =
                 (AnimationParameters*)
                     std::unique_ptr<graphics::AnimationParameters,
@@ -398,7 +398,7 @@ namespace jag::game {
                                    MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>*)&field_48);
         iVar4 = pAVar3->GetTicksThroughAnimation();
         uVar1 = field_32;
-        iVar2 = field_64;
+        iVar2 = m_animationLateness;
         pAVar3 =
             (AnimationParameters*)std::unique_ptr<
                 graphics::AnimationParameters, MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>::

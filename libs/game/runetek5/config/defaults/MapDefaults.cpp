@@ -7,10 +7,10 @@
 
 namespace jag::game {
     // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    MapDefaults::GetDefaultWaterType() const;
+    uint MapDefaults::GetDefaultWaterType() const;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    MapDefaults::GetDefaultEnvironmentMap() const;
+    uint MapDefaults::GetDefaultEnvironmentMap() const;
 
     // 0x1005522b0, 160 bytes, base-object constructor, placed by class name
     // MapDefaults::MapDefaults(PacketT<Array<unsigned char, eastl::allocator> >&)
@@ -21,8 +21,8 @@ namespace jag::game {
         undefined8 uVar3;
         undefined4 uVar4;
 
-        field_0 = 4294967295;
-        field_4 = 4294967295;
+        m_defaultEnvironmentMap = 4294967295;
+        m_defaultWaterType = 4294967295;
         while (true) {
             while (true) {
                 while (true) {
@@ -31,12 +31,12 @@ namespace jag::game {
                     if (bVar1 != 1)
                         break;
                     uVar2 = param_1->g2();
-                    field_0 = (uint)uVar2;
+                    m_defaultEnvironmentMap = (uint)uVar2;
                 }
                 if (bVar1 != 10)
                     break;
                 uVar2 = param_1->g2();
-                field_4 = (uint)uVar2;
+                m_defaultWaterType = (uint)uVar2;
             }
             if (bVar1 == 0)
                 break;

@@ -7,7 +7,7 @@
 
 namespace jag::game {
     // 0x1000096a0: the linker folded this into BaseApp::GetExitAfterInit(), which has identical code
-    PlayerSkill::IsMembersOnly() const;
+    bool PlayerSkill::IsMembersOnly() const;
 
     // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
     PlayerSkill::PlayerSkill();
@@ -16,32 +16,32 @@ namespace jag::game {
     PlayerSkill::PlayerSkill();
 
     // 0x100066b70: the linker folded this into oldscape::widgets::Widget::GetTextColour() const, which has identical code
-    PlayerSkill::GetCappedFreeLevel() const;
+    uint PlayerSkill::GetCappedFreeLevel() const;
 
     // 0x1000e5d50: the linker folded this into oldscape::rs2lib::CoordZoneSource::GetRotation() const, which has identical code
-    PlayerSkill::GetCappedFreeXP() const;
+    int PlayerSkill::GetCappedFreeXP() const;
 
     // 0x1005526c0, 80 bytes, base-object constructor, placed by class name and debug map
     // PlayerSkill::PlayerSkill(unsigned int, unsigned int, bool, bool, unsigned int, PlayerSkillXPTable const*, int)
     void PlayerSkill::PlayerSkill(uint param_1, uint param_2, bool param_3, bool param_4, uint param_5,
                                   PlayerSkillXPTable* param_6, int param_7) {
-        undefined4 uVar1;
+        int iVar1;
         undefined3 in_register_00000009;
 
         field_0 = param_1;
         field_4 = param_2;
-        field_8 = param_3;
+        m_membersOnly = param_3;
         field_9 = param_4;
         field_24 = param_6;
         field_32 = param_7;
         if (CONCAT31(in_register_00000009, param_3) == 0) {
-            field_16 = 4294967295;
-            uVar1 = 4294967295;
+            m_cappedFreeLevel = 4294967295;
+            iVar1 = -1;
         } else {
-            field_16 = param_5;
-            uVar1 = GetFineXPFromLevel(this, param_5);
+            m_cappedFreeLevel = param_5;
+            iVar1 = GetFineXPFromLevel(this, param_5);
         }
-        field_12 = uVar1;
+        m_cappedFreeXP = iVar1;
     }
 
     // 0x100552710, 16 bytes, placed by class name and debug map

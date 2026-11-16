@@ -90,7 +90,7 @@ namespace jag::oldscape::minimenu {
         void SetShiftClickEnabled(bool);
         InTouchMode();
         void SetSimulatedShiftActive(bool);
-        GetSimulatedShiftActive();
+        bool GetSimulatedShiftActive();
         void SetFeedbackSprite(int, bool);
         void SetFeedbackShowPopupText(bool);
         void SetStartHoverIndex(int);
@@ -254,7 +254,7 @@ namespace jag::oldscape::minimenu {
         _func_decltype_nullptr* in_RSI;
 
         new (this) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(in_RSI);
-        field_16 = 0;
+        m_renderBehaviour = 0;
     }
 
     // 0x100079360, 48 bytes, inline, placed by class header (inline)

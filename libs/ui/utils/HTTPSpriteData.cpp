@@ -11,7 +11,7 @@ namespace jag::ui {
         fixed_string<char, 512, true, eastl::allocator>();
 
     // 0x1000b7910: the linker folded this into oldscape::minimenu::MinimenuEntry::GetSubjectName() const, which has identical code
-    HTTPSpriteData::GetTexture() const;
+    shared_ptr HTTPSpriteData::GetTexture() const;
 
     // 0x100676720, 96 bytes, base-object constructor, placed by class name
     // HTTPSpriteData::HTTPSpriteData(int)
@@ -24,8 +24,8 @@ namespace jag::ui {
         field_40 = (char*)0;
         std::unique_ptr<http::HTTPRequest, BucketDeleter<http::HTTPRequest>>::unique_ptr<true, void>(
             (unique_ptr<http::HTTPRequest, BucketDeleter<http::HTTPRequest>>*)&field_48);
-        new (field_56, (_func_decltype_nullptr*)CONCAT44(in_register_00000034)
-                           shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(param_1));
+        new (m_texture, (_func_decltype_nullptr*)CONCAT44(in_register_00000034)
+                            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(param_1));
     }
 
     // 0x1006767a0, 16 bytes, complete-object constructor, placed by class name
@@ -40,7 +40,8 @@ namespace jag::ui {
         field_40 = (char*)0;
         std::unique_ptr<http::HTTPRequest, BucketDeleter<http::HTTPRequest>>::unique_ptr<true, void>(
             (unique_ptr<http::HTTPRequest, BucketDeleter<http::HTTPRequest>>*)&field_48);
-        new (field_56, (_func_decltype_nullptr*)param_1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (m_texture, (_func_decltype_nullptr*)param_1)
+            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
     }
 
     // 0x100676810, 16 bytes, complete-object constructor, placed by class name
@@ -68,7 +69,7 @@ namespace jag::ui {
                                                std::default_delete<oldscape::rs2lib::worldmap::LocationData>>>*)
                       param_1.field_0;
         local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        this_00 = field_56;
+        this_00 = m_texture;
         bVar1 = this_00->operator_cast_to_bool();
         if (bVar1) {
             ppuVar8 = &DataStatus::READY;

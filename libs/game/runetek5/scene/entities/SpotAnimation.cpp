@@ -887,7 +887,7 @@ namespace jag {
 
 namespace jag::input {
     // 0x1003f8580: the linker folded this into game::EffectAnimType::GetRotation() const, which has identical code
-    Input::GetMouseX() const;
+    float Input::GetMouseX() const;
 
 } // namespace jag::input
 

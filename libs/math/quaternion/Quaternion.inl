@@ -97,7 +97,7 @@ namespace jag::graphics {
     /* render::TextureFormatBitSet::HasFormatType(render::TextureFormatType) const */
 
     undefined4 render::TextureFormatBitSet::HasFormatType(uint param_2) {
-        return CONCAT31((int3)(field_0 >> 8), (field_0 >> (param_2 & 31) & 1) != 0);
+        return CONCAT31((int3)(m_bits >> 8), (m_bits >> (param_2 & 31) & 1) != 0);
     }
 
 } // namespace jag::graphics

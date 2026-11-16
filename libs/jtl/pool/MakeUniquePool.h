@@ -1350,10 +1350,10 @@ namespace jag {
             param_1->m_delay = 3722304989;
             param_1->m_animationLength = 3722304989;
             param_1->m_loopBehaviour = -572662307;
-            param_1->field_116 = 3722304989;
-            param_1->field_120 = 221;
+            param_1->m_loopLength = 3722304989;
+            param_1->m_tweenLastFrameToFirst = 221;
             *(undefined3*)&param_1->field_121 = 14540253;
-            param_1->field_124 = 3722304989;
+            param_1->m_loopsCompleted = 3722304989;
             *(undefined8*)&param_1->field_96 = 15987178197214944733;
             *(undefined8*)&param_1->field_104 = 15987178197214944733;
             param_1->field_80 = 15987178197214944733;
@@ -2287,7 +2287,7 @@ namespace jag {
         if (param_1 != (AnimState*)0) {
             param_1->~AnimState();
             *(undefined8*)&param_1[1].field_8 = 15987178197214944733;
-            *(undefined8*)param_1[1].field_16 = 15987178197214944733;
+            *(undefined8*)param_1[1].m_resources = 15987178197214944733;
             *(undefined8*)&param_1->field_128 = 15987178197214944733;
             *(undefined8*)(param_1 + 1) = 15987178197214944733;
             *(undefined8*)&param_1->field_112 = 15987178197214944733;
@@ -2298,12 +2298,12 @@ namespace jag {
             *(undefined8*)&param_1->field_88 = 15987178197214944733;
             *(undefined8*)&param_1->field_64 = 15987178197214944733;
             *(undefined8*)&param_1->field_72 = 15987178197214944733;
-            *(undefined8*)(param_1->field_16 + 32) = 15987178197214944733;
+            *(undefined8*)(param_1->m_resources + 32) = 15987178197214944733;
             *(undefined8*)&param_1->field_56 = 15987178197214944733;
-            *(undefined8*)(param_1->field_16 + 16) = 15987178197214944733;
-            *(undefined8*)(param_1->field_16 + 24) = 15987178197214944733;
-            *(undefined8*)param_1->field_16 = 15987178197214944733;
-            *(undefined8*)(param_1->field_16 + 8) = 15987178197214944733;
+            *(undefined8*)(param_1->m_resources + 16) = 15987178197214944733;
+            *(undefined8*)(param_1->m_resources + 24) = 15987178197214944733;
+            *(undefined8*)param_1->m_resources = 15987178197214944733;
+            *(undefined8*)(param_1->m_resources + 8) = 15987178197214944733;
             *(undefined8*)param_1 = 15987178197214944733;
             *(undefined8*)&param_1->field_8 = 15987178197214944733;
             std::unique_lock<std::mutex>::unique_lock(local_20, (mutex*)PTR_m_mutex_100ee6040);

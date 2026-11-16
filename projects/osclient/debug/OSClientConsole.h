@@ -13,7 +13,7 @@ namespace jag::oldscape {
         virtual uint LoadCommandHistoryAndVars();
         virtual uint SaveCommandHistoryAndVars();
         Client* GetClient();
-        GetCommandLineObject();
+        CommandLine GetCommandLineObject();
         void AddPendingCommandFromInput();
         void GetConsoleUI();
         void PasteFromClipboard();
@@ -45,7 +45,7 @@ namespace jag::oldscape {
         undefined1 field_745; // offset 745
         $_1 field_746;        // offset 746
         char _unknown_747[85];
-        CommandLine field_832; // offset 832
+        CommandLine m_commandLineObject; // offset 832
         char _unknown_1156[4];
         Filename field_1160; // offset 1160
         char _unknown_1176[288];

@@ -18,8 +18,8 @@ namespace jag::audio {
         static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ NullSoundResourceData;
 
         // data members, from how the methods use this: 9 bytes
-        undefined* field_0; // offset 0, vtable pointer
-        undefined1 field_8; // offset 8
+        undefined* field_0;    // offset 0, vtable pointer
+        undefined1 m_streamed; // offset 8
     };
 
     // 0x100664830, 16 bytes, inline, placed by class name and debug map
@@ -43,7 +43,7 @@ namespace jag::audio {
     // SoundResource::SoundResource()
     void SoundResource::SoundResource() {
         field_0 = PTR_vtable_100ee8610 + 16;
-        field_8 = 0;
+        m_streamed = 0;
     }
 
     // 0x1006699e0, 48 bytes, inline, placed by class name

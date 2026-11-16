@@ -13,13 +13,13 @@ namespace jag::game {
         virtual void __pure_slot_2() = 0;
         virtual void __pure_slot_3() = 0;
         virtual void ProcessServerUpdate(PacketT<Array<unsigned char, BucketAllocatorEASTL>>&);
-        GetEffectID() const;
+        int GetEffectID() const;
         ICameraEffect(Type, int);
 
         // data members, from how the methods use this: 20 bytes
-        undefined* field_0;  // offset 0, vtable pointer
-        undefined4 field_8;  // offset 8
-        undefined4 field_12; // offset 12
+        undefined* field_0; // offset 0, vtable pointer
+        undefined4 field_8; // offset 8
+        int m_effectID;     // offset 12
         char _unknown_16[4];
     };
 
@@ -27,14 +27,14 @@ namespace jag::game {
     ICameraEffect::~ICameraEffect();
 
     // 0x1000e5d50: the linker folded this into oldscape::rs2lib::CoordZoneSource::GetRotation() const, which has identical code
-    ICameraEffect::GetEffectID() const;
+    int ICameraEffect::GetEffectID() const;
 
     // 0x10061c3c0, 32 bytes, base-object constructor, inline, placed by class name and debug map
     // ICameraEffect::ICameraEffect(ICameraEffect::Type, int)
-    void ICameraEffect::ICameraEffect(undefined4 param_2, undefined4 param_3) {
+    void ICameraEffect::ICameraEffect(undefined4 param_2, int param_3) {
         field_0 = PTR_vtable_100ee7f18 + 16;
         field_8 = param_2;
-        field_12 = param_3;
+        m_effectID = param_3;
     }
 
     // 0x10061d8a0, 48 bytes, inline, placed by class name

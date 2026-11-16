@@ -7,7 +7,7 @@
 
 namespace jag::graphics {
     // 0x100066b70: the linker folded this into oldscape::widgets::Widget::GetTextColour() const, which has identical code
-    DepthBufferRasterizerSSE::GetNumRasterizedTriangles() const;
+    int DepthBufferRasterizerSSE::GetNumRasterizedTriangles() const;
 
     // 0x100822830, 48 bytes, base-object constructor, placed by class name and debug map
     // DepthBufferRasterizerSSE::DepthBufferRasterizerSSE(unsigned int, unsigned int)

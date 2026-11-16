@@ -8,7 +8,7 @@ namespace jag::graphics {
     class VertexAnimation {
     public:
         GetBoneTransforms() const;
-        GetAnimationStateProvider() const;
+        shared_ptr GetAnimationStateProvider() const;
         VertexAnimation(VertexAnimation&&);
         VertexAnimation(VertexAnimation const&);
         bool GetAnimatesTransparency() const;
@@ -46,10 +46,10 @@ namespace jag::graphics {
 
         // data members, from how the methods use this: 76 bytes
         char _unknown_0[48];
-        shared_ptr field_48; // offset 48
-        uint field_64;       // offset 64
-        uint field_68;       // offset 68
-        undefined1 field_72; // offset 72
+        shared_ptr m_animationStateProvider; // offset 48
+        uint field_64;                       // offset 64
+        uint field_68;                       // offset 68
+        undefined1 field_72;                 // offset 72
         char _unknown_73[3];
     };
 
@@ -66,7 +66,8 @@ namespace jag::graphics {
 
         new (this) VertexTransformData(param_1);
         shared_ptr<oldscape::RSevenDebugPresetProvider>::shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(
-            (shared_ptr<oldscape::RSevenDebugPresetProvider>*)field_48, (shared_ptr*)param_1->field_48);
+            (shared_ptr<oldscape::RSevenDebugPresetProvider>*)m_animationStateProvider,
+            (shared_ptr*)param_1->m_animationStateProvider);
         field_72 = param_1->field_72;
         uVar1 = param_1->field_68;
         field_64 = param_1->field_64;
@@ -79,7 +80,8 @@ namespace jag::graphics {
         uint uVar1;
 
         new (this) VertexTransformData(param_1);
-        new (field_48, (shared_ptr*)param_1->field_48) shared_ptr<oldscape::dash3d::Decor>();
+        new (m_animationStateProvider, (shared_ptr*)param_1->m_animationStateProvider)
+            shared_ptr<oldscape::dash3d::Decor>();
         field_72 = param_1->field_72;
         uVar1 = param_1->field_68;
         field_64 = param_1->field_64;
@@ -91,9 +93,9 @@ namespace jag::graphics {
     bool VertexAnimation::GetAnimatesTransparency() {
         long* plVar3;
 
-        if (field_48->operator_cast_to_bool()) {
-            plVar3 =
-                (long*)shared_ptr<AnimationStateProvider>::operator->((shared_ptr<AnimationStateProvider>*)field_48);
+        if (m_animationStateProvider->operator_cast_to_bool()) {
+            plVar3 = (long*)shared_ptr<AnimationStateProvider>::operator->(
+                (shared_ptr<AnimationStateProvider>*)m_animationStateProvider);
             if ((**(code**)(*plVar3 + 48))(plVar3) != '\0') {
                 return field_72 != '\0';
             }
@@ -110,7 +112,8 @@ namespace jag::graphics {
     // 0x1008669c0, 16 bytes, inline, placed by class name
     // VertexAnimation::SetAnimationStateProvider(shared_ptr<AnimationStateProvider> const&)
     void VertexAnimation::SetAnimationStateProvider(shared_ptr* param_1) {
-        shared_ptr<AnimationStateProvider>::operator=((shared_ptr<AnimationStateProvider>*)field_48, param_1);
+        shared_ptr<AnimationStateProvider>::operator=((shared_ptr<AnimationStateProvider>*)m_animationStateProvider,
+                                                      param_1);
     }
 
     // 0x100866b00, 32 bytes, inline, placed by class name
@@ -131,7 +134,7 @@ namespace jag::graphics {
         _func_decltype_nullptr* in_RSI;
 
         new (this) VertexTransformData();
-        new (field_48, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (m_animationStateProvider, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         field_64 = 2147483647;
         field_68 = 0;
         field_72 = 0;
@@ -140,7 +143,7 @@ namespace jag::graphics {
     // 0x1009917f0, 48 bytes, base-object destructor, inline, placed by class name
     // VertexAnimation::~VertexAnimation()
     void VertexAnimation::~VertexAnimation() {
-        field_48->~shared_ptr();
+        m_animationStateProvider->~shared_ptr();
         ~VertexTransformData();
     }
 

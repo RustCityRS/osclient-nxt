@@ -19,7 +19,7 @@ namespace jag::graphics {
         Array<float, eastl::allocator>* pAVar3;
 
         field_0 = param_1;
-        field_8 = 0;
+        m_cPUReprojectionReady = 0;
         this_00 = &field_16;
         new (this_00) std::array<OcclusionReprojection::FrameData, 2ul>();
         *(undefined8*)&field_1520 = 12884901888;
@@ -107,7 +107,7 @@ namespace jag::graphics {
         long local_38;
 
         local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        field_8 = 0;
+        m_cPUReprojectionReady = 0;
         pfVar3 = (float*)field_0->GetCPUDepthBuffer();
         lVar4 = param_1->GetCPUDepthBuffer();
         if (pfVar3 != (float*)0) {
@@ -120,7 +120,7 @@ namespace jag::graphics {
                     }
                 }
             } else {
-                field_8 = 1;
+                m_cPUReprojectionReady = 1;
                 local_c8 = param_1->GetBufferWidth();
                 local_c4 = param_1->GetBufferHeight();
                 local_c0 = pfVar3;

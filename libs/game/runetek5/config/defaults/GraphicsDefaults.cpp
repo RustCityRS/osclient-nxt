@@ -7,10 +7,10 @@
 
 namespace jag::game {
     // 0x100061e30: the linker folded this into render::RenderStats::GetTriangleCount() const, which has identical code
-    GraphicsDefaults::GetMaxHeadbarsSimultaneous() const;
+    uint GraphicsDefaults::GetMaxHeadbarsSimultaneous() const;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    GraphicsDefaults::GetMaxHitmarks() const;
+    uint GraphicsDefaults::GetMaxHitmarks() const;
 
     // 0x100102f20: the linker folded this into oldscape::rs2lib::InputField::GetScrollX() const, which has identical code
     GraphicsDefaults::GetFont11pxRegularID() const;
@@ -25,7 +25,7 @@ namespace jag::game {
     GraphicsDefaults::GetSpriteModIconsID() const;
 
     // 0x1001be5d0: the linker folded this into graphics::SunlightOptions::GetShadowQuality() const, which has identical code
-    GraphicsDefaults::GetMaxHeadbarsQueued() const;
+    uint GraphicsDefaults::GetMaxHeadbarsQueued() const;
 
     // 0x1001cd990: the linker folded this into graphics::PointLightIndicesEffect::GetVisiblePointLights(), which has identical code
     GraphicsDefaults::GetPlayerRecolSource() const;
@@ -37,13 +37,13 @@ namespace jag::game {
     GraphicsDefaults::GetObjStackColourMillions() const;
 
     // 0x1003f51a0: the linker folded this into BASType::GetHillRotateLength() const, which has identical code
-    GraphicsDefaults::GetObjStackColourBillions() const;
+    int GraphicsDefaults::GetObjStackColourBillions() const;
 
     // 0x1003f5b40: the linker folded this into BASType::GetHillRotateXLimit() const, which has identical code
     GraphicsDefaults::GetObjStackColourTrillions() const;
 
     // 0x1003f5b50: the linker folded this into BASType::GetHillRotateZLimit() const, which has identical code
-    GraphicsDefaults::GetObjStackColourQuadrillions() const;
+    int GraphicsDefaults::GetObjStackColourQuadrillions() const;
 
     // 0x100414cb0: the linker folded this into math::Transitionable<graphics::IrradianceSHCoefConsts>::GetEndValue(), which has identical code
     GraphicsDefaults::GetPlayerRematSource() const;
@@ -84,13 +84,13 @@ namespace jag::game {
         ulong uVar19;
         int iVar20;
 
-        field_0 = 4;
+        m_maxHitmarks = 4;
         this_05 = &field_8;
         new (this_05) Array<int, eastl::allocator>();
         this_00 = &field_32;
         new (this_00) Array<int, eastl::allocator>();
-        field_56 = 4;
-        field_60 = 4;
+        m_maxHeadbarsQueued = 4;
+        m_maxHeadbarsSimultaneous = 4;
         field_64 = 7;
         field_68 = 4294967295;
         field_72 = 4294967295;
@@ -107,16 +107,16 @@ namespace jag::game {
         this_04 = &field_168;
         new (this_04) Array<Array<Array<unsigned short, eastl::allocator>, eastl::allocator>, eastl::allocator>();
         field_192 = 1;
-        field_196 = 2;
+        m_npcChatTimeout = 2;
         field_200 = 1;
         field_204 = 3;
         field_208 = 0;
         m_objStackColourUnits = 4294902015;
         m_objStackColourThousands = 4294967295;
-        field_220 = 16744703;
-        field_224 = 16744703;
+        m_objStackColourMillions = 16744703;
+        m_objStackColourBillions = 16744703;
         m_objStackColourTrillions = 16744703;
-        field_232 = 16744703;
+        m_objStackColourQuadrillions = 16744703;
         field_236 = 4294967295;
         field_240 = 4294967295;
         field_244 = 100;
@@ -150,7 +150,7 @@ namespace jag::game {
                 case '\0':
                     cVar4 = this_05->empty();
                     if (cVar4 != '\0') {
-                        field_0 = 4;
+                        m_maxHitmarks = 4;
                         this_05->set_max_size(4, 0);
                         this_00->set_max_size(4, 0);
                     }
@@ -181,9 +181,9 @@ namespace jag::game {
                     break;
                 case '\x02':
                     bVar3 = param_1->g1();
-                    field_0 = (uint)bVar3;
+                    m_maxHitmarks = (uint)bVar3;
                     this_05->set_max_size((ulong)bVar3, 0);
-                    this_00->set_max_size((ulong)field_0, 0);
+                    this_00->set_max_size((ulong)m_maxHitmarks, 0);
                     break;
                 case '\x03':
                     field_80 = 0;
@@ -259,7 +259,7 @@ namespace jag::game {
                     break;
                 case '\b':
                     bVar3 = param_1->g1();
-                    field_196 = (uint)bVar3;
+                    m_npcChatTimeout = (uint)bVar3;
                     break;
                 case '\t':
                     field_200 = 0;
@@ -276,11 +276,11 @@ namespace jag::game {
                     break;
                 case '\f':
                     bVar3 = param_1->g1();
-                    field_60 = (uint)bVar3;
+                    m_maxHeadbarsSimultaneous = (uint)bVar3;
                     break;
                 case '\r':
                     bVar3 = param_1->g1();
-                    field_56 = (uint)bVar3;
+                    m_maxHeadbarsQueued = (uint)bVar3;
                     break;
                 case '\x0e':
                     bVar3 = param_1->g1();
@@ -299,7 +299,7 @@ namespace jag::game {
                     break;
                 case '\x12':
                     uVar8 = param_1->g4();
-                    field_220 = uVar8;
+                    m_objStackColourMillions = uVar8;
                     break;
                 case '\x13':
                     uVar7 = param_1->g2();
@@ -420,16 +420,16 @@ namespace jag::game {
                     field_332 = uVar8;
                     break;
                 case '\x19':
-                    uVar8 = param_1->g4();
-                    field_224 = uVar8;
+                    iVar20 = param_1->g4();
+                    m_objStackColourBillions = iVar20;
                     break;
                 case '\x1a':
                     uVar8 = param_1->g4();
                     m_objStackColourTrillions = uVar8;
                     break;
                 case '\x1b':
-                    uVar8 = param_1->g4();
-                    field_232 = uVar8;
+                    iVar20 = param_1->g4();
+                    m_objStackColourQuadrillions = iVar20;
                     break;
                 default:
                     uVar9 = logger::default_logger();
@@ -443,7 +443,7 @@ namespace jag::game {
         if (!bVar17) {
             cVar2 = this_05->empty();
             if (cVar2 != '\0') {
-                field_0 = 4;
+                m_maxHitmarks = 4;
                 this_05->set_max_size(4, 0);
                 this_00->set_max_size(4, 0);
             }

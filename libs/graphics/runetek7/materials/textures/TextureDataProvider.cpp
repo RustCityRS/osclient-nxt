@@ -18,7 +18,7 @@ namespace jag::graphics {
         undefined** ppuVar2;
         TextureFormatBitSet local_38;
 
-        _local_38 = CONCAT44((int)((uint7)in_register_00000001 >> 24), param_4.field_0);
+        _local_38 = CONCAT44((int)((uint7)in_register_00000001 >> 24), param_4.m_bits);
         cVar1 = local_38.IsCompressed();
         if (cVar1 == '\0') {
             ppuVar2 = field_0 + 7;

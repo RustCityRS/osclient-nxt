@@ -13,17 +13,17 @@ namespace jag::game {
         virtual ~AnimatedModel();
         virtual OnOverrideAnimationFinished(int);
         virtual RepeatLastOverrideAnimationFrameWhenFinished(int) const;
-        GetOverrideAnimation() const;
+        shared_ptr GetOverrideAnimation() const;
         void UnSync();
         GetDefaultAnimationSeqID() const;
-        IsDefaultAnimationReadyAnim() const;
+        bool IsDefaultAnimationReadyAnim() const;
         void RememberOverrideAnimationPoint();
         void SetParticleSoftFadeEnabled(bool);
         void SetParticleShadowsEnabled(bool);
         void SetAnimationStateProviderOverride(shared_ptr<graphics::AnimationStateProvider> const&);
         GetParticleSystems() const;
         GetModularParticleSystems() const;
-        GetDefaultAnimation();
+        shared_ptr GetDefaultAnimation();
         int GetDefaultAnimationRunCount() const;
         void SetDefaultAnimationRunCount(int);
         void RequestedOverrideAnimationIsPriority() const;
@@ -32,15 +32,15 @@ namespace jag::game {
         int GetOverrideAnimationSeqID() const;
         void SetOverrideDelay(unsigned int);
         void SetOverridePriority(unsigned int);
-        GetOverrideAnimationModel() const;
-        GetDefaultAnimationModel() const;
+        shared_ptr GetOverrideAnimationModel() const;
+        shared_ptr GetDefaultAnimationModel() const;
         void HasRequestedDefaultAnimation() const;
         GetCurrentAnimation();
         byte HasParticleSystems();
         InUse() const;
         void IsDefaultAnimationInUse() const;
         void IsOverrideAnimationInUse() const;
-        GetCurrentModel() const;
+        shared_ptr GetCurrentModel() const;
         void
         DebugOutputAnimationState<char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>(
             eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>&);
@@ -66,7 +66,7 @@ namespace jag::game {
         long GetCachedAnimationKey(int, int);
         void PutCachedAnimation(shared_ptr<AnimationWrapper> const&, unsigned int);
         void ResetAnimationState(unsigned int);
-        GetCurrentModel(unsigned int);
+        shared_ptr GetCurrentModel(unsigned int);
         void ResetOverrideAnimation();
         void ResetDefaultAnimation();
         char* ToString() const;

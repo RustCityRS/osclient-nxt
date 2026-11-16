@@ -10,7 +10,7 @@ namespace jag::game {
     ObjTypeList::GetModelCache();
 
     // 0x1004af330: the linker folded this into MapArea::ShouldAutoFind() const, which has identical code
-    ObjTypeList::IsMembersServer() const;
+    bool ObjTypeList::IsMembersServer() const;
 
     // 0x1004f2e10, 352 bytes, base-object constructor, placed by class name and debug map
     // ObjTypeList::ObjTypeList(ConfigTypeListContainerStrategy, ModeGame const*, Language const*, Js5ResourceProvider&, ConfigProvider&, bool)

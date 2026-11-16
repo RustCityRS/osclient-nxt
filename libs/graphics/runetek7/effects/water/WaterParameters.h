@@ -138,7 +138,7 @@ namespace jag::graphics {
         float m_emissiveScale;              // offset 412
         float m_emissiveMapRefractionDepth; // offset 416
         undefined1 m_emissiveMapMode;       // offset 420
-        undefined1 field_421;               // offset 421
+        undefined1 m_emissiveUVMode;        // offset 421
         char _unknown_422[2];
         float m_emissiveFlowSpeed;           // offset 424
         float m_emissiveFlowRotationDegrees; // offset 428
@@ -286,7 +286,7 @@ namespace jag::graphics {
     // 0x1007ba3a0, 16 bytes, inline, placed by class name
     // WaterParameters::SetEmissiveUVMode(WaterEmissiveUVMode)
     void WaterParameters::SetEmissiveUVMode(undefined1 param_2) {
-        field_421 = param_2;
+        m_emissiveUVMode = param_2;
     }
 
     // 0x1007ba3b0, 16 bytes, inline, placed by class name
@@ -438,7 +438,7 @@ namespace jag::graphics {
         m_emissiveMapMaterialScale = 1.0;
         new (&field_388) math::Vector2T<int>();
         new (&field_396) math::Vector3T<int>();
-        field_421 = 1;
+        m_emissiveUVMode = 1;
         m_emissiveFlowSpeed = 0.0;
         m_emissiveFlowRotationDegrees = 0.0;
         m_emissiveBlend = 0.0;

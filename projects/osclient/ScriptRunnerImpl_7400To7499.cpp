@@ -159,14 +159,14 @@ namespace jag::oldscape {
         weak_ptr<dash3d::Decor> local_40[16];
 
         pCVar4 = (CoordGrid*)Client::Instance();
-        if ((-1 < param_1) && (iVar2 = (*(Minimenu**)&pCVar4[3271].field_8)->GetNumEntries(), param_1 < iVar2)) {
-            this_00 = (WorldmapAreaMetadata*)(*(Minimenu**)&pCVar4[3271].field_8)->GetEntryAtIndex(param_1);
+        if ((-1 < param_1) && (iVar2 = (*(Minimenu**)&pCVar4[3271].m_z)->GetNumEntries(), param_1 < iVar2)) {
+            this_00 = (WorldmapAreaMetadata*)(*(Minimenu**)&pCVar4[3271].m_z)->GetEntryAtIndex(param_1);
             iVar2 = this_00->GetStreamCountLastMix();
             if (iVar2 == 4) {
                 lVar5 = this_00->GetDataType();
                 iVar2 = dash3d::MousePickingHelper::GetEntityXFromTypecode(lVar5);
                 iVar3 = dash3d::MousePickingHelper::GetEntityZFromTypecode(lVar5);
-                new (&local_60) rs2lib::CoordGrid(pCVar4[3249].field_0, iVar2, iVar3);
+                new (&local_60) rs2lib::CoordGrid(pCVar4[3249].m_level, iVar2, iVar3);
                 iVar2 = this_00->GetNumVerts();
                 this_00->GetMaxMapZ();
                 local_50->FindClientObj(pCVar4, (int)this + 140928, iVar2);
@@ -240,14 +240,14 @@ namespace jag::oldscape {
         CoordGrid local_38;
 
         pCVar5 = (CoordGrid*)Client::Instance();
-        if ((param_1 < 0) || (iVar1 = (*(Minimenu**)&pCVar5[3271].field_8)->GetNumEntries(), iVar1 <= param_1)) {
+        if ((param_1 < 0) || (iVar1 = (*(Minimenu**)&pCVar5[3271].m_z)->GetNumEntries(), iVar1 <= param_1)) {
             iVar1 = field_104092;
             field_104092 = iVar1 + 1;
             puVar7 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)&field_100092, (long)iVar1);
             *puVar7 = 0;
             return 1;
         }
-        this_00 = (Mixer*)(*(Minimenu**)&pCVar5[3271].field_8)->GetEntryAtIndex(param_1);
+        this_00 = (Mixer*)(*(Minimenu**)&pCVar5[3271].m_z)->GetEntryAtIndex(param_1);
         uVar2 = this_00->GetStreamCountLastMix();
         new (&local_48) rs2lib::CoordGrid();
         if ((uVar2 < 7) && ((92U >> (uVar2 & 31) & 1) != 0)) {
@@ -259,11 +259,11 @@ namespace jag::oldscape {
             iVar3 = dash3d::world::m_mouseoverGroundX;
         }
         new (&local_38) rs2lib::CoordGrid(0, iVar3, iVar1);
-        local_48.field_8 = local_38.field_8;
-        local_48.field_0 = local_38.field_0;
-        local_48.field_4 = local_38.field_4;
+        local_48.m_z = local_38.m_z;
+        local_48.m_level = local_38.m_level;
+        local_48.m_x = local_38.m_x;
         local_38.WorldCoordFromBuildCoord(pCVar5);
-        uVar2 = pCVar5[3249].field_0;
+        uVar2 = pCVar5[3249].m_level;
         iVar1 = local_38.GetZ();
         iVar3 = local_38.GetPos();
         uVar4 = rs2lib::CoordGrid::BitPack(uVar2, iVar1, iVar3);

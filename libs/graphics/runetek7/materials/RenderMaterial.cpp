@@ -31,24 +31,24 @@ namespace jag::graphics {
     RenderMaterial::SetAlphaTestThreshold(unsigned char);
 
     // 0x100293ee0: the linker folded this into hal::audio::AudioRenderer::GetState() const, which has identical code
-    RenderMaterial::GetViewportMapID() const;
+    int RenderMaterial::GetViewportMapID() const;
 
     // 0x10060da40: the linker folded this into game::option::Option<game::option::EnumAntialiasingMode>::SetMaxLowestValue(game::option::EnumAntialiasingMode), which has identical code
     RenderMaterial::SetEnvironmentMaterialID(int);
 
     // 0x10080e330: the linker folded this into GeometryBatch::GetBoneCount() const, which has identical code
-    RenderMaterial::GetAlphaTestThreshold() const;
+    uchar RenderMaterial::GetAlphaTestThreshold() const;
 
     // 0x1008c76c0, 96 bytes, base-object constructor, placed by class name and debug map
     // RenderMaterial::RenderMaterial(RenderMaterial&&)
     void RenderMaterial::RenderMaterial(RenderMaterial* param_1) {
         field_0 = &PTR__SkyBoxMaterial_100f184f0;
         field_8 = param_1->field_8;
-        field_16 = param_1->field_16;
-        field_24 = param_1->field_24;
+        m_alphaMode = param_1->m_alphaMode;
+        m_pBlendMode = param_1->m_pBlendMode;
         m_alphaTestThreshold = param_1->m_alphaTestThreshold;
-        field_36 = param_1->field_36;
-        field_40 = param_1->field_40;
+        m_environmentMaterialID = param_1->m_environmentMaterialID;
+        m_viewportMapID = param_1->m_viewportMapID;
         new (&field_48, (array*)&param_1->field_48) std::array<RenderPassEffect, 10ul>();
         *(undefined4*)field_528 = *(undefined4*)param_1->field_528;
     }
@@ -61,11 +61,11 @@ namespace jag::graphics {
     void RenderMaterial::RenderMaterial(RenderMaterial* param_1) {
         field_0 = &PTR__SkyBoxMaterial_100f184f0;
         field_8 = param_1->field_8;
-        field_16 = param_1->field_16;
-        field_24 = param_1->field_24;
+        m_alphaMode = param_1->m_alphaMode;
+        m_pBlendMode = param_1->m_pBlendMode;
         m_alphaTestThreshold = param_1->m_alphaTestThreshold;
-        field_36 = param_1->field_36;
-        field_40 = param_1->field_40;
+        m_environmentMaterialID = param_1->m_environmentMaterialID;
+        m_viewportMapID = param_1->m_viewportMapID;
         new (&field_48, (array*)&param_1->field_48) std::array<RenderPassEffect, 10ul>();
         *(undefined4*)field_528 = *(undefined4*)param_1->field_528;
     }
@@ -79,11 +79,11 @@ namespace jag::graphics {
 
     RenderMaterial* RenderMaterial::operator=(RenderMaterial* param_1) {
         field_8 = param_1->field_8;
-        field_16 = param_1->field_16;
-        field_24 = param_1->field_24;
+        m_alphaMode = param_1->m_alphaMode;
+        m_pBlendMode = param_1->m_pBlendMode;
         m_alphaTestThreshold = param_1->m_alphaTestThreshold;
-        field_36 = param_1->field_36;
-        field_40 = param_1->field_40;
+        m_environmentMaterialID = param_1->m_environmentMaterialID;
+        m_viewportMapID = param_1->m_viewportMapID;
         std::array<RenderPassEffect, 10ul>::operator=((array<RenderPassEffect, 10ul>*)&field_48,
                                                       (array*)&param_1->field_48);
         *(undefined4*)field_528 = *(undefined4*)param_1->field_528;

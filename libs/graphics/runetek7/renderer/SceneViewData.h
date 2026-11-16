@@ -20,7 +20,7 @@ namespace jag::graphics {
         void SetRenderFlags(unsigned int);
         void SetRenderTargets(render::RenderTargetData const&);
         GetViewFrustum() const;
-        GetOcclusionTestEnabled() const;
+        bool GetOcclusionTestEnabled() const;
         void HasShadowPass() const;
         float* GetStippleNearClipParams() const;
         void HasRenderPass(RenderPassType) const;
@@ -43,7 +43,9 @@ namespace jag::graphics {
         // data members, from how the methods use this: 664 bytes
         char _unknown_0[80];
         undefined1 field_80; // offset 80
-        char _unknown_81[439];
+        char _unknown_81[127];
+        undefined1 m_pViewFrustum[4]; // offset 208
+        char _unknown_212[308];
         RenderPass* field_520; // offset 520
         char _unknown_528[96];
         undefined1 field_624;                   // offset 624
@@ -210,7 +212,7 @@ namespace jag::graphics {
         float fVar9;
 
         ViewTransforms::operator=((ViewTransforms*)this, (ViewTransforms*)param_1);
-        math::Frustum::operator=((Frustum*)&field_208, (Frustum*)&param_1->field_208);
+        math::Frustum::operator=((Frustum*)m_pViewFrustum, (Frustum*)param_1->m_pViewFrustum);
         render::RenderTargetData::operator=((RenderTargetData*)&field_368, (RenderTargetData*)&param_1->field_368);
         eastl::fixed_vector<render::Viewport, 2ul, true, eastl::allocator>::operator=(
             (fixed_vector<render::Viewport, 2ul, true, eastl::allocator>*)&field_432,

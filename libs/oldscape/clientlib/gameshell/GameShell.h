@@ -9,7 +9,7 @@ namespace jag::oldscape::javapal {
     class GameShell {
     public:
         ShowBasicPercentTidy();
-        GetGraphicsApp();
+        GraphicsApp* GetGraphicsApp();
         void SetFrameRate(int);
         GetSafeArea() const;
         void SwapRenderer();
@@ -21,7 +21,7 @@ namespace jag::oldscape::javapal {
         void DoneSlowUpdate();
         void ShowError();
         void Destroy();
-        GetMinimumCanvasHeight() const;
+        int GetMinimumCanvasHeight() const;
         int GetMinimumCanvasWidth() const;
         void SetMinimumCanvasSize(int, int);
         void SetupKeyboard(jag::input::InputHandler*);
@@ -44,7 +44,7 @@ namespace jag::oldscape::javapal {
         NXTPixToolkit* GetOrCreatePixToolkit(int);
         GetCanvasWidth();
         GetCanvasHeight();
-        GetPixToolkit();
+        NXTPixToolkit* GetPixToolkit();
         void Run(jag::input::Input*, jag::input::InputHandler*);
         void SetShouldStopRunning();
         void MainLoopWrapper();
@@ -92,14 +92,14 @@ namespace jag::oldscape::javapal {
         int field_8;  // offset 8
         int field_12; // offset 12
         char _unknown_16[104];
-        int m_minimumCanvasWidth; // offset 120
-        int field_124;            // offset 124
-        undefined1 field_128;     // offset 128
+        int m_minimumCanvasWidth;  // offset 120
+        int m_minimumCanvasHeight; // offset 124
+        undefined1 field_128;      // offset 128
         char _unknown_129[7];
         int m_pixToolkit; // offset 136
         char _unknown_140[4];
-        NXTPixToolkit* field_144; // offset 144
-        GraphicsApp* field_152;   // offset 152
+        NXTPixToolkit* m_pPixToolkit; // offset 144
+        GraphicsApp* m_pGraphicsApp;  // offset 152
         char _unknown_160[7936];
         int field_8096;          // offset 8096
         int m_frameWidth;        // offset 8100
@@ -125,8 +125,8 @@ namespace jag::oldscape::javapal {
     // 0x10004dc70, 32 bytes, inline, placed by class name
     // GameShell::SetFrameRate(int)
     void GameShell::SetFrameRate(int param_1) {
-        if (field_144 != (NXTPixToolkit*)0) {
-            (field_144, param_1)->SetFrameRate();
+        if (m_pPixToolkit != (NXTPixToolkit*)0) {
+            (m_pPixToolkit, param_1)->SetFrameRate();
         }
     }
 
@@ -155,8 +155,8 @@ namespace jag::oldscape::javapal {
         new (&field_64, 15) datastructure::RollingAverageCounter();
         field_128 = 0;
         *(undefined8*)&field_132 = 18446744070484306950;
-        field_144 = (NXTPixToolkit*)0;
-        field_152 = param_1;
+        m_pPixToolkit = (NXTPixToolkit*)0;
+        m_pGraphicsApp = param_1;
         new (&field_160) input::InputEventQueue();
         new (&field_6944) input::ClientKeyboardListener();
         new (&field_7280) input::ClientMouseListener();
@@ -243,7 +243,7 @@ namespace jag::oldscape::javapal {
     // 0x1000d74e0, 32 bytes, inline, placed by class name
     // GameShell::ShowError()
     void GameShell::ShowError() {
-        (*(code*)field_144->field_0[4])(field_144, 0, 0);
+        (*(code*)m_pPixToolkit->field_0[4])(m_pPixToolkit, 0, 0);
     }
 
     // 0x1000d8740, 48 bytes, inline, placed by class name
@@ -287,11 +287,11 @@ namespace jag::oldscape::javapal {
                       95, "Minimum canvas height cannot be smaller than: %d, it is set to %d", 503,
                       (ulong)(uint)param_2);
         }
-        if ((m_minimumCanvasWidth != param_1) || (field_124 != param_2)) {
+        if ((m_minimumCanvasWidth != param_1) || (m_minimumCanvasHeight != param_2)) {
             field_8132 = 1;
         }
         m_minimumCanvasWidth = param_1;
-        field_124 = param_2;
+        m_minimumCanvasHeight = param_2;
     }
 
     // 0x1000dfcb0, 48 bytes, inline, placed by class name
@@ -331,7 +331,7 @@ namespace jag::oldscape::javapal {
     // GameShell::SetPixToolkit(int)
     void GameShell::SetPixToolkit(int param_1) {
         m_pixToolkit = param_1;
-        field_144 = (NXTPixToolkit*)GetOrCreatePixToolkit(this, param_1);
+        m_pPixToolkit = (NXTPixToolkit*)GetOrCreatePixToolkit(this, param_1);
     }
 
     // 0x1000dff00, 80 bytes, inline, placed by class name
@@ -457,7 +457,7 @@ namespace jag::oldscape::javapal {
         vector* pvVar6;
         undefined1 local_40[16];
 
-        ptVar4 = (type*)(*(code*)field_152->field_0[12])();
+        ptVar4 = (type*)(*(code*)m_pGraphicsApp->field_0[12])();
         local_40->GetSafeAreaInsets();
         piVar5 = (int*)local_40->y();
         iVar1 = *piVar5;
@@ -484,8 +484,8 @@ namespace jag::oldscape::javapal {
             uVar1 = render::StencilOpDesc::operator==((StencilOpDesc*)local_38, (StencilOpDesc*)this_00);
             if ((char)uVar1 == '\0') {
                 jag::math::Rect<unsigned int>::operator=((Rect<unsigned int>*)this_00, local_38);
-                if (field_144 != (NXTPixToolkit*)0) {
-                    (field_144, (Rect*)this_00)->SetSafeArea();
+                if (m_pPixToolkit != (NXTPixToolkit*)0) {
+                    (m_pPixToolkit, (Rect*)this_00)->SetSafeArea();
                 }
             }
             uVar1 = uVar1 ^ 1;
@@ -505,14 +505,14 @@ namespace jag::oldscape::javapal {
                       "gameshell/GameShell.h",
                       736, (char*)0);
         }
-        if (field_144 == (NXTPixToolkit*)0) {
+        if (m_pPixToolkit == (NXTPixToolkit*)0) {
             this_00 = operator_new(6515840);
             graphics::NXTPixToolkit::NXTPixToolkit(this_00, m_frameWidth, m_frameHeight, m_minimumCanvasWidth,
-                                                   field_124);
-            field_144 = this_00;
+                                                   m_minimumCanvasHeight);
+            m_pPixToolkit = this_00;
             this_00->SetSafeArea((Rect*)&field_8116);
         }
-        return field_144;
+        return m_pPixToolkit;
     }
 
     // 0x10015dba0, 16 bytes, inline, placed by class name
@@ -554,7 +554,7 @@ namespace jag::oldscape::javapal {
 
         local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
         m_killTime = 0;
-        pWVar2 = (Window*)(*(code*)field_152->field_0[12])();
+        pWVar2 = (Window*)(*(code*)m_pGraphicsApp->field_0[12])();
         std::function<void()>::function<GameShell::Run(jag::input::Input*, jag::input::InputHandler*)::_lambda() _1_,
                                         void>(local_68, this);
         pWVar2->SetSafeAreaChangeCallback(local_68);
@@ -677,9 +677,9 @@ namespace jag::oldscape::javapal {
         int iVar1;
 
         iVar1 = m_frameWidth - m_sWid;
-        (field_144, m_minimumCanvasWidth, field_124)->SetMinSize();
-        (field_144, m_frameWidth, m_frameHeight)->SetScreenSize();
-        (field_144, iVar1 / 2, 0, m_sWid, m_sHei)->SetViewportRect();
+        (m_pPixToolkit, m_minimumCanvasWidth, m_minimumCanvasHeight)->SetMinSize();
+        (m_pPixToolkit, m_frameWidth, m_frameHeight)->SetScreenSize();
+        (m_pPixToolkit, iVar1 / 2, 0, m_sWid, m_sHei)->SetViewportRect();
     }
 
 } // namespace jag::oldscape::javapal

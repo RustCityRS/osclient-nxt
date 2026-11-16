@@ -26,7 +26,7 @@ namespace jag::graphics {
     // ParticleEffector::ParticleEffector(shared_ptr<ModelParticleSource> const&, ParticleManager*, ParticleSystem*)
     void ParticleEffector::ParticleEffector(shared_ptr* param_1, ParticleManager* param_2, ParticleSystem* param_3) {
         new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(0);
-        field_16 = 0;
+        m_effectorTemplate = 0;
         field_24 = (ParticleManager*)0;
         field_32 = (ParticleSystem*)0;
         new (&field_40) math::Vector3T<int>();
@@ -52,7 +52,7 @@ namespace jag::graphics {
                     (Minimap*)shared_ptr<ModelParticleSource>::operator->((shared_ptr<ModelParticleSource>*)param_1);
                 uVar2 = this_00->GetLevel();
                 uVar3 = param_2->GetEffectorTemplate(uVar2);
-                field_16 = uVar3;
+                m_effectorTemplate = uVar3;
                 shared_ptr<ModelParticleSource>::operator=((shared_ptr<ModelParticleSource>*)this, param_1);
                 field_24 = param_2;
                 field_32 = param_3;
@@ -86,7 +86,7 @@ namespace jag::graphics {
     void ParticleEffector::UpdatePosition(Vector3T* param_1, Matrix33T* param_2) {
         undefined8 local_30[2];
 
-        local_30[0] = math::operator*((Vector3T*)(field_16 + 4), param_2);
+        local_30[0] = math::operator*((Vector3T*)(m_effectorTemplate + 4), param_2);
         (((long)&field_48 + 4), (Vector3T*)local_30)->SetXYZ();
         if (math::operator!=(param_1, (Vector3T*)&field_40)) {
             (&field_40, param_1)->SetXYZ();

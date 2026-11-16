@@ -7,7 +7,7 @@
 namespace jag::oldscape::rs2lib::worldmap {
     class WorldmapAreaMetadata {
     public:
-        GetMaxMapX() const;
+        int GetMaxMapX() const;
         GetDebugName() const;
         IsDefaultMap() const;
         void GetOriginY() const;
@@ -18,9 +18,9 @@ namespace jag::oldscape::rs2lib::worldmap {
         SetMinMapX(int);
         GetNiceName() const;
         int GetMaxMapZ() const;
-        GetId() const;
+        uint GetId() const;
         int GetMinMapX() const;
-        GetOrigin() const;
+        CoordMapSquare GetOrigin() const;
         GetBackgroundColour() const;
         GetMinMapZ() const;
         GetAdvisedZoom() const;
@@ -36,15 +36,15 @@ namespace jag::oldscape::rs2lib::worldmap {
         TargetToSourceTile(int, int);
 
         // data members, from how the methods use this: 404 bytes
-        undefined4 field_0; // offset 0
+        uint m_id; // offset 0
         char _unknown_4[68];
-        undefined8 field_72;     // offset 72
-        CoordMapSquare m_origin; // offset 80
-        int m_minMapX;           // offset 92
-        int m_maxMapX;           // offset 96
-        int m_minMapZ;           // offset 100
-        int m_maxMapZ;           // offset 104
-        undefined2 field_108;    // offset 108
+        undefined8 m_backgroundColour; // offset 72
+        CoordMapSquare m_origin;       // offset 80
+        int m_minMapX;                 // offset 92
+        int m_maxMapX;                 // offset 96
+        int m_minMapZ;                 // offset 100
+        int m_maxMapZ;                 // offset 104
+        undefined2 field_108;          // offset 108
         char _unknown_110[294];
     };
 
@@ -78,10 +78,10 @@ namespace jag::oldscape::rs2lib::worldmap {
     // 0x100057a10, 144 bytes, base-object constructor, inline, placed by class name
     // WorldmapAreaMetadata::WorldmapAreaMetadata()
     void WorldmapAreaMetadata::WorldmapAreaMetadata() {
-        field_0 = 4294967295;
+        m_id = 4294967295;
         new (&field_8) eastl::string();
         new (&field_40) eastl::string();
-        field_72 = 18446744073709551615;
+        m_backgroundColour = 18446744073709551615;
         new (m_origin, (CoordGrid*)&rs2lib::CoordGrid::CoordGridNull) rs2lib::CoordGrid();
         m_minMapX = 2147483647;
         m_maxMapX = 0;

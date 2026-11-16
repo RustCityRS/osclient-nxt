@@ -7,10 +7,10 @@
 
 namespace jag::graphics {
     // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    SceneRenderPass::GetOcclusionManager();
+    OcclusionManager SceneRenderPass::GetOcclusionManager();
 
     // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    SceneRenderPass::GetOcclusionManager() const;
+    OcclusionManager SceneRenderPass::GetOcclusionManager() const;
 
     // 0x1007a42e0, 336 bytes, placed by class name and debug map
     // SceneRenderPass::ClearRenderTargets(render::RenderContext&, render::RenderTargetData const&, eastl::fixed_vector<render::Viewport, 2ul, true, eastl::allocator> const&)
@@ -81,7 +81,7 @@ namespace jag::graphics {
     void SceneRenderPass::SceneRenderPass(undefined8 param_2, undefined8 param_3, ThreadPool* param_4) {
         RenderPass::RenderPass();
         field_0 = &PTR__SceneRenderPass_100f14460;
-        new (field_16, param_4) OcclusionManager();
+        new (m_occlusionManager, param_4) OcclusionManager();
         std::unique_ptr<render::BufferedRenderTargets, std::default_delete<render::BufferedRenderTargets>>::unique_ptr<
             true, void>(
             (unique_ptr<render::BufferedRenderTargets, std::default_delete<render::BufferedRenderTargets>>*)&field_736);
@@ -119,7 +119,7 @@ namespace jag::graphics {
         (&field_768)->~unique_ptr();
         (&field_744)->~Array();
         (&field_736)->~unique_ptr();
-        field_16->~OcclusionManager();
+        m_occlusionManager->~OcclusionManager();
         ~RenderPass();
     }
 
@@ -218,7 +218,7 @@ namespace jag::graphics {
 
         local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
         if (param_10 == (OcclusionManager*)0) {
-            param_10 = (OcclusionManager*)field_16;
+            param_10 = (OcclusionManager*)m_occlusionManager;
         }
         local_88 = param_2;
         local_80 = param_1;
@@ -435,7 +435,7 @@ namespace jag::graphics {
         RT7Core* pRVar12;
         int iVar13;
 
-        field_16->UpdateStats();
+        m_occlusionManager->UpdateStats();
         cVar1 = param_3->GetOcclusionTestEnabled();
         if (cVar1 != '\0') {
             uVar11 = 0;
@@ -532,7 +532,7 @@ namespace jag::graphics {
         local_48 = param_2;
         cVar2 = GetGPUCullingSupported();
         if (cVar2 != '\0') {
-            puVar1 = field_16;
+            puVar1 = m_occlusionManager;
             pBVar4 = (BufferedRenderTargets*)puVar1;
             puVar1->Init(param_4, param_5);
             if (param_3) {
@@ -660,7 +660,7 @@ namespace jag::graphics {
                                            std::default_delete<render::BufferedRenderTargets>>*)&field_736);
             this_00->MapColourTargetData(&local_48);
             if (local_48._8_8_ != 0) {
-                (field_16, local_48._8_8_, (undefined4)local_48.field_40)->LoadPackedDepthBuffer();
+                (m_occlusionManager, local_48._8_8_, (undefined4)local_48.field_40)->LoadPackedDepthBuffer();
             }
             local_48.~BufferedImageData();
         }

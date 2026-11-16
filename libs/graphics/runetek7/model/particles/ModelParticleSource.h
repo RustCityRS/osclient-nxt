@@ -16,7 +16,7 @@ namespace jag::graphics {
         virtual ~ModelParticleSource();
         GetVertex3() const;
         GetVertex1() const;
-        GetTemplateID() const;
+        uint GetTemplateID() const;
         GetSourceModelExternalID() const;
         GetVertex2() const;
         void SetSourceModelExternalID(int);
@@ -34,17 +34,17 @@ namespace jag::graphics {
         undefined** field_0; // offset 0, vtable pointer
         undefined1 field_8;  // offset 8
         char _unknown_9[3];
-        uint field_12;       // offset 12
-        undefined8 field_16; // offset 16
-        uint field_24;       // offset 24
+        uint m_templateID;    // offset 12
+        undefined8 m_vertex1; // offset 16
+        uint field_24;        // offset 24
         char _unknown_28[4];
         undefined4 field_32;  // offset 32
         undefined8 m_vertex2; // offset 36
         uint field_44;        // offset 44
         char _unknown_48[4];
-        undefined4 field_52; // offset 52
-        undefined8 field_56; // offset 56
-        uint field_64;       // offset 64
+        undefined4 field_52;  // offset 52
+        undefined8 m_vertex3; // offset 56
+        uint field_64;        // offset 64
         char _unknown_68[4];
         undefined4 field_72;         // offset 72
         int m_sourceModelExternalID; // offset 76

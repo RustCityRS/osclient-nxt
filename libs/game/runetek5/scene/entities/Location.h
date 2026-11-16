@@ -26,14 +26,14 @@ namespace jag::game {
         virtual CanRender() const;
         virtual int GetID() const;
         virtual void RequestOverrideAnimation(int, int, unsigned int, unsigned int);
-        virtual GetLocationType() const;
-        virtual GetParentLocationType() const;
+        virtual shared_ptr GetLocationType() const;
+        virtual shared_ptr GetParentLocationType() const;
         virtual GetShape() const;
         virtual GetRotation90() const;
         virtual GetTransform() const;
         virtual void GetLocationLength() const;
         virtual void GetLocationWidth() const;
-        virtual GetAttachedWallWidth() const;
+        virtual int GetAttachedWallWidth() const;
         virtual ulong UpdateAudio();
         GetServerPosition() const;
         void GetParentTypeID();
@@ -299,7 +299,7 @@ namespace jag::game {
         LocType* pLVar1;
         undefined1 uVar2;
 
-        pLVar1 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)field_256);
+        pLVar1 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
         uVar2 = field_352->GetRot();
         pLVar1->GetGridLength(uVar2);
     }
@@ -310,7 +310,7 @@ namespace jag::game {
         LocType* pLVar1;
         undefined1 uVar2;
 
-        pLVar1 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)field_256);
+        pLVar1 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
         uVar2 = field_352->GetRot();
         pLVar1->GetGridWidth(uVar2);
     }

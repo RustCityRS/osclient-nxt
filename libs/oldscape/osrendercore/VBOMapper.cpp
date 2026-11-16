@@ -23,7 +23,7 @@ namespace jag::oldscape {
         uint local_24;
 
         local_24 = (uint)((ulong)in_RAX >> 32);
-        if (field_25 == '\0') {
+        if (m_mappingSupport == '\0') {
             uVar2 = end();
             _local_28 = CONCAT44(local_24, uVar2);
             uVar2 = param_1->GetAliveCount();

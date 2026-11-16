@@ -1002,8 +1002,8 @@ namespace jag::render {
     // VertexArrayObject::VertexArrayObject()
     void VertexArrayObject::VertexArrayObject() {
         new (this) MakeSharedPool<VertexArrayObject, 2048>();
-        field_0 = 0;
-        field_4 = 0;
+        m_nativeVAO = 0;
+        m_lastUsageSeconds = 0.0;
     }
 
     // 0x100c34c40, 64 bytes, base-object destructor, inline, placed by debug map only (low confidence)

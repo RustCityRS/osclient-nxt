@@ -7,7 +7,7 @@
 
 namespace jag::graphics {
     // 0x1007a2d90: the linker folded this into WaterMaterial::GetWaterParameters() const, which has identical code
-    WaterMaterial::GetWaterParameters();
+    WaterParameters WaterMaterial::GetWaterParameters();
 
     // 0x1007b98b0, 96 bytes, base-object constructor, placed by class name and debug map
     // WaterMaterial::WaterMaterial()
@@ -351,16 +351,16 @@ namespace jag::graphics {
         if (in_RDX == (StockPlayerOffer*)0) {
             new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(0);
         } else {
-            uVar1._0_1_ = param_1->field_0;
+            uVar1._0_1_ = param_1->m_valid;
             uVar1._1_1_ = param_1->field_1;
             uVar1._2_2_ = *(undefined2*)&param_1->field_2;
-            uVar1._4_4_ = param_1->field_4;
+            uVar1._4_4_ = param_1->m_iD;
             bVar3 = (bool)in_RDX->GetCompletedGold();
             TextureManager::GetHALTexture((TextureType*)&local_40, (uint)uVar1, (TextureFormatBitSet)(uint)puVar2,
                                           bVar3, SUB41(**(undefined4**)&param_1->field_16, 0));
             bVar3 = operator==(&local_40, (_func_decltype_nullptr*)0);
             if (bVar3) {
-                **(undefined1**)&param_1->field_8 = 0;
+                **(undefined1**)&param_1->m_size = 0;
             } else {
                 plVar4 = (long*)shared_ptr<render::Texture>::operator->((shared_ptr<render::Texture>*)&local_40);
                 lVar5 = local_40.Instance();

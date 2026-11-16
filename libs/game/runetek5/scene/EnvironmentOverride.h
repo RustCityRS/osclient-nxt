@@ -54,32 +54,32 @@ namespace jag::game {
         undefined8 field_52; // offset 52
         undefined8 field_60; // offset 60
         char _unknown_68[8];
-        undefined8 m_fogOverrides; // offset 76
-        ulong field_84;            // offset 84
-        ulong field_92;            // offset 92
-        ulong field_100;           // offset 100
-        undefined8 field_108;      // offset 108
-        undefined8 field_116;      // offset 116
-        undefined4 field_124;      // offset 124
-        undefined8 field_128;      // offset 128
+        undefined8 m_fogOverrides;   // offset 76
+        ulong field_84;              // offset 84
+        ulong field_92;              // offset 92
+        ulong field_100;             // offset 100
+        undefined8 field_108;        // offset 108
+        undefined8 field_116;        // offset 116
+        undefined4 field_124;        // offset 124
+        undefined8 m_bloomOverrides; // offset 128
         char _unknown_136[4];
-        ulong field_140;               // offset 140
-        ulong field_148;               // offset 148
-        undefined8 field_156;          // offset 156
-        ulong field_164;               // offset 164
-        undefined4 field_172;          // offset 172
-        undefined8 field_176;          // offset 176
-        ulong field_184;               // offset 184
-        ulong field_192;               // offset 192
-        ulong field_200;               // offset 200
-        undefined8 field_208;          // offset 208
-        undefined8 m_toneMapOverrides; // offset 216
-        ulong field_224;               // offset 224
-        ulong field_232;               // offset 232
-        ulong field_240;               // offset 240
-        undefined8 field_248;          // offset 248
-        undefined8 field_256;          // offset 256
-        undefined4 field_264;          // offset 264
+        ulong field_140;                     // offset 140
+        ulong field_148;                     // offset 148
+        undefined8 m_mapOverrides;           // offset 156
+        ulong field_164;                     // offset 164
+        undefined4 field_172;                // offset 172
+        undefined8 m_colourGradingOverrides; // offset 176
+        ulong field_184;                     // offset 184
+        ulong field_192;                     // offset 192
+        ulong field_200;                     // offset 200
+        undefined8 field_208;                // offset 208
+        undefined8 m_toneMapOverrides;       // offset 216
+        ulong field_224;                     // offset 224
+        ulong field_232;                     // offset 232
+        ulong field_240;                     // offset 240
+        undefined8 field_248;                // offset 248
+        undefined8 field_256;                // offset 256
+        undefined4 field_264;                // offset 264
         char _unknown_268[184];
         undefined8 m_lightProbeOverrides; // offset 452
         undefined4 field_460;             // offset 460

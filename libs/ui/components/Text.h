@@ -108,7 +108,10 @@ namespace jag::ui {
     // 0x1006af3f0, 16 bytes, base-object constructor, inline, placed by debug map only (low confidence)
     // ComponentSwipeConfig::ComponentSwipeConfig()
     void ComponentSwipeConfig::ComponentSwipeConfig() {
-        *(undefined4*)this = 0;
+        m_deadZoneVertical = 0;
+        m_deadZoneHorizontal = 0;
+        m_directionMask = 0;
+        m_deceleration = 0;
         m_stopExponent = 8;
     }
 

@@ -9,9 +9,9 @@ namespace jag::graphics {
     public:
         class Config;
         GetConfig() const;
-        GetRenderToTexture();
-        GetShadowCubeMapAtlasRT() const;
-        GetRenderTargetsManager();
+        RenderToTextureHelper* GetRenderToTexture();
+        shared_ptr GetShadowCubeMapAtlasRT() const;
+        RenderTargetsManager* GetRenderTargetsManager();
         GetShadowCubeMapAtlasPacker() const;
         GetActivePointLightSM() const;
         bool IsActive(PointLightSM*) const;
@@ -48,9 +48,9 @@ namespace jag::graphics {
         undefined8 field_60; // offset 60
         undefined8 field_68; // offset 68
         char _unknown_76[4];
-        RenderTargetsManager* field_80;  // offset 80
-        RenderToTextureHelper* field_88; // offset 88
-        shared_ptr field_96;             // offset 96
+        RenderTargetsManager* m_pRenderTargetsManager; // offset 80
+        RenderToTextureHelper* m_pRenderToTexture;     // offset 88
+        shared_ptr m_shadowCubeMapAtlasRT;             // offset 96
         char _unknown_112[120];
     };
 
@@ -115,7 +115,7 @@ namespace jag::graphics {
         (&field_128)->~mutex();
         (&field_120)->~unique_ptr();
         (&field_112)->~unique_ptr();
-        field_96->~shared_ptr();
+        m_shadowCubeMapAtlasRT->~shared_ptr();
     }
 
 } // namespace jag::graphics

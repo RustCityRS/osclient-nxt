@@ -7,7 +7,7 @@
 
 namespace jag::game::console {
     // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    CommandLine::GetPos() const;
+    uint CommandLine::GetPos() const;
 
     // 0x10042e410: the linker folded this into graphics::Model::SetLevel(int), which has identical code
     CommandLine::SetSelectionStart(int);

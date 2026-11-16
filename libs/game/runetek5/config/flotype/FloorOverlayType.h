@@ -12,13 +12,13 @@ namespace jag::game {
         virtual DecodeType(PacketT<Array<unsigned char, eastl::allocator>>&, unsigned int);
         virtual void PostDecode();
         HasSmoothEdges() const;
-        GetMaterialID() const;
-        GetPriority() const;
+        uint GetMaterialID() const;
+        uint GetPriority() const;
         GetRGBA() const;
         uint ColourFudge(unsigned int);
         FloorOverlayType(BaseTemplateConfigTypeList<FloorOverlayType>*, int);
         float GetTextureScale() const;
-        GetBlendingEnabled() const;
+        bool GetBlendingEnabled() const;
         void SetBlending(bool);
 
         // data members, from how the methods use this: 108 bytes
@@ -27,14 +27,14 @@ namespace jag::game {
         BaseTemplateConfigTypeList* field_24; // offset 24
         int field_32;                         // offset 32
         char _unknown_36[20];
-        undefined4 field_56;    // offset 56
-        uint field_60;          // offset 60
-        float m_textureScale;   // offset 64
-        undefined4 field_68;    // offset 68
-        uint field_72;          // offset 72
-        undefined1 field_76;    // offset 76
-        undefined1 field_77;    // offset 77
-        bool m_blendingEnabled; // offset 78
+        undefined4 m_rGBA;           // offset 56
+        uint m_materialID;           // offset 60
+        float m_textureScale;        // offset 64
+        undefined4 field_68;         // offset 68
+        uint m_priority;             // offset 72
+        undefined1 m_hasSmoothEdges; // offset 76
+        undefined1 field_77;         // offset 77
+        bool m_blendingEnabled;      // offset 78
         char _unknown_79[1];
         undefined4 field_80; // offset 80
         uint field_84;       // offset 84
@@ -71,12 +71,12 @@ namespace jag::game {
         new (this) ConfigType<FloorOverlayType>(param_1, param_2);
         new (this) MakeSharedPool<FloorOverlayType, 128>();
         field_0 = &PTR__FloorOverlayType_100f04250;
-        field_56 = 0;
-        field_60 = 4294967295;
+        m_rGBA = 0;
+        m_materialID = 4294967295;
         m_textureScale = 1.0;
         field_68 = 0;
-        field_72 = 8;
-        field_76 = 0;
+        m_priority = 8;
+        m_hasSmoothEdges = 0;
         field_77 = 1;
         m_blendingEnabled = true;
         field_80 = 0;

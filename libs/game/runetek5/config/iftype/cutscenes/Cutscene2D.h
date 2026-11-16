@@ -55,8 +55,8 @@ namespace jag::game {
 
     class Cutscene2DPlaybackState {
     public:
-        GetElapsedTimeSec() const;
-        GetPauseTimeSec() const;
+        float GetElapsedTimeSec() const;
+        float GetPauseTimeSec() const;
         void GetPlaybackTimeSec() const;
         IsPaused() const;
         WasDisplayedRecently() const;
@@ -71,8 +71,8 @@ namespace jag::game {
 
         // data members, from how the methods use this: 16 bytes
         char _unknown_0[4];
-        float field_4; // offset 4
-        float field_8; // offset 8
+        float m_elapsedTimeSec; // offset 4
+        float m_pauseTimeSec;   // offset 8
         char _unknown_12[4];
     };
 
@@ -102,7 +102,7 @@ namespace jag::game {
 
         cVar1 = HasAlphaParticles();
         if (cVar1 == '\0') {
-            field_8 = param_2;
+            m_pauseTimeSec = param_2;
         }
         set(1, param_1);
     }

@@ -752,7 +752,7 @@ namespace jag {
             pSVar2->field_8 = (pair*)0;
             *(undefined8*)&pSVar2->field_16 = 0;
             *(undefined8*)&pSVar2->field_24 = 0;
-            *(undefined8*)&pSVar2->field_32 = 0;
+            *(undefined8*)&pSVar2->m_screenshotSaveMode = 0;
             *(undefined8*)&pSVar2->field_40 = 0;
             *(undefined8*)&pSVar2->field_48 = 0;
             *(undefined8*)&pSVar2->field_56 = 0;

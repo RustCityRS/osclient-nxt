@@ -7,8 +7,8 @@
 namespace jag::graphics {
     class TextProperties {
     public:
-        GetColour() const;
-        GetFlags() const;
+        uint GetColour() const;
+        byte GetFlags() const;
         TextProperties(shared_ptr<Font> const&);
         long SetShadowColour(unsigned int);
         GetHorizontalAlignment() const;
@@ -39,7 +39,7 @@ namespace jag::graphics {
         undefined2 field_10;              // offset 10
         uint m_colours;                   // offset 12
         char _unknown_16[8];
-        undefined1 field_24; // offset 24
+        byte m_flags; // offset 24
         char _unknown_25[11];
     };
 
@@ -57,7 +57,7 @@ namespace jag::graphics {
         m_verticalAlignment = 0;
         m_colours = 4294967295;
         new (&field_16) eastl::optional<game::option::EnumOptionToggle>();
-        new (&field_24) oldscape::configdecoder::VeccType();
+        new (&m_flags) oldscape::configdecoder::VeccType();
         new (&field_28) eastl::optional<game::option::EnumOptionToggle>();
     }
 
@@ -109,7 +109,7 @@ namespace jag::graphics {
         m_verticalAlignment = 0;
         m_colours = 4294967295;
         new (&field_16) eastl::optional<game::option::EnumOptionToggle>();
-        new (&field_24) oldscape::configdecoder::VeccType();
+        new (&m_flags) oldscape::configdecoder::VeccType();
         new (&field_28) eastl::optional<game::option::EnumOptionToggle>();
     }
 
@@ -122,7 +122,7 @@ namespace jag::graphics {
     // 0x1008e25d0, 16 bytes, inline, placed by class name
     // TextProperties::HasFlag(TextFlags::Flag) const
     void TextProperties::HasFlag() {
-        (&field_24)->HasFlag();
+        (&m_flags)->HasFlag();
     }
 
     // 0x1008e2960, 64 bytes, inline, placed by class name
@@ -215,7 +215,7 @@ namespace jag::graphics {
         field_10 = uVar3;
         m_colours = uVar4;
         new (&field_16, (optional*)&param_1->field_16) eastl::optional<int>();
-        field_24 = param_1->field_24;
+        m_flags = param_1->m_flags;
         new (&field_28, (optional*)&param_1->field_28) eastl::optional<int>();
     }
 
@@ -223,7 +223,7 @@ namespace jag::graphics {
     // TextProperties::TextProperties(shared_ptr<Font> const&, TextFlags)
     void TextProperties::TextProperties(shared_ptr* param_1, TextFlags param_2) {
         Font* pFVar1;
-        undefined1 in_DL;
+        byte in_DL;
 
         pFVar1 = (Font*)param_1->end();
         m_pFont = pFVar1;
@@ -231,21 +231,21 @@ namespace jag::graphics {
         m_verticalAlignment = 0;
         m_colours = 4294967295;
         new (&field_16) eastl::optional<game::option::EnumOptionToggle>();
-        field_24 = in_DL;
+        m_flags = in_DL;
         new (&field_28) eastl::optional<game::option::EnumOptionToggle>();
     }
 
     // 0x100904e50, 64 bytes, base-object constructor, inline, placed by class name
     // TextProperties::TextProperties(Font&, TextFlags)
     void TextProperties::TextProperties(Font* param_1, TextFlags param_2) {
-        undefined1 in_DL;
+        byte in_DL;
 
         m_pFont = param_1;
         m_horizontalAlignment = 0;
         m_verticalAlignment = 0;
         m_colours = 4294967295;
         new (&field_16) eastl::optional<game::option::EnumOptionToggle>();
-        field_24 = in_DL;
+        m_flags = in_DL;
         new (&field_28) eastl::optional<game::option::EnumOptionToggle>();
     }
 

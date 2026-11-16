@@ -8,7 +8,7 @@ namespace jag::graphics {
     class TextureAtlasReference {
     public:
         void GetTextureAtlas() const;
-        GetTextureAtlasID() const;
+        int GetTextureAtlasID() const;
         ~TextureAtlasReference();
         TextureAtlasReference();
         TextureAtlasReference(shared_ptr<TextureAtlas> const&,
@@ -28,8 +28,8 @@ namespace jag::graphics {
         char _unknown_0[8];
         long field_8; // offset 8
         char _unknown_16[24];
-        int field_40;        // offset 40
-        undefined1 field_44; // offset 44
+        int m_textureAtlasID; // offset 40
+        undefined1 field_44;  // offset 44
         char _unknown_45[3];
     };
 
@@ -44,7 +44,7 @@ namespace jag::graphics {
         new (this) MakeSharedPool<TextureAtlasReference, 8192>();
         new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(in_RSI);
         eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL>::vector();
-        field_40 = -1;
+        m_textureAtlasID = -1;
         field_44 = 0;
     }
 

@@ -55,9 +55,9 @@ namespace jag::graphics {
         local_178 = CONCAT44(local_178._4_4_, param_4);
         local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
         StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(aSStack_9f8 + 128, param_1);
-        SVar15.field_8 = extraout_RDX;
-        SVar15.field_0 = (ulong)(aSStack_9f8 + 128);
-        cVar1 = this_00->is_subview_of(SVar15);
+        SVar13.field_8 = extraout_RDX;
+        SVar13.field_0 = (ulong)(aSStack_9f8 + 128);
+        cVar1 = this_00->is_subview_of(SVar13);
         cVar2 = this_00->empty();
         uVar11 = 0;
         if (cVar2 == '\0') {
@@ -82,17 +82,17 @@ namespace jag::graphics {
                     local_190 = uVar12;
                     local_178 = uVar11;
                     new (&local_1e8) StringView(this_00);
-                    SVar13.field_8 = (uchar*)&local_180;
-                    SVar13.field_0 = (ulong)&local_1e8;
-                    local_1b8 = GetNextElementLength(SVar13, (ulong*)(ulong)local_188, in_stack_fffffffffffffe08);
+                    SVar15.field_8 = (uchar*)&local_180;
+                    SVar15.field_0 = (ulong)&local_1e8;
+                    local_1b8 = GetNextElementLength(SVar15, (ulong*)(ulong)local_188, in_stack_fffffffffffffe08);
                     std::get<0ul, unsigned int, unsigned int>((pair*)&local_1b8);
                     ptVar5 = std::get<1ul, unsigned int, unsigned int>((pair*)&local_1b8);
                     local_160->substr((ulong)this_00, local_1a8);
                     new (&local_1d8) StringView(local_160);
-                    SVar14.field_8._0_4_ = local_190;
-                    SVar14.field_0 = (ulong)&local_1d8;
-                    SVar14.field_8._4_4_ = 0;
-                    GetElementWidth(SVar14, *(uint*)ptVar5, (uint)local_1a0,
+                    SVar16.field_8._0_4_ = local_190;
+                    SVar16.field_0 = (ulong)&local_1d8;
+                    SVar16.field_8._4_4_ = 0;
+                    GetElementWidth(SVar16, *(uint*)ptVar5, (uint)local_1a0,
                                     (FontMetrics*)CONCAT44(in_register_00000084, param_4));
                     local_1b0 = extraout_RAX;
                     ptVar6 = std::get<0ul, unsigned int, unsigned int>((pair*)&local_1b0);
@@ -126,9 +126,9 @@ namespace jag::graphics {
                 param_1->assign(pcVar10, uVar11);
             } else {
                 StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_1c8, param_1);
-                SVar16.field_8 = extraout_RDX_00;
-                SVar16.field_0 = (ulong)&local_1c8;
-                cVar1 = StringView::operator!=(this_00, SVar16);
+                SVar14.field_8 = extraout_RDX_00;
+                SVar14.field_0 = (ulong)&local_1c8;
+                cVar1 = StringView::operator!=(this_00, SVar14);
                 if (cVar1 != '\0') {
                     new (local_160) eastl::fixed_string<char, 256, true, eastl::allocator>();
                     pcVar10 = (char*)this_00->end();

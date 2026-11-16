@@ -7,7 +7,7 @@
 namespace jag {
     class Js5LocalModeLoader {
     public:
-        GetIndex() const;
+        Js5Index GetIndex() const;
         Js5LocalModeLoader(Js5ArchiveSettings const*, Filename const&, bool, bool);
         Js5LocalModeLoader* ReadSection(File&);
         GetGroupDataCompressed(unsigned int);
@@ -20,7 +20,7 @@ namespace jag {
         Js5ArchiveSettings* field_0; // offset 0
         Filename field_8;            // offset 8
         char _unknown_24[288];
-        Js5Index field_312; // offset 312
+        Js5Index m_index; // offset 312
         char _unknown_568[48];
         TextureAtlasReference field_616; // offset 616
     };
@@ -109,7 +109,7 @@ namespace jag {
     void Js5LocalModeLoader::~Js5LocalModeLoader() {
         field_616->~VBOMapper();
         (&field_584)->~vector();
-        field_312->~OldscapeToNxtJs5Index();
+        m_index->~OldscapeToNxtJs5Index();
         field_8->~pair();
     }
 

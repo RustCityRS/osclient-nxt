@@ -376,14 +376,14 @@ namespace jag::oldscape::jagex3 {
                                                                 int param_3) {
         field_0 = param_1;
         field_8 = param_2;
-        field_16 = param_3;
+        m_code = param_3;
     }
 
     // 0x1002da6b0, 64 bytes, base-object destructor, inline, placed by debug map only (low confidence)
     // RAII_RequestFailureHandler::~RAII_RequestFailureHandler()
     void RAII_RequestFailureHandler::~RAII_RequestFailureHandler() {
         if (field_8 != (Js5RemoteRequestData*)0) {
-            new (field_8->field_28, field_16) std::__cxx_atomic_base_impl<FolderSelection::FolderPathRequestStatus>();
+            new (field_8->field_28, m_code) std::__cxx_atomic_base_impl<FolderSelection::FolderPathRequestStatus>();
             (field_0, field_8)->PushHead();
         }
     }

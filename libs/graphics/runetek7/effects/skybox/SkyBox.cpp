@@ -19,10 +19,10 @@ namespace jag::graphics {
     SkyBox::GetMaterial() const;
 
     // 0x10041b1e0: the linker folded this into game::NPCType::GetFirstUniqueOpIndex() const, which has identical code
-    SkyBox::GetPendingSkyID() const;
+    int SkyBox::GetPendingSkyID() const;
 
     // 0x10047dbc0: the linker folded this into PointLightShadows::GetPointLightSMManager(), which has identical code
-    SkyBox::GetRenderTargets();
+    shared_ptr SkyBox::GetRenderTargets();
 
     // 0x10091a2a0, 416 bytes, base-object constructor, placed by class name and debug map
     // SkyBox::SkyBox()
@@ -37,14 +37,14 @@ namespace jag::graphics {
         field_24 = 0;
         field_32 = 0;
         new (&field_40) SkyBoxMaterial();
-        new (field_576, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (m_cubeMap, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         new (field_592, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         new (field_608, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         new (field_624, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         new (&field_640, 32) Array<eastl::pair<unsigned char, int>, eastl::allocator>();
         p_Var1 = (_func_decltype_nullptr*)32;
         new (&field_664, 32) Array<eastl::pair<unsigned char, int>, eastl::allocator>();
-        new (field_688, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (m_renderTargets, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         m_pendingSkyID = -2;
         m_pendingSkyTransitionTime = 0;
         m_exposure = 0.0;
@@ -70,13 +70,13 @@ namespace jag::graphics {
     void SkyBox::~SkyBox() {
         field_0 = &PTR__SkyBox_100f193f0;
         DestroyRenderingResources(this);
-        field_688->~shared_ptr();
+        m_renderTargets->~shared_ptr();
         (&field_664)->~Array();
         (&field_640)->~Array();
         field_624->~shared_ptr();
         field_608->~shared_ptr();
         field_592->~shared_ptr();
-        field_576->~shared_ptr();
+        m_cubeMap->~shared_ptr();
         (&field_40)->~LightProbeMaterial();
         ~AutoSingleton();
     }
@@ -117,7 +117,7 @@ namespace jag::graphics {
         if ((field_32 != 0) && (field_32 <= uVar3)) {
             field_24 = 0;
             field_32 = 0;
-            shared_ptr<render::TextureCube>::operator=((shared_ptr<render::TextureCube>*)field_576,
+            shared_ptr<render::TextureCube>::operator=((shared_ptr<render::TextureCube>*)m_cubeMap,
                                                        (shared_ptr*)field_592);
             shared_ptr<render::TextureCube>::reset();
             this_01 = (SkyBox*)field_624;
@@ -224,14 +224,14 @@ namespace jag::graphics {
         undefined1* this_00;
 
         if (param_2 == 0) {
-            shared_ptr<render::TextureCube>::operator=((shared_ptr<render::TextureCube>*)field_576, param_1);
+            shared_ptr<render::TextureCube>::operator=((shared_ptr<render::TextureCube>*)m_cubeMap, param_1);
             shared_ptr<render::TextureCube>::reset();
             field_24 = 0;
             field_32 = 0;
         } else {
             this_00 = field_592;
             if (this_00->operator_cast_to_bool()) {
-                shared_ptr<render::TextureCube>::operator=((shared_ptr<render::TextureCube>*)field_576,
+                shared_ptr<render::TextureCube>::operator=((shared_ptr<render::TextureCube>*)m_cubeMap,
                                                            (shared_ptr*)this_00);
             }
             shared_ptr<render::TextureCube>::operator=((shared_ptr<render::TextureCube>*)this_00, param_1);
@@ -334,7 +334,7 @@ namespace jag::graphics {
         ImVec4 local_38[24];
 
         ImVec4::ImVec4(local_38, 0.0, 0.0, 0.0, 0.0);
-        if (!field_576->operator_cast_to_bool()) {
+        if (!m_cubeMap->operator_cast_to_bool()) {
             math::Rect<float>::operator=((Rect<float>*)local_38, (Rect*)param_1);
             fVar1 = m_exposure;
             ImVec4::ImVec4(local_48, fVar1, fVar1, fVar1, 0.0);
@@ -403,7 +403,7 @@ namespace jag::graphics {
         if (cVar2 == '\0') {
             return;
         }
-        new (&local_78) shared_ptr<oldscape::dash3d::Decor>(field_576);
+        new (&local_78) shared_ptr<oldscape::dash3d::Decor>(m_cubeMap);
         new (&local_68) shared_ptr<oldscape::dash3d::Decor>(field_592);
         bVar3 = shared_ptr::operator_cast_to_bool(&local_78);
         if ((((bVar3) || (bVar3 = shared_ptr::operator_cast_to_bool(&local_68), bVar3)) ||
@@ -838,7 +838,7 @@ namespace jag::graphics {
         undefined8 uStack_48;
         shared_ptr<oldscape::RSevenDebugPresetProvider> local_40[16];
 
-        this_02 = field_688;
+        this_02 = m_renderTargets;
         bVar7 = this_02->operator_cast_to_bool();
         if (bVar7) {
             pRVar1 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(

@@ -200,7 +200,7 @@ namespace jag::game {
         virtual void CacheClean(unsigned int);
         virtual ListPostDecode(shared_ptr<ObjType> const&);
         GetModelCache();
-        IsMembersServer() const;
+        bool IsMembersServer() const;
         ObjTypeList(ConfigTypeListContainerStrategy, ModeGame const*, Language const*, Js5ResourceProvider&,
                     ConfigProvider&, bool);
         GetDefaultOps() const;

@@ -33,7 +33,7 @@ namespace jag::graphics {
     ParticleEmitter::GetEmitterSource() const;
 
     // 0x100023f30: the linker folded this into oldscape::option::IOption::GetName() const, which has identical code
-    ParticleEmitter::GetEmitterTemplate() const;
+    ParticleEmitterTemplate* ParticleEmitter::GetEmitterTemplate() const;
 
     // 0x1004900d0: the linker folded this into game::MapEnvironmentSettings::GetVolumetricSettings() const, which has identical code
     ParticleEmitter::GetParticles() const;
@@ -43,7 +43,7 @@ namespace jag::graphics {
     void ParticleEmitter::ParticleEmitter(shared_ptr* param_1, ParticleManager* param_2, ParticleSystem* param_3) {
         new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(0);
         field_68 = 0;
-        field_16 = (ParticleEmitterTemplate*)0;
+        m_emitterTemplate = (ParticleEmitterTemplate*)0;
         field_24 = (ParticleManager*)0;
         field_32 = (ParticleSystem*)0;
         field_40 = (long*)0;
@@ -95,15 +95,15 @@ namespace jag::graphics {
                 this_01 =
                     (Minimap*)shared_ptr<ModelParticleSource>::operator->((shared_ptr<ModelParticleSource>*)param_1);
                 uVar4 = this_01->GetLevel();
-                field_16 = (ParticleEmitterTemplate*)param_2->GetEmitterTemplate(uVar4);
+                m_emitterTemplate = (ParticleEmitterTemplate*)param_2->GetEmitterTemplate(uVar4);
                 field_10504 = (float)math::FRandMT(1.0);
-                uVar4 = (&field_16->field_232)->end();
+                uVar4 = (&m_emitterTemplate->field_232)->end();
                 if (0 < (int)uVar4) {
                     uVar12 = 0;
                     (&field_10456, (long)(int)uVar4, 0)->set_max_size();
                     do {
                         puVar7 = (undefined4*)Array<unsigned int, eastl::allocator>::operator[](
-                            (Array<unsigned int, eastl::allocator>*)&field_16->field_232, uVar12);
+                            (Array<unsigned int, eastl::allocator>*)&m_emitterTemplate->field_232, uVar12);
                         uVar1 = *puVar7;
                         puVar7 = (undefined4*)Array<int, SafeBucketAllocatorEASTL>::operator[](
                             (Array<int, SafeBucketAllocatorEASTL>*)&field_10456, uVar12);
@@ -111,8 +111,8 @@ namespace jag::graphics {
                         uVar12 = uVar12 + 1;
                     } while (uVar4 != uVar12);
                 }
-                uVar4 = (&field_16->field_280)->end();
-                uVar5 = (&field_16->field_256)->end();
+                uVar4 = (&m_emitterTemplate->field_280)->end();
+                uVar5 = (&m_emitterTemplate->field_256)->end();
                 if ((0 < (int)uVar4) || (0 < (int)uVar5)) {
                     this_00 = &field_10480;
                     uVar12 = 0;
@@ -121,7 +121,7 @@ namespace jag::graphics {
                         uVar13 = 0;
                         do {
                             piVar8 = (int*)Array<unsigned int, eastl::allocator>::operator[](
-                                (Array<unsigned int, eastl::allocator>*)&field_16->field_256, uVar13);
+                                (Array<unsigned int, eastl::allocator>*)&m_emitterTemplate->field_256, uVar13);
                             iVar2 = *piVar8;
                             uVar12 = uVar13 + 1;
                             piVar8 = (int*)Array<int, SafeBucketAllocatorEASTL>::operator[](
@@ -134,7 +134,7 @@ namespace jag::graphics {
                         uVar13 = 0;
                         do {
                             puVar10 = (uint*)Array<unsigned int, eastl::allocator>::operator[](
-                                (Array<unsigned int, eastl::allocator>*)&field_16->field_280, uVar13);
+                                (Array<unsigned int, eastl::allocator>*)&m_emitterTemplate->field_280, uVar13);
                             uVar5 = *puVar10;
                             puVar10 = (uint*)Array<int, SafeBucketAllocatorEASTL>::operator[](
                                 (Array<int, SafeBucketAllocatorEASTL>*)this_00, uVar12 + uVar13);
@@ -147,7 +147,7 @@ namespace jag::graphics {
                 field_24 = param_2;
                 field_32 = param_3;
                 field_40 = (long*)param_2->GetHeightProvider();
-                if ((m_debugIsolatedEmitter != -1) && (field_16->field_0 == m_debugIsolatedEmitter)) {
+                if ((m_debugIsolatedEmitter != -1) && (m_emitterTemplate->field_0 == m_debugIsolatedEmitter)) {
                     eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
                     eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
                 }
@@ -200,7 +200,7 @@ namespace jag::graphics {
             if (field_144 + 50 < field_140) {
                 return 1;
             }
-            if ((m_debugIsolatedEmitter != -1) && (field_16->field_0 != m_debugIsolatedEmitter)) {
+            if ((m_debugIsolatedEmitter != -1) && (m_emitterTemplate->field_0 != m_debugIsolatedEmitter)) {
                 return 1;
             }
             local_38 = param_1;
@@ -295,9 +295,9 @@ namespace jag::graphics {
                     }
                     uVar11 = uVar11 + 1;
                 } while (uVar11 != 5);
-                if ((field_16->field_136 != -2) || (field_16->field_140 != -2)) {
+                if ((m_emitterTemplate->field_136 != -2) || (m_emitterTemplate->field_140 != -2)) {
                     eastl::fixed_string<char, 512, true, eastl::allocator>::fixed_string(local_260);
-                    iVar12 = field_16->field_136;
+                    iVar12 = m_emitterTemplate->field_136;
                     if (iVar12 != -2) {
                         if (iVar12 == -1) {
                             local_260->append("killonabovelevel=current");
@@ -306,11 +306,11 @@ namespace jag::graphics {
                                 char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::
                                 append_sprintf((char*)local_260, "killonabovelevel=%d");
                         }
-                        if (field_16->field_140 != -2) {
+                        if (m_emitterTemplate->field_140 != -2) {
                             local_260->append(" and ");
                         }
                     }
-                    iVar12 = field_16->field_140;
+                    iVar12 = m_emitterTemplate->field_140;
                     if (iVar12 != -2) {
                         if (iVar12 == -1) {
                             local_260->append("killonbelowlevel=current");
@@ -338,7 +338,7 @@ namespace jag::graphics {
                         iVar5 = iVar6;
                     }
                     uVar9 = logger::default_logger();
-                    iVar6 = field_16->field_0;
+                    iVar6 = m_emitterTemplate->field_0;
                     uVar10 = eastl::basic_string<
                         char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::begin();
                     logger::Logger::Log(uVar9, 1, 3,
@@ -382,7 +382,7 @@ namespace jag::graphics {
         local_40[0] = math::operator-((Vector3T*)&field_100, (Vector3T*)puVar1);
         this_00 = math::Vector3Cross<float>((Vector3T*)&field_124, (Vector3T*)local_50, (Vector3T*)local_40);
         this_00->Normalize();
-        if (((float)field_16->field_8 != 0.0) || ((float)field_16->field_16 != 0.0)) {
+        if (((float)m_emitterTemplate->field_8 != 0.0) || ((float)m_emitterTemplate->field_16 != 0.0)) {
             UpdateConePositions(this);
         }
         field_137 = '\0';
@@ -402,7 +402,7 @@ namespace jag::graphics {
         float fVar4;
         float fVar5;
 
-        fVar4 = (float)field_16->GetRandomEmissionRate();
+        fVar4 = (float)m_emitterTemplate->GetRandomEmissionRate();
         fVar4 = fVar4 * param_1 + field_10504;
         field_10504 = fVar4;
         if (1.0 <= fVar4) {
@@ -476,7 +476,7 @@ namespace jag::graphics {
         pfVar4 = (float*)this_00->second();
         fVar7 = (float)::sqrt(fVar2 * *pfVar4 + fVar7 * fVar8);
         fVar7 = (float)atan2(fVar1, fVar7);
-        pPVar3 = field_16;
+        pPVar3 = m_emitterTemplate;
         fVar1 = (float)pPVar3->field_4;
         fVar8 = (float)pPVar3->field_8 - fVar1;
         field_10512 = fVar8;
@@ -528,14 +528,14 @@ namespace jag::graphics {
         Vector3T* pVVar1;
         undefined8 local_28[2];
 
-        if (field_16 == (ParticleEmitterTemplate*)0) {
+        if (m_emitterTemplate == (ParticleEmitterTemplate*)0) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_emitterTemplate",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                       "particles/ParticleEmitter.cpp",
                       224, (char*)0);
         }
-        if (((float)field_16->field_8 == 0.0) && ((float)field_16->field_16 == 0.0)) {
+        if (((float)m_emitterTemplate->field_8 == 0.0) && ((float)m_emitterTemplate->field_16 == 0.0)) {
             pVVar1 = (Vector3T*)&field_124;
         } else {
             local_28[0] = GetConeDirection(this);
@@ -606,15 +606,15 @@ namespace jag::graphics {
         }
         uVar1 = (&field_160)->size();
         if (uVar1 < 2049) {
-            local_50 = (float)field_16->GetRandomLifetime();
-            local_4c = (float)field_16->GetRandomSpeed();
-            local_48 = (float)field_16->GetRandomSize();
-            local_44 = field_16->GetRandomRGBA();
-            local_40 = (float)field_16->GetRandomRotationRate();
-            local_3c = (float)field_16->GetRandomRotationSpawn();
+            local_50 = (float)m_emitterTemplate->GetRandomLifetime();
+            local_4c = (float)m_emitterTemplate->GetRandomSpeed();
+            local_48 = (float)m_emitterTemplate->GetRandomSize();
+            local_44 = m_emitterTemplate->GetRandomRGBA();
+            local_40 = (float)m_emitterTemplate->GetRandomRotationRate();
+            local_3c = (float)m_emitterTemplate->GetRandomRotationSpawn();
             local_38 = 0.0;
-            local_32 = (float)field_16->field_96 != 1.1754944e-38;
-            local_31 = (float)field_16->field_100 != 1.1754944e-38;
+            local_32 = (float)m_emitterTemplate->field_96 != 1.1754944e-38;
+            local_31 = (float)m_emitterTemplate->field_100 != 1.1754944e-38;
             pPVar2 =
                 eastl::vector<Particle, eastl::fixed_vector_allocator<80ul, 128ul, 16ul, 0ul, true, eastl::allocator>>::
                     emplace_back<ParticleEmitter&, float&, float&, float, float&, float&, float&, unsigned int&, bool,
@@ -676,7 +676,7 @@ namespace jag::graphics {
         }
         field_136 = '\x01';
         if ((((m_debugIsolatedEmitterHistory != '\0') && (m_debugIsolatedEmitter != -1)) &&
-             (field_16->field_0 == m_debugIsolatedEmitter)) &&
+             (m_emitterTemplate->field_0 == m_debugIsolatedEmitter)) &&
             (field_137 != '\0')) {
             new (&local_70) math::Vector3T<int>();
             new (local_60) math::Vector3T<int>();
@@ -802,31 +802,33 @@ namespace jag::graphics {
         }
         new (local_260) eastl::fixed_string<char, 512, true, eastl::allocator>();
         pPVar17 = local_2e8;
-        uVar1 = local_2e8->field_16->field_0;
+        uVar1 = local_2e8->m_emitterTemplate->field_0;
         uVar5 = (&local_2e8->field_160)->size();
         eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::sprintf(
             (char*)local_260, "Emitter %d (%u)", (ulong)uVar1, (ulong)uVar5);
-        if (((float)pPVar17->field_16->field_4 != 0.0) || ((float)pPVar17->field_16->field_8 != 0.0)) {
+        if (((float)pPVar17->m_emitterTemplate->field_4 != 0.0) ||
+            ((float)pPVar17->m_emitterTemplate->field_8 != 0.0)) {
             new (local_2e0) eastl::fixed_string<char, 16, true, eastl::allocator>();
             new (local_298) eastl::fixed_string<char, 16, true, eastl::allocator>();
-            pcVar10 = ToText<16, true>((fixed_string*)local_2e0, (float)pPVar17->field_16->field_4);
-            pcVar11 = ToText<16, true>((fixed_string*)local_298, (float)pPVar17->field_16->field_8);
+            pcVar10 = ToText<16, true>((fixed_string*)local_2e0, (float)pPVar17->m_emitterTemplate->field_4);
+            pcVar11 = ToText<16, true>((fixed_string*)local_298, (float)pPVar17->m_emitterTemplate->field_8);
             eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::
                 append_sprintf((char*)local_260, " [az:%s %s]", pcVar10, pcVar11);
             /* WARNING: Subroutine does not return */
             local_298->~fixed_string();
         }
-        if (((float)pPVar17->field_16->field_12 != 0.0) || ((float)pPVar17->field_16->field_16 != 0.0)) {
+        if (((float)pPVar17->m_emitterTemplate->field_12 != 0.0) ||
+            ((float)pPVar17->m_emitterTemplate->field_16 != 0.0)) {
             new (local_2e0) eastl::fixed_string<char, 16, true, eastl::allocator>();
             new (local_298) eastl::fixed_string<char, 16, true, eastl::allocator>();
-            pcVar10 = ToText<16, true>((fixed_string*)local_2e0, (float)pPVar17->field_16->field_12);
-            pcVar11 = ToText<16, true>((fixed_string*)local_298, (float)pPVar17->field_16->field_16);
+            pcVar10 = ToText<16, true>((fixed_string*)local_2e0, (float)pPVar17->m_emitterTemplate->field_12);
+            pcVar11 = ToText<16, true>((fixed_string*)local_298, (float)pPVar17->m_emitterTemplate->field_16);
             eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::
                 append_sprintf((char*)local_260, " [zen:%s %s]", pcVar10, pcVar11);
             /* WARNING: Subroutine does not return */
             local_298->~fixed_string();
         }
-        iVar2 = pPVar17->field_16->field_136;
+        iVar2 = pPVar17->m_emitterTemplate->field_136;
         if (iVar2 != -2) {
             new (local_2e0) eastl::fixed_string<char, 16, true, eastl::allocator>();
             if (iVar2 == -1) {
@@ -839,7 +841,7 @@ namespace jag::graphics {
             /* WARNING: Subroutine does not return */
             local_2e0->~fixed_string();
         }
-        iVar2 = pPVar17->field_16->field_140;
+        iVar2 = pPVar17->m_emitterTemplate->field_140;
         if (iVar2 != -2) {
             new (local_2e0) eastl::fixed_string<char, 16, true, eastl::allocator>();
             if (iVar2 == -1) {
@@ -852,7 +854,7 @@ namespace jag::graphics {
             /* WARNING: Subroutine does not return */
             local_2e0->~fixed_string();
         }
-        puVar16 = &pPVar17->field_16->field_232;
+        puVar16 = &pPVar17->m_emitterTemplate->field_232;
         cVar4 = puVar16->empty();
         local_2f8._8_4_ = 4294967295;
         if (cVar4 == '\0') {
@@ -881,7 +883,7 @@ namespace jag::graphics {
             /* WARNING: Subroutine does not return */
             local_2e0->~fixed_string();
         }
-        puVar16 = &pPVar17->field_16->field_280;
+        puVar16 = &pPVar17->m_emitterTemplate->field_280;
         cVar4 = puVar16->empty();
         if (cVar4 == '\0') {
             new (local_2e0) eastl::fixed_string<char, 32, true, eastl::allocator>();
@@ -902,7 +904,7 @@ namespace jag::graphics {
             local_2e0->~fixed_string();
         }
         if ((pPVar17->field_68 == '\0') &&
-            ((pPVar17->field_16->field_136 != -2 || (pPVar17->field_16->field_140 != -2)))) {
+            ((pPVar17->m_emitterTemplate->field_136 != -2 || (pPVar17->m_emitterTemplate->field_140 != -2)))) {
             puVar16 = &pPVar17->field_48;
             puVar12 = (uint*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)puVar16, 0);
             local_2fc = *puVar12;
@@ -1041,7 +1043,7 @@ namespace jag::graphics {
         float local_38;
         float local_34;
 
-        pPVar2 = field_16;
+        pPVar2 = m_emitterTemplate;
         fVar9 = pPVar2->field_224 * param_1;
         iVar1 = pPVar2->field_56;
         if (iVar1 == 0) {
@@ -1049,7 +1051,7 @@ namespace jag::graphics {
                 lVar5 = (&field_160)->HeapBeginPtr();
                 lVar6 = (&field_160)->end();
                 if (lVar5 != lVar6) {
-                    fVar7 = (float)field_16->field_52;
+                    fVar7 = (float)m_emitterTemplate->field_52;
                     do {
                         if (*(float*)(lVar5 + 36) <= fVar7 && fVar7 != *(float*)(lVar5 + 36)) {
                             *(float*)(lVar5 + 28) = *(float*)(lVar5 + 28) + fVar9;
@@ -1082,7 +1084,7 @@ namespace jag::graphics {
                     }
                 } else if (pVVar3 != pVVar4) {
                     do {
-                        if (*(float*)(pVVar3 + 36) < (float)field_16->field_52) {
+                        if (*(float*)(pVVar3 + 36) < (float)m_emitterTemplate->field_52) {
                             *(float*)(pVVar3 + 28) = *(float*)(pVVar3 + 28) + fVar9;
                         }
                         local_48 = math::operator-(pVVar3, (Vector3T*)&field_112);
@@ -1119,7 +1121,7 @@ namespace jag::graphics {
                     }
                 } else if (pVVar3 != pVVar4) {
                     do {
-                        if (*(float*)(pVVar3 + 36) < (float)field_16->field_52) {
+                        if (*(float*)(pVVar3 + 36) < (float)m_emitterTemplate->field_52) {
                             *(float*)(pVVar3 + 28) = *(float*)(pVVar3 + 28) + fVar9;
                         }
                         local_48 = math::operator-(pVVar3, (Vector3T*)&field_112);
@@ -1446,7 +1448,7 @@ namespace jag::graphics {
         undefined4 local_28;
         undefined4 local_24;
 
-        pPVar1 = field_16;
+        pPVar1 = m_emitterTemplate;
         uVar8 = pPVar1->field_136;
         if ((uVar8 == 4294967294) && (pPVar1->field_140 == -2)) {
             return;
@@ -1501,13 +1503,13 @@ namespace jag::graphics {
         float fVar5;
         float fVar6;
 
-        fVar5 = param_1 * field_16->field_228;
-        fVar1 = (float)field_16->field_76;
+        fVar5 = param_1 * m_emitterTemplate->field_228;
+        fVar1 = (float)m_emitterTemplate->field_76;
         lVar3 = (&field_160)->HeapBeginPtr();
         lVar4 = (&field_160)->end();
         if (fVar1 <= 1.1754944e-38) {
             if (lVar3 != lVar4) {
-                fVar1 = (float)field_16->field_76;
+                fVar1 = (float)m_emitterTemplate->field_76;
                 do {
                     if (*(float*)(lVar3 + 36) <= fVar1 && fVar1 != *(float*)(lVar3 + 36)) {
                         *(float*)(lVar3 + 32) = *(float*)(lVar3 + 32) + fVar5;
@@ -1516,7 +1518,7 @@ namespace jag::graphics {
                 } while (lVar3 != lVar4);
             }
         } else if (lVar3 != lVar4) {
-            pPVar2 = field_16;
+            pPVar2 = m_emitterTemplate;
             fVar1 = (float)pPVar2->field_76;
             do {
                 if (fVar1 < *(float*)(lVar3 + 36) || fVar1 == *(float*)(lVar3 + 36)) {
@@ -1574,7 +1576,7 @@ namespace jag::graphics {
                 LAB_1007cd7c0:
                     cVar1 = *(char*)(lVar5 + 73);
                 } else {
-                    pPVar3 = field_16;
+                    pPVar3 = m_emitterTemplate;
                     if (*(float*)(lVar5 + 36) < (float)pPVar3->field_96) {
                         *(float*)(lVar5 + 48) = pPVar3->field_208 * param_1 + *(float*)(lVar5 + 48);
                         *(float*)(lVar5 + 52) = pPVar3->field_212 * param_1 + *(float*)(lVar5 + 52);
@@ -1604,7 +1606,7 @@ namespace jag::graphics {
                     cVar1 = *(char*)(lVar5 + 73);
                 }
                 if (cVar1 != '\0') {
-                    pPVar3 = field_16;
+                    pPVar3 = m_emitterTemplate;
                     if ((float)pPVar3->field_100 <= *(float*)(lVar5 + 36)) {
                         *(undefined1*)(lVar5 + 73) = 0;
                         uVar7 = (undefined1)pPVar3->field_92;

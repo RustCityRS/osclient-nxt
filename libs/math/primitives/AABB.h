@@ -10,8 +10,8 @@ namespace jag::math {
     public:
         GetMinimum();
         GetMinimum() const;
-        GetMaximum();
-        GetMaximum() const;
+        float GetMaximum();
+        float GetMaximum() const;
         AABB(Vector3T<float>&&, Vector3T<float>&&);
         AABB(Vector3T<float> const&, Vector3T<float> const&);
         GetMaxY() const;
@@ -74,7 +74,7 @@ namespace jag::math {
         float field_4;       // offset 4
         float field_8;       // offset 8
         undefined4 field_12; // offset 12
-        float field_16;      // offset 16
+        float m_maximum;     // offset 16
         float field_20;      // offset 20
         float field_24;      // offset 24
         float field_28;      // offset 28
@@ -94,7 +94,7 @@ namespace jag::math {
         field_4 = (float)(int)((ulong)uVar1 >> 32);
         field_12 = 0;
         uVar1 = *(undefined8*)param_2;
-        field_16 = (float)(int)uVar1;
+        m_maximum = (float)(int)uVar1;
         field_20 = (float)(int)((ulong)uVar1 >> 32);
         field_24 = *(float*)(param_2 + 8);
         field_28 = -1.0;
@@ -105,7 +105,7 @@ namespace jag::math {
     undefined4 AABB::GetMaxY() {
         undefined4* puVar1;
 
-        puVar1 = (undefined4*)(&field_16)->y();
+        puVar1 = (undefined4*)(&m_maximum)->y();
         return *puVar1;
     }
 
@@ -116,7 +116,7 @@ namespace jag::math {
     AABB* AABB::operator=(AABB* param_1) {
         SetXYZ(param_1);
         field_12 = 0;
-        (&field_16, (Vector3T*)&param_1->field_16)->SetXYZ();
+        (&m_maximum, (Vector3T*)&param_1->m_maximum)->SetXYZ();
         field_28 = param_1->field_28;
         return this;
     }
@@ -146,7 +146,7 @@ namespace jag::math {
     undefined4 AABB::GetMaxZ() {
         undefined4* puVar1;
 
-        puVar1 = (undefined4*)(&field_16)->second();
+        puVar1 = (undefined4*)(&m_maximum)->second();
         return *puVar1;
     }
 
@@ -181,7 +181,7 @@ namespace jag::math {
         field_4 = fVar1;
         field_12 = 0;
         fVar1 = param_1->field_20;
-        field_16 = param_1->field_16;
+        m_maximum = param_1->m_maximum;
         field_20 = fVar1;
         field_24 = param_1->field_24;
         field_28 = param_1->field_28;
@@ -202,7 +202,7 @@ namespace jag::math {
         undefined8 uVar1;
         ColourHSL local_18;
 
-        new (&local_18) ColourHSL((field_16 + field_0) * 0.5, (field_20 + field_4) * 0.5, (field_24 + field_8) * 0.5);
+        new (&local_18) ColourHSL((m_maximum + field_0) * 0.5, (field_20 + field_4) * 0.5, (field_24 + field_8) * 0.5);
         uVar1._0_4_ = local_18.field_0;
         uVar1._4_4_ = local_18.field_4;
         return uVar1;
@@ -217,7 +217,7 @@ namespace jag::math {
     // 0x100c66db0, 32 bytes, inline, placed by class name
     // AABB::IsValid() const
     void AABB::IsValid() {
-        operator>=((Vector3T*)&field_16, (Vector3T*)this);
+        operator>=((Vector3T*)&m_maximum, (Vector3T*)this);
     }
 
     // 0x100c67210, 96 bytes, inline, placed by class name
@@ -244,7 +244,7 @@ namespace jag::math {
         undefined8 local_28[2];
         undefined8 local_18[2];
 
-        local_18[0] = math::operator-((Vector3T*)&field_16, (Vector3T*)this);
+        local_18[0] = math::operator-((Vector3T*)&m_maximum, (Vector3T*)this);
         local_28[0] = math::operator*((Vector3T*)local_18, 0.5);
         local_28->MinElement();
     }
@@ -252,7 +252,7 @@ namespace jag::math {
     // 0x100c67420, 16 bytes, inline, placed by class name
     // AABB::GetWidth() const
     float AABB::GetWidth() {
-        return field_16 - field_0;
+        return m_maximum - field_0;
     }
 
     // 0x100c67430, 16 bytes, inline, placed by class name
@@ -288,7 +288,7 @@ namespace jag::math {
         field_12 = 0;
         puVar3 = (undefined8*)param_1->GetScreen();
         uVar1 = *puVar3;
-        field_16 = (float)(int)uVar1;
+        m_maximum = (float)(int)uVar1;
         field_20 = (float)(int)((ulong)uVar1 >> 32);
         field_24 = *(float*)(puVar3 + 1);
         field_28 = -1.0;
@@ -299,7 +299,7 @@ namespace jag::math {
     void AABB::AABB() {
         new (this) ColourHSL(3.4028235e+38, 3.4028235e+38, 3.4028235e+38);
         field_12 = 0;
-        new (&field_16, -3.4028235e+38, -3.4028235e+38, -3.4028235e+38) ColourHSL();
+        new (&m_maximum, -3.4028235e+38, -3.4028235e+38, -3.4028235e+38) ColourHSL();
         field_28 = -1.0;
     }
 

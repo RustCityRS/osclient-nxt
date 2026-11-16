@@ -20,7 +20,7 @@ namespace jag::graphicutils {
             (shared_ptr<render::Texture2D>*)__return_storage_ptr__);
         CreateHALTexture2D<render::Texture2D>(pTVar1, (uint)this, param_1,
                                               (uchar*)CONCAT44(in_register_0000000c, param_2), (uint)param_3, param_4,
-                                              SUB41(param_5, 0), param_6, param_7, _param_8, param_9.field_0);
+                                              SUB41(param_5, 0), param_6, param_7, _param_8, param_9.m_bits);
         return __return_storage_ptr__;
     }
 

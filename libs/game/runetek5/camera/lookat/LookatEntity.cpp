@@ -10,7 +10,7 @@ namespace jag::game {
     LookatEntity::GetFinishTriggers(eastl::fixed_vector<int, 2ul, true, eastl::allocator>&);
 
     // 0x100102fc0: the linker folded this into oldscape::rs2lib::InputField::GetPlaceholderContents() const, which has identical code
-    LookatEntity::GetCurrentLookat() const;
+    AABB LookatEntity::GetCurrentLookat() const;
 
     // 0x10014d2f0: the linker folded this into oldscape::ApplicationContext::GetScreenRatio(), which has identical code
     LookatEntity::GetZRotation() const;
@@ -108,7 +108,7 @@ namespace jag::game {
                 local_38[0] = (**(code**)(*plVar3 + 144))(plVar3);
                 math::Vector3T<double>::Vector3T<float>(local_60, (Vector3T*)local_38);
                 math::Vector3T<double>::operator=((Vector3T<double>*)field_128, (Vector3T*)local_60);
-                *(undefined1**)(param_1 + 8) = field_80;
+                *(undefined1**)(param_1 + 8) = m_currentLookat;
                 *(undefined1**)param_1 = field_104;
                 *(undefined1**)(param_1 + 16) = field_128;
                 *(undefined1**)(param_1 + 24) = field_160;
@@ -146,13 +146,13 @@ namespace jag::game {
                 return;
             }
         }
-        math::Vector3T<double>::operator+=((Vector3T<double>*)param_1, (Vector3T*)field_80);
+        math::Vector3T<double>::operator+=((Vector3T<double>*)param_1, (Vector3T*)m_currentLookat);
     }
 
     // 0x10061cd70, 48 bytes, placed by class name and debug map
     // LookatEntity::SetCurrentLookat(math::Vector3T<double> const&)
     void LookatEntity::SetCurrentLookat(Vector3T* param_1) {
-        math::Vector3T<double>::operator=((Vector3T<double>*)field_80, param_1);
+        math::Vector3T<double>::operator=((Vector3T<double>*)m_currentLookat, param_1);
         math::Vector3T<double>::operator=((Vector3T<double>*)field_104, param_1);
     }
 

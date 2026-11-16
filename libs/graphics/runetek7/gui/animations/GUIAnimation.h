@@ -7,8 +7,8 @@
 namespace jag::graphics {
     class GUIAnimation {
     public:
-        GetTarget() const;
-        GetTargetMode() const;
+        uint GetTarget() const;
+        uint GetTargetMode() const;
         GUIAnimation(PacketT<Array<unsigned char, eastl::allocator>>&,
                      Array<GUIAnimationCurve, eastl::allocator> const&);
         void LoadFromPacket(PacketT<Array<unsigned char, eastl::allocator>>&,
@@ -31,12 +31,12 @@ namespace jag::graphics {
         ~GUIAnimation();
 
         // data members, from how the methods use this: 32 bytes
-        long field_0;   // offset 0
-        int field_8;    // offset 8
-        uint field_12;  // offset 12
-        uint field_16;  // offset 16
-        uint field_20;  // offset 20
-        float field_24; // offset 24
+        long field_0;      // offset 0
+        int field_8;       // offset 8
+        uint field_12;     // offset 12
+        uint m_target;     // offset 16
+        uint m_targetMode; // offset 20
+        float field_24;    // offset 24
         char _unknown_28[4];
     };
 

@@ -15,7 +15,7 @@ namespace jag::math {
         field_12 = 0;
         Matrix33T<float>::operator=((Matrix33T<float>*)&field_32, &param_1->field_32);
         field_28 = 0;
-        (&field_16, (Vector3T*)&param_1->field_16)->SetXYZ();
+        (&m_halfSize, (Vector3T*)&param_1->m_halfSize)->SetXYZ();
         return this;
     }
 

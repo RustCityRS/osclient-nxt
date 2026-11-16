@@ -13,7 +13,7 @@ namespace jag::graphics {
     Shader::GetConstructedEffects();
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    Shader::GetType() const;
+    graphics* Shader::GetType() const;
 
     // 0x10011c770: the linker folded this into eastl::rbtree<int, eastl::pair<int const, unsigned long>, eastl::less<int>, eastl::fixed_node_allocator<48ul, 5ul, 8ul, 0ul, true, eastl::allocator>, eastl::use_first<eastl::pair<int const, unsigned long> >, true, true>::size() const, which has identical code
     Shader::GetSourceHash() const;
@@ -22,7 +22,7 @@ namespace jag::graphics {
     Shader::GetProgramUnchecked() const;
 
     // 0x1003cf2a0: the linker folded this into game::WorldMapDefaults::GetDropShadowColourRGBA() const, which has identical code
-    Shader::GetConstructedShaderId() const;
+    uint Shader::GetConstructedShaderId() const;
 
     // 0x10088fe90, 384 bytes, base-object constructor, placed by class name and debug map
     // Shader::Shader(ShaderType, std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char> > const&, std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char> > const&, unsigned long, EffectList const&, render::VertexDeclaration const&, EffectManager const&, unsigned char, RenderPassType)
@@ -48,11 +48,11 @@ namespace jag::graphics {
         undefined1* this_02;
         Singleton<render::RenderDevice>* this_03;
 
-        *(undefined4*)&field_0 = param_2;
+        *(undefined4*)&m_type = param_2;
         uVar1 = param_6[1];
         *(undefined8*)&field_8 = *param_6;
         field_16 = uVar1;
-        field_24 = 0;
+        m_constructedShaderId = 0;
         field_28 = param_10;
         field_32 = param_5;
         this_02 = &field_48;
@@ -60,7 +60,7 @@ namespace jag::graphics {
         field_1904 = param_9;
         field_1905 = '\0';
         /* WARNING: Load size is inaccurate */
-        this_00 = (unique_ptr<ShaderSource, std::default_delete<ShaderSource>>*)graphics::operator*(field_0);
+        this_00 = (unique_ptr<ShaderSource, std::default_delete<ShaderSource>>*)graphics::operator*(m_type);
         std::unique_ptr<ShaderSource, std::default_delete<ShaderSource>>::operator*(this_00);
         this_03 = (Singleton<render::RenderDevice>*)(this_00 + 8);
         std::unique_ptr<ShaderSource, std::default_delete<ShaderSource>>::operator*(
@@ -74,10 +74,10 @@ namespace jag::graphics {
         pcVar5 = (char*)std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>>::c_str(param_3);
         pcVar6 = (char*)std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>>::c_str(param_4);
         cVar2 = this_02->CreateFromSourceString(pcVar5, pcVar6, param_7, field_1904);
-        this_02->SetName((&ShaderTypeStrings)[*(int*)&field_0]);
+        this_02->SetName((&ShaderTypeStrings)[*(int*)&m_type]);
         uVar3 = (uint)m_constructedShaderCount;
         m_constructedShaderCount = m_constructedShaderCount + 1;
-        field_24 = uVar3;
+        m_constructedShaderId = uVar3;
         if (cVar2 == '\0') {
             shadersourceprovider::ClearResourceCache();
             shadersourceprovider::ForceFileLoading();
@@ -313,7 +313,7 @@ namespace jag::graphics {
         local_50->Destroy();
         field_1905 = '\0';
         /* WARNING: Load size is inaccurate */
-        this_00 = (unique_ptr<ShaderSource, std::default_delete<ShaderSource>>*)graphics::operator*(field_0);
+        this_00 = (unique_ptr<ShaderSource, std::default_delete<ShaderSource>>*)graphics::operator*(m_type);
         local_70 = (long*)std::unique_ptr<ShaderSource, std::default_delete<ShaderSource>>::operator*(this_00);
         local_68 = (long*)std::unique_ptr<ShaderSource, std::default_delete<ShaderSource>>::operator*(this_00 + 8);
         local_60 = &field_8;

@@ -17,9 +17,9 @@ namespace jag::ui {
     void Check::Check() {
         new (this) Component();
         new (this) MakeSharedPool<Check, 128>();
-        new (&field_392) ComponentSingleValueMixin();
+        new (&m_pValueRepresentation) ComponentSingleValueMixin();
         field_0 = &PTR__Check_100f0e810;
-        field_392 = &PTR__Check_100f0e940;
+        m_pValueRepresentation = &PTR__Check_100f0e940;
         new (&field_400) TextData();
         new (&field_464) SpriteData();
         field_512 = -1;

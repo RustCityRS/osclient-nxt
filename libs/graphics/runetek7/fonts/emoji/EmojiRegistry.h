@@ -161,8 +161,8 @@ namespace jag {
         pair* field_0; // offset 0
         pair* field_8; // offset 8
         char _unknown_16[56];
-        int field_72;        // offset 72
-        undefined1 field_76; // offset 76
+        int field_72;              // offset 72
+        undefined1 m_autoChatLine; // offset 76
         char _unknown_77[3];
     };
 

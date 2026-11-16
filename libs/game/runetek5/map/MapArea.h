@@ -9,12 +9,12 @@ namespace jag::game {
     public:
         class CompositeTextureMeta;
         class SubArea;
-        GetMapID() const;
+        int GetMapID() const;
         GetOrigin() const;
         GetUniqueName() const;
         GetAdvisedZoom() const;
         GetStaticMapElements() const;
-        GetTargetBounds() const;
+        GridRect GetTargetBounds() const;
         AreStaticMapElementsLoaded() const;
         GetBackgroundRGBA() const;
         ~MapArea();
@@ -38,14 +38,14 @@ namespace jag::game {
 
         // data members, from how the methods use this: 336 bytes
         Js5ResourceProvider* field_0; // offset 0
-        int field_8;                  // offset 8
+        int m_mapID;                  // offset 8
         char _unknown_12[92];
-        undefined8 m_origin;      // offset 104
-        undefined4 field_112;     // offset 112
-        undefined4 field_116;     // offset 116
-        undefined1 field_120;     // offset 120
-        undefined3 field_121;     // offset 121
-        undefined4 m_advisedZoom; // offset 124
+        undefined8 m_origin;         // offset 104
+        undefined4 field_112;        // offset 112
+        undefined4 m_backgroundRGBA; // offset 116
+        undefined1 field_120;        // offset 120
+        undefined3 field_121;        // offset 121
+        undefined4 m_advisedZoom;    // offset 124
         char _unknown_128[48];
         shared_ptr field_176; // offset 176
         shared_ptr field_192; // offset 192
@@ -56,7 +56,7 @@ namespace jag::game {
         char _unknown_224[16];
         GridRect field_240; // offset 240
         char _unknown_260[44];
-        GridRect field_304; // offset 304
+        GridRect m_targetBounds; // offset 304
         char _unknown_324[4];
         undefined4 field_328; // offset 328
         char _unknown_332[4];
@@ -159,17 +159,17 @@ namespace jag::game {
         undefined3 uVar3;
         int iVar4;
 
-        field_8 = param_1->field_8;
+        m_mapID = param_1->m_mapID;
         field_0 = param_1->field_0;
         eastl::string::operator=((eastl::string*)&field_16, (basic_string*)&param_1->field_16);
         eastl::string::operator=((eastl::string*)&field_48, (basic_string*)&param_1->field_48);
         Array<MapArea::SubArea, eastl::allocator>::operator=((Array<MapArea::SubArea, eastl::allocator>*)&field_80,
                                                              (Array*)&param_1->field_80);
         uVar1 = param_1->field_112;
-        uVar2 = param_1->field_116;
+        uVar2 = param_1->m_backgroundRGBA;
         m_origin = param_1->m_origin;
         field_112 = uVar1;
-        field_116 = uVar2;
+        m_backgroundRGBA = uVar2;
         uVar3 = param_1->field_121;
         uVar1 = param_1->m_advisedZoom;
         field_120 = param_1->field_120;
@@ -194,8 +194,8 @@ namespace jag::game {
         Array<StaticMapElement, eastl::allocator>::operator=((Array<StaticMapElement, eastl::allocator>*)&field_264,
                                                              (Array*)&param_1->field_264);
         math::Rect<unsigned int>::operator=((Rect<unsigned int>*)&field_288, (Rect*)&param_1->field_288);
-        math::Rect<unsigned int>::operator=((Rect<unsigned int>*)field_304, (Rect*)param_1->field_304);
-        *(undefined8*)(field_304 + 16) = *(undefined8*)(param_1->field_304 + 16);
+        math::Rect<unsigned int>::operator=((Rect<unsigned int>*)m_targetBounds, (Rect*)param_1->m_targetBounds);
+        *(undefined8*)(m_targetBounds + 16) = *(undefined8*)(param_1->m_targetBounds + 16);
         field_328 = param_1->field_328;
         return this;
     }
@@ -255,12 +255,12 @@ namespace jag::game {
         _func_decltype_nullptr* in_RSI;
 
         field_0 = (Js5ResourceProvider*)0;
-        field_8 = -1;
+        m_mapID = -1;
         new (&field_16) eastl::string();
         new (&field_48) eastl::string();
         new (&field_80) Array<MapArea::SubArea, eastl::allocator>();
         new (&m_origin) game::CoordGrid();
-        field_116 = 255;
+        m_backgroundRGBA = 255;
         field_120 = 1;
         m_advisedZoom = 4294967295;
         new (&field_128) Array<MapArea::CompositeSquare, eastl::allocator>();
@@ -274,8 +274,8 @@ namespace jag::game {
         field_240[16] = 0;
         new (&field_264) Array<StaticMapElement, eastl::allocator>();
         new (&field_288, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (field_304, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new ((field_304 + 16)) game::CoordGrid();
+        new (m_targetBounds, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        new ((m_targetBounds + 16)) game::CoordGrid();
     }
 
     // 0x1004b2600, 464 bytes, base-object constructor, inline, placed by class name
@@ -286,7 +286,7 @@ namespace jag::game {
         undefined4 uVar3;
         int iVar4;
 
-        field_8 = param_1->field_8;
+        m_mapID = param_1->m_mapID;
         field_0 = param_1->field_0;
         new (&field_16, (basic_string*)&param_1->field_16) eastl::string();
         new (&field_48, (basic_string*)&param_1->field_48) eastl::string();
@@ -297,10 +297,10 @@ namespace jag::game {
         field_121 = uVar1;
         m_advisedZoom = uVar2;
         uVar2 = param_1->field_112;
-        uVar3 = param_1->field_116;
+        uVar3 = param_1->m_backgroundRGBA;
         m_origin = param_1->m_origin;
         field_112 = uVar2;
-        field_116 = uVar3;
+        m_backgroundRGBA = uVar3;
         new (&field_128, (Array*)&param_1->field_128) Array<MapArea::CompositeSquare, eastl::allocator>();
         new (&field_152, (Array*)&param_1->field_152) Array<MapArea::CompositeZone, eastl::allocator>();
         shared_ptr<oldscape::RSevenDebugPresetProvider>::shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(
@@ -314,9 +314,9 @@ namespace jag::game {
         field_240[16] = param_1->field_240[16];
         new (&field_264, (Array*)&param_1->field_264) Array<StaticMapElement, eastl::allocator>();
         new (&field_288, (Rect*)&param_1->field_288) math::Rect<unsigned int>();
-        new (field_304, (Rect*)param_1->field_304) math::Rect<unsigned int>();
+        new (m_targetBounds, (Rect*)param_1->m_targetBounds) math::Rect<unsigned int>();
         field_328 = param_1->field_328;
-        *(undefined8*)(field_304 + 16) = *(undefined8*)(param_1->field_304 + 16);
+        *(undefined8*)(m_targetBounds + 16) = *(undefined8*)(param_1->m_targetBounds + 16);
     }
 
 } // namespace jag::game

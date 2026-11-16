@@ -7,7 +7,7 @@
 
 namespace jag::game {
     // 0x100061e30: the linker folded this into render::RenderStats::GetTriangleCount() const, which has identical code
-    FloorUnderlayType::GetMaterialID() const;
+    uint FloorUnderlayType::GetMaterialID() const;
 
     // 0x100543cc0, 224 bytes, placed by class name and debug map
     // FloorUnderlayType::DecodeType(PacketT<Array<unsigned char, eastl::allocator> >&, unsigned int)
@@ -27,11 +27,11 @@ namespace jag::game {
             if (uVar1 != 65535) {
                 uVar3 = (uint)uVar1;
             }
-            field_60 = uVar3;
+            m_materialID = uVar3;
             break;
         case 3:
             uVar1 = param_1->g2();
-            field_64 = (float)uVar1 * 0.0078125;
+            m_textureScale = (float)uVar1 * 0.0078125;
             break;
         case 4:
             field_68 = 0;

@@ -35,11 +35,11 @@ namespace jag::game {
         new (this) LightingEnvironmentOverrides();
         this_00 = &m_fogOverrides;
         new (this_00) FogEnvironmentOverrides();
-        this_01 = &field_128;
+        this_01 = &m_bloomOverrides;
         new (this_01) BloomEnvironmentOverrides();
-        this_02 = &field_156;
+        this_02 = &m_mapOverrides;
         new (this_02) MapEnvironmentOverrides();
-        this_03 = &field_176;
+        this_03 = &m_colourGradingOverrides;
         new (this_03) ColourGradingEnvironmentOverrides();
         this_04 = &m_toneMapOverrides;
         new (this_04) ToneMapEnvironmentOverrides();

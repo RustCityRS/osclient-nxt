@@ -7,7 +7,7 @@
 
 namespace jag::graphics {
     // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    DirLightCsmManager::GetLightViewMat() const;
+    math DirLightCsmManager::GetLightViewMat() const;
 
     // 0x100102fc0: the linker folded this into oldscape::rs2lib::InputField::GetPlaceholderContents() const, which has identical code
     DirLightCsmManager::GetCamViewMat() const;
@@ -55,8 +55,8 @@ namespace jag::graphics {
         field_0 = &PTR__DirLightCsmManager_100f18390;
         local_70 = param_2;
         local_40 = (ThreadPool*)param_1;
-        new (field_16) math::Matrix44T<float>();
-        new ((field_16 + 64)) math::Matrix44T<float>();
+        new (m_lightViewMat) math::Matrix44T<float>();
+        new ((m_lightViewMat + 64)) math::Matrix44T<float>();
         new (&field_144) std::array<math::Matrix44T<float>, 4ul>();
         new (&field_400) std::array<render::RasteriserState, 4ul>();
         local_60 = &field_400;
@@ -70,7 +70,7 @@ namespace jag::graphics {
         field_692 = 0.0;
         local_48 = field_672;
         new (&field_696) std::array<std::unique_ptr<ShadowMapCascade, std::default_delete<ShadowMapCascade>>, 4ul>();
-        new (&field_744) Config();
+        new (&m_config) Config();
         field_864 = local_40;
         field_872 = '\0';
         field_873 = '\0';
@@ -183,7 +183,7 @@ namespace jag::graphics {
             field_788 = (float)(int)((ulong)uVar6 >> 32);
             field_760 = uVar3;
             field_768 = uVar4;
-            field_744 = uVar9;
+            m_config = uVar9;
             field_748 = iVar10;
             *(undefined8*)&field_752 = uVar2;
         } else {
@@ -267,7 +267,7 @@ namespace jag::graphics {
         field_688 = uVar1;
         field_692 = 1.0 / (float)(int)uVar1;
         local_1c = local_1c | uVar2;
-        if ((local_1c == 0) && (param_2 = param_2 | field_744, param_2 == 0)) {
+        if ((local_1c == 0) && (param_2 = param_2 | m_config, param_2 == 0)) {
             uVar3 = 1;
         } else {
             uVar3 = CreateRenderTargets(this, uVar1, param_2);
@@ -382,7 +382,7 @@ namespace jag::graphics {
             UpdateLightViewMat(this, param_2, (Vector3T*)pvVar3);
             UpdateShadowMapClip2TexMat(this, (array*)&field_800);
             pMVar4 = (Matrix44T*)param_1->GetScreen();
-            math::Matrix44T<float>::operator=((Matrix44T<float>*)(field_16 + 64), pMVar4);
+            math::Matrix44T<float>::operator=((Matrix44T<float>*)(m_lightViewMat + 64), pMVar4);
             this_00 = &field_728;
             CalcPracticalCascadeSplitDistances((array*)this_00, field_752, m_cascadeNearClip, m_maxShadowDistance,
                                                m_cascadeSplitWeight);
@@ -426,7 +426,7 @@ namespace jag::graphics {
                             (ShadowMapCascade*)
                                 std::unique_ptr<ShadowMapCascade, std::default_delete<ShadowMapCascade>>::operator->(
                                     puVar8);
-                        pSVar9->SetFrustum(param_1, local_34, fVar1, field_16);
+                        pSVar9->SetFrustum(param_1, local_34, fVar1, m_lightViewMat);
                         pSVar9 =
                             (ShadowMapCascade*)
                                 std::unique_ptr<ShadowMapCascade, std::default_delete<ShadowMapCascade>>::operator->(
@@ -455,7 +455,7 @@ namespace jag::graphics {
         if (1.0 < fVar1 + 1.1920929e-07) {
             local_30.SetXYZ(PTR_RIGHT_100ee66f0);
         }
-        math::Matrix44LookAtLH<float>((math*)field_16, (Matrix44T*)param_2, param_1, (Vector3T*)&local_30, in_R8,
+        math::Matrix44LookAtLH<float>((math*)m_lightViewMat, (Matrix44T*)param_2, param_1, (Vector3T*)&local_30, in_R8,
                                       500.0);
     }
 
@@ -992,7 +992,7 @@ namespace jag::graphics {
                                 "runetek7/lighting/shadowmapping/DirLightCsmManager.cpp",
                                 461, "Failed to create shadow map atlas depth stencil target textures");
         }
-        field_744 = param_2;
+        m_config = param_2;
         operator!=((shared_ptr*)this_00, (_func_decltype_nullptr*)0);
     }
 
@@ -1012,8 +1012,8 @@ namespace jag::graphics {
         do {
             local_48 = ((uint)uVar1 & 1) * field_748 + 1;
             local_44 = ((uint)(uVar1 >> 1) & 2147483647) * field_748 + 1;
-            local_40 = (&field_744)->GetUseableCascadeResolution();
-            local_3c = (&field_744)->GetUseableCascadeResolution();
+            local_40 = (&m_config)->GetUseableCascadeResolution();
+            local_3c = (&m_config)->GetUseableCascadeResolution();
             this_00 = (unique_ptr<ShadowMapCascade, std::default_delete<ShadowMapCascade>>*)
                 std::array<std::unique_ptr<ShadowMapCascade, std::default_delete<ShadowMapCascade>>, 4ul>::operator[](
                     (array<std::unique_ptr<ShadowMapCascade, std::default_delete<ShadowMapCascade>>, 4ul>*)&field_696,

@@ -7,14 +7,14 @@
 namespace jag::game {
     class MapSquarePointLights {
     public:
-        GetStaticPointLightsLoaded() const;
+        char GetStaticPointLightsLoaded() const;
         GetLightSourcesLocal() const;
         GetLightSourcesRemote() const;
         MapSquarePointLights(graphics::RT7Core&, unsigned int, unsigned int);
         ~MapSquarePointLights();
         char LoadStaticPointLights(MapSquare&, Js5ResourceProvider*, ConfigProvider*, LODLevel const&,
                                    LODSettings const&);
-        GetPointLightTexture();
+        NXTPixToolkit GetPointLightTexture();
         void ClearExistingLights(graphics::GraphNode*);
         ValidateStaticPointLights();
         void RequestRemoteLightSourceUpdate();
@@ -33,9 +33,9 @@ namespace jag::game {
         void RequestDynamicLightSourceUpdate();
 
         // data members, from how the methods use this: 6516240 bytes
-        uint field_0; // offset 0
-        uint field_4; // offset 4
-        char field_8; // offset 8
+        uint field_0;                   // offset 0
+        uint field_4;                   // offset 4
+        char m_staticPointLightsLoaded; // offset 8
         char _unknown_9[3];
         uint field_12; // offset 12
         char _unknown_16[16];
@@ -55,7 +55,7 @@ namespace jag::game {
         uint field_364;       // offset 364
         undefined1 field_368; // offset 368
         char _unknown_369[31];
-        NXTPixToolkit field_400; // offset 400
+        NXTPixToolkit m_pointLightTexture; // offset 400
     };
 
     // 0x1001ef7e0, 16 bytes, complete-object constructor, inline, placed by class name and debug map
@@ -66,7 +66,7 @@ namespace jag::game {
     void MapSquarePointLights::MapSquarePointLights(RT7Core* param_1, uint param_2, uint param_3) {
         field_0 = param_2;
         field_4 = param_3;
-        *(undefined2*)&field_8 = 0;
+        *(undefined2*)&m_staticPointLightsLoaded = 0;
         field_12 = 0;
         new (&field_16) math::Vector3T<int>();
         eastl::vector<shared_ptr<LightSource>, BucketAllocatorEASTL>::vector();
@@ -83,9 +83,9 @@ namespace jag::game {
         field_360 = false;
         field_364 = 0;
         new (&field_368) eastl::vector<float, eastl::allocator>();
-        new (field_400) graphics::PointLightGridTexture();
+        new (m_pointLightTexture) graphics::PointLightGridTexture();
         (&field_368, 256)->reserve();
-        (field_400, (PointLightGridTextureData*)0, param_1, field_0, field_4)->Create();
+        (m_pointLightTexture, (PointLightGridTextureData*)0, param_1, field_0, field_4)->Create();
     }
 
     // 0x1001f02a0, 16 bytes, complete-object destructor, inline, placed by class name
@@ -94,8 +94,8 @@ namespace jag::game {
     // 0x1001f02b0, 192 bytes, base-object destructor, inline, placed by class name
     // MapSquarePointLights::~MapSquarePointLights()
     void MapSquarePointLights::~MapSquarePointLights() {
-        (field_400, field_0, field_4)->Destroy();
-        field_400->~PointLightGridTexture();
+        (m_pointLightTexture, field_0, field_4)->Destroy();
+        m_pointLightTexture->~PointLightGridTexture();
         (&field_368)->~vector();
         (&field_312)->~vector();
         (&field_80)->~fixed_vector();

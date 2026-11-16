@@ -28,10 +28,10 @@ namespace jag::game {
     EntityHighlightGlobalState::GetOutlineRadiusAdjustment() const;
 
     // 0x100066b70: the linker folded this into oldscape::widgets::Widget::GetTextColour() const, which has identical code
-    EntityHighlightGlobalState::GetPlayerNPCAttackOpPriority() const;
+    int EntityHighlightGlobalState::GetPlayerNPCAttackOpPriority() const;
 
     // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    EntityHighlightGlobalState::GetCurrentUpdateLogicTick() const;
+    uint EntityHighlightGlobalState::GetCurrentUpdateLogicTick() const;
 
     // 0x1001117e0: the linker folded this into oldscape::jagex3::Js5::GetIndexCrc() const, which has identical code
     EntityHighlightGlobalState::GetPlayerActiveCombatLevel() const;
@@ -47,10 +47,10 @@ namespace jag::game {
     void EntityHighlightGlobalState::Update(float param_1, uint param_2) {
         undefined1 uVar1;
 
-        uVar1 = *(undefined1*)((long)&field_4 + 3);
-        field_8 = *(undefined3*)&field_4;
+        uVar1 = *(undefined1*)((long)&m_currentUpdateLogicTick + 3);
+        m_previousUpdateLogicTick = *(undefined3*)&m_currentUpdateLogicTick;
         field_11 = uVar1;
-        field_4 = param_2;
+        m_currentUpdateLogicTick = param_2;
         if (field_28 == 2) {
             (&field_28, -m_radialHighlightContractSpeed, param_1)->UpdateRadius();
             if (field_32 <= 0.0) {

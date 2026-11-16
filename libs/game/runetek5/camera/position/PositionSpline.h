@@ -25,7 +25,7 @@ namespace jag::game {
         virtual void GetFinishTriggers(eastl::fixed_vector<int, 2ul, true, eastl::allocator>&);
         virtual void DrawDebug(unsigned int);
         virtual void ToString(eastl::fixed_string<char, 512, true, eastl::allocator>&) const;
-        GetSpline();
+        SplineMovement GetSpline();
         GetSplineParameter();
         PositionSpline(PositionMode);
         Vector3T* GetScaledPosition(math::Vector3T<double>&, unsigned long long, float) const;
@@ -34,7 +34,7 @@ namespace jag::game {
         // data members, from how the methods use this: 6515856 bytes
         undefined** field_0;     // offset 0, vtable pointer
         undefined8 field_8;      // offset 8
-        SplineMovement field_16; // offset 16
+        SplineMovement m_spline; // offset 16
         char _unknown_264[24];
         AABB field_288; // offset 288
         char _unknown_312[6515544];
@@ -53,7 +53,7 @@ namespace jag::game {
     // 0x100619720, 16 bytes, inline, placed by class name and debug map
     // PositionSpline::Ready() const
     void PositionSpline::Ready() {
-        field_16->Ready();
+        m_spline->Ready();
     }
 
     // 0x100619730, 48 bytes, inline, placed by class name and debug map
@@ -78,7 +78,7 @@ namespace jag::game {
         undefined8 uVar1;
         long in_RSI;
 
-        *(undefined8*)field_16 = *(undefined8*)(in_RSI + 304);
+        *(undefined8*)m_spline = *(undefined8*)(in_RSI + 304);
         uVar1 = *(undefined8*)(in_RSI + 296);
         field_0 = *(undefined***)(in_RSI + 288);
         field_8 = uVar1;
@@ -133,39 +133,39 @@ namespace jag::game {
    (CameraTrackableType, int)> const&) */
 
     void PositionSpline::ProcessServerUpdate(PacketT* param_1, function* param_2) {
-        (field_16, param_1)->ProcessServerUpdateSpline();
+        (m_spline, param_1)->ProcessServerUpdateSpline();
     }
 
     // 0x100619880, 16 bytes, inline, placed by class name and debug map
     // PositionSpline::GetRollAngle() const
     void PositionSpline::GetRollAngle() {
-        field_16->GetRollAngle();
+        m_spline->GetRollAngle();
     }
 
     // 0x100619890, 16 bytes, inline, placed by class name and debug map
     // PositionSpline::GetFinishTriggers(eastl::fixed_vector<int, 2ul, true, eastl::allocator>&)
     void PositionSpline::GetFinishTriggers(fixed_vector* param_1) {
-        (field_16, param_1)->GetOnFinishTriggers();
+        (m_spline, param_1)->GetOnFinishTriggers();
     }
 
     // 0x1006198a0, 16 bytes, inline, placed by class name and debug map
     // PositionSpline::DrawDebug(unsigned int)
     void PositionSpline::DrawDebug(uint param_1) {
-        (field_16, param_1)->DrawDebug();
+        (m_spline, param_1)->DrawDebug();
     }
 
     // 0x10061a860, 48 bytes, base-object destructor, inline, placed by class name
     // PositionSpline::~PositionSpline()
     void PositionSpline::~PositionSpline() {
         field_0 = &PTR__PositionSpline_100f0be58;
-        field_16->~SplineMovement();
+        m_spline->~SplineMovement();
         ~AutoSingleton();
     }
 
     // 0x100620b10, 16 bytes, inline, placed by class name
     // PositionSpline::Finished() const
     void PositionSpline::Finished() {
-        field_16->Finished();
+        m_spline->Finished();
     }
 
 } // namespace jag::game

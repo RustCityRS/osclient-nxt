@@ -62,7 +62,7 @@ namespace jag::tweak {
     };
 
     // 0x1004c6a30: the linker folded this into game::WaterType::GetCausticsEdgeFadeStart() const, which has identical code
-    ColourPicker::GetIntensity() const;
+    float ColourPicker::GetIntensity() const;
 
     // 0x100a40210, 352 bytes, base-object constructor, placed by class name
     // ColourPicker::ColourPicker(char const*, bool, math::Range<float> const&)

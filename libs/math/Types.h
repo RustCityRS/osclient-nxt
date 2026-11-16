@@ -670,7 +670,7 @@ namespace jag {
         uVar1 = *(undefined8*)param_1;
         uVar2 = *(undefined8*)&param_1->field_8;
         uVar3 = *(undefined8*)&param_1->field_24;
-        *(undefined8*)(this + 16) = param_1->field_16;
+        *(undefined8*)(this + 16) = param_1->m_endPoint;
         *(undefined8*)(this + 24) = uVar3;
         *(undefined8*)this = uVar1;
         *(undefined8*)(this + 8) = uVar2;

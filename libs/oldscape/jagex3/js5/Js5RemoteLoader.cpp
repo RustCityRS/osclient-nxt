@@ -85,9 +85,9 @@ namespace jag::oldscape::jagex3 {
             this_02->Initialize(param_2, true);
             new (&local_40) callstack::Callstack();
         } else {
-            local_40.field_0 = local_40._8_4_;
+            local_40.m_stackFrames = local_40._8_4_;
         }
-        return local_40.field_0;
+        return local_40.m_stackFrames;
     }
 
     // 0x1002bcb70, 448 bytes, placed by class name and debug map

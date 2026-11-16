@@ -109,7 +109,7 @@ namespace jag::oldscape {
         field_281 = '\0';
         std::unique_ptr<http::HTTPRequest, std::default_delete<http::HTTPRequest>>::unique_ptr<true, void>(
             (unique_ptr<http::HTTPRequest, std::default_delete<http::HTTPRequest>>*)&field_288);
-        field_296 = 0;
+        m_dataSource = 0;
         Reset(this);
     }
 

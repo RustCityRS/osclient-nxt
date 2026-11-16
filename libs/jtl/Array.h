@@ -19708,7 +19708,7 @@ namespace jag {
             lVar8 = 0;
             do {
                 lVar4 = *(long*)(this + 16);
-                *(undefined8*)((long)&pPVar6->field_16 + lVar8) = *(undefined8*)(lVar4 + 16 + lVar8);
+                *(undefined8*)((long)&pPVar6->m_actualXPLevel + lVar8) = *(undefined8*)(lVar4 + 16 + lVar8);
                 puVar1 = (undefined8*)(lVar4 + lVar8);
                 uVar5 = puVar1[1];
                 puVar2 = (undefined8*)((long)&pPVar6->field_0 + lVar8);
@@ -21543,7 +21543,7 @@ namespace jag {
             } else {
                 if (param_1 < uVar1)
                     goto LAB_1004f407a;
-                pMVar7 = (MasterQuestVar*)(&pMVar3->field_0 + uVar1 * 3);
+                pMVar7 = (MasterQuestVar*)(&pMVar3->m_iD + uVar1 * 3);
                 uVar6 = param_1 - uVar1;
             }
             initialise_array(this, pMVar7, uVar6);
@@ -21554,8 +21554,8 @@ namespace jag {
             lVar5 = 0;
             do {
                 lVar2 = *(long*)(this + 16);
-                *(undefined4*)(&pMVar3->field_8 + lVar5) = *(undefined4*)(lVar2 + 8 + lVar5);
-                *(undefined8*)((long)&pMVar3->field_0 + lVar5) = *(undefined8*)(lVar2 + lVar5);
+                *(undefined4*)((long)&pMVar3->m_endState + lVar5) = *(undefined4*)(lVar2 + 8 + lVar5);
+                *(undefined8*)((long)&pMVar3->m_iD + lVar5) = *(undefined8*)(lVar2 + lVar5);
                 lVar5 = lVar5 + 12;
                 lVar4 = lVar4 + -1;
             } while (lVar4 != 0);
@@ -21806,7 +21806,7 @@ namespace jag {
             (lVar3 = eastl::min_alt<unsigned long>(param_1, uVar1), lVar3 != 0)) {
             lVar5 = 0;
             do {
-                new (((long)&pPVar2->field_0 + lVar5), (PrerequisiteVar*)(*(long*)(this + 16) + lVar5))
+                new (((long)&pPVar2->m_iD + lVar5), (PrerequisiteVar*)(*(long*)(this + 16) + lVar5))
                     game::QuestType::PrerequisiteVar();
                 lVar5 = lVar5 + 48;
                 lVar3 = lVar3 + -1;
@@ -22073,7 +22073,7 @@ namespace jag {
         if (param_2 != 0) {
             do {
                 new (param_1) game::QuestType::MasterQuestVar();
-                param_1 = (PrerequisiteStat*)&((MasterQuestVar*)param_1)->field_8;
+                param_1 = (PrerequisiteStat*)&((MasterQuestVar*)param_1)->m_endState;
                 param_2 = param_2 - 1;
             } while (param_2 != 0);
         }
@@ -23214,7 +23214,7 @@ namespace jag {
                 uVar6 = ((undefined8*)(lVar4 + lVar10))[1];
                 puVar1 = (undefined8*)(lVar4 + 16 + lVar10);
                 uVar7 = puVar1[1];
-                puVar2 = (undefined8*)((long)&pPVar8->field_16 + lVar10);
+                puVar2 = (undefined8*)((long)&pPVar8->m_cappedFreeLevel + lVar10);
                 *puVar2 = *puVar1;
                 puVar2[1] = uVar7;
                 puVar1 = (undefined8*)((long)&pPVar8->field_0 + lVar10);
@@ -23596,7 +23596,7 @@ namespace jag {
             (lVar3 = eastl::min_alt<unsigned long>(param_1, uVar1), lVar3 != 0)) {
             lVar5 = 0;
             do {
-                new (((long)&pAVar2->field_0 + lVar5), (AchievementRequirementSpec*)(*(long*)(this + 16) + lVar5))
+                new (((long)&pAVar2->m_group + lVar5), (AchievementRequirementSpec*)(*(long*)(this + 16) + lVar5))
                     game::AchievementRequirementSpec();
                 lVar5 = lVar5 + 72;
                 lVar3 = lVar3 + -1;
@@ -30964,7 +30964,7 @@ namespace jag {
             (lVar3 = eastl::min_alt<unsigned long>(param_1, uVar1), lVar3 != 0)) {
             lVar5 = 0;
             do {
-                new ((&pSVar2->field_0 + lVar5), (SceneViewData*)(*(long*)(this + 16) + lVar5))
+                new ((pSVar2->m_pViewFrustum + lVar5 + -208), (SceneViewData*)(*(long*)(this + 16) + lVar5))
                     graphics::SceneViewData();
                 lVar5 = lVar5 + 672;
                 lVar3 = lVar3 + -1;
@@ -31030,7 +31030,7 @@ namespace jag {
             (lVar3 = eastl::min_alt<unsigned long>(param_1, uVar1), lVar3 != 0)) {
             lVar5 = 0;
             do {
-                _memcpy(&pMVar2->field_0 + lVar5, (void*)(*(long*)(this + 16) + lVar5), 224);
+                _memcpy(&pMVar2->m_valid + lVar5, (void*)(*(long*)(this + 16) + lVar5), 224);
                 lVar5 = lVar5 + 224;
                 lVar3 = lVar3 + -1;
             } while (lVar3 != 0);
@@ -31295,7 +31295,7 @@ namespace jag {
         if (param_2 != 0) {
             do {
                 graphics::Material::Material(param_1);
-                param_1 = (Material*)&param_1[1].field_8;
+                param_1 = (Material*)&param_1[1].m_size;
                 param_2 = param_2 - 1;
             } while (param_2 != 0);
         }
@@ -33674,8 +33674,8 @@ namespace jag {
                 puVar2 = (undefined8*)((long)&pBVar8->field_16 + lVar10);
                 *puVar2 = *puVar1;
                 puVar2[1] = uVar7;
-                *(undefined8*)(&pBVar8->field_0 + lVar10) = uVar5;
-                *(undefined8*)((long)(&pBVar8->field_0 + lVar10) + 8) = uVar6;
+                *(undefined8*)(&pBVar8->m_valid + lVar10) = uVar5;
+                *(undefined8*)((long)(&pBVar8->m_valid + lVar10) + 8) = uVar6;
                 lVar10 = lVar10 + 40;
                 lVar9 = lVar9 + -1;
             } while (lVar9 != 0);
@@ -33773,7 +33773,7 @@ namespace jag {
             (lVar3 = eastl::min_alt<unsigned long>(param_1, uVar1), lVar3 != 0)) {
             lVar5 = 0;
             do {
-                _memcpy(&pMVar2->field_0 + lVar5, (void*)(*(long*)(this + 16) + lVar5), 240);
+                _memcpy(&pMVar2->m_valid + lVar5, (void*)(*(long*)(this + 16) + lVar5), 240);
                 lVar5 = lVar5 + 240;
                 lVar3 = lVar3 + -1;
             } while (lVar3 != 0);

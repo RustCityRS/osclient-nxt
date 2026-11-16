@@ -22,7 +22,7 @@ namespace jag::game {
         Cutscene2DResources(Cutscene2DResources const&);
         void RegisterSprite(int, float, float);
         void RegisterSound(int, float, float);
-        GetSubtitleDataSource() const;
+        shared_ptr GetSubtitleDataSource() const;
         void SetSubtitleDataSourceID(unsigned short);
         static float /* 4 bytes */ m_preloadAdvanceSec; // = 2.5f
         static /* 4 bytes */ m_disableResourceLoading;  // = 0
@@ -54,7 +54,7 @@ namespace jag::game {
         GetSubtitleFont(unsigned char) const;
 
         // data members, from how the methods use this: 16 bytes
-        undefined1 field_0; // offset 0
+        undefined1 m_subtitlesEnabled; // offset 0
         char _unknown_1[15];
     };
 

@@ -41,7 +41,7 @@ namespace jag::http {
         new (&field_40) eastl::string();
         new (&field_72) eastl::string();
         new (&field_104) eastl::vector<eastl::string, eastl::allocator>();
-        new (&field_136) Array<unsigned char, eastl::allocator>();
+        new (m_pData) Array<unsigned char, eastl::allocator>();
         new (&field_160) eastl::vector<unsigned char, eastl::allocator>();
         field_192 = param_1;
         new (&field_200) eastl::string();
@@ -55,8 +55,8 @@ namespace jag::http {
         m_followRedirects = true;
         field_592 = 0;
         m_aborted = 0;
-        field_608 = 0;
-        field_616 = 0;
+        m_responseCode = 0;
+        m_errorCode = 0;
         new (&field_624) std::future<void>();
         new (&field_632) eastl::string();
     }
@@ -242,8 +242,8 @@ namespace jag::http {
         long local_38;
 
         local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        field_608 = 0;
-        field_616 = 0;
+        m_responseCode = 0;
+        m_errorCode = 0;
         cVar2 =
             eastl::basic_string<char,
                                 eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
@@ -337,12 +337,12 @@ namespace jag::http {
         _curl_easy_setopt(lVar5, 10023, uVar4);
         field_592 = _clock();
         iVar3 = _curl_easy_perform(lVar5);
-        field_616 = iVar3;
+        m_errorCode = iVar3;
         if (iVar3 == 0) {
             local_370 = (undefined*)0;
             _curl_easy_getinfo(lVar5, 1048577, &local_370);
             _curl_easy_getinfo(lVar5, 2097174, local_380);
-            puVar1 = &field_608;
+            puVar1 = &m_responseCode;
             iVar3 = _curl_easy_getinfo(lVar5, 2097154, puVar1);
             if (iVar3 != 0) {
                 /* WARNING: Subroutine does not return */
@@ -381,10 +381,10 @@ namespace jag::http {
                                 "HTTPRequest_CURL.cpp",
                                 398, "HTTP request error, http error code: %d\nURL: %s\nEffective URL: %s", uVar4,
                                 uVar11, puVar12);
-            cVar2 = (&field_136)->empty();
+            cVar2 = m_pData->empty();
             if (cVar2 == '\0') {
                 uVar4 = logger::default_logger();
-                uVar8 = (&field_136)->data();
+                uVar8 = m_pData->data();
                 logger::Logger::Log(uVar4, 0, 7,
                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/http/"
                                     "curl/HTTPRequest_CURL.cpp",

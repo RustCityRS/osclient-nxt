@@ -49,7 +49,7 @@ namespace jag::oldscape {
         if (param_1 == (HighlightChannelProperties*)0) {
             local_18.field_8 = 0;
             local_18.field_9 = '\0';
-            local_18.field_0 = 0;
+            local_18.m_colour = 0;
             local_18.field_2 = 0;
             local_18.field_4 = '\0';
             local_18._5_1_ = 0;
@@ -59,7 +59,7 @@ namespace jag::oldscape {
         } else {
             local_18.field_8 = param_1->field_8;
             local_18.field_9 = param_1->field_9;
-            local_18.field_0 = *(undefined2*)&param_1->field_0;
+            local_18.m_colour = *(undefined2*)&param_1->field_0;
             local_18.field_2 = *(short*)&param_1->field_2;
             local_18.field_4 = param_1->field_4;
             local_18._5_1_ = param_1->field_5;
@@ -68,7 +68,7 @@ namespace jag::oldscape {
         }
         auVar1[8] = local_18.field_8;
         auVar1[9] = local_18.field_9;
-        auVar1._0_2_ = local_18.field_0;
+        auVar1._0_2_ = local_18.m_colour;
         auVar1._2_2_ = local_18.field_2;
         auVar1[4] = local_18.field_4;
         auVar1[5] = local_18._5_1_;

@@ -22,7 +22,7 @@ namespace jag::graphics {
     SpriteAtlasReference::~SpriteAtlasReference();
 
     // 0x10018b300: the linker folded this into oldscape::jagex3::Js5::GetIndexVersion() const, which has identical code
-    SpriteAtlasReference::GetSpriteIndex() const;
+    int SpriteAtlasReference::GetSpriteIndex() const;
 
     // 0x10080f980: the linker folded this into GeometryBatch::HasShareLight() const, which has identical code
     SpriteAtlasReference::GetDisableCache() const;
@@ -38,7 +38,7 @@ namespace jag::graphics {
         this_00 = field_8;
         new (this_00) shared_ptr<oldscape::dash3d::Decor>(param_1);
         field_24 = 4294967295;
-        field_28 = param_2;
+        m_spriteIndex = param_2;
         field_32 = 0;
         field_36 = 0;
         m_disableCache = 0;
@@ -60,7 +60,7 @@ namespace jag::graphics {
         shared_ptr<SpriteAtlas>::operator=((shared_ptr<SpriteAtlas>*)field_8, param_1);
         this_00 = (NXTPixScreen*)shared_ptr<SpriteAtlas>::operator->((shared_ptr<SpriteAtlas>*)param_1);
         field_24 = this_00->GetUIHeight();
-        field_28 = param_2;
+        m_spriteIndex = param_2;
         field_36 = 1;
     }
 
@@ -70,7 +70,7 @@ namespace jag::graphics {
         undefined7 extraout_var;
         undefined8 uVar2;
 
-        if ((field_8->operator_cast_to_bool()) && (field_28 != -1)) {
+        if ((field_8->operator_cast_to_bool()) && (m_spriteIndex != -1)) {
             uVar2 = CONCAT71(extraout_var, field_0 != -1);
         } else {
             uVar2 = 0;
@@ -91,7 +91,7 @@ namespace jag::graphics {
     void SpriteAtlasReference::SetLoading() {
         field_24 = 4294967295;
         shared_ptr<SpriteAtlas>::reset();
-        field_28 = -1;
+        m_spriteIndex = -1;
         field_36 = 1;
     }
 

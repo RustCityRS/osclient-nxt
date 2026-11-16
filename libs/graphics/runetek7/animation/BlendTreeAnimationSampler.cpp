@@ -10,7 +10,7 @@ namespace jag::graphics {
     BlendTreeAnimationSampler::GetJointPoses() const;
 
     // 0x1001d2000: the linker folded this into oldscape::rseven::OSRenderCore_TextureDataProvider::GetTexturesCompressedDXTArchive() const, which has identical code
-    BlendTreeAnimationSampler::GetBlendTree() const;
+    Layout* BlendTreeAnimationSampler::GetBlendTree() const;
 
     // 0x10094d8c0, 112 bytes, base-object constructor, placed by class name
     // BlendTreeAnimationSampler::BlendTreeAnimationSampler()
@@ -19,7 +19,7 @@ namespace jag::graphics {
         field_0 = &PTR__BlendTreeAnimationSampler_100f1afe0;
         new (&field_32) Array<JointPose, eastl::allocator>();
         new (&field_56) Array<math::Matrix44T<float>, eastl::allocator>();
-        field_80 = (Layout*)0;
+        m_pBlendTree = (Layout*)0;
         m_drawDebugSkeleton = false;
     }
 
@@ -210,14 +210,14 @@ namespace jag::graphics {
         shared_ptr* psVar4;
         WrapArray<unsigned char const> local_48[16];
 
-        if (field_80 != (Layout*)0) {
+        if (m_pBlendTree != (Layout*)0) {
             lVar2 =
                 eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(field_80);
+                    Layout::HeapBeginPtr(m_pBlendTree);
             if (lVar2 != 0) {
                 plVar3 = (long*)eastl::basic_string<
                     char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                        eastl::allocator>>::Layout::HeapBeginPtr(field_80);
+                                                        eastl::allocator>>::Layout::HeapBeginPtr(m_pBlendTree);
                 this_00 = (shared_ptr<AnimBase>*)(**(code**)(*plVar3 + 24))(plVar3);
                 this_01 = (AnimBase*)shared_ptr<AnimBase>::operator->(this_00);
                 sVar1 = this_01->GetNumJoints();
@@ -254,11 +254,11 @@ namespace jag::graphics {
         Matrix44T local_78;
         BlendTreeAnimationSampler* local_38;
 
-        if (field_80 != (Layout*)0) {
+        if (m_pBlendTree != (Layout*)0) {
             local_38 = this;
             plVar2 = (long*)
                 eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(field_80);
+                    Layout::HeapBeginPtr(m_pBlendTree);
             this_00 = (shared_ptr<AnimBase>*)(**(code**)(*plVar2 + 24))(plVar2);
             this_01 = (SceneManager*)shared_ptr<AnimBase>::operator->(this_00);
             this_02 =
@@ -336,7 +336,7 @@ namespace jag::graphics {
         if (lVar1 == 1) {
             plVar2 = (long*)
                 eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(field_80);
+                    Layout::HeapBeginPtr(m_pBlendTree);
             this_00 = (shared_ptr<AnimBase>*)(**(code**)(*plVar2 + 24))(plVar2);
             this_01 = (SceneManager*)shared_ptr<AnimBase>::operator->(this_00);
             this_02 =

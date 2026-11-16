@@ -9,7 +9,7 @@ namespace jag::hal::audio {
     public:
         // virtual methods in vtable order
         virtual ~AudioBuss();
-        GetBussID() const;
+        int GetBussID() const;
         void GetBuffer();
         void SetGain(float);
         void GetTotalGainOfChain() const;
@@ -34,7 +34,7 @@ namespace jag::hal::audio {
         float field_36;        // offset 36
         shared_ptr field_40;   // offset 40
         undefined4 m_priority; // offset 56
-        int field_60;          // offset 60
+        int m_bussID;          // offset 60
         char _unknown_64[8];
     };
 

@@ -9,7 +9,7 @@ namespace jag::game {
     public:
         GetSkyModelRequest();
         GetSkyBox() const;
-        GetSkyBoxID() const;
+        uint GetSkyBoxID() const;
         void SetDefaults();
         EnvSkySettings(EnvSkySettings const&);
         ~EnvSkySettings();
@@ -36,7 +36,7 @@ namespace jag::game {
         virtual ~QuestType();
         virtual DecodeType(PacketT<Array<unsigned char, eastl::allocator>>&, unsigned int);
         virtual void PostDecode();
-        GetQuestPoints() const;
+        uint GetQuestPoints() const;
         bool StartedQuest(PlayerVarDomain&) const;
         bool FinishedQuest(PlayerVarDomain&) const;
         ulong CanStartQuest(PlayerVarDomain&, PlayerGameState const&, ModeAccountType const*) const;
@@ -60,7 +60,7 @@ namespace jag::game {
         uint field_176;       // offset 176
         undefined1 field_180; // offset 180
         char _unknown_181[3];
-        uint field_184; // offset 184
+        uint m_questPoints; // offset 184
         char _unknown_188[28];
         CoordGrid field_216; // offset 216
         char _unknown_232[48];
@@ -72,15 +72,17 @@ namespace jag::game {
 
     class QuestType::MasterQuestVar {
     public:
-        GetEndState() const;
-        GetStartState() const;
-        GetID() const;
+        uint GetEndState() const;
+        uint GetStartState() const;
+        uint GetID() const;
         MasterQuestVar(int, int, int);
         MasterQuestVar();
 
         // data members, from how the methods use this: 16 bytes
-        undefined4 field_0; // offset 0
-        char _unknown_4[12];
+        uint m_iD;         // offset 0
+        uint m_startState; // offset 4
+        uint m_endState;   // offset 8
+        char _unknown_12[4];
     };
 
     class QuestType::PrerequisiteStat {
@@ -93,9 +95,9 @@ namespace jag::game {
 
     class QuestType::PrerequisiteVar {
     public:
-        GetMax() const;
-        GetMin() const;
-        GetID() const;
+        int GetMax() const;
+        int GetMin() const;
+        int GetID() const;
         ~PrerequisiteVar();
         PrerequisiteVar(int, int, int, char const*);
         PrerequisiteVar* operator=(PrerequisiteVar&&);
@@ -103,9 +105,9 @@ namespace jag::game {
         PrerequisiteVar();
 
         // data members, from how the methods use this: 24 bytes
-        int field_0; // offset 0
-        int field_4; // offset 4
-        int field_8; // offset 8
+        int m_iD;  // offset 0
+        int m_min; // offset 4
+        int m_max; // offset 8
         char _unknown_12[12];
     };
 
@@ -193,10 +195,10 @@ namespace jag::game {
     PrerequisiteVar* QuestType::PrerequisiteVar::operator=(PrerequisiteVar* param_1) {
         int iVar1;
 
-        field_8 = param_1->field_8;
-        iVar1 = param_1->field_4;
-        field_0 = param_1->field_0;
-        field_4 = iVar1;
+        m_max = param_1->m_max;
+        iVar1 = param_1->m_min;
+        m_iD = param_1->m_iD;
+        m_min = iVar1;
         eastl::string::operator=((eastl::string*)&field_16, (basic_string*)&param_1->field_16);
         return this;
     }
@@ -213,9 +215,9 @@ namespace jag::game {
     void QuestType::PrerequisiteVar::PrerequisiteVar(int param_1, int param_2, int param_3, char* param_4) {
         allocator local_28[8];
 
-        field_0 = param_1;
-        field_4 = param_2;
-        field_8 = param_3;
+        m_iD = param_1;
+        m_min = param_2;
+        m_max = param_3;
         eastl::allocator::allocator(local_28, "EASTL basic_string");
         new (&field_16, param_4, local_28) eastl::string();
     }
@@ -229,7 +231,7 @@ namespace jag::game {
     // 0x1004fcd70, 32 bytes, base-object constructor, inline, placed by class name
     // QuestType::PrerequisiteVar::PrerequisiteVar()
     void QuestType::PrerequisiteVar::PrerequisiteVar() {
-        field_0 = -1;
+        m_iD = -1;
         new (&field_16) eastl::string();
     }
 
@@ -238,10 +240,10 @@ namespace jag::game {
     void QuestType::PrerequisiteVar::PrerequisiteVar(PrerequisiteVar* param_1) {
         int iVar1;
 
-        field_8 = param_1->field_8;
-        iVar1 = param_1->field_4;
-        field_0 = param_1->field_0;
-        field_4 = iVar1;
+        m_max = param_1->m_max;
+        iVar1 = param_1->m_min;
+        m_iD = param_1->m_iD;
+        m_min = iVar1;
         new (&field_16, (basic_string*)&param_1->field_16) eastl::string();
     }
 
@@ -278,7 +280,7 @@ namespace jag::game {
         new (&field_120) Array<QuestType::MasterQuestVar, eastl::allocator>();
         new (&field_144) Array<QuestType::MasterQuestVar, eastl::allocator>();
         field_168 = 4294967295;
-        field_184 = 0;
+        m_questPoints = 0;
         field_172 = 0;
         field_176 = 0;
         field_180 = 0;

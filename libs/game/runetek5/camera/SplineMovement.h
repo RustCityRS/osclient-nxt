@@ -38,7 +38,7 @@ namespace jag::game {
         double m_currentPoint;     // offset 144
         double m_currentParameter; // offset 152
         double field_160;          // offset 160
-        int field_168;             // offset 168
+        int m_speedProfile;        // offset 168
         char _unknown_172[76];
     };
 
@@ -48,7 +48,7 @@ namespace jag::game {
     // 0x100615900, 16 bytes, inline, placed by class name and debug map
     // SplineMovement::SetSpeedProfile(SplineSpeedProfile)
     void SplineMovement::SetSpeedProfile(int param_2) {
-        field_168 = param_2;
+        m_speedProfile = param_2;
     }
 
     // 0x100615910, 16 bytes, complete-object destructor, inline, placed by class name and debug map
@@ -79,7 +79,7 @@ namespace jag::game {
         m_currentPoint = 0.0;
         m_currentParameter = 0.0;
         field_160 = 0.0;
-        field_168 = 2;
+        m_speedProfile = 2;
         new (&field_176) eastl::vector<double, eastl::allocator>();
         new (&field_208) eastl::vector<double, eastl::allocator>();
         new (&field_240) eastl::vector<double, eastl::allocator>();

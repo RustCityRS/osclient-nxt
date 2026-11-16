@@ -1932,14 +1932,14 @@ namespace jag::graphics {
             piVar10 = (int*)(lVar7 + -2);
             local_70.substr((ulong)this_04, 1);
             StringView::StringView<3ul>(&local_e8, "br");
-            SVar15.field_8 = extraout_RDX;
-            SVar15.field_0 = (ulong)&local_e8;
-            cVar1 = StringView::operator==(&local_70, SVar15);
+            SVar14.field_8 = extraout_RDX;
+            SVar14.field_0 = (ulong)&local_e8;
+            cVar1 = StringView::operator==(&local_70, SVar14);
             if (cVar1 == '\0') {
                 new (&local_d8) StringView(&local_70);
-                SVar16.field_8 = extraout_RDX_00;
-                SVar16.field_0 = (ulong)&local_d8;
-                ConvertTagCharCodes((FontHelpers*)local_60, SVar16);
+                SVar15.field_8 = extraout_RDX_00;
+                SVar15.field_0 = (ulong)&local_d8;
+                ConvertTagCharCodes((FontHelpers*)local_60, SVar15);
                 bVar2 = local_60->IsActive();
                 if (bVar2) {
                     puVar9 = (uint*)eastl::optional<unsigned int>::value();
@@ -1947,9 +1947,9 @@ namespace jag::graphics {
                     goto LAB_1008e303c;
                 }
                 StringView::StringView<5ul>(&local_c8, "img=");
-                SVar17.field_8 = (uchar*)&local_c8;
-                SVar17.field_0 = (ulong)&local_70;
-                local_98.suffix_of(SVar17);
+                SVar16.field_8 = (uchar*)&local_c8;
+                SVar16.field_0 = (ulong)&local_70;
+                local_98.suffix_of(SVar16);
                 cVar1 = local_98.empty();
                 if (cVar1 == '\0') {
                     bVar2 = FromString<StringView, int>(&local_98, (int*)local_58, 10);
@@ -1965,19 +1965,19 @@ namespace jag::graphics {
                     }
                 } else {
                     StringView::StringView<8ul>(&local_b8, "sprite=");
-                    SVar18.field_8 = (uchar*)&local_b8;
-                    SVar18.field_0 = (ulong)&local_70;
-                    local_88.suffix_of(SVar18);
+                    SVar17.field_8 = (uchar*)&local_b8;
+                    SVar17.field_0 = (ulong)&local_70;
+                    local_88.suffix_of(SVar17);
                     cVar1 = local_88.empty();
                     if (cVar1 != '\0')
                         goto LAB_1008e305b;
-                    SVar14.field_0 = &local_a8;
-                    StringView::StringView(SVar14.field_0, &local_88);
-                    SVar14.field_8 = (uchar*)&local_40;
-                    SVar14.field_0 = (ulong)SVar14.field_0;
-                    cVar1 = ParseSpriteData(SVar14, &local_3c, piVar10);
+                    SVar18.field_0 = &local_a8;
+                    StringView::StringView(SVar18.field_0, &local_88);
+                    SVar18.field_8 = (uchar*)&local_40;
+                    SVar18.field_0 = (ulong)SVar18.field_0;
+                    cVar1 = ParseSpriteData(SVar18, &local_3c, piVar10);
                     if (cVar1 != '\0') {
-                        bVar2 = SVar14.field_0->operator_cast_to_bool();
+                        bVar2 = SVar18.field_0->operator_cast_to_bool();
                         if (bVar2) {
                             new (local_58) ModIconReference();
                             cVar1 = std::function<bool(FontHelpers::ModIconReference&, int, int)>::operator()(
@@ -2907,9 +2907,9 @@ namespace jag::graphics {
         new (&local_160) StringView(param_1);
         local_124 = param_6_00 & 255;
         pFVar12 = (FontMetrics*)(ulong)local_124;
-        SVar19.field_8 = (uchar*)param_5;
-        SVar19.field_0 = (ulong)&local_160;
-        iVar2 = SplitString((fixed_vector*)local_100, SVar19, param_2, (int*)pFVar12, in_stack_fffffffffffffe68);
+        SVar17.field_8 = (uchar*)param_5;
+        SVar17.field_0 = (ulong)&local_160;
+        iVar2 = SplitString((fixed_vector*)local_100, SVar17, param_2, (int*)pFVar12, in_stack_fffffffffffffe68);
         uVar16 = 0;
         if (iVar2 != 0) {
             iVar14 = 0;
@@ -2949,17 +2949,17 @@ namespace jag::graphics {
                         local_12c = uVar13;
                         local_128 = iVar2;
                         new (&local_190) StringView(&local_120);
-                        SVar17.field_8 = (uchar*)&local_110;
-                        SVar17.field_0 = (ulong)&local_190;
-                        local_150 = GetNextElementLength(SVar17, (ulong*)(ulong)local_124, in_stack_fffffffffffffe68);
+                        SVar18.field_8 = (uchar*)&local_110;
+                        SVar18.field_0 = (ulong)&local_190;
+                        local_150 = GetNextElementLength(SVar18, (ulong*)(ulong)local_124, in_stack_fffffffffffffe68);
                         ptVar6 = std::get<0ul, unsigned int, unsigned int>((pair*)&local_150);
                         ptVar7 = std::get<1ul, unsigned int, unsigned int>((pair*)&local_150);
                         local_180.substr((ulong)&local_120, uVar9);
                         new (&local_170) StringView(&local_180);
-                        SVar18.field_8._0_4_ = local_12c;
-                        SVar18.field_0 = (ulong)&local_170;
-                        SVar18.field_8._4_4_ = 0;
-                        local_148 = GetElementWidth(SVar18, *(uint*)ptVar7, (uint)param_5, pFVar12);
+                        SVar19.field_8._0_4_ = local_12c;
+                        SVar19.field_0 = (ulong)&local_170;
+                        SVar19.field_8._4_4_ = 0;
+                        local_148 = GetElementWidth(SVar19, *(uint*)ptVar7, (uint)param_5, pFVar12);
                         ptVar8 = std::get<0ul, unsigned int, unsigned int>((pair*)&local_148);
                         ptVar7 = std::get<1ul, unsigned int, unsigned int>((pair*)&local_148);
                         uVar16 = local_110;

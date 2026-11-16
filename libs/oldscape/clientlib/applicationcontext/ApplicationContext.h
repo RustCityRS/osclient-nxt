@@ -62,7 +62,7 @@ namespace jag::oldscape {
         undefined* field_0; // offset 0, vtable pointer
         shared_ptr field_8; // offset 8
         char _unknown_24[24];
-        undefined1 field_48; // offset 48
+        undefined1 m_applicationSuspended; // offset 48
     };
 
     // 0x1000c5f20, 96 bytes, inline, placed by class name and debug map
@@ -152,7 +152,7 @@ namespace jag::oldscape {
         std::unique_ptr<auth::AuthLibWrapper, std::default_delete<auth::AuthLibWrapper>>::unique_ptr<true, void>(
             (unique_ptr<auth::AuthLibWrapper, std::default_delete<auth::AuthLibWrapper>>*)&field_24);
         new (&field_32) graphics::Margin();
-        field_48 = 0;
+        m_applicationSuspended = 0;
     }
 
     // 0x10014ce10, 64 bytes, base-object destructor, inline, placed by class name
@@ -264,7 +264,7 @@ namespace jag::oldscape {
     // 0x100189270, 16 bytes, inline, placed by class name
     // ApplicationContext::ResumeApplication()
     void ApplicationContext::ResumeApplication() {
-        field_48 = 0;
+        m_applicationSuspended = 0;
     }
 
 } // namespace jag::oldscape

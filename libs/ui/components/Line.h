@@ -15,7 +15,7 @@ namespace jag::ui {
         virtual void DecodeTypedComponentProperties(PacketT<Array<unsigned char, eastl::allocator>>&, int);
         virtual int GetVisibleWidth() const;
         virtual int GetVisibleHeight() const;
-        GetLineFlipDiagonal() const;
+        bool GetLineFlipDiagonal() const;
         uint GetLineStrokeWidth() const;
 
         // data members, from how the methods use this: 400 bytes, the first 393 are Rectangle

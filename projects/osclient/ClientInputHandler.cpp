@@ -152,7 +152,7 @@ namespace jag::oldscape {
     // 0x10017ecf0, 16 bytes, placed by class name and debug map
     // ClientInputHandler::SetMinimenuBuildCoords(CoordType<UICoordSpecializer>, CoordType<UICoordSpecializer>)
     void ClientInputHandler::SetMinimenuBuildCoords(undefined4 param_2, undefined4 param_3) {
-        field_96 = param_2;
+        m_minimenuBuildCoords = param_2;
         field_100 = param_3;
     }
 
@@ -243,7 +243,7 @@ namespace jag::oldscape {
 
         graphics::XPlotBlender<graphics::XPlot_NormalAlpha>::XPlotBlender<int>(
             (XPlotBlender<graphics::XPlot_NormalAlpha>*)local_20, -1);
-        field_96 = local_20[0];
+        m_minimenuBuildCoords = local_20[0];
         graphics::XPlotBlender<graphics::XPlot_NormalAlpha>::XPlotBlender<int>(
             (XPlotBlender<graphics::XPlot_NormalAlpha>*)local_18, -1);
         field_100 = local_18[0];
@@ -943,7 +943,7 @@ namespace jag::oldscape {
             puVar3 =
                 (undefined1*)std::array<bool, 108ul>::operator[]((array<bool, 108ul>*)&field_10276, (ulong)param_1);
             *puVar3 = 0;
-            eastl::fixed_vector<int, 128ul, true, eastl::allocator>::push_back(&field_888);
+            eastl::fixed_vector<int, 128ul, true, eastl::allocator>::push_back(&m_keysDown);
         }
         if ((1 < *(int*)(lVar1 + 53260)) && (param_1 == 66)) {
             pcVar2 = (char*)std::array<bool, 108ul>::operator[]((array<bool, 108ul>*)&field_10060, 82);

@@ -21,13 +21,13 @@ namespace jag::graphics {
     BillboardBatchInstance::GetModel() const;
 
     // 0x10011ced0: the linker folded this into oldscape::configdecoder::NpcType::GetHeadIconIndices() const, which has identical code
-    BillboardBatchInstance::GetVertexAnimation() const;
+    GeometryBatchInstance BillboardBatchInstance::GetVertexAnimation() const;
 
     // 0x1001a3c10: the linker folded this into MainLoopFrameTimer::GetFPSCounter(), which has identical code
-    BillboardBatchInstance::GetMaterial();
+    RenderMaterial BillboardBatchInstance::GetMaterial();
 
     // 0x1001a3c10: the linker folded this into MainLoopFrameTimer::GetFPSCounter(), which has identical code
-    BillboardBatchInstance::GetMaterial() const;
+    RenderMaterial BillboardBatchInstance::GetMaterial() const;
 
     // 0x10042fe60: the linker folded this into game::LocType::GetResize() const, which has identical code
     BillboardBatchInstance::GetApproxMaterialInfoList() const;
@@ -77,13 +77,11 @@ namespace jag::graphics {
             pBVar7 =
                 (BillboardBatch*)shared_ptr<BillboardBatch>::operator*((shared_ptr<BillboardBatch>*)param_1->field_32);
             pBVar6->Append(pBVar7, param_2);
-            piVar8 = (int*)((param_1->field_656 + 80))->HeapBeginPtr();
-            piVar9 = (int*)((param_1->field_656 + 80))->end();
+            piVar8 = (int*)((param_1->m_vertexAnimation + 80))->HeapBeginPtr();
+            piVar9 = (int*)((param_1->m_vertexAnimation + 80))->end();
             if (piVar8 != piVar9) {
-                this_00 =
-                    (vector<int,
-                            eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)(field_656 +
-                                                                                                         80);
+                this_00 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true,
+                                                                     eastl::allocator>>*)(m_vertexAnimation + 80);
                 do {
                     if (eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true,
                                                                          eastl::allocator>>::empty(this_00) == '\0') {
@@ -170,11 +168,11 @@ namespace jag::graphics {
         field_16 = &PTR_Transform_100f16160;
         field_24 = param_1;
         MakeSharedPool<BillboardBatch, 64>::MakeShared<>((shared_ptr*)field_32, (MakeSharedPool<BillboardBatch, 64>*)4);
-        new (field_48) BillboardMaterial();
+        new (m_material) BillboardMaterial();
         new (&field_616) eastl::vector<MaterialInfo, eastl::allocator>();
-        new (field_656) VertexAnimation();
-        new ((field_656 + 80)) eastl::vector<SourceModelExternalIndexSection, eastl::allocator>();
-        ((field_656 + 80), (ulong)param_2)->reserve();
+        new (m_vertexAnimation) VertexAnimation();
+        new ((m_vertexAnimation + 80)) eastl::vector<SourceModelExternalIndexSection, eastl::allocator>();
+        ((m_vertexAnimation + 80), (ulong)param_2)->reserve();
     }
 
     // 0x100866370, 16 bytes, complete-object constructor, placed by class name
@@ -191,10 +189,10 @@ namespace jag::graphics {
         field_24 = param_2;
         shared_ptr<oldscape::RSevenDebugPresetProvider>::shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(
             (shared_ptr<oldscape::RSevenDebugPresetProvider>*)field_32, (shared_ptr*)param_1->field_32);
-        new (field_48, (BillboardMaterial*)param_1->field_48) BillboardMaterial();
+        new (m_material, (BillboardMaterial*)param_1->m_material) BillboardMaterial();
         new (&field_616) eastl::vector<MaterialInfo, eastl::allocator>();
-        new (field_656) VertexAnimation();
-        new ((field_656 + 80), (vector*)(param_1->field_656 + 80))
+        new (m_vertexAnimation) VertexAnimation();
+        new ((m_vertexAnimation + 80), (vector*)(param_1->m_vertexAnimation + 80))
             eastl::vector<SourceModelExternalIndexSection, eastl::allocator>();
     }
 
@@ -219,10 +217,10 @@ namespace jag::graphics {
             MakeSharedPool<BillboardBatch, 64>::MakeShared<BillboardBatch&>((shared_ptr*)field_32, auVar1._0_8_,
                                                                             auVar1._8_8_);
         }
-        new (field_48, (BillboardMaterial*)param_1->field_48) BillboardMaterial();
+        new (m_material, (BillboardMaterial*)param_1->m_material) BillboardMaterial();
         new (&field_616) eastl::vector<MaterialInfo, eastl::allocator>();
-        new (field_656) VertexAnimation();
-        new ((field_656 + 80), (vector*)(param_1->field_656 + 80))
+        new (m_vertexAnimation) VertexAnimation();
+        new ((m_vertexAnimation + 80), (vector*)(param_1->m_vertexAnimation + 80))
             eastl::vector<SourceModelExternalIndexSection, eastl::allocator>();
     }
 
@@ -234,11 +232,11 @@ namespace jag::graphics {
     void BillboardBatchInstance::~BillboardBatchInstance() {
         field_0 = &PTR__BillboardBatchInstance_100f16100;
         field_16 = &PTR_Transform_100f16160;
-        field_48->DestroyRenderingResources();
-        ((field_656 + 80))->~vector();
-        field_656->~VertexAnimation();
+        m_material->DestroyRenderingResources();
+        ((m_vertexAnimation + 80))->~vector();
+        m_vertexAnimation->~VertexAnimation();
         (&field_616)->~vector();
-        field_48->~BillboardMaterial();
+        m_material->~BillboardMaterial();
         field_32->~shared_ptr();
         ~AutoSingleton();
     }
@@ -269,14 +267,14 @@ namespace jag::graphics {
             this_00 = (BillboardBatch*)shared_ptr<BillboardBatch>::operator->((shared_ptr<BillboardBatch>*)field_32);
             cVar3 = this_00->HasBones();
             if (cVar3 != '\0') {
-                this_01 = (shared_ptr*)field_656->GetMaterial();
+                this_01 = (shared_ptr*)m_vertexAnimation->GetMaterial();
                 bVar2 = shared_ptr::operator_cast_to_bool(this_01);
                 if (!bVar2) {
                     this_02 = (AnimationStateProvider*)shared_ptr<AnimationStateProvider>::operator->(
                         (shared_ptr<AnimationStateProvider>*)param_1);
                     this_02->InvalidateAsyncUpdate();
                 }
-                (field_656, param_1)->SetAnimationStateProvider();
+                (m_vertexAnimation, param_1)->SetAnimationStateProvider();
                 bVar2 = operator!=(param_1, (_func_decltype_nullptr*)0);
                 SetRenderFlag(8, bVar2);
             }
@@ -288,9 +286,9 @@ namespace jag::graphics {
                 (long*)shared_ptr<AnimationStateProvider>::operator->((shared_ptr<AnimationStateProvider>*)param_1);
             cVar3 = (**(code**)(*plVar4 + 56))(plVar4);
         }
-        pEVar1 = (EffectList*)(field_48, 4)->GetRenderPassEffect();
+        pEVar1 = (EffectList*)(m_material, 4)->GetRenderPassEffect();
         pEVar1->Set(77, cVar3 == '\0');
-        pEVar1 = (EffectList*)(field_48, 4)->GetRenderPassEffect();
+        pEVar1 = (EffectList*)(m_material, 4)->GetRenderPassEffect();
         pEVar1->Set(78, cVar3 == '\x01');
     }
 
@@ -325,7 +323,7 @@ namespace jag::graphics {
         uVar3 = pBVar5->GetFaceLabelCount();
         pBVar5 = (BillboardBatch*)shared_ptr<BillboardBatch>::operator->((shared_ptr<BillboardBatch>*)this_00);
         uVar4 = pBVar5->GetBillboardLabelCount();
-        (field_656, uVar2, uVar3, uVar4)->SetMaxSize();
+        (m_vertexAnimation, uVar2, uVar3, uVar4)->SetMaxSize();
         this_01 = (GeometryBatch*)shared_ptr<BillboardBatch>::operator->((shared_ptr<BillboardBatch>*)this_00);
         pvVar6 = (vector_map*)this_01->GetBoneIDMap();
         this_02 = (Entity*)shared_ptr<BillboardBatch>::operator->((shared_ptr<BillboardBatch>*)this_00);
@@ -337,13 +335,13 @@ namespace jag::graphics {
         pBVar5 = (BillboardBatch*)shared_ptr<BillboardBatch>::operator->((shared_ptr<BillboardBatch>*)this_00);
         pvVar9 = (vector_map*)pBVar5->GetBillboardLabelIDMap();
         pAVar10 = (Array*)field_24->GetTextureAtlasManager();
-        (field_656, param_1, param_2, pvVar6, pvVar7, pvVar8, pvVar9, pAVar10, param_3)->UpdateAnimation();
+        (m_vertexAnimation, param_1, param_2, pvVar6, pvVar7, pvVar8, pvVar9, pAVar10, param_3)->UpdateAnimation();
     }
 
     // 0x100866b30, 32 bytes, placed by class name
     // BillboardBatchInstance::EndUpdateAnimation()
     void BillboardBatchInstance::EndUpdateAnimation() {
-        field_656->EndUpdateAnimation();
+        m_vertexAnimation->EndUpdateAnimation();
     }
 
     // 0x100866b50, 48 bytes, placed by class name
@@ -363,7 +361,7 @@ namespace jag::graphics {
         BillboardBatch* pBVar5;
 
         eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-        piVar3 = (int*)((field_656 + 80))->push_back_uninitialized();
+        piVar3 = (int*)((m_vertexAnimation + 80))->push_back_uninitialized();
         *piVar3 = param_1;
         *(uchar*)(piVar3 + 1) = param_2;
         piVar3[2] = param_3;
@@ -384,8 +382,8 @@ namespace jag::graphics {
         int* piVar1;
         int* piVar2;
 
-        piVar1 = (int*)((field_656 + 80))->HeapBeginPtr();
-        piVar2 = (int*)((field_656 + 80))->end();
+        piVar1 = (int*)((m_vertexAnimation + 80))->HeapBeginPtr();
+        piVar2 = (int*)((m_vertexAnimation + 80))->end();
         for (; piVar1 != piVar2; piVar1 = piVar1 + 17) {
             if (*piVar1 == param_1) {
                 *piVar1 = param_2;
@@ -399,8 +397,8 @@ namespace jag::graphics {
         int* piVar1;
         int* piVar2;
 
-        piVar1 = (int*)((field_656 + 80))->HeapBeginPtr();
-        piVar2 = (int*)((field_656 + 80))->end();
+        piVar1 = (int*)((m_vertexAnimation + 80))->HeapBeginPtr();
+        piVar2 = (int*)((m_vertexAnimation + 80))->end();
         for (; piVar1 != piVar2; piVar1 = piVar1 + 17) {
             *piVar1 = param_1;
         }
@@ -413,10 +411,10 @@ namespace jag::graphics {
         undefined4 uVar2;
         long lVar3;
 
-        cVar1 = ((field_656 + 80))->empty();
+        cVar1 = ((m_vertexAnimation + 80))->empty();
         uVar2 = 4294967295;
         if (cVar1 == '\0') {
-            lVar3 = ((field_656 + 80))->front();
+            lVar3 = ((m_vertexAnimation + 80))->front();
             uVar2 = *(undefined4*)(lVar3 + 8);
         }
         return uVar2;
@@ -429,10 +427,10 @@ namespace jag::graphics {
         ulong uVar2;
         long lVar3;
 
-        cVar1 = ((field_656 + 80))->empty();
+        cVar1 = ((m_vertexAnimation + 80))->empty();
         uVar2 = 4294967295;
         if (cVar1 == '\0') {
-            lVar3 = ((field_656 + 80))->front();
+            lVar3 = ((m_vertexAnimation + 80))->front();
             uVar2 = (ulong) * (byte*)(lVar3 + 4);
         }
         return uVar2;
@@ -444,8 +442,8 @@ namespace jag::graphics {
         long lVar1;
         long lVar2;
 
-        lVar1 = ((field_656 + 80))->HeapBeginPtr();
-        lVar2 = ((field_656 + 80))->end();
+        lVar1 = ((m_vertexAnimation + 80))->HeapBeginPtr();
+        lVar2 = ((m_vertexAnimation + 80))->end();
         for (; lVar1 != lVar2; lVar1 = lVar1 + 68) {
             eastl::fixed_vector<int, 128ul, true, eastl::allocator>::push_back((int*)param_1);
             eastl::fixed_vector<int, 128ul, true, eastl::allocator>::push_back((int*)param_1);
@@ -463,7 +461,7 @@ namespace jag::graphics {
         bVar2 = (bool)pBVar1->HasBones();
         pBVar1 = (BillboardBatch*)GetBillboardBatch(this);
         bVar3 = (bool)pBVar1->HasJoints();
-        (field_48, bVar2, bVar3, param_1)->Init();
+        (m_material, bVar2, bVar3, param_1)->Init();
         TextureAtlasManager::PopulateMaterialInfoFromMaterial<eastl::allocator>((vector*)&field_616, param_1);
     }
 
@@ -475,8 +473,8 @@ namespace jag::graphics {
         BillboardBatch* this_00;
         uint* puVar3;
 
-        lVar1 = ((field_656 + 80))->HeapBeginPtr();
-        lVar2 = ((field_656 + 80))->end();
+        lVar1 = ((m_vertexAnimation + 80))->HeapBeginPtr();
+        lVar2 = ((m_vertexAnimation + 80))->end();
         if (lVar1 != lVar2) {
             do {
                 this_00 =
@@ -505,8 +503,8 @@ namespace jag::graphics {
         undefined8 local_38;
 
         local_40 = this;
-        lVar7 = ((field_656 + 80))->HeapBeginPtr();
-        lVar5 = ((field_656 + 80))->end();
+        lVar7 = ((m_vertexAnimation + 80))->HeapBeginPtr();
+        lVar5 = ((m_vertexAnimation + 80))->end();
         if (lVar7 != lVar5) {
             local_40 = (BillboardBatchInstance*)local_40->field_32;
             do {
@@ -577,7 +575,7 @@ namespace jag::graphics {
         vector<SourceModelExternalIndexSection, eastl::allocator>* local_40;
         ulong local_38;
 
-        pvVar13 = (vector<SourceModelExternalIndexSection, eastl::allocator>*)(field_656 + 80);
+        pvVar13 = (vector<SourceModelExternalIndexSection, eastl::allocator>*)(m_vertexAnimation + 80);
         auVar16 = eastl::vector<SourceModelExternalIndexSection, eastl::allocator>::size(pvVar13);
         if (1 < auVar16._0_8_) {
             eastl::destruct<oldscape::highlight::NpcUID*>(local_58, (NpcUID*)"EASTL multimap", auVar16._8_8_);
@@ -705,14 +703,14 @@ namespace jag::graphics {
         local_34 = CONCAT31(in_register_00000081, param_4);
         local_58._24_8_ = param_5;
         pBVar7 = (BillboardMaterial*)param_1->GetMaterial();
-        cVar2 = (field_48, pBVar7)->IsCombinable();
+        cVar2 = (m_material, pBVar7)->IsCombinable();
         if (cVar2 == '\0') {
             return 2;
         }
         if (!param_3) {
-            cVar2 = ((field_656 + 80))->empty();
+            cVar2 = ((m_vertexAnimation + 80))->empty();
             if (((cVar2 == '\0') && (uVar4 = GetFirstSequenceIDFromSource(param_1), uVar4 != 4294967295)) &&
-                (lVar8 = ((field_656 + 80))->front(), uVar4 != *(byte*)(lVar8 + 4))) {
+                (lVar8 = ((m_vertexAnimation + 80))->front(), uVar4 != *(byte*)(lVar8 + 4))) {
                 return 3;
             }
         }
@@ -796,14 +794,14 @@ namespace jag::graphics {
         if (this != param_1) {
             DestroyRenderingResources(this);
             pBVar1 = (BillboardMaterial*)param_1->GetMaterial();
-            BillboardMaterial::operator=((BillboardMaterial*)field_48, pBVar1);
+            BillboardMaterial::operator=((BillboardMaterial*)m_material, pBVar1);
             this_00 = (BillboardBatch*)shared_ptr<BillboardBatch>::operator->((shared_ptr<BillboardBatch>*)field_32);
             pBVar2 =
                 (BillboardBatch*)shared_ptr<BillboardBatch>::operator*((shared_ptr<BillboardBatch>*)param_1->field_32);
             this_00->Assign(pBVar2);
             eastl::vector<SourceModelExternalIndexSection, eastl::allocator>::operator=(
-                (vector<SourceModelExternalIndexSection, eastl::allocator>*)(field_656 + 80),
-                (vector*)(param_1->field_656 + 80));
+                (vector<SourceModelExternalIndexSection, eastl::allocator>*)(m_vertexAnimation + 80),
+                (vector*)(param_1->m_vertexAnimation + 80));
         }
     }
 
@@ -812,7 +810,7 @@ namespace jag::graphics {
     void BillboardBatchInstance::DestroyRenderingResources() {
         BillboardBatch* this_00;
 
-        field_48->DestroyRenderingResources();
+        m_material->DestroyRenderingResources();
         this_00 = (BillboardBatch*)shared_ptr<BillboardBatch>::operator->((shared_ptr<BillboardBatch>*)field_32);
         this_00->DestroyRenderingResources();
     }
@@ -903,8 +901,8 @@ namespace jag::graphics {
                 if (uVar7 == 65535) {
                     uVar7 = 4294967295;
                 }
-                lVar1 = ((field_656 + 80))->HeapBeginPtr();
-                lVar4 = ((field_656 + 80))->end();
+                lVar1 = ((m_vertexAnimation + 80))->HeapBeginPtr();
+                lVar4 = ((m_vertexAnimation + 80))->end();
                 for (; lVar1 != lVar4; lVar1 = lVar1 + 68) {
                     if (*(uint*)(lVar1 + 8) == uVar6) {
                         *(uint*)(lVar1 + 8) = uVar7;
@@ -937,8 +935,8 @@ namespace jag::graphics {
         if (param_2 == 65535) {
             uVar3 = 4294967295;
         }
-        lVar1 = ((field_656 + 80))->HeapBeginPtr();
-        lVar2 = ((field_656 + 80))->end();
+        lVar1 = ((m_vertexAnimation + 80))->HeapBeginPtr();
+        lVar2 = ((m_vertexAnimation + 80))->end();
         for (; lVar1 != lVar2; lVar1 = lVar1 + 68) {
             if (*(int*)(lVar1 + 8) == iVar4) {
                 *(undefined4*)(lVar1 + 8) = uVar3;
@@ -958,8 +956,8 @@ namespace jag::graphics {
 
         this_00 = (BillboardBatch*)shared_ptr<BillboardBatch>::operator->((shared_ptr<BillboardBatch>*)field_32);
         this_00->AmbientAdjust(param_1);
-        lVar1 = ((field_656 + 80))->HeapBeginPtr();
-        lVar2 = ((field_656 + 80))->end();
+        lVar1 = ((m_vertexAnimation + 80))->HeapBeginPtr();
+        lVar2 = ((m_vertexAnimation + 80))->end();
         for (; lVar1 != lVar2; lVar1 = lVar1 + 68) {
             *(ushort*)(lVar1 + 16) = param_1;
         }
@@ -1086,7 +1084,7 @@ namespace jag::graphics {
         pBVar1->CreateRenderingResources();
         pBVar1 = (BillboardBatch*)shared_ptr<BillboardBatch>::operator->((shared_ptr<BillboardBatch>*)field_32);
         bVar2 = (bool)pBVar1->IsLowPrecision();
-        (field_48, bVar2)->SetLowPrecision();
+        (m_material, bVar2)->SetLowPrecision();
     }
 
     // 0x100868760, 736 bytes, placed by class name
@@ -1118,10 +1116,10 @@ namespace jag::graphics {
 
         local_88 = param_5;
         pRVar5 = (RenderPassBitSet*)param_3->GetRenderPassBits();
-        cVar2 = (field_48, pRVar5)->CanRenderInPasses();
+        cVar2 = (m_material, pRVar5)->CanRenderInPasses();
         if (cVar2 != '\0') {
             pAVar6 = (AABB*)GetAABB(this);
-            local_50 = (RenderMaterial*)field_48;
+            local_50 = (RenderMaterial*)m_material;
             pMVar7 = (Matrix44T*)field_24->GetMaterial();
             pMVar8 = (Matrix44T*)param_3->GetScreen();
             this_00 = local_50;

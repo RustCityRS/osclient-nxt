@@ -33,7 +33,7 @@ namespace jag::math {
 
         // data members, from how the methods use this: 12 bytes
         uint field_0; // offset 0
-        int field_4;  // offset 4
+        int m_const;  // offset 4
         char _unknown_8[4];
     };
 
@@ -52,7 +52,7 @@ namespace jag::math {
     // 0x100c618d0, 48 bytes, inline, placed by class name
     // Random::Rand()
     void Random::Rand() {
-        field_0 = Mult32(field_0, field_4) + 1U & 1073741823;
+        field_0 = Mult32(field_0, m_const) + 1U & 1073741823;
     }
 
     // 0x100c641f0, 80 bytes, inline, placed by class name

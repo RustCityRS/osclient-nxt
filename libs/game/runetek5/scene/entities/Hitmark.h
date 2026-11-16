@@ -8,27 +8,27 @@
 namespace jag {
     class Hitmark {
     public:
-        GetExpiryTime() const;
-        GetParam() const;
+        uint GetExpiryTime() const;
+        int GetParam() const;
         Hitmark(int, int, unsigned int, int, int, int);
         bool IsValid() const;
         Hitmark();
 
         // data members, from how the methods use this: 28 bytes
-        int field_0;  // offset 0
-        int field_4;  // offset 4
-        uint field_8; // offset 8
-        int field_12; // offset 12
-        int field_16; // offset 16
-        int field_20; // offset 20
+        int field_0;       // offset 0
+        int m_param;       // offset 4
+        uint m_expiryTime; // offset 8
+        int field_12;      // offset 12
+        int field_16;      // offset 16
+        int field_20;      // offset 20
         char _unknown_24[4];
     };
 
     // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    Hitmark::GetExpiryTime() const;
+    uint Hitmark::GetExpiryTime() const;
 
     // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    Hitmark::GetParam() const;
+    int Hitmark::GetParam() const;
 
     // 0x10012dc10: the linker folded this into RenderState::CameraPos::Set(int, int, int, int, int, int), which has identical code
     Hitmark::Hitmark(int, int, unsigned int, int, int, int);
@@ -56,8 +56,8 @@ namespace jag {
     // Hitmark::Hitmark()
     void Hitmark::Hitmark() {
         field_0 = -1;
-        field_4 = -1;
-        field_8 = 0;
+        m_param = -1;
+        m_expiryTime = 0;
         field_12 = -1;
         field_16 = -1;
         field_20 = 0;

@@ -63,12 +63,12 @@ namespace jag::oldscape {
             eastl::string::operator=(pbVar15, pbVar11);
             break;
         case 6901:
-            if ((ulong)(long)(int)pCVar7[3249].field_4 < 2048) {
+            if ((ulong)(long)(int)pCVar7[3249].m_x < 2048) {
                 psVar9 = (shared_ptr*)std::array<shared_ptr<ClientPlayer>, 2048ul>::operator[](
-                    (array<shared_ptr<ClientPlayer>, 2048ul>*)(pCVar7 + 1201), (long)(int)pCVar7[3249].field_4);
+                    (array<shared_ptr<ClientPlayer>, 2048ul>*)(pCVar7 + 1201), (long)(int)pCVar7[3249].m_x);
                 bVar4 = operator!=(psVar9, (_func_decltype_nullptr*)0);
                 if (bVar4) {
-                    SetActivePlayer(param_1, pCVar7[3249].field_4);
+                    SetActivePlayer(param_1, pCVar7[3249].m_x);
                     iVar3 = param_1->field_104092;
                     param_1->field_104092 = iVar3 + 1;
                     puVar8 = (undefined4*)std::array<int, 1000ul>::operator[](
@@ -123,7 +123,7 @@ namespace jag::oldscape {
             }
             lVar10 = shared_ptr<ClientPlayer>::operator->((shared_ptr<ClientPlayer>*)psVar9);
             if ((int)uVar16 < *(int*)(lVar10 + 440)) {
-                local_38 = pCVar7[3249].field_0;
+                local_38 = pCVar7[3249].m_level;
                 lVar10 = shared_ptr<ClientPlayer>::operator->((shared_ptr<ClientPlayer>*)psVar9);
                 piVar12 = (int*)std::array<int, 10ul>::operator[]((array<int, 10ul>*)(lVar10 + 444), (long)(int)uVar16);
                 local_34 = *piVar12;
@@ -165,7 +165,7 @@ namespace jag::oldscape {
             uVar16 = param_1->m_activePlayer;
             goto LAB_10016e6d8;
         case 6905:
-            uVar16 = pCVar7[3249].field_4;
+            uVar16 = pCVar7[3249].m_x;
             goto LAB_10016e6d8;
         case 6906:
             uVar17 = (long)(int)param_1->field_136096 - 1;
@@ -218,7 +218,7 @@ namespace jag::oldscape {
             piVar12 =
                 (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)&param_1->field_100092, (long)iVar3 - 1);
             iVar3 = *piVar12;
-            this = (array<eastl::string, 8ul>*)(*(Location**)&pCVar7[3271].field_8)->GetParentLocationType();
+            this = (array<eastl::string, 8ul>*)(*(Location**)&pCVar7[3271].m_z)->GetParentLocationType();
             pbVar11 = (basic_string*)std::array<eastl::string, 8ul>::operator[](this, (ulong)uVar16);
             if (iVar3 == 0) {
                 local_58->StripTags(pbVar11);

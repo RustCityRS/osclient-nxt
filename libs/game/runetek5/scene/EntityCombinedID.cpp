@@ -16,7 +16,7 @@ namespace jag::game {
     EntityCombinedID EntityCombinedID::NO_ENTITY = EntityCombinedID(127, 0);
 
     // 0x1001d15b0: the linker folded this into oldscape::dash3d::EntityHighlight::GetColour() const, which has identical code
-    EntityCombinedID::GetEntityID() const;
+    uint EntityCombinedID::GetEntityID() const;
 
     // 0x10048f970, 16 bytes, complete-object constructor, placed by class name and debug map
     // EntityCombinedID::EntityCombinedID(EntityType, int): jumps straight to the base-object constructor

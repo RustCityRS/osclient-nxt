@@ -23,7 +23,7 @@ namespace jag::graphics {
 
         // data members, from how the methods use this: 16 bytes
         undefined* field_0; // offset 0, vtable pointer
-        uint field_8;       // offset 8
+        uint m_renderFlags; // offset 8
         char _unknown_12[4];
     };
 
@@ -43,30 +43,30 @@ namespace jag::graphics {
         undefined3 in_register_00000011;
 
         if (CONCAT31(in_register_00000011, param_2) == 0) {
-            field_8 = field_8 & ~param_1;
+            m_renderFlags = m_renderFlags & ~param_1;
             return;
         }
-        field_8 = field_8 | param_1;
+        m_renderFlags = m_renderFlags | param_1;
     }
 
     // 0x1007b81d0, 16 bytes, inline, placed by class name
     // Drawable::GetRenderFlag(unsigned int) const
     undefined4 Drawable::GetRenderFlag(uint param_1) {
-        return CONCAT31((int3)(~field_8 >> 8), (param_1 & ~field_8) == 0);
+        return CONCAT31((int3)(~m_renderFlags >> 8), (param_1 & ~m_renderFlags) == 0);
     }
 
     // 0x100866470, 32 bytes, base-object constructor, inline, placed by class name
     // Drawable::Drawable(Drawable const&)
     void Drawable::Drawable(Drawable* param_1) {
         field_0 = PTR_vtable_100ee88c8 + 16;
-        field_8 = param_1->field_8;
+        m_renderFlags = param_1->m_renderFlags;
     }
 
     // 0x10092f280, 32 bytes, base-object constructor, inline, placed by class name
     // Drawable::Drawable(unsigned int)
     void Drawable::Drawable(uint param_1) {
         field_0 = PTR_vtable_100ee88c8 + 16;
-        field_8 = param_1;
+        m_renderFlags = param_1;
     }
 
 } // namespace jag::graphics

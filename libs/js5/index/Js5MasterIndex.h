@@ -8,14 +8,14 @@
 namespace jag {
     class Js5MasterIndex {
     public:
-        GetMaximumArchiveID() const;
+        uint GetMaximumArchiveID() const;
         ~Js5MasterIndex();
         GetArchiveData(unsigned int) const;
         Js5MasterIndex(math::BigInteger const*, math::BigInteger const*,
                        PacketT<Array<unsigned char, BucketAllocatorEASTL>>&);
 
         // data members, from how the methods use this: 16 bytes
-        uint field_0; // offset 0
+        uint m_maximumArchiveID; // offset 0
         char _unknown_4[12];
     };
 

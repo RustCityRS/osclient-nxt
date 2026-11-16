@@ -10,7 +10,7 @@ namespace jag::render {
     // Shader::~Shader()
     void Shader::~Shader() {
         field_0 = &PTR__Shader_100f28280;
-        if (field_72 != 0) {
+        if (m_nativeShader != 0) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_GLShader == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
@@ -92,7 +92,7 @@ namespace jag::render {
                       "Shader_OGL.cpp",
                       46, (char*)0);
         }
-        if (field_72 != 0) {
+        if (m_nativeShader != 0) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_GLShader == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
@@ -101,11 +101,12 @@ namespace jag::render {
         }
         field_41 = param_3;
         uVar2 = (*(code*)field_0[2])(this);
-        field_72 = CreateShaderFromSourceString(param_2, uVar2, field_41);
+        m_nativeShader = CreateShaderFromSourceString(param_2, uVar2, field_41);
         sVar4 = _strlen(param_2);
         (field_48, param_1, (uint)sVar4)->Register();
-        std::atomic<ShaderCompileState>::operator=((atomic<ShaderCompileState>*)&field_40, 3 - (uint)(field_72 == 0));
-        return field_72 != 0;
+        std::atomic<ShaderCompileState>::operator=((atomic<ShaderCompileState>*)&field_40,
+                                                   3 - (uint)(m_nativeShader == 0));
+        return m_nativeShader != 0;
     }
 
     // 0x100be8c30, 144 bytes, placed by __FILE__ string
@@ -114,21 +115,21 @@ namespace jag::render {
         char cVar1;
 
         WaitForAsyncCompile(this);
-        if (1 < field_72 + 1U) {
+        if (1 < m_nativeShader + 1U) {
             cVar1 = (*___glewIsShader)();
             CheckGlErrorInternal("glIsProgram",
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                  "shaders/OGL/Shader_OGL.cpp",
                                  29);
             if (cVar1 != '\0') {
-                (*___glewDeleteShader)(field_72);
+                (*___glewDeleteShader)(m_nativeShader);
                 CheckGlErrorInternal("glDeleteShader",
                                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                      "shaders/OGL/Shader_OGL.cpp",
                                      32);
             }
         }
-        field_72 = 0;
+        m_nativeShader = 0;
         std::atomic<ShaderCompileState>::operator=((atomic<ShaderCompileState>*)&field_40, 0);
     }
 
@@ -150,7 +151,7 @@ namespace jag::render {
     undefined8 Shader::CreateFromBinary(char* param_1, ulong param_2) {
         char cVar1;
 
-        if (field_72 != 0) {
+        if (m_nativeShader != 0) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_GLShader == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
@@ -158,7 +159,7 @@ namespace jag::render {
                       67, "Call destroy before calling create again");
         }
         (field_48, param_1, (uint)param_2)->Register();
-        field_72 = -1;
+        m_nativeShader = -1;
         cVar1 = std::__atomic_base<ShaderCompileState, false>::exchange(&field_40, 3);
         if (cVar1 == '\x03') {
             /* WARNING: Subroutine does not return */

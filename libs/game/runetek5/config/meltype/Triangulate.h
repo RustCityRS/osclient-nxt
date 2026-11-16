@@ -18,7 +18,7 @@ namespace jag::game {
 
     class Triangulate::SourcePoint {
     public:
-        GetIndex() const;
+        int GetIndex() const;
         SourcePoint(math::Point<int> const&, int);
         SourcePoint(SourcePoint&&);
         SourcePoint* operator=(SourcePoint&&);
@@ -26,7 +26,7 @@ namespace jag::game {
         // data members, from how the methods use this: 16 bytes
         undefined4 field_0; // offset 0
         undefined4 field_4; // offset 4
-        int field_8;        // offset 8
+        int m_index;        // offset 8
         char _unknown_12[4];
     };
 

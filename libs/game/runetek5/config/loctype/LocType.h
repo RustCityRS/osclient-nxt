@@ -46,7 +46,7 @@ namespace jag::game {
         uint GetRaiseObjectGroundDecor(LocShape) const;
         GetModelList() const;
         GetVFXAttachmentsRawData() const;
-        GetResize() const;
+        ColourHSL GetResize() const;
         GetOffset() const;
         uint GetHillChangeType() const;
         IsRuneTek5Only() const;
@@ -107,8 +107,10 @@ namespace jag::game {
         undefined1 field_512;      // offset 512
         undefined1 m_runeTek5Only; // offset 513
         char _unknown_514[102];
-        ColourHSL field_616; // offset 616
-        char _unknown_632[20];
+        ColourHSL m_resize; // offset 616
+        char _unknown_632[8];
+        undefined1 m_pPostOffset[4]; // offset 640
+        char _unknown_644[8];
         undefined1 field_652; // offset 652
         char _unknown_653[171];
         undefined1 field_824;      // offset 824
@@ -598,7 +600,7 @@ namespace jag::game {
     // 0x10042ff30, 16 bytes, inline, placed by class name
     // LocType::GetOffset() const
     undefined1* LocType::GetOffset() {
-        return field_616 + 12;
+        return m_resize + 12;
     }
 
     // 0x10042ff40, 16 bytes, inline, placed by class name

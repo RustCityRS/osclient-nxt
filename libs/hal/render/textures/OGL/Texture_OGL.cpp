@@ -38,7 +38,7 @@ namespace jag::render {
                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                              "textures/OGL/Texture_OGL.cpp",
                              366);
-        field_16 = param_2;
+        m_type = param_2;
         this_00->BindTexture(this, 0);
         cVar1 = (*(code*)field_0[4])(this);
         if (cVar1 == '\0') {
@@ -74,7 +74,7 @@ namespace jag::render {
             uVar2 = param_1->field_24;
         }
     LAB_100bca13a:
-        field_88 = uVar2;
+        m_faceMipLevels = uVar2;
     }
 
     // 0x100bca6a0, 336 bytes, placed by __FILE__ string
@@ -92,7 +92,7 @@ namespace jag::render {
                       "Texture_OGL.cpp",
                       380, (char*)0);
         }
-        if (field_88 < (uint)param_2->field_28) {
+        if (m_faceMipLevels < (uint)param_2->field_28) {
             /* WARNING: Subroutine does not return */
             LogAssert("textureDesc.m_SampleMipLevels <= m_faceMipLevels",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/textures/OGL/"
@@ -102,7 +102,7 @@ namespace jag::render {
         SetBaseMipLevel(this, param_2->field_36);
         uVar1 = GetMaxLineWidth();
         if ((uVar1 & 4294967293) != 37120) {
-            _glTexParameteri(uVar1, 33085, field_88);
+            _glTexParameteri(uVar1, 33085, m_faceMipLevels);
             CheckGlErrorInternal("glTexParameteri",
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                  "textures/OGL/Texture_OGL.cpp",
@@ -114,7 +114,7 @@ namespace jag::render {
         lVar3 = this_00->Instance();
         (*(code*)field_0[3])(this, (ulong)(iVar2 != 0) * 64 + lVar3 + 16, 1);
         field_8 = 1;
-        uVar1 = GetTextureImageDataSize(field_16, field_24, field_28, field_32, field_36, field_88);
+        uVar1 = GetTextureImageDataSize(m_type, field_24, field_28, field_32, field_36, m_faceMipLevels);
         (field_272, param_1, uVar1)->Register();
         (&field_8)->UndoMarkAsDead();
         (*(code*)field_0[4])(this);
@@ -247,7 +247,7 @@ namespace jag::render {
         if (iVar2 != 0) {
             iVar2 = GetMaxLineWidth();
             if (iVar2 != -1) {
-                cVar1 = IsMultiSampleTextureType(field_16);
+                cVar1 = IsMultiSampleTextureType(m_type);
                 if (cVar1 == '\0') {
                     local_48 = (SamplerState*)&field_304;
                     pRVar4 = (RenderDevice*)local_48->SSOBeginPtr(param_1);
@@ -277,7 +277,7 @@ namespace jag::render {
                         lVar6 = this_02->GetOrigin();
                         pvVar7 = param_1->SSOBeginPtr((type*)(Texture*)this);
                         new (&local_40) GLMinMagFilter(*(undefined4*)pvVar7);
-                        local_40.DisableMipMapping(field_88);
+                        local_40.DisableMipMapping(m_faceMipLevels);
                         uVar3 = GetMaxLineWidth();
                         _glTexParameteri(uVar3, 10241, local_40.field_0._0_4_);
                         CheckGlErrorInternal("glTexParameteri",
@@ -290,7 +290,7 @@ namespace jag::render {
                                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                              "hal/render/textures/OGL/Texture_OGL.cpp",
                                              114);
-                        if ((*(char*)(lVar6 + 166) != '\0') && (field_16 == 3553)) {
+                        if ((*(char*)(lVar6 + 166) != '\0') && (m_type == 3553)) {
                             pfVar8 = std::min<float>((float*)(lVar6 + 48), (float*)(pvVar7 + 20));
                             _glTexParameterf(*pfVar8, 3553, 34046);
                             CheckGlErrorInternal("glTexParameterf",
@@ -338,7 +338,7 @@ namespace jag::render {
                         SamplerState::operator=(local_48, param_1);
                         uVar9 = field_52;
                         if (uVar9 == 0) {
-                            uVar9 = field_88;
+                            uVar9 = m_faceMipLevels;
                         }
                         SetMaxMipLevel(this, uVar9);
                         local_58.~ActiveTextureSaveRestore();
@@ -381,7 +381,7 @@ namespace jag::render {
                       279, (char*)0);
         }
         uVar8 = 1;
-        if ((1 < param_1) && (field_16 == 3553)) {
+        if ((1 < param_1) && (m_type == 3553)) {
             this_00 = (MapArea*)Instance();
             lVar3 = this_00->GetOrigin();
             if (*(char*)(lVar3 + 166) != '\0') {

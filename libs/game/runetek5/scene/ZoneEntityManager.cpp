@@ -33,7 +33,7 @@ namespace jag {
         local_24 = param_1->GetZ();
         local_30 = param_1->GetZ();
         local_30 = local_30 + param_2;
-        if ((field_4 == 7) && ((((field_8 != 0 || (field_16 != 0)) || (field_12 != 0)) || (field_20 != 0)))) {
+        if ((m_buildMode == 7) && ((((field_8 != 0 || (field_16 != 0)) || (field_12 != 0)) || (field_20 != 0)))) {
             piVar1 = std::min<int>(&field_8, &local_2c);
             field_8 = *piVar1;
             piVar1 = std::min<int>(&field_16, &local_24);

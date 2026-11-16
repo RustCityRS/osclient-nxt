@@ -55,7 +55,7 @@ namespace jag::game {
             break;
         case 6:
             uVar4 = param_1->gSmart2or4s();
-            field_100 = uVar4;
+            m_cubeMapMaterialID = uVar4;
             break;
         default:
             uVar5 = logger::default_logger();

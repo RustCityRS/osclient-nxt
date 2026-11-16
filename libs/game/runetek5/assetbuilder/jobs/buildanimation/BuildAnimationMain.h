@@ -361,8 +361,8 @@ namespace jag::game {
         virtual RunFirst(Js5ResourceProvider*, ConfigProvider*);
         virtual BuildAnimationMain* CreateWorker();
         virtual DecodeResult(shared_ptr<void> const&);
-        virtual GetRequestData();
-        GetConstructedAsset() const;
+        virtual shared_ptr GetRequestData();
+        shared_ptr GetConstructedAsset() const;
         IsAssetConstructed() const;
         BuildAnimationMain(int, shared_ptr<graphics::Animation> const&,
                            Array<shared_ptr<graphics::AnimationFrameRT5>, BucketAllocatorEASTL>&&,
@@ -372,8 +372,8 @@ namespace jag::game {
 
         // data members, from how the methods use this: 112 bytes, the first 72 are AssetJob
         char _unknown_72[8];
-        shared_ptr field_80; // offset 80
-        shared_ptr field_96; // offset 96
+        shared_ptr m_constructedAsset; // offset 80
+        shared_ptr m_requestData;      // offset 96
     };
 
     // 0x1004e59c0, 64 bytes, inline, placed by class name and debug map
@@ -382,8 +382,9 @@ namespace jag::game {
         Skybox* this_00;
         undefined8 uVar2;
 
-        if (field_80->operator_cast_to_bool()) {
-            this_00 = (Skybox*)shared_ptr<graphics::Animation>::operator->((shared_ptr<graphics::Animation>*)field_80);
+        if (m_constructedAsset->operator_cast_to_bool()) {
+            this_00 = (Skybox*)shared_ptr<graphics::Animation>::operator->(
+                (shared_ptr<graphics::Animation>*)m_constructedAsset);
             uVar2 = this_00->ShowSkybox();
         } else {
             uVar2 = 0;
@@ -405,8 +406,8 @@ namespace jag::game {
     // BuildAnimationMain::~BuildAnimationMain()
     void BuildAnimationMain::~BuildAnimationMain() {
         field_0 = &PTR__BuildAnimationMain_100f0d798;
-        field_96->~shared_ptr();
-        field_80->~shared_ptr();
+        m_requestData->~shared_ptr();
+        m_constructedAsset->~shared_ptr();
         ~AssetJob();
     }
 

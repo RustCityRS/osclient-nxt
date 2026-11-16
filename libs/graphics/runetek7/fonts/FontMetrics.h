@@ -17,7 +17,7 @@ namespace jag::graphics {
         GetFontSheetPosition(int) const;
         byte GetMaxAscent() const;
         byte GetMaxDescent() const;
-        GetBaseLine() const;
+        uint GetBaseLine() const;
         uint GetVerticalSpacing() const;
         GetGlyphAdvance(int) const;
         GetKerning(int, int) const;

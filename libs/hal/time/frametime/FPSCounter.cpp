@@ -8,31 +8,31 @@
 
 namespace jag {
     // 0x100051680: the linker folded this into math::Range<float>::GetMin() const, which has identical code
-    FPSCounter::GetFPS() const;
+    float FPSCounter::GetFPS() const;
 
     // 0x100051690: the linker folded this into math::Range<float>::GetMax() const, which has identical code
-    FPSCounter::GetLPS() const;
+    float FPSCounter::GetLPS() const;
 
     // 0x100066b70: the linker folded this into oldscape::widgets::Widget::GetTextColour() const, which has identical code
-    FPSCounter::GetWorstFPS() const;
+    uint FPSCounter::GetWorstFPS() const;
 
     // 0x1000e5d50: the linker folded this into oldscape::rs2lib::CoordZoneSource::GetRotation() const, which has identical code
-    FPSCounter::GetRollingMeanFPS() const;
+    int FPSCounter::GetRollingMeanFPS() const;
 
     // 0x1001117e0: the linker folded this into oldscape::jagex3::Js5::GetIndexCrc() const, which has identical code
-    FPSCounter::GetBestFPS() const;
+    uint FPSCounter::GetBestFPS() const;
 
     // 0x100c9b6b0, 320 bytes, base-object constructor, placed by class name and debug map
     // FPSCounter::FPSCounter()
     void FPSCounter::FPSCounter() {
-        field_12 = 0;
-        field_16 = 0;
-        field_20 = 0;
+        m_rollingMeanFPS = 0;
+        m_worstFPS = 0;
+        m_bestFPS = 0;
         field_24 = 0;
-        field_0 = 0.0;
-        field_4 = 0.0;
+        m_fPS = 0.0;
+        m_lPS = 0.0;
         field_8 = 0;
-        field_12 = 0;
+        m_rollingMeanFPS = 0;
         new (&field_32) eastl::vector<unsigned long long, eastl::allocator>();
         new (&field_64) eastl::vector<unsigned long long, eastl::allocator>();
         new (&field_96) eastl::vector<unsigned long long, eastl::allocator>();
@@ -106,11 +106,11 @@ namespace jag {
         }
         field_98584 = 0.0;
         field_98588 = 0;
-        field_20 = 0;
+        m_bestFPS = 0;
         field_8 = 0;
-        field_12 = 0;
+        m_rollingMeanFPS = 0;
         (&field_160)->clear();
-        field_16 = 2147483647;
+        m_worstFPS = 2147483647;
     }
 
     // 0x100c9b9c0, 672 bytes, placed by class name and debug map
@@ -146,8 +146,8 @@ namespace jag {
                       "FPSCounter.cpp",
                       59, (char*)0);
         }
-        if (0.0 <= field_0) {
-            fVar12 = 1e+09 / field_0;
+        if (0.0 <= m_fPS) {
+            fVar12 = 1e+09 / m_fPS;
             uVar2 = (ulong)fVar12;
             uVar2 = (long)(fVar12 - 9.223372e+18) & (long)uVar2 >> 63 | uVar2;
         } else {
@@ -288,16 +288,16 @@ namespace jag {
         m_avgFrameDurationMS = (float)(uVar17 / uVar12) * 1e-06;
         uVar17 = eastl::vector<eastl::pair<int, int>, eastl::allocator>::size(local_60);
         m_avgStarvationDurationMS = (float)(uVar15 / uVar17) * 1e-06;
-        fVar18 = (float)field_16;
+        fVar18 = (float)m_worstFPS;
         if (uVar11 <= uVar16) {
             fVar18 = 1e+09 / (float)(uVar16 / uVar11);
-            field_0 = fVar18;
+            m_fPS = fVar18;
         }
-        if ((float)field_20 < fVar18) {
-            field_20 = (uint)(long)field_0;
+        if ((float)m_bestFPS < fVar18) {
+            m_bestFPS = (uint)(long)m_fPS;
         }
-        if (fVar18 < (float)field_16) {
-            field_16 = (uint)(long)field_0;
+        if (fVar18 < (float)m_worstFPS) {
+            m_worstFPS = (uint)(long)m_fPS;
         }
         uVar2 = field_98588;
         local_44 = (float)m_lastFrameDurationNS * 1e-06;
@@ -347,7 +347,7 @@ namespace jag {
             uVar16 = puVar1->size();
             if (1.0 <= local_38._0_4_ / (float)uVar16) {
                 fVar18 = (float)round(1000.0 / (local_38._0_4_ / (float)uVar16));
-                field_12 = (int)(long)fVar18;
+                m_rollingMeanFPS = (int)(long)fVar18;
             }
         }
     }
@@ -411,7 +411,7 @@ namespace jag {
             }
         }
         if (1.0 <= fVar10 / fVar9) {
-            field_4 = 1e+09 / (fVar10 / fVar9);
+            m_lPS = 1e+09 / (fVar10 / fVar9);
         }
     }
 
@@ -434,10 +434,10 @@ namespace jag {
 
 namespace jag::game {
     // 0x100051680: the linker folded this into math::Range<float>::GetMin() const, which has identical code
-    EnvBloomSettings::GetWhitepoint() const;
+    float EnvBloomSettings::GetWhitepoint() const;
 
     // 0x100051680: the linker folded this into math::Range<float>::GetMin() const, which has identical code
-    EnvLightProbeSettings::GetOverbright() const;
+    float EnvLightProbeSettings::GetOverbright() const;
 
 } // namespace jag::game
 

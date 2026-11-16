@@ -8,7 +8,7 @@
 namespace jag::callstack {
     class Callstack {
     public:
-        GetStackFrames() const;
+        int GetStackFrames() const;
         Callstack();
         void GetStack() const;
         void Capture(int);
@@ -16,7 +16,7 @@ namespace jag::callstack {
         GetFrameAddress(int) const;
 
         // data members, from how the methods use this: 16 bytes
-        int field_0; // offset 0
+        int m_stackFrames; // offset 0
         char _unknown_4[4];
         undefined1 field_8; // offset 8
         char _unknown_9[7];
@@ -59,7 +59,7 @@ namespace jag::callstack {
     undefined8 Callstack::GetFrameAddress(int param_1) {
         undefined8* puVar1;
 
-        if (param_1 < field_0) {
+        if (param_1 < m_stackFrames) {
             puVar1 = (undefined8*)std::array<unsigned long, 100ul>::operator[]((array<unsigned long, 100ul>*)&field_8,
                                                                                (long)param_1);
             return *puVar1;

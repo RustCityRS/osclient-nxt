@@ -31,8 +31,8 @@ namespace jag::oldscape::rs2lib {
     public:
         GetOffer() const;
         GetUserhash() const;
-        GetOfferMade() const;
-        GetNodeId() const;
+        longlong GetOfferMade() const;
+        uint GetNodeId() const;
         ~ActiveOffer();
         ActiveOffer(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&, ErrorCapture&);
         void Pack(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&);
@@ -45,10 +45,10 @@ namespace jag::oldscape::rs2lib {
 
         // data members, from how the methods use this: 26152 bytes
         longlong field_0; // offset 0
-        uint field_8;     // offset 8
+        uint m_nodeId;    // offset 8
         char _unknown_12[4];
-        longlong field_16; // offset 16
-        Minimap field_24;  // offset 24
+        longlong m_offerMade; // offset 16
+        Minimap field_24;     // offset 24
     };
 
     // 0x10013c340, 16 bytes, complete-object destructor, inline, placed by class name and debug map
@@ -85,12 +85,12 @@ namespace jag::oldscape::rs2lib {
         uint uVar6;
 
         field_0 = param_1;
-        field_8 = param_2;
-        field_16 = param_3;
+        m_nodeId = param_2;
+        m_offerMade = param_3;
         bVar4 = param_4->m_offerType;
         uVar5 = param_4->field_2;
-        uVar6 = param_4->field_4;
-        uVar1 = *(undefined8*)&param_4->field_8;
+        uVar6 = param_4->m_item;
+        uVar1 = *(undefined8*)&param_4->m_price;
         uVar2 = *(undefined8*)&param_4->m_completedCount;
         uVar3 = *(undefined8*)&param_4->field_24;
         field_24[0] = param_4->m_offerStatus;

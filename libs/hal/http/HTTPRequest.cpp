@@ -22,7 +22,7 @@ namespace jag::http {
         long lVar2;
         undefined1* this_00;
 
-        this_00 = &field_136;
+        this_00 = m_pData;
         lVar1 = this_00->end();
         this_00->set_max_size(lVar1 + param_2, 3);
         lVar2 = this_00->data();
@@ -53,7 +53,7 @@ namespace jag::http {
         long lVar2;
 
         if (field_192 != 0) {
-            this_00 = &field_136;
+            this_00 = m_pData;
             lVar1 = this_00->end();
             this_00->set_max_size(field_192 + lVar1, 3);
             lVar2 = this_00->data();

@@ -64,14 +64,14 @@ namespace jag::game {
     // Cutscene2DPlaybackState::Cutscene2DPlaybackState()
     void Cutscene2DPlaybackState::Cutscene2DPlaybackState() {
         new (this) eastl::bitset<4ul, unsigned char>();
-        field_4 = 0.0;
-        field_8 = 0.0;
+        m_elapsedTimeSec = 0.0;
+        m_pauseTimeSec = 0.0;
     }
 
     // 0x100529d50, 32 bytes, base-object constructor, inline, placed by debug map only (low confidence)
     // GlobalCutscene2DResources::GlobalCutscene2DResources()
     void GlobalCutscene2DResources::GlobalCutscene2DResources() {
-        field_0 = 1;
+        m_subtitlesEnabled = 1;
         new (&field_8) eastl::vector_map<unsigned char, int, eastl::less<unsigned char>, eastl::allocator,
                                          eastl::vector<eastl::pair<unsigned char, int>, eastl::allocator>>();
     }

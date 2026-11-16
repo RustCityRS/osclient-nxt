@@ -14,7 +14,7 @@ namespace jag::graphics {
         virtual bool IsSupported() const;
         virtual void SetShaderConstants(render::DrawCallState&, render::RenderContext&, Shader&) const;
         virtual OnQualityChange(GraphicsQuality);
-        GetCausticsManager();
+        WaterParameters GetCausticsManager();
         Caustics(RT7Core&);
         void SetParameters(WaterParameters const&);
 
@@ -33,11 +33,11 @@ namespace jag::graphics {
         float field_52;    // offset 52
         float field_56;    // offset 56
         char _unknown_60[4];
-        WaterParameters field_64; // offset 64
+        WaterParameters m_causticsManager; // offset 64
     };
 
     // 0x100049810: the linker folded this into oldscape::option::Option<oldscape::WindowSavedPosition>::GetDefaultValue() const, which has identical code
-    Caustics::GetCausticsManager();
+    WaterParameters Caustics::GetCausticsManager();
 
     // 0x10092cea0, 128 bytes, base-object constructor, placed by class name
     // Caustics::Caustics(RT7Core&)
@@ -56,7 +56,7 @@ namespace jag::graphics {
         field_52 = 700.0;
         field_56 = 2300.0;
         pRVar1 = (RenderTargetsManager*)param_1->GetRenderTargetsManager();
-        new (field_64, pRVar1) CausticsManager();
+        new (m_causticsManager, pRVar1) CausticsManager();
     }
 
     // 0x10092cf50, 16 bytes, complete-object constructor, placed by class name
@@ -102,10 +102,10 @@ namespace jag::graphics {
         Config local_20;
 
         if ((*(code*)field_0[5])() != '\0') {
-            field_64->Destroy();
+            m_causticsManager->Destroy();
             if (param_2 != -1) {
                 new (&local_20) CausticsManager::Config();
-                return (field_64, &local_20)->Initialise();
+                return (m_causticsManager, &local_20)->Initialise();
             }
         }
         return 0;
@@ -133,7 +133,7 @@ namespace jag::graphics {
         this_01 = (ShaderProgram*)param_3->GetProgram();
         this_02 = (RenderPipelineState*)param_1->GetRenderPipelineState();
         uVar1 = field_24;
-        this_00 = field_64;
+        this_00 = m_causticsManager;
         pTVar3 = (Texture*)this_00->GetCausticsFloatMapAtlas();
         pHVar4 = (HashedString*)graphics::operator*((graphics*)70);
         iVar2 = this_01->GetConstIndex(pHVar4);
@@ -231,7 +231,7 @@ namespace jag::graphics {
         NpcUID* in_RSI;
 
         field_0 = &PTR__Caustics_100f19cc0;
-        field_64->~CausticsManager();
+        m_causticsManager->~CausticsManager();
         eastl::destruct<oldscape::highlight::NpcUID*>((eastl*)this, in_RSI, extraout_RDX);
     }
 

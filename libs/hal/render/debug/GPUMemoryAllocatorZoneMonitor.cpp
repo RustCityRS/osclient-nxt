@@ -7,7 +7,7 @@
 
 namespace jag::render {
     // 0x100904f20: the linker folded this into GPUMemoryAllocatorZoneMonitor::GetRootZone() const, which has identical code
-    GPUMemoryAllocatorZoneMonitor::GetRootZone();
+    GPUMemoryAllocatorZone* GPUMemoryAllocatorZoneMonitor::GetRootZone();
 
     // 0x100c29a00, 192 bytes, base-object constructor, placed by class name and debug map
     // GPUMemoryAllocatorZoneMonitor::GPUMemoryAllocatorZoneMonitor()

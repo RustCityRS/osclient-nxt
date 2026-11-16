@@ -8,7 +8,7 @@
 namespace jag::tweak {
     class EditLine {
     public:
-        GetDrawOffset() const;
+        int GetDrawOffset() const;
         void GetText() const;
         bool SupportsKeyChar(int);
         void Home();
@@ -46,7 +46,7 @@ namespace jag::tweak {
         static /* 144 bytes */ m_shadowColour; // initialised in its definition
 
         // data members, from how the methods use this: 316 bytes
-        int field_0;        // offset 0
+        int m_drawOffset;   // offset 0
         int m_pos;          // offset 4
         undefined1 field_8; // offset 8
         char _unknown_9[295];

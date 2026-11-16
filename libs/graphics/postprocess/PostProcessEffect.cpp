@@ -28,10 +28,10 @@ namespace jag::postprocess {
     PostProcessEffect::GetRequirements() const;
 
     // 0x100066b70: the linker folded this into oldscape::widgets::Widget::GetTextColour() const, which has identical code
-    PostProcessEffect::GetPriority() const;
+    int PostProcessEffect::GetPriority() const;
 
     // 0x1000e5d50: the linker folded this into oldscape::rs2lib::CoordZoneSource::GetRotation() const, which has identical code
-    PostProcessEffect::GetID() const;
+    int PostProcessEffect::GetID() const;
 
     // 0x100664980: the linker folded this into audio::SoundResource::SetStreamed(bool), which has identical code
     PostProcessEffect::SetEnabled(bool);

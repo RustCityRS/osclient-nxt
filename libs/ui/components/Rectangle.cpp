@@ -35,7 +35,7 @@ namespace jag::ui {
     void Rectangle::LoadStyleSheetVisuals(StyleSheet* param_1) {
         StyleSheet::LoadPropertyValueIfSet<unsigned int>(param_1, &field_96, 8, 1);
         StyleSheet::LoadPropertyValueIfSet<unsigned char>(param_1, &field_100, 9, 1);
-        StyleSheet::LoadPropertyValueIfSet<bool>(param_1, &field_392, 10, 1);
+        StyleSheet::LoadPropertyValueIfSet<bool>(param_1, &m_rectangleFill, 10, 1);
     }
 
     // 0x1006a90b0, 64 bytes, placed by class name
@@ -48,7 +48,7 @@ namespace jag::ui {
         uVar3 = param_1->g4();
         field_96 = uVar3;
         cVar1 = param_1->g1();
-        field_392 = cVar1 == '\x01';
+        m_rectangleFill = cVar1 == '\x01';
         bVar2 = param_1->g1();
         field_100 = ~bVar2;
     }

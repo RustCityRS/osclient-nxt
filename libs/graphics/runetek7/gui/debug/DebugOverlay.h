@@ -9,7 +9,7 @@ namespace jag {
     public:
         GetInput() const;
         GetRT7Core() const;
-        GetFontHelpers() const;
+        FontHelpers* GetFontHelpers() const;
         SetExpandGraphs(bool);
         void SetShow(bool);
         void ShowGraphs();
@@ -32,11 +32,11 @@ namespace jag {
         void DrawString(char const*, int, int, unsigned int, unsigned int, graphics::FontAlign, bool);
 
         // data members, from how the methods use this: 88 bytes
-        Input* field_0;        // offset 0
-        RT7Core* field_8;      // offset 8
-        FontHelpers* field_16; // offset 16
-        bool m_show;           // offset 24
-        bool field_25;         // offset 25
+        Input* field_0;             // offset 0
+        RT7Core* field_8;           // offset 8
+        FontHelpers* m_fontHelpers; // offset 16
+        bool m_show;                // offset 24
+        bool m_expandGraphs;        // offset 25
         char _unknown_26[2];
         undefined4 field_28; // offset 28
         int field_32;        // offset 32

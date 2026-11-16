@@ -13,7 +13,7 @@ namespace jag {
     DebugOverlay::GetRT7Core() const;
 
     // 0x100023f30: the linker folded this into oldscape::option::IOption::GetName() const, which has identical code
-    DebugOverlay::GetFontHelpers() const;
+    FontHelpers* DebugOverlay::GetFontHelpers() const;
 
     // 0x1001bc270: the linker folded this into oldscape::VBOMapper::SetMappingSupport(bool), which has identical code
     DebugOverlay::SetExpandGraphs(bool);
@@ -26,8 +26,8 @@ namespace jag {
     void DebugOverlay::DebugOverlay(Input* param_1, RT7Core* param_2, FontHelpers* param_3, bool param_4) {
         field_0 = param_1;
         field_8 = param_2;
-        field_16 = param_3;
-        field_25 = true;
+        m_fontHelpers = param_3;
+        m_expandGraphs = true;
         field_28 = 0;
         field_32 = 0;
         field_36 = 0;
@@ -696,7 +696,7 @@ namespace jag {
         pCVar1 = (Container*)shared_ptr<tweak::Container>::operator->((shared_ptr<tweak::Container>*)this_00);
         pCVar1->AddCheckBox("Show Debug Overlay", &m_show);
         pCVar1 = (Container*)shared_ptr<tweak::Container>::operator->((shared_ptr<tweak::Container>*)this_00);
-        pCVar1->AddCheckBox("Expand Sections on Mouse-Over", &field_25);
+        pCVar1->AddCheckBox("Expand Sections on Mouse-Over", &m_expandGraphs);
         pCVar1 = (Container*)shared_ptr<tweak::Container>::operator*((shared_ptr<tweak::Container>*)this_00);
         DebugOverlayGraphSection::RegisterGraphTweaks(pCVar1);
         this_01 = (shared_ptr<DebugOverlaySection>*)(&field_80)->HeapBeginPtr();
@@ -758,7 +758,7 @@ namespace jag {
                         pDVar7 = (DebugOverlaySection*)shared_ptr<DebugOverlaySection>::operator->(this_02);
                         piVar3 = (int*)pDVar7->GetHeight();
                         iVar9 = iVar9 + *piVar3;
-                        if (field_25 == false) {
+                        if (m_expandGraphs == false) {
                         LAB_1008f9fea:
                             pDVar7 = (DebugOverlaySection*)shared_ptr<DebugOverlaySection>::operator->(this_02);
                             cVar1 = pDVar7->IsContracted();
@@ -831,7 +831,7 @@ namespace jag {
         local_90.SetAlignment(param_7);
         eastl::optional<unsigned int>::optional(local_58, &local_44);
         local_90.SetColours(param_4, local_58);
-        this_00 = field_16;
+        this_00 = m_fontHelpers;
         StringView::StringView<char const*>(&local_68, &local_50);
         SVar1.field_8._0_4_ = param_2;
         SVar1.field_0 = (ulong)&local_68;

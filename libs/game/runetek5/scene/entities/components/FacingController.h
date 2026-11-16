@@ -32,12 +32,12 @@ namespace jag {
         static /* 16 bytes */ INVALID_RADIAN; // = { -998653952, 1075235812, -1072247836, 995783694 }
 
         // data members, from how the methods use this: 164 bytes
-        undefined** field_0;     // offset 0, vtable pointer
-        float field_8;           // offset 8
-        float field_12;          // offset 12
-        int field_16;            // offset 16
-        int m_faceEntityID;      // offset 20
-        SmoothRotation field_24; // offset 24
+        undefined** field_0;         // offset 0, vtable pointer
+        float field_8;               // offset 8
+        float m_turnSpeedMultiplier; // offset 12
+        int field_16;                // offset 16
+        int m_faceEntityID;          // offset 20
+        SmoothRotation field_24;     // offset 24
         char _unknown_112[24];
         char field_136; // offset 136
         char _unknown_137[15];
@@ -56,7 +56,7 @@ namespace jag {
 
         field_0 = &PTR_RenderDebug_100efe7c0;
         field_8 = 0.0;
-        field_12 = 1.0;
+        m_turnSpeedMultiplier = 1.0;
         field_16 = -1;
         m_faceEntityID = -1;
         new (field_24) math::SmoothRotation();
@@ -201,7 +201,7 @@ namespace jag {
     // 0x1003e7b80, 16 bytes, inline, placed by class name
     // FacingController::GetTurnSpeed() const
     float FacingController::GetTurnSpeed() {
-        return field_12 * field_8;
+        return m_turnSpeedMultiplier * field_8;
     }
 
     // 0x1003e7b90, 832 bytes, placed by class name

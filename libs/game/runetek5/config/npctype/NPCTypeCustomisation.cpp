@@ -55,7 +55,7 @@ namespace jag::game {
         new (&field_112) eastl::vector<math::Vector3T<float>, eastl::allocator>();
         new (&field_144) eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>();
         new (&field_176) eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>();
-        new (&field_208) Array<unsigned short, eastl::allocator>();
+        new (m_pRecolourDest) Array<unsigned short, eastl::allocator>();
         new (&field_232) Array<unsigned short, eastl::allocator>();
         new (&field_256) Array<unsigned char, eastl::allocator>();
         UpdateUniqueID(this);
@@ -65,7 +65,7 @@ namespace jag::game {
         (&field_112, param_4)->swap();
         (&field_144, param_5)->swap();
         (&field_176, param_6)->swap();
-        (&field_208, param_7)->swap();
+        (m_pRecolourDest, param_7)->swap();
         (&field_232, param_8)->swap();
         (&field_256, param_10)->swap();
         field_0 = param_9;
@@ -104,12 +104,12 @@ namespace jag::game {
         new (&field_112) eastl::vector<math::Vector3T<float>, eastl::allocator>();
         new (&field_144) eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>();
         new (&field_176) eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>();
-        new (&field_208) Array<unsigned short, eastl::allocator>();
+        new (m_pRecolourDest) Array<unsigned short, eastl::allocator>();
         new (&field_232) Array<unsigned short, eastl::allocator>();
         new (&field_256) Array<unsigned char, eastl::allocator>();
         UpdateUniqueID(this);
         (&field_16, param_1)->swap();
-        (&field_208, param_2)->swap();
+        (m_pRecolourDest, param_2)->swap();
         (&field_232, param_3)->swap();
     }
 
@@ -135,7 +135,7 @@ namespace jag::game {
         new (&field_112) eastl::vector<math::Vector3T<float>, eastl::allocator>();
         new (&field_144) eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>();
         new (&field_176) eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>();
-        new (&field_208) Array<unsigned short, eastl::allocator>();
+        new (m_pRecolourDest) Array<unsigned short, eastl::allocator>();
         new (&field_232) Array<unsigned short, eastl::allocator>();
         new (&field_256) Array<unsigned char, eastl::allocator>();
         field_1 = param_2;
@@ -156,7 +156,7 @@ namespace jag::game {
             SetModelSlot(1065353216, uVar2, uVar1, (int)uVar2, uVar1, this, iVar6, *puVar3);
         }
         pAVar4 = (Array*)param_1->GetRecolourDest();
-        Array<unsigned short, eastl::allocator>::operator=((Array<unsigned short, eastl::allocator>*)&field_208,
+        Array<unsigned short, eastl::allocator>::operator=((Array<unsigned short, eastl::allocator>*)m_pRecolourDest,
                                                            pAVar4);
         pAVar4 = (Array*)param_1->GetWomanAppearance();
         Array<unsigned short, eastl::allocator>::operator=((Array<unsigned short, eastl::allocator>*)&field_232,

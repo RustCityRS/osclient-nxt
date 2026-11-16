@@ -36,9 +36,9 @@ namespace jag::render {
         field_24 = 0;
         field_28 = 0;
         field_32 = 0;
-        field_36 = 0;
-        field_40 = 0;
-        field_44 = 0;
+        m_sizeInBytes = 0;
+        m_physicalSizeInBytes = 0;
+        m_creationFlags = 0;
         field_45 = 0;
         new (&field_48, false) std::atomic<bool>();
         new (field_56) game::EntityHighlightGlobalState::RadialHighlightState();
@@ -60,16 +60,16 @@ namespace jag::render {
         field_24 = 0;
         field_28 = 0;
         field_32 = 0;
-        field_36 = 0;
-        field_40 = 0;
-        field_44 = 0;
+        m_sizeInBytes = 0;
+        m_physicalSizeInBytes = 0;
+        m_creationFlags = 0;
         field_45 = 0;
         new (&field_48, false) std::atomic<bool>();
         new (field_56) game::EntityHighlightGlobalState::RadialHighlightState();
-        field_36 = param_1->field_36;
-        field_40 = param_1->field_40;
+        m_sizeInBytes = param_1->m_sizeInBytes;
+        m_physicalSizeInBytes = param_1->m_physicalSizeInBytes;
         uVar1 = param_1->field_45;
-        field_44 = param_1->field_44;
+        m_creationFlags = param_1->m_creationFlags;
         field_45 = uVar1;
         bVar2 = (bool)std::__atomic_base<bool, false>::load(&param_1->field_48);
         std::atomic<bool>::operator=((atomic<bool>*)&field_48, bVar2);
@@ -103,10 +103,10 @@ namespace jag::render {
         bool bVar2;
 
         RenderResource::operator=((RenderResource*)this, (RenderResource*)param_1);
-        field_36 = param_1->field_36;
-        field_40 = param_1->field_40;
+        m_sizeInBytes = param_1->m_sizeInBytes;
+        m_physicalSizeInBytes = param_1->m_physicalSizeInBytes;
         uVar1 = param_1->field_45;
-        field_44 = param_1->field_44;
+        m_creationFlags = param_1->m_creationFlags;
         field_45 = uVar1;
         bVar2 = (bool)std::__atomic_base<bool, false>::load(&param_1->field_48);
         std::atomic<bool>::operator=((atomic<bool>*)&field_48, bVar2);
@@ -167,9 +167,9 @@ namespace jag::render {
         }
         field_0 = (param_6 & 8) >> 2 | 1;
         m_nativeBuffer = CreateBufferInternal(this, param_1, param_2, param_3, param_4, param_5, param_6, param_7);
-        field_40 = param_5;
-        field_36 = param_5;
-        field_44 = (undefined1)param_6;
+        m_physicalSizeInBytes = param_5;
+        m_sizeInBytes = param_5;
+        m_creationFlags = (undefined1)param_6;
         field_45 = param_6._1_3_;
         (field_56, param_1, param_5)->Register();
         UndoMarkAsDead();
@@ -301,7 +301,7 @@ namespace jag::render {
         undefined4 uVar3;
 
         uVar3 = (undefined4)((ulong)in_RAX >> 32);
-        uVar1 = field_36;
+        uVar1 = m_sizeInBytes;
         bVar2 = IsPermanent(this);
         CheckGlErrorInternal("%s (type: %s, size: %u, permanent: %i)",
                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/buffers/"
@@ -355,8 +355,8 @@ namespace jag::render {
             this_thread::IsMainThread();
             ReleaseNativeResourcesInternal(param_1, param_2, uVar1, lVar2 != 0);
         }
-        field_36 = 0;
-        field_40 = 0;
+        m_sizeInBytes = 0;
+        m_physicalSizeInBytes = 0;
     }
 
     // 0x100c13a20, 64 bytes, placed by neighbouring functions
@@ -464,7 +464,7 @@ namespace jag::render {
                       "BufferInterface_OGL.cpp",
                       247, (char*)0);
         }
-        if (param_1->field_36 < param_7) {
+        if (param_1->m_sizeInBytes < param_7) {
             /* WARNING: Subroutine does not return */
             LogAssert("offset <= m_sizeInBytes",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/buffers/OGL/"
@@ -507,9 +507,9 @@ namespace jag::render {
             pRVar9->SetDefaultVAO();
         }
         if (param_8 == 0) {
-            param_8 = param_1->field_36 - param_7;
+            param_8 = param_1->m_sizeInBytes - param_7;
         }
-        if (param_1->field_40 < param_8 + param_7) {
+        if (param_1->m_physicalSizeInBytes < param_8 + param_7) {
             /* WARNING: Subroutine does not return */
             LogAssert("offset + size <= m_physicalSizeInBytes",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/buffers/OGL/"
@@ -541,7 +541,7 @@ namespace jag::render {
         param_1->field_32 = param_8;
         pcVar2 = ___glewBindBuffer;
         uVar12 = iVar6 - 7;
-        if ((uVar12 < 2) && ((param_1->field_44 & 2) == 0)) {
+        if ((uVar12 < 2) && ((param_1->m_creationFlags & 2) == 0)) {
             /* WARNING: Subroutine does not return */
             LogAssert("!isPersistentLockType || (m_creationFlags & MAP_PERSISTENT_BUFFER)",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/buffers/OGL/"
@@ -573,7 +573,7 @@ namespace jag::render {
                     if (cVar3 != '\0') {
                         param_4 = param_5;
                     }
-                    (*___glewBufferData)(param_3, param_1->field_40, 0, param_4);
+                    (*___glewBufferData)(param_3, param_1->m_physicalSizeInBytes, 0, param_4);
                     CheckBufferGlError(param_1, "glBufferData", param_2);
                 }
                 pcVar2 = ___glewMapBuffer;
@@ -591,7 +591,7 @@ namespace jag::render {
                 }
                 param_1->field_24 = iVar6;
                 pcVar2 = ___glewMapBufferRange;
-                uVar1 = param_1->field_40;
+                uVar1 = param_1->m_physicalSizeInBytes;
                 GetGLMapLockFlags(iVar6);
                 uVar12 = param_3;
                 lVar10 = 0;
@@ -688,7 +688,7 @@ namespace jag::render {
             CheckBufferGlError(this, "glUnmapBuffer", param_1);
             if ((char)uVar6 == '\0') {
                 local_e0 = logger::default_logger();
-                uVar1 = field_36;
+                uVar1 = m_sizeInBytes;
                 uVar5 = IsPermanent(this);
                 logger::Logger::Log(local_e0, 0, 3,
                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
@@ -768,7 +768,7 @@ namespace jag::render {
                       "BufferInterface_OGL.cpp",
                       390, (char*)0);
         }
-        if (field_40 < (int)param_5_00 + param_5) {
+        if (m_physicalSizeInBytes < (int)param_5_00 + param_5) {
             /* WARNING: Subroutine does not return */
             LogAssert("byteOffset + dataSize <= m_physicalSizeInBytes",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/buffers/OGL/"
@@ -863,7 +863,7 @@ namespace jag::render {
         } else {
             bVar14 = 1;
             if (field_16 == 0) {
-                bVar14 = (field_44 & 2) >> 1;
+                bVar14 = (m_creationFlags & 2) >> 1;
             }
             cVar4 = *(char*)(lVar11 + 180);
         }
@@ -914,7 +914,7 @@ namespace jag::render {
                     472,
                     "Orphaning a buffer but not updating it from offset 0 - this will likely result in corruption");
             }
-            (*___glewBufferData)(uVar3, field_40, 0, param_3);
+            (*___glewBufferData)(uVar3, m_physicalSizeInBytes, 0, param_3);
             CheckBufferGlError(this, "glBufferData", param_1);
         }
         (*___glewBufferSubData)(uVar3, param_5_00 & 4294967295, param_5, param_6);

@@ -12,7 +12,7 @@ namespace jag::oldscape::auth {
         virtual RequestGameToken();
         virtual RequestOAuth2Tokens(eastl::string const&, eastl::string const&, eastl::string const&,
                                     eastl::string const&);
-        virtual GetGameToken();
+        virtual GameToken GetGameToken();
         virtual CreateGameTokenFromResult(eastl::string const&, jag::auth::AuthSDKTokenResponse);
         virtual void AuthenticateWithFederated(jag::auth::AuthAccountHint, jag::auth::SocialLoginPartners);
         virtual SupportsSteamLogin();
@@ -81,7 +81,7 @@ namespace jag::oldscape::auth {
         char _unknown_168[8];
         unique_ptr* field_176; // offset 176
         char _unknown_184[8];
-        GameToken field_192; // offset 192
+        GameToken m_gameToken; // offset 192
     };
 
     // 0x10014d5e0, 32 bytes, complete-object constructor, inline, placed by class name and debug map
@@ -113,7 +113,7 @@ namespace jag::oldscape::auth {
         std::unique_ptr<jag::auth::TokenAuthLoginHandler, std::default_delete<jag::auth::TokenAuthLoginHandler>>::
             unique_ptr<true, void>((unique_ptr<jag::auth::TokenAuthLoginHandler,
                                                std::default_delete<jag::auth::TokenAuthLoginHandler>>*)&field_184);
-        new (field_192) GameToken();
+        new (m_gameToken) GameToken();
     }
 
     // 0x100395fe0, 16 bytes, complete-object destructor, inline, placed by class name
@@ -666,7 +666,7 @@ namespace jag::oldscape::auth {
                               std::default_delete<jag::auth::TokenAuthLoginHandler>>*)&field_184,
                   in_RSI);
         new (&local_40) GameToken();
-        GameToken::operator=((GameToken*)field_192, &local_40);
+        GameToken::operator=((GameToken*)m_gameToken, &local_40);
         eastl::destruct<eastl::pair<eastl::string, option::IOption*>>((eastl*)&local_40, (pair*)&local_40);
     }
 
@@ -701,7 +701,7 @@ namespace jag::oldscape::auth {
         pair* in_RSI;
 
         field_0 = &PTR__SteamAuthLibWrapper_100efdb48;
-        eastl::destruct<eastl::pair<eastl::string, option::IOption*>>((eastl*)field_192, in_RSI);
+        eastl::destruct<eastl::pair<eastl::string, option::IOption*>>((eastl*)m_gameToken, in_RSI);
         (&field_184)->~unique_ptr();
         ~AuthLibWrapper();
     }

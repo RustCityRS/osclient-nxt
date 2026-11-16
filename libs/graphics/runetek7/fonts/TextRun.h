@@ -9,9 +9,9 @@ namespace jag::graphics {
     public:
         GetFontMetrics() const;
         int GetMaxLineWidth() const;
-        GetVisibility() const;
+        int GetVisibility() const;
         int GetWrapMode() const;
-        GetVerticalAlignment() const;
+        int GetVerticalAlignment() const;
         GetContents() const;
         TextRun();
         ~TextRun();
@@ -20,11 +20,11 @@ namespace jag::graphics {
         void GetCharacter(unsigned long) const;
         void Clear();
         void Append(char const*, unsigned long, unsigned long);
-        GetHorizontalAlignment() const;
+        int GetHorizontalAlignment() const;
         operator TextRunSlice() const;
         GetLastChar() const;
         void SetShowLastChar(bool);
-        GetMaxLineCount() const;
+        uchar GetMaxLineCount() const;
         void ConvertToUTF8(eastl::basic_string<char, BucketAllocatorEASTL>&) const;
         Slice(unsigned long, unsigned long) const;
         void SetMaxLineWidth(int);
@@ -62,14 +62,14 @@ namespace jag::graphics {
 
         // data members, from how the methods use this: 80 bytes
         char _unknown_0[8];
-        long field_8;         // offset 8
-        int m_maxLineWidth;   // offset 16
-        int m_lineSpacing;    // offset 20
-        int field_24;         // offset 24
-        int field_28;         // offset 28
-        uchar m_maxLineCount; // offset 32
+        long field_8;              // offset 8
+        int m_maxLineWidth;        // offset 16
+        int m_lineSpacing;         // offset 20
+        int m_horizontalAlignment; // offset 24
+        int m_verticalAlignment;   // offset 28
+        uchar m_maxLineCount;      // offset 32
         char _unknown_33[3];
-        int field_36;        // offset 36
+        int m_visibility;    // offset 36
         bool m_showLastChar; // offset 40
         char _unknown_41[31];
         int m_wrapMode; // offset 72
@@ -148,10 +148,10 @@ namespace jag::graphics {
         new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(in_RSI);
         m_maxLineWidth = 2147483647;
         m_lineSpacing = 0;
-        field_24 = 0;
-        field_28 = 0;
+        m_horizontalAlignment = 0;
+        m_verticalAlignment = 0;
         m_maxLineCount = 255;
-        field_36 = 0;
+        m_visibility = 0;
         m_showLastChar = true;
         eastl::vector<TextRunCharacter, BucketAllocatorEASTL>::vector();
         m_wrapMode = 0;

@@ -29,9 +29,9 @@ namespace jag::oldscape::dash3d {
         char GetTileTintAlpha() const;
 
         // data members, from how the methods use this: 16 bytes
-        undefined2 field_0; // offset 0
-        short field_2;      // offset 2
-        char field_4;       // offset 4
+        undefined2 m_colour; // offset 0
+        short field_2;       // offset 2
+        char field_4;        // offset 4
         char _unknown_5[1];
         undefined1 field_6; // offset 6
         char _unknown_7[1];
@@ -104,7 +104,7 @@ namespace jag::oldscape::dash3d {
     // 0x10012cc80, 32 bytes, base-object constructor, inline, placed by class name
     // EntityHighlight::EntityHighlight()
     void EntityHighlight::EntityHighlight() {
-        field_0 = 0;
+        m_colour = 0;
         field_2 = 0;
         *(undefined2*)&field_4 = 256;
         field_6 = 1;
@@ -209,7 +209,7 @@ namespace jag::oldscape::dash3d {
 
         local_18 = in_RAX;
         new (&local_18) game::GamepadEvent();
-        local_18 = CONCAT62(local_18._2_6_, field_0);
+        local_18 = CONCAT62(local_18._2_6_, m_colour);
         uVar2 = GetModelOutlineWidth(this);
         local_18._0_4_ = CONCAT22(uVar2, (undefined2)local_18);
         uVar1 = GetModelTintAlpha(this);

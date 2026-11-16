@@ -67,7 +67,7 @@ namespace jag {
         field_116 = 1;
         m_show = param_4;
         m_expandedForced = 0;
-        field_124 = param_3;
+        m_sectionType = param_3;
     }
 
     // 0x1008faea0, 112 bytes, placed by class name

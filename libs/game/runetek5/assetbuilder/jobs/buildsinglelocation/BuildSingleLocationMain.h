@@ -13,7 +13,7 @@ namespace jag::game {
         virtual RunFirst(Js5ResourceProvider*, ConfigProvider*);
         virtual BuildSingleLocationMain* CreateWorker();
         virtual DecodeResult(shared_ptr<void> const&);
-        virtual GetRequestData();
+        virtual shared_ptr GetRequestData();
         BuildSingleLocationMain(int, shared_ptr<LocType> const&, shared_ptr<LocType> const&,
                                 shared_ptr<graphics::Model> const&, Rotation90, int,
                                 Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>&&,
@@ -22,7 +22,7 @@ namespace jag::game {
 
         // data members, from how the methods use this: 104 bytes, the first 72 are AssetJob
         char _unknown_72[8];
-        shared_ptr field_80; // offset 80
+        shared_ptr m_requestData; // offset 80
         char _unknown_96[8];
     };
 
@@ -41,7 +41,7 @@ namespace jag::game {
     void BuildSingleLocationMain::~BuildSingleLocationMain() {
         field_0 = &PTR__BuildSingleLocationMain_100f0c9f0;
         (&field_96)->~shared_ptr();
-        field_80->~shared_ptr();
+        m_requestData->~shared_ptr();
         ~AssetJob();
     }
 

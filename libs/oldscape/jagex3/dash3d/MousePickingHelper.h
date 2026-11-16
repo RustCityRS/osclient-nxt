@@ -30,7 +30,7 @@ namespace jag::oldscape::dash3d {
         virtual IsEqual(PoseStateRSeven const&) const;
         void InitializeFrameData();
         GetMask() const;
-        GetInvertMask() const;
+        bool GetInvertMask() const;
         MaskedDashPoseStateRSeven(shared_ptr<AnimFrameSet> const&, int, ResolvedModel const&,
                                   Array<int, eastl::allocator> const&, bool);
         ~MaskedDashPoseStateRSeven();

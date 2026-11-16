@@ -33,7 +33,7 @@ namespace jag::graphics {
         uint field_200; // offset 200
         uint field_204; // offset 204
         char _unknown_208[48];
-        undefined4 field_256; // offset 256
+        undefined4 m_probeEnvMapRes; // offset 256
         char _unknown_260[1044];
     };
 

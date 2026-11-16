@@ -22,7 +22,7 @@ namespace jag::graphics {
         GetVertexDataBufferPos() const;
         GetVertexDataBufferPos();
         void GetVertexCount() const;
-        GetFaceHSLBuffer();
+        ushort GetFaceHSLBuffer();
         GetFaceTransparencyBuffer();
         void SetFaceHSLBaked(bool);
         GetBoneVertices() const;
@@ -32,7 +32,7 @@ namespace jag::graphics {
         byte IsHidden() const;
         byte VertexBuffersInitialised() const;
         GetVertexDataBufferPosLP() const;
-        GetVertexScale() const;
+        float GetVertexScale() const;
         GeometryBatch();
         GeometryBatch(GeometryBatch&&);
         GeometryBatch(GeometryBatch const&);
@@ -93,7 +93,7 @@ namespace jag::graphics {
         void PushFaceRange(GeometryBatch const&, unsigned short, unsigned short);
         IsTransformed() const;
         void SetTransformed(bool);
-        GetBoneCount() const;
+        byte GetBoneCount() const;
         void GetLodIndexCount(unsigned int) const;
         HasShareLight() const;
         uint GetNumLods() const;
@@ -106,7 +106,7 @@ namespace jag::graphics {
         undefined4 field_12; // offset 12
         char _unknown_16[12];
         undefined4 field_28;        // offset 28
-        byte field_32;              // offset 32
+        byte m_boneCount;           // offset 32
         undefined1 field_33;        // offset 33
         bool m_transformed;         // offset 34
         byte field_35;              // offset 35
@@ -114,18 +114,18 @@ namespace jag::graphics {
         bool m_shareLight;          // offset 37
         byte m_hidden;              // offset 38
         char _unknown_39[1];
-        float field_40;          // offset 40
+        float m_vertexScale;     // offset 40
         undefined1 m_labelCount; // offset 44
         char _unknown_45[163];
         uint m_numLods; // offset 208
         char _unknown_212[4];
         undefined1 field_216; // offset 216
         char _unknown_217[159];
-        ushort field_376; // offset 376
+        ushort m_faceHSLBuffer; // offset 376
         char _unknown_378[30];
         bool m_faceHSLBaked; // offset 408
         char _unknown_409[7];
-        undefined1 field_416; // offset 416
+        undefined1 m_faceTransparencyBuffer; // offset 416
         char _unknown_417[119];
         undefined1 m_vertexDataBufferSkin; // offset 536
         char _unknown_537[719];
@@ -252,7 +252,7 @@ namespace jag::graphics {
     // 0x10080a3b0, 16 bytes, inline, placed by class name
     // GeometryBatch::HasBones() const
     bool GeometryBatch::HasBones() {
-        return 1 < field_32;
+        return 1 < m_boneCount;
     }
 
     // 0x10080c4f0, 16 bytes, inline, placed by class name

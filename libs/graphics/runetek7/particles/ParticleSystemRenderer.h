@@ -25,7 +25,7 @@ namespace jag::graphics {
         ulong UpdateVertexBufferContents(BatchData const&, RenderPassType);
         void CompositeOverdraw(render::RenderContext&, render::RenderTargets const*, render::Viewport const&);
         void UpdateVertexStreamData();
-        GetMetrics() const;
+        Metrics GetMetrics() const;
         static /* 4 bytes */ m_maxParticlesPerBatch;            // = 10000
         static /* 4 bytes */ m_onlyShowModularEmitterIndex;     // = -1
         static /* 1 bytes */ m_testNullGPUBufferMappings;       // = 0

@@ -16,7 +16,7 @@ namespace jag::oldscape::graphics {
         field_0 = &PTR_GetWorld_100efad90;
         field_8 = (NXTRenderer*)dash3d::NXTRenderer::GetInstancePtr();
         new (&field_16, param_1, param_2, param_3, param_4) NXTPixScreen();
-        new (field_176, (SharedArray*)&field_24, param_3, param_4) NXTPix2D();
+        new (m_pix2D, (SharedArray*)&field_24, param_3, param_4) NXTPix2D();
         new (&field_232, (NXTRenderable*)&field_64) dash3d::NXTPix3D();
         new (&field_424, (NXTPix3D*)&field_232) dash3d::NXTWorldRenderer();
     }
@@ -39,7 +39,7 @@ namespace jag::oldscape::graphics {
         iVar1 = local_38.GetX();
         local_38._8_4_ = this_00->GetUIHeight();
         iVar2 = local_38.field_8.GetX();
-        (field_176, (SharedArray*)&field_24, iVar1, iVar2)->SetPixels();
+        (m_pix2D, (SharedArray*)&field_24, iVar1, iVar2)->SetPixels();
     }
 
     // 0x10031b840, 16 bytes, placed by class name
@@ -80,7 +80,7 @@ namespace jag::oldscape::graphics {
         iVar1 = local_38.GetX();
         local_38._8_4_ = this_00->GetUIHeight();
         iVar2 = local_38.field_8.GetX();
-        (field_176, (SharedArray*)&field_24, iVar1, iVar2)->SetPixels();
+        (m_pix2D, (SharedArray*)&field_24, iVar1, iVar2)->SetPixels();
     }
 
     // 0x10031b900, 16 bytes, placed by class name

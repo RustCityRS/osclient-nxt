@@ -12,7 +12,7 @@ namespace jag {
         virtual void OnUserFolderChanged(Filename const&, Filename const&);
         virtual ~FileSystem();
         SetIndexUpdateCallback(std::function<Array<unsigned char, eastl::allocator>*(int)> const&);
-        GetScope() const;
+        int GetScope() const;
         void Service();
         FileSystem(Filename const&, Scope, char const*, bool);
         void ProcessAllQueuedRequests();
@@ -71,7 +71,7 @@ namespace jag {
         char _unknown_24[288];
         Filename field_312; // offset 312
         char _unknown_328[288];
-        int field_616; // offset 616
+        int m_scope; // offset 616
         char _unknown_620[36];
         undefined1 m_ready; // offset 656
         char _unknown_657[1];

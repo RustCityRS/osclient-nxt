@@ -10,8 +10,8 @@ namespace jag {
         GetMargins() const;
         GetColourData();
         GetColourData() const;
-        GetHeight() const;
-        GetWidth() const;
+        uint GetHeight() const;
+        uint GetWidth() const;
         void GetColourDataPtr();
         bool IsValid() const;
         ~RGBAImage();
@@ -33,8 +33,8 @@ namespace jag {
         void FlipHorizontal();
 
         // data members, from how the methods use this: 72 bytes
-        uint field_0; // offset 0
-        uint field_4; // offset 4
+        uint m_width;  // offset 0
+        uint m_height; // offset 4
         char _unknown_8[64];
     };
 

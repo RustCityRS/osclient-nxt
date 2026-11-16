@@ -10,10 +10,10 @@ namespace jag::oldscape::rs2lib {
     CoordMapSquare::CoordMapSquareNull = {-1, -1, 0, 1, 2, 3, 4, 5};
 
     // 0x100073980: the linker folded this into jag::math::Rect<int>::MinY() const, which has identical code
-    CoordMapSquare::GetZ() const;
+    uint CoordMapSquare::GetZ() const;
 
     // 0x1000b9960: the linker folded this into ScriptVarType::GetID() const, which has identical code
-    CoordMapSquare::GetX() const;
+    uint CoordMapSquare::GetX() const;
 
     // 0x10012cae0: the linker folded this into sidebars::SideBarData::SideBarData(int, int), which has identical code
     CoordMapSquare::CoordMapSquare(int, int);

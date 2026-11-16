@@ -86,7 +86,7 @@ namespace jag::oldscape::jagex3 {
         // data members, from how the methods use this: 24 bytes
         LockFreeStack* field_0;        // offset 0
         Js5RemoteRequestData* field_8; // offset 8
-        int field_16;                  // offset 16
+        int m_code;                    // offset 16
         char _unknown_20[4];
     };
 

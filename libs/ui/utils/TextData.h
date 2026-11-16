@@ -33,13 +33,13 @@ namespace jag::ui {
         // data members, from how the methods use this: 64 bytes
         undefined* field_0; // offset 0, vtable pointer
         char _unknown_8[32];
-        undefined1 field_40; // offset 40
+        undefined1 m_textFontID; // offset 40
         char _unknown_41[3];
         byte field_44;           // offset 44
         uchar m_textMaxLines;    // offset 45
         undefined1 m_textHAlign; // offset 46
         undefined1 m_textVAlign; // offset 47
-        undefined4 field_48;     // offset 48
+        undefined4 m_textColour; // offset 48
         byte m_textAlpha;        // offset 52
         char _unknown_53[11];
     };
@@ -89,7 +89,7 @@ namespace jag::ui {
     // 0x100690020, 32 bytes, inline, placed by class name
     // TextData::GetTextRGBA() const
     uint TextData::GetTextRGBA() {
-        return (uint)m_textAlpha | field_48 << 8;
+        return (uint)m_textAlpha | m_textColour << 8;
     }
 
     // 0x10069ade0, 16 bytes, inline, placed by class name
@@ -125,13 +125,13 @@ namespace jag::ui {
         field_0 = PTR_vtable_100ee7db0 + 16;
         new (&field_8) eastl::bitset<4ul, unsigned char>();
         eastl::basic_string<char, BucketAllocatorEASTL>::basic_string();
-        field_40 = 255;
+        m_textFontID = 255;
         *(undefined3*)&field_41 = 16777215;
         field_44 = 0;
         m_textMaxLines = '\0';
         m_textHAlign = 0;
         m_textVAlign = 0;
-        field_48 = 16777215;
+        m_textColour = 16777215;
         m_textAlpha = 255;
         new (&field_56) eastl::optional<game::option::EnumOptionToggle>();
     }

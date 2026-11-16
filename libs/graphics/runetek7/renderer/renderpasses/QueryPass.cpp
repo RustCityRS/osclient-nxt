@@ -499,6 +499,6 @@ namespace jag::graphics {
     }
 
     // 0x1007b12b0: the linker folded this into ShadowMapCascade::GetCascadeID() const, which has identical code
-    QueryPass::GetMode() const;
+    int QueryPass::GetMode() const;
 
 } // namespace jag::graphics

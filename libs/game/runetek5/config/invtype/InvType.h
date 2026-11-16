@@ -11,7 +11,7 @@ namespace jag::game {
         virtual ~InvType();
         virtual DecodeType(PacketT<Array<unsigned char, eastl::allocator>>&, unsigned int);
         virtual void PostDecode();
-        GetSize() const;
+        uint GetSize() const;
         InvType(BaseTemplateConfigTypeList<InvType>*, int);
 
         // data members, from how the methods use this: 72 bytes
@@ -20,7 +20,7 @@ namespace jag::game {
         BaseTemplateConfigTypeList* field_24; // offset 24
         int field_32;                         // offset 32
         char _unknown_36[20];
-        uint field_56; // offset 56
+        uint m_size;   // offset 56
         uint field_60; // offset 60
         char _unknown_64[8];
     };
@@ -54,7 +54,7 @@ namespace jag::game {
         new (this) ConfigType<InvType>(param_1, param_2);
         new (this) MakeSharedPool<InvType, 32>();
         field_0 = &PTR__InvType_100f03900;
-        field_56 = 0;
+        m_size = 0;
         field_60 = 0;
         eastl::allocator::allocator(local_20, "EASTL hash_map");
         new (&field_64, local_20)

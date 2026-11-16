@@ -67,7 +67,7 @@ namespace jag::auth {
     TokenAuthLoginHandler::JSON_ERROR_MESSAGE = "message";
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    TokenAuthLoginHandler::GetTokenAuthLoginState();
+    int TokenAuthLoginHandler::GetTokenAuthLoginState();
 
     // 0x1003b1ea0, 176 bytes, base-object constructor, placed by class name and debug map
     // TokenAuthLoginHandler::TokenAuthLoginHandler(std::unique_ptr<Steam, std::default_delete<Steam> > const&, eastl::string&, int)
@@ -79,7 +79,7 @@ namespace jag::auth {
         long lVar2;
         allocator local_38[8];
 
-        field_0 = 0;
+        m_tokenAuthLoginState = 0;
         field_4 = 0;
         new (&field_8, param_2) eastl::string();
         lVar2 = Language::GetByID(param_3);
@@ -107,7 +107,7 @@ namespace jag::auth {
         unique_ptr<SteamOverlay, std::default_delete<SteamOverlay>>* puVar5;
         undefined8 uVar6;
 
-        iVar2 = field_0;
+        iVar2 = m_tokenAuthLoginState;
         if (iVar2 == 4) {
             HandleLoginRequestResponse(this);
         } else if (iVar2 == 2) {
@@ -124,7 +124,7 @@ namespace jag::auth {
                 cVar1 = SteamOverlay::IsOverlayRequested();
                 if (cVar1 == '\0') {
                     field_112 = 0;
-                    field_0 = 1;
+                    m_tokenAuthLoginState = 1;
                 }
             }
         } else if (iVar2 == 1) {
@@ -139,7 +139,7 @@ namespace jag::auth {
                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/system/"
                                     "auth/tokenauth/TokenAuthLoginHandler.cpp",
                                     73, "SteamAuth failed to fetch a valid ticket");
-                field_0 = 21;
+                m_tokenAuthLoginState = 21;
             } else if (iVar2 == 1) {
                 InitiateLoginRequest(this);
             } else if (iVar2 == 0) {
@@ -176,7 +176,7 @@ namespace jag::auth {
         allocator local_60[8];
         unique_ptr local_58[48];
 
-        if (1 < field_0 - 1U) {
+        if (1 < m_tokenAuthLoginState - 1U) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_requestStatus == TokenAuthLoginState::LOGIN_WAITING_PREREQUISITE || m_requestStatus == "
                       "TokenAuthLoginState::LOGIN_WAITING_LINK_COMPLETE_INTERAL_BROWSER",
@@ -259,7 +259,7 @@ namespace jag::auth {
         eastl::string::basic_string(local_e0, pcVar2, local_60);
         pbVar7->Post(local_c0);
         eastl::string::~basic_string(local_e0);
-        field_0 = 4;
+        m_tokenAuthLoginState = 4;
         local_c0->~basic_string();
         local_a0->~string();
         local_58->~StreamWriterBuilder();
@@ -346,7 +346,7 @@ namespace jag::auth {
                                     "auth/tokenauth/TokenAuthLoginHandler.cpp",
                                     196, "TokenAuth Success - Token received: %s", uVar13);
                 SetGameTokenCredentials(this, (basic_string*)local_50);
-                field_0 = 20;
+                m_tokenAuthLoginState = 20;
             LAB_1003b2939:
                 eastl::string::~basic_string(local_50);
                 Json::Value::~Value(local_90);
@@ -365,7 +365,7 @@ namespace jag::auth {
                 cVar1 = this_02->IsOverlayEnabled();
                 if (cVar1 == '\0') {
                     Web::OpenURL(pbVar10, true);
-                    field_0 = 3;
+                    m_tokenAuthLoginState = 3;
                     return;
                 }
                 pSVar9 = (Steam*)std::unique_ptr<Steam, std::default_delete<Steam>>::operator->(
@@ -375,7 +375,7 @@ namespace jag::auth {
                 eastl::string::basic_string(local_b0, pbVar10);
                 SteamOverlay::OpenBrowser(uVar7, local_b0);
                 eastl::string::~basic_string(local_b0);
-                field_0 = 2;
+                m_tokenAuthLoginState = 2;
                 return;
             }
         } else {
@@ -422,7 +422,7 @@ namespace jag::auth {
                     }
                     iVar17 = 23;
                 }
-                field_0 = iVar17;
+                m_tokenAuthLoginState = iVar17;
                 goto LAB_1003b2939;
             }
             if (iVar3 == 500) {
@@ -438,7 +438,7 @@ namespace jag::auth {
                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/system/"
                                     "auth/tokenauth/TokenAuthLoginHandler.cpp",
                                     253, "Internal Error  %s\n", uVar13);
-                field_0 = 25;
+                m_tokenAuthLoginState = 25;
                 return;
             }
         }
@@ -453,7 +453,7 @@ namespace jag::auth {
                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/system/auth/"
                             "tokenauth/TokenAuthLoginHandler.cpp",
                             263, "Error:(%i) while connecting to : %s", CONCAT44(uVar18, uVar4), uVar13);
-        field_0 = 26;
+        m_tokenAuthLoginState = 26;
     }
 
     // 0x1003b29d0, 192 bytes, placed by class name
@@ -475,9 +475,9 @@ namespace jag::auth {
         eastl::string::~basic_string(local_50);
         field_112 = param_2;
         field_116 = 10;
-        field_0 = 1;
+        m_tokenAuthLoginState = 1;
         if (field_4 != 0) {
-            field_0 = field_4;
+            m_tokenAuthLoginState = field_4;
             field_4 = 0;
         }
     }

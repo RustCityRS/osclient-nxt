@@ -22,7 +22,7 @@ namespace jag::game {
     PlayerModel::GetPlayerRecolourSlots() const;
 
     // 0x1003cf2c0: the linker folded this into MapElementType::GetTextRGBA() const, which has identical code
-    PlayerModel::GetGender() const;
+    int PlayerModel::GetGender() const;
 
     // 0x100494d80, 800 bytes, base-object constructor, placed by class name
     // PlayerModel::PlayerModel(ConfigProvider*, PlayerVarDomain*)
@@ -47,7 +47,7 @@ namespace jag::game {
         new (puVar5) Array<unsigned char, eastl::allocator>();
         this_00 = &field_104;
         new (this_00) Array<unsigned char, eastl::allocator>();
-        field_128 = -1;
+        m_gender = -1;
         field_132 = 4294967295;
         field_136 = 64;
         m_playerAppearanceChangedTime = 0;
@@ -135,7 +135,7 @@ namespace jag::game {
         Array<unsigned char, eastl::allocator>::operator=((Array<unsigned char, eastl::allocator>*)&field_104,
                                                           (Array*)local_48);
         local_48->~Array();
-        field_128 = param_6;
+        m_gender = param_6;
         field_132 = param_7;
         field_152->Reset();
         field_208->Reset();
@@ -238,7 +238,7 @@ namespace jag::game {
     void PlayerModel::SetGender(int param_2) {
         ulong uVar1;
 
-        field_128 = param_2;
+        m_gender = param_2;
         (&field_9584)->clear();
         uVar1 = (&field_32)->end();
         (&field_9584, uVar1)->resize();
@@ -399,7 +399,7 @@ namespace jag::game {
                                             operator[]((vector<BuildRequest<graphics::Model, BuildModelMain>,
                                                                BucketAllocatorEASTL>*)this_01,
                                                        (ulong)this_08);
-                                            iVar3 = field_128;
+                                            iVar3 = m_gender;
                                             psVar8 = (shared_ptr*)
                                                 Array<shared_ptr<ObjTypeCustomisation>, eastl::allocator>::operator[](
                                                     (Array<shared_ptr<ObjTypeCustomisation>,
@@ -753,7 +753,7 @@ namespace jag::game {
                                             operator[]((vector<BuildRequest<graphics::Model, BuildModelMain>,
                                                                BucketAllocatorEASTL>*)this_00,
                                                        (ulong)this_07);
-                                            iVar3 = this_08->field_128;
+                                            iVar3 = this_08->m_gender;
                                             psVar8 = (shared_ptr*)
                                                 Array<shared_ptr<ObjTypeCustomisation>, eastl::allocator>::operator[](
                                                     (Array<shared_ptr<ObjTypeCustomisation>, eastl::allocator>*)&this_08

@@ -28,10 +28,10 @@ namespace jag::oldscape::rs2lib {
     ActiveOffersReply::ActiveOffer::GetUserhash() const;
 
     // 0x100023f30: the linker folded this into option::IOption::GetName() const, which has identical code
-    ActiveOffersReply::ActiveOffer::GetOfferMade() const;
+    longlong ActiveOffersReply::ActiveOffer::GetOfferMade() const;
 
     // 0x100024170: the linker folded this into option::IScriptOption::GetId() const, which has identical code
-    ActiveOffersReply::ActiveOffer::GetNodeId() const;
+    uint ActiveOffersReply::ActiveOffer::GetNodeId() const;
 
     // 0x1002067a0, 352 bytes, base-object constructor, placed by class name and debug map
     // ActiveOffersReply::ActiveOffersReply(PacketJ<Array<unsigned char, BucketAllocatorEASTL> >&, ErrorCapture&)
@@ -328,8 +328,8 @@ namespace jag::oldscape::rs2lib {
         undefined4 local_34;
 
         field_0 = 0;
-        field_8 = 0;
-        field_16 = 0;
+        m_nodeId = 0;
+        m_offerMade = 0;
         this_00 = field_24;
         local_38 = param_4;
         local_34 = param_3;
@@ -345,9 +345,9 @@ namespace jag::oldscape::rs2lib {
         eastl::string::operator=((eastl::string*)(field_24 + 64), (basic_string*)local_58);
         local_58->~basic_string();
         uVar1 = param_1->g2();
-        field_8 = (uint)uVar1;
+        m_nodeId = (uint)uVar1;
         lVar4 = param_1->g8();
-        field_16 = lVar4;
+        m_offerMade = lVar4;
         uVar2 = param_1->g4();
         iVar3 = param_1->g4();
         this_00->SetOfferStatus(2);

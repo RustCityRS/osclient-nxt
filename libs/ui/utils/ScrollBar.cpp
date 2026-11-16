@@ -10,10 +10,10 @@ namespace jag::ui {
     ScrollBar::GetBackgroundSprite();
 
     // 0x1001a3c10: the linker folded this into MainLoopFrameTimer::GetFPSCounter(), which has identical code
-    ScrollBar::GetButtonSprite();
+    SpriteData ScrollBar::GetButtonSprite();
 
     // 0x1001cd990: the linker folded this into graphics::PointLightIndicesEffect::GetVisiblePointLights(), which has identical code
-    ScrollBar::GetHandleSprite();
+    SpriteData ScrollBar::GetHandleSprite();
 
     // 0x1006776e0, 192 bytes, base-object constructor, placed by class name
     // ScrollBar::ScrollBar()
@@ -21,8 +21,8 @@ namespace jag::ui {
         undefined1* this_00;
 
         new (this) SpriteData();
-        new (field_48) SpriteData();
-        new (field_96) SpriteData();
+        new (m_buttonSprite) SpriteData();
+        new (m_handleSprite) SpriteData();
         m_size = 16;
         field_145 = 10;
         this_00 = &field_146;
@@ -54,8 +54,8 @@ namespace jag::ui {
         bVar2 = param_1->g1();
         field_145 = bVar2;
         DecodeSpriteData(param_1, param_2);
-        (field_48, param_1, param_2)->DecodeSpriteData();
-        (field_96, param_1, param_2)->DecodeSpriteData();
+        (m_buttonSprite, param_1, param_2)->DecodeSpriteData();
+        (m_handleSprite, param_1, param_2)->DecodeSpriteData();
     }
 
     // 0x100677980, 2128 bytes, placed by class name
@@ -133,7 +133,7 @@ namespace jag::ui {
             }
             local_68 = (uint)local_58->m_size;
             bVar5 = local_58->field_145;
-            puVar21 = local_58->field_96;
+            puVar21 = local_58->m_handleSprite;
             local_98._0_4_ = puVar21->GetVisualMargin();
             bVar6 = local_98.GetWidth();
             uVar20 = (uint)bVar6 + param_4 + (uint)bVar5 * -2;
@@ -174,7 +174,7 @@ namespace jag::ui {
             }
             local_64 = (uint)local_58->m_size;
             bVar5 = local_58->field_145;
-            puVar21 = local_58->field_96;
+            puVar21 = local_58->m_handleSprite;
             local_98._0_4_ = puVar21->GetVisualMargin();
             bVar6 = local_98.GetHeight();
             iVar9 = (uint)bVar6 + param_5 + (uint)bVar5 * -2;
@@ -214,7 +214,7 @@ namespace jag::ui {
         if (puVar11 != DataStatus::READY) {
             return;
         }
-        puVar21 = pSVar3->field_96;
+        puVar21 = pSVar3->m_handleSprite;
         puVar11 = (undefined*)puVar21->LoadSpriteAtlasReference(pSVar10, false);
         if (puVar11 != DataStatus::READY) {
             return;
@@ -292,7 +292,7 @@ namespace jag::ui {
         pSVar3->DrawSpriteSlice(local_78, local_3c, local_40, local_38, local_84, param_9 | 4294967040,
                                 (Rect*)(lVar17 + 88), pTVar18, 0.0);
         if (pSVar3->field_145 != 0) {
-            puVar21 = pSVar3->field_48;
+            puVar21 = pSVar3->m_buttonSprite;
             puVar11 = (undefined*)puVar21->LoadSpriteAtlasReference(pSVar10, false);
             if (puVar11 != DataStatus::READY)
                 goto LAB_100677e69;
@@ -438,7 +438,7 @@ namespace jag::ui {
                 local_44 = (float)(uint)m_size;
                 bVar4 = field_145;
                 local_38 = param_5;
-                bVar3 = field_96->GetVisualMargin();
+                bVar3 = m_handleSprite->GetVisualMargin();
                 uVar5 = (uint)bVar3 + param_4 + (uint)bVar4 * -2;
                 local_60 = uVar5;
                 if (iVar6 < 1) {
@@ -451,7 +451,7 @@ namespace jag::ui {
                                   252, (char*)0);
                     }
                     bVar4 = field_145;
-                    bVar3 = field_96->GetVisualMargin();
+                    bVar3 = m_handleSprite->GetVisualMargin();
                     local_40 = (float)((uint)bVar4 - (uint)bVar3);
                     uVar5 = local_60;
                 } else {
@@ -488,7 +488,7 @@ namespace jag::ui {
                                   228, (char*)0);
                     }
                     bVar4 = field_145;
-                    field_96->GetVisualMargin();
+                    m_handleSprite->GetVisualMargin();
                     local_54 = (uint)bVar4 - (uint)extraout_AH_00;
                     local_40 = 0.0;
                     local_5c = local_60;
@@ -505,7 +505,7 @@ namespace jag::ui {
                                                                   (int)((float)param_7 * local_40 * local_44));
                     param_4 = local_38;
                     uVar5 = local_4c;
-                    field_96->GetVisualMargin();
+                    m_handleSprite->GetVisualMargin();
                     local_54 = (iVar6 + (uint)bVar4) - (uint)extraout_AH;
                     local_40 = 0.0;
                     local_44 = (float)local_58;

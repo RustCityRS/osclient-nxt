@@ -12,16 +12,16 @@ namespace jag {
         SystemSettings();
         ~SystemSettings();
         SetModeGame(ModeGame const*);
-        GetLanguage() const;
+        Language* GetLanguage() const;
         GetModeGame() const;
         GetSoftwareNameAsSettingPath() const;
         SystemSettings* GetSoftwareName() const;
 
         // data members, from how the methods use this: 164 bytes
         char _unknown_0[32];
-        undefined* field_32;   // offset 32
-        undefined* field_40;   // offset 40
-        Language* m_pLanguage; // offset 48
+        undefined* field_32;    // offset 32
+        undefined* m_pModeGame; // offset 40
+        Language* m_pLanguage;  // offset 48
         char _unknown_56[96];
         undefined4 field_152;                   // offset 152
         undefined2 field_156;                   // offset 156
@@ -73,7 +73,7 @@ namespace jag {
     }
 
     // 0x1000fcbb0: the linker folded this into oldscape::ClientObj::GetHighlight(), which has identical code
-    SystemSettings::GetLanguage() const;
+    Language* SystemSettings::GetLanguage() const;
 
     // 0x100128e20, 224 bytes, base-object constructor, inline, placed by class name
     // SystemSettings::SystemSettings()
@@ -83,7 +83,7 @@ namespace jag {
         eastl::allocator::allocator(local_30, "EASTL basic_string");
         new (this) eastl::string("scratch", local_30);
         field_32 = ModeWhere::LOCAL;
-        field_40 = ModeGame::SCRATCH;
+        m_pModeGame = ModeGame::SCRATCH;
         m_pLanguage = (Language*)Language::EN;
         new (&field_56) eastl::string();
         new (&field_88) eastl::string();

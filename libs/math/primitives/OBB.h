@@ -36,14 +36,14 @@ namespace jag::math {
         void Transform(Matrix44T<float> const&);
 
         // data members, from how the methods use this: 72 bytes
-        float field_0;       // offset 0
-        float field_4;       // offset 4
-        float field_8;       // offset 8
-        undefined4 field_12; // offset 12
-        undefined8 field_16; // offset 16
-        undefined4 field_24; // offset 24
-        undefined4 field_28; // offset 28
-        Matrix33T field_32;  // offset 32
+        float field_0;         // offset 0
+        float field_4;         // offset 4
+        float field_8;         // offset 8
+        undefined4 field_12;   // offset 12
+        undefined8 m_halfSize; // offset 16
+        undefined4 field_24;   // offset 24
+        undefined4 field_28;   // offset 28
+        Matrix33T field_32;    // offset 32
         char _unknown_33[7];
         undefined8 field_40; // offset 40
         undefined8 field_48; // offset 48
@@ -67,7 +67,7 @@ namespace jag::math {
         field_0 = (float)(int)uVar1;
         field_4 = (float)(int)((ulong)uVar1 >> 32);
         field_12 = 0;
-        field_16 = *(undefined8*)param_3;
+        m_halfSize = *(undefined8*)param_3;
         field_24 = *(undefined4*)(param_3 + 8);
         field_28 = 0;
         uVar1 = *(undefined8*)(param_2 + 8);
@@ -97,7 +97,7 @@ namespace jag::math {
         field_4 = fVar4;
         field_12 = 0;
         field_24 = param_1->field_24;
-        field_16 = param_1->field_16;
+        m_halfSize = param_1->m_halfSize;
         field_28 = 0;
         uVar5 = *(undefined7*)&param_1->field_33;
         uVar1 = param_1->field_40;
@@ -119,7 +119,7 @@ namespace jag::math {
     void OBB::OBB() {
         new (this) Vector3T<int>();
         field_12 = 0;
-        new (&field_16) Vector3T<int>();
+        new (&m_halfSize) Vector3T<int>();
         field_28 = 0;
         new (&field_32) Matrix33T<float>();
     }
@@ -152,7 +152,7 @@ namespace jag::math {
     // OBB::Set(Vector3T<float> const&, Matrix33T<float> const&, Vector3T<float> const&)
     void OBB::Set(Vector3T* param_1, Matrix33T* param_2, Vector3T* param_3) {
         SetXYZ(param_1);
-        (&field_16, param_3)->SetXYZ();
+        (&m_halfSize, param_3)->SetXYZ();
         Matrix33T<float>::operator=((Matrix33T<float>*)&field_32, param_2);
     }
 
@@ -214,13 +214,13 @@ namespace jag::math {
     // 0x100c6ba20, 16 bytes, inline, placed by class name
     // OBB::GetMinimumRadius() const
     void OBB::GetMinimumRadius() {
-        (&field_16)->MinElement();
+        (&m_halfSize)->MinElement();
     }
 
     // 0x100c6ba70, 16 bytes, inline, placed by class name
     // OBB::GetMaximumRadius() const
     void OBB::GetMaximumRadius() {
-        (&field_16)->Length();
+        (&m_halfSize)->Length();
     }
 
 } // namespace jag::math

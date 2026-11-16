@@ -47,7 +47,7 @@ namespace jag::graphics {
     Model::GetAABB() const;
 
     // 0x1000fa850: the linker folded this into oldscape::graphics::NXTPixToolkit::getWorldRenderer(), which has identical code
-    Model::GetTextureAtlasReferences() const;
+    shared_ptr Model::GetTextureAtlasReferences() const;
 
     // 0x10011ced0: the linker folded this into oldscape::configdecoder::NpcType::GetHeadIconIndices() const, which has identical code
     Model::GetBatchList();
@@ -71,10 +71,10 @@ namespace jag::graphics {
     Model::GetHighlightedSectionColour() const;
 
     // 0x1003c3d90: the linker folded this into game::MapElementType::GetMinimapIconScale() const, which has identical code
-    Model::GetExternalID() const;
+    int Model::GetExternalID() const;
 
     // 0x1003c3e20: the linker folded this into game::MapElementType::GetHAlign() const, which has identical code
-    Model::GetSavedModelHash() const;
+    uint Model::GetSavedModelHash() const;
 
     // 0x1003cf240: the linker folded this into game::MapElementType::GetFlashSpriteID() const, which has identical code
     Model::GetModelRawUniqueID() const;
@@ -110,7 +110,7 @@ namespace jag::graphics {
     Model::GetParticleEmitters() const;
 
     // 0x100623240: the linker folded this into game::OldCamera::GetClampedSceneSize() const, which has identical code
-    Model::GetGeometryQuery() const;
+    shared_ptr Model::GetGeometryQuery() const;
 
     // 0x10080df00, 304 bytes, placed by class name and debug map
     // Model::CalculateLodLevel(ModelLodPassConfig const&, float, float, float)
@@ -207,7 +207,7 @@ namespace jag::graphics {
         field_88 = uVar6;
         field_64 = uVar3;
         field_72 = uVar4;
-        field_48 = uVar1;
+        m_worldTransform = uVar1;
         field_56 = uVar2;
         uVar1 = *(undefined8*)puVar8;
         uVar2 = *(undefined8*)(puVar8 + 8);
@@ -237,20 +237,20 @@ namespace jag::graphics {
         field_216 = uVar6;
         field_192 = uVar3;
         field_200 = uVar4;
-        field_176 = uVar1;
+        m_localTransform = uVar1;
         field_184 = uVar2;
         puVar8 = PTR_ZERO_100ee6708;
         uVar1 = *(undefined8*)(PTR_ZERO_100ee6708 + 8);
-        field_240 = *(undefined8*)PTR_ZERO_100ee6708;
+        m_tint = *(undefined8*)PTR_ZERO_100ee6708;
         field_248 = uVar1;
         uVar1 = *(undefined8*)(puVar8 + 8);
-        field_256 = *(undefined8*)puVar8;
+        m_highlightColour = *(undefined8*)puVar8;
         field_264 = uVar1;
         m_highlightsIgnoreDepth = false;
         m_highlightScale = 0.0;
         m_highlightSilhouetteAlpha = 0.0;
         uVar1 = *(undefined8*)(puVar8 + 8);
-        field_288 = *(undefined8*)puVar8;
+        m_highlightedSectionColour = *(undefined8*)puVar8;
         field_296 = uVar1;
         *(undefined8*)&m_highlightedSectionScale = 4575657221408423936;
         m_level = 4294967295;
@@ -265,7 +265,7 @@ namespace jag::graphics {
             eastl::fixed_vector<shared_ptr<TextureAtlasReference>, 1ul, true, eastl::allocator>>::
             BatchDestroy<>(
                 (BatchDestroy<eastl::fixed_vector<shared_ptr<TextureAtlasReference>, 1ul, true, eastl::allocator>>*)
-                    field_424);
+                    m_textureAtlasReferences);
         local_34 = 0.0;
         new (&field_480, &local_34) math::Transitionable<float>();
         m_fadeTime = 0;
@@ -371,7 +371,7 @@ namespace jag::graphics {
         field_88 = uVar7;
         field_64 = uVar4;
         field_72 = uVar5;
-        field_48 = uVar2;
+        m_worldTransform = uVar2;
         field_56 = uVar3;
         uVar2 = *(undefined8*)(param_1 + 112);
         uVar3 = *(undefined8*)(param_1 + 120);
@@ -401,20 +401,20 @@ namespace jag::graphics {
         field_216 = uVar7;
         field_192 = uVar4;
         field_200 = uVar5;
-        field_176 = uVar2;
+        m_localTransform = uVar2;
         field_184 = uVar3;
         uVar2 = *(undefined8*)(param_1 + 248);
-        field_240 = *(undefined8*)(param_1 + 240);
+        m_tint = *(undefined8*)(param_1 + 240);
         field_248 = uVar2;
         puVar9 = PTR_ZERO_100ee6708;
         uVar2 = *(undefined8*)(PTR_ZERO_100ee6708 + 8);
-        field_256 = *(undefined8*)PTR_ZERO_100ee6708;
+        m_highlightColour = *(undefined8*)PTR_ZERO_100ee6708;
         field_264 = uVar2;
         m_highlightsIgnoreDepth = false;
         m_highlightScale = 0.0;
         m_highlightSilhouetteAlpha = 0.0;
         uVar2 = *(undefined8*)(puVar9 + 8);
-        field_288 = *(undefined8*)puVar9;
+        m_highlightedSectionColour = *(undefined8*)puVar9;
         field_296 = uVar2;
         *(undefined8*)&m_highlightedSectionScale = 4575657221408423936;
         m_level = 4294967295;
@@ -427,7 +427,7 @@ namespace jag::graphics {
         new (this_00) eastl::vector<unsigned int, eastl::allocator>(pvVar20);
         new (&field_384) eastl::vector<int, eastl::allocator>();
         field_416[0] = 0;
-        this_01 = field_424;
+        this_01 = m_textureAtlasReferences;
         graphicutils::BatchDestroy<
             eastl::fixed_vector<shared_ptr<TextureAtlasReference>, 1ul, true, eastl::allocator>>::
             BatchDestroy<>(
@@ -617,7 +617,7 @@ namespace jag::graphics {
         shared_ptr* psVar4;
         undefined1* this_00;
 
-        this_00 = field_424;
+        this_00 = m_textureAtlasReferences;
         psVar4 = (shared_ptr*)this_00->HeapBeginPtr();
         psVar3 = (shared_ptr*)this_00->end();
         for (; psVar4 != psVar3; psVar4 = psVar4 + 1) {
@@ -666,7 +666,7 @@ namespace jag::graphics {
         ulong uVar15;
 
         this_00 = &field_688;
-        this_01 = field_424;
+        this_01 = m_textureAtlasReferences;
         lVar4 = this_00->size();
         if (lVar4 != 0) {
             uVar14 = 0;
@@ -830,7 +830,7 @@ namespace jag::graphics {
         (&field_688)->~BatchDestroy();
         (&field_656)->~BatchDestroy();
         (&field_648)->~future();
-        field_424->~BatchDestroy();
+        m_textureAtlasReferences->~BatchDestroy();
         (&field_384)->~vector();
         (&field_352)->~vector();
     }
@@ -1301,7 +1301,7 @@ namespace jag::graphics {
     // 0x100818620, 64 bytes, placed by class name
     // Model::SetHighlight(float, math::Vector4T<float> const&, float)
     void Model::SetHighlight(float param_1, Vector4T* param_2, float param_3) {
-        math::Rect<float>::operator=((Rect<float>*)&field_256, (Rect*)param_2);
+        math::Rect<float>::operator=((Rect<float>*)&m_highlightColour, (Rect*)param_2);
         m_highlightScale = param_1;
         m_highlightSilhouetteAlpha = param_3;
     }
@@ -1316,7 +1316,7 @@ namespace jag::graphics {
     // Model::SetHighlightedSection(float, math::Vector4T<float> const&)
     void Model::SetHighlightedSection(float param_1, Vector4T* param_2) {
         m_highlightedSectionScale = param_1;
-        math::Rect<float>::operator=((Rect<float>*)&field_288, (Rect*)param_2);
+        math::Rect<float>::operator=((Rect<float>*)&m_highlightedSectionColour, (Rect*)param_2);
     }
 
     // 0x100818690, 192 bytes, placed by class name
@@ -1508,7 +1508,7 @@ namespace jag::graphics {
             this_01 = (GeometryBatchInstance*)std::unique_ptr<
                           GeometryBatchInstance,
                           MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>::operator->(this_00);
-            this_01->UpdateAnimation(param_1, param_2, (Matrix44T*)&field_48);
+            this_01->UpdateAnimation(param_1, param_2, (Matrix44T*)&m_worldTransform);
         }
         this_02 = (unique_ptr<BillboardBatchInstance,
                               MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>*)(&field_688)
@@ -1521,7 +1521,7 @@ namespace jag::graphics {
                 (BillboardBatchInstance*)
                     std::unique_ptr<BillboardBatchInstance,
                                     MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>::operator->(this_02);
-            this_03->UpdateAnimation(param_1, param_2, (Matrix44T*)&field_48);
+            this_03->UpdateAnimation(param_1, param_2, (Matrix44T*)&m_worldTransform);
         }
         field_938 = 1;
     }
@@ -2484,7 +2484,7 @@ namespace jag::graphics {
         WrapArray<MaterialInfo_const>::WrapArray<eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL>>(
             (WrapArray<MaterialInfo_const>*)local_ef0, (vector*)local_1a00);
         cVar4 = pTVar20->CheckMaterialsFit(local_ef0);
-        puVar1 = local_1988->field_424;
+        puVar1 = local_1988->m_textureAtlasReferences;
         puVar1->clear();
         pLVar15 = local_19a8;
         local_1998 = (fixed_vector<shared_ptr<TextureAtlasReference>, 1ul, true, eastl::allocator>*)puVar1;
@@ -3364,7 +3364,7 @@ namespace jag::graphics {
 
         if (param_2 == (Model*)0) {
             if (param_1 != (fixed_hash_map*)0) {
-                this_00 = field_424;
+                this_00 = m_textureAtlasReferences;
                 uVar4 = this_00->size();
                 if (1 < uVar4) {
                     /* WARNING: Subroutine does not return */
@@ -5446,7 +5446,7 @@ namespace jag::graphics {
         ulong uVar5;
         undefined1* this_02;
 
-        this_02 = field_424;
+        this_02 = m_textureAtlasReferences;
         cVar1 = this_02->empty();
         uVar6 = (undefined7)((ulong)unaff_R14 >> 8);
         uVar5 = CONCAT71(uVar6, 1);
@@ -5618,7 +5618,7 @@ namespace jag::graphics {
         undefined8 uVar3;
         undefined1* this_01;
 
-        this_01 = field_424;
+        this_01 = m_textureAtlasReferences;
         uVar2 = this_01->size();
         if (1 < uVar2) {
             /* WARNING: Subroutine does not return */
@@ -5767,7 +5767,7 @@ namespace jag::graphics {
         pAVar2 = (AABB*)GetScreen();
         new (local_58) math::AABB(pAVar2);
         if (local_58->IsValid() != '\0') {
-            ptVar5 = (type*)&field_48;
+            ptVar5 = (type*)&m_worldTransform;
             local_58->Transform(ptVar5);
             local_24 = (float)local_58->GetWidth();
             local_24 = local_24 + 1.0;

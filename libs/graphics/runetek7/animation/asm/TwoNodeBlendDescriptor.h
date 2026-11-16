@@ -400,10 +400,10 @@ namespace jag::graphics {
         undefined8 uVar1;
 
         new (this) AnimationStateMachineDescriptor(param_1);
-        field_104 = param_1->field_104;
+        m_blendType = param_1->m_blendType;
         new (&field_112, (basic_string*)&param_1->field_112) eastl::string();
         uVar1 = param_1->m_transitionOutTime;
-        field_144 = param_1->field_144;
+        m_pTransitionInTime = param_1->m_pTransitionInTime;
         m_transitionOutTime = uVar1;
     }
 

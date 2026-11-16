@@ -97,13 +97,13 @@ namespace jag::game {
     shared_ptr* ConfigProvider::GetConfig<MapElementType>(int param_1, DataStatus** param_2) {
         int iVar1;
         uint uVar2;
-        CoordMapSquare* this_00;
+        Js5ConfigGroup* this_00;
         undefined8* puVar3;
         shared_ptr* psVar4;
 
         psVar4 = (shared_ptr*)PTR_NullConfigType_100ee6518;
         if (field_96 == 4) {
-            this_00 = (CoordMapSquare*)Js5ConfigGroup::GetConfigGroup<MapElementType>();
+            this_00 = Js5ConfigGroup::GetConfigGroup<MapElementType>();
             iVar1 = this_00->GetX();
             puVar3 = (undefined8*)Array<BaseConfigTypeList*, eastl::allocator>::operator[](
                 (Array<BaseConfigTypeList*, eastl::allocator>*)&field_160, (long)iVar1);
@@ -127,13 +127,13 @@ namespace jag::game {
     shared_ptr* ConfigProvider::GetConfig<MSIType>(int param_1, DataStatus** param_2) {
         int iVar1;
         uint uVar2;
-        CoordMapSquare* this_00;
+        Js5ConfigGroup* this_00;
         undefined8* puVar3;
         shared_ptr* psVar4;
 
         psVar4 = (shared_ptr*)PTR_NullConfigType_100ee6558;
         if (field_96 == 4) {
-            this_00 = (CoordMapSquare*)Js5ConfigGroup::GetConfigGroup<MSIType>();
+            this_00 = Js5ConfigGroup::GetConfigGroup<MSIType>();
             iVar1 = this_00->GetX();
             puVar3 = (undefined8*)Array<BaseConfigTypeList*, eastl::allocator>::operator[](
                 (Array<BaseConfigTypeList*, eastl::allocator>*)&field_160, (long)iVar1);
@@ -162,13 +162,13 @@ namespace jag::game {
     DataStatus* ConfigProvider::GetConfigSize<MapElementType>(uint* param_1) {
         int iVar1;
         uint uVar2;
-        CoordMapSquare* this_00;
+        Js5ConfigGroup* this_00;
         undefined8* puVar3;
         undefined** ppuVar4;
 
         ppuVar4 = &DataStatus::NOTLOADED;
         if (field_96 == 4) {
-            this_00 = (CoordMapSquare*)Js5ConfigGroup::GetConfigGroup<MapElementType>();
+            this_00 = Js5ConfigGroup::GetConfigGroup<MapElementType>();
             iVar1 = this_00->GetX();
             puVar3 = (undefined8*)Array<BaseConfigTypeList*, eastl::allocator>::operator[](
                 (Array<BaseConfigTypeList*, eastl::allocator>*)&field_160, (long)iVar1);
@@ -186,13 +186,13 @@ namespace jag::game {
     shared_ptr* ConfigProvider::GetConfig<SkyBoxType>(int param_1, DataStatus** param_2) {
         int iVar1;
         uint uVar2;
-        CoordMapSquare* this_00;
+        Js5ConfigGroup* this_00;
         undefined8* puVar3;
         shared_ptr* psVar4;
 
         psVar4 = (shared_ptr*)PTR_NullConfigType_100ee64d0;
         if (field_96 == 4) {
-            this_00 = (CoordMapSquare*)Js5ConfigGroup::GetConfigGroup<SkyBoxType>();
+            this_00 = Js5ConfigGroup::GetConfigGroup<SkyBoxType>();
             iVar1 = this_00->GetX();
             puVar3 = (undefined8*)Array<BaseConfigTypeList*, eastl::allocator>::operator[](
                 (Array<BaseConfigTypeList*, eastl::allocator>*)&field_160, (long)iVar1);
@@ -215,13 +215,13 @@ namespace jag::game {
     shared_ptr* ConfigProvider::GetConfig<ObjType>(int param_1, DataStatus** param_2) {
         int iVar1;
         uint uVar2;
-        CoordMapSquare* this_00;
+        Js5ConfigGroup* this_00;
         undefined8* puVar3;
         shared_ptr* psVar4;
 
         psVar4 = (shared_ptr*)PTR_NullConfigType_100ee6568;
         if (field_96 == 4) {
-            this_00 = (CoordMapSquare*)Js5ConfigGroup::GetConfigGroup<ObjType>();
+            this_00 = Js5ConfigGroup::GetConfigGroup<ObjType>();
             iVar1 = this_00->GetX();
             puVar3 = (undefined8*)Array<BaseConfigTypeList*, eastl::allocator>::operator[](
                 (Array<BaseConfigTypeList*, eastl::allocator>*)&field_160, (long)iVar1);
@@ -250,13 +250,13 @@ namespace jag::game {
     shared_ptr* ConfigProvider::GetConfig<EnumType>(int param_1, DataStatus** param_2) {
         int iVar1;
         uint uVar2;
-        CoordMapSquare* this_00;
+        Js5ConfigGroup* this_00;
         undefined8* puVar3;
         shared_ptr* psVar4;
 
         psVar4 = (shared_ptr*)PTR_NullConfigType_100ee6580;
         if (field_96 == 4) {
-            this_00 = (CoordMapSquare*)Js5ConfigGroup::GetConfigGroup<EnumType>();
+            this_00 = Js5ConfigGroup::GetConfigGroup<EnumType>();
             iVar1 = this_00->GetX();
             puVar3 = (undefined8*)Array<BaseConfigTypeList*, eastl::allocator>::operator[](
                 (Array<BaseConfigTypeList*, eastl::allocator>*)&field_160, (long)iVar1);
@@ -307,13 +307,13 @@ namespace jag::game {
     shared_ptr* ConfigProvider::GetConfig<EffectAnimType>(int param_1, DataStatus** param_2) {
         int iVar1;
         uint uVar2;
-        CoordMapSquare* this_00;
+        Js5ConfigGroup* this_00;
         undefined8* puVar3;
         shared_ptr* psVar4;
 
         psVar4 = (shared_ptr*)PTR_NullConfigType_100ee6510;
         if (field_96 == 4) {
-            this_00 = (CoordMapSquare*)Js5ConfigGroup::GetConfigGroup<EffectAnimType>();
+            this_00 = Js5ConfigGroup::GetConfigGroup<EffectAnimType>();
             iVar1 = this_00->GetX();
             puVar3 = (undefined8*)Array<BaseConfigTypeList*, eastl::allocator>::operator[](
                 (Array<BaseConfigTypeList*, eastl::allocator>*)&field_160, (long)iVar1);
@@ -337,13 +337,13 @@ namespace jag::game {
     shared_ptr* ConfigProvider::GetConfig<WaterType>(int param_1, DataStatus** param_2) {
         int iVar1;
         uint uVar2;
-        CoordMapSquare* this_00;
+        Js5ConfigGroup* this_00;
         undefined8* puVar3;
         shared_ptr* psVar4;
 
         psVar4 = (shared_ptr*)PTR_NullConfigType_100ee65a8;
         if (field_96 == 4) {
-            this_00 = (CoordMapSquare*)Js5ConfigGroup::GetConfigGroup<WaterType>();
+            this_00 = Js5ConfigGroup::GetConfigGroup<WaterType>();
             iVar1 = this_00->GetX();
             puVar3 = (undefined8*)Array<BaseConfigTypeList*, eastl::allocator>::operator[](
                 (Array<BaseConfigTypeList*, eastl::allocator>*)&field_160, (long)iVar1);
@@ -366,13 +366,13 @@ namespace jag::game {
     shared_ptr* ConfigProvider::GetConfig<NPCType>(int param_1, DataStatus** param_2) {
         int iVar1;
         uint uVar2;
-        CoordMapSquare* this_00;
+        Js5ConfigGroup* this_00;
         undefined8* puVar3;
         shared_ptr* psVar4;
 
         psVar4 = (shared_ptr*)PTR_NullConfigType_100ee6560;
         if (field_96 == 4) {
-            this_00 = (CoordMapSquare*)Js5ConfigGroup::GetConfigGroup<NPCType>();
+            this_00 = Js5ConfigGroup::GetConfigGroup<NPCType>();
             iVar1 = this_00->GetX();
             puVar3 = (undefined8*)Array<BaseConfigTypeList*, eastl::allocator>::operator[](
                 (Array<BaseConfigTypeList*, eastl::allocator>*)&field_160, (long)iVar1);
@@ -395,13 +395,13 @@ namespace jag::game {
     shared_ptr* ConfigProvider::GetConfig<BASType>(int param_1, DataStatus** param_2) {
         int iVar1;
         uint uVar2;
-        CoordMapSquare* this_00;
+        Js5ConfigGroup* this_00;
         undefined8* puVar3;
         shared_ptr* psVar4;
 
         psVar4 = (shared_ptr*)PTR_NullConfigType_100ee6538;
         if (field_96 == 4) {
-            this_00 = (CoordMapSquare*)Js5ConfigGroup::GetConfigGroup<BASType>();
+            this_00 = Js5ConfigGroup::GetConfigGroup<BASType>();
             iVar1 = this_00->GetX();
             puVar3 = (undefined8*)Array<BaseConfigTypeList*, eastl::allocator>::operator[](
                 (Array<BaseConfigTypeList*, eastl::allocator>*)&field_160, (long)iVar1);
@@ -430,13 +430,13 @@ namespace jag::game {
     shared_ptr* ConfigProvider::GetConfig<HitmarkType>(int param_1, DataStatus** param_2) {
         int iVar1;
         uint uVar2;
-        CoordMapSquare* this_00;
+        Js5ConfigGroup* this_00;
         undefined8* puVar3;
         shared_ptr* psVar4;
 
         psVar4 = (shared_ptr*)PTR_NullConfigType_100ee64f8;
         if (field_96 == 4) {
-            this_00 = (CoordMapSquare*)Js5ConfigGroup::GetConfigGroup<HitmarkType>();
+            this_00 = Js5ConfigGroup::GetConfigGroup<HitmarkType>();
             iVar1 = this_00->GetX();
             puVar3 = (undefined8*)Array<BaseConfigTypeList*, eastl::allocator>::operator[](
                 (Array<BaseConfigTypeList*, eastl::allocator>*)&field_160, (long)iVar1);
@@ -459,13 +459,13 @@ namespace jag::game {
     shared_ptr* ConfigProvider::GetConfig<HeadbarType>(int param_1, DataStatus** param_2) {
         int iVar1;
         uint uVar2;
-        CoordMapSquare* this_00;
+        Js5ConfigGroup* this_00;
         undefined8* puVar3;
         shared_ptr* psVar4;
 
         psVar4 = (shared_ptr*)PTR_NullConfigType_100ee64f0;
         if (field_96 == 4) {
-            this_00 = (CoordMapSquare*)Js5ConfigGroup::GetConfigGroup<HeadbarType>();
+            this_00 = Js5ConfigGroup::GetConfigGroup<HeadbarType>();
             iVar1 = this_00->GetX();
             puVar3 = (undefined8*)Array<BaseConfigTypeList*, eastl::allocator>::operator[](
                 (Array<BaseConfigTypeList*, eastl::allocator>*)&field_160, (long)iVar1);
@@ -488,13 +488,13 @@ namespace jag::game {
     shared_ptr* ConfigProvider::GetConfig<LocType>(int param_1, DataStatus** param_2) {
         int iVar1;
         uint uVar2;
-        CoordMapSquare* this_00;
+        Js5ConfigGroup* this_00;
         undefined8* puVar3;
         shared_ptr* psVar4;
 
         psVar4 = (shared_ptr*)PTR_NullConfigType_100ee6550;
         if (field_96 == 4) {
-            this_00 = (CoordMapSquare*)Js5ConfigGroup::GetConfigGroup<LocType>();
+            this_00 = Js5ConfigGroup::GetConfigGroup<LocType>();
             iVar1 = this_00->GetX();
             puVar3 = (undefined8*)Array<BaseConfigTypeList*, eastl::allocator>::operator[](
                 (Array<BaseConfigTypeList*, eastl::allocator>*)&field_160, (long)iVar1);
@@ -517,13 +517,13 @@ namespace jag::game {
     shared_ptr* ConfigProvider::GetConfig<LightType>(int param_1, DataStatus** param_2) {
         int iVar1;
         uint uVar2;
-        CoordMapSquare* this_00;
+        Js5ConfigGroup* this_00;
         undefined8* puVar3;
         shared_ptr* psVar4;
 
         psVar4 = (shared_ptr*)PTR_NullConfigType_100ee6590;
         if (field_96 == 4) {
-            this_00 = (CoordMapSquare*)Js5ConfigGroup::GetConfigGroup<LightType>();
+            this_00 = Js5ConfigGroup::GetConfigGroup<LightType>();
             iVar1 = this_00->GetX();
             puVar3 = (undefined8*)Array<BaseConfigTypeList*, eastl::allocator>::operator[](
                 (Array<BaseConfigTypeList*, eastl::allocator>*)&field_160, (long)iVar1);
@@ -551,10 +551,10 @@ namespace jag::game {
     // WorldAreaTypeList* ConfigProvider::GetConfigList<WorldAreaType, WorldAreaTypeList>()
     WorldAreaTypeList* ConfigProvider::GetConfigList<WorldAreaType, WorldAreaTypeList>() {
         int iVar1;
-        CoordMapSquare* this_00;
+        Js5ConfigGroup* this_00;
         undefined8* puVar2;
 
-        this_00 = (CoordMapSquare*)Js5ConfigGroup::GetConfigGroup<WorldAreaType>();
+        this_00 = Js5ConfigGroup::GetConfigGroup<WorldAreaType>();
         iVar1 = this_00->GetX();
         puVar2 = (undefined8*)Array<BaseConfigTypeList*, eastl::allocator>::operator[](
             (Array<BaseConfigTypeList*, eastl::allocator>*)&field_160, (long)iVar1);
@@ -572,13 +572,13 @@ namespace jag::game {
     shared_ptr* ConfigProvider::GetConfig<IDKType>(int param_1, DataStatus** param_2) {
         int iVar1;
         uint uVar2;
-        CoordMapSquare* this_00;
+        Js5ConfigGroup* this_00;
         undefined8* puVar3;
         shared_ptr* psVar4;
 
         psVar4 = (shared_ptr*)PTR_NullConfigType_100ee6540;
         if (field_96 == 4) {
-            this_00 = (CoordMapSquare*)Js5ConfigGroup::GetConfigGroup<IDKType>();
+            this_00 = Js5ConfigGroup::GetConfigGroup<IDKType>();
             iVar1 = this_00->GetX();
             puVar3 = (undefined8*)Array<BaseConfigTypeList*, eastl::allocator>::operator[](
                 (Array<BaseConfigTypeList*, eastl::allocator>*)&field_160, (long)iVar1);
@@ -601,13 +601,13 @@ namespace jag::game {
     shared_ptr* ConfigProvider::GetConfig<InvType>(int param_1, DataStatus** param_2) {
         int iVar1;
         uint uVar2;
-        CoordMapSquare* this_00;
+        Js5ConfigGroup* this_00;
         undefined8* puVar3;
         shared_ptr* psVar4;
 
         psVar4 = (shared_ptr*)PTR_NullConfigType_100ee6548;
         if (field_96 == 4) {
-            this_00 = (CoordMapSquare*)Js5ConfigGroup::GetConfigGroup<InvType>();
+            this_00 = Js5ConfigGroup::GetConfigGroup<InvType>();
             iVar1 = this_00->GetX();
             puVar3 = (undefined8*)Array<BaseConfigTypeList*, eastl::allocator>::operator[](
                 (Array<BaseConfigTypeList*, eastl::allocator>*)&field_160, (long)iVar1);
@@ -630,13 +630,13 @@ namespace jag::game {
     DataStatus* ConfigProvider::GetConfigSize<QuestType>(uint* param_1) {
         int iVar1;
         uint uVar2;
-        CoordMapSquare* this_00;
+        Js5ConfigGroup* this_00;
         undefined8* puVar3;
         undefined** ppuVar4;
 
         ppuVar4 = &DataStatus::NOTLOADED;
         if (field_96 == 4) {
-            this_00 = (CoordMapSquare*)Js5ConfigGroup::GetConfigGroup<QuestType>();
+            this_00 = Js5ConfigGroup::GetConfigGroup<QuestType>();
             iVar1 = this_00->GetX();
             puVar3 = (undefined8*)Array<BaseConfigTypeList*, eastl::allocator>::operator[](
                 (Array<BaseConfigTypeList*, eastl::allocator>*)&field_160, (long)iVar1);
@@ -654,13 +654,13 @@ namespace jag::game {
     shared_ptr* ConfigProvider::GetConfig<QuestType>(int param_1, DataStatus** param_2) {
         int iVar1;
         uint uVar2;
-        CoordMapSquare* this_00;
+        Js5ConfigGroup* this_00;
         undefined8* puVar3;
         shared_ptr* psVar4;
 
         psVar4 = (shared_ptr*)PTR_NullConfigType_100ee65a0;
         if (field_96 == 4) {
-            this_00 = (CoordMapSquare*)Js5ConfigGroup::GetConfigGroup<QuestType>();
+            this_00 = Js5ConfigGroup::GetConfigGroup<QuestType>();
             iVar1 = this_00->GetX();
             puVar3 = (undefined8*)Array<BaseConfigTypeList*, eastl::allocator>::operator[](
                 (Array<BaseConfigTypeList*, eastl::allocator>*)&field_160, (long)iVar1);
@@ -683,13 +683,13 @@ namespace jag::game {
     shared_ptr* ConfigProvider::GetConfig<ParamType>(int param_1, DataStatus** param_2) {
         int iVar1;
         uint uVar2;
-        CoordMapSquare* this_00;
+        Js5ConfigGroup* this_00;
         undefined8* puVar3;
         shared_ptr* psVar4;
 
         psVar4 = (shared_ptr*)PTR_NullConfigType_100ee6598;
         if (field_96 == 4) {
-            this_00 = (CoordMapSquare*)Js5ConfigGroup::GetConfigGroup<ParamType>();
+            this_00 = Js5ConfigGroup::GetConfigGroup<ParamType>();
             iVar1 = this_00->GetX();
             puVar3 = (undefined8*)Array<BaseConfigTypeList*, eastl::allocator>::operator[](
                 (Array<BaseConfigTypeList*, eastl::allocator>*)&field_160, (long)iVar1);
@@ -801,13 +801,13 @@ namespace jag::game {
     shared_ptr* ConfigProvider::GetConfig<FloorOverlayType>(int param_1, DataStatus** param_2) {
         int iVar1;
         uint uVar2;
-        CoordMapSquare* this_00;
+        Js5ConfigGroup* this_00;
         undefined8* puVar3;
         shared_ptr* psVar4;
 
         psVar4 = (shared_ptr*)PTR_NullConfigType_100ee6528;
         if (field_96 == 4) {
-            this_00 = (CoordMapSquare*)Js5ConfigGroup::GetConfigGroup<FloorOverlayType>();
+            this_00 = Js5ConfigGroup::GetConfigGroup<FloorOverlayType>();
             iVar1 = this_00->GetX();
             puVar3 = (undefined8*)Array<BaseConfigTypeList*, eastl::allocator>::operator[](
                 (Array<BaseConfigTypeList*, eastl::allocator>*)&field_160, (long)iVar1);
@@ -831,13 +831,13 @@ namespace jag::game {
     shared_ptr* ConfigProvider::GetConfig<FloorUnderlayType>(int param_1, DataStatus** param_2) {
         int iVar1;
         uint uVar2;
-        CoordMapSquare* this_00;
+        Js5ConfigGroup* this_00;
         undefined8* puVar3;
         shared_ptr* psVar4;
 
         psVar4 = (shared_ptr*)PTR_NullConfigType_100ee6530;
         if (field_96 == 4) {
-            this_00 = (CoordMapSquare*)Js5ConfigGroup::GetConfigGroup<FloorUnderlayType>();
+            this_00 = Js5ConfigGroup::GetConfigGroup<FloorUnderlayType>();
             iVar1 = this_00->GetX();
             puVar3 = (undefined8*)Array<BaseConfigTypeList*, eastl::allocator>::operator[](
                 (Array<BaseConfigTypeList*, eastl::allocator>*)&field_160, (long)iVar1);
@@ -861,13 +861,13 @@ namespace jag::game {
     shared_ptr* ConfigProvider::GetConfig<SeqType>(int param_1, DataStatus** param_2) {
         int iVar1;
         uint uVar2;
-        CoordMapSquare* this_00;
+        Js5ConfigGroup* this_00;
         undefined8* puVar3;
         shared_ptr* psVar4;
 
         psVar4 = (shared_ptr*)PTR_NullConfigType_100ee6570;
         if (field_96 == 4) {
-            this_00 = (CoordMapSquare*)Js5ConfigGroup::GetConfigGroup<SeqType>();
+            this_00 = Js5ConfigGroup::GetConfigGroup<SeqType>();
             iVar1 = this_00->GetX();
             puVar3 = (undefined8*)Array<BaseConfigTypeList*, eastl::allocator>::operator[](
                 (Array<BaseConfigTypeList*, eastl::allocator>*)&field_160, (long)iVar1);

@@ -10,7 +10,7 @@ namespace jag::game {
     PlayerGroup::GetVarValues();
 
     // 0x1002111f0: the linker folded this into oldscape::rs2lib::worldmap::PackableArea::GetTargetMapSquareZ(), which has identical code
-    PlayerGroup::GetUpdateNumber() const;
+    int PlayerGroup::GetUpdateNumber() const;
 
     // 0x1004b96f0, 576 bytes, placed by class name and debug map
     // PlayerGroup::Decode(PacketT<Array<unsigned char, BucketAllocatorEASTL> >&, PlayerGroupResourceProvider&)
@@ -167,7 +167,7 @@ namespace jag::game {
                 if (!bVar6) {
                     iVar2 = pLVar3->GetAmplitude();
                     while (iVar2 != 0) {
-                        pLVar3 = (LightType*)&pLVar3[1].field_88;
+                        pLVar3 = (LightType*)&pLVar3[1].m_jitterRadiusRandom;
                         bVar6 = pLVar3 == pLVar5;
                         if (bVar6)
                             break;

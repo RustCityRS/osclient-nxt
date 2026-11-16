@@ -158,7 +158,7 @@ namespace jag {
             local_60 = uVar6;
             piVar7 = (int*)eastl::vector<int, eastl::allocator>::operator[]((vector<int, eastl::allocator>*)puVar1,
                                                                             (long)(int)uVar6);
-            local_50.field_0 = (int)((float)*piVar7 / local_84);
+            local_50.m_stackFrames = (int)((float)*piVar7 / local_84);
             local_8c = 0.0;
             local_88 = 1.0;
             fVar13 = math::Clamp<float>((float*)&local_50, &local_8c, &local_88);
@@ -249,10 +249,10 @@ namespace jag {
                 this_03 = eastl::string::Layout::SSOBeginPtr(this_02, (type*)&local_68);
                 puVar3 =
                     (uchar*)shared_ptr<graphics::FontMetrics>::operator*((shared_ptr<graphics::FontMetrics>*)this_03);
-                SVar9.field_8 = puVar3;
-                SVar9.field_0 = (ulong)&local_88;
+                SVar10.field_8 = puVar3;
+                SVar10.field_0 = (ulong)&local_88;
                 local_68.field_24._4_4_ =
-                    graphics::FontHelpers::GetStringWidth(SVar9, (FontMetrics*)&DAT_00000001, (bool)uVar5);
+                    graphics::FontHelpers::GetStringWidth(SVar10, (FontMetrics*)&DAT_00000001, (bool)uVar5);
                 if (param_8 < 2) {
                     iVar1 = field_0;
                     local_68.field_24._12_4_ = iVar1 + param_2;
@@ -273,10 +273,10 @@ namespace jag {
                 local_b0.SetColour(uVar8);
                 this_01 = field_16;
                 new (&local_78) StringView((StringView*)&local_68);
-                SVar10.field_8._0_4_ = param_2 + field_0;
-                SVar10.field_0 = (ulong)&local_78;
-                SVar10.field_8._4_4_ = 0;
-                this_01->DrawStringMultiline(SVar10, param_3 + field_0, local_3c, field_4, 0, (uint*)&local_b0,
+                SVar9.field_8._0_4_ = param_2 + field_0;
+                SVar9.field_0 = (ulong)&local_78;
+                SVar9.field_8._4_4_ = 0;
+                this_01->DrawStringMultiline(SVar9, param_3 + field_0, local_3c, field_4, 0, (uint*)&local_b0,
                                              in_stack_ffffffffffffff48);
             }
         }

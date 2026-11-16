@@ -33,9 +33,9 @@ namespace jag::oldscape::rs2lib::worldmap {
         bool IsGroundVisible(int, int, int);
         byte IsLinkBelow(int, int, int);
         byte IsVisibleBelow(int, int, int);
-        GetTargetMapSquareX();
-        GetTargetMapSquareZ();
-        GetBaseLevel();
+        int GetTargetMapSquareX();
+        int GetTargetMapSquareZ();
+        int GetBaseLevel();
         ~PackableArea();
 
         // data members, from how the methods use this: 196 bytes
@@ -51,19 +51,19 @@ namespace jag::oldscape::rs2lib::worldmap {
         char _unknown_136[24];
         int field_160;        // offset 160
         int field_164;        // offset 164
-        int field_168;        // offset 168
+        int m_baseLevel;      // offset 168
         char field_172;       // offset 172
         undefined1 field_173; // offset 173
         char _unknown_174[2];
-        int field_176;   // offset 176
-        int field_180;   // offset 180
-        int m_maxLevels; // offset 184
-        int field_188;   // offset 188
+        int m_targetMapSquareX; // offset 176
+        int m_targetMapSquareZ; // offset 180
+        int m_maxLevels;        // offset 184
+        int field_188;          // offset 188
         char _unknown_192[4];
     };
 
     // 0x100159b70: the linker folded this into InputField::GetEnterAction() const, which has identical code
-    PackableArea::GetMaxLevels();
+    int PackableArea::GetMaxLevels();
 
     // 0x10020be60, 224 bytes, base-object constructor, placed by class name
     // PackableArea::PackableArea()
@@ -102,12 +102,12 @@ namespace jag::oldscape::rs2lib::worldmap {
                   eastl::allocator>();
         field_172 = '\0';
         field_173 = 0;
-        field_168 = param_1;
+        m_baseLevel = param_1;
         m_maxLevels = param_2;
         field_160 = param_3;
         field_164 = param_4;
-        field_176 = param_5;
-        field_180 = param_6;
+        m_targetMapSquareX = param_5;
+        m_targetMapSquareZ = param_6;
         field_188 = param_1 + -1 + param_2;
         local_3c = 3;
         piVar1 = std::min<int>(&field_188, &local_3c);
@@ -162,9 +162,9 @@ namespace jag::oldscape::rs2lib::worldmap {
         undefined4 local_34;
 
         local_34 = 4278190080;
-        if (field_168 <= field_188) {
+        if (m_baseLevel <= field_188) {
             uVar6 = (ulong)(param_1 * 64 + param_2);
-            uVar5 = (long)field_168;
+            uVar5 = (long)m_baseLevel;
             do {
                 if (IsGroundVisible(this, param_1, param_2, (int)uVar5) != '\0') {
                     paVar3 = (array<unsigned short, 4096ul>*)
@@ -368,14 +368,14 @@ namespace jag::oldscape::rs2lib::worldmap {
                         uVar10 = (iVar3 + local_38) - 1;
                         local_38 = uVar10;
                         bVar1 = local_68->g1();
-                        if (local_60->field_168 <= (int)uVar10 >> 12) {
+                        if (local_60->m_baseLevel <= (int)uVar10 >> 12) {
                             this_02 = (shared_ptr<configdecoder::LocType>*)configdecoder::LocType::List(local_3c);
                             lVar4 = shared_ptr<configdecoder::LocType>::operator->(this_02);
                             if (*(int*)(lVar4 + 436) != 22) {
                                 lVar4 = shared_ptr<configdecoder::LocType>::operator->(this_02);
                                 this_01 = local_b0;
                                 local_34 = (uint)CONCAT71((int7)((ulong)lVar4 >> 8), *(int*)(lVar4 + 432) != -1);
-                                local_a8 = (long)local_60->field_168;
+                                local_a8 = (long)local_60->m_baseLevel;
                                 uVar12 = local_a8 + 1;
                                 local_a0 = this_02;
                                 iVar3 = eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(local_b0);
@@ -683,9 +683,9 @@ namespace jag::oldscape::rs2lib::worldmap {
 
         this_04 = (PackableArea*)CONCAT44(in_register_00000034, param_1);
         new (this) ColumnData();
-        if (this_04->field_168 <= this_04->field_188) {
+        if (this_04->m_baseLevel <= this_04->field_188) {
             uVar11 = (ulong)(param_2 * 64 + in_ECX);
-            uVar14 = (long)this_04->field_168;
+            uVar14 = (long)this_04->m_baseLevel;
             do {
                 iVar13 = (int)uVar14;
                 cVar1 = IsGroundVisible(this_04, param_2, in_ECX, iVar13);
@@ -844,7 +844,7 @@ namespace jag::oldscape::rs2lib::worldmap {
             *(undefined1*)this = 0;
         }
         if ((field_4 == 4) && (*(char*)this == '\0')) {
-            field_4 = this_04->field_168;
+            field_4 = this_04->m_baseLevel;
         }
         return this;
     }
@@ -1268,16 +1268,16 @@ namespace jag::oldscape::rs2lib::worldmap {
         bool bVar2;
 
         bVar2 = true;
-        if (field_168 != param_3) {
+        if (m_baseLevel != param_3) {
             cVar1 = IsVisibleBelow(this, param_3, param_1, param_2);
             if (cVar1 == '\0') {
                 cVar1 = IsLinkBelow(this, param_3, param_1, param_2);
                 if (cVar1 == '\0') {
                     return false;
                 }
-                bVar2 = field_168 + 1 == param_3;
+                bVar2 = m_baseLevel + 1 == param_3;
             } else {
-                bVar2 = field_168 == 0;
+                bVar2 = m_baseLevel == 0;
             }
         }
         return bVar2;

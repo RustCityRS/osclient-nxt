@@ -8,11 +8,11 @@
 namespace jag {
     class Js5NetQueueRequest {
     public:
-        IsUrgent() const;
-        GetGroupID() const;
-        GetArchiveID() const;
-        GetFooterLength() const;
-        GetPriority() const;
+        bool IsUrgent() const;
+        uint GetGroupID() const;
+        uint GetArchiveID() const;
+        uint GetFooterLength() const;
+        Priority* GetPriority() const;
         ~Js5NetQueueRequest();
         IsRequested() const;
         SetRequested(bool);
@@ -31,31 +31,31 @@ namespace jag {
         Js5NetQueueRequest();
 
         // data members, from how the methods use this: 129 bytes
-        uint field_0;       // offset 0
-        uint field_4;       // offset 4
-        bool field_8;       // offset 8
-        undefined3 field_9; // offset 9
-        uint field_12;      // offset 12
-        VBOMapper field_16; // offset 16
-        Priority* field_48; // offset 48
+        uint m_archiveID;      // offset 0
+        uint m_groupID;        // offset 4
+        bool m_urgent;         // offset 8
+        undefined3 field_9;    // offset 9
+        uint m_footerLength;   // offset 12
+        VBOMapper field_16;    // offset 16
+        Priority* m_pPriority; // offset 48
         char _unknown_56[72];
         undefined1 m_requested; // offset 128
     };
 
     // 0x1000096a0: the linker folded this into BaseApp::GetExitAfterInit(), which has identical code
-    Js5NetQueueRequest::IsUrgent() const;
+    bool Js5NetQueueRequest::IsUrgent() const;
 
     // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    Js5NetQueueRequest::GetGroupID() const;
+    uint Js5NetQueueRequest::GetGroupID() const;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    Js5NetQueueRequest::GetArchiveID() const;
+    uint Js5NetQueueRequest::GetArchiveID() const;
 
     // 0x1000e5d50: the linker folded this into oldscape::rs2lib::CoordZoneSource::GetRotation() const, which has identical code
-    Js5NetQueueRequest::GetFooterLength() const;
+    uint Js5NetQueueRequest::GetFooterLength() const;
 
     // 0x1000fcbb0: the linker folded this into oldscape::ClientObj::GetHighlight(), which has identical code
-    Js5NetQueueRequest::GetPriority() const;
+    Priority* Js5NetQueueRequest::GetPriority() const;
 
     // 0x10019e200, 16 bytes, complete-object destructor, inline, placed by class name and debug map
     // Js5NetQueueRequest::~Js5NetQueueRequest(): jumps straight to the base-object destructor
@@ -372,14 +372,14 @@ namespace jag {
         _func_decltype_nullptr* in_RSI;
 
         if (std::operator!=((function*)&field_64, in_RSI)) {
-            uVar1 = field_0;
-            uVar2 = field_4;
+            uVar1 = m_archiveID;
+            uVar2 = m_groupID;
             pPVar3 = (PacketT*)(&field_112)->end();
             std::function<void(unsigned int, unsigned int, PacketT<Array<unsigned char, eastl::allocator>>&,
                                PacketT<Array<unsigned char, eastl::allocator>>&&, bool)>::
             operator()((function<void(unsigned int, unsigned int, PacketT<Array<unsigned char, eastl::allocator>>&,
                                       PacketT<Array<unsigned char, eastl::allocator>>&&, bool)>*)&field_64,
-                       uVar1, uVar2, pPVar3, (PacketT*)field_16, field_8);
+                       uVar1, uVar2, pPVar3, (PacketT*)field_16, m_urgent);
         }
     }
 
@@ -392,12 +392,12 @@ namespace jag {
 
     void Js5NetQueueRequest::Js5NetQueueRequest(uint param_1, uint param_2, uint param_3, bool param_4,
                                                 function* param_5, PacketT* param_6, Priority* param_7) {
-        field_0 = param_1;
-        field_4 = param_2;
-        field_8 = param_4;
-        field_12 = param_3;
+        m_archiveID = param_1;
+        m_groupID = param_2;
+        m_urgent = param_4;
+        m_footerLength = param_3;
         new (field_16) PacketT<Array<unsigned char, eastl::allocator>>();
-        field_48 = param_7;
+        m_pPriority = param_7;
         std::function<void(unsigned int, unsigned int, PacketT<Array<unsigned char, eastl::allocator>>&,
                            PacketT<Array<unsigned char, eastl::allocator>>&&, bool)>::
             function((function<void(unsigned int, unsigned int, PacketT<Array<unsigned char, eastl::allocator>>&,
@@ -420,17 +420,17 @@ namespace jag {
         undefined3 uVar3;
         uint uVar4;
 
-        uVar1 = param_1->field_4;
-        bVar2 = param_1->field_8;
+        uVar1 = param_1->m_groupID;
+        bVar2 = param_1->m_urgent;
         uVar3 = param_1->field_9;
-        uVar4 = param_1->field_12;
-        field_0 = param_1->field_0;
-        field_4 = uVar1;
-        field_8 = bVar2;
+        uVar4 = param_1->m_footerLength;
+        m_archiveID = param_1->m_archiveID;
+        m_groupID = uVar1;
+        m_urgent = bVar2;
         field_9 = uVar3;
-        field_12 = uVar4;
+        m_footerLength = uVar4;
         new (field_16, (PacketT*)param_1->field_16) PacketT<Array<unsigned char, eastl::allocator>>();
-        field_48 = param_1->field_48;
+        m_pPriority = param_1->m_pPriority;
         std::function<void(unsigned int, unsigned int, PacketT<Array<unsigned char, eastl::allocator>>&,
                            PacketT<Array<unsigned char, eastl::allocator>>&&, bool)>::
             function((function<void(unsigned int, unsigned int, PacketT<Array<unsigned char, eastl::allocator>>&,
@@ -451,18 +451,18 @@ namespace jag {
         undefined3 uVar3;
         uint uVar4;
 
-        uVar1 = param_1->field_4;
-        bVar2 = param_1->field_8;
+        uVar1 = param_1->m_groupID;
+        bVar2 = param_1->m_urgent;
         uVar3 = param_1->field_9;
-        uVar4 = param_1->field_12;
-        field_0 = param_1->field_0;
-        field_4 = uVar1;
-        field_8 = bVar2;
+        uVar4 = param_1->m_footerLength;
+        m_archiveID = param_1->m_archiveID;
+        m_groupID = uVar1;
+        m_urgent = bVar2;
         field_9 = uVar3;
-        field_12 = uVar4;
+        m_footerLength = uVar4;
         PacketT<Array<unsigned char, eastl::allocator>>::operator=(
             (PacketT<Array<unsigned char, eastl::allocator>>*)field_16, (PacketT*)param_1->field_16);
-        field_48 = param_1->field_48;
+        m_pPriority = param_1->m_pPriority;
         std::function<void(unsigned int, unsigned int, PacketT<Array<unsigned char, eastl::allocator>>&,
                            PacketT<Array<unsigned char, eastl::allocator>>&&, bool)>::
         operator=((function<void(unsigned int, unsigned int, PacketT<Array<unsigned char, eastl::allocator>>&,

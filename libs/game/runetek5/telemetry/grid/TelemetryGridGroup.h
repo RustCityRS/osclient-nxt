@@ -7,7 +7,7 @@
 namespace jag::game {
     class TelemetryGridGroup {
     public:
-        GetId() const;
+        int GetId() const;
         TelemetryGridGroup(int);
         ulong GetRowIndexFromId(int) const;
         ulong GetColumnIndexFromId(int) const;
@@ -26,7 +26,7 @@ namespace jag::game {
         static /* 84 bytes */ NOT_PINNED;   // initialised in its definition
 
         // data members, from how the methods use this: 112 bytes
-        int field_0; // offset 0
+        int m_id; // offset 0
         char _unknown_4[108];
     };
 
@@ -58,7 +58,7 @@ namespace jag::game {
     // 0x1003bae60, 80 bytes, base-object constructor, inline, placed by class name
     // TelemetryGridGroup::TelemetryGridGroup(TelemetryGridGroup&&)
     void TelemetryGridGroup::TelemetryGridGroup(TelemetryGridGroup* param_1) {
-        field_0 = param_1->field_0;
+        m_id = param_1->m_id;
         new (&field_8, (vector*)&param_1->field_8) eastl::vector<int, eastl::allocator>();
         new (&field_40, (vector*)&param_1->field_40) eastl::vector<int, eastl::allocator>();
         new (&field_72, (vector*)&param_1->field_72) eastl::vector<int, eastl::allocator>();
@@ -71,7 +71,7 @@ namespace jag::game {
     /* TelemetryGridGroup::TEMPNAMEPLACEHOLDERVALUE(TelemetryGridGroup&&) */
 
     TelemetryGridGroup* TelemetryGridGroup::operator=(TelemetryGridGroup* param_1) {
-        field_0 = param_1->field_0;
+        m_id = param_1->m_id;
         eastl::vector<int, eastl::allocator>::operator=((vector<int, eastl::allocator>*)&field_8,
                                                         (vector*)&param_1->field_8);
         eastl::vector<int, eastl::allocator>::operator=((vector<int, eastl::allocator>*)&field_40,

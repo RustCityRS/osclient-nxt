@@ -19,25 +19,25 @@ namespace jag::game {
         byte bVar2;
         ushort uVar3;
         undefined2 uVar4;
-        uint uVar5;
-        undefined8 uVar6;
-        undefined2* puVar7;
-        ulong uVar8;
+        undefined4 uVar5;
+        uint uVar6;
+        undefined8 uVar7;
+        undefined2* puVar8;
         ulong uVar9;
-        undefined4 uVar10;
+        ulong uVar10;
 
         switch (param_2) {
         case 1:
-            uVar10 = param_1->gSmart2or4s();
-            field_56 = uVar10;
+            uVar5 = param_1->gSmart2or4s();
+            field_56 = uVar5;
             break;
         case 2:
-            uVar10 = param_1->gSmart2or4s();
-            field_60 = uVar10;
+            uVar5 = param_1->gSmart2or4s();
+            m_seqID = uVar5;
             break;
         default:
-            uVar6 = logger::default_logger();
-            logger::Logger::Log(uVar6, 0, 2,
+            uVar7 = logger::default_logger();
+            logger::Logger::Log(uVar7, 0, 2,
                                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
                                 "config/effectanimtype/EffectAnimType.cpp",
                                 109, "Error: unrecognised effect anim config code: %u", param_2);
@@ -52,8 +52,7 @@ namespace jag::game {
             break;
         case 6:
             uVar3 = param_1->g2();
-            uVar10 = math::Deg2Rad((float)uVar3);
-            field_168 = uVar10;
+            m_rotation = (float)math::Deg2Rad((float)uVar3);
             break;
         case 7:
             cVar1 = param_1->g1s();
@@ -76,47 +75,47 @@ namespace jag::game {
             break;
         case 16:
             field_176 = 3;
-            uVar5 = param_1->g4();
-            field_180 = uVar5;
+            uVar6 = param_1->g4();
+            field_180 = uVar6;
             break;
         case 40:
             bVar2 = param_1->g1();
-            uVar9 = (ulong)bVar2;
-            (&field_64, uVar9, 0)->set_max_size();
-            (&field_88, uVar9, 0)->set_max_size();
+            uVar10 = (ulong)bVar2;
+            (&field_64, uVar10, 0)->set_max_size();
+            (&field_88, uVar10, 0)->set_max_size();
             if (bVar2 != 0) {
-                uVar8 = 0;
+                uVar9 = 0;
                 do {
                     uVar4 = param_1->g2();
-                    puVar7 = (undefined2*)Array<unsigned short, eastl::allocator>::operator[](
-                        (Array<unsigned short, eastl::allocator>*)&field_64, uVar8);
-                    *puVar7 = uVar4;
+                    puVar8 = (undefined2*)Array<unsigned short, eastl::allocator>::operator[](
+                        (Array<unsigned short, eastl::allocator>*)&field_64, uVar9);
+                    *puVar8 = uVar4;
                     uVar4 = param_1->g2();
-                    puVar7 = (undefined2*)Array<unsigned short, eastl::allocator>::operator[](
-                        (Array<unsigned short, eastl::allocator>*)&field_88, uVar8);
-                    *puVar7 = uVar4;
-                    uVar8 = uVar8 + 1;
-                } while (uVar9 != uVar8);
+                    puVar8 = (undefined2*)Array<unsigned short, eastl::allocator>::operator[](
+                        (Array<unsigned short, eastl::allocator>*)&field_88, uVar9);
+                    *puVar8 = uVar4;
+                    uVar9 = uVar9 + 1;
+                } while (uVar10 != uVar9);
             }
             break;
         case 41:
             bVar2 = param_1->g1();
-            uVar9 = (ulong)bVar2;
-            (&field_112, uVar9, 0)->set_max_size();
-            (&field_136, uVar9, 0)->set_max_size();
+            uVar10 = (ulong)bVar2;
+            (&field_112, uVar10, 0)->set_max_size();
+            (&field_136, uVar10, 0)->set_max_size();
             if (bVar2 != 0) {
-                uVar8 = 0;
+                uVar9 = 0;
                 do {
                     uVar4 = param_1->g2();
-                    puVar7 = (undefined2*)Array<unsigned short, eastl::allocator>::operator[](
-                        (Array<unsigned short, eastl::allocator>*)&field_112, uVar8);
-                    *puVar7 = uVar4;
+                    puVar8 = (undefined2*)Array<unsigned short, eastl::allocator>::operator[](
+                        (Array<unsigned short, eastl::allocator>*)&field_112, uVar9);
+                    *puVar8 = uVar4;
                     uVar4 = param_1->g2();
-                    puVar7 = (undefined2*)Array<unsigned short, eastl::allocator>::operator[](
-                        (Array<unsigned short, eastl::allocator>*)&field_136, uVar8);
-                    *puVar7 = uVar4;
-                    uVar8 = uVar8 + 1;
-                } while (uVar9 != uVar8);
+                    puVar8 = (undefined2*)Array<unsigned short, eastl::allocator>::operator[](
+                        (Array<unsigned short, eastl::allocator>*)&field_136, uVar9);
+                    *puVar8 = uVar4;
+                    uVar9 = uVar9 + 1;
+                } while (uVar10 != uVar9);
             }
             break;
         case 44:
@@ -181,7 +180,7 @@ namespace jag::game {
                     PVar1.field_0._0_4_ = 1;
                     PVar1._8_4_ = 0;
                     PVar1._12_4_ = in_stack_ffffffffffffff44;
-                    PVar1.field_16._0_4_ = 0;
+                    PVar1.m_pos._0_4_ = 0;
                     PVar1._20_12_ = in_stack_ffffffffffffff4c;
                     pMVar6->LoadDataFromModelRawRT7(PVar1);
                     ((auStack_90 + -32))->~PacketView();

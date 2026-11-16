@@ -14,7 +14,7 @@ namespace jag::game {
                                             graphics::SceneViewData const&, graphics::EffectManager const&);
         virtual void Destruct();
         virtual bool CanRender() const;
-        GetWaterHeights() const;
+        shared_ptr GetWaterHeights() const;
         GetWaterPatches() const;
         GetAABB() const;
         GetHasFade() const;

@@ -37,7 +37,7 @@ namespace jag::render {
         // virtual methods in vtable order
         virtual ~RenderContext();
         virtual void OnDeviceLost();
-        GetImmediateContextUnsafe() const;
+        ImmediateRenderContext GetImmediateContextUnsafe() const;
         void SetScissorRectangle(bool, Viewport const&);
         void GetStats() const;
         void GetFPSCounter();
@@ -147,7 +147,7 @@ namespace jag::render {
         void GetBackBuffer() const;
         void SetTexturesFromStateCache();
         void ClearRenderTargets(math::Vector4T<float> const*, unsigned long);
-        GetDestroyRenderThreadFence();
+        Fence GetDestroyRenderThreadFence();
         void GetGLCoreProfileVerMajor() const;
         void GetThreadID() const;
         void lock();

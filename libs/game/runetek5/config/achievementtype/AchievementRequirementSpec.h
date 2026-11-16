@@ -10,9 +10,9 @@ namespace jag::game {
     public:
         GetIDs() const;
         GetDescription() const;
-        GetGroup() const;
-        GetTarget() const;
-        GetBitIndex() const;
+        int GetGroup() const;
+        int GetTarget() const;
+        int GetBitIndex() const;
         AchievementRequirementSpec(int, Array<int, eastl::allocator>&&, int,
                                    eastl::basic_string<char, BucketAllocatorEASTL> const&);
         AchievementRequirementSpec(int, Array<int, eastl::allocator>&&, int,
@@ -25,13 +25,13 @@ namespace jag::game {
         ~AchievementRequirementSpec();
 
         // data members, from how the methods use this: 72 bytes
-        int field_0; // offset 0
+        int m_group; // offset 0
         char _unknown_4[28];
-        int field_32; // offset 32
+        int m_target; // offset 32
         char _unknown_36[4];
         undefined1 field_40; // offset 40
         char _unknown_41[23];
-        int field_64; // offset 64
+        int m_bitIndex; // offset 64
         char _unknown_68[4];
     };
 
@@ -42,13 +42,13 @@ namespace jag::game {
     AchievementRequirementSpec::GetDescription() const;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    AchievementRequirementSpec::GetGroup() const;
+    int AchievementRequirementSpec::GetGroup() const;
 
     // 0x1000fa830: the linker folded this into oldscape::graphics::NXTPixScreen::GetWidth() const, which has identical code
-    AchievementRequirementSpec::GetTarget() const;
+    int AchievementRequirementSpec::GetTarget() const;
 
     // 0x100429b10: the linker folded this into StaticPointLight::GetRGB() const, which has identical code
-    AchievementRequirementSpec::GetBitIndex() const;
+    int AchievementRequirementSpec::GetBitIndex() const;
 
     // 0x1005548d0, 16 bytes, complete-object constructor, inline, placed by class name and debug map
     // AchievementRequirementSpec::AchievementRequirementSpec(int, Array<int, eastl::allocator>&&, int, eastl::basic_string<char, BucketAllocatorEASTL> const&): jumps straight to the base-object constructor
@@ -65,12 +65,12 @@ namespace jag::game {
     */
 
     AchievementRequirementSpec* AchievementRequirementSpec::operator=(AchievementRequirementSpec* param_1) {
-        field_0 = param_1->field_0;
+        m_group = param_1->m_group;
         Array<int, eastl::allocator>::operator=((Array<int, eastl::allocator>*)&field_8, (Array*)&param_1->field_8);
-        field_32 = param_1->field_32;
+        m_target = param_1->m_target;
         eastl::basic_string<char, BucketAllocatorEASTL>::operator=((basic_string<char, BucketAllocatorEASTL>*)&field_40,
                                                                    (basic_string*)&param_1->field_40);
-        field_64 = param_1->field_64;
+        m_bitIndex = param_1->m_bitIndex;
         return this;
     }
 
@@ -88,22 +88,22 @@ namespace jag::game {
     // AchievementRequirementSpec::AchievementRequirementSpec(int, Array<int, eastl::allocator>&&, int, eastl::basic_string<char, BucketAllocatorEASTL> const&)
     void AchievementRequirementSpec::AchievementRequirementSpec(int param_1, Array* param_2, int param_3,
                                                                 basic_string* param_4) {
-        field_0 = param_1;
+        m_group = param_1;
         new (&field_8, param_2) Array<int, eastl::allocator>();
-        field_32 = param_3;
+        m_target = param_3;
         new (&field_40) eastl::basic_string<char, BucketAllocatorEASTL>();
-        field_64 = -1;
+        m_bitIndex = -1;
     }
 
     // 0x10055af90, 112 bytes, base-object constructor, inline, placed by class name
     // AchievementRequirementSpec::AchievementRequirementSpec(int, Array<int, eastl::allocator>&&, int, eastl::basic_string<char, BucketAllocatorEASTL> const&, int)
     void AchievementRequirementSpec::AchievementRequirementSpec(int param_1, Array* param_2, int param_3,
                                                                 basic_string* param_4, int param_5) {
-        field_0 = param_1;
+        m_group = param_1;
         new (&field_8, param_2) Array<int, eastl::allocator>();
-        field_32 = param_3;
+        m_target = param_3;
         new (&field_40) eastl::basic_string<char, BucketAllocatorEASTL>();
-        field_64 = param_5;
+        m_bitIndex = param_5;
     }
 
     // 0x10055b000, 112 bytes, base-object constructor, inline, placed by class name
@@ -112,12 +112,12 @@ namespace jag::game {
         NpcUID* extraout_RDX;
         eastl local_20[8];
 
-        field_0 = param_1;
+        m_group = param_1;
         new (&field_8, param_2) Array<int, eastl::allocator>();
-        field_32 = -1;
+        m_target = -1;
         eastl::destruct<oldscape::highlight::NpcUID*>(local_20, (NpcUID*)"EASTL basic_string", extraout_RDX);
         new (&field_40, (BucketAllocatorEASTL*)"") eastl::basic_string<char, BucketAllocatorEASTL>();
-        field_64 = -1;
+        m_bitIndex = -1;
     }
 
     // 0x10055cbb0, 16 bytes, complete-object constructor, inline, placed by class name
@@ -126,11 +126,11 @@ namespace jag::game {
     // 0x10055cca0, 64 bytes, base-object constructor, inline, placed by class name
     // AchievementRequirementSpec::AchievementRequirementSpec(AchievementRequirementSpec&&)
     void AchievementRequirementSpec::AchievementRequirementSpec(AchievementRequirementSpec* param_1) {
-        field_0 = param_1->field_0;
+        m_group = param_1->m_group;
         new (&field_8, (Array*)&param_1->field_8) Array<int, eastl::allocator>();
-        field_32 = param_1->field_32;
+        m_target = param_1->m_target;
         new (&field_40) eastl::basic_string<char, BucketAllocatorEASTL>();
-        field_64 = param_1->field_64;
+        m_bitIndex = param_1->m_bitIndex;
     }
 
     // 0x10055cf30, 16 bytes, complete-object constructor, inline, placed by class name
@@ -142,12 +142,12 @@ namespace jag::game {
         NpcUID* extraout_RDX;
         eastl local_20[8];
 
-        field_0 = 0;
+        m_group = 0;
         new (&field_8, 0) Array<int, eastl::allocator>();
-        field_32 = -1;
+        m_target = -1;
         eastl::destruct<oldscape::highlight::NpcUID*>(local_20, (NpcUID*)"EASTL basic_string", extraout_RDX);
         new (&field_40, (BucketAllocatorEASTL*)"") eastl::basic_string<char, BucketAllocatorEASTL>();
-        field_64 = -1;
+        m_bitIndex = -1;
     }
 
     // 0x1005f0d00, 16 bytes, complete-object destructor, inline, placed by class name

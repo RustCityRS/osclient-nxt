@@ -10,13 +10,13 @@ namespace jag::game {
     shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> MapElementType::NullMapElementType;
 
     // 0x1000fa830: the linker folded this into oldscape::graphics::NXTPixScreen::GetWidth() const, which has identical code
-    MapElementType::GetMyID() const;
+    int MapElementType::GetMyID() const;
 
     // 0x10012f260: the linker folded this into oldscape::social::OnlinePlayerData<oldscape::social::FriendChatUser>::GetWorldId() const, which has identical code
-    MapElementType::GetTextSize() const;
+    uint MapElementType::GetTextSize() const;
 
     // 0x1001be5d0: the linker folded this into graphics::SunlightOptions::GetShadowQuality() const, which has identical code
-    MapElementType::GetSpriteID() const;
+    uint MapElementType::GetSpriteID() const;
 
     // 0x100515c90, 2704 bytes, placed by class name and debug map
     // MapElementType::DecodeType(PacketT<Array<unsigned char, eastl::allocator> >&, unsigned int)
@@ -54,7 +54,7 @@ namespace jag::game {
         switch (param_2) {
         case 1:
             uVar8 = param_1->gSmart2or4s();
-            field_56 = uVar8;
+            m_spriteID = uVar8;
             break;
         case 2:
             uVar8 = param_1->gSmart2or4s();
@@ -65,20 +65,20 @@ namespace jag::game {
             goto LAB_1005162cc;
         case 4:
             iVar7 = param_1->g3();
-            field_128 = iVar7 << 8 | 255;
+            m_textRGBA = iVar7 << 8 | 255;
             break;
         case 5:
             iVar7 = param_1->g3();
-            field_132 = iVar7 << 8 | 255;
+            m_textMouseOverRGBA = iVar7 << 8 | 255;
             break;
         case 6:
             bVar3 = param_1->g1();
-            field_136 = (uint)bVar3;
+            m_textSize = (uint)bVar3;
             break;
         case 7:
             uVar19 = param_1->g1();
             if ((uVar19 & 1) == 0) {
-                field_148 = 0;
+                m_showOnWorldMap = 0;
             }
             if ((uVar19 & 2) != 0) {
                 m_showOnMiniMap = 1;
@@ -286,11 +286,11 @@ namespace jag::game {
             break;
         case 21:
             uVar8 = param_1->g4();
-            field_144 = uVar8 << 8 | uVar8 >> 24;
+            m_textBackgroundOutlineRGBA = uVar8 << 8 | uVar8 >> 24;
             break;
         case 22:
             uVar8 = param_1->g4();
-            field_140 = uVar8 << 8 | uVar8 >> 24;
+            m_textBackgroundFillRGBA = uVar8 << 8 | uVar8 >> 24;
             break;
         case 23:
             puVar22 = &field_312;
@@ -331,7 +331,7 @@ namespace jag::game {
             break;
         case 25:
             uVar9 = param_1->gSmart2or4s();
-            field_336 = uVar9;
+            m_flashSpriteID = uVar9;
             break;
         case 26:
         case 27:
@@ -380,11 +380,11 @@ namespace jag::game {
             break;
         case 28:
             bVar3 = param_1->g1();
-            field_340 = (uint)bVar3;
+            m_minimapIconScale = (uint)bVar3;
             break;
         case 29:
             bVar3 = param_1->g1();
-            field_344 = (uint)bVar3;
+            m_hAlign = (uint)bVar3;
             break;
         case 30:
             bVar3 = param_1->g1();
@@ -556,7 +556,7 @@ namespace jag::game {
         char local_31;
 
         if (((int)CONCAT71(in_register_00000011, param_2) == 0) || (uVar1 = field_60, uVar1 == 4294967295)) {
-            uVar1 = field_56;
+            uVar1 = m_spriteID;
         }
         if (uVar1 == 4294967295) {
             return (PacketView*)&graphics::SpriteAtlasReference::NullSpriteAtlasReference;
@@ -653,7 +653,7 @@ namespace jag::game {
         uint local_38;
         uint local_34;
 
-        if (field_336 == -1) {
+        if (m_flashSpriteID == -1) {
             return (PacketView*)&graphics::SpriteAtlasReference::NullSpriteAtlasReference;
         }
         this_00 = (MapElementTypeList*)field_24;
@@ -670,8 +670,8 @@ namespace jag::game {
         this_02 = (Js5ResourceProvider*)field_24->GetOutputType();
         this_07 = &local_b0;
         PacketView::PacketView(this_07);
-        puVar3 = (undefined*)this_02->GetFile(this_07, Js5Archive::JS5_SPRITES, field_336, 0, (Priority*)Priority::HIGH,
-                                              true, false, false);
+        puVar3 = (undefined*)this_02->GetFile(this_07, Js5Archive::JS5_SPRITES, m_flashSpriteID, 0,
+                                              (Priority*)Priority::HIGH, true, false, false);
         if (puVar3 == DataStatus::READY) {
             eastl::vector<RGBAImage, BucketAllocatorEASTL>::vector();
             cVar2 = RAWDecoder::LoadFromPacket(local_58, &local_b0);
@@ -702,7 +702,7 @@ namespace jag::game {
                 local_78.AddRuntimeSprite(local_68, (uint)local_60, local_38, local_34, (fixed_vector*)&DAT_00000001,
                                           psVar5);
                 local_88->~shared_ptr();
-                this_07 = (PacketView*)this_00->CacheSprite(&local_78, field_336);
+                this_07 = (PacketView*)this_00->CacheSprite(&local_78, m_flashSpriteID);
                 local_78.~shared_ptr();
             }
             local_58->~vector();

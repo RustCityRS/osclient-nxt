@@ -11,7 +11,7 @@ namespace jag::http {
         void SetTotalTimeoutSeconds(int);
         void GetSync(eastl::string const&);
         void GetState() const;
-        GetErrorCode() const;
+        int GetErrorCode() const;
         GetResponseCode() const;
         GetData() const;
         GetRedirectLocation();
@@ -41,7 +41,9 @@ namespace jag::http {
         void GetErrorInformation() const;
 
         // data members, from how the methods use this: 664 bytes
-        char _unknown_0[160];
+        char _unknown_0[136];
+        undefined1 m_pData[4]; // offset 136
+        char _unknown_140[20];
         undefined1 field_160; // offset 160
         char _unknown_161[31];
         ulong field_192; // offset 192
@@ -56,8 +58,8 @@ namespace jag::http {
         clock_t field_592;    // offset 592
         undefined1 m_aborted; // offset 600
         char _unknown_601[7];
-        undefined8 field_608; // offset 608
-        int field_616;        // offset 616
+        undefined8 m_responseCode; // offset 608
+        int m_errorCode;           // offset 616
         char _unknown_620[44];
     };
 

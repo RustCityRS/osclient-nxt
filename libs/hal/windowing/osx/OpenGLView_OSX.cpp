@@ -23,7 +23,7 @@ namespace jag {
 
         field_0 = &PTR__OpenGLView_100efe1c0;
         field_8 = param_5;
-        field_16 = param_6;
+        m_inputHAL = param_6;
         *(undefined8*)&field_24 = 4575657221408423936;
         m_fullScreenResolution = 0;
         field_36 = 0;
@@ -262,7 +262,7 @@ namespace jag {
         uVar5 = field_48;
         field_48 = uVar9;
         (*(code*)PTR__objc_release_100ee9e60)(uVar5);
-        field_56 = (double)param_2;
+        m_cursorHotspot = (double)param_2;
         field_64 = (double)param_3;
         _CGImageRelease(uVar7);
         _CGDataProviderRelease(local_48);

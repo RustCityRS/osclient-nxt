@@ -57,7 +57,7 @@ namespace jag::graphics {
     // 0x1000643d0, 16 bytes, placed by class name
     // SunlightOptions::SetShadowQuality(GraphicsQuality)
     void SunlightOptions::SetShadowQuality(undefined4 param_2) {
-        field_56 = param_2;
+        m_shadowQuality = param_2;
     }
 
     // 0x1000643e0, 16 bytes, placed by class name

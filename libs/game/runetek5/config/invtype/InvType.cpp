@@ -7,7 +7,7 @@
 
 namespace jag::game {
     // 0x1001be5d0: the linker folded this into graphics::SunlightOptions::GetShadowQuality() const, which has identical code
-    InvType::GetSize() const;
+    uint InvType::GetSize() const;
 
     // 0x100524fe0, 208 bytes, placed by class name and debug map
     // InvType::DecodeType(PacketT<Array<unsigned char, eastl::allocator> >&, unsigned int)
@@ -39,7 +39,7 @@ namespace jag::game {
             }
         } else if (param_2 == 2) {
             uVar2 = param_1->g2();
-            field_56 = (uint)uVar2;
+            m_size = (uint)uVar2;
         } else {
             uVar4 = logger::default_logger();
             logger::Logger::Log(uVar4, 0, 2,

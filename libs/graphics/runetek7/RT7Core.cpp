@@ -21,22 +21,22 @@ namespace jag::graphics {
     RT7Core::GetViewportHeight() const;
 
     // 0x1000b7a80: the linker folded this into oldscape::minimenu::MinimenuEntry::GetObjCount() const, which has identical code
-    RT7Core::GetViewportWidth() const;
+    uint RT7Core::GetViewportWidth() const;
 
     // 0x10011c770: the linker folded this into eastl::rbtree<int, eastl::pair<int const, unsigned long>, eastl::less<int>, eastl::fixed_node_allocator<48ul, 5ul, 8ul, 0ul, true, eastl::allocator>, eastl::use_first<eastl::pair<int const, unsigned long> >, true, true>::size() const, which has identical code
     RT7Core::GetResourceProvider();
 
     // 0x10017a5a0: the linker folded this into http::HTTPRequest::GetData() const, which has identical code
-    RT7Core::GetMSAASampleCount();
+    uint RT7Core::GetMSAASampleCount();
 
     // 0x1001c4610: the linker folded this into RT7Core::GetGBufferRT(), which has identical code
-    RT7Core::GetGBufferRT() const;
+    shared_ptr RT7Core::GetGBufferRT() const;
 
     // 0x1001fb280: the linker folded this into http::CRMData::GetActionInfo() const, which has identical code
-    RT7Core::GetClippingRectangle() const;
+    int RT7Core::GetClippingRectangle() const;
 
     // 0x100414cb0: the linker folded this into math::Transitionable<IrradianceSHCoefConsts>::GetEndValue(), which has identical code
-    RT7Core::GetImmediateThreadPool();
+    ThreadPool RT7Core::GetImmediateThreadPool();
 
     // 0x1004491d0: the linker folded this into game::SceneManager::GetDebugCursorPosition() const, which has identical code
     RT7Core::GetRenderTargetsManager();
@@ -89,9 +89,9 @@ namespace jag::graphics {
         field_80 = pJVar5;
         field_88 = pJVar6;
         field_96 = pJVar7;
-        field_104 = 0;
+        m_viewportWidth = 0;
         field_108 = 0;
-        new (&field_112) ClippingRectangle();
+        new (&m_clippingRectangle) ClippingRectangle();
         field_128 = -1;
         field_132 = -1;
         m_mSAASampleCount = param_8;
@@ -104,11 +104,11 @@ namespace jag::graphics {
         new (this_00) ThreadPool(*puVar9, "ImmediateTP");
         this_01 = &field_344;
         new (this_01) render::RenderTargetsManager("GlobalRTManager", 128, -1);
-        new (field_448, (RenderTargetsManager*)this_01, 8) postprocess::PostProcessManager();
+        new (m_postProcessManager, (RenderTargetsManager*)this_01, 8) postprocess::PostProcessManager();
         new (&field_2128, (RenderTargetsManager*)this_01, (ThreadPool*)this_00) GeometryPass();
         new (&field_2944, (RenderTargetsManager*)this_01, (ThreadPool*)this_00) QueryPass();
-        new (&field_3792, (RenderTargetsManager*)this_01, (PostProcessManager*)field_448, (ThreadPool*)this_00)
-            ForwardLightingPass();
+        new (&field_3792, (RenderTargetsManager*)this_01, (PostProcessManager*)m_postProcessManager,
+             (ThreadPool*)this_00) ForwardLightingPass();
         new (&field_4672, (RenderTargetsManager*)this_01, (ThreadPool*)this_00) ObjectHighlightPass();
         new (&field_6096) SSAOPass();
         new (&field_8192, (RenderTargetsManager*)this_01, (ThreadPool*)this_00) ReflectionPass();
@@ -244,7 +244,7 @@ namespace jag::graphics {
         (&field_3792)->~ForwardLightingPass();
         (&field_2944)->~QueryPass();
         (&field_2128)->~GeometryPass();
-        field_448->~PostProcessManager();
+        m_postProcessManager->~PostProcessManager();
         (&field_344)->~RenderTargetsManager();
         m_immediateThreadPool->~ThreadPool();
         (&field_16)->~RenderDeviceOnEndFrame();
@@ -418,17 +418,17 @@ namespace jag::graphics {
         }
         uVar10 = (undefined7)((ulong)this_01 >> 8);
         uVar9 = (undefined4)CONCAT71(uVar10, 1);
-        if (field_104 == local_38) {
+        if (m_viewportWidth == local_38) {
             uVar9 = (undefined4)CONCAT71(uVar10, field_108 != local_34);
         }
         if ((char)uVar9 != '\0') {
-            field_104 = local_38;
+            m_viewportWidth = local_38;
             field_108 = local_34;
             uVar6 = logger::default_logger();
             logger::Logger::Log(
                 uVar6, 0, 5,
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/RT7Core.cpp",
-                725, "RT7Core Main Render Target Viewport Resolution: %u, %u", field_104, field_108);
+                725, "RT7Core Main Render Target Viewport Resolution: %u, %u", m_viewportWidth, field_108);
             uVar6 = logger::default_logger();
             uVar3 = GetBackBufferWidth(this);
             uVar4 = GetBackBufferHeight(this);
@@ -787,7 +787,7 @@ namespace jag::graphics {
         byte local_31;
 
         local_50->~AutoSingleton("Post_Processing");
-        puVar11 = field_448;
+        puVar11 = m_postProcessManager;
         bVar4 = puVar11->Init();
         pRVar6 = (RenderTargetsManager*)puVar11->GetRenderTargetsManager();
         local_88 = (AvgLuminanceFilter*)puVar11->GetAvgLuminanceFilter();
@@ -901,7 +901,7 @@ namespace jag::graphics {
         plVar1 = (long*)shared_ptr<postprocess::EquirectangularEffect>::operator->(
             (shared_ptr<postprocess::EquirectangularEffect>*)&field_13112);
         (**(code**)(*plVar1 + 48))(plVar1);
-        field_448->Destroy();
+        m_postProcessManager->Destroy();
     }
 
     // 0x100980700, 32 bytes, placed by class name
@@ -1083,13 +1083,13 @@ namespace jag::graphics {
         local_3c = param_1;
         local_38 = param_2;
         if (CONCAT31(in_register_00000089, param_5) == 0) {
-            if ((((field_112 == param_1) && (field_116 == param_2)) && (field_128 == param_3)) &&
+            if ((((m_clippingRectangle == param_1) && (field_116 == param_2)) && (field_128 == param_3)) &&
                 (field_132 == param_4)) {
                 return;
             }
-            if ((!param_5) && (field_112 != -1)) {
-                piVar2 = std::max<int>(&field_112, &local_3c);
-                field_112 = *piVar2;
+            if ((!param_5) && (m_clippingRectangle != -1)) {
+                piVar2 = std::max<int>(&m_clippingRectangle, &local_3c);
+                m_clippingRectangle = *piVar2;
                 piVar2 = std::max<int>(&field_116, &local_38);
                 field_116 = *piVar2;
                 local_34 = param_3 + param_1;
@@ -1101,14 +1101,14 @@ namespace jag::graphics {
                 goto LAB_100980c7e;
             }
         }
-        field_112 = param_1;
+        m_clippingRectangle = param_1;
         field_116 = param_2;
         field_120 = param_3 + param_1;
         field_124 = param_4 + param_2;
     LAB_100980c7e:
-        iVar1 = (&field_112)->GetWidth();
+        iVar1 = (&m_clippingRectangle)->GetWidth();
         field_128 = iVar1;
-        iVar1 = (&field_112)->GetHeight();
+        iVar1 = (&m_clippingRectangle)->GetHeight();
         field_132 = iVar1;
     }
 
@@ -1123,10 +1123,10 @@ namespace jag::graphics {
         RT7Core* in_RSI;
 
         iVar3 = GetInterfaceHeight(in_RSI);
-        iVar1 = in_RSI->field_112;
+        iVar1 = in_RSI->m_clippingRectangle;
         iVar2 = in_RSI->field_124;
-        iVar4 = (&in_RSI->field_112)->GetWidth();
-        iVar5 = (&in_RSI->field_112)->GetHeight();
+        iVar4 = (&in_RSI->m_clippingRectangle)->GetWidth();
+        iVar5 = (&in_RSI->m_clippingRectangle)->GetHeight();
         new (this) oldscape::dash3d::GridRect(iVar1, iVar3 - iVar2, iVar4, iVar5);
         return this;
     }
@@ -1134,10 +1134,10 @@ namespace jag::graphics {
     // 0x100980d60, 48 bytes, placed by class name
     // RT7Core::ClippingTest(int, int, int, int)
     bool RT7Core::ClippingTest(int param_1, int param_2, int param_3, int param_4) {
-        if (field_112 == -1) {
+        if (m_clippingRectangle == -1) {
             return true;
         }
-        if (((field_120 < param_1) || (param_3 < field_112)) || (field_124 < param_2)) {
+        if (((field_120 < param_1) || (param_3 < m_clippingRectangle)) || (field_124 < param_2)) {
             return false;
         }
         return field_116 <= param_4;
@@ -1182,7 +1182,7 @@ namespace jag::graphics {
         InitRenderers(this);
         InitRenderTargets(this, m_mSAASampleCount);
         InitSSAO(this);
-        field_448->CreateRenderingResources();
+        m_postProcessManager->CreateRenderingResources();
         (&field_20664)->CreateRenderingResources();
         (&field_14384)->CreateRenderingResources();
         (&field_18352, this)->Initialise();
@@ -1199,7 +1199,7 @@ namespace jag::graphics {
         this_00 = (ColourGradingBloomEffect*)shared_ptr<postprocess::ColourGradingBloomEffect>::operator->(
             (shared_ptr<postprocess::ColourGradingBloomEffect>*)&field_13064);
         this_00->DestroyRenderingResources();
-        field_448->DestroyRenderingResources();
+        m_postProcessManager->DestroyRenderingResources();
         (&field_18352)->Destroy();
         (&field_14384)->DestroyRenderingResources();
         (&field_20664)->DestroyRenderingResources();

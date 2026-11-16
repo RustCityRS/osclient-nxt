@@ -26,7 +26,10 @@ namespace jag::oldscape::rseven {
         SetGamma(float);
 
         // data members, from how the methods use this: 112 bytes, the first 48 are RT7TextureDataProvider
-        char _unknown_48[64];
+        char _unknown_48[32];
+        undefined1 m_pTexturesCompressedDXTArchive[8]; // offset 80
+        char _unknown_88[16];
+        undefined1 m_pSpritesArchive[8]; // offset 104
     };
 
     // 0x1001bc4c0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)

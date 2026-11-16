@@ -8,10 +8,10 @@
 
 namespace jag::graphics {
     // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    ModularParticleEmitterTemplate::GetRenderPassBits() const;
+    Callstack ModularParticleEmitterTemplate::GetRenderPassBits() const;
 
     // 0x1000602b0: the linker folded this into oldscape::widgets::ScrollBarWidget::ThumbIsVisible() const, which has identical code
-    ModularParticleEmitterTemplate::IsContinuous() const;
+    bool ModularParticleEmitterTemplate::IsContinuous() const;
 
     // 0x1000e5d50: the linker folded this into oldscape::rs2lib::CoordZoneSource::GetRotation() const, which has identical code
     ModularParticleEmitterTemplate::GetRenderMode() const;
@@ -20,16 +20,16 @@ namespace jag::graphics {
     ModularParticleEmitterTemplate::GetTransform() const;
 
     // 0x1001be5d0: the linker folded this into SunlightOptions::GetShadowQuality() const, which has identical code
-    ModularParticleEmitterTemplate::GetMaterialID() const;
+    uint ModularParticleEmitterTemplate::GetMaterialID() const;
 
     // 0x100414cb0: the linker folded this into math::Transitionable<IrradianceSHCoefConsts>::GetEndValue(), which has identical code
     ModularParticleEmitterTemplate::GetModules() const;
 
     // 0x100448110: the linker folded this into game::Entity::GetCurrentLOD() const, which has identical code
-    ModularParticleEmitterTemplate::GetNumTilesPerRow() const;
+    uchar ModularParticleEmitterTemplate::GetNumTilesPerRow() const;
 
     // 0x1004c67a0: the linker folded this into game::WaterType::GetFoamMaterialScale() const, which has identical code
-    ModularParticleEmitterTemplate::GetLifetime() const;
+    float ModularParticleEmitterTemplate::GetLifetime() const;
 
     // 0x1008291d0, 112 bytes, placed by class name and debug map
     // ModularParticleEmitterTemplate::RenderDebug(math::Matrix44T<float>, float) const
@@ -37,8 +37,8 @@ namespace jag::graphics {
         undefined8* puVar1;
         undefined8* puVar2;
 
-        puVar1 = (undefined8*)(&field_144)->HeapBeginPtr();
-        puVar2 = (undefined8*)(&field_144)->end();
+        puVar1 = (undefined8*)(&m_modules)->HeapBeginPtr();
+        puVar2 = (undefined8*)(&m_modules)->end();
         if (puVar1 != puVar2) {
             do {
                 (**(code**)(*(long*)*puVar1 + 32))(param_2, (long*)*puVar1, &param_1);
@@ -54,8 +54,8 @@ namespace jag::graphics {
         undefined8* puVar1;
         undefined8* puVar2;
 
-        puVar1 = (undefined8*)(&field_144)->HeapBeginPtr();
-        puVar2 = (undefined8*)(&field_144)->end();
+        puVar1 = (undefined8*)(&m_modules)->HeapBeginPtr();
+        puVar2 = (undefined8*)(&m_modules)->end();
         for (; puVar1 != puVar2; puVar1 = puVar1 + 1) {
             (**(code**)(*(long*)*puVar1 + 24))(param_1, (long*)*puVar1, param_2, param_3, param_4);
         }
@@ -73,17 +73,17 @@ namespace jag::graphics {
         undefined8 uVar7;
 
         field_0 = (ModularParticleSystemTemplate*)0;
-        new (field_8) callstack::Callstack();
-        new ((field_8 + 8)) eastl::bitset<4ul, unsigned char>();
+        new (m_renderPassBits) callstack::Callstack();
+        new ((m_renderPassBits + 8)) eastl::bitset<4ul, unsigned char>();
         new (&field_24) eastl::string();
-        field_56 = 3000;
+        m_materialID = 3000;
         m_maxParticles = 1000;
         m_maxActiveParticlesEstimate = 0;
         m_numTiles = '\0';
         m_numTilesPerRow = '\0';
-        field_68 = 0.0;
-        field_72 = 1.0;
-        field_76 = false;
+        m_warmupTime = 0.0;
+        m_lifetime = 1.0;
+        m_continuous = false;
         uVar1 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 8);
         uVar2 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 16);
         uVar3 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 24);
@@ -91,7 +91,7 @@ namespace jag::graphics {
         uVar5 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 40);
         uVar6 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 48);
         uVar7 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 56);
-        field_80 = *(undefined8*)PTR_IDENTITY_100ee6730;
+        m_transform = *(undefined8*)PTR_IDENTITY_100ee6730;
         field_88 = uVar1;
         field_96 = uVar2;
         field_104 = uVar3;
@@ -99,7 +99,7 @@ namespace jag::graphics {
         field_120 = uVar5;
         field_128 = uVar6;
         field_136 = uVar7;
-        new (&field_144) eastl::fixed_vector<particlemodules::Module*, 1ul, true, eastl::allocator>();
+        new (&m_modules) eastl::fixed_vector<particlemodules::Module*, 1ul, true, eastl::allocator>();
     }
 
     // 0x1008293b0, 16 bytes, complete-object constructor, placed by class name and debug map
@@ -112,21 +112,21 @@ namespace jag::graphics {
 
     ModularParticleEmitterTemplate* ModularParticleEmitterTemplate::operator=(ModularParticleEmitterTemplate* param_1) {
         std::swap<ModularParticleSystemTemplate_const*>(&field_0, &param_1->field_0);
-        std::swap<RenderPassBitSet>((RenderPassBitSet*)field_8, (RenderPassBitSet*)param_1->field_8);
-        std::swap<ParticleRenderMode>(field_8 + 4, param_1->field_8 + 4);
+        std::swap<RenderPassBitSet>((RenderPassBitSet*)m_renderPassBits, (RenderPassBitSet*)param_1->m_renderPassBits);
+        std::swap<ParticleRenderMode>(m_renderPassBits + 4, param_1->m_renderPassBits + 4);
         std::swap<eastl::string>((basic_string*)&field_24, (basic_string*)&param_1->field_24);
-        std::swap<int>((int*)&field_56, (int*)&param_1->field_56);
+        std::swap<int>((int*)&m_materialID, (int*)&param_1->m_materialID);
         std::swap<unsigned short>(&m_maxParticles, &param_1->m_maxParticles);
         std::swap<unsigned short>(&m_maxActiveParticlesEstimate, &param_1->m_maxActiveParticlesEstimate);
         std::swap<unsigned char>(&m_numTiles, &param_1->m_numTiles);
         std::swap<unsigned char>(&m_numTilesPerRow, &param_1->m_numTilesPerRow);
-        std::swap<float>(&field_68, &param_1->field_68);
-        std::swap<float>(&field_72, &param_1->field_72);
-        std::swap<bool>(&field_76, &param_1->field_76);
-        std::swap<math::Matrix44T<float>>((Matrix44T*)&field_80, (Matrix44T*)&param_1->field_80);
+        std::swap<float>(&m_warmupTime, &param_1->m_warmupTime);
+        std::swap<float>(&m_lifetime, &param_1->m_lifetime);
+        std::swap<bool>(&m_continuous, &param_1->m_continuous);
+        std::swap<math::Matrix44T<float>>((Matrix44T*)&m_transform, (Matrix44T*)&param_1->m_transform);
         eastl::fixed_vector<particlemodules::Module*, 1ul, true, eastl::allocator>::operator=(
-            (fixed_vector<particlemodules::Module*, 1ul, true, eastl::allocator>*)&field_144,
-            (fixed_vector*)&param_1->field_144);
+            (fixed_vector<particlemodules::Module*, 1ul, true, eastl::allocator>*)&m_modules,
+            (fixed_vector*)&param_1->m_modules);
         eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
         return this;
     }
@@ -138,7 +138,7 @@ namespace jag::graphics {
         long* plVar1;
         long* plVar2;
 
-        this_00 = &field_144;
+        this_00 = &m_modules;
         plVar1 = (long*)this_00->HeapBeginPtr();
         plVar2 = (long*)this_00->end();
         for (; plVar1 != plVar2; plVar1 = plVar1 + 1) {
@@ -204,13 +204,13 @@ namespace jag::graphics {
         eastl::string::operator=((eastl::string*)&field_24, (basic_string*)(local_f0 + 40));
         ((local_f0 + 40))->~basic_string();
         bVar3 = param_3->g1();
-        *(uint*)(field_8 + 4) = (uint)bVar3;
+        *(uint*)(m_renderPassBits + 4) = (uint)bVar3;
         if (1 < (byte)local_3c) {
             bVar3 = param_3->g1();
-            ((field_8 + 8), (uint)bVar3)->from_uint32();
+            ((m_renderPassBits + 8), (uint)bVar3)->from_uint32();
         }
         uVar7 = param_3->g2();
-        field_56 = (uint)uVar7;
+        m_materialID = (uint)uVar7;
         uVar7 = param_3->g2();
         m_maxParticles = uVar7;
         uVar4 = param_3->g1();
@@ -218,15 +218,15 @@ namespace jag::graphics {
         uVar4 = param_3->g1();
         m_numTilesPerRow = uVar4;
         fVar14 = (float)param_3->gFloat();
-        field_68 = fVar14;
+        m_warmupTime = fVar14;
         fVar14 = (float)param_3->gFloat();
-        field_72 = fVar14;
+        m_lifetime = fVar14;
         math::Vector3T<float>::Vector3T(local_88, param_3, false);
         new (&local_70) math::Vector3T<float>(param_3, false);
         math::Matrix33RotationYawPitchRoll<float>((math*)local_f0, local_70, local_6c, local_68);
         new ((local_f0 + 40)) math::Matrix44T<float>(local_f0, local_88);
-        math::Matrix44T<float>::operator=((Matrix44T<float>*)&field_80, (Matrix44T*)(local_f0 + 40));
-        puVar11 = &field_144;
+        math::Matrix44T<float>::operator=((Matrix44T<float>*)&m_transform, (Matrix44T*)(local_f0 + 40));
+        puVar11 = &m_modules;
         local_60 = this;
         param_3->g1();
         eastl::vector<particlemodules::Module*,
@@ -450,10 +450,10 @@ namespace jag::graphics {
                 if ((char)local_58 == '\0') {
                     bVar3 = this_01->IsSingleBurstSpawn();
                     pMVar2 = local_60;
-                    local_60->field_76 = (bool)(local_60->field_76 | bVar3 ^ 1);
+                    local_60->m_continuous = (bool)(local_60->m_continuous | bVar3 ^ 1);
                     uVar15 = this_01->GetSpawnRate();
                     fVar14 = (float)uVar15;
-                    if (pMVar2->field_76 != false) {
+                    if (pMVar2->m_continuous != false) {
                         local_58 = uVar15;
                         this_01->GetLifetimeRange();
                         fVar14 = (float)local_58 * extraout_XMM0_Db;
@@ -476,9 +476,9 @@ namespace jag::graphics {
             } while (bVar13);
         }
         pMVar2 = local_60;
-        puVar11 = local_60->field_8;
+        puVar11 = local_60->m_renderPassBits;
         puVar11->AddFormatType(4);
-        if (*(int*)(pMVar2->field_8 + 4) != 2) {
+        if (*(int*)(pMVar2->m_renderPassBits + 4) != 2) {
             puVar11->AddFormatType(2);
             cVar6 = IsFlagSet(pMVar2, 0);
             if (cVar6 != '\0') {
@@ -520,8 +520,10 @@ namespace jag::graphics {
         uVar2 = param_1->g1();
         m_numLoops = uVar2;
         bVar3 = param_1->g1();
-        this_00 = (vector<ModularParticleEmitterTemplate,
-                          eastl::fixed_vector_allocator<192ul, 1ul, 16ul, 0ul, true, eastl::allocator>>*)(field_44 + 4);
+        this_00 =
+            (vector<ModularParticleEmitterTemplate,
+                    eastl::fixed_vector_allocator<192ul, 1ul, 16ul, 0ul, true, eastl::allocator>>*)(m_renderPassBits +
+                                                                                                    4);
         eastl::vector<ModularParticleEmitterTemplate,
                       eastl::fixed_vector_allocator<192ul, 1ul, 16ul, 0ul, true, eastl::allocator>>::resize(this_00,
                                                                                                             (ulong)
@@ -535,7 +537,7 @@ namespace jag::graphics {
             local_50 = pMVar7;
             pMVar7 = (Minimap*)this_02->LoadFromPacket(this, uVar1, param_1);
             if ((char)pMVar7 != '\0') {
-                this_01 = field_44;
+                this_01 = m_renderPassBits;
                 pMVar8 = pMVar7;
                 local_48 = this_01;
                 local_40 = param_1;

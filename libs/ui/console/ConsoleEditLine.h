@@ -8,8 +8,8 @@
 namespace jag::ui {
     class ConsoleEditLine {
     public:
-        GetPos() const;
-        GetDrawOffset() const;
+        int GetPos() const;
+        int GetDrawOffset() const;
         void Draw(int, int, int, int, shared_ptr<graphics::Font> const&, graphics::RT7Core*, graphics::FontHelpers*,
                   int,
                   std::function<void(eastl::fixed_string<char, 256, true, eastl::allocator>&,
@@ -45,13 +45,13 @@ namespace jag::ui {
         void SetText(StringView);
 
         // data members, from how the methods use this: 336 bytes
-        int field_0;        // offset 0
+        int m_drawOffset;   // offset 0
         int m_pos;          // offset 4
         undefined1 field_8; // offset 8
         char _unknown_9[295];
-        int field_304;  // offset 304
-        bool field_308; // offset 308
-        char field_309; // offset 309
+        int field_304;      // offset 304
+        bool field_308;     // offset 308
+        char m_cursorShown; // offset 309
         char _unknown_310[2];
         undefined4 field_312; // offset 312
         uint field_316;       // offset 316
@@ -155,12 +155,12 @@ namespace jag::ui {
     // 0x1006ae460, 80 bytes, base-object constructor, inline, placed by class name
     // ConsoleEditLine::ConsoleEditLine()
     void ConsoleEditLine::ConsoleEditLine() {
-        field_0 = 0;
+        m_drawOffset = 0;
         m_pos = 0;
         new (&field_8) eastl::fixed_string<char, 256, true, eastl::allocator>();
         field_304 = -1;
         field_308 = false;
-        field_309 = '\x01';
+        m_cursorShown = '\x01';
         field_312 = 4294967295;
         field_316 = 255;
         field_320 = 255;

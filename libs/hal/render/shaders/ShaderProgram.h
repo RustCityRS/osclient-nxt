@@ -114,10 +114,10 @@ namespace jag::render {
         undefined** field_0;            // offset 0, vtable pointer
         RenderDeviceOnEndFrame field_8; // offset 8
         char _unknown_9[111];
-        undefined1 field_120; // offset 120
+        undefined1 m_vertexShaderSource; // offset 120
         char _unknown_121[39];
-        shared_ptr field_160; // offset 160
-        undefined1 field_176; // offset 176
+        shared_ptr field_160;           // offset 160
+        undefined1 m_pixelShaderSource; // offset 176
         char _unknown_177[39];
         shared_ptr field_216; // offset 216
         char _unknown_232[40];

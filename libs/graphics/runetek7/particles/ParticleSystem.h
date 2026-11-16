@@ -14,7 +14,7 @@ namespace jag::graphics {
         virtual void GatherDrawableElements(DrawableQueue&, RT7Core&, SceneViewData const&, EffectManager const&);
         virtual GetTransformedTriangle(unsigned int, math::Vector4T<float> (&)[3]);
         virtual void RenderDebug(RenderPassType, DrawableElement&) const;
-        GetMaterial();
+        ParticleMaterial GetMaterial();
         void GetGlobalEffectorTemplate(unsigned int) const;
         void GetEffectors(eastl::vector<ParticleEffector const*, BucketAllocatorEASTL>&, unsigned int) const;
         void CreateRenderingResources();

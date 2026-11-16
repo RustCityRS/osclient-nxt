@@ -9,7 +9,7 @@ namespace jag::game {
     // BaseConfigTypeList::GetGroup(shared_ptr<PacketT<Array<unsigned char, eastl::allocator> > >&, Js5ArchiveSettings const&, unsigned int, Priority const*, bool, bool)
     void BaseConfigTypeList::GetGroup(shared_ptr* param_1, Js5ArchiveSettings* param_2, uint param_3, Priority* param_4,
                                       bool param_5, bool param_6) {
-        (field_64, param_1, param_2, param_3, param_4, param_5, param_6)->GetGroup();
+        (m_pResourceProvider, param_1, param_2, param_3, param_4, param_5, param_6)->GetGroup();
     }
 
 } // namespace jag::game

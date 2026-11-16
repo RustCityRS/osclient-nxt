@@ -19,7 +19,7 @@ namespace jag::http {
     CRMData::ClientDataProvider::~ClientDataProvider();
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    CRMData::GetCRMRequestState() const;
+    int CRMData::GetCRMRequestState() const;
 
     // 0x100131800: the linker folded this into oldscape::input::InputForm::SetText(eastl::string const&, int)::{lambda(BaseApp*)#1}::~BaseApp(), which has identical code
     CRMData::LabelElement::~LabelElement();
@@ -71,7 +71,7 @@ namespace jag::http {
                                             "pending request to \'%s\'",
                                             uVar6, uVar5);
                     }
-                    if (param_1->field_0 == 1) {
+                    if (param_1->m_cRMRequestState == 1) {
                         uVar4 = logger::default_logger();
                         uVar6 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
                         logger::Logger::Log(
@@ -150,7 +150,7 @@ namespace jag::http {
     // 0x100ad7830, 96 bytes, placed by class name and debug map
     // CRMData::ResetData()
     void CRMData::ResetData() {
-        field_0 = 0;
+        m_cRMRequestState = 0;
         eastl::string::clear();
         (&field_136)->clear();
         field_168 = 0;
@@ -222,7 +222,7 @@ namespace jag::http {
         CRMData* local_40;
         unique_ptr<Json::CharReader, std::default_delete<Json::CharReader>> local_38[8];
 
-        if (field_0 == 1) {
+        if (m_cRMRequestState == 1) {
             bVar2 = std::operator==((unique_ptr*)&field_48, in_RSI);
             if (!bVar2) {
                 /* WARNING: Subroutine does not return */
@@ -275,10 +275,10 @@ namespace jag::http {
                     bVar15 = bVar2;
                 } while (puVar8 != puVar9);
             }
-            local_40->field_0 = (uint)!bVar2 * 2 + 2;
+            local_40->m_cRMRequestState = (uint)!bVar2 * 2 + 2;
             return;
         }
-        if (field_0 != 0) {
+        if (m_cRMRequestState != 0) {
             return;
         }
         puVar1 = &field_48;
@@ -286,7 +286,7 @@ namespace jag::http {
             (unique_ptr<HTTPRequest, std::default_delete<HTTPRequest>>*)puVar1);
         iVar4 = pHVar5->GetState();
         if (iVar4 == 2) {
-            field_0 = 3;
+            m_cRMRequestState = 3;
         } else {
             if (iVar4 != 1) {
                 return;
@@ -300,7 +300,7 @@ namespace jag::http {
                 cVar3 = std::function<bool(WrapArray<unsigned char const>)>::operator()(
                     (function<bool(WrapArray<unsigned char const>)>*)&field_64);
                 if (cVar3 != '\0') {
-                    field_0 = 2;
+                    m_cRMRequestState = 2;
                     goto LAB_100ad7d75;
                 }
             }
@@ -325,7 +325,7 @@ namespace jag::http {
             lVar13 = this_02->back();
             cVar3 = (**(code**)(*plVar11 + 16))(plVar11, uVar12, lVar13 + 1, local_88, local_58);
             if (cVar3 == '\0') {
-                field_0 = 5;
+                m_cRMRequestState = 5;
                 uVar12 = logger::default_logger();
                 uVar14 = std::string::c_str(local_58);
                 logger::Logger::Log(
@@ -333,7 +333,7 @@ namespace jag::http {
                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/http/CRMData.cpp", 119,
                     "An error occurred while parsing the CRM endpoint reply - \'%s\'", uVar14);
             } else {
-                field_0 = 2;
+                m_cRMRequestState = 2;
             }
             ExtractDataFromJSON(this, (Value*)local_88);
             std::string::~string(local_58);
@@ -357,12 +357,12 @@ namespace jag::http {
         pVVar2 = (Value*)Json::Value::operator[](param_1, "message");
         cVar1 = Json::Value::isObject(pVVar2);
         if (cVar1 == '\0') {
-            field_0 = 5;
+            m_cRMRequestState = 5;
             uVar4 = logger::default_logger();
             pcVar6 = "Invalid \'message\' element received in CRM endpoint reply";
             uVar5 = 197;
         } else {
-            field_0 = 2;
+            m_cRMRequestState = 2;
             pVVar3 = (Value*)Json::Value::operator[](pVVar2, "images");
             ExtractImageInfo(this, pVVar3);
             pVVar3 = (Value*)Json::Value::operator[](pVVar2, "labels");
@@ -376,7 +376,7 @@ namespace jag::http {
             if (cVar1 == '\0') {
                 return;
             }
-            field_0 = 5;
+            m_cRMRequestState = 5;
             uVar4 = logger::default_logger();
             pcVar6 = "No endpoint URL received as part of the CRM behaviour";
             uVar5 = 191;
@@ -436,7 +436,7 @@ namespace jag::http {
             }
             cVar1 = local_38->empty();
             if (cVar1 == '\0') {
-                ((CRMData*)this)->field_0 = 1;
+                ((CRMData*)this)->m_cRMRequestState = 1;
             }
         }
     }
@@ -744,7 +744,7 @@ namespace jag::http {
         unique_ptr<HTTPRequest, std::default_delete<HTTPRequest>>* this_00;
         unique_ptr<HTTPRequest, std::default_delete<HTTPRequest>>* puVar1;
 
-        if (field_0 < 2) {
+        if (m_cRMRequestState < 2) {
             /* WARNING: Subroutine does not return */
             LogAssert("(int)m_state >= (int)CRMRequestState::ENDPOINT_REPLY_RECEIVED",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/http/CRMData.cpp", 203,

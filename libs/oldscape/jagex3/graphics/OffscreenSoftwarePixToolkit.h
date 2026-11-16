@@ -10,7 +10,7 @@ namespace jag::oldscape::graphics {
     public:
         // virtual methods in vtable order
         virtual GetPix2D();
-        virtual GetPix3D();
+        virtual SoftwarePix3D GetPix3D();
         virtual void SetScreenSize(int, int);
         virtual void Render(int, int, int, int);
         virtual void Render(int, int);
@@ -26,8 +26,9 @@ namespace jag::oldscape::graphics {
         undefined* field_0; // offset 0, vtable pointer
         NXTPix2D field_8;   // offset 8
         char _unknown_48[16];
-        SoftwarePix3D field_64; // offset 64
-        char _unknown_208[6437248];
+        SoftwarePix3D m_pix3D;          // offset 64
+        undefined1 m_pWorldRenderer[4]; // offset 208
+        char _unknown_212[6437244];
     };
 
     // 0x100009d50: the linker folded this into eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second(), which has identical code
@@ -40,7 +41,7 @@ namespace jag::oldscape::graphics {
     OffscreenSoftwarePixToolkit::SetGamma(float);
 
     // 0x100049810: the linker folded this into option::Option<WindowSavedPosition>::GetDefaultValue() const, which has identical code
-    OffscreenSoftwarePixToolkit::GetPix3D();
+    SoftwarePix3D OffscreenSoftwarePixToolkit::GetPix3D();
 
     // 0x1001d07d0: the linker folded this into jag::graphics::SceneViewData::GetViewFrustum() const, which has identical code
     OffscreenSoftwarePixToolkit::GetWorldRenderer();
@@ -58,7 +59,7 @@ namespace jag::oldscape::graphics {
     // OffscreenSoftwarePixToolkit::SetDestination(SharedArray<unsigned int>&, int, int)
     void OffscreenSoftwarePixToolkit::SetDestination(SharedArray* param_1, int param_2, int param_3) {
         (field_8, param_1, param_2, param_3)->SetPixels();
-        (field_64, param_1, param_2, param_3)->SetDest();
+        (m_pix3D, param_1, param_2, param_3)->SetDest();
     }
 
     // 0x100217560, 144 bytes, base-object constructor, inline, placed by class name
@@ -67,8 +68,8 @@ namespace jag::oldscape::graphics {
         new (this) PixToolkit<NXTPix2D, dash3d::SoftwarePix3D>();
         field_0 = PTR_vtable_100ee8c50 + 16;
         new (field_8, 0, 0) NXTPix2D();
-        new (field_64, (SharedArray*)(field_8 + 32), 0, 0) dash3d::SoftwarePix3D();
-        new (&field_208, (SoftwarePix3D*)field_64) dash3d::SoftwareWorldRenderer();
+        new (m_pix3D, (SharedArray*)(field_8 + 32), 0, 0) dash3d::SoftwarePix3D();
+        new (m_pWorldRenderer, (SoftwarePix3D*)m_pix3D) dash3d::SoftwareWorldRenderer();
     }
 
     // 0x100217640, 112 bytes, inline, placed by class name
@@ -106,7 +107,7 @@ namespace jag::oldscape::graphics {
     // OffscreenSoftwarePixToolkit::~OffscreenSoftwarePixToolkit()
     void OffscreenSoftwarePixToolkit::~OffscreenSoftwarePixToolkit() {
         field_0 = PTR_vtable_100ee8c50 + 16;
-        field_64->~SoftwarePix3D();
+        m_pix3D->~SoftwarePix3D();
         field_8->~NXTPix2D();
     }
 

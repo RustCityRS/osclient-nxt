@@ -47,7 +47,7 @@ namespace jag::graphics {
         undefined4 field_184; // offset 184
         char _unknown_188[116];
         ThreadPool* field_304; // offset 304
-        undefined2 field_312;  // offset 312
+        undefined2 m_metrics;  // offset 312
         undefined2 field_314;  // offset 314
         short field_316;       // offset 316
         short field_318;       // offset 318

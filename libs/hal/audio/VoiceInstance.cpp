@@ -22,7 +22,7 @@ namespace jag::hal::audio {
     VoiceInstance::SetPriority(float);
 
     // 0x10048fce0: the linker folded this into game::EnvLightingSettings::GetSpecularHorzOcclusionScale() const, which has identical code
-    VoiceInstance::GetPan() const;
+    float VoiceInstance::GetPan() const;
 
     // 0x100664980: the linker folded this into jag::audio::SoundResource::SetStreamed(bool), which has identical code
     VoiceInstance::SetVirtual(bool);
@@ -96,7 +96,7 @@ namespace jag::hal::audio {
         local_30 = *(long*)PTR____stack_chk_guard_100ee9d98;
         if (field_48 == 0)
             goto LAB_100b8f411;
-        fVar17 = field_24 * m_preSendControls;
+        fVar17 = m_gain * m_preSendControls;
         this_01 = (shared_ptr*)(field_288, in_RSI)->SSOBeginPtr();
         bVar1 = shared_ptr::operator_cast_to_bool(this_01);
         if (bVar1) {
@@ -278,7 +278,7 @@ namespace jag::hal::audio {
 
         if (field_48 == 3) {
             pAVar1 = (AudioBuffer*)(&field_240)->end();
-            (field_288, pAVar1, (bool)field_8[0])->Mix();
+            (field_288, pAVar1, (bool)m_virtual[0])->Mix();
         }
     }
 
@@ -292,7 +292,7 @@ namespace jag::hal::audio {
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/VoiceInstance.cpp", 68,
                 "VoiceInstance claimed when it already has an owner.");
         }
-        field_12 = 0.0;
+        m_priority = 0.0;
         field_48 = 1;
     }
 
@@ -307,12 +307,12 @@ namespace jag::hal::audio {
     // VoiceInstance::VoiceInstance()
     void VoiceInstance::VoiceInstance() {
         field_0 = (AudioRenderer*)0;
-        field_8[0] = 0;
-        field_12 = -1.0;
+        m_virtual[0] = 0;
+        m_priority = -1.0;
         field_16 = 0;
         m_preSendControls = 1.0;
-        field_24 = 1.0;
-        field_28 = 0.0;
+        m_gain = 1.0;
+        m_pan = 0.0;
         m_loopIterations = 0;
         field_36 = 0;
         field_40 = (Layout*)AudioFormat::INVALID;
@@ -329,8 +329,8 @@ namespace jag::hal::audio {
         field_256 = 0;
         *(undefined8*)&field_264 = 0;
         new (field_288, this) AudioSend();
-        field_336 = 0;
-        field_340 = 12;
+        m_bussID = 0;
+        m_soundType = 12;
     }
 
     // 0x100b901e0, 16 bytes, complete-object constructor, placed by class name
@@ -379,21 +379,21 @@ namespace jag::hal::audio {
         }
         SetRate(this, 256);
         field_40 = (Layout*)AudioFormat::INVALID;
-        field_12 = -1.0;
+        m_priority = -1.0;
         shared_ptr<AudioBufferHandler>::reset();
         shared_ptr<eastl::fixed_stack<shared_ptr<AudioBuffer>, 1ul, true>>::reset();
         field_36 = 0;
         m_preSendControls = 1.0;
-        field_24 = 1.0;
-        field_28 = 0.0;
+        m_gain = 1.0;
+        m_pan = 0.0;
         m_loopIterations = 0;
         field_16 = 0;
-        field_8[0] = 0;
+        m_virtual[0] = 0;
         this_00 = (AudioBuffer*)shared_ptr<AudioBuffer>::operator->((shared_ptr<AudioBuffer>*)&field_240);
         this_00->Reset(1, false);
         field_48 = 0;
-        field_336 = 0;
-        field_340 = 12;
+        m_bussID = 0;
+        m_soundType = 12;
         field_280 = 0;
         local_58->~scoped_lock();
         if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_28) {
@@ -496,7 +496,7 @@ namespace jag::hal::audio {
                     if (cVar1 != '\0') {
                         uVar3 = uVar7;
                     }
-                    pAVar6->WriteSamples(pAVar4, uVar3, uVar7, &local_34, &local_38, (bool)field_8[0], 1.0, field_28);
+                    pAVar6->WriteSamples(pAVar4, uVar3, uVar7, &local_34, &local_38, (bool)m_virtual[0], 1.0, m_pan);
                     uVar7 = uVar7 + 1;
                 }
                 pAVar6 = (AudioBuffer*)shared_ptr<AudioBuffer>::operator->((shared_ptr<AudioBuffer>*)this_00);

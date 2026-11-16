@@ -10,7 +10,7 @@ namespace jag::game {
     Terrain::m_debugPrimitiveText;
 
     // 0x10011ceb0: the linker folded this into oldscape::configdecoder::NpcType::GetHeadIconGraphics() const, which has identical code
-    Terrain::GetWaterHeights() const;
+    shared_ptr Terrain::GetWaterHeights() const;
 
     // 0x10036f4c0: the linker folded this into graphics::GeometryBatch::GetFaceTransparencyBuffer(), which has identical code
     Terrain::GetWaterPatches() const;

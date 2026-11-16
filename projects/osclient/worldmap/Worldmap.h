@@ -94,7 +94,7 @@ namespace jag::oldscape::worldmap {
         float field_272; // offset 272
         char _unknown_276[4];
         ulonglong field_280;     // offset 280
-        undefined4 field_288;    // offset 288
+        undefined4 m_tileWidth;  // offset 288
         undefined4 m_tileHeight; // offset 292
         char _unknown_296[8];
         int m_flashCount;      // offset 304
@@ -160,7 +160,7 @@ namespace jag::oldscape::worldmap {
                                                std::default_delete<rs2lib::worldmap::WorldmapRenderer>>*)&field_224);
         std::unique_ptr<WorldmapLoader, std::default_delete<WorldmapLoader>>::unique_ptr<true, void>(
             (unique_ptr<WorldmapLoader, std::default_delete<WorldmapLoader>>*)&field_232);
-        field_288 = 4294967295;
+        m_tileWidth = 4294967295;
         m_tileHeight = 4294967295;
         field_248 = -1;
         field_252 = -1;

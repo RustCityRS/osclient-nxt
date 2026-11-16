@@ -1219,9 +1219,9 @@ namespace jag::oldscape::highlight {
                     pCVar7 = local_a8;
                 }
                 FindNextOccurrenceOfStoredHighlight((highlight*)local_260, &local_f8, &local_60, false);
-                local_60.field_8 = local_260[0].field_8;
-                local_60.field_0 = local_260[0].field_0;
-                local_60.field_4 = local_260[0].field_4;
+                local_60.m_z = local_260[0].m_z;
+                local_60.m_level = local_260[0].m_level;
+                local_60.m_x = local_260[0].m_x;
                 cVar2 = local_60.IsSet();
             } while (cVar2 != '\0');
         }
@@ -1342,9 +1342,9 @@ namespace jag::oldscape::highlight {
                     }
                 }
                 FindNextOccurrenceOfStoredHighlight((highlight*)local_210, &local_98, &local_58, false);
-                local_58.field_8 = local_210[0].field_8;
-                local_58.field_0 = local_210[0].field_0;
-                local_58.field_4 = local_210[0].field_4;
+                local_58.m_z = local_210[0].m_z;
+                local_58.m_level = local_210[0].m_level;
+                local_58.m_x = local_210[0].m_x;
                 cVar2 = local_58.IsSet();
             } while (cVar2 != '\0');
         }
@@ -1429,9 +1429,9 @@ namespace jag::oldscape::highlight {
                     pCVar7 = local_98;
                 }
                 FindNextOccurrenceOfStoredHighlight((highlight*)&local_50, &local_a8, &local_78, false);
-                local_78.field_8 = local_50.field_8;
-                local_78.field_0 = local_50.field_0;
-                local_78.field_4 = local_50.field_4;
+                local_78.m_z = local_50.m_z;
+                local_78.m_level = local_50.m_level;
+                local_78.m_x = local_50.m_x;
                 cVar2 = local_78.IsSet();
             } while (cVar2 != '\0');
         }

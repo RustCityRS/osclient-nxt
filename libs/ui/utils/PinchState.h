@@ -39,7 +39,7 @@ namespace jag::ui {
         char _unknown_96[8];
         int field_104;              // offset 104
         int field_108;              // offset 108
-        bool field_112;             // offset 112
+        bool m_verticallyPinched;   // offset 112
         bool m_horizontallyPinched; // offset 113
         char _unknown_114[2];
     };

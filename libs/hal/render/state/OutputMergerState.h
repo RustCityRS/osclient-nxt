@@ -12,7 +12,7 @@ namespace jag::render {
         GetScissorRects() const;
         void SetScissorRects(math::Rect<unsigned int> const*, unsigned int);
         void PushScissorRect(math::Rect<unsigned int> const&);
-        GetClearFlags() const;
+        uint GetClearFlags() const;
         void PushViewport(Viewport const&);
         OutputMergerState();
         void SetViewports(Viewport const*, unsigned int);

@@ -13,7 +13,7 @@ namespace jag::graphics {
             param_1 = field_4;
         }
         m_overrideRGB = param_1;
-        field_16 = field_8;
+        field_16 = m_rGB;
         field_24 = param_2;
         field_20 = param_3;
         field_28 = param_2;
@@ -33,7 +33,7 @@ namespace jag::graphics {
             field_64 = 0;
         }
         uVar1 = m_overrideRGB;
-        if ((field_8 != uVar1) && (field_24 != param_1)) {
+        if ((m_rGB != uVar1) && (field_24 != param_1)) {
             if (param_1 < field_20) {
                 local_2c = 0.0;
                 local_28 = 1.0;
@@ -42,7 +42,7 @@ namespace jag::graphics {
                 pfVar2 = std::max<float>(&local_2c, pfVar2);
                 uVar1 = math::InterpolateRGBA(field_16, uVar1, *pfVar2);
             }
-            field_8 = uVar1;
+            m_rGB = uVar1;
             field_24 = param_1;
             field_64 = param_1;
             field_60 = 0;

@@ -64,10 +64,10 @@ namespace jag::game {
         void SetMultiLocState(int, int);
         void IncrementMultiLocState(int);
         void IncrementAllMultiLocStates();
-        GetClientCompositeData() const;
+        shared_ptr GetClientCompositeData() const;
         uint GetMapSquareZ() const;
         MapSquare* GetIrradianceSHConsts() const;
-        GetMapSquarePointLights();
+        WorldmapRenderer GetMapSquarePointLights();
         IsTerrainBuilt();
         void GetEnvironmentLoader();
         void GetLightSourcesLocal() const;
@@ -92,7 +92,7 @@ namespace jag::game {
         // data members, from how the methods use this: 23160 bytes, the first 192 are Entity
         uint m_mapSquareX;                  // offset 192
         uint m_mapSquareZ;                  // offset 196
-        shared_ptr field_200;               // offset 200
+        shared_ptr m_clientCompositeData;   // offset 200
         char m_prioritySquare;              // offset 216
         undefined1 m_hasBuiltPriorityZones; // offset 217
         char _unknown_218[2];

@@ -16,13 +16,13 @@ namespace jag::ui {
     ButtonElement::UpdateResult::UpdateResult(ButtonElement::UpdateResult::ResultType);
 
     // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    ButtonElement::GetTrigger() const;
+    int ButtonElement::GetTrigger() const;
 
     // 0x10017ebb0: the linker folded this into oldscape::CoordType<oldscape::UICoordSpecializer>::CoordType(int), which has identical code
     ButtonElement::UpdateResult::UpdateResult(ButtonElement::UpdateResult::ResultType);
 
     // 0x10043b770: the linker folded this into game::StaticPointLight::GetLightLevelsAbove() const, which has identical code
-    ButtonElement::IsToggled() const;
+    bool ButtonElement::IsToggled() const;
 
     // 0x100674ad0, 608 bytes, placed by class name and debug map
     // ButtonElement::Draw(graphics::RT7Core&, int, int, unsigned short, unsigned short, unsigned int, bool, render::Texture const*, math::Rect<float> const&, SpriteData const&, bool)
@@ -136,7 +136,7 @@ namespace jag::ui {
         if (param_7 == 0) {
             m_mouseOver = 0;
         LAB_100676347:
-            iVar1 = field_4;
+            iVar1 = m_trigger;
             iVar4 = 2;
             if (iVar1 == 0) {
                 if (((m_pressed != '\0') && (param_9 == 0)) && (param_8 == '\0')) {
@@ -187,7 +187,7 @@ namespace jag::ui {
             }
             m_mouseOver = bVar2;
             if (((bVar2 == false) || (param_8 == '\0')) ||
-                ((iVar1 = field_4, iVar1 != 1 && ((iVar1 != 4 && (cVar3 = IsIdle(this), cVar3 == '\0'))))))
+                ((iVar1 = m_trigger, iVar1 != 1 && ((iVar1 != 4 && (cVar3 = IsIdle(this), cVar3 == '\0'))))))
                 goto LAB_100676347;
             field_16 = 0.0;
             field_8 = 0;
@@ -245,10 +245,10 @@ namespace jag::ui {
         fVar1 = 0.2;
         if (field_16 < 0.2) {
             if (m_pressed != '\0') {
-                if (field_4 == 2) {
+                if (m_trigger == 2) {
                     fVar1 = 0.1;
                 } else {
-                    fVar1 = *(float*)(&DAT_100d43308 + (ulong)(field_4 == 0) * 4);
+                    fVar1 = *(float*)(&DAT_100d43308 + (ulong)(m_trigger == 0) * 4);
                 }
             }
             fVar1 = (float)eastl::min<float>(field_16 + fVar2, fVar1);
@@ -300,13 +300,13 @@ namespace jag::ui {
     // 0x1006765f0, 80 bytes, placed by class name
     // ButtonElement::SetBehaviour(ButtonElement::Behaviour, ButtonElement::Trigger)
     void ButtonElement::SetBehaviour(int param_2, int param_3) {
-        if ((field_0 != param_2) || (field_4 != param_3)) {
+        if ((field_0 != param_2) || (m_trigger != param_3)) {
             if (param_2 != 4) {
                 m_toggled = false;
             }
             FinishTransitions(this);
             field_0 = param_2;
-            field_4 = param_3;
+            m_trigger = param_3;
         }
     }
 

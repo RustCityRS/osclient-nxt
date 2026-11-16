@@ -8,14 +8,14 @@ namespace jag::graphics {
     class Animation {
     public:
         GetFrames() const;
-        IsConstructed() const;
+        char IsConstructed() const;
         GetRT5Frames() const;
         GetFrameDelays() const;
-        GetAnimationLength() const;
+        int GetAnimationLength() const;
         GetFrameStartTimes() const;
         void GetRT5FrameCount() const;
-        GetAnimKeyFrameSet() const;
-        GetMaximumUsedBoneID() const;
+        shared_ptr GetAnimKeyFrameSet() const;
+        int GetMaximumUsedBoneID() const;
         void GetKeyFrameSampleCount() const;
         void GetKeyFrameSample(unsigned long) const;
         Animation(Array<shared_ptr<AnimationFrameRT5>, eastl::allocator> const&, Array<unsigned int, eastl::allocator>&,
@@ -39,15 +39,15 @@ namespace jag::graphics {
         Animation();
 
         // data members, from how the methods use this: 200 bytes
-        char field_0; // offset 0
+        char m_constructed; // offset 0
         char _unknown_1[103];
-        int field_104;               // offset 104
+        int m_animationLength;       // offset 104
         byte m_animatesTransparency; // offset 108
         char m_animatedColourType;   // offset 109
         byte m_animatesBillboards;   // offset 110
         char _unknown_111[1];
-        shared_ptr field_112; // offset 112
-        int field_128;        // offset 128
+        shared_ptr m_animKeyFrameSet; // offset 112
+        int m_maximumUsedBoneID;      // offset 128
         char _unknown_132[68];
     };
 
@@ -113,9 +113,9 @@ namespace jag::graphics {
     void Animation::GetFrameCount() {
         AnimKeyFrameSet* this_00;
 
-        if (field_112->operator_cast_to_bool()) {
-            this_00 =
-                (AnimKeyFrameSet*)shared_ptr<AnimKeyFrameSet>::operator->((shared_ptr<AnimKeyFrameSet>*)field_112);
+        if (m_animKeyFrameSet->operator_cast_to_bool()) {
+            this_00 = (AnimKeyFrameSet*)shared_ptr<AnimKeyFrameSet>::operator->(
+                (shared_ptr<AnimKeyFrameSet>*)m_animKeyFrameSet);
             this_00->GetDuration();
         } else {
             (&field_8)->end();
@@ -277,17 +277,17 @@ namespace jag::graphics {
         _func_decltype_nullptr* in_RSI;
 
         new (this) MakeSharedPool<Animation, 512>();
-        field_0 = '\0';
+        m_constructed = '\0';
         new (&field_8) Array<shared_ptr<AnimationFrameRT7>, eastl::allocator>();
         new (&field_32) Array<shared_ptr<AnimationFrameRT5>, eastl::allocator>();
         new (&field_56) Array<unsigned int, eastl::allocator>();
         new (&field_80) Array<unsigned int, eastl::allocator>();
-        field_104 = -1;
+        m_animationLength = -1;
         m_animatesTransparency = 0;
         m_animatedColourType = '\x02';
         m_animatesBillboards = 0;
-        new (field_112, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        field_128 = -1;
+        new (m_animKeyFrameSet, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        m_maximumUsedBoneID = -1;
         new (&field_136) eastl::vector<std::future<void>, eastl::allocator>();
         new (&field_168) Array<AnimKeyFrameSample, eastl::allocator>();
     }

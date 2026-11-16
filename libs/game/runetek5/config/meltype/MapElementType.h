@@ -12,24 +12,24 @@ namespace jag::game {
         virtual ~MapElementType();
         virtual DecodeType(PacketT<Array<unsigned char, eastl::allocator>>&, unsigned int);
         virtual void PostDecode();
-        GetMyID() const;
-        GetTextSize() const;
-        GetSpriteID() const;
+        int GetMyID() const;
+        uint GetTextSize() const;
+        uint GetSpriteID() const;
         void GetPolygon() const;
         byte IsMultiME() const;
         GetShowOnMiniMap() const;
-        GetMinimapIconScale() const;
-        GetHAlign() const;
+        uint GetMinimapIconScale() const;
+        uint GetHAlign() const;
         uint GetVAlign() const;
         GetShowOnWorldMap() const;
         uint GetCategory() const;
         GetListable() const;
         GetText() const;
         GetFlashSpriteID() const;
-        GetTextBackgroundFillRGBA() const;
-        GetTextBackgroundOutlineRGBA() const;
-        GetTextMouseOverRGBA() const;
-        GetTextRGBA() const;
+        uint GetTextBackgroundFillRGBA() const;
+        uint GetTextBackgroundOutlineRGBA() const;
+        uint GetTextMouseOverRGBA() const;
+        uint GetTextRGBA() const;
         PacketView* GetSprite(graphics::RT7Core&, bool);
         PacketView* GetFlashSprite(graphics::RT7Core&);
         GetMultiME(PlayerVarDomain const*, ConfigProvider*);
@@ -41,20 +41,20 @@ namespace jag::game {
         undefined** field_0; // offset 0, vtable pointer
         char _unknown_8[16];
         BaseTemplateConfigTypeList* field_24; // offset 24
-        int field_32;                         // offset 32
+        int m_myID;                           // offset 32
         char _unknown_36[4];
         shared_ptr field_40; // offset 40
-        uint field_56;       // offset 56
+        uint m_spriteID;     // offset 56
         uint field_60;       // offset 60
         char _unknown_64[64];
-        uint field_128;             // offset 128
-        uint field_132;             // offset 132
-        uint field_136;             // offset 136
-        uint field_140;             // offset 140
-        uint field_144;             // offset 144
-        undefined1 field_148;       // offset 148
-        undefined1 m_showOnMiniMap; // offset 149
-        bool field_150;             // offset 150
+        uint m_textRGBA;                  // offset 128
+        uint m_textMouseOverRGBA;         // offset 132
+        uint m_textSize;                  // offset 136
+        uint m_textBackgroundFillRGBA;    // offset 140
+        uint m_textBackgroundOutlineRGBA; // offset 144
+        undefined1 m_showOnWorldMap;      // offset 148
+        undefined1 m_showOnMiniMap;       // offset 149
+        bool field_150;                   // offset 150
         char _unknown_151[97];
         undefined4 field_248; // offset 248
         int field_252;        // offset 252
@@ -70,11 +70,11 @@ namespace jag::game {
         int field_324;         // offset 324
         undefined1 m_listable; // offset 328
         char _unknown_329[3];
-        uint m_category;      // offset 332
-        undefined4 field_336; // offset 336
-        uint field_340;       // offset 340
-        uint field_344;       // offset 344
-        uint m_vAlign;        // offset 348
+        uint m_category;            // offset 332
+        undefined4 m_flashSpriteID; // offset 336
+        uint m_minimapIconScale;    // offset 340
+        uint m_hAlign;              // offset 344
+        uint m_vAlign;              // offset 348
         char _unknown_352[4];
     };
 
@@ -247,14 +247,14 @@ namespace jag::game {
         new (this) ConfigType<MapElementType>(param_1, param_2);
         new (this) MakeSharedPool<MapElementType, 512>();
         field_0 = &PTR__MapElementType_100f034e8;
-        field_56 = 4294967295;
+        m_spriteID = 4294967295;
         field_60 = 4294967295;
         new (&field_64) eastl::fixed_string<char, 24, true, eastl::allocator>();
-        field_132 = 4294967295;
-        field_136 = 0;
-        field_140 = 0;
-        field_144 = 0;
-        field_148 = 1;
+        m_textMouseOverRGBA = 4294967295;
+        m_textSize = 0;
+        m_textBackgroundFillRGBA = 0;
+        m_textBackgroundOutlineRGBA = 0;
+        m_showOnWorldMap = 1;
         m_showOnMiniMap = 0;
         field_150 = true;
         new (&field_152) eastl::vector<eastl::fixed_string<char, 8, true, eastl::allocator>, eastl::allocator>();
@@ -277,9 +277,9 @@ namespace jag::game {
         field_324 = 0;
         m_listable = 1;
         m_category = 4294967295;
-        field_336 = 4294967295;
-        field_340 = 4294967295;
-        field_344 = 1;
+        m_flashSpriteID = 4294967295;
+        m_minimapIconScale = 4294967295;
+        m_hAlign = 1;
         m_vAlign = 1;
     }
 

@@ -13,10 +13,10 @@ namespace jag::game {
     LocationContainer::IsVisibleEntity() const;
 
     // 0x1003f5190: the linker folded this into BASType::GetHillRotateWidth() const, which has identical code
-    LocationContainer::GetMinGridX() const;
+    int LocationContainer::GetMinGridX() const;
 
     // 0x1003f51a0: the linker folded this into BASType::GetHillRotateLength() const, which has identical code
-    LocationContainer::GetMinGridZ() const;
+    int LocationContainer::GetMinGridZ() const;
 
     // 0x10040bfa0, 672 bytes, base-object constructor, placed by class name and debug map
     // LocationContainer::LocationContainer(ConfigProvider*, PlayerVarDomain*, graphics::GraphNode*, shared_ptr<World> const&, int, int, int, int, int, int, eastl::vector<shared_ptr<MapSquareLocation>, eastl::allocator> const&)
@@ -37,12 +37,12 @@ namespace jag::game {
         new (this) Entity(param_3, param_4, 9, 4294967295);
         field_0 = &PTR__LocationContainer_100eff2d0;
         field_8 = &PTR__LocationContainer_100eff410;
-        field_192 = param_1;
+        m_pConfigProvider = param_1;
         field_200 = param_2;
         field_208 = 6;
-        field_212 = param_5;
-        field_216 = param_6;
-        field_220 = param_7;
+        m_mapSquareX = param_5;
+        m_mapSquareZ = param_6;
+        m_minGridX = param_7;
         m_minGridZ = param_8;
         field_228 = param_9;
         field_232 = param_10;
@@ -81,7 +81,7 @@ namespace jag::game {
             uVar2 = uVar2 + 1;
         } while (uVar2 != 5);
         new (&local_70) math::ColourHSL(0.0, 0.0, 0.0);
-        new (&local_60) math::ColourHSL((float)((field_228 - field_220) + 1) * 128.0, 8192.0,
+        new (&local_60) math::ColourHSL((float)((field_228 - m_minGridX) + 1) * 128.0, 8192.0,
                                         (float)((field_232 - m_minGridZ) + 1) * 128.0);
         new (&local_c8) math::AABB((Vector3T*)&local_70, (Vector3T*)&local_60);
         SetAABB((AABB*)&local_c8);
@@ -146,10 +146,10 @@ namespace jag::game {
                             local_60 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)(lVar11 + 72));
                             lVar11 = shared_ptr<MapSquareLocation>::operator->((shared_ptr<MapSquareLocation>*)this_02);
                             local_38 = (int)*(char*)(lVar11 + 4);
-                            iVar2 = field_212;
+                            iVar2 = m_mapSquareX;
                             lVar11 = shared_ptr<MapSquareLocation>::operator->((shared_ptr<MapSquareLocation>*)this_02);
                             cVar5 = *(char*)(lVar11 + 5);
-                            iVar3 = field_216;
+                            iVar3 = m_mapSquareZ;
                             lVar11 = shared_ptr<MapSquareLocation>::operator->((shared_ptr<MapSquareLocation>*)this_02);
                             cVar1 = *(char*)(lVar11 + 6);
                             lVar11 = shared_ptr<MapSquareLocation>::operator->((shared_ptr<MapSquareLocation>*)this_02);
@@ -196,12 +196,12 @@ namespace jag::game {
                       "entities/LocationContainer.cpp",
                       70, "Min and max coords reversed");
         }
-        iVar1 = field_212 * 64;
+        iVar1 = m_mapSquareX * 64;
         if (field_228 + iVar1 < param_1) {
             uVar2 = 0;
         } else {
-            iVar3 = field_216 * 64;
-            iVar1 = iVar1 + field_220;
+            iVar3 = m_mapSquareZ * 64;
+            iVar1 = iVar1 + m_minGridX;
             uVar2 = CONCAT31((int3)((uint)iVar1 >> 8),
                              iVar3 + m_minGridZ <= param_4 && (param_2 <= field_232 + iVar3 && iVar1 <= param_3));
         }
@@ -230,7 +230,7 @@ namespace jag::game {
         long local_30;
 
         local_30 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if (((field_220 <= (int)(char)param_1->field_5) || (field_220 < 1)) &&
+        if (((m_minGridX <= (int)(char)param_1->field_5) || (m_minGridX < 1)) &&
             ((int)(char)param_1->field_5 <= field_228)) {
             if (((m_minGridZ <= (int)(char)param_1->field_6) || (m_minGridZ < 1)) &&
                 ((int)(char)param_1->field_6 <= field_232)) {
@@ -244,7 +244,7 @@ namespace jag::game {
                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/"
                                     "runetek5/scene/entities/LocationContainer.cpp",
                                     159, "location.locationType == null! locationID: %d map square: %d,%d",
-                                    param_1->field_0, field_212, field_216);
+                                    param_1->field_0, m_mapSquareX, m_mapSquareZ);
                 local_c0.~LogStream();
             }
         }
@@ -351,8 +351,8 @@ namespace jag::game {
                 iVar7 = 5;
                 bVar1 = iVar6 < iVar4;
                 if (iVar6 < iVar4) {
-                    uVar9 = param_2->GetTileLink((int)(char)param_1->field_4, field_212 * 64 + iVar5,
-                                                 field_216 * 64 + iVar6);
+                    uVar9 = param_2->GetTileLink((int)(char)param_1->field_4, m_mapSquareX * 64 + iVar5,
+                                                 m_mapSquareZ * 64 + iVar6);
                     iVar10 = iVar6;
                     if ((uVar9 & 4) == 0) {
                         iVar7 = 1;
@@ -365,8 +365,8 @@ namespace jag::game {
                                     goto LAB_10040cbdd;
                                 goto LAB_10040ccba;
                             }
-                            uVar9 = param_2->GetTileLink((int)(char)param_1->field_4, field_212 * 64 + iVar5,
-                                                         field_216 * 64 + iVar10);
+                            uVar9 = param_2->GetTileLink((int)(char)param_1->field_4, m_mapSquareX * 64 + iVar5,
+                                                         m_mapSquareZ * 64 + iVar10);
                         } while ((uVar9 & 4) != 0);
                         iVar7 = 1;
                         bVar1 = iVar10 < iVar4;
@@ -634,8 +634,8 @@ namespace jag::game {
                 local_cb = pWVar13->GetBuildMode() == 3;
                 bucket_make_shared<BuildCombinedLocationMain, graphics::RT7Core&, int, LocationContainer*,
                                    eastl::vector<LocationContainerLocation, eastl::allocator>&, int&, int&, bool>(
-                    (jag*)&local_100, param_1, &local_dc, &local_110, (vector*)param_3, &pLVar1->field_212,
-                    &pLVar1->field_216, &local_cb);
+                    (jag*)&local_100, param_1, &local_dc, &local_110, (vector*)param_3, &pLVar1->m_mapSquareX,
+                    &pLVar1->m_mapSquareZ, &local_cb);
                 psVar10 = local_108;
                 shared_ptr<BuildCombinedLocationMain>::operator=((shared_ptr<BuildCombinedLocationMain>*)local_108,
                                                                  &local_100);
@@ -670,7 +670,7 @@ namespace jag::game {
                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/scene/"
                         "entities/LocationContainer.cpp",
                         603, "LocationContainer: Combined location build (Job %d) failed: %d,%d,%d,%d (LOD: %d)",
-                        CONCAT44(uVar18, uVar5), CONCAT44(uVar19, field_212), field_216, field_220, m_minGridZ,
+                        CONCAT44(uVar18, uVar5), CONCAT44(uVar19, m_mapSquareX), m_mapSquareZ, m_minGridX, m_minGridZ,
                         param_6);
                     local_c8.~LogStream();
                     param_3[80] =
@@ -776,14 +776,14 @@ namespace jag::game {
                         lVar6 = shared_ptr<MapSquareLocation>::operator->((shared_ptr<MapSquareLocation>*)this_00);
                         lVar7 = shared_ptr<MapSquareLocation>::operator->((shared_ptr<MapSquareLocation>*)this_00);
                         local_31 = (bool)(*(byte*)(lVar7 + 61) ^ 1);
-                        iVar1 = field_212;
+                        iVar1 = m_mapSquareX;
                         lVar7 = shared_ptr<MapSquareLocation>::operator->((shared_ptr<MapSquareLocation>*)this_00);
                         local_44 = (int)*(char*)(lVar7 + 5) + iVar1 * 64;
-                        iVar1 = field_216;
+                        iVar1 = m_mapSquareZ;
                         lVar7 = shared_ptr<MapSquareLocation>::operator->((shared_ptr<MapSquareLocation>*)this_00);
                         local_40 = (int)*(char*)(lVar7 + 6) + iVar1 * 64;
                         lVar7 = shared_ptr<MapSquareLocation>::operator->((shared_ptr<MapSquareLocation>*)this_00);
-                        local_3c = (int)*(char*)(lVar7 + 5) - field_220;
+                        local_3c = (int)*(char*)(lVar7 + 5) - m_minGridX;
                         lVar7 = shared_ptr<MapSquareLocation>::operator->((shared_ptr<MapSquareLocation>*)this_00);
                         local_38 = (int)*(char*)(lVar7 + 6) - m_minGridZ;
                         lVar7 = shared_ptr<MapSquareLocation>::operator->((shared_ptr<MapSquareLocation>*)this_00);
@@ -797,7 +797,7 @@ namespace jag::game {
                             &local_38, (int*)(lVar7 + 62), (signed*)(lVar8 + 64), (ushort*)(lVar9 + 66),
                             in_stack_ffffffffffffff60);
                         this_01 = (Location*)shared_ptr<Location>::operator->((shared_ptr<Location>*)&local_98);
-                        this_01->SetPlayerVarDomain(field_200, field_192);
+                        this_01->SetPlayerVarDomain(field_200, m_pConfigProvider);
                         pEVar10 = (Entity*)shared_ptr<Location>::operator->((shared_ptr<Location>*)&local_98);
                         pEVar10->SetTargetLOD(0);
                         pGVar5 = local_50;
@@ -1000,14 +1000,14 @@ namespace jag::game {
                         lVar4 = shared_ptr<MapSquareLocation>::operator->(this_00);
                         lVar5 = shared_ptr<MapSquareLocation>::operator->(this_00);
                         local_31 = (bool)(*(byte*)(lVar5 + 61) ^ 1);
-                        iVar1 = field_212;
+                        iVar1 = m_mapSquareX;
                         lVar5 = shared_ptr<MapSquareLocation>::operator->(this_00);
                         local_5c = (int)*(char*)(lVar5 + 5) + iVar1 * 64;
-                        iVar1 = field_216;
+                        iVar1 = m_mapSquareZ;
                         lVar5 = shared_ptr<MapSquareLocation>::operator->(this_00);
                         local_58 = (int)*(char*)(lVar5 + 6) + iVar1 * 64;
                         lVar5 = shared_ptr<MapSquareLocation>::operator->(this_00);
-                        local_54 = (int)*(char*)(lVar5 + 5) - field_220;
+                        local_54 = (int)*(char*)(lVar5 + 5) - m_minGridX;
                         lVar5 = shared_ptr<MapSquareLocation>::operator->(this_00);
                         local_50 = (int)*(char*)(lVar5 + 6) - m_minGridZ;
                         lVar5 = shared_ptr<MapSquareLocation>::operator->(this_00);
@@ -1022,7 +1022,7 @@ namespace jag::game {
                             &local_54, &local_50, (int*)(lVar5 + 62), (signed*)(lVar6 + 64), (ushort*)(lVar7 + 66),
                             in_stack_ffffffffffffff40);
                         this_01 = (Location*)shared_ptr<Location>::operator->((shared_ptr<Location>*)this_02);
-                        this_01->SetPlayerVarDomain(field_200, field_192);
+                        this_01->SetPlayerVarDomain(field_200, m_pConfigProvider);
                         pGVar9 = local_48;
                         pGVar8 = (GraphEntity*)this_02->end();
                         pGVar9->SetEntity(pGVar8);
@@ -1110,10 +1110,10 @@ namespace jag::game {
                     if (cVar2 != '\0')
                         goto LAB_10040e26f;
                 }
-                iVar7 = field_212;
+                iVar7 = m_mapSquareX;
                 lVar9 = shared_ptr<MapSquareLocation>::operator->(this_01);
                 iVar19 = (int)*(char*)(lVar9 + 5) + iVar7 * 64;
-                iVar7 = field_216;
+                iVar7 = m_mapSquareZ;
                 lVar9 = shared_ptr<MapSquareLocation>::operator->(this_01);
                 iVar18 = (int)*(char*)(lVar9 + 6) + iVar7 * 64;
                 lVar9 = shared_ptr<MapSquareLocation>::operator->(this_01);
@@ -1358,7 +1358,7 @@ namespace jag::game {
             local_32 = cVar2 == '\x02';
             local_31 = false;
             local_60._4_4_ = this_02->GetLocalX();
-            local_60._4_4_ = local_60._4_4_ - field_220;
+            local_60._4_4_ = local_60._4_4_ - m_minGridX;
             local_60.field_8._0_4_ = this_02->GetLocalZ();
             local_60.field_8._0_4_ = (int)local_60.field_8 - m_minGridZ;
             this_04 = (WorldmapAreaMetadata*)shared_ptr<ChangeLocationRequest>::operator->(
@@ -1377,7 +1377,7 @@ namespace jag::game {
             pLVar12 = (Location*)shared_ptr<Location>::operator->((shared_ptr<Location>*)&local_48);
             pLVar12->BlockFadeIn();
             pLVar12 = (Location*)shared_ptr<Location>::operator->((shared_ptr<Location>*)&local_48);
-            pLVar12->SetPlayerVarDomain(field_200, field_192);
+            pLVar12->SetPlayerVarDomain(field_200, m_pConfigProvider);
             pGVar14 = local_50;
             pGVar13 = (GraphEntity*)local_48.end();
             pGVar14->SetEntity(pGVar13);
@@ -2544,7 +2544,7 @@ namespace jag::game {
 
         if (GetTargetLOD() == '\0') {
             this_00 = (World*)shared_ptr<World>::operator->((shared_ptr<World>*)field_176);
-            this_01 = (shared_ptr*)this_00->GetMapSquare(field_212, field_216);
+            this_01 = (shared_ptr*)this_00->GetMapSquare(m_mapSquareX, m_mapSquareZ);
             if (shared_ptr::operator_cast_to_bool(this_01)) {
                 this_02 = (MapSquare*)shared_ptr<MapSquare>::operator->((shared_ptr<MapSquare>*)this_01);
                 uVar3 = this_02->IsPrioritySquare();

@@ -13,8 +13,8 @@ namespace jag::game {
         virtual RunFirst(Js5ResourceProvider*, ConfigProvider*);
         virtual BuildModelMain* CreateWorker();
         virtual DecodeResult(shared_ptr<void> const&);
-        virtual GetRequestData();
-        GetConstructedAsset() const;
+        virtual shared_ptr GetRequestData();
+        shared_ptr GetConstructedAsset() const;
         bool IsAssetConstructed() const;
         void SetUseUncompressedTextures(bool);
         void SetScale(eastl::vector<float, eastl::allocator> const&);
@@ -53,9 +53,9 @@ namespace jag::game {
         char _unknown_72[8];
         byte field_80; // offset 80
         char _unknown_81[7];
-        RT7Core* field_88;    // offset 88
-        shared_ptr field_96;  // offset 96
-        shared_ptr field_112; // offset 112
+        RT7Core* field_88;             // offset 88
+        shared_ptr m_constructedAsset; // offset 96
+        shared_ptr m_requestData;      // offset 112
     };
 
     // 0x100436c80, 64 bytes, inline, placed by class name and debug map
@@ -65,9 +65,9 @@ namespace jag::game {
         byte bVar2;
         Model* this_00;
 
-        bVar1 = field_96->operator_cast_to_bool();
+        bVar1 = m_constructedAsset->operator_cast_to_bool();
         if (bVar1) {
-            this_00 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)field_96);
+            this_00 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)m_constructedAsset);
             bVar2 = this_00->GetConstructedState();
             bVar1 = field_80 <= bVar2;
         } else {
@@ -81,7 +81,7 @@ namespace jag::game {
     void BuildModelMain::SetUseUncompressedTextures(bool param_1) {
         long lVar1;
 
-        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)field_112);
+        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)m_requestData);
         *(bool*)(lVar1 + 664) = param_1;
     }
 
@@ -90,7 +90,7 @@ namespace jag::game {
     void BuildModelMain::SetScale(vector* param_1) {
         long lVar1;
 
-        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)field_112);
+        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)m_requestData);
         eastl::vector<float, eastl::allocator>::operator=((vector<float, eastl::allocator>*)(lVar1 + 160), param_1);
     }
 
@@ -99,7 +99,7 @@ namespace jag::game {
     void BuildModelMain::SetRotation(vector* param_1) {
         long lVar1;
 
-        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)field_112);
+        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)m_requestData);
         eastl::vector<math::Vector3T<float>, eastl::allocator>::operator=(
             (vector<math::Vector3T<float>, eastl::allocator>*)(lVar1 + 192), param_1);
     }
@@ -109,7 +109,7 @@ namespace jag::game {
     void BuildModelMain::SetTranslation(vector* param_1) {
         long lVar1;
 
-        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)field_112);
+        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)m_requestData);
         eastl::vector<math::Vector3T<float>, eastl::allocator>::operator=(
             (vector<math::Vector3T<float>, eastl::allocator>*)(lVar1 + 224), param_1);
     }
@@ -119,7 +119,7 @@ namespace jag::game {
     void BuildModelMain::SetModelRecolour(vector* param_1) {
         long lVar1;
 
-        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)field_112);
+        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)m_requestData);
         eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::operator=(
             (vector<eastl::vector<int, eastl::allocator>, eastl::allocator>*)(lVar1 + 256), param_1);
     }
@@ -129,7 +129,7 @@ namespace jag::game {
     void BuildModelMain::SetModelRematerial(vector* param_1) {
         long lVar1;
 
-        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)field_112);
+        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)m_requestData);
         eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::operator=(
             (vector<eastl::vector<int, eastl::allocator>, eastl::allocator>*)(lVar1 + 288), param_1);
     }
@@ -139,7 +139,7 @@ namespace jag::game {
     void BuildModelMain::SetOffset(vector* param_1) {
         long lVar1;
 
-        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)field_112);
+        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)m_requestData);
         eastl::vector<math::Vector3T<float>, eastl::allocator>::operator=(
             (vector<math::Vector3T<float>, eastl::allocator>*)(lVar1 + 336), param_1);
     }
@@ -149,7 +149,7 @@ namespace jag::game {
     void BuildModelMain::SetResize(Vector3T* param_1) {
         long lVar1;
 
-        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)field_112);
+        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)m_requestData);
         ((lVar1 + 372))->SetXYZ(param_1);
     }
 
@@ -158,7 +158,7 @@ namespace jag::game {
     void BuildModelMain::SetCustomRecolor(Array* param_1, Array* param_2) {
         long lVar1;
 
-        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)field_112);
+        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)m_requestData);
         *(undefined1*)(lVar1 + 384) = 1;
         SetRecolor(this, param_1, param_2);
     }
@@ -168,7 +168,7 @@ namespace jag::game {
     void BuildModelMain::SetRecolorPalette(Array* param_1) {
         long lVar1;
 
-        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)field_112);
+        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)m_requestData);
         Array<unsigned char, eastl::allocator>::operator=((Array<unsigned char, eastl::allocator>*)(lVar1 + 440),
                                                           param_1);
     }
@@ -179,7 +179,7 @@ namespace jag::game {
         long lVar1;
         undefined1* this_00;
 
-        this_00 = field_112;
+        this_00 = m_requestData;
         lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)this_00);
         *(undefined1*)(lVar1 + 658) = param_2;
         lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)this_00);
@@ -195,7 +195,7 @@ namespace jag::game {
     void BuildModelMain::SetExternalID(int param_1) {
         long lVar1;
 
-        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)field_112);
+        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)m_requestData);
         *(int*)(lVar1 + 668) = param_1;
     }
 
@@ -204,7 +204,7 @@ namespace jag::game {
     void BuildModelMain::SetMirror(bool param_1) {
         long lVar1;
 
-        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)field_112);
+        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)m_requestData);
         *(bool*)(lVar1 + 368) = param_1;
     }
 
@@ -213,7 +213,7 @@ namespace jag::game {
     void BuildModelMain::SetShareLight(bool param_1) {
         long lVar1;
 
-        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)field_112);
+        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)m_requestData);
         *(bool*)(lVar1 + 663) = param_1;
     }
 
@@ -222,7 +222,7 @@ namespace jag::game {
     void BuildModelMain::SetGlobalTranslation(Vector3T* param_1) {
         long lVar1;
 
-        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)field_112);
+        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)m_requestData);
         ((lVar1 + 320))->SetXYZ(param_1);
     }
 
@@ -231,10 +231,10 @@ namespace jag::game {
     void BuildModelMain::SetRecolor(Array* param_1, Array* param_2) {
         long lVar1;
 
-        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)field_112);
+        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)m_requestData);
         Array<unsigned short, eastl::allocator>::operator=((Array<unsigned short, eastl::allocator>*)(lVar1 + 392),
                                                            param_1);
-        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)field_112);
+        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)m_requestData);
         Array<unsigned short, eastl::allocator>::operator=((Array<unsigned short, eastl::allocator>*)(lVar1 + 416),
                                                            param_2);
     }
@@ -244,10 +244,10 @@ namespace jag::game {
     void BuildModelMain::SetRematerial(Array* param_1, Array* param_2) {
         long lVar1;
 
-        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)field_112);
+        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)m_requestData);
         Array<unsigned short, eastl::allocator>::operator=((Array<unsigned short, eastl::allocator>*)(lVar1 + 464),
                                                            param_1);
-        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)field_112);
+        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)m_requestData);
         Array<unsigned short, eastl::allocator>::operator=((Array<unsigned short, eastl::allocator>*)(lVar1 + 488),
                                                            param_2);
     }
@@ -258,7 +258,7 @@ namespace jag::game {
         long lVar1;
         undefined1* this_00;
 
-        this_00 = field_112;
+        this_00 = m_requestData;
         lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)this_00);
         Array<unsigned char, eastl::allocator>::operator=((Array<unsigned char, eastl::allocator>*)(lVar1 + 512),
                                                           param_1);
@@ -277,7 +277,7 @@ namespace jag::game {
         long lVar1;
         undefined1* this_00;
 
-        this_00 = field_112;
+        this_00 = m_requestData;
         lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)this_00);
         Array<unsigned char, eastl::allocator>::operator=((Array<unsigned char, eastl::allocator>*)(lVar1 + 584),
                                                           param_1);
@@ -295,7 +295,7 @@ namespace jag::game {
     void BuildModelMain::SetAmbientAdjust(ushort param_1) {
         long lVar1;
 
-        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)field_112);
+        lVar1 = shared_ptr<BuildModelRequestData>::operator->((shared_ptr<BuildModelRequestData>*)m_requestData);
         *(ushort*)(lVar1 + 656) = param_1;
     }
 
@@ -313,8 +313,8 @@ namespace jag::game {
     // BuildModelMain::~BuildModelMain()
     void BuildModelMain::~BuildModelMain() {
         field_0 = &PTR__BuildModelMain_100f0d578;
-        field_112->~shared_ptr();
-        field_96->~shared_ptr();
+        m_requestData->~shared_ptr();
+        m_constructedAsset->~shared_ptr();
         ~AssetJob();
     }
 

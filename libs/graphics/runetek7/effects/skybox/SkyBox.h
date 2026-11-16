@@ -19,11 +19,11 @@ namespace jag::graphics {
         int GetPendingSkyID() const;
         IsReady() const;
         ulonglong GetPendingSkyTransitionTime() const;
-        GetCubeMap() const;
+        shared_ptr GetCubeMap() const;
         ulong HasSkyTexture() const;
         HasVisibleSkyTexture() const;
         void SetExposure(float);
-        GetRenderTargets();
+        shared_ptr GetRenderTargets();
         SkyBox();
         CreateRenderingResources();
         void DestroyRenderingResources();
@@ -55,13 +55,13 @@ namespace jag::graphics {
         ulonglong field_24; // offset 24
         ulonglong field_32; // offset 32
         char _unknown_40[536];
-        shared_ptr field_576; // offset 576
+        shared_ptr m_cubeMap; // offset 576
         shared_ptr field_592; // offset 592
         shared_ptr field_608; // offset 608
         shared_ptr field_624; // offset 624
         char _unknown_640[48];
-        shared_ptr field_688; // offset 688
-        int m_pendingSkyID;   // offset 704
+        shared_ptr m_renderTargets; // offset 688
+        int m_pendingSkyID;         // offset 704
         char _unknown_708[4];
         ulonglong m_pendingSkyTransitionTime; // offset 712
         float m_exposure;                     // offset 720
@@ -99,7 +99,7 @@ namespace jag::graphics {
         bool bVar1;
         undefined3 extraout_var;
 
-        if ((((GetPendingSkyID(this) == -1) && (bVar1 = field_576->operator_cast_to_bool(), !bVar1)) &&
+        if ((((GetPendingSkyID(this) == -1) && (bVar1 = m_cubeMap->operator_cast_to_bool(), !bVar1)) &&
              (bVar1 = field_592->operator_cast_to_bool(), !bVar1)) &&
             (bVar1 = field_608->operator_cast_to_bool(), !bVar1)) {
             bVar1 = field_624->operator_cast_to_bool();
@@ -134,7 +134,7 @@ namespace jag::graphics {
         undefined8 unaff_R14;
         ulong uVar5;
 
-        bVar1 = field_576->operator_cast_to_bool();
+        bVar1 = m_cubeMap->operator_cast_to_bool();
         uVar5 = CONCAT71((int7)((ulong)unaff_R14 >> 8), 1);
         if (!bVar1) {
             bVar1 = field_592->operator_cast_to_bool();

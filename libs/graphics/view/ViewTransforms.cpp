@@ -52,7 +52,7 @@ namespace jag {
             local_30 = param_1->GetGameScale();
             local_2c = param_1->GetFarClip();
             uVar2 = param_1->GetID();
-            math::Matrix44PerspectiveFovLH<float>(local_38, local_34, local_30, local_2c, &field_80, uVar2);
+            math::Matrix44PerspectiveFovLH<float>(local_38, local_34, local_30, local_2c, &m_projMatrix, uVar2);
         } else {
             local_38 = param_1->GetFogDepthAngleFalloff();
             local_34 = param_1->GetRightClip();
@@ -61,8 +61,8 @@ namespace jag {
             local_40 = param_1->GetGameScale();
             local_3c = param_1->GetFarClip();
             uVar2 = param_1->GetID();
-            math::Matrix44OrthographicLH<float>(local_38, local_34, local_30, local_2c, local_40, local_3c, &field_80,
-                                                uVar2);
+            math::Matrix44OrthographicLH<float>(local_38, local_34, local_30, local_2c, local_40, local_3c,
+                                                &m_projMatrix, uVar2);
         }
         pMVar5 = (Matrix44T*)GetScreen();
         pMVar6 = (Matrix44T*)GetOrigin();
@@ -86,7 +86,7 @@ namespace jag {
         local_58 = math::operator*((Vector3T*)local_48, pMVar1);
         SetXYZ((Vector3T*)&local_58);
         math::Matrix44T<float>::operator=((Matrix44T<float>*)&field_16, param_1);
-        math::Matrix44T<float>::operator=((Matrix44T<float>*)&field_80, param_2);
+        math::Matrix44T<float>::operator=((Matrix44T<float>*)&m_projMatrix, param_2);
         math::operator*((math*)local_98, param_1, param_2);
         math::Matrix44T<float>::operator=((Matrix44T<float>*)&field_144, (Matrix44T*)local_98);
     }
@@ -96,7 +96,7 @@ namespace jag {
     void ViewTransforms::SetToIdentity() {
         Set(0.0, 0.0, 0.0);
         (&field_16)->SetToIdentity();
-        (&field_80)->SetToIdentity();
+        (&m_projMatrix)->SetToIdentity();
         (&field_144)->SetToIdentity();
     }
 
@@ -164,7 +164,7 @@ namespace jag {
 
         local_30 = hash();
         local_28 = (&field_16)->hash();
-        local_20 = (&field_80)->hash();
+        local_20 = (&m_projMatrix)->hash();
         local_18 = (&field_144)->hash();
         hash_val<unsigned long, unsigned long, unsigned long, unsigned long>(&local_30, &local_28, &local_20,
                                                                              &local_18);

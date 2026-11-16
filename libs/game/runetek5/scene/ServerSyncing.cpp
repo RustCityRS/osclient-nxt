@@ -432,7 +432,7 @@ namespace jag::game {
         uint uVar1;
         undefined4* puVar3;
 
-        if ((param_1->field_8 != 0) || (param_1->field_4 != 4294967295)) {
+        if ((param_1->m_syncCycle != 0) || (param_1->field_4 != 4294967295)) {
             /* WARNING: Subroutine does not return */
             LogAssert("user.m_syncCycle == 0 && user.m_syncHandle == -1",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/scene/"
@@ -446,7 +446,7 @@ namespace jag::game {
                       "ServerSyncing.cpp",
                       483, (char*)0);
         }
-        param_1->field_8 = field_0;
+        param_1->m_syncCycle = m_cycle;
         uVar1 = field_4;
         field_4 = uVar1 + 1;
         param_1->field_4 = uVar1;
@@ -543,11 +543,11 @@ namespace jag::game {
         long local_38;
 
         local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if (param_1->field_8 != 0) {
-            this_00 = (ServerSyncingCycle*)GetSyncFrame(this, param_1->field_8);
+        if (param_1->m_syncCycle != 0) {
+            this_00 = (ServerSyncingCycle*)GetSyncFrame(this, param_1->m_syncCycle);
             if (this_00 == (ServerSyncingCycle*)0) {
                 param_1->field_4 = 4294967295;
-                param_1->field_8 = 0;
+                param_1->m_syncCycle = 0;
             } else {
                 uVar6 = logger::default_logger();
                 pGVar7 = (GraphicsApp*)&local_c8;
@@ -605,7 +605,7 @@ namespace jag::game {
                       "ServerSyncing.cpp",
                       495, (char*)0);
         }
-        if ((param_1->field_8 != 0) && (param_1->field_4 != 4294967295)) {
+        if ((param_1->m_syncCycle != 0) && (param_1->field_4 != 4294967295)) {
             eastl::rbtree<int, eastl::pair<int const, ServerSyncingCycle::SyncUserEntry>, eastl::less<int>,
                           eastl::fixed_node_allocator<48ul, 32ul, 4ul, 0ul, true, eastl::allocator>,
                           eastl::use_first<eastl::pair<int const, ServerSyncingCycle::SyncUserEntry>>, true,
@@ -629,7 +629,7 @@ namespace jag::game {
                                                                                                           local_30);
             }
             param_1->field_4 = 4294967295;
-            param_1->field_8 = 0;
+            param_1->m_syncCycle = 0;
         }
     }
 
@@ -639,8 +639,8 @@ namespace jag::game {
         byte bVar1;
         ServerSyncingCycle* this_00;
 
-        if ((param_1->field_8 == 0) ||
-            (this_00 = (ServerSyncingCycle*)GetSyncFrame(this, param_1->field_8), this_00 == (ServerSyncingCycle*)0)) {
+        if ((param_1->m_syncCycle == 0) || (this_00 = (ServerSyncingCycle*)GetSyncFrame(this, param_1->m_syncCycle),
+                                            this_00 == (ServerSyncingCycle*)0)) {
             bVar1 = 1;
         } else {
             bVar1 = this_00->CanBuild(param_1);
@@ -734,8 +734,8 @@ namespace jag::game {
     void ServerSyncing::SetReady(ServerSyncingUser* param_1, bool param_2) {
         ServerSyncingCycle* this_00;
 
-        if (param_1->field_8 != 0) {
-            this_00 = (ServerSyncingCycle*)GetSyncFrame(this, param_1->field_8);
+        if (param_1->m_syncCycle != 0) {
+            this_00 = (ServerSyncingCycle*)GetSyncFrame(this, param_1->m_syncCycle);
             if (this_00 != (ServerSyncingCycle*)0) {
                 this_00->SetReady(param_1, param_2);
             }
@@ -762,7 +762,7 @@ namespace jag::game {
                       "ServerSyncing.cpp",
                       536, (char*)0);
         }
-        if ((param_1->field_8 == 0) || (param_1->field_4 == 4294967295)) {
+        if ((param_1->m_syncCycle == 0) || (param_1->field_4 == 4294967295)) {
             /* WARNING: Subroutine does not return */
             LogAssert("user.m_syncCycle != 0 && user.m_syncHandle != -1",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/scene/"
@@ -813,8 +813,8 @@ namespace jag::game {
         ServerSyncingUser* pSVar1;
         ulong uVar2;
 
-        if (((param_1->field_8 == 0) ||
-             (pSVar1 = (ServerSyncingUser*)GetSyncFrame(this, param_1->field_8), pSVar1 == (ServerSyncingUser*)0)) ||
+        if (((param_1->m_syncCycle == 0) || (pSVar1 = (ServerSyncingUser*)GetSyncFrame(this, param_1->m_syncCycle),
+                                             pSVar1 == (ServerSyncingUser*)0)) ||
             (uVar2 = ServerSyncingCycle::IsSynced(pSVar1), pSVar1 == (ServerSyncingUser*)0)) {
             uVar2 = 0;
         }
@@ -868,7 +868,7 @@ namespace jag::game {
                       "ServerSyncing.cpp",
                       331, (char*)0);
         }
-        uVar3 = param_2->field_8;
+        uVar3 = param_2->m_syncCycle;
         uVar5 = CONCAT71((int7)((ulong)unaff_RBX >> 8), 1);
         if (uVar3 != 0) {
             if (uVar3 == ((ServerSyncing*)this)->m_currentCycle) {

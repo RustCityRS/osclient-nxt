@@ -38,7 +38,7 @@ namespace jag::auth {
         void SetGameSessionCredentials(eastl::string const&, eastl::string const&);
         void ResetRequestState();
         void InvalidateRefreshToken();
-        GetOAuthAccessTokenExpiryTime();
+        ulonglong GetOAuthAccessTokenExpiryTime();
         GetToken();
         GetGameTokenRequestResultCode() const;
         bool IsStillRequestingOAuth2Tokens() const;

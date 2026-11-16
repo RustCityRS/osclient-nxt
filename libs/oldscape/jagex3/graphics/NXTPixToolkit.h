@@ -9,7 +9,7 @@ namespace jag::oldscape::graphics {
     class NXTPixToolkit {
     public:
         // virtual methods in vtable order
-        virtual GetPix2D();
+        virtual NXTPix2D GetPix2D();
         virtual GetPix3D();
         virtual void SetScreenSize(int, int);
         virtual void Render(int, int, int, int);
@@ -32,7 +32,7 @@ namespace jag::oldscape::graphics {
         void ShowUI(bool);
         void ShowSkybox(bool);
         void SetScaledUIQuality(ScaledUIQuality);
-        GetUIVisible();
+        bool GetUIVisible();
 
         // data members, from how the methods use this: 6515840 bytes
         undefined** field_0;  // offset 0, vtable pointer
@@ -42,7 +42,7 @@ namespace jag::oldscape::graphics {
         bool field_57;             // offset 57
         bool m_depthBufferEnabled; // offset 58
         char _unknown_59[117];
-        NXTPix2D field_176; // offset 176
+        NXTPix2D m_pix2D; // offset 176
         char _unknown_216[6515624];
     };
 

@@ -7,7 +7,7 @@
 
 namespace jag::graphics {
     // 0x1003c9110: the linker folded this into game::MapArea::GetTargetBounds() const, which has identical code
-    MaterialManager::GetDefaultMaterial() const;
+    Material MaterialManager::GetDefaultMaterial() const;
 
     // 0x1008c70e0, 16 bytes, placed by class name and debug map
     // MaterialManager::Initialise(MaterialRawProvider*)

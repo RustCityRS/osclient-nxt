@@ -14,7 +14,7 @@ namespace jag::graphics {
     void MaterialRaw::MaterialRaw() {
         undefined* puVar1;
 
-        field_0 = 0;
+        m_valid = 0;
         field_4 = -1;
         field_8 = '\0';
         field_12 = 64;
@@ -234,7 +234,7 @@ namespace jag::graphics {
             uVar5 = param_1->g2();
             field_224 = uVar5;
         }
-        field_0 = 1;
+        m_valid = 1;
     }
 
     // 0x10097c7f0, 1120 bytes, placed by class name
@@ -391,7 +391,7 @@ namespace jag::graphics {
         uVar4 = param_1->g2();
         field_224 = uVar4;
         param_1->g1();
-        field_0 = 1;
+        m_valid = 1;
     }
 
     // 0x10097cc50, 80 bytes, placed by class name

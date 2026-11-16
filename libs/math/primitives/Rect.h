@@ -648,22 +648,22 @@ namespace jag {
     Error::Error(int);
 
     // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    ZoneBuiltArea::GetBuildMode() const;
+    uint ZoneBuiltArea::GetBuildMode() const;
 
     // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    Steam::GetAppID() const;
+    uint Steam::GetAppID() const;
 
 } // namespace jag
 
 namespace jag::game {
     // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    EnvFogSettings::GetFogRGBA() const;
+    uint EnvFogSettings::GetFogRGBA() const;
 
     // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    EnvToneMapSettings::GetToneMapOperator() const;
+    uint EnvToneMapSettings::GetToneMapOperator() const;
 
     // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    EnvReflectionSettings::GetEnvironmentMaterialID() const;
+    int EnvReflectionSettings::GetEnvironmentMaterialID() const;
 
 } // namespace jag::game
 
@@ -684,7 +684,7 @@ namespace jag::oldscape::graphics {
 
 namespace jag::oldscape {
     // 0x100073980: the linker folded this into jag::math::Rect<int>::MinY() const, which has identical code
-    ClientEntityID::GetSlotID() const;
+    int ClientEntityID::GetSlotID() const;
 
 } // namespace jag::oldscape
 

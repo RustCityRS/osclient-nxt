@@ -10,7 +10,7 @@ namespace jag {
     StringEnum::GetEnumList() const;
 
     // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    StringEnum::GetNumEntries() const;
+    uint StringEnum::GetNumEntries() const;
 
     // 0x100cb79b0, 32 bytes, base-object destructor, placed by class name and debug map
     // StringEnum::~StringEnum()
@@ -32,14 +32,14 @@ namespace jag {
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/StringEnum.cpp", 21,
                       (char*)0);
         }
-        if (field_8 != 0) {
+        if (m_numEntries != 0) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_NumEnums == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/StringEnum.cpp", 22,
                       (char*)0);
         }
         field_0 = param_1;
-        field_8 = param_2;
+        m_numEntries = param_2;
         field_12 = param_3;
     }
 
@@ -58,7 +58,7 @@ namespace jag {
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/StringEnum.cpp", 32,
                       (char*)0);
         }
-        field_8 = param_1;
+        m_numEntries = param_1;
     }
 
     // 0x100cb7ac0, 208 bytes, placed by class name and debug map
@@ -72,7 +72,7 @@ namespace jag {
         ulong uVar5;
 
         if (CONCAT31(in_register_00000011, param_2) == 0) {
-            if (0 < (int)field_8) {
+            if (0 < (int)m_numEntries) {
                 lVar4 = 8;
                 uVar5 = 0;
                 do {
@@ -82,10 +82,10 @@ namespace jag {
                     }
                     uVar5 = uVar5 + 1;
                     lVar4 = lVar4 + 16;
-                } while ((long)uVar5 < (long)(int)field_8);
+                } while ((long)uVar5 < (long)(int)m_numEntries);
             }
         } else {
-            uVar1 = field_8;
+            uVar1 = m_numEntries;
             if (0 < (int)uVar1) {
                 pSVar3 = field_0 + 8;
                 uVar5 = 0;
@@ -108,7 +108,7 @@ namespace jag {
         ulong uVar1;
         StringEnumEntry* pSVar2;
 
-        if (0 < (int)field_8) {
+        if (0 < (int)m_numEntries) {
             pSVar2 = field_0;
             uVar1 = 0;
             do {
@@ -117,7 +117,7 @@ namespace jag {
                 }
                 uVar1 = uVar1 + 1;
                 pSVar2 = pSVar2 + 16;
-            } while (field_8 != uVar1);
+            } while (m_numEntries != uVar1);
         }
         return 4294967295;
     }

@@ -15,7 +15,7 @@ namespace jag::graphics {
         virtual GetTransformedTriangle(unsigned int, math::Vector4T<float> (&)[3]);
         virtual void RenderDebug(RenderPassType, DrawableElement&) const;
         GetTextureAtlasReference() const;
-        GetViewportMapID() const;
+        int GetViewportMapID() const;
         byte CastsShadow() const;
         ModularParticleSystemDrawable(ModularParticleSystem&);
         void DestroyRenderingResources();
@@ -31,7 +31,7 @@ namespace jag::graphics {
         char _unknown_12[4];
         ModularParticleSystem* field_16; // offset 16
         char _unknown_24[16];
-        undefined4 field_40; // offset 40
+        int m_viewportMapID; // offset 40
         char field_44;       // offset 44
         char field_45;       // offset 45
         char _unknown_46[82];
@@ -101,7 +101,7 @@ namespace jag::graphics {
         field_16 = param_1;
         new (&field_24, (_func_decltype_nullptr*)(type*)8)
             shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        field_40 = 4294967295;
+        m_viewportMapID = -1;
         field_44 = '\x01';
         field_45 = '\0';
         std::optional<math::Matrix44T<float>>::optional<math::Matrix44T<float> const&, 0>((Matrix44T*)&field_48);
@@ -110,7 +110,7 @@ namespace jag::graphics {
         this_00 = param_1->SSOBeginPtr(8);
         this_01 = (Material*)shared_ptr<ModularParticleSystemTemplate>::operator->(
             (shared_ptr<ModularParticleSystemTemplate>*)this_00);
-        local_30[0].field_0 = this_01->GetNormalEmissiveMapID();
+        local_30[0].m_bits = this_01->GetNormalEmissiveMapID();
         if (local_30->HasFormatType(0) != '\0') {
             SetRenderFlag(1, true);
         }

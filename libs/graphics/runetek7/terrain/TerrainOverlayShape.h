@@ -15,7 +15,7 @@ namespace jag::graphics {
 
         // data members, from how the methods use this: 24 bytes
         undefined** field_0; // offset 0, vtable pointer
-        undefined1 field_8;  // offset 8
+        undefined1 m_iD;     // offset 8
         char _unknown_9[15];
     };
 

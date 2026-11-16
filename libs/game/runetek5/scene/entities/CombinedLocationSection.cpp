@@ -13,7 +13,7 @@ namespace jag::game {
     CombinedLocationSection::IsAnimatable() const;
 
     // 0x100324d50: the linker folded this into oldscape::graphics::NXTPixToolkit::GetPix3D(), which has identical code
-    CombinedLocationSection::GetLocationType() const;
+    shared_ptr CombinedLocationSection::GetLocationType() const;
 
     // 0x100324d50: the linker folded this into oldscape::graphics::NXTPixToolkit::GetPix3D(), which has identical code
     CombinedLocationSection::GetParentLocationType() const;
@@ -36,7 +36,7 @@ namespace jag::game {
         field_0 = &PTR__CombinedLocationSection_100f00430;
         field_8 = &PTR__CombinedLocationSection_100f005c8;
         new (field_216, param_3, param_4, param_5) oldscape::rs2lib::worldmap::LocationData();
-        this_00 = field_232;
+        this_00 = m_locationType;
         new (this_00) shared_ptr<oldscape::dash3d::Decor>(param_6);
         uVar1 = param_7->GetShape();
         m_shape = uVar1;
@@ -50,7 +50,7 @@ namespace jag::game {
         m_hidden = 0;
         field_307 = 0;
         m_attachedWallWidth = (short)param_12;
-        new (field_312) EntityHighlightState();
+        new (m_highlightState) EntityHighlightState();
         if ((short)param_9 != param_9) {
             /* WARNING: Subroutine does not return */
             LogAssert("heightMapFineOffset >= std::numeric_limits<int16>::min() && heightMapFineOffset <= "
@@ -104,7 +104,7 @@ namespace jag::game {
         field_0 = &PTR__CombinedLocationSection_100f00430;
         field_8 = &PTR__CombinedLocationSection_100f005c8;
         new (field_216) game::CoordGrid();
-        new (field_232, (_func_decltype_nullptr*)3) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (m_locationType, (_func_decltype_nullptr*)3) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         m_shape = 0;
         m_rotation90 = 0;
         new (&field_252) math::RotTransScale();
@@ -114,7 +114,7 @@ namespace jag::game {
         m_hidden = 0;
         field_307 = 0;
         m_attachedWallWidth = 0;
-        new (field_312) EntityHighlightState();
+        new (m_highlightState) EntityHighlightState();
     }
 
     // 0x100449d50, 16 bytes, complete-object constructor, placed by class name and debug map
@@ -135,7 +135,7 @@ namespace jag::game {
         HeightMap* this_03;
 
         if (param_2 != 0) {
-            this_00 = field_232;
+            this_00 = m_locationType;
             pLVar7 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
             if (pLVar7->RaiseEntities(m_shape, field_300) != '\0') {
                 this_01 = (shared_ptr<World>*)GetWorld();
@@ -199,7 +199,7 @@ namespace jag::game {
 
         local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
         if ((m_hidden == '\0') && (field_307 == '\0')) {
-            local_190._8_8_ = field_232;
+            local_190._8_8_ = m_locationType;
             this_01 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)local_190._8_8_);
             cVar1 = this_01->IsActive();
             if (cVar1 != '\0') {
@@ -304,9 +304,9 @@ namespace jag::game {
         bool bVar1;
         LocType* this_00;
 
-        bVar1 = field_232->operator_cast_to_bool();
+        bVar1 = m_locationType->operator_cast_to_bool();
         if (bVar1) {
-            this_00 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)field_232);
+            this_00 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
             bVar1 = this_00->GetCustomBounding() == 0;
         } else {
             bVar1 = false;
@@ -364,10 +364,10 @@ namespace jag::game {
         undefined3 extraout_var;
         undefined4 uVar2;
 
-        bVar1 = field_232->operator_cast_to_bool();
+        bVar1 = m_locationType->operator_cast_to_bool();
         uVar2 = CONCAT31(extraout_var, 1);
         if (bVar1) {
-            this_00 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)field_232);
+            this_00 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
             uVar2 = this_00->UseFastPickingTests();
         }
         return uVar2;
@@ -394,7 +394,7 @@ namespace jag::game {
         if (this_00 != (CombinedLocation*)0) {
             this_00->FlagHighlightingDirty();
         }
-        new (field_312, param_1) oldscape::ServerConnectionWorkItem();
+        new (m_highlightState, param_1) oldscape::ServerConnectionWorkItem();
     }
 
     // 0x10044a4d0, 336 bytes, placed by class name and debug map
@@ -443,10 +443,10 @@ namespace jag::game {
         }
     LAB_10044a54d:
         if (EntityHighlightGlobalState::m_allowExamineOnlyHighlights == '\0') {
-            bVar1 = field_232->operator_cast_to_bool();
+            bVar1 = m_locationType->operator_cast_to_bool();
             bVar3 = 1;
             if (bVar1) {
-                this_01 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)field_232);
+                this_01 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
                 bVar3 = this_01->IsExamineOnly();
                 bVar3 = bVar3 ^ 1;
             }
@@ -458,7 +458,7 @@ namespace jag::game {
                 this_02->FlagHighlightingDirty();
             }
             if (param_2) {
-                new (field_312, param_1) oldscape::ServerConnectionWorkItem();
+                new (m_highlightState, param_1) oldscape::ServerConnectionWorkItem();
             } else {
                 psVar5 = (shared_ptr<World>*)GetWorld();
                 phVar6 =
@@ -472,10 +472,10 @@ namespace jag::game {
                     eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
                     eastl::prime_rehash_policy, false, true, true>::size(phVar6);
                 pEVar8 = (EntityHighlightGlobalState*)pSVar7->GetEntityHighlightGlobalState();
-                (field_312, pEVar8, param_1)->TryKeepVisible();
+                (m_highlightState, pEVar8, param_1)->TryKeepVisible();
             }
             if (param_3 != -1.0) {
-                *(float*)field_312 = param_3;
+                *(float*)m_highlightState = param_3;
             }
         }
     }

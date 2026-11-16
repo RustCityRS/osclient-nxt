@@ -7,17 +7,17 @@
 
 namespace jag::graphics {
     // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    ReflectionManager::GetCullFrustum() const;
+    Frustum ReflectionManager::GetCullFrustum() const;
 
     // 0x100324d40: the linker folded this into oldscape::graphics::NXTPixToolkit::GetPix2D(), which has identical code
-    ReflectionManager::GetViewTransforms() const;
+    ViewTransforms ReflectionManager::GetViewTransforms() const;
 
     // 0x1007e0cd0, 128 bytes, base-object constructor, placed by class name and debug map
     // ReflectionManager::ReflectionManager(render::RenderTargetsManager&)
     void ReflectionManager::ReflectionManager(RenderTargetsManager* param_1) {
         new (this) Config();
-        new (field_16) math::Frustum();
-        new (field_176) ViewTransforms();
+        new (m_cullFrustum) math::Frustum();
+        new (m_viewTransforms) ViewTransforms();
         new (field_384, (_func_decltype_nullptr*)param_1)
             shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         new (field_400) ViewTransforms();
@@ -81,14 +81,14 @@ namespace jag::graphics {
         Matrix44T* pMVar2;
         ViewTransforms local_f8;
 
-        ViewTransforms::operator=((ViewTransforms*)field_176, param_1);
+        ViewTransforms::operator=((ViewTransforms*)m_viewTransforms, param_1);
         pMVar1 = (Matrix44T*)param_1->GetScreen();
         pMVar2 = (Matrix44T*)param_2->GetOrigin();
         new (&local_f8) ViewTransforms(pMVar1, pMVar2);
         ViewTransforms::operator=((ViewTransforms*)field_400, &local_f8);
         pMVar1 = (Matrix44T*)param_1->GetScreen();
         pMVar2 = (Matrix44T*)param_1->GetOrigin();
-        (field_16, pMVar1, pMVar2)->Set();
+        (m_cullFrustum, pMVar1, pMVar2)->Set();
     }
 
     // 0x1007e0f30, 80 bytes, placed by class name
@@ -229,7 +229,7 @@ namespace jag::graphics {
         do {
             local_48[0] = param_1->GetCornerPos(uVar4);
             math::Vector4T<float>::Vector4T(local_a8, (Vector3T*)local_48, 1.0);
-            pMVar1 = (Matrix44T*)field_176->GetImmediateThreadPool();
+            pMVar1 = (Matrix44T*)m_viewTransforms->GetImmediateThreadPool();
             math::Vector4T<float>::operator*=(local_a8, pMVar1);
             pfVar2 = (float*)local_a8->qw();
             local_68 = math::operator*((Vector4T*)local_a8, 0.5 / *pfVar2);

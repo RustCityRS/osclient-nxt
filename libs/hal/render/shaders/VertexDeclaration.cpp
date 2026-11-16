@@ -13,7 +13,7 @@ namespace jag::render {
     VertexDeclaration::GetVertexElementByteOffsets() const;
 
     // 0x1000b7900: the linker folded this into oldscape::minimenu::MinimenuEntry::GetSubjectType() const, which has identical code
-    VertexDeclaration::GetNumVertexStreams() const;
+    int VertexDeclaration::GetNumVertexStreams() const;
 
     // 0x1000e31a0: the linker folded this into oldscape::graphics::NXTPixScreen::GetUIWidth() const, which has identical code
     VertexDeclaration::hash() const;
@@ -28,7 +28,7 @@ namespace jag::render {
         new (this) RenderResource();
         new (&field_8) Array<VertexElementDesc, eastl::allocator>();
         new (&field_32) Array<unsigned int, eastl::allocator>();
-        *(undefined8*)&field_88 = 0;
+        *(undefined8*)&m_numVertexStreams = 0;
         uStack_28 = (ulong)(uint)uStack_28;
         (&field_56, (uint*)((long)&uStack_28 + 4))->fill();
     }
@@ -55,7 +55,7 @@ namespace jag::render {
         MarkAsDead();
         uStack_18 = (ulong)(uint)uStack_18;
         (&field_56, (uint*)((long)&uStack_18 + 4))->fill();
-        *(undefined8*)&field_88 = 0;
+        *(undefined8*)&m_numVertexStreams = 0;
     }
 
     // 0x100bedc00, 16 bytes, complete-object destructor, placed by class name

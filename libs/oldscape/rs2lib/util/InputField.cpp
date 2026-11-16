@@ -13,31 +13,31 @@ namespace jag::oldscape::rs2lib {
     // InputField::InputField()
     void InputField::InputField() {
         new (this) jag::graphics::TextRun();
-        new (field_80) jag::graphics::TextRun();
+        new (m_placeholderContents) jag::graphics::TextRun();
         m_hasFocus = '\0';
         m_focusAllowed = true;
         field_162 = 0;
         field_163 = 0;
         field_168 = 0;
         field_176 = 0;
-        field_180 = 0;
-        field_184 = 0;
+        m_hasFont = 0;
+        m_enterAction = 0;
         field_188 = 0;
-        field_192 = 0;
-        field_200 = 0;
-        field_208 = 0;
-        *(undefined8*)((long)&field_208 + 4) = 0;
+        m_filter = 0;
+        m_caretIndex = 0;
+        m_pSelectionStart = 0;
+        *(undefined8*)((long)&m_pSelectionStart + 4) = 0;
         *(undefined8*)((long)&field_216 + 4) = 0;
         field_228 = 4294967295;
         m_characterLimit = 4294967295;
         field_240 = 0;
         field_244 = 0;
-        field_248 = 0;
+        m_scrollX = 0;
         field_252 = 0;
         std::function<void()>::function((_func_decltype_nullptr*)&field_256);
         std::function<void()>::function((_func_decltype_nullptr*)&field_304);
         SetWrapMode(1);
-        (field_80, 1)->SetWrapMode();
+        (m_placeholderContents, 1)->SetWrapMode();
     }
 
     // 0x1001fc830, 16 bytes, complete-object constructor, placed by class name
@@ -107,7 +107,7 @@ namespace jag::oldscape::rs2lib {
                 (function<void(render::RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
         }
         if (m_hasFocus == '\0') {
-            SetSelection(this, field_200, field_200);
+            SetSelection(this, m_caretIndex, m_caretIndex);
         }
         if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
             /* WARNING: Subroutine does not return */
@@ -124,8 +124,8 @@ namespace jag::oldscape::rs2lib {
         undefined7 uVar4;
 
         if (Is64BitOS() == '\0') {
-            field_208 = param_1;
-            field_200 = param_2;
+            m_pSelectionStart = param_1;
+            m_caretIndex = param_2;
             uVar3 = 0;
         } else {
             uVar3 = GetCodepointCount();
@@ -138,12 +138,12 @@ namespace jag::oldscape::rs2lib {
             }
             uVar4 = (undefined7)((ulong)unaff_R12 >> 8);
             uVar3 = CONCAT71(uVar4, 1);
-            if (field_208 == param_1) {
-                uVar3 = CONCAT71(uVar4, field_200 != param_2);
+            if (m_pSelectionStart == param_1) {
+                uVar3 = CONCAT71(uVar4, m_caretIndex != param_2);
             }
-            field_208 = param_1;
-            if (field_200 != param_2) {
-                field_200 = param_2;
+            m_pSelectionStart = param_1;
+            if (m_caretIndex != param_2) {
+                m_caretIndex = param_2;
                 field_176 = 0;
                 UpdateScrollCaretVisible(this);
             }
@@ -199,7 +199,7 @@ namespace jag::oldscape::rs2lib {
                 eastl::basic_string<char,
                                     eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
             Set(pcVar3, uVar2);
-            SetScroll(this, field_248, field_252);
+            SetScroll(this, m_scrollX, field_252);
             CropToLimits(this);
             OnTextChanged(this);
         }
@@ -223,22 +223,22 @@ namespace jag::oldscape::rs2lib {
         local_2c = param_1;
         local_28[0] = param_2;
         if (Is64BitOS() == '\0') {
-            field_248 = local_2c;
+            m_scrollX = local_2c;
             field_252 = local_28[0];
             uVar6 = 0;
         } else {
-            uVar1 = field_248;
+            uVar1 = m_scrollX;
             iVar2 = field_252;
             iVar4 = GetWidth();
             local_34 = eastl::max<int>(0, (iVar4 - field_240) + 2);
             iVar4 = GetHeight();
             local_30 = eastl::max<int>(0, (iVar4 - field_244) + 1);
             local_28[1] = 0;
-            field_248 = jag::math::Clamp<int>((int*)&local_2c, local_28 + 1, &local_34);
+            m_scrollX = jag::math::Clamp<int>((int*)&local_2c, local_28 + 1, &local_34);
             local_28[1] = 0;
             iVar4 = jag::math::Clamp<int>(local_28, local_28 + 1, &local_30);
             field_252 = iVar4;
-            uVar6 = CONCAT71((int7)(CONCAT44(extraout_var, iVar4) >> 8), iVar2 != iVar4 || uVar1 != field_248);
+            uVar6 = CONCAT71((int7)(CONCAT44(extraout_var, iVar4) >> 8), iVar2 != iVar4 || uVar1 != m_scrollX);
         }
         return uVar6;
     }
@@ -279,13 +279,13 @@ namespace jag::oldscape::rs2lib {
                 uVar8 = CONCAT71((int7)(lVar5 - 1U >> 8), 1);
             }
             if ((char)uVar8 != '\0') {
-                uVar9 = field_200;
-                uVar4 = field_208;
+                uVar9 = m_caretIndex;
+                uVar4 = m_pSelectionStart;
                 uVar7 = GetCodepointCount();
-                if (uVar7 < field_200) {
+                if (uVar7 < m_caretIndex) {
                     uVar9 = uVar7;
                 }
-                if (uVar7 < field_208) {
+                if (uVar7 < m_pSelectionStart) {
                     uVar4 = uVar7;
                 }
                 SetSelection(this, uVar4, uVar9);
@@ -326,14 +326,14 @@ namespace jag::oldscape::rs2lib {
         ulong uVar5;
         OldScapeFontMetricConverter local_38;
 
-        bVar1 = field_180;
+        bVar1 = m_hasFont;
         uVar6 = (undefined7)((ulong)unaff_R14 >> 8);
         local_38.Convert(0, param_1);
         SetFontMetrics((shared_ptr*)&local_38);
-        (field_80, (shared_ptr*)&local_38)->SetFontMetrics();
-        field_180 = 1;
-        bVar2 = SetScroll(this, field_248, field_252);
-        bVar3 = SetSelection(this, field_208, field_200);
+        (m_placeholderContents, (shared_ptr*)&local_38)->SetFontMetrics();
+        m_hasFont = 1;
+        bVar2 = SetScroll(this, m_scrollX, field_252);
+        bVar3 = SetSelection(this, m_pSelectionStart, m_caretIndex);
         if (CropToLimits(this) == '\0') {
             uVar5 = CONCAT71(uVar6, bVar1 ^ 1 | bVar2 | bVar3);
         } else {
@@ -355,7 +355,7 @@ namespace jag::oldscape::rs2lib {
         }
         field_240 = param_1;
         field_244 = param_2;
-        return SetScroll(this, field_248, field_252) | bVar2;
+        return SetScroll(this, m_scrollX, field_252) | bVar2;
     }
 
     // 0x1001fd030, 96 bytes, placed by class name
@@ -375,7 +375,7 @@ namespace jag::oldscape::rs2lib {
         uVar5 = (undefined7)((ulong)unaff_R14 >> 8);
         uVar4 = CONCAT71(uVar5, iVar3 == iVar2);
         SetMaxLineWidth(iVar3);
-        (field_80, iVar3)->SetMaxLineWidth();
+        (m_placeholderContents, iVar3)->SetMaxLineWidth();
         if (CropToLimits(this) != '\0') {
             OnTextChanged(this);
             uVar4 = CONCAT71(uVar5, 1);
@@ -449,7 +449,7 @@ namespace jag::oldscape::rs2lib {
 
     // 0x1001fd1a0, 272 bytes, placed by class name
     // InputField::SetInputFilter(InputFieldFilter)
-    ulong InputField::SetInputFilter(undefined4 param_2) {
+    ulong InputField::SetInputFilter(uint param_2) {
         long lVar1;
         undefined8 uVar2;
         undefined8 uVar3;
@@ -459,7 +459,7 @@ namespace jag::oldscape::rs2lib {
         ulong uVar7;
         basic_string local_48[24];
 
-        field_192 = param_2;
+        m_filter = param_2;
         eastl::basic_string<char, BucketAllocatorEASTL>::basic_string();
         ConvertToUTF8(local_48);
         lVar1 = eastl::basic_string<char,
@@ -477,7 +477,7 @@ namespace jag::oldscape::rs2lib {
                 eastl::basic_string<char,
                                     eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
             Set(pcVar4, uVar7);
-            SetScroll(this, field_248, field_252);
+            SetScroll(this, m_scrollX, field_252);
             CropToLimits(this);
             OnTextChanged(this);
         }
@@ -505,9 +505,9 @@ namespace jag::oldscape::rs2lib {
         uVar4 = local_78->GetLastCursorPosition();
         iVar1 = GetLineHeight();
         new (local_40) dash3d::GridRect((int)uVar4 + -10, (int)((ulong)uVar4 >> 32) + -3, 20, iVar1 + 6);
-        ptVar7 = (type*)(ulong)field_248;
-        new (&local_58) dash3d::GridRect(field_248, field_252, field_240, field_244);
-        uVar8 = field_248;
+        ptVar7 = (type*)(ulong)m_scrollX;
+        new (&local_58) dash3d::GridRect(m_scrollX, field_252, field_240, field_244);
+        uVar8 = m_scrollX;
         local_44 = field_252;
         pvVar5 = eastl::string::Layout::SSOBeginPtr(local_40, ptVar7);
         iVar1 = *(int*)pvVar5;
@@ -632,10 +632,10 @@ namespace jag::oldscape::rs2lib {
         undefined1 auVar5[16];
         undefined1 auVar6[16];
 
-        if (field_180 == 0) {
+        if (m_hasFont == 0) {
             uVar4 = 0;
         } else {
-            uVar1 = field_248;
+            uVar1 = m_scrollX;
             iVar2 = field_252;
             uVar3 = GetOriginForCurrentAlignment(this);
             uVar4 = GetIndexAtPos((param_1 + uVar1) - (int)uVar3, (param_2 + iVar2) - (int)((ulong)uVar3 >> 32));
@@ -656,7 +656,7 @@ namespace jag::oldscape::rs2lib {
                 SetSelection(this, uVar4, uVar4);
                 field_216 = uVar4;
             } else {
-                if (field_208 == field_200) {
+                if (m_pSelectionStart == m_caretIndex) {
                     field_188 = 1;
                     auVar6 = GetWord(this, uVar4);
                 } else {
@@ -724,8 +724,8 @@ namespace jag::oldscape::rs2lib {
         }
         field_162 = 1;
         field_163 = 0;
-        if ((field_180 != 0) && (cVar3 = HasFocus(this), cVar3 != '\0')) {
-            uVar1 = field_248;
+        if ((m_hasFont != 0) && (cVar3 = HasFocus(this), cVar3 != '\0')) {
+            uVar1 = m_scrollX;
             iVar2 = field_252;
             uVar5 = GetOriginForCurrentAlignment(this);
             uVar6 = GetIndexAtPos((param_1 + uVar1) - (int)uVar5, (param_2 + iVar2) - (int)((ulong)uVar5 >> 32));
@@ -736,7 +736,7 @@ namespace jag::oldscape::rs2lib {
             } else {
                 if (iVar2 != 1) {
                     if (iVar2 == 0) {
-                        SetSelection(this, field_208, uVar6);
+                        SetSelection(this, m_pSelectionStart, uVar6);
                         return;
                     }
                     return;
@@ -773,7 +773,7 @@ namespace jag::oldscape::rs2lib {
 
         uVar1 = param_1;
         if ((int)CONCAT71(in_register_00000011, param_2) != 0) {
-            uVar1 = field_208;
+            uVar1 = m_pSelectionStart;
         }
         SetSelection(this, uVar1, param_1);
     }
@@ -790,7 +790,7 @@ namespace jag::oldscape::rs2lib {
         uVar4 = (undefined7)((ulong)unaff_RBX >> 8);
         uVar3 = CONCAT71(uVar4, 1);
         cVar1 = (char)param_1;
-        switch (field_192) {
+        switch (m_filter) {
         case 1:
             uVar2 = is_ascii_alpha_numeric(cVar1);
             break;
@@ -821,7 +821,7 @@ namespace jag::oldscape::rs2lib {
 
         if (IsCharAllowed(this, param_1) != '\0') {
             RemoveSelection(this);
-            uVar2 = InsertCodepoints(&local_14, 1, field_200, (ulong)field_228);
+            uVar2 = InsertCodepoints(&local_14, 1, m_caretIndex, (ulong)field_228);
             SetSelection(this, uVar2, uVar2);
             CropToLimits(this);
             OnTextChanged(this);
@@ -837,7 +837,7 @@ namespace jag::oldscape::rs2lib {
 
         uVar1 = HasSelection(this);
         if ((char)uVar1 != '\0') {
-            uVar2 = Remove(field_208, field_200);
+            uVar2 = Remove(m_pSelectionStart, m_caretIndex);
             OnTextChanged(this);
             SetSelection(this, uVar2, uVar2);
             field_216 = uVar2;
@@ -857,7 +857,7 @@ namespace jag::oldscape::rs2lib {
     // 0x1001fdbe0, 32 bytes, placed by class name
     // InputField::SelectWord()
     void InputField::SelectWord() {
-        SelectWord(this, field_200);
+        SelectWord(this, m_caretIndex);
     }
 
     // 0x1001fdc30, 80 bytes, placed by class name
@@ -865,8 +865,8 @@ namespace jag::oldscape::rs2lib {
     void InputField::Backspace() {
         ulong uVar1;
 
-        if ((RemoveSelection(this) == '\0') && (field_200 != 0)) {
-            uVar1 = Remove(field_200 - 1);
+        if ((RemoveSelection(this) == '\0') && (m_caretIndex != 0)) {
+            uVar1 = Remove(m_caretIndex - 1);
             OnTextChanged(this);
             SetSelection(this, uVar1, uVar1);
         }
@@ -879,10 +879,10 @@ namespace jag::oldscape::rs2lib {
         ulong uVar2;
 
         if (RemoveSelection(this) == '\0') {
-            uVar1 = field_200;
+            uVar1 = m_caretIndex;
             uVar2 = GetCodepointCount();
             if (uVar1 < uVar2) {
-                uVar1 = Remove(field_200);
+                uVar1 = Remove(m_caretIndex);
                 OnTextChanged(this);
                 SetSelection(this, uVar1, uVar1);
             }
@@ -894,9 +894,9 @@ namespace jag::oldscape::rs2lib {
     void InputField::BackspaceWord() {
         ulong uVar1;
 
-        if ((RemoveSelection(this) == '\0') && (field_200 != 0)) {
-            uVar1 = GetWord(this, field_200 - 1);
-            uVar1 = Remove(uVar1, field_200);
+        if ((RemoveSelection(this) == '\0') && (m_caretIndex != 0)) {
+            uVar1 = GetWord(this, m_caretIndex - 1);
+            uVar1 = Remove(uVar1, m_caretIndex);
             OnTextChanged(this);
             SetSelection(this, uVar1, uVar1);
         }
@@ -910,11 +910,11 @@ namespace jag::oldscape::rs2lib {
         ulong extraout_RDX;
 
         if (RemoveSelection(this) == '\0') {
-            uVar1 = field_200;
+            uVar1 = m_caretIndex;
             uVar2 = GetCodepointCount();
             if (uVar1 < uVar2) {
-                GetWord(this, field_200);
-                uVar1 = Remove(field_200, extraout_RDX);
+                GetWord(this, m_caretIndex);
+                uVar1 = Remove(m_caretIndex, extraout_RDX);
                 OnTextChanged(this);
                 SetSelection(this, uVar1, uVar1);
             }
@@ -926,7 +926,7 @@ namespace jag::oldscape::rs2lib {
     void InputField::LineHome(bool param_1) {
         ulong uVar1;
 
-        uVar1 = GetLine(this, field_200);
+        uVar1 = GetLine(this, m_caretIndex);
         DoCursorKey(this, uVar1, param_1);
     }
 
@@ -935,7 +935,7 @@ namespace jag::oldscape::rs2lib {
     void InputField::LineEnd(bool param_1) {
         ulong extraout_RDX;
 
-        GetLine(this, field_200);
+        GetLine(this, m_caretIndex);
         DoCursorKey(this, extraout_RDX, param_1);
     }
 
@@ -960,12 +960,12 @@ namespace jag::oldscape::rs2lib {
         ulong uVar2;
 
         if ((HasSelection(this) == '\0') || (param_1)) {
-            if (field_200 == 0) {
+            if (m_caretIndex == 0) {
                 return;
             }
-            uVar2 = field_200 - 1;
+            uVar2 = m_caretIndex - 1;
         } else {
-            uVar2 = eastl::min_alt<unsigned long>(field_208, field_200);
+            uVar2 = eastl::min_alt<unsigned long>(m_pSelectionStart, m_caretIndex);
             param_1 = false;
         }
         DoCursorKey(this, uVar2, param_1);
@@ -977,13 +977,13 @@ namespace jag::oldscape::rs2lib {
         ulong uVar3;
 
         if ((HasSelection(this) == '\0') || (param_1)) {
-            uVar3 = field_200;
+            uVar3 = m_caretIndex;
             if (GetCodepointCount() <= uVar3) {
                 return;
             }
-            uVar3 = field_200 + 1;
+            uVar3 = m_caretIndex + 1;
         } else {
-            uVar3 = eastl::max<unsigned long>(field_208, field_200);
+            uVar3 = eastl::max<unsigned long>(m_pSelectionStart, m_caretIndex);
             param_1 = false;
         }
         DoCursorKey(this, uVar3, param_1);
@@ -994,8 +994,8 @@ namespace jag::oldscape::rs2lib {
     void InputField::WordLeft(bool param_1) {
         ulong uVar1;
 
-        if (field_200 != 0) {
-            uVar1 = GetWord(this, field_200 - 1);
+        if (m_caretIndex != 0) {
+            uVar1 = GetWord(this, m_caretIndex - 1);
             DoCursorKey(this, uVar1, param_1);
         }
     }
@@ -1007,10 +1007,10 @@ namespace jag::oldscape::rs2lib {
         ulong uVar2;
         ulong extraout_RDX;
 
-        uVar1 = field_200;
+        uVar1 = m_caretIndex;
         uVar2 = GetCodepointCount();
         if (uVar1 < uVar2) {
-            GetWord(this, field_200 + 1);
+            GetWord(this, m_caretIndex + 1);
             DoCursorKey(this, extraout_RDX, param_1);
         }
     }
@@ -1020,8 +1020,8 @@ namespace jag::oldscape::rs2lib {
     void InputField::Up(bool param_1) {
         ulong uVar1;
 
-        if (field_200 != 0) {
-            uVar1 = GetIndexAtLineOffset(field_200, -1);
+        if (m_caretIndex != 0) {
+            uVar1 = GetIndexAtLineOffset(m_caretIndex, -1);
             DoCursorKey(this, uVar1, param_1);
         }
     }
@@ -1032,10 +1032,10 @@ namespace jag::oldscape::rs2lib {
         ulong uVar1;
         ulong uVar2;
 
-        uVar2 = field_200;
+        uVar2 = m_caretIndex;
         uVar1 = GetCodepointCount();
         if (uVar2 < uVar1) {
-            uVar2 = GetIndexAtLineOffset(field_200, 1);
+            uVar2 = GetIndexAtLineOffset(m_caretIndex, 1);
             DoCursorKey(this, uVar2, param_1);
         }
     }
@@ -1046,9 +1046,9 @@ namespace jag::oldscape::rs2lib {
         int iVar1;
         ulong uVar2;
 
-        if (field_200 != 0) {
+        if (m_caretIndex != 0) {
             iVar1 = GetNumVisibleLines(this);
-            uVar2 = GetIndexAtLineOffset(field_200, -iVar1);
+            uVar2 = GetIndexAtLineOffset(m_caretIndex, -iVar1);
             DoCursorKey(this, uVar2, param_1);
         }
     }
@@ -1060,11 +1060,11 @@ namespace jag::oldscape::rs2lib {
         ulong uVar2;
         int iVar3;
 
-        uVar1 = field_200;
+        uVar1 = m_caretIndex;
         uVar2 = GetCodepointCount();
         if (uVar1 < uVar2) {
             iVar3 = GetNumVisibleLines(this);
-            uVar1 = GetIndexAtLineOffset(field_200, iVar3);
+            uVar1 = GetIndexAtLineOffset(m_caretIndex, iVar3);
             DoCursorKey(this, uVar1, param_1);
         }
     }
@@ -1130,7 +1130,7 @@ namespace jag::oldscape::rs2lib {
         basic_string local_30[24];
         Clipboard local_18[8];
 
-        local_50.Slice((ulong)this, field_208);
+        local_50.Slice((ulong)this, m_pSelectionStart);
         cVar1 = local_50.IsEmpty();
         if (cVar1 == '\0') {
             eastl::basic_string<char, BucketAllocatorEASTL>::basic_string();
@@ -1183,7 +1183,7 @@ namespace jag::oldscape::rs2lib {
                 pcVar4 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
                 uVar6 = eastl::basic_string<
                     char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-                uVar6 = Insert(pcVar4, uVar6, field_200, 0);
+                uVar6 = Insert(pcVar4, uVar6, m_caretIndex, 0);
                 SetSelection(this, uVar6, uVar6);
                 CropToLimits(this);
                 OnTextChanged(this);
@@ -1202,7 +1202,7 @@ namespace jag::oldscape::rs2lib {
 
         iVar2 = GetAliveCount();
         uVar3 = 2;
-        if ((1 < iVar2 - 1U) && (uVar3 = 1, field_192 != 3)) {
+        if ((1 < iVar2 - 1U) && (uVar3 = 1, m_filter != 3)) {
             cVar1 = IsMultiline(this);
             uVar3 = 7;
             if (cVar1 == '\0') {

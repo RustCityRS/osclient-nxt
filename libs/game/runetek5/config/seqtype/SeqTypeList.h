@@ -35,7 +35,7 @@ namespace jag::game {
         // data members, from how the methods use this: 20864 bytes
         undefined* field_0; // offset 0, vtable pointer
         char _unknown_8[104];
-        undefined8 field_112; // offset 112
+        undefined8 m_seqGroupTypeList; // offset 112
         char _unknown_120[20744];
     };
 

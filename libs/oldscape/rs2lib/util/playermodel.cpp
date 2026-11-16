@@ -295,7 +295,7 @@ namespace jag::oldscape::rs2lib {
         new (&field_176) eastl::fixed_vector<int, 5ul, true, eastl::allocator>();
         new (&field_264) Array<shared_ptr<configdecoder::ObjTypeCustomisation>, eastl::allocator>();
         field_288 = 0;
-        field_292 = 4294967295;
+        m_pronoun = 4294967295;
         m_bodytype = 0;
     }
 
@@ -310,7 +310,7 @@ namespace jag::oldscape::rs2lib {
         new (&field_176) eastl::fixed_vector<int, 5ul, true, eastl::allocator>();
         new (&field_264) Array<shared_ptr<configdecoder::ObjTypeCustomisation>, eastl::allocator>();
         field_288 = 0;
-        field_292 = 4294967295;
+        m_pronoun = 4294967295;
         m_bodytype = 0;
         SetAppearance(this, (fixed_vector*)&param_1->field_88, (fixed_vector*)param_1,
                       (fixed_vector*)&param_1->field_176, param_1->m_bodytype, param_1->field_240);
@@ -1114,7 +1114,7 @@ namespace jag::oldscape::rs2lib {
         Array<shared_ptr<configdecoder::ObjTypeCustomisation>, eastl::allocator>::operator=(
             (Array<shared_ptr<configdecoder::ObjTypeCustomisation>, eastl::allocator>*)&field_264, param_4);
         field_288 = param_5;
-        field_292 = param_9;
+        m_pronoun = param_9;
         SetAppearance(this, param_1, param_2, param_6, param_7, param_8);
     }
 

@@ -263,7 +263,7 @@ namespace jag::oldscape {
         if (lVar6 != 0) {
             do {
                 pcVar8 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                local_d8.field_0 = stringtools::GetUTF8NextChar(pcVar8, &local_50);
+                local_d8.m_argType = stringtools::GetUTF8NextChar(pcVar8, &local_50);
                 eastl::vector<int, BucketAllocatorEASTL>::push_back(local_68, (int*)&local_d8);
                 uVar13 = local_50;
                 uVar10 = eastl::basic_string<

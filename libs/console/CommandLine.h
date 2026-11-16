@@ -17,7 +17,7 @@ namespace jag::game::console {
         void GetText() const;
         void Reset();
         void SetText<eastl::string>(eastl::string const&);
-        GetCursorShown() const;
+        bool GetCursorShown() const;
         void SetSelectionStart(int);
         void ValidatePosition();
         GetSelection(int&, int&) const;

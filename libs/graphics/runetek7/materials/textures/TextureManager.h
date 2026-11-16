@@ -9,7 +9,7 @@ namespace jag::graphics {
     class TextureManager {
     public:
         void ClearCache();
-        GetTextureAtlasManager();
+        TextureAtlasManager GetTextureAtlasManager();
         GetSpriteAtlasManager();
         bool UseCompressedTextures() const;
         GetMaterialSettings(TextureAtlasMaterialSettings&, unsigned int);
@@ -197,7 +197,7 @@ namespace jag::graphics {
                     local_40->AddColouredRectangle((int)((float)iVar27 * fVar31) + iVar11,
                                                    (int)((float)iVar3 * fVar32) + iVar2, (int)((float)iVar4 * fVar33),
                                                    (int)((float)**(int**)(p_Var30 + 24) * fVar34), 16711782, uVar14);
-                    this_00 = (EntityHighlightGlobalState*)&this_00->field_16;
+                    this_00 = (EntityHighlightGlobalState*)&this_00->m_playerNPCAttackOpPriority;
                     p_Var30 = local_38;
                 } while ((GUIManager*)this_00 != local_48);
             }

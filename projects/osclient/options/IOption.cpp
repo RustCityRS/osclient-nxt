@@ -17,7 +17,7 @@ namespace jag::oldscape::option {
     void IOption::IOption(OptionStore* param_1, long param_2, undefined4 param_4) {
         field_0 = PTR_vtable_100ee8ab0 + 16;
         field_8 = param_1;
-        field_16 = param_2;
+        m_name = param_2;
         field_24 = param_4;
         if (param_2 == 0) {
             /* WARNING: Subroutine does not return */

@@ -31,10 +31,10 @@ namespace jag::graphics {
     GeometryBatchInstance::GatherDrawableElements(DrawableQueue&, RT7Core&, SceneViewData const&, EffectManager const&);
 
     // 0x1001a3c10: the linker folded this into MainLoopFrameTimer::GetFPSCounter(), which has identical code
-    GeometryBatchInstance::GetMaterial();
+    RenderMaterial GeometryBatchInstance::GetMaterial();
 
     // 0x1001a3c10: the linker folded this into MainLoopFrameTimer::GetFPSCounter(), which has identical code
-    GeometryBatchInstance::GetMaterial() const;
+    RenderMaterial GeometryBatchInstance::GetMaterial() const;
 
     // 0x10036bfd0: the linker folded this into GeometryBatchInstance::GetGeometryBatch(), which has identical code
     GeometryBatchInstance::GetGeometryBatch() const;
@@ -2639,7 +2639,7 @@ namespace jag::graphics {
         local_1d0 = (long*)this_00->end();
         if (plVar15 != local_1d0) {
             local_180 = &local_130->field_8;
-            local_1b8 = (Frustum*)&pSVar25->field_208;
+            local_1b8 = (Frustum*)pSVar25->m_pViewFrustum;
             pGVar24 = local_130;
             do {
                 if (*plVar15 == 0) {

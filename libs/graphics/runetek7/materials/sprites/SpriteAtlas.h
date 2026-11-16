@@ -45,7 +45,7 @@ namespace jag::graphics {
         long field_0;                        // offset 0
         SpriteAtlasMappingExtended* field_8; // offset 8
         char _unknown_16[80];
-        undefined4 field_96; // offset 96
+        undefined4 m_iD; // offset 96
         char _unknown_100[148];
         graphicutils* field_248; // offset 248
         int field_256;           // offset 256

@@ -9,7 +9,7 @@ namespace jag::game {
     class Hook {
     public:
         SetScriptID(unsigned int);
-        GetScriptID() const;
+        uint GetScriptID() const;
         Hook(Hook const&);
         Hook* operator=(Hook const&);
         Hook(unsigned int);
@@ -21,7 +21,7 @@ namespace jag::game {
         bool IsInit() const;
 
         // data members, from how the methods use this: 16 bytes
-        undefined4 field_0; // offset 0
+        uint m_scriptID; // offset 0
         char _unknown_4[12];
     };
 
@@ -29,7 +29,7 @@ namespace jag::game {
     Hook::SetScriptID(unsigned int);
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    Hook::GetScriptID() const;
+    uint Hook::GetScriptID() const;
 
     // 0x1003b8730, 16 bytes, complete-object constructor, inline, placed by class name and debug map
     // Hook::Hook(Hook const&): jumps straight to the base-object constructor
@@ -37,7 +37,7 @@ namespace jag::game {
     // 0x1003b8770, 32 bytes, base-object constructor, inline, placed by class name and debug map
     // Hook::Hook(Hook const&)
     void Hook::Hook(Hook* param_1) {
-        field_0 = param_1->field_0;
+        m_scriptID = param_1->m_scriptID;
         new (&field_8, (fixed_vector*)&param_1->field_8) eastl::fixed_vector<VarValue, 6ul, true, eastl::allocator>();
     }
 
@@ -46,7 +46,7 @@ namespace jag::game {
     /* Hook::TEMPNAMEPLACEHOLDERVALUE(Hook const&) */
 
     Hook* Hook::operator=(Hook* param_1) {
-        field_0 = param_1->field_0;
+        m_scriptID = param_1->m_scriptID;
         eastl::fixed_vector<VarValue, 6ul, true, eastl::allocator>::operator=(
             (fixed_vector<VarValue, 6ul, true, eastl::allocator>*)&field_8, (fixed_vector*)&param_1->field_8);
         return this;
@@ -70,7 +70,7 @@ namespace jag::game {
     // 0x1005495d0, 32 bytes, base-object constructor, inline, placed by class name
     // Hook::Hook(unsigned int)
     void Hook::Hook(uint param_1) {
-        field_0 = 4294967294;
+        m_scriptID = 4294967294;
         new (&field_8, (ulong)param_1) eastl::fixed_vector<VarValue, 6ul, true, eastl::allocator>();
     }
 
@@ -86,7 +86,7 @@ namespace jag::game {
     // 0x100902ac0, 32 bytes, base-object constructor, inline, placed by class name
     // Hook::Hook()
     void Hook::Hook() {
-        field_0 = 4294967294;
+        m_scriptID = 4294967294;
         new (&field_8) eastl::fixed_vector<VarValue, 6ul, true, eastl::allocator>();
     }
 
@@ -99,7 +99,7 @@ namespace jag::game {
     // 0x100903270, 32 bytes, base-object constructor, inline, placed by class name
     // Hook::Hook(Hook&&)
     void Hook::Hook(Hook* param_1) {
-        field_0 = param_1->field_0;
+        m_scriptID = param_1->m_scriptID;
         new (&field_8, (fixed_vector*)&param_1->field_8) eastl::fixed_vector<VarValue, 6ul, true, eastl::allocator>();
     }
 
@@ -108,7 +108,7 @@ namespace jag::game {
     /* Hook::TEMPNAMEPLACEHOLDERVALUE(Hook&&) */
 
     Hook* Hook::operator=(Hook* param_1) {
-        field_0 = param_1->field_0;
+        m_scriptID = param_1->m_scriptID;
         eastl::fixed_vector<VarValue, 6ul, true, eastl::allocator>::operator=(
             (fixed_vector<VarValue, 6ul, true, eastl::allocator>*)&field_8, (fixed_vector*)&param_1->field_8);
         return this;
@@ -117,7 +117,7 @@ namespace jag::game {
     // 0x100904770, 16 bytes, inline, placed by class name
     // Hook::IsInit() const
     bool Hook::IsInit() {
-        return field_0 != -2;
+        return m_scriptID != 4294967294;
     }
 
 } // namespace jag::game

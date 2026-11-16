@@ -289,7 +289,7 @@ namespace jag::oldscape {
         undefined** field_0; // offset 0
         GridRect field_8;    // offset 8
         char _unknown_28[1578900];
-        int field_1578928; // offset 1578928
+        int m_scaledUIQuality; // offset 1578928
         char _unknown_1578932[1308];
         undefined8 field_1580240; // offset 1580240
     };
@@ -864,16 +864,16 @@ namespace jag::oldscape::option {
 
 namespace jag::game {
     // 0x100051690: the linker folded this into math::Range<float>::GetMax() const, which has identical code
-    EnvBloomSettings::GetBloomCoefficient() const;
+    float EnvBloomSettings::GetBloomCoefficient() const;
 
     // 0x100051690: the linker folded this into math::Range<float>::GetMax() const, which has identical code
-    Cutscene2DPlaybackState::GetElapsedTimeSec() const;
+    float Cutscene2DPlaybackState::GetElapsedTimeSec() const;
 
 } // namespace jag::game
 
 namespace jag::render {
     // 0x100051690: the linker folded this into math::Range<float>::GetMax() const, which has identical code
-    VertexArrayObject::GetLastUsageSeconds() const;
+    float VertexArrayObject::GetLastUsageSeconds() const;
 
 } // namespace jag::render
 

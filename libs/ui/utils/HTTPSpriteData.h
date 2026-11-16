@@ -7,7 +7,7 @@
 namespace jag::ui {
     class HTTPSpriteData {
     public:
-        GetTexture() const;
+        shared_ptr GetTexture() const;
         HTTPSpriteData(int);
         HTTPSpriteData(eastl::basic_string<char, BucketAllocatorEASTL>&&);
         Service(StringView);
@@ -23,7 +23,7 @@ namespace jag::ui {
         char* field_32; // offset 32
         char* field_40; // offset 40
         char _unknown_48[8];
-        shared_ptr field_56; // offset 56
+        shared_ptr m_texture; // offset 56
     };
 
     // 0x1006db500, 16 bytes, complete-object destructor, inline, placed by class name
@@ -32,7 +32,7 @@ namespace jag::ui {
     // 0x1006db510, 48 bytes, base-object destructor, inline, placed by class name
     // HTTPSpriteData::~HTTPSpriteData()
     void HTTPSpriteData::~HTTPSpriteData() {
-        field_56->~shared_ptr();
+        m_texture->~shared_ptr();
         (&field_48)->~unique_ptr();
         ~basic_string();
     }

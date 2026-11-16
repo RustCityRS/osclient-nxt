@@ -8,7 +8,7 @@
 namespace jag {
     class PacketView {
     public:
-        GetPos() const;
+        ulong GetPos() const;
         GetSize() const;
         GetDataPtr() const;
         PacketView(unsigned char const*, unsigned long);
@@ -26,12 +26,12 @@ namespace jag {
         // data members, from how the methods use this: 32 bytes
         undefined8 field_0; // offset 0
         char _unknown_8[8];
-        ulong field_16; // offset 16
+        ulong m_pos; // offset 16
         char _unknown_24[8];
     };
 
     // 0x100023f30: the linker folded this into oldscape::option::IOption::GetName() const, which has identical code
-    PacketView::GetPos() const;
+    ulong PacketView::GetPos() const;
 
     // 0x10007e680: the linker folded this into eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>::get_name() const, which has identical code
     PacketView::GetSize() const;
@@ -588,7 +588,7 @@ namespace jag {
         WrapArray<game::Cutscene2DAnimation<float>::Key_const>::WrapArray<
             WrapArray<game::Cutscene2DAnimation<float>::Key_const>>(
             (WrapArray<game::Cutscene2DAnimation<float>::Key_const>*)this, param_2);
-        field_16 = 0;
+        m_pos = 0;
         new (&field_24, param_2) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
     }
 
@@ -596,7 +596,7 @@ namespace jag {
     // PacketView::PacketView(unsigned char const*, unsigned long)
     void PacketView::PacketView(uchar* param_1, ulong param_2) {
         new (this) WrapArray<unsigned char>(param_1, param_2);
-        field_16 = 0;
+        m_pos = 0;
         new (&field_24, (_func_decltype_nullptr*)param_1)
             shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
     }
@@ -614,7 +614,7 @@ namespace jag {
     // PacketView::PacketView(PacketView&&)
     void PacketView::PacketView(PacketView* param_1) {
         new (this) WrapArray<unsigned char const>(param_1);
-        field_16 = param_1->field_16;
+        m_pos = param_1->m_pos;
         shared_ptr<oldscape::RSevenDebugPresetProvider>::shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(
             (shared_ptr<oldscape::RSevenDebugPresetProvider>*)&field_24, (shared_ptr*)&param_1->field_24);
     }
@@ -626,7 +626,7 @@ namespace jag {
     // PacketView::PacketView(PacketView const&)
     void PacketView::PacketView(PacketView* param_1) {
         new (this) WrapArray<math::Matrix44T<float> const>(param_1);
-        field_16 = param_1->field_16;
+        m_pos = param_1->m_pos;
         new (&field_24, (shared_ptr*)&param_1->field_24) shared_ptr<oldscape::dash3d::Decor>();
     }
 
@@ -639,7 +639,7 @@ namespace jag {
         _func_decltype_nullptr* in_RSI;
 
         new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(in_RSI);
-        field_16 = 0;
+        m_pos = 0;
         new (&field_24, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
     }
 
@@ -652,7 +652,7 @@ namespace jag {
 
     PacketView* PacketView::operator=(PacketView* param_1) {
         WrapArray<unsigned char const>::operator=((WrapArray<unsigned char const>*)this, (WrapArray*)param_1);
-        field_16 = param_1->field_16;
+        m_pos = param_1->m_pos;
         shared_ptr<void_const>::operator=((shared_ptr<void_const>*)&field_24, (shared_ptr*)&param_1->field_24);
         return this;
     }
@@ -666,7 +666,7 @@ namespace jag {
         shared_ptr local_30;
 
         new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(param_1);
-        field_16 = 0;
+        m_pos = 0;
         new (&field_24, (_func_decltype_nullptr*)param_1)
             shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         if (shared_ptr::operator_cast_to_bool(param_1)) {
@@ -694,7 +694,7 @@ namespace jag {
         pvVar1 = param_1->SSOBeginPtr(param_1);
         WrapArray<unsigned char const>::WrapArray<Array<unsigned char, eastl::allocator>>(
             (WrapArray<unsigned char const>*)this, (Array*)pvVar1);
-        field_16 = 0;
+        m_pos = 0;
         new (&field_24, (_func_decltype_nullptr*)pvVar1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
     }
 
@@ -707,7 +707,7 @@ namespace jag {
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/bytepacking/PacketView.h",
                       77, "Packet: Invalid pos");
         }
-        field_16 = param_1;
+        m_pos = param_1;
     }
 
 } // namespace jag

@@ -11,7 +11,7 @@ namespace jag::graphics {
     /* render::TextureFormatBitSet::AddFormatType(render::TextureFormatType) */
 
     void render::TextureFormatBitSet::AddFormatType(byte param_2) {
-        field_0 = field_0 | 1 << (param_2 & 31);
+        m_bits = m_bits | 1 << (param_2 & 31);
     }
 
 } // namespace jag::graphics

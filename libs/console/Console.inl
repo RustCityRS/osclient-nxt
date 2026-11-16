@@ -19,11 +19,11 @@ namespace jag::console {
         RegisteredCommand
         AddCommand<std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>>(
             char const*, std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>, int);
-        GetCommandHistory() const;
+        StringVector GetCommandHistory() const;
         void SetServerCommandHandler(std::function<void(StringView, bool, bool)> const&);
         GetMessageHistory() const;
         GetLastCommandExecutionResult() const;
-        GetShortestHiddenCommandLength() const;
+        int GetShortestHiddenCommandLength() const;
         GetStoredVariables() const;
         GetAutocompletionPrefix() const;
         RegisteredCommand AddCommand<game::RegisterCommonCommandsDebug(Console*, BaseApp*, graphics::RT7Core*)::$_0>(
@@ -182,7 +182,7 @@ namespace jag::console {
         // data members, from how the methods use this: 576 bytes
         undefined** field_0; // offset 0, vtable pointer
         char _unknown_8[96];
-        StringVector field_104; // offset 104
+        StringVector m_commandHistory; // offset 104
         char _unknown_137[23];
         bool field_160; // offset 160
         char field_161; // offset 161
@@ -190,7 +190,7 @@ namespace jag::console {
         int field_164; // offset 164
         int field_168; // offset 168
         char _unknown_172[52];
-        int field_224; // offset 224
+        int m_shortestHiddenCommandLength; // offset 224
         char _unknown_228[92];
         float field_320; // offset 320
         char _unknown_324[244];
@@ -306,8 +306,8 @@ namespace jag::console {
         if (-1 < iVar1) {
             sVar4 = _strlen(param_1);
             local_a8[0] = (Console*)CONCAT44(local_a8[0]._4_4_, (int)sVar4);
-            piVar5 = std::min<int>((int*)local_a8, &field_224);
-            field_224 = *piVar5;
+            piVar5 = std::min<int>((int*)local_a8, &m_shortestHiddenCommandLength);
+            m_shortestHiddenCommandLength = *piVar5;
             pBVar6 = extraout_RDX_00;
         }
         new (&local_c0)

@@ -7,12 +7,12 @@
 namespace jag::graphics {
     class AnimationDescriptor {
     public:
-        GetTweenLastFrameToFirst() const;
-        GetBasAnimType() const;
-        GetSeqID() const;
+        bool GetTweenLastFrameToFirst() const;
+        int GetBasAnimType() const;
+        uint GetSeqID() const;
         GetOnFinishedCallback() const;
         GetLoopLength() const;
-        GetLoopBehaviour() const;
+        int GetLoopBehaviour() const;
         AnimationDescriptor(Json::Value const&);
         void ReadFromJson(Json::Value const&);
         void BasAnimTypeFromString(eastl::string const&);
@@ -29,11 +29,11 @@ namespace jag::graphics {
 
         // data members, from how the methods use this: 240 bytes
         char _unknown_0[72];
-        undefined4 field_72;     // offset 72
-        undefined4 field_76;     // offset 76
-        undefined4 field_80;     // offset 80
-        undefined4 m_loopLength; // offset 84
-        bool field_88;           // offset 88
+        int m_basAnimType;            // offset 72
+        uint m_seqID;                 // offset 76
+        int m_loopBehaviour;          // offset 80
+        undefined4 m_loopLength;      // offset 84
+        bool m_tweenLastFrameToFirst; // offset 88
         char _unknown_89[103];
         bool field_192; // offset 192
         char _unknown_193[39];
@@ -69,11 +69,11 @@ namespace jag::graphics {
     // AnimationDescriptor::AnimationDescriptor()
     void AnimationDescriptor::AnimationDescriptor() {
         new (this) eastl::fixed_string<char, 32, true, eastl::allocator>();
-        field_72 = 21;
-        field_76 = 4294967295;
-        field_80 = 0;
+        m_basAnimType = 21;
+        m_seqID = 4294967295;
+        m_loopBehaviour = 0;
         m_loopLength = 4294967295;
-        field_88 = true;
+        m_tweenLastFrameToFirst = true;
         new (&field_96) math::Vector2T<int>();
         field_192 = false;
         new (&field_200) eastl::string();
@@ -98,20 +98,20 @@ namespace jag::graphics {
     */
 
     AnimationDescriptor* AnimationDescriptor::operator=(AnimationDescriptor* param_1) {
-        undefined4 uVar1;
-        undefined4 uVar2;
+        uint uVar1;
+        int iVar2;
         undefined4 uVar3;
 
         eastl::fixed_string<char, 4096, true, eastl::allocator>::operator=(
             (fixed_string<char, 4096, true, eastl::allocator>*)this, (fixed_string*)param_1);
-        uVar1 = param_1->field_76;
-        uVar2 = param_1->field_80;
+        uVar1 = param_1->m_seqID;
+        iVar2 = param_1->m_loopBehaviour;
         uVar3 = param_1->m_loopLength;
-        field_72 = param_1->field_72;
-        field_76 = uVar1;
-        field_80 = uVar2;
+        m_basAnimType = param_1->m_basAnimType;
+        m_seqID = uVar1;
+        m_loopBehaviour = iVar2;
         m_loopLength = uVar3;
-        field_88 = param_1->field_88;
+        m_tweenLastFrameToFirst = param_1->m_tweenLastFrameToFirst;
         fixedfunction::function<void(), 64ul, 16ul, (fixedfunction::Methods)0>::operator=(
             (function<void(), 64ul, 16ul, (fixedfunction::Methods)0>*)&field_96, (function*)&param_1->field_96);
         field_192 = param_1->field_192;
@@ -129,18 +129,18 @@ namespace jag::graphics {
     // 0x100961c50, 144 bytes, base-object constructor, inline, placed by class name
     // AnimationDescriptor::AnimationDescriptor(AnimationDescriptor const&)
     void AnimationDescriptor::AnimationDescriptor(AnimationDescriptor* param_1) {
-        undefined4 uVar1;
-        undefined4 uVar2;
+        uint uVar1;
+        int iVar2;
         undefined4 uVar3;
 
         new (this) eastl::fixed_string<char, 32, true, eastl::allocator>(param_1);
-        field_88 = param_1->field_88;
-        uVar1 = param_1->field_76;
-        uVar2 = param_1->field_80;
+        m_tweenLastFrameToFirst = param_1->m_tweenLastFrameToFirst;
+        uVar1 = param_1->m_seqID;
+        iVar2 = param_1->m_loopBehaviour;
         uVar3 = param_1->m_loopLength;
-        field_72 = param_1->field_72;
-        field_76 = uVar1;
-        field_80 = uVar2;
+        m_basAnimType = param_1->m_basAnimType;
+        m_seqID = uVar1;
+        m_loopBehaviour = iVar2;
         m_loopLength = uVar3;
         fixedfunction::function<void(), 64ul, 16ul, (fixedfunction::Methods)0>::function(
             (function<void(), 64ul, 16ul, (fixedfunction::Methods)0>*)&field_96, (function*)&param_1->field_96);
@@ -173,20 +173,20 @@ namespace jag::graphics {
    const&) */
 
     AnimationDescriptor* AnimationDescriptor::operator=(AnimationDescriptor* param_1) {
-        undefined4 uVar1;
-        undefined4 uVar2;
+        uint uVar1;
+        int iVar2;
         undefined4 uVar3;
 
         eastl::fixed_string<char, 32, true, eastl::allocator>::operator=(
             (fixed_string<char, 32, true, eastl::allocator>*)this, (fixed_string*)param_1);
-        uVar1 = param_1->field_76;
-        uVar2 = param_1->field_80;
+        uVar1 = param_1->m_seqID;
+        iVar2 = param_1->m_loopBehaviour;
         uVar3 = param_1->m_loopLength;
-        field_72 = param_1->field_72;
-        field_76 = uVar1;
-        field_80 = uVar2;
+        m_basAnimType = param_1->m_basAnimType;
+        m_seqID = uVar1;
+        m_loopBehaviour = iVar2;
         m_loopLength = uVar3;
-        field_88 = param_1->field_88;
+        m_tweenLastFrameToFirst = param_1->m_tweenLastFrameToFirst;
         fixedfunction::function<void(), 64ul, 16ul, (fixedfunction::Methods)0>::operator=(
             (function<void(), 64ul, 16ul, (fixedfunction::Methods)0>*)&field_96, (function*)&param_1->field_96);
         field_192 = param_1->field_192;
@@ -201,18 +201,18 @@ namespace jag::graphics {
     // 0x10096dcb0, 128 bytes, base-object constructor, inline, placed by class name
     // AnimationDescriptor::AnimationDescriptor(AnimationDescriptor&&)
     void AnimationDescriptor::AnimationDescriptor(AnimationDescriptor* param_1) {
-        undefined4 uVar1;
-        undefined4 uVar2;
+        uint uVar1;
+        int iVar2;
         undefined4 uVar3;
 
         new (this) eastl::fixed_string<char, 32, true, eastl::allocator>(param_1);
-        field_88 = param_1->field_88;
-        uVar1 = param_1->field_76;
-        uVar2 = param_1->field_80;
+        m_tweenLastFrameToFirst = param_1->m_tweenLastFrameToFirst;
+        uVar1 = param_1->m_seqID;
+        iVar2 = param_1->m_loopBehaviour;
         uVar3 = param_1->m_loopLength;
-        field_72 = param_1->field_72;
-        field_76 = uVar1;
-        field_80 = uVar2;
+        m_basAnimType = param_1->m_basAnimType;
+        m_seqID = uVar1;
+        m_loopBehaviour = iVar2;
         m_loopLength = uVar3;
         fixedfunction::function<void(), 64ul, 16ul, (fixedfunction::Methods)0>::function(
             (function<void(), 64ul, 16ul, (fixedfunction::Methods)0>*)&field_96, (function*)&param_1->field_96);

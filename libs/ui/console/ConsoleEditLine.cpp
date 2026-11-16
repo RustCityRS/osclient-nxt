@@ -8,10 +8,10 @@
 
 namespace jag::ui {
     // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    ConsoleEditLine::GetPos() const;
+    int ConsoleEditLine::GetPos() const;
 
     // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    ConsoleEditLine::GetDrawOffset() const;
+    int ConsoleEditLine::GetDrawOffset() const;
 
     // 0x100681250, 1952 bytes, placed by class name and debug map
     // ConsoleEditLine::Draw(int, int, int, int, shared_ptr<graphics::Font> const&, graphics::RT7Core*, graphics::FontHelpers*, int, std::function<void (eastl::fixed_string<char, 256, true, eastl::allocator>&, eastl::fixed_string<char, 256, true, eastl::allocator> const&)>*)
@@ -101,21 +101,21 @@ namespace jag::ui {
         pLVar7 = (Layout*)shared_ptr<graphics::Font>::operator->((shared_ptr<graphics::Font>*)param_5);
         pvVar8 = eastl::string::Layout::SSOBeginPtr(pLVar7, (type*)pTVar28);
         puVar9 = (uchar*)shared_ptr<graphics::FontMetrics>::operator*((shared_ptr<graphics::FontMetrics>*)pvVar8);
-        SVar19.field_8 = puVar9;
-        SVar19.field_0 = (ulong)&local_6c8;
-        local_5a8 = graphics::FontHelpers::GetStringWidth(SVar19, (FontMetrics*)&DAT_00000001, (bool)uVar12);
+        SVar24.field_8 = puVar9;
+        SVar24.field_0 = (ulong)&local_6c8;
+        local_5a8 = graphics::FontHelpers::GetStringWidth(SVar24, (FontMetrics*)&DAT_00000001, (bool)uVar12);
         pfVar16 = (fixed_string*)local_160;
         StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_6b8, pfVar16);
         pLVar7 = (Layout*)shared_ptr<graphics::Font>::operator->((shared_ptr<graphics::Font>*)param_5);
         pvVar8 = eastl::string::Layout::SSOBeginPtr(pLVar7, (type*)pfVar16);
         puVar9 = (uchar*)shared_ptr<graphics::FontMetrics>::operator*((shared_ptr<graphics::FontMetrics>*)pvVar8);
-        SVar20.field_8 = puVar9;
-        SVar20.field_0 = (ulong)&local_6b8;
-        iVar3 = graphics::FontHelpers::GetStringWidth(SVar20, (FontMetrics*)&DAT_00000001, (bool)uVar12);
+        SVar25.field_8 = puVar9;
+        SVar25.field_0 = (ulong)&local_6b8;
+        iVar3 = graphics::FontHelpers::GetStringWidth(SVar25, (FontMetrics*)&DAT_00000001, (bool)uVar12);
         iVar18 = param_3 - (uint)param_1;
         iVar5 = iVar18 / 5;
-        iVar13 = (int)local_5a8 - field_0;
-        if ((field_0 < 1) || (iVar5 <= iVar13)) {
+        iVar13 = (int)local_5a8 - m_drawOffset;
+        if ((m_drawOffset < 1) || (iVar5 <= iVar13)) {
             if (iVar13 <= iVar18 - iVar5)
                 goto LAB_100681406;
             iVar5 = iVar5 * 2 - iVar18;
@@ -128,7 +128,7 @@ namespace jag::ui {
                 goto LAB_1006813f9;
             }
         }
-        field_0 = iVar13;
+        m_drawOffset = iVar13;
     LAB_100681406:
         new (local_6a8) graphics::ClippingState(param_6);
         ptVar17 = (type*)(ulong)(uint)param_1;
@@ -156,9 +156,9 @@ namespace jag::ui {
             pLVar7 = (Layout*)shared_ptr<graphics::Font>::operator->((shared_ptr<graphics::Font>*)param_5);
             pvVar8 = eastl::string::Layout::SSOBeginPtr(pLVar7, (type*)pTVar28);
             puVar9 = (uchar*)shared_ptr<graphics::FontMetrics>::operator*((shared_ptr<graphics::FontMetrics>*)pvVar8);
-            SVar21.field_8 = puVar9;
-            SVar21.field_0 = (ulong)(local_6a8 + 24);
-            iVar3 = graphics::FontHelpers::GetStringWidth(SVar21, (FontMetrics*)&DAT_00000001, (bool)uVar12);
+            SVar26.field_8 = puVar9;
+            SVar26.field_0 = (ulong)(local_6a8 + 24);
+            iVar3 = graphics::FontHelpers::GetStringWidth(SVar26, (FontMetrics*)&DAT_00000001, (bool)uVar12);
             StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>((StringView*)local_588,
                                                                                           (fixed_string*)local_160);
             lVar14 = (long)local_5bc;
@@ -169,33 +169,34 @@ namespace jag::ui {
             pLVar7 = (Layout*)shared_ptr<graphics::Font>::operator->((shared_ptr<graphics::Font>*)param_5);
             pvVar8 = eastl::string::Layout::SSOBeginPtr(pLVar7, (type*)pTVar28);
             puVar9 = (uchar*)shared_ptr<graphics::FontMetrics>::operator*((shared_ptr<graphics::FontMetrics>*)pvVar8);
-            SVar22.field_8 = puVar9;
-            SVar22.field_0 = (ulong)&local_680;
-            iVar13 = graphics::FontHelpers::GetStringWidth(SVar22, (FontMetrics*)&DAT_00000001, (bool)uVar12);
+            SVar27.field_8 = puVar9;
+            SVar27.field_0 = (ulong)&local_680;
+            iVar13 = graphics::FontHelpers::GetStringWidth(SVar27, (FontMetrics*)&DAT_00000001, (bool)uVar12);
             new (local_588) eastl::fixed_string<char, 1024, true, eastl::allocator>();
             pcVar10 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
             local_588->assign(pcVar10, uVar15);
             StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_670,
                                                                                           (fixed_string*)local_588);
-            SVar23.field_8._0_4_ = (uint)param_1 - field_0;
+            SVar19.field_8._0_4_ = (uint)param_1 - m_drawOffset;
             iVar18 = (int)local_5b8 + (int)local_5a0;
-            SVar23.field_0 = (ulong)&local_670;
-            SVar23.field_8._4_4_ = 0;
-            param_7->DrawString(SVar23, iVar18, 0, (uint)&local_620, in_stack_fffffffffffff928);
+            SVar19.field_0 = (ulong)&local_670;
+            SVar19.field_8._4_4_ = 0;
+            param_7->DrawString(SVar19, iVar18, 0, (uint)&local_620, in_stack_fffffffffffff928);
             iVar3 = iVar3 + (uint)param_1;
             iVar13 = iVar13 + (uint)param_1;
             pTVar28 = (TextProperties*)0;
-            0->AddElement(0, 0, 0, local_5c8, iVar3 - field_0, iVar18, iVar13 - field_0, param_4, field_324, 0, 1);
+            0->AddElement(0, 0, 0, local_5c8, iVar3 - m_drawOffset, iVar18, iVar13 - m_drawOffset, param_4, field_324,
+                          0, 1);
             lVar14 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
             local_588->assign((char*)(lVar14 + uVar15), local_5b0 - uVar15);
             StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_660,
                                                                                           (fixed_string*)local_588);
-            iVar5 = field_0;
+            iVar5 = m_drawOffset;
             new (&local_5f8) graphics::TextProperties(&local_620, field_320);
-            SVar24.field_8._0_4_ = iVar3 - iVar5;
-            SVar24.field_0 = (ulong)&local_660;
-            SVar24.field_8._4_4_ = 0;
-            param_7->DrawString(SVar24, iVar18, 0, (uint)&local_5f8, pTVar28);
+            SVar20.field_8._0_4_ = iVar3 - iVar5;
+            SVar20.field_0 = (ulong)&local_660;
+            SVar20.field_8._4_4_ = 0;
+            param_7->DrawString(SVar20, iVar18, 0, (uint)&local_5f8, pTVar28);
             iVar5 =
                 eastl::basic_string<char,
                                     eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
@@ -208,20 +209,20 @@ namespace jag::ui {
                 local_588->assign(pcVar10, lVar11 - lVar14);
                 StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_650,
                                                                                               (fixed_string*)local_588);
-                SVar25.field_8._0_4_ = iVar13 - field_0;
-                SVar25.field_0 = (ulong)&local_650;
-                SVar25.field_8._4_4_ = 0;
-                param_7->DrawString(SVar25, iVar18, 0, (uint)&local_620, pTVar28);
+                SVar21.field_8._0_4_ = iVar13 - m_drawOffset;
+                SVar21.field_0 = (ulong)&local_650;
+                SVar21.field_8._4_4_ = 0;
+                param_7->DrawString(SVar21, iVar18, 0, (uint)&local_620, pTVar28);
             }
             /* WARNING: Subroutine does not return */
             local_588->~fixed_string();
         }
         StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_640,
                                                                                       (fixed_string*)local_160);
-        SVar26.field_8._0_4_ = (uint)param_1 - field_0;
-        SVar26.field_0 = (ulong)&local_640;
-        SVar26.field_8._4_4_ = 0;
-        param_7->DrawString(SVar26, (int)local_5b8 + (int)local_5a0, 0, (uint)&local_620, in_stack_fffffffffffff928);
+        SVar22.field_8._0_4_ = (uint)param_1 - m_drawOffset;
+        SVar22.field_0 = (ulong)&local_640;
+        SVar22.field_8._4_4_ = 0;
+        param_7->DrawString(SVar22, (int)local_5b8 + (int)local_5a0, 0, (uint)&local_620, in_stack_fffffffffffff928);
         if (0 < param_8) {
             iVar5 =
                 eastl::basic_string<char,
@@ -232,21 +233,21 @@ namespace jag::ui {
                 local_5f8.assign(pcVar10, (long)param_8);
                 StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(
                     &local_630, (fixed_string*)&local_5f8);
-                iVar5 = field_0;
+                iVar5 = m_drawOffset;
                 graphics::TextProperties::TextProperties(local_588, &local_620, field_328, field_316);
-                SVar27.field_8._0_4_ = (uint)param_1 - iVar5;
-                SVar27.field_0 = (ulong)&local_630;
-                SVar27.field_8._4_4_ = 0;
-                param_7->DrawString(SVar27, (int)local_5b8 + (int)local_5a0, 0, (uint)local_588,
+                SVar23.field_8._0_4_ = (uint)param_1 - iVar5;
+                SVar23.field_0 = (ulong)&local_630;
+                SVar23.field_8._4_4_ = 0;
+                param_7->DrawString(SVar23, (int)local_5b8 + (int)local_5a0, 0, (uint)local_588,
                                     in_stack_fffffffffffff928);
                 local_5f8.~basic_string();
             }
         }
-        if (field_309 != '\0') {
+        if (m_cursorShown != '\0') {
             this_01 = (GraphicsApp*)BaseApp::GetAppInstance();
             uVar4 = this_01->GetLogicTick();
             if (15 < uVar4 / 30 + (uVar4 / 30) * -32 + uVar4 / 30 + uVar4) {
-                iVar5 = ((int)local_5a8 + (uint)param_1) - field_0;
+                iVar5 = ((int)local_5a8 + (uint)param_1) - m_drawOffset;
                 0->AddElement(0, 0, 0, local_5c8, iVar5, (int)local_5a0 + 1, iVar5 + 1, param_4 + -1, field_312, 0, 0);
             }
         }

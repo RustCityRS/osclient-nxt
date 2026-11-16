@@ -325,8 +325,8 @@ namespace jag::oldscape::configdecoder {
                     eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true,
                                                                      eastl::allocator>>::resize((ulong)local_38);
                     local_40 = (ulong)uVar18;
-                    eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true,
-                                                                     eastl::allocator>>::resize((ulong)&field_656);
+                    eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::
+                        resize((ulong)&m_headIconIndices);
                     if (uVar18 != 0) {
                         uVar19 = 0;
                         do {
@@ -361,9 +361,10 @@ namespace jag::oldscape::configdecoder {
                             }
                             piVar12 = (int*)eastl::vector<
                                 int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::
-                            operator[]((vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true,
-                                                                                  eastl::allocator>>*)&field_656,
-                                       uVar19);
+                            operator[](
+                                (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true,
+                                                                           eastl::allocator>>*)&m_headIconIndices,
+                                uVar19);
                             *piVar12 = iVar22;
                             uVar19 = uVar19 + 1;
                         } while (local_40 != uVar19);

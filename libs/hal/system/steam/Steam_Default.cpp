@@ -6,7 +6,7 @@
 namespace jag {
     class Steam {
     public:
-        GetAppID() const;
+        uint GetAppID() const;
         Steam();
         ~Steam();
         ValidateSteamAPIExists();
@@ -26,7 +26,7 @@ namespace jag {
         // data members, from how the methods use this: 48 bytes
         undefined1 field_0; // offset 0
         char _unknown_1[3];
-        undefined4 field_4; // offset 4
+        uint m_appID; // offset 4
         char _unknown_8[40];
     };
 
@@ -46,7 +46,7 @@ namespace jag {
     // Steam::Steam()
     void Steam::Steam() {
         field_0 = 0;
-        field_4 = 0;
+        m_appID = 0;
         std::unique_ptr<SteamOverlay, std::default_delete<SteamOverlay>>::unique_ptr<true, void>(
             (unique_ptr<SteamOverlay, std::default_delete<SteamOverlay>>*)&field_8);
         std::unique_ptr<SteamAuth, std::default_delete<SteamAuth>>::unique_ptr<true, void>(

@@ -185,7 +185,7 @@ namespace jag::graphicutils {
                                         107, "Writing screenshot to: %s", uVar8);
                     uVar9 = (undefined4)((ulong)uVar8 >> 32);
                     _stbi_flip_vertically_on_write(1);
-                    if ((field_32 & 4) != 0) {
+                    if ((m_screenshotSaveMode & 4) != 0) {
                         new (&local_f8) PacketT<Array<unsigned char, eastl::allocator>>();
                         uVar7 = local_48->get();
                         _stbi_write_png_to_func(WritePNGDataToPacket, &local_f8, local_34, local_40, local_38, uVar7,
@@ -198,7 +198,7 @@ namespace jag::graphicutils {
                         local_b8->~pair();
                         local_f8.~VBOMapper();
                     }
-                    if ((field_32 & 2) != 0) {
+                    if ((m_screenshotSaveMode & 2) != 0) {
                         uVar7 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
                         uVar8 = local_48->get();
                         iVar3 = _stbi_write_png(uVar7, local_34, local_40, local_38, uVar8, local_3c);

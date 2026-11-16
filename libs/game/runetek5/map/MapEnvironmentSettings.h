@@ -7,7 +7,7 @@
 namespace jag::game {
     class EnvReflectionSettings {
     public:
-        GetEnvironmentMaterialID() const;
+        int GetEnvironmentMaterialID() const;
         EnvReflectionSettings();
         void Set(PacketT<Array<unsigned char, eastl::allocator>>&);
         void SetDefaults();
@@ -18,7 +18,7 @@ namespace jag::game {
         // data members, from how the methods use this: 12 bytes
         bool field_0; // offset 0
         char _unknown_1[3];
-        int field_4; // offset 4
+        int m_environmentMaterialID; // offset 4
         char _unknown_8[4];
     };
 
@@ -33,7 +33,7 @@ namespace jag::game {
         GetColourGradingSettings() const;
         byte operator!=(MapEnvironmentSettings const&) const;
         GetReflectionSettings();
-        GetSkySettings() const;
+        EnvSkySettings GetSkySettings() const;
         MapEnvironmentSettings(MapEnvironmentSettings const&);
         ~MapEnvironmentSettings();
         GetLightProbeSettings();
@@ -63,37 +63,37 @@ namespace jag::game {
         undefined8 field_52; // offset 52
         undefined8 field_60; // offset 60
         char _unknown_68[12];
-        undefined8 field_80;  // offset 80
-        undefined8 field_88;  // offset 88
-        undefined8 field_96;  // offset 96
-        undefined8 field_104; // offset 104
-        undefined8 field_112; // offset 112
-        undefined8 field_120; // offset 120
-        undefined8 field_128; // offset 128
-        undefined8 field_136; // offset 136
-        undefined8 field_144; // offset 144
-        undefined8 field_152; // offset 152
-        undefined8 field_160; // offset 160
-        undefined8 field_168; // offset 168
-        undefined8 field_176; // offset 176
-        undefined8 field_184; // offset 184
-        undefined8 field_192; // offset 192
-        undefined8 field_200; // offset 200
-        undefined8 field_208; // offset 208
-        undefined8 field_216; // offset 216
-        undefined8 field_224; // offset 224
-        undefined8 field_232; // offset 232
-        undefined1 field_240; // offset 240
+        undefined8 m_scatteringSettings; // offset 80
+        undefined8 field_88;             // offset 88
+        undefined8 field_96;             // offset 96
+        undefined8 field_104;            // offset 104
+        undefined8 field_112;            // offset 112
+        undefined8 field_120;            // offset 120
+        undefined8 field_128;            // offset 128
+        undefined8 field_136;            // offset 136
+        undefined8 field_144;            // offset 144
+        undefined8 field_152;            // offset 152
+        undefined8 m_volumetricSettings; // offset 160
+        undefined8 field_168;            // offset 168
+        undefined8 field_176;            // offset 176
+        undefined8 field_184;            // offset 184
+        undefined8 field_192;            // offset 192
+        undefined8 field_200;            // offset 200
+        undefined8 field_208;            // offset 208
+        undefined8 field_216;            // offset 216
+        undefined8 field_224;            // offset 224
+        undefined8 field_232;            // offset 232
+        undefined1 m_toneMapSettings;    // offset 240
         char _unknown_241[207];
-        undefined8 field_448; // offset 448
-        undefined4 field_456; // offset 456
+        undefined8 m_bloomSettings; // offset 448
+        undefined4 field_456;       // offset 456
         char _unknown_460[4];
-        EnvSkySettings field_464; // offset 464
+        EnvSkySettings m_skySettings; // offset 464
         char _unknown_512[8];
         undefined8 m_reflectionSettings; // offset 520
         char _unknown_528[120];
-        undefined8 field_648; // offset 648
-        undefined8 field_656; // offset 656
+        undefined8 m_pLightProbeSettings; // offset 648
+        undefined8 field_656;             // offset 656
     };
 
     // 0x100441660, 16 bytes, inline, placed by class name and debug map
@@ -170,7 +170,7 @@ namespace jag::game {
         uVar5 = param_1->field_120;
         uVar6 = param_1->field_128;
         uVar7 = param_1->field_136;
-        field_80 = param_1->field_80;
+        m_scatteringSettings = param_1->m_scatteringSettings;
         field_88 = uVar1;
         field_96 = uVar2;
         field_104 = uVar3;
@@ -181,7 +181,7 @@ namespace jag::game {
         uVar1 = param_1->field_152;
         field_144 = param_1->field_144;
         field_152 = uVar1;
-        uVar1 = param_1->field_160;
+        uVar1 = param_1->m_volumetricSettings;
         uVar2 = param_1->field_168;
         uVar3 = param_1->field_176;
         uVar4 = param_1->field_184;
@@ -194,19 +194,19 @@ namespace jag::game {
         field_200 = uVar6;
         field_176 = uVar3;
         field_184 = uVar4;
-        field_160 = uVar1;
+        m_volumetricSettings = uVar1;
         field_168 = uVar2;
         uVar1 = param_1->field_232;
         field_224 = param_1->field_224;
         field_232 = uVar1;
-        _memcpy(&field_240, &param_1->field_240, 208);
-        field_448 = param_1->field_448;
+        _memcpy(&m_toneMapSettings, &param_1->m_toneMapSettings, 208);
+        m_bloomSettings = param_1->m_bloomSettings;
         field_456 = param_1->field_456;
-        new (field_464, (EnvSkySettings*)param_1->field_464) EnvSkySettings();
+        new (m_skySettings, (EnvSkySettings*)param_1->m_skySettings) EnvSkySettings();
         m_reflectionSettings = param_1->m_reflectionSettings;
         new (&field_528, (EnvColourGradingSettings*)&param_1->field_528) EnvColourGradingSettings();
         uVar1 = param_1->field_656;
-        field_648 = param_1->field_648;
+        m_pLightProbeSettings = param_1->m_pLightProbeSettings;
         field_656 = uVar1;
     }
 
@@ -217,7 +217,7 @@ namespace jag::game {
     // MapEnvironmentSettings::~MapEnvironmentSettings()
     void MapEnvironmentSettings::~MapEnvironmentSettings() {
         (&field_528)->~EnvColourGradingSettings();
-        field_464->~EnvSkySettings();
+        m_skySettings->~EnvSkySettings();
     }
 
     // 0x1004797d0, 16 bytes, inline, placed by class name
@@ -248,7 +248,7 @@ namespace jag::game {
         short sVar2;
 
         sVar2 = param_1->g2s();
-        field_4 = (int)sVar2;
+        m_environmentMaterialID = (int)sVar2;
         cVar1 = param_1->g1();
         field_0 = cVar1 == '\x01';
     }
@@ -257,7 +257,7 @@ namespace jag::game {
     // EnvReflectionSettings::SetDefaults()
     void EnvReflectionSettings::SetDefaults() {
         field_0 = false;
-        field_4 = -1;
+        m_environmentMaterialID = -1;
     }
 
     // 0x1004afa50, 48 bytes, inline, placed by class header (inline)
@@ -267,7 +267,7 @@ namespace jag::game {
 
         lVar1 = param_1->GetGLVertexBuffers();
         EnvironmentOverrideParam<unsigned int>::ApplyTo<postprocess::ToneMapOperator>(
-            (EnvironmentOverrideParam<unsigned int>*)(lVar1 + 4), (ToneMapOperator*)&field_4);
+            (EnvironmentOverrideParam<unsigned int>*)(lVar1 + 4), (ToneMapOperator*)&m_environmentMaterialID);
     }
 
     // 0x1004aff60, 32 bytes, inline, placed by class header (inline)
@@ -277,7 +277,8 @@ namespace jag::game {
 
     undefined4 EnvReflectionSettings::operator==(EnvReflectionSettings* param_1) {
         if (field_0 == param_1->field_0) {
-            return CONCAT31((int3)((uint)field_4 >> 8), field_4 == param_1->field_4);
+            return CONCAT31((int3)((uint)m_environmentMaterialID >> 8),
+                            m_environmentMaterialID == param_1->m_environmentMaterialID);
         }
         return 0;
     }
@@ -289,7 +290,7 @@ namespace jag::game {
 
         local_20 = 0;
         hash_combine<bool>(&local_20, &field_0);
-        hash_combine<int>(&local_20, &field_4);
+        hash_combine<int>(&local_20, &m_environmentMaterialID);
         return local_20;
     }
 

@@ -10,7 +10,7 @@ namespace jag::hal::audio {
     shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> AudioBuss::NullAudioBuss;
 
     // 0x100061e30: the linker folded this into render::RenderStats::GetTriangleCount() const, which has identical code
-    AudioBuss::GetBussID() const;
+    int AudioBuss::GetBussID() const;
 
     // 0x100b8bc90, 112 bytes, placed by class name and debug map
     // AudioBuss::GetTotalGainOfChain() const
@@ -40,7 +40,7 @@ namespace jag::hal::audio {
         undefined8 uVar2;
 
         uVar2 = 1;
-        if (field_60 != param_2) {
+        if (m_bussID != param_2) {
             if (field_40->operator_cast_to_bool()) {
                 uVar2 = shared_ptr<AudioBuss>::operator->((shared_ptr<AudioBuss>*)field_40);
                 uVar2 = IsMixBussInChain((AudioBuss*)uVar2, param_2);
@@ -71,7 +71,7 @@ namespace jag::hal::audio {
         field_36 = 1.0;
         new (field_40, (_func_decltype_nullptr*)0) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         m_priority = param_1;
-        field_60 = param_3;
+        m_bussID = param_3;
         std::function<float()>::function((_func_decltype_nullptr*)&field_64);
         if (param_7 != '\0') {
             local_31 = true;

@@ -38,7 +38,7 @@ namespace jag::oldscape::minimap {
         void SetDrawDisplayname(MiniDotCategory, bool);
         bool GetDrawDisplayname(MiniDotCategory);
         void SetZoomable(bool);
-        GetZoomable();
+        bool GetZoomable();
         int GetZoom();
         void SetIconZoomLimit(int);
         int GetIconZoomLimit();

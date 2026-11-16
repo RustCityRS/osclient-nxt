@@ -37,13 +37,13 @@ namespace jag::graphics {
     PointLightSMManager::GetConfig() const;
 
     // 0x1001b8a60: the linker folded this into oldscape::OSRenderCore_RenderThread_Common::GetConstRenderStateNXT() const, which has identical code
-    PointLightSMManager::GetRenderToTexture();
+    RenderToTextureHelper* PointLightSMManager::GetRenderToTexture();
 
     // 0x1001cd990: the linker folded this into PointLightIndicesEffect::GetVisiblePointLights(), which has identical code
-    PointLightSMManager::GetShadowCubeMapAtlasRT() const;
+    shared_ptr PointLightSMManager::GetShadowCubeMapAtlasRT() const;
 
     // 0x1001d2000: the linker folded this into oldscape::rseven::OSRenderCore_TextureDataProvider::GetTexturesCompressedDXTArchive() const, which has identical code
-    PointLightSMManager::GetRenderTargetsManager();
+    RenderTargetsManager* PointLightSMManager::GetRenderTargetsManager();
 
     // 0x1001fb280: the linker folded this into http::CRMData::GetActionInfo() const, which has identical code
     PointLightSMManager::GetShadowCubeMapAtlasPacker() const;
@@ -235,9 +235,10 @@ namespace jag::graphics {
         char cVar1;
 
         new (this) Config();
-        field_80 = param_1;
-        field_88 = param_2;
-        new (field_96, (_func_decltype_nullptr*)param_1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        m_pRenderTargetsManager = param_1;
+        m_pRenderToTexture = param_2;
+        new (m_shadowCubeMapAtlasRT, (_func_decltype_nullptr*)param_1)
+            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
         std::unique_ptr<graphicutils::TextureAtlasSlotPacker,
                         std::default_delete<graphicutils::TextureAtlasSlotPacker>>::unique_ptr<true,
                                                                                                void>(
@@ -249,7 +250,8 @@ namespace jag::graphics {
         new (&field_128) std::mutex();
         new (&field_192) eastl::vector<PointLightSM*, eastl::allocator>();
         new (&field_224) eastl::stack<unsigned long, eastl::vector<unsigned long, eastl::allocator>>();
-        if ((field_80 == (RenderTargetsManager*)0) || (field_88 == (RenderToTextureHelper*)0)) {
+        if ((m_pRenderTargetsManager == (RenderTargetsManager*)0) ||
+            (m_pRenderToTexture == (RenderToTextureHelper*)0)) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_pRenderTargetsManager && m_pRenderToTexture",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
@@ -422,7 +424,7 @@ namespace jag::graphics {
         long local_30;
 
         local_30 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if (field_80 == (RenderTargetsManager*)0) {
+        if (m_pRenderTargetsManager == (RenderTargetsManager*)0) {
             /* WARNING: Subroutine does not return */
             LogAssert("m_pRenderTargetsManager != nullptr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
@@ -441,7 +443,7 @@ namespace jag::graphics {
                  operator->((unique_ptr<graphicutils::TextureAtlasSlotPacker,
                                         std::default_delete<graphicutils::TextureAtlasSlotPacker>>*)&field_112);
         local_108._4_4_ = pTVar3->GetTextureResolution();
-        pRVar1 = field_80;
+        pRVar1 = m_pRenderTargetsManager;
         local_48 = 0;
         uStack_40 = 0;
         local_58 = 0;
@@ -463,7 +465,7 @@ namespace jag::graphics {
         new ((local_c8 + 16)) std::array<render::Texture::Desc, 2ul>();
         local_c8->Register(pRVar1, "PointLightShadowMapAtlas", 3553,
                            (array<render::Texture::Desc, 2ul>*)(local_c8 + 16), 0, local_108, 1, 1);
-        this_00 = field_96;
+        this_00 = m_shadowCubeMapAtlasRT;
         shared_ptr<render::RenderTargets>::operator=((shared_ptr<render::RenderTargets>*)this_00,
                                                      (shared_ptr*)local_c8);
         local_c8->~shared_ptr();
@@ -537,7 +539,7 @@ namespace jag::graphics {
     void PointLightSMManager::DestroyRenderingResources() {
         TextureAtlasSlotPacker* this_00;
 
-        (field_80, (shared_ptr*)field_96)->Unregister();
+        (m_pRenderTargetsManager, (shared_ptr*)m_shadowCubeMapAtlasRT)->Unregister();
         if ((&field_112)->operator_cast_to_bool()) {
             this_00 =
                 (TextureAtlasSlotPacker*)std::unique_ptr<graphicutils::TextureAtlasSlotPacker,
@@ -802,7 +804,7 @@ namespace jag::graphics {
 
         if (m_ShowShadowMapDepthAtlas != '\0') {
             this_00 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(
-                (shared_ptr<render::RenderTargets>*)field_96);
+                (shared_ptr<render::RenderTargets>*)m_shadowCubeMapAtlasRT);
             uVar2 = this_00->GetDepthStencilTargetTexture();
             plVar3 = (long*)DebugPrimitiveCollectorBasic::GetCollector("");
             if (plVar3 != (long*)0) {

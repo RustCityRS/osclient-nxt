@@ -67,7 +67,7 @@ namespace jag::graphics {
     AnimationState::m_useRT7SamplerAsyncPath;
 
     // 0x1001acac0: the linker folded this into Nullable<Array<shared_ptr<oldscape::rs2lib::IfType>, eastl::allocator> >::IsNull(), which has identical code
-    AnimationState::GetAnimatesTransparency() const;
+    byte AnimationState::GetAnimatesTransparency() const;
 
     // 0x10098a840, 352 bytes, placed by debug map only (low confidence)
     // AnimationInfoBlendTreeNode::GetPose(WrapArray<JointPose>, Array<LabelData, eastl::allocator> const&, math::Matrix44T<float> const&)
@@ -136,7 +136,7 @@ namespace jag::graphics {
         new (this) AnimationStateProvider();
         new (this) MakeSharedPool<AnimationState, 256>();
         field_0 = &PTR__AnimationState_100f1bb58;
-        field_24 = 0;
+        m_animatesTransparency = 0;
         m_animatedColourType = 2;
         new (&field_32) std::array<AnimationInfo, 2ul>();
         new (&field_128) std::array<AnimationInfo, 2ul>();
@@ -243,7 +243,7 @@ namespace jag::graphics {
         puVar1 = (undefined1*)std::array<bool, 2ul>::operator[]((array<bool, 2ul>*)&field_320, 1);
         *puVar1 = 0;
         std::atomic<bool>::operator=((atomic<bool>*)&field_324, false);
-        field_24 = 0;
+        m_animatesTransparency = 0;
         m_animatedColourType = 2;
         new (&local_28) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(0);
         shared_ptr<WalkMergeDataProvider>::operator=((shared_ptr<WalkMergeDataProvider>*)field_360, &local_28);
@@ -313,7 +313,7 @@ namespace jag::graphics {
     // 0x10098b580, 208 bytes, placed by class name
     // AnimationState::UpdateState(unsigned long long, unsigned long long, bool, shared_ptr<Animation> const&, bool, AnimatedColourType, unsigned int, int, AnimationLoopBehaviour, bool)
     void AnimationState::UpdateState(undefined8 param_1, undefined8 param_2, undefined1 param_3, shared_ptr* param_4,
-                                     undefined1 param_5, undefined1 param_7, uint param_8, undefined4 param_9,
+                                     byte param_5, undefined1 param_7, uint param_8, undefined4 param_9,
                                      undefined4 param_10, undefined1 param_11) {
         undefined8* puVar2;
         undefined1* puVar3;
@@ -326,7 +326,7 @@ namespace jag::graphics {
                       "animation/AnimationState.cpp",
                       142, (char*)0);
         }
-        field_24 = param_5;
+        m_animatesTransparency = param_5;
         m_animatedColourType = param_7;
         puVar2 = (undefined8*)std::array<AnimationInfo, 2ul>::operator[]((array<AnimationInfo, 2ul>*)&field_32,
                                                                          (ulong)param_8);

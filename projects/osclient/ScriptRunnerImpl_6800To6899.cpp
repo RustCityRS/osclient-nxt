@@ -133,7 +133,7 @@ namespace jag::oldscape {
             iVar25 = ClientBuild::GetLinkBelowLevel(iVar25, iVar12, iVar13);
             this_02->SetLevel(iVar25);
             local_68.WorldCoordFromBuildCoord(pCVar14);
-            local_58.field_8._0_4_ = local_68.field_8;
+            local_58.field_8._0_4_ = local_68.m_z;
             local_58._0_8_ = local_68._0_8_;
             goto LAB_10016cff9;
         case 6802:

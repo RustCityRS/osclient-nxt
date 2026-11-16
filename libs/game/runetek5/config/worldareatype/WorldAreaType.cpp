@@ -43,7 +43,7 @@ namespace jag::game {
             if (param_2 != 3) {
                 if (param_2 == 2) {
                     uVar1 = param_1->g3();
-                    field_56 = uVar1;
+                    m_colour = uVar1;
                     return DataStatus::READY;
                 }
                 uVar5 = logger::default_logger();

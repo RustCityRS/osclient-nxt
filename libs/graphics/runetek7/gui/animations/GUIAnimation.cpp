@@ -7,17 +7,17 @@
 
 namespace jag::graphics {
     // 0x100066b70: the linker folded this into oldscape::widgets::Widget::GetTextColour() const, which has identical code
-    GUIAnimation::GetTarget() const;
+    uint GUIAnimation::GetTarget() const;
 
     // 0x1001117e0: the linker folded this into oldscape::jagex3::Js5::GetIndexCrc() const, which has identical code
-    GUIAnimation::GetTargetMode() const;
+    uint GUIAnimation::GetTargetMode() const;
 
     // 0x1008f4b20, 96 bytes, base-object constructor, placed by class name
     // GUIAnimation::GUIAnimation(PacketT<Array<unsigned char, eastl::allocator> >&, Array<GUIAnimationCurve, eastl::allocator> const&)
     void GUIAnimation::GUIAnimation(PacketT* param_1, Array* param_2) {
         field_0 = 0;
-        field_16 = 8;
-        field_20 = 3;
+        m_target = 8;
+        m_targetMode = 3;
         eastl::vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
                                    GUIAnimationRGB>,
                       BucketAllocatorEASTL>::vector();
@@ -83,16 +83,16 @@ namespace jag::graphics {
                       "animations/GUIAnimation.cpp",
                       70, (char*)0);
         }
-        field_16 = (uint)bVar3;
-        field_20 = (uint)bVar4;
+        m_target = (uint)bVar3;
+        m_targetMode = (uint)bVar4;
         eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
         if (sVar5 != 0) {
             do {
-                uVar1 = field_16;
+                uVar1 = m_target;
                 if ((uVar1 == 0) || (uVar1 == 3)) {
                     iVar8 = param_1->g4s();
                     iVar9 = param_1->g4s();
-                    if (field_20 == 2) {
+                    if (m_targetMode == 2) {
                         new (local_40) math::Point<float>((float)iVar8 * 0.001, (float)iVar9 * 0.001);
                         AddOutputImpl<math::Vector2T<float>>((Vector2T*)this);
                     } else {
@@ -107,7 +107,7 @@ namespace jag::graphics {
                     AddOutputImpl<GUIAnimationRGB>((GUIAnimationRGB*)this);
                 } else {
                     local_40._0_4_ = param_1->g4s();
-                    if (field_20 == 2) {
+                    if (m_targetMode == 2) {
                         local_40._8_4_ = (float)(int)local_40._0_4_ * 0.001;
                         AddOutputImpl<float>((float*)this);
                     } else {
@@ -126,8 +126,8 @@ namespace jag::graphics {
     // GUIAnimation::GUIAnimation(GUIAnimationCurve const&, GUIAnimationTarget, GUIAnimationTargetMode)
     void GUIAnimation::GUIAnimation(long param_1, uint param_3, uint param_4) {
         field_0 = param_1;
-        field_16 = param_3;
-        field_20 = param_4;
+        m_target = param_3;
+        m_targetMode = param_4;
         eastl::vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
                                    GUIAnimationRGB>,
                       BucketAllocatorEASTL>::vector();
@@ -142,8 +142,8 @@ namespace jag::graphics {
         field_0 = 0;
         field_8 = param_2;
         field_12 = param_3;
-        field_16 = param_4;
-        field_20 = param_5;
+        m_target = param_4;
+        m_targetMode = param_5;
         eastl::vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
                                    GUIAnimationRGB>,
                       BucketAllocatorEASTL>::vector();
@@ -159,7 +159,7 @@ namespace jag::graphics {
         undefined8 in_R8;
         undefined8 in_R9;
 
-        if ((7 < field_16) || ((182U >> (field_16 & 31) & 1) == 0)) {
+        if ((7 < m_target) || ((182U >> (m_target & 31) & 1) == 0)) {
             /* WARNING: Subroutine does not return */
             LogAssert("(m_target == GUIAnimationTarget::POSITION_X) || (m_target == GUIAnimationTarget::POSITION_Y) || "
                       "(m_target == GUIAnimationTarget::SIZE_X) || (m_target == GUIAnimationTarget::SIZE_Y) || "
@@ -178,7 +178,7 @@ namespace jag::graphics {
         undefined8 in_R8;
         undefined8 in_R9;
 
-        if ((7 < field_16) || ((134U >> (field_16 & 31) & 1) == 0)) {
+        if ((7 < m_target) || ((134U >> (m_target & 31) & 1) == 0)) {
             /* WARNING: Subroutine does not return */
             LogAssert("(m_target == GUIAnimationTarget::SIZE_X) || (m_target == GUIAnimationTarget::SIZE_Y) || "
                       "(m_target == GUIAnimationTarget::ALPHA)",
@@ -227,8 +227,8 @@ namespace jag::graphics {
             puVar6 = (undefined8*)this_00->back();
             uVar2 = *puVar6;
             field_12 = (int)uVar2;
-            field_16 = (int)((ulong)uVar2 >> 32);
-            field_20 = *(uint*)(puVar6 + 1);
+            m_target = (int)((ulong)uVar2 >> 32);
+            m_targetMode = *(uint*)(puVar6 + 1);
             field_24 = 0.0;
         } else {
             if ((GUIAnimationCurve*)*in_RSI == (GUIAnimationCurve*)0) {
@@ -275,8 +275,8 @@ namespace jag::graphics {
                                 uVar8);
                         uVar2 = *puVar6;
                         field_12 = (int)uVar2;
-                        field_16 = (int)((ulong)uVar2 >> 32);
-                        field_20 = *(uint*)(puVar6 + 1);
+                        m_target = (int)((ulong)uVar2 >> 32);
+                        m_targetMode = *(uint*)(puVar6 + 1);
                         goto LAB_1008f56d4;
                     }
                     local_2c = local_30;
@@ -287,8 +287,8 @@ namespace jag::graphics {
                         puVar6 = (undefined8*)this_00->back();
                         uVar2 = *puVar6;
                         field_12 = (int)uVar2;
-                        field_16 = (int)((ulong)uVar2 >> 32);
-                        field_20 = *(uint*)(puVar6 + 1);
+                        m_target = (int)((ulong)uVar2 >> 32);
+                        m_targetMode = *(uint*)(puVar6 + 1);
                         field_24 = 1.0;
                         return this;
                     }
@@ -311,8 +311,8 @@ namespace jag::graphics {
                            lVar4 - 2);
                 auVar11 = GenerateNextOutputInSequence();
                 field_12 = auVar11._0_4_;
-                field_16 = auVar11._4_4_;
-                field_20 = auVar11._8_4_;
+                m_target = auVar11._4_4_;
+                m_targetMode = auVar11._8_4_;
                 local_2c = local_30 + -1.0;
             } else {
                 local_34 = -1.0;
@@ -343,10 +343,10 @@ namespace jag::graphics {
                                                     math::Vector2T<int>, GUIAnimationRGB>,
                                        BucketAllocatorEASTL>*)this_00,
                                0);
-                field_20 = *(uint*)(puVar6 + 1);
+                m_targetMode = *(uint*)(puVar6 + 1);
                 uVar2 = *puVar6;
                 field_12 = (int)uVar2;
-                field_16 = (int)((ulong)uVar2 >> 32);
+                m_target = (int)((ulong)uVar2 >> 32);
                 local_2c = local_30 + 1.0;
             }
         LAB_1008f56d4:

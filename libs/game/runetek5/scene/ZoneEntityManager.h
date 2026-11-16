@@ -8,7 +8,7 @@ namespace jag {
     class ZoneBuiltArea {
     public:
         AllowStacking() const;
-        GetBuildMode() const;
+        uint GetBuildMode() const;
         WithinBuiltArea(game::CoordGrid const&) const;
         void SetBuiltArea(math::Point<int> const&, int);
         ZoneBuiltArea(bool);
@@ -16,11 +16,11 @@ namespace jag {
         // data members, from how the methods use this: 28 bytes
         bool field_0; // offset 0
         char _unknown_1[3];
-        undefined4 field_4; // offset 4
-        int field_8;        // offset 8
-        int field_12;       // offset 12
-        int field_16;       // offset 16
-        int field_20;       // offset 20
+        uint m_buildMode; // offset 4
+        int field_8;      // offset 8
+        int field_12;     // offset 12
+        int field_16;     // offset 16
+        int field_20;     // offset 20
         char _unknown_24[4];
     };
 
@@ -226,7 +226,7 @@ namespace jag {
     // ZoneBuiltArea::ZoneBuiltArea(bool)
     void ZoneBuiltArea::ZoneBuiltArea(bool param_1) {
         field_0 = param_1;
-        field_4 = 3;
+        m_buildMode = 3;
         field_8 = 0;
         field_12 = 0;
         field_16 = 0;

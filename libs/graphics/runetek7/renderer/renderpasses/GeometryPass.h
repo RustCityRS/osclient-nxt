@@ -75,7 +75,7 @@ namespace jag::graphics {
         puVar1 = param_1->field_0;
         lVar2 = std::unique_ptr<DrawableElement, DrawableElementDeleter>::operator*(
             (unique_ptr<DrawableElement, DrawableElementDeleter>*)param_2);
-        local_20 = *(undefined8*)&param_1->field_8;
+        local_20 = *(undefined8*)&param_1->m_renderFlags;
         uVar4 = CONCAT71((int7)((ulong)local_20 >> 8), 1);
         if ((*(byte*)(lVar2 + 96) & 4) == 0) {
             local_28 = puVar1;

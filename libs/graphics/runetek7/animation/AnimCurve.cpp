@@ -10,10 +10,10 @@ namespace jag::graphics {
     AnimCurve::GetKeyList() const;
 
     // 0x1006892b0: the linker folded this into ui::ComponentDragConfig::GetRenderBehaviour() const, which has identical code
-    AnimCurve::GetPostInfinity() const;
+    byte AnimCurve::GetPostInfinity() const;
 
     // 0x100873200: the linker folded this into Material::HasNormalMap() const, which has identical code
-    AnimCurve::IsWeighted() const;
+    bool AnimCurve::IsWeighted() const;
 
     // 0x100979e60, 16 bytes, placed by class name and debug map
     // AnimCurve::GetNumKeys() const
@@ -25,43 +25,44 @@ namespace jag::graphics {
     // AnimCurve::LoadFromPacket(PacketT<Array<unsigned char, eastl::allocator> >&)
     ulong AnimCurve::LoadFromPacket(PacketT* param_1) {
         undefined1 uVar1;
-        char cVar2;
-        ushort uVar3;
-        short sVar4;
+        byte bVar2;
+        char cVar3;
+        ushort uVar4;
+        short sVar5;
         AnimKey* this_00;
-        ulong uVar5;
         ulong uVar6;
-        uint uVar7;
+        ulong uVar7;
+        uint uVar8;
         AnimCurveSegmentCacheData local_60;
 
-        uVar3 = param_1->g2();
+        uVar4 = param_1->g2();
         uVar1 = param_1->g1();
         field_12 = uVar1;
         uVar1 = param_1->g1();
         m_preInfinity = uVar1;
-        uVar1 = param_1->g1();
-        field_16 = uVar1;
-        cVar2 = param_1->g1();
-        m_weighted = cVar2 != '\0';
-        uVar6 = (ulong)uVar3;
-        (&field_24, uVar6, 0)->set_max_size();
-        if (uVar3 != 0) {
-            uVar5 = 0;
+        bVar2 = param_1->g1();
+        m_postInfinity = bVar2;
+        cVar3 = param_1->g1();
+        m_weighted = cVar3 != '\0';
+        uVar7 = (ulong)uVar4;
+        (&field_24, uVar7, 0)->set_max_size();
+        if (uVar4 != 0) {
+            uVar6 = 0;
             do {
                 this_00 = (AnimKey*)Array<AnimKey, eastl::allocator>::operator[](
-                    (Array<AnimKey, eastl::allocator>*)&field_24, uVar5);
+                    (Array<AnimKey, eastl::allocator>*)&field_24, uVar6);
                 this_00->LoadFromPacket(param_1);
-                uVar5 = uVar5 + 1;
-            } while (uVar6 != uVar5);
+                uVar6 = uVar6 + 1;
+            } while (uVar7 != uVar6);
         }
         new (&local_60) AnimCurveSegmentCacheData();
-        sVar4 = GetStart(this);
-        uVar7 = AnimCurveSampler::SampleCurve(this, (float)(int)sVar4 + -1.0, &local_60);
-        field_4 = uVar7;
-        sVar4 = GetEnd(this);
-        uVar7 = AnimCurveSampler::SampleCurve(this, (float)(int)sVar4 + 1.0, &local_60);
-        field_8 = uVar7;
-        return uVar6;
+        sVar5 = GetStart(this);
+        uVar8 = AnimCurveSampler::SampleCurve(this, (float)(int)sVar5 + -1.0, &local_60);
+        field_4 = uVar8;
+        sVar5 = GetEnd(this);
+        uVar8 = AnimCurveSampler::SampleCurve(this, (float)(int)sVar5 + 1.0, &local_60);
+        field_8 = uVar8;
+        return uVar7;
     }
 
     // 0x100981ff0, 64 bytes, placed by class name

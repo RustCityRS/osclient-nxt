@@ -12,7 +12,7 @@ namespace jag::game {
         virtual ~Model();
         virtual GetType() const;
         virtual void DecodeTypedComponentProperties(PacketT<Array<unsigned char, eastl::allocator>>&, int);
-        virtual GetLinkObjType() const;
+        virtual int GetLinkObjType() const;
         virtual void SetLinkObjType(int);
         virtual ulonglong GetLinkObjCount() const;
         virtual void SetLinkObjCount(unsigned long long);
